@@ -10,13 +10,14 @@ public class Game : Node2D
         Image image = new Image();
         image.CreateFromData(16, 16, false, Image.Format.Rgba8, Int2ByteArray(palette));
         ImageTexture it = new ImageTexture();
-        it.CreateFromImage(image);
+        it.CreateFromImage(image, 0);
 
         Sprite sprite = new Sprite
         {
             Name = "Sprite1",
             Texture = it,
-            Position = new Vector2(100, 100)
+            Position = new Vector2(200, 200),
+            Scale = new Vector2(20, 20)
         };
         AddChild(sprite);
     }
@@ -72,6 +73,6 @@ public class Game : Node2D
         0x180019FF, 0x001919FF, 0x001818FF, 0x000007FF, 0x00000BFF, 0x0C0904FF, 0x120012FF, 0x140014FF,
         0x00000DFF, 0x070707FF, 0x131313FF, 0x171717FF, 0x101010FF, 0x0C0C0CFF, 0x0D0D0DFF, 0x363D3DFF,
         0x2E3A3AFF, 0x273737FF, 0x1D3232FF, 0x123030FF, 0x082D2DFF, 0x082C2CFF, 0x002929FF, 0x002626FF,
-        0x002323FF, 0x002121FF, 0x001F1FFF, 0x001E1EFF, 0x001D1DFF, 0x001C1CFF, 0x001B1BFF, 0x260022FF
+        0x002323FF, 0x002121FF, 0x001F1FFF, 0x001E1EFF, 0x001D1DFF, 0x001C1CFF, 0x001B1BFF, 0x00000000
     };
 }
