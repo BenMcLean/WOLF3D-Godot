@@ -33,10 +33,10 @@ public class Game : Node2D
         byte[] bytes = new byte[ints.Length * 4];
         for (int i = 0; i < ints.Length; i++)
         {
-            bytes[i * 4] = (byte)(ints[i] >> 24);
-            bytes[i * 4 + 1] = (byte)(ints[i] >> 16);
-            bytes[i * 4 + 2] = (byte)(ints[i] >> 8);
-            bytes[i * 4 + 3] = (byte)(ints[i]);
+            bytes[i * 4] = (byte)((ints[i] >> 24) << 2);
+            bytes[i * 4 + 1] = (byte)((ints[i] >> 16) << 2);
+            bytes[i * 4 + 2] = (byte)((ints[i] >> 8) << 2);
+            bytes[i * 4 + 3] = (byte)(ints[i] << 2);
         }
         return bytes;
     }
