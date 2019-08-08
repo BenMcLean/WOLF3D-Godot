@@ -28,14 +28,27 @@ public class Game : Node2D
     //      
     //  }
 
+    public static byte[] Index2ByteArray(byte[] index)
+    {
+        byte[] bytes = new byte[index.Length * 4];
+        for (int i = 0; i < index.Length; i++)
+        {
+            bytes[i * 4] = (byte)(palette[index[i]] >> 22);
+            bytes[i * 4 + 1] = (byte)(palette[index[i]] >> 14);
+            bytes[i * 4 + 2] = (byte)(palette[index[i]] >> 6);
+            bytes[i * 4 + 3] = (byte)(palette[index[i]] << 2);
+        }
+        return bytes;
+    }
+
     public static byte[] Int2ByteArray(int[] ints)
     {
         byte[] bytes = new byte[ints.Length * 4];
         for (int i = 0; i < ints.Length; i++)
         {
-            bytes[i * 4] = (byte)((ints[i] >> 24) << 2);
-            bytes[i * 4 + 1] = (byte)((ints[i] >> 16) << 2);
-            bytes[i * 4 + 2] = (byte)((ints[i] >> 8) << 2);
+            bytes[i * 4] = (byte)(ints[i] >> 22);
+            bytes[i * 4 + 1] = (byte)(ints[i] >> 14);
+            bytes[i * 4 + 2] = (byte)(ints[i] >> 6);
             bytes[i * 4 + 3] = (byte)(ints[i] << 2);
         }
         return bytes;
