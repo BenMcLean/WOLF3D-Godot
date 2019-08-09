@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WOLF3D.Graphics
 {
     /// <summary>
-    /// Copied from GFXV_WL1.H
+    /// Copied from GFXV_WL1.H and GFX_WL1.EQU
     /// </summary>
     class Shareware
     {
