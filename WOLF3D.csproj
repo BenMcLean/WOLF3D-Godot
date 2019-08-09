@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="DownloadSharewareWOLF3D.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Graphics\Shareware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
