@@ -107,23 +107,15 @@ namespace WOLF3D.Graphics
 
             // parse graphic data
             List<byte[]> graphics = new List<byte[]>();
-            byte[] dbuf = new byte[pageSize];
-            byte[] bitMasks = new byte[] { (byte)0xFF };
-            //SampleModel sampleModel = new SinglePixelPackedSampleModel(DataBuffer.TYPE_BYTE, dimension, dimension, bitMasks);
-            //int[] sampleModel = new int[dimension ^ 2];
-            //WritableRaster raster = Raster.createWritableRaster(sampleModel, dbuf, null);
-            byte[] wall = new byte[dimension * dimension];
             int page;
             // read in walls
             for (page = 0; page < spritePageOffset; page++)
             {
                 file.Seek(pageOffsets[page], 0);
+                byte[] wall = new byte[dimension * dimension];
                 for (int col = 0; col < dimension; col++)
                     for (int row = 0; row < dimension; row++)
-                        //dbuf[dimension * row + col] = (byte)file.ReadByte();
                         wall[dimension * row + col] = (byte)file.ReadByte();
-                //            BufferedImage img = new BufferedImage(dimension, dimension, BufferedImage.TYPE_BYTE_INDEXED, colorModel);
-                //img.setData(raster);
                 graphics.Add(wall);
             }
 
