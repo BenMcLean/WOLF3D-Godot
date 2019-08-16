@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="DownloadSharewareWOLF3D.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Graphics\PaletteFileReader.cs" />
     <Compile Include="Graphics\Shareware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +60,17 @@
     <PackageReference Include="CH.Compressor.Huffman">
       <Version>1.2.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Palettes\BlakeStone.pal" />
+    <None Include="Palettes\BodyCount In Game Dark.pal" />
+    <None Include="Palettes\BodyCount In Game Light.pal" />
+    <None Include="Palettes\BodyCount Menu.pal" />
+    <None Include="Palettes\Corridor7 Map Load.pal" />
+    <None Include="Palettes\Corridor7.pal" />
+    <None Include="Palettes\Noah3D.pal" />
+    <None Include="Palettes\Spear.pal" />
+    <None Include="Palettes\Wolf3D.pal" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
