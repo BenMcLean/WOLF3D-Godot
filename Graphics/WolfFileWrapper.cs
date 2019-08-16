@@ -31,21 +31,21 @@ namespace WOLF3D.Graphics
             return rawMapData;
         }
 
-        public static int ReadWord(FileStream file)
+        public static uint ReadWord(FileStream file)
         {
-            return (file.ReadByte() << 8) + file.ReadByte();
+            return (uint)(file.ReadByte() << 8) + (uint)file.ReadByte();
         }
 
-        public static int[] CarmackExpand(long position, FileStream file)
+        public static uint[] CarmackExpand(long position, FileStream file)
         {
             ////////////////////////////
             // Get to the correct chunk
-            int length;
-            int ch, chhigh, count, offset, index=0;
+            uint length;
+            uint ch, chhigh, count, offset, index=0;
             file.Seek(position, 0);
             // First word is expanded length
             length = ReadWord(file);
-            int[] expandedWords = new int[length]; // array of WORDS
+            uint[] expandedWords = new uint[length]; // array of WORDS
             length /= 2;
             while (length > 0)
             {
@@ -56,13 +56,13 @@ namespace WOLF3D.Graphics
                     count = (ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= file.ReadByte();
+                        ch |= (uint)file.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = file.ReadByte();
+                        offset = (uint)file.ReadByte();
                         length -= count;
                         if (length < 0)
                             return expandedWords;
@@ -78,7 +78,7 @@ namespace WOLF3D.Graphics
                     count = (ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= file.ReadByte();
+                        ch |= (uint)file.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }

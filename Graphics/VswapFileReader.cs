@@ -6,15 +6,15 @@ namespace WOLF3D.Graphics
     public class VswapFileReader
     {
         #region Static variables
-        private static readonly int NUM_DATA_OFS = 64;
+        private static readonly uint NUM_DATA_OFS = 64;
         #endregion
 
         #region Inner classes
         public class VswapFileData
         {
             private List<byte[]> graphics;
-            private int wallStartIndex, wallEndIndex;
-            private int spriteStartIndex, spriteEndIndex;
+            private uint wallStartIndex, wallEndIndex;
+            private uint spriteStartIndex, spriteEndIndex;
 
             public List<byte[]> GetGraphics()
             {
@@ -26,42 +26,42 @@ namespace WOLF3D.Graphics
                 this.graphics = graphics;
             }
 
-            public int GetWallStartIndex()
+            public uint GetWallStartIndex()
             {
                 return wallStartIndex;
             }
 
-            public void SetWallStartIndex(int wallStartIndex)
+            public void SetWallStartIndex(uint wallStartIndex)
             {
                 this.wallStartIndex = wallStartIndex;
             }
 
-            public int GetWallEndIndex()
+            public uint GetWallEndIndex()
             {
                 return wallEndIndex;
             }
 
-            public void SetWallEndIndex(int wallEndIndex)
+            public void SetWallEndIndex(uint wallEndIndex)
             {
                 this.wallEndIndex = wallEndIndex;
             }
 
-            public int GetSpriteStartIndex()
+            public uint GetSpriteStartIndex()
             {
                 return spriteStartIndex;
             }
 
-            public void SetSpriteStartIndex(int spriteStartIndex)
+            public void SetSpriteStartIndex(uint spriteStartIndex)
             {
                 this.spriteStartIndex = spriteStartIndex;
             }
 
-            public int GetSpriteEndIndex()
+            public uint GetSpriteEndIndex()
             {
                 return spriteEndIndex;
             }
 
-            public void SetSpriteEndIndex(int spriteEndIndex)
+            public void SetSpriteEndIndex(uint spriteEndIndex)
             {
                 this.spriteEndIndex = spriteEndIndex;
             }
@@ -75,26 +75,26 @@ namespace WOLF3D.Graphics
         #endregion
 
         #region Static methods
-        public static int ReadWord(FileStream file)
+        public static uint ReadWord(FileStream file)
         {
-            return (file.ReadByte() << 8) + file.ReadByte();
+            return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
         }
 
-        public static int ReadDWord(FileStream file)
+        public static uint ReadDWord(FileStream file)
         {
-            return (ReadWord(file) << 16) + ReadWord(file);
+            return ReadWord(file) + (ReadWord(file) << 16);
         }
 
-        public static VswapFileData Read(FileStream file, int dimension)
+        public static VswapFileData Read(FileStream file, uint dimension)
         {
             // parse header info
-            int pageSize = dimension * dimension,
+            uint pageSize = dimension * dimension,
                 chunks = ReadWord(file),
                 spritePageOffset = ReadWord(file),
                 soundPageOffset = ReadWord(file),
                 graphicChunks = soundPageOffset;
-            int[] pageOffsets = new int[graphicChunks];
-            int dataStart = 0;
+            uint[] pageOffsets = new uint[graphicChunks];
+            uint dataStart = 0;
 
             for (int x = 0; x < graphicChunks; x++)
             {
@@ -153,7 +153,7 @@ namespace WOLF3D.Graphics
             using (FileStream file = new FileStream(args[0], FileMode.Open))
                  data = VswapFileReader.Read(file, 64);
 
-            for (int i = data.GetWallStartIndex(), x = 0; i < data.GetWallEndIndex(); i++)
+            for (uint i = data.GetWallStartIndex(), x = 0; i < data.GetWallEndIndex(); i++)
             {
                 bool even = i % 2 == 0;
                 if (even)
