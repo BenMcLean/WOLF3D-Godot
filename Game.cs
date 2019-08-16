@@ -24,9 +24,24 @@ public class Game : Node2D
         };
         AddChild(sprite);
 
-        //VswapFileData data;
-        //using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
-        //    data = VswapFileReader.Read(file, 64);
+        VswapFileData data;
+        using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
+            data = VswapFileReader.Read(file, 64);
+
+        Godot.Image imageWall = new Image();
+        image.CreateFromData(64, 64, false, Image.Format.Rgba8, Index2ByteArray(data.GetGraphics()[0]));
+        ImageTexture itWall = new ImageTexture();
+        itWall.CreateFromImage(image, 0);
+
+        Sprite sprite2 = new Sprite
+        {
+            Name = "Sprite2",
+            Texture = itWall,
+            Position = new Vector2(600, 200),
+            Scale = new Vector2(5, 5)
+        };
+        AddChild(sprite2);
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
