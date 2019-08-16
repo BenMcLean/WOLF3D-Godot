@@ -1,4 +1,7 @@
 using Godot;
+using System.IO;
+using WOLF3D.Graphics;
+using static WOLF3D.Graphics.VswapFileReader;
 
 public class Game : Node2D
 {
@@ -20,6 +23,10 @@ public class Game : Node2D
             Scale = new Vector2(20, 20)
         };
         AddChild(sprite);
+
+        VswapFileData data;
+        using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
+            data = VswapFileReader.Read(file, 64);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,7 +56,7 @@ public class Game : Node2D
         return bytes;
     }
 
-    public static byte[] Int2ByteArray(int[] ints)
+    public static byte[] Int2ByteArray(uint[] ints)
     {
         byte[] bytes = new byte[ints.Length * 4];
         for (int i = 0; i < ints.Length; i++)
@@ -62,5 +69,5 @@ public class Game : Node2D
         return bytes;
     }
 
-    public readonly static int[] palette = WOLF3D.Graphics.PaletteFileReader.ColorModelFromPAL("Palettes\\Wolf3D.pal");
+    public readonly static uint[] palette = WOLF3D.Graphics.PaletteFileReader.ColorModelFromPAL("Palettes\\Wolf3D.pal");
 }

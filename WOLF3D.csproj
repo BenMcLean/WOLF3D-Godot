@@ -46,7 +46,9 @@
       <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +56,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\PaletteFileReader.cs" />
     <Compile Include="Graphics\Shareware.cs" />
+    <Compile Include="Graphics\VswapFileReader.cs" />
     <Compile Include="Graphics\WolfFileWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
