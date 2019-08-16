@@ -24,9 +24,9 @@ public class Game : Node2D
         };
         AddChild(sprite);
 
-        VswapFileData data;
-        using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
-            data = VswapFileReader.Read(file, 64);
+        //VswapFileData data;
+        //using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
+        //    data = VswapFileReader.Read(file, 64);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WOLF3D
 {
-    class DownloadSharewareWOLF3D
+    public class DownloadSharewareWOLF3D
     {
         public static void Main()
         {
