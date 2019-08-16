@@ -54,6 +54,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\PaletteFileReader.cs" />
     <Compile Include="Graphics\Shareware.cs" />
+    <Compile Include="Graphics\WolfFileWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
