@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WOLF3D;
 
 namespace WOLF3DTest
 {
@@ -10,6 +10,9 @@ namespace WOLF3DTest
         [TestMethod]
         public void TestMethod1()
         {
+            VSwap vswap = new VSwap().LoadPalette(@"..\..\..\Palettes\Wolf3D.pal");
+            using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
+                vswap.Read(file);
         }
     }
 }

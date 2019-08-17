@@ -32,7 +32,7 @@ public class Game : Node2D
         //    data = VswapFileReader.Read(file, 64);
 
         using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
-            vswap.Read(file, 64);
+            vswap.Read(file);
 
         Godot.Image imageWall = new Image();
         imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Index2ByteArray(vswap.Graphics[0]));
