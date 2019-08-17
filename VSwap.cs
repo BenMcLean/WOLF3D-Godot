@@ -1,8 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace WOLF3D
 {
+    static class FileStreamExtension
+    {
+        public static uint ReadWord(this FileStream file)
+        {
+            return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
+        }
+
+        public static uint ReadDWord(this FileStream file)
+        {
+            return file.ReadWord() + (file.ReadWord() << 16);
+        }
+    }
+
     public class VSwap
     {
         private static readonly int CARMACK_NEAR = 0xA7;
@@ -19,29 +34,19 @@ namespace WOLF3D
         public uint SpriteStartIndex { get; set; }
         public uint SpriteEndIndex { get; set; }
 
-        public static uint ReadWord(FileStream file)
-        {
-            return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
-        }
-
-        public static uint ReadDWord(FileStream file)
-        {
-            return ReadWord(file) + (ReadWord(file) << 16);
-        }
-
         public VSwap Read(FileStream file, uint dimension=64)
         {
             // parse header info
-            uint chunks = ReadWord(file);
-            SpritePageOffset = ReadWord(file);
-            SoundPageOffset = ReadWord(file);
+            uint chunks = file.ReadWord();
+            SpritePageOffset = file.ReadWord();
+            SoundPageOffset = file.ReadWord();
             GraphicChunks = SoundPageOffset;
             uint[] pageOffsets = new uint[GraphicChunks];
             uint dataStart = 0;
 
             for (int x = 0; x < GraphicChunks; x++)
             {
-                pageOffsets[x] = ReadDWord(file);
+                pageOffsets[x] = file.ReadDWord();
                 if (x == 0)
                     dataStart = pageOffsets[0];
                 if (pageOffsets[x] != 0 && (pageOffsets[x] < dataStart || pageOffsets[x] > file.Length))
@@ -64,10 +69,16 @@ namespace WOLF3D
             }
 
             // read in sprites
-            //        for (; page<graphicChunks; page++) {
-            //            file.Seek(pageOffsets[page], 0);
-            //// https://devinsmith.net/backups/bruce/wolf3d.html
-            //        }
+            for (; page < GraphicChunks; page++)
+            {
+                file.Seek(pageOffsets[page], 0);
+                // https://devinsmith.net/backups/bruce/wolf3d.html
+                // Each sprite is a 64 texel wide and 64 texel high block.
+                byte[] sprite = new byte[dimension ^ 2].Select(i => (byte)255).ToArray();
+                // It is a sparse array and is packed as RLE columns. The first part of the sprite is two short integers (two bytes each) that tell the left and right extents of the sprite. By extents I mean that the left extent is the first column on the left with a colored texel in it. And the right extent is the last column on the right that has a colored texel in it.
+                uint leftExtent = file.ReadWord(),
+                    rightExtent = file.ReadWord();
+            }
             return this;
         }
 
@@ -160,12 +171,12 @@ namespace WOLF3D
             uint ch, chhigh, count, offset, index = 0;
             file.Seek(position, 0);
             // First word is expanded length
-            length = ReadWord(file);
+            length = file.ReadWord();
             uint[] expandedWords = new uint[length]; // array of WORDS
             length /= 2;
             while (length > 0)
             {
-                ch = ReadWord(file);
+                ch = file.ReadWord();
                 chhigh = ch >> 8;
                 if (chhigh == CARMACK_NEAR)
                 {
@@ -200,7 +211,7 @@ namespace WOLF3D
                     }
                     else
                     {
-                        offset = ReadWord(file);
+                        offset = file.ReadWord();
                         length -= count;
                         if (length < 0)
                             return expandedWords;

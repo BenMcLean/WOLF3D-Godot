@@ -35,9 +35,9 @@ public class Game : Node2D
             vswap.Read(file, 64);
 
         Godot.Image imageWall = new Image();
-        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Index2ByteArray(vswap.Graphics[0]));
+        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Index2ByteArray(vswap.Graphics[0]));
         ImageTexture itWall = new ImageTexture();
-        itWall.CreateFromImage(image, 0);
+        itWall.CreateFromImage(imageWall, 0);
 
         Sprite sprite2 = new Sprite
         {
@@ -47,7 +47,6 @@ public class Game : Node2D
             Scale = new Vector2(5, 5)
         };
         AddChild(sprite2);
-
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
