@@ -44,7 +44,7 @@ namespace WOLF3D
 
         public uint[] Palette { get; set; }
         public List<byte[]> Graphics { get; set; }
-        public uint WallStartIndex { get; set; }
+        public uint Pages { get; set; }
         public uint WallEndIndex { get; set; }
         public uint SpritePageOffset { get; set; }
         public uint SoundPageOffset { get; set; }
@@ -55,13 +55,12 @@ namespace WOLF3D
         public VSwap Read(FileStream file, uint dimension = 64)
         {
             // parse header info
-            uint chunks = file.ReadWord();
+            Pages = file.ReadWord();
             SpritePageOffset = file.ReadWord();
             SoundPageOffset = file.ReadWord();
             GraphicChunks = SoundPageOffset;
             uint[] pageOffsets = new uint[GraphicChunks];
             uint dataStart = 0;
-
             for (int x = 0; x < GraphicChunks; x++)
             {
                 pageOffsets[x] = file.ReadDWord();
@@ -70,21 +69,17 @@ namespace WOLF3D
                 if (pageOffsets[x] != 0 && (pageOffsets[x] < dataStart || pageOffsets[x] > file.Length))
                     throw new InvalidDataException("VSWAP file '" + file.Name + "' contains invalid page offsets.");
             }
-
-            uint[] pageLengths = new uint[chunks];
-            for (uint i = 0; i < chunks; i++)
+            uint[] pageLengths = new uint[Pages];
+            for (uint i = 0; i < Pages; i++)
                 pageLengths[i] = file.ReadWord();
-
-            uint maxPageLength = pageLengths.Max();
-            uint maxPageWidth = (uint)Math.Ceiling(Math.Sqrt(maxPageLength));
-            uint maxPageHeight = maxPageWidth;
+            //uint maxPageLength = pageLengths.Max();
+            //uint maxPageWidth = (uint)Math.Ceiling(Math.Sqrt(maxPageLength));
 
             // parse graphic data
             Graphics = new List<byte[]>();
             uint page;
             // read in walls
-            WallStartIndex = 0;
-            for (page = WallStartIndex; page < SpritePageOffset; page++)
+            for (page = 0; page < SpritePageOffset; page++)
             {
                 file.Seek(pageOffsets[page], 0);
                 byte[] wall = new byte[dimension * dimension];
@@ -101,22 +96,19 @@ namespace WOLF3D
                 if (page == 293) page = 403;
                 if (page == 413) page = 514;
                 file.Seek(pageOffsets[page], 0);
-                uint pageLength = pageLengths[page],
-                    width = dimension, height = dimension,
-                    leftPix = file.ReadWord(),
-                    rightPix = file.ReadWord(),
-                    totalColumns = rightPix - leftPix + 1,
-                    startY, endY, newStart;
-                byte[] sprite = new byte[width * height];
+                uint leftExtent = file.ReadWord(),
+                    rightExtent = file.ReadWord(),
+                    startY, endY;
+                byte[] sprite = new byte[dimension * dimension];
                 for (uint i = 0; i < sprite.Length; i++)
                     sprite[i] = 255;
-                long[] colDataOfs = new long[totalColumns];
-                for (uint i = 0; i < colDataOfs.Length; i++)
-                    colDataOfs[i] = pageOffsets[page] + file.ReadWord();
+                long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
+                for (uint i = 0; i < columnDataOffsets.Length; i++)
+                    columnDataOffsets[i] = pageOffsets[page] + file.ReadWord();
                 long trexels = file.Position;
-                for (uint spot = 0; leftPix <= rightPix; leftPix++, spot++)
+                for (uint column = 0; column <= rightExtent - leftExtent; column++)
                 {
-                    long commands = colDataOfs[spot];
+                    long commands = columnDataOffsets[column];
                     file.Seek(commands, 0);
                     while ((endY = file.ReadWord()) != 0)
                     {
@@ -126,8 +118,8 @@ namespace WOLF3D
                         startY >>= 1;
                         commands = file.Position;
                         file.Seek(trexels, 0);
-                        for (; startY < endY; startY++)
-                            sprite[(startY * width - 1) + leftPix - 1] = (byte)file.ReadByte();
+                        for (uint row = startY; row < endY; row++)
+                            sprite[(row * dimension - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
                         trexels = file.Position;
                         file.Seek(commands, 0);
                     }
