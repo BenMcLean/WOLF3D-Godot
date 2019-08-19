@@ -95,20 +95,22 @@ namespace WOLF3D
             }
 
             // read in sprites
-            //for (; page < GraphicChunks; page++)
-            //{
+            for (; page < GraphicChunks; page++)
+            {
+                // TODO: ONLY FOR SHAREWARE
+                if (page == 293) page = 403;
+                if (page == 413) page = 514;
                 file.Seek(pageOffsets[page], 0);
                 uint pageLength = pageLengths[page],
                     width = dimension, height = dimension,
                     leftPix = file.ReadWord(),
                     rightPix = file.ReadWord(),
                     totalColumns = rightPix - leftPix + 1,
-                    startY = 0, endY = 0, newStart = 0;
-                long pixelIdx = totalColumns * 2 + 4;
+                    startY, endY, newStart;
                 byte[] sprite = new byte[width * height];
                 for (uint i = 0; i < sprite.Length; i++)
                     sprite[i] = 255;
-                uint[] colDataOfs = new uint[totalColumns];
+                long[] colDataOfs = new long[totalColumns];
                 for (uint i = 0; i < colDataOfs.Length; i++)
                     colDataOfs[i] = pageOffsets[page] + file.ReadWord();
                 long trexels = file.Position;
@@ -119,7 +121,7 @@ namespace WOLF3D
                     while ((endY = file.ReadWord()) != 0)
                     {
                         endY >>= 1;
-                        newStart = file.ReadWord();
+                        file.ReadWord(); // Not using this value for anything. Don't know why it's here!
                         startY = file.ReadWord();
                         startY >>= 1;
                         commands = file.Position;
@@ -131,7 +133,7 @@ namespace WOLF3D
                     }
                 }
                 Graphics.Add(sprite);
-            //}
+            }
             return this;
         }
 
