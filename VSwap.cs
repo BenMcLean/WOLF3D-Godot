@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace WOLF3D
 {
@@ -8,6 +10,24 @@ namespace WOLF3D
         public static uint ReadWord(this FileStream file)
         {
             return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
+        }
+
+        public static int ReadByte(this FileStream file, long position)
+        {
+            long old = file.Position;
+            file.Seek(position, 0);
+            int result = file.ReadByte();
+            file.Seek(old, 0);
+            return result;
+        }
+
+        public static uint ReadWord(this FileStream file, long position)
+        {
+            long old = file.Position;
+            file.Seek(position, 0);
+            uint result = file.ReadWord();
+            file.Seek(old, 0);
+            return result;
         }
 
         public static uint ReadDWord(this FileStream file)
@@ -51,6 +71,14 @@ namespace WOLF3D
                     throw new InvalidDataException("VSWAP file '" + file.Name + "' contains invalid page offsets.");
             }
 
+            uint[] pageLengths = new uint[chunks];
+            for (uint i = 0; i < chunks; i++)
+                pageLengths[i] = file.ReadWord();
+
+            uint maxPageLength = pageLengths.Max();
+            uint maxPageWidth = (uint)Math.Ceiling(Math.Sqrt(maxPageLength));
+            uint maxPageHeight = maxPageWidth;
+
             // parse graphic data
             Graphics = new List<byte[]>();
             uint page;
@@ -67,69 +95,43 @@ namespace WOLF3D
             }
 
             // read in sprites
-            for (; page < GraphicChunks; page++)
-            {
+            //for (; page < GraphicChunks; page++)
+            //{
                 file.Seek(pageOffsets[page], 0);
-                // https://devinsmith.net/backups/bruce/wolf3d.html
-                // Each sprite is a 64 texel wide and 64 texel high block.
-                byte[] sprite = new byte[dimension * dimension];
+                uint pageLength = pageLengths[page],
+                    width = dimension, height = dimension,
+                    leftPix = file.ReadWord(),
+                    rightPix = file.ReadWord(),
+                    totalColumns = rightPix - leftPix + 1,
+                    startY = 0, endY = 0, newStart = 0;
+                long pixelIdx = totalColumns * 2 + 4;
+                byte[] sprite = new byte[width * height];
                 for (uint i = 0; i < sprite.Length; i++)
                     sprite[i] = 255;
-
-                // It is a sparse array and is packed as RLE columns. The first part of the sprite is two short integers (two bytes each) that tell the left and right extents of the sprite. By extents I mean that the left extent is the first column on the left with a colored texel in it. And the right extent is the last column on the right that has a colored texel in it.
-                uint leftExtent = file.ReadWord(),
-                    rightExtent = file.ReadWord();
-
-                // Immediately after this data (four bytes into the sprite) is a list of two byte offsets into the file that has the drawing information for each of those columns. The first is the offset for the left extent column and the last is the offset for the right extent column with all the other column offsets stored sequentially between them.
-                uint[] drawingInfoOffsets = new uint[rightExtent - leftExtent];
-                for (uint i = 0; i < drawingInfoOffsets.Length; i++)
-                    drawingInfoOffsets[i] = file.ReadWord();
-
-                // The area between the end of the column segment offset list and the first column drawing instructions is the actual texels of the sprite.
-                long trexelsOffset = file.Position;
-
-                // Now comes the interesting part. Each of these offsets, points to a possible list of drawing commands for the scalers to use to draw the sprite. Each column segment instruction is a series of 6 bytes. If the first two bytes of the column segment instructions is zero, then that is the end of that column and we can move on to the next column.
-                List<List<byte[]>> drawingCommands = new List<List<byte[]>>();
-                foreach (uint offset in drawingInfoOffsets)
+                uint[] colDataOfs = new uint[totalColumns];
+                for (uint i = 0; i < colDataOfs.Length; i++)
+                    colDataOfs[i] = pageOffsets[page] + file.ReadWord();
+                long trexels = file.Position;
+                for (uint spot = 0; leftPix <= rightPix; leftPix++, spot++)
                 {
-                    file.Seek(offset, 0);
-                    List<byte[]> columnSegments = new List<byte[]>();
-                    byte a, b;
-                    do
+                    long commands = colDataOfs[spot];
+                    file.Seek(commands, 0);
+                    while ((endY = file.ReadWord()) != 0)
                     {
-                        a = (byte)file.ReadByte();
-                        b = (byte)file.ReadByte();
-                        columnSegments.Add(new byte[] {
-                            a,
-                            b,
-                            (byte)file.ReadByte(),
-                            (byte)file.ReadByte(),
-                            (byte)file.ReadByte(),
-                            (byte)file.ReadByte()
-                        });
-                    } while (a != 0 && b != 0);
-                    drawingCommands.Add(columnSegments);
-                }
-
-                // To interpret these columns was the tricky part. Each of these offsets points to an offset into an array of short unsigned integers in the original game which are the offsets of individual rows in the unwound column drawers.
-
-                file.Seek(trexelsOffset, 0);
-                for (uint column = 0; column < drawingCommands.Count; column++)
-                    foreach (byte[] segment in drawingCommands[(int)column])
-                    {
-                        // So if we take the starting position (which is the first two bytes) and divide it by two, we have one end of the column segment.
-                        uint startingPosition = (segment[0] + (uint)(segment[1] << 8)) / 2;
-
-                        // The other end of that segment is the last two bytes(of the six byte instruction) and we also divide that by two to get the ending position of that column segment.
-                        uint endingPosition = (segment[4] + (uint)(segment[5] << 8)) / 2;
-
-                        // But where do we get the texels to draw from?
-                        // The area between the end of the column segment offset list and the first column drawing instructions is the actual texels of the sprite. Only the colored texels are stored here and they are stored sequentially as are the column drawing instructions. There is a one to one correspondence between each drawing instruction and the texels stored here. Each column segment's height uses that many texels from this pool of texels.
-                        for (uint row = startingPosition; row < endingPosition; row++)
-                            sprite[(column + leftExtent) * dimension + row] = (byte)file.ReadByte();
+                        endY >>= 1;
+                        newStart = file.ReadWord();
+                        startY = file.ReadWord();
+                        startY >>= 1;
+                        commands = file.Position;
+                        file.Seek(trexels, 0);
+                        for (; startY < endY; startY++)
+                            sprite[(startY * width - 1) + leftPix - 1] = (byte)file.ReadByte();
+                        trexels = file.Position;
+                        file.Seek(commands, 0);
                     }
+                }
                 Graphics.Add(sprite);
-            }
+            //}
             return this;
         }
 

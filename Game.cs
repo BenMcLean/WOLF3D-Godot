@@ -35,7 +35,7 @@ public class Game : Node2D
             vswap.Read(file);
 
         Godot.Image imageWall = new Image();
-        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Index2ByteArray(vswap.Graphics[0]));
+        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Index2ByteArray(vswap.Graphics[vswap.Graphics.Count - 1]));
         ImageTexture itWall = new ImageTexture();
         itWall.CreateFromImage(imageWall, 0);
 
