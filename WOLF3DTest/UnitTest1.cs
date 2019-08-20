@@ -8,11 +8,17 @@ namespace WOLF3DTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void VSwapTest()
         {
             VSwap vswap = new VSwap().LoadPalette(@"..\..\..\Palettes\Wolf3D.pal");
             using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
                 vswap.Read(file);
+        }
+
+        [TestMethod]
+        public void MapsTest()
+        {
+            Maps maps = new Maps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", "");
         }
     }
 }

@@ -31,7 +31,7 @@ public class Game : Node2D
         //using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
         //    data = VswapFileReader.Read(file, 64);
 
-        using (FileStream file = new FileStream("WOLF3D\\VSWAP.WL1", FileMode.Open))
+        using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
             vswap.Read(file);
 
         Godot.Image imageWall = new Image();
@@ -47,6 +47,8 @@ public class Game : Node2D
             Scale = new Vector2(5, 5)
         };
         AddChild(sprite2);
+
+        Maps maps = new Maps().Read(@"WOLF3D\MAPHEAD.WL1", "");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

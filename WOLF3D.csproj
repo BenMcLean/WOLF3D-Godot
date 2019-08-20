@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="DownloadSharewareWOLF3D.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Maps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VSwap.cs" />
   </ItemGroup>
