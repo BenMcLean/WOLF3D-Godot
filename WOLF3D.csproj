@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="DownloadShareware.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Maps.cs" />
+    <Compile Include="GameMaps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VSwap.cs" />
   </ItemGroup>

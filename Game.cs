@@ -43,7 +43,7 @@ public class Game : Node2D
         };
         AddChild(sprite2);
 
-        Maps maps = new Maps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
+        GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

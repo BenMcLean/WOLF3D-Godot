@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3D;
 
 namespace WOLF3DTest
 {
     [TestClass]
-    public class UnitTest1
+    public class WOLF3DTest
     {
         [TestMethod]
         public void VSwapTest()
@@ -16,10 +17,12 @@ namespace WOLF3DTest
         }
 
         [TestMethod]
-        public void MapsTest()
+        public void GameMapsTest()
         {
             WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
-            Maps maps = new Maps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", "");
+            GameMaps maps = new GameMaps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", @"..\..\..\WOLF3D\GAMEMAPS.WL1");
+            foreach (GameMaps.Map map in maps.Maps)
+                Console.WriteLine(map.Name);
         }
     }
 }
