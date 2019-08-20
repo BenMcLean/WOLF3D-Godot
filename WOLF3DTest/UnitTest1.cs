@@ -10,6 +10,7 @@ namespace WOLF3DTest
         [TestMethod]
         public void VSwapTest()
         {
+            WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
             VSwap vswap = new VSwap().LoadPalette(@"..\..\..\Palettes\Wolf3D.pal");
             using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
                 vswap.Read(file);
@@ -18,6 +19,7 @@ namespace WOLF3DTest
         [TestMethod]
         public void MapsTest()
         {
+            WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
             Maps maps = new Maps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", "");
         }
     }

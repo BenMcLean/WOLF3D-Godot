@@ -9,7 +9,7 @@ public class Game : Node2D
     /// Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        WOLF3D.DownloadSharewareWOLF3D.Main();
+        WOLF3D.DownloadShareware.Main(new string[] { "" });
 
         vswap.LoadPalette("Palettes\\Wolf3D.pal");
 
