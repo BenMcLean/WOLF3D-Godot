@@ -24,7 +24,7 @@ namespace WOLF3D
             public uint Height { get; set; }
             public int[] MapData { get; set; }
 
-            public bool Carmackized { get; set; }
+            public bool IsCarmackized { get; set; }
         }
 
         public Map[] Maps { get; set; }
@@ -37,7 +37,7 @@ namespace WOLF3D
                     throw new InvalidDataException("File \"" + mapHead + "\" has invalid signature code!");
                 List<long> offsets = new List<long>();
                 uint offset;
-                while ((offset = file.ReadDWord()) != 0)
+                while ((offset = file.ReadDWord()) != 0 && file.Position < file.Length)
                     offsets.Add(offset);
                 Offsets = offsets.ToArray();
             }
@@ -67,7 +67,7 @@ namespace WOLF3D
                     char[] carmackized = new char[4];
                     for (uint i = 0; i < 4; i++)
                         carmackized[i] = (char)file.ReadByte();
-                    map.Carmackized = new string(carmackized).Equals("!ID!");
+                    map.IsCarmackized = new string(carmackized).Equals("!ID!");
 
                     // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
                     // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
@@ -78,7 +78,7 @@ namespace WOLF3D
                     int[] mapData;
 
                     file.Seek(map.MapOffset, 0);
-                    if (map.Carmackized)
+                    if (map.IsCarmackized)
                         mapData = CarmackExpand(file);
                     else
                     {
