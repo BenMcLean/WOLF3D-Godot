@@ -22,7 +22,9 @@ namespace WOLF3D
             public uint OtherSize { get; set; }
             public uint Width { get; set; }
             public uint Height { get; set; }
-            public uint[] MapData { get; set; }
+            public int[] MapData { get; set; }
+
+            public bool Carmackized { get; set; }
         }
 
         public Map[] Maps { get; set; }
@@ -59,20 +61,36 @@ namespace WOLF3D
                     char[] name = new char[16];
                     for (uint i = 0; i < 16; i++)
                         name[i] = (char)file.ReadByte();
+                    name[15] = ' '; // getting rid of null characters at the end
                     map.Name = new string(name);
 
+                    char[] carmackized = new char[4];
+                    for (uint i = 0; i < 4; i++)
+                        carmackized[i] = (char)file.ReadByte();
+                    map.Carmackized = new string(carmackized).Equals("!ID!");
+
+                    // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
+                    // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
                     // http://www.shikadi.net/moddingwiki/GameMaps_Format#Map_data_.28GAMEMAPS.29
 
-                    //map.MapData = new int[map.MapSize];
+                    // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
+
+                    int[] mapData;
+
                     file.Seek(map.MapOffset, 0);
-                    //map.MapData = CarmackExpand(map.MapOffset, file);
-                    //map.MapData = RlewExpand(CarmackExpand(map.MapOffset, file), map.MapSize, 0xABCD);
-                    //for (int i = 0; i < map.MapData.Length; i++)
-                    //    map.MapData[i] = (int)file.ReadWord();
+                    if (map.Carmackized)
+                        mapData = CarmackExpand(file);
+                    else
+                    {
+                        mapData = new int[map.MapSize];
+                        for (uint i = 0; i < map.MapSize; i++)
+                            mapData[i] = file.ReadSWord();
+                    }
+
+                    map.MapData = RlewExpand(mapData, map.MapSize, 0xABCD);
 
                     int[] objectData = new int[map.ObjectSize];
                     int[] otherData = new int[map.OtherSize];
-
                     maps.Add(map);
                 }
                 Maps = maps.ToArray();
@@ -84,20 +102,20 @@ namespace WOLF3D
         private static readonly int CARMACK_NEAR = 0xA7;
         private static readonly int CARMACK_FAR = 0xA8;
 
-        public static uint[] RlewExpand(uint[] carmackExpanded, uint length, uint tag)
+        public static int[] RlewExpand(int[] carmackExpanded, uint length, int tag)
         {
-            uint[] rawMapData = new uint[length];
+            int[] rawMapData = new int[length];
             int src_index = 1, dest_index = 0;
             do
             {
-                uint value = carmackExpanded[src_index++]; // WORDS!!
+                int value = carmackExpanded[src_index++]; // WORDS!!
                 if (value != tag)
                     // uncompressed
                     rawMapData[dest_index++] = value;
                 else
                 {
                     // compressed string
-                    uint count = carmackExpanded[src_index++];
+                    int count = carmackExpanded[src_index++];
                     value = carmackExpanded[src_index++];
                     for (int i = 1; i <= count; i++)
                         rawMapData[dest_index++] = value;
@@ -106,36 +124,37 @@ namespace WOLF3D
             return rawMapData;
         }
 
-        public static uint[] CarmackExpand(long position, FileStream file)
+        public int[] CarmackExpand(FileStream file)
         {
             ////////////////////////////
             // Get to the correct chunk
-            uint length;
-            uint ch, chhigh, count, offset, index = 0;
-            file.Seek(position, 0);
+            ushort ch, chhigh, count, offset, index;
             // First word is expanded length
-            length = file.ReadWord();
-            uint[] expandedWords = new uint[length]; // array of WORDS
+            uint length = file.ReadWord();
+            int[] expandedWords = new int[length]; // array of WORDS
             length /= 2;
+            index = 0;
             while (length > 0)
             {
-                ch = file.ReadWord();
-                chhigh = ch >> 8;
+                ch = (ushort)file.ReadWord();
+                chhigh = (ushort)(ch >> 8);
                 if (chhigh == CARMACK_NEAR)
                 {
-                    count = (ch & 0xFF);
+                    count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (uint)file.ReadByte();
+                        ch |= (ushort)file.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = (uint)file.ReadByte();
+                        offset = (ushort)file.ReadByte();
                         length -= count;
                         if (length < 0)
+                        {
                             return expandedWords;
+                        }
                         while ((count--) > 0)
                         {
                             expandedWords[index] = expandedWords[index - offset];
@@ -145,21 +164,25 @@ namespace WOLF3D
                 }
                 else if (chhigh == CARMACK_FAR)
                 {
-                    count = (ch & 0xFF);
+                    count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (uint)file.ReadByte();
+                        ch |= (ushort)file.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = file.ReadWord();
+                        offset = (ushort)file.ReadWord();
                         length -= count;
                         if (length < 0)
+                        {
                             return expandedWords;
+                        }
                         while ((count--) > 0)
+                        {
                             expandedWords[index++] = expandedWords[offset++];
+                        }
                     }
                 }
                 else

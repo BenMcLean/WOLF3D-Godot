@@ -12,6 +12,11 @@ namespace WOLF3D
             return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
         }
 
+        public static int ReadSWord(this FileStream file)
+        {
+            return file.ReadByte() + (file.ReadByte() << 8);
+        }
+
         public static uint ReadDWord(this FileStream file)
         {
             return file.ReadWord() + (file.ReadWord() << 16);
