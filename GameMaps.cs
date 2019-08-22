@@ -17,9 +17,9 @@ namespace WOLF3D
             public long MapOffset { get; set; }
             public long ObjectOffset { get; set; }
             public long OtherOffset { get; set; }
-            public uint MapSize { get; set; }
-            public uint ObjectSize { get; set; }
-            public uint OtherSize { get; set; }
+            public uint MapByteSize { get; set; }
+            public uint ObjectByteSize { get; set; }
+            public uint OtherByteSize { get; set; }
             public uint Width { get; set; }
             public uint Height { get; set; }
             public int[] MapData { get; set; }
@@ -44,7 +44,7 @@ namespace WOLF3D
             using (FileStream file = new FileStream(gameMaps, FileMode.Open))
             {
                 List<Map> maps = new List<Map>();
-                foreach (long offset in Offsets)
+                foreach (long offset in new long[] { Offsets[0] })
                 {
                     file.Seek(offset, 0);
                     Map map = new Map
@@ -52,9 +52,9 @@ namespace WOLF3D
                         MapOffset = file.ReadDWord(),
                         ObjectOffset = file.ReadDWord(),
                         OtherOffset = file.ReadDWord(),
-                        MapSize = file.ReadWord(),
-                        ObjectSize = file.ReadWord(),
-                        OtherSize = file.ReadWord(),
+                        MapByteSize = file.ReadWord(),
+                        ObjectByteSize = file.ReadWord(),
+                        OtherByteSize = file.ReadWord(),
                         Width = file.ReadWord(),
                         Height = file.ReadWord()
                     };
@@ -82,15 +82,15 @@ namespace WOLF3D
                         mapData = CarmackExpand(file);
                     else
                     {
-                        mapData = new int[map.MapSize];
-                        for (uint i = 0; i < map.MapSize; i++)
+                        mapData = new int[map.MapByteSize / 2];
+                        for (uint i = 0; i < mapData.Length; i++)
                             mapData[i] = file.ReadSWord();
                     }
 
-                    map.MapData = RlewExpand(mapData, map.MapSize, 0xABCD);
+                    map.MapData = RlewExpand(mapData, 64 * 64, 0xABCD);
 
-                    int[] objectData = new int[map.ObjectSize];
-                    int[] otherData = new int[map.OtherSize];
+                    int[] objectData = new int[map.ObjectByteSize];
+                    int[] otherData = new int[map.OtherByteSize];
                     maps.Add(map);
                 }
                 Maps = maps.ToArray();
@@ -102,7 +102,7 @@ namespace WOLF3D
         private static readonly int CARMACK_NEAR = 0xA7;
         private static readonly int CARMACK_FAR = 0xA8;
 
-        public static int[] RlewExpand(int[] carmackExpanded, uint length, int tag)
+        public static int[] RlewExpand(int[] carmackExpanded, uint length, uint tag)
         {
             int[] rawMapData = new int[length];
             int src_index = 1, dest_index = 0;
