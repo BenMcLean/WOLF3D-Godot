@@ -27,8 +27,6 @@ namespace WOLF3DTest
             string result = string.Empty;
             for (uint i=0; i<map.MapData.Length; i++)
             {
-                //if (map.OtherData[i] == 43981)
-                //    map.OtherData[i] = 0;
                 result += map.MapData[i].ToString("D3") + " ";
                 if (i % map.Width == map.Width-1)
                     result += "\n";

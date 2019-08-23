@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WOLF3D
 {
@@ -17,14 +13,14 @@ namespace WOLF3D
             public long MapOffset { get; set; }
             public long ObjectOffset { get; set; }
             public long OtherOffset { get; set; }
-            public uint MapByteSize { get; set; }
-            public uint ObjectByteSize { get; set; }
-            public uint OtherByteSize { get; set; }
-            public uint Width { get; set; }
-            public uint Height { get; set; }
-            public int[] MapData { get; set; }
-            public int[] ObjectData { get; set; }
-            public int[] OtherData { get; set; }
+            public ushort MapByteSize { get; set; }
+            public ushort ObjectByteSize { get; set; }
+            public ushort OtherByteSize { get; set; }
+            public ushort Width { get; set; }
+            public ushort Height { get; set; }
+            public ushort[] MapData { get; set; }
+            public ushort[] ObjectData { get; set; }
+            public ushort[] OtherData { get; set; }
             public bool IsCarmackized { get; set; }
         }
 
@@ -76,41 +72,41 @@ namespace WOLF3D
 
                     // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
 
-                    int[] mapData;
+                    ushort[] mapData;
                     file.Seek(map.MapOffset, 0);
                     if (map.IsCarmackized)
                         mapData = CarmackExpand(file);
                     else
                     {
-                        mapData = new int[map.MapByteSize / 2];
+                        mapData = new ushort[map.MapByteSize / 2];
                         for (uint i = 0; i < mapData.Length; i++)
-                            mapData[i] = file.ReadSWord();
+                            mapData[i] = file.ReadWord();
                     }
-                    map.MapData = RlewExpand(mapData, map.Height * map.Width, 0xABCD);
+                    map.MapData = RlewExpand(mapData, (ushort)(map.Height * map.Width), 0xABCD);
 
-                    int[] objectData;
+                    ushort[] objectData;
                     file.Seek(map.ObjectOffset, 0);
                     if (map.IsCarmackized)
                         objectData = CarmackExpand(file);
                     else
                     {
-                        objectData = new int[map.ObjectByteSize / 2];
+                        objectData = new ushort[map.ObjectByteSize / 2];
                         for (uint i = 0; i < objectData.Length; i++)
-                            objectData[i] = file.ReadSWord();
+                            objectData[i] = file.ReadWord();
                     }
-                    map.ObjectData = RlewExpand(objectData, map.Height * map.Width, 0xABCD);
+                    map.ObjectData = RlewExpand(objectData, (ushort)(map.Height * map.Width), 0xABCD);
 
-                    int[] otherData;
+                    ushort[] otherData;
                     file.Seek(map.OtherOffset, 0);
                     if (map.IsCarmackized)
                         otherData = CarmackExpand(file);
                     else
                     {
-                        otherData = new int[map.OtherByteSize / 2];
+                        otherData = new ushort[map.OtherByteSize / 2];
                         for (uint i = 0; i < otherData.Length; i++)
-                            otherData[i] = file.ReadSWord();
+                            otherData[i] = file.ReadWord();
                     }
-                    map.OtherData = RlewExpand(otherData, map.Height * map.Width, 0xABCD);
+                    map.OtherData = RlewExpand(otherData, (ushort)(map.Height * map.Width), 0xABCD);
 
                     maps.Add(map);
                 }
@@ -120,44 +116,44 @@ namespace WOLF3D
         }
 
         #region Decompression algorithms
-        private static readonly int CARMACK_NEAR = 0xA7;
-        private static readonly int CARMACK_FAR = 0xA8;
+        private static readonly ushort CARMACK_NEAR = 0xA7;
+        private static readonly ushort CARMACK_FAR = 0xA8;
 
-        public static int[] RlewExpand(int[] carmackExpanded, uint length, uint tag)
+        public static ushort[] RlewExpand(ushort[] carmackExpanded, ushort length, ushort tag)
         {
-            int[] rawMapData = new int[length];
+            ushort[] rawMapData = new ushort[length];
             int src_index = 1, dest_index = 0;
             do
             {
-                int value = carmackExpanded[src_index++]; // WORDS!!
+                ushort value = carmackExpanded[src_index++]; // WORDS!!
                 if (value != tag)
                     // uncompressed
                     rawMapData[dest_index++] = value;
                 else
                 {
                     // compressed string
-                    int count = carmackExpanded[src_index++];
+                    ushort count = carmackExpanded[src_index++];
                     value = carmackExpanded[src_index++];
-                    for (int i = 1; i <= count; i++)
+                    for (ushort i = 1; i <= count; i++)
                         rawMapData[dest_index++] = value;
                 }
             } while (dest_index < length);
             return rawMapData;
         }
 
-        public int[] CarmackExpand(FileStream file)
+        public ushort[] CarmackExpand(FileStream file)
         {
             ////////////////////////////
             // Get to the correct chunk
             ushort ch, chhigh, count, offset, index;
             // First word is expanded length
-            uint length = file.ReadWord();
-            int[] expandedWords = new int[length]; // array of WORDS
+            ushort length = file.ReadWord();
+            ushort[] expandedWords = new ushort[length]; // array of WORDS
             length /= 2;
             index = 0;
             while (length > 0)
             {
-                ch = (ushort)file.ReadWord();
+                ch = file.ReadWord();
                 chhigh = (ushort)(ch >> 8);
                 if (chhigh == CARMACK_NEAR)
                 {

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace WOLF3D
 {
@@ -12,11 +10,6 @@ namespace WOLF3D
             return (ushort)(file.ReadByte() + (file.ReadByte() << 8));
         }
 
-        public static int ReadSWord(this FileStream file)
-        {
-            return file.ReadByte() + (file.ReadByte() << 8);
-        }
-
         public static uint ReadDWord(this FileStream file)
         {
             return file.ReadWord() + (uint)(file.ReadWord() << 16);
@@ -25,7 +18,7 @@ namespace WOLF3D
 
     public class VSwap
     {
-        private static readonly uint COLORS = 256;
+        private static readonly ushort COLORS = 256;
 
         public uint[] Palette { get; set; }
         public byte[][] Graphics { get; set; }
@@ -48,7 +41,7 @@ namespace WOLF3D
                 GraphicChunks = SoundPageOffset;
                 uint[] pageOffsets = new uint[GraphicChunks];
                 uint dataStart = 0;
-                for (int x = 0; x < GraphicChunks; x++)
+                for (ushort x = 0; x < GraphicChunks; x++)
                 {
                     pageOffsets[x] = file.ReadDWord();
                     if (x == 0)
@@ -90,7 +83,7 @@ namespace WOLF3D
                     for (ushort i = 0; i < sprite.Length; i++)
                         sprite[i] = 255;
                     long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
-                    for (uint i = 0; i < columnDataOffsets.Length; i++)
+                    for (ushort i = 0; i < columnDataOffsets.Length; i++)
                         columnDataOffsets[i] = pageOffsets[page] + file.ReadWord();
                     long trexels = file.Position;
                     for (ushort column = 0; column <= rightExtent - leftExtent; column++)

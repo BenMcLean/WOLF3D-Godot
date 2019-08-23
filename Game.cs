@@ -1,5 +1,4 @@
 using Godot;
-using System.IO;
 using WOLF3D;
 
 public class Game : Node2D
