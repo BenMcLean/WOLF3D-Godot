@@ -153,13 +153,18 @@ namespace WOLF3D
 
         public byte[] Index2ByteArray(byte[] index)
         {
+            return Index2ByteArray(index, Palette);
+        }
+
+        public static byte[] Index2ByteArray(byte[] index, uint[] palette)
+        {
             byte[] bytes = new byte[index.Length * 4];
             for (uint i = 0; i < index.Length; i++)
             {
-                bytes[i * 4] = (byte)(Palette[index[i]] >> 24);
-                bytes[i * 4 + 1] = (byte)(Palette[index[i]] >> 16);
-                bytes[i * 4 + 2] = (byte)(Palette[index[i]] >> 8);
-                bytes[i * 4 + 3] = (byte)Palette[index[i]];
+                bytes[i * 4] = (byte)(palette[index[i]] >> 24);
+                bytes[i * 4 + 1] = (byte)(palette[index[i]] >> 16);
+                bytes[i * 4 + 2] = (byte)(palette[index[i]] >> 8);
+                bytes[i * 4 + 3] = (byte)palette[index[i]];
             }
             return bytes;
         }
