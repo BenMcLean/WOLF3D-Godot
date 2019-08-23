@@ -7,9 +7,9 @@ namespace WOLF3D
 {
     static class FileStreamExtension
     {
-        public static uint ReadWord(this FileStream file)
+        public static ushort ReadWord(this FileStream file)
         {
-            return (uint)file.ReadByte() + (uint)(file.ReadByte() << 8);
+            return (ushort)(file.ReadByte() + (file.ReadByte() << 8));
         }
 
         public static int ReadSWord(this FileStream file)
@@ -19,7 +19,7 @@ namespace WOLF3D
 
         public static uint ReadDWord(this FileStream file)
         {
-            return file.ReadWord() + (file.ReadWord() << 16);
+            return file.ReadWord() + (uint)(file.ReadWord() << 16);
         }
     }
 
@@ -29,15 +29,15 @@ namespace WOLF3D
 
         public uint[] Palette { get; set; }
         public byte[][] Graphics { get; set; }
-        public uint Pages { get; set; }
-        public uint WallEndIndex { get; set; }
-        public uint SpritePageOffset { get; set; }
-        public uint SoundPageOffset { get; set; }
-        public uint GraphicChunks { get; set; }
-        public uint SpriteStartIndex { get; set; }
-        public uint SpriteEndIndex { get; set; }
+        public ushort Pages { get; set; }
+        public ushort WallEndIndex { get; set; }
+        public ushort SpritePageOffset { get; set; }
+        public ushort SoundPageOffset { get; set; }
+        public ushort GraphicChunks { get; set; }
+        public ushort SpriteStartIndex { get; set; }
+        public ushort SpriteEndIndex { get; set; }
 
-        public VSwap Read(string vswap, uint dimension = 64)
+        public VSwap Read(string vswap, ushort dimension = 64)
         {
             using (FileStream file = new FileStream(vswap, FileMode.Open))
             {
@@ -56,22 +56,22 @@ namespace WOLF3D
                     if (pageOffsets[x] != 0 && (pageOffsets[x] < dataStart || pageOffsets[x] > file.Length))
                         throw new InvalidDataException("VSWAP file '" + file.Name + "' contains invalid page offsets.");
                 }
-                uint[] pageLengths = new uint[Pages];
-                for (uint i = 0; i < Pages; i++)
+                ushort[] pageLengths = new ushort[Pages];
+                for (ushort i = 0; i < Pages; i++)
                     pageLengths[i] = file.ReadWord();
                 //uint maxPageLength = pageLengths.Max();
                 //uint maxPageWidth = (uint)Math.Ceiling(Math.Sqrt(maxPageLength));
 
                 // parse graphic data
                 List<byte[]> graphics = new List<byte[]>();
-                uint page;
+                ushort page;
                 // read in walls
                 for (page = 0; page < SpritePageOffset; page++)
                 {
                     file.Seek(pageOffsets[page], 0);
                     byte[] wall = new byte[dimension * dimension];
-                    for (int col = 0; col < dimension; col++)
-                        for (int row = 0; row < dimension; row++)
+                    for (ushort col = 0; col < dimension; col++)
+                        for (ushort row = 0; row < dimension; row++)
                             wall[dimension * row + col] = (byte)file.ReadByte();
                     graphics.Add(wall);
                 }
@@ -83,17 +83,17 @@ namespace WOLF3D
                     if (page == 293) page = 403;
                     if (page == 413) page = 514;
                     file.Seek(pageOffsets[page], 0);
-                    uint leftExtent = file.ReadWord(),
+                    ushort leftExtent = file.ReadWord(),
                         rightExtent = file.ReadWord(),
                         startY, endY;
                     byte[] sprite = new byte[dimension * dimension];
-                    for (uint i = 0; i < sprite.Length; i++)
+                    for (ushort i = 0; i < sprite.Length; i++)
                         sprite[i] = 255;
                     long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
                     for (uint i = 0; i < columnDataOffsets.Length; i++)
                         columnDataOffsets[i] = pageOffsets[page] + file.ReadWord();
                     long trexels = file.Position;
-                    for (uint column = 0; column <= rightExtent - leftExtent; column++)
+                    for (ushort column = 0; column <= rightExtent - leftExtent; column++)
                     {
                         long commands = columnDataOffsets[column];
                         file.Seek(commands, 0);
@@ -105,7 +105,7 @@ namespace WOLF3D
                             startY >>= 1;
                             commands = file.Position;
                             file.Seek(trexels, 0);
-                            for (uint row = startY; row < endY; row++)
+                            for (ushort row = startY; row < endY; row++)
                                 sprite[(row * dimension - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
                             trexels = file.Position;
                             file.Seek(commands, 0);
