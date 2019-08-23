@@ -131,10 +131,10 @@ namespace WOLF3D
             {
                 if (!input.ReadLine().Equals("JASC-PAL") || !input.ReadLine().Equals("0100"))
                     throw new InvalidDataException("Palette \"" + file + "\" is an incorrectly formatted JASC palette.");
-                if (!int.TryParse(input.ReadLine(), out int numColors)
+                if (!uint.TryParse(input.ReadLine(), out uint numColors)
                  || numColors != COLORS)
                     throw new InvalidDataException("Palette \"" + file + "\" does not contain exactly " + COLORS + " colors.");
-                for (int x = 0; x < numColors; x++)
+                for (uint x = 0; x < numColors; x++)
                 {
                     string[] tokens = input.ReadLine()?.Split(' ');
                     if (tokens == null || tokens.Length != 3

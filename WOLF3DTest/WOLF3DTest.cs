@@ -22,12 +22,13 @@ namespace WOLF3DTest
         {
             WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
             GameMaps gameMaps = new GameMaps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", @"..\..\..\WOLF3D\GAMEMAPS.WL1");
-            GameMaps.Map map = gameMaps.Maps[0];
+            GameMaps.Map map = gameMaps.Maps[8];
+            Console.WriteLine();
             string result = string.Empty;
             for (uint i=0; i<map.MapData.Length; i++)
             {
-                if (map.MapData[i] == 43981)
-                    map.MapData[i] = 0;
+                //if (map.OtherData[i] == 43981)
+                //    map.OtherData[i] = 0;
                 result += map.MapData[i].ToString("D3") + " ";
                 if (i % map.Width == map.Width-1)
                     result += "\n";
