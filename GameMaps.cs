@@ -23,7 +23,8 @@ namespace WOLF3D
             public uint Width { get; set; }
             public uint Height { get; set; }
             public int[] MapData { get; set; }
-
+            public int[] ObjectData { get; set; }
+            public int[] OtherData { get; set; }
             public bool IsCarmackized { get; set; }
         }
 
@@ -44,7 +45,7 @@ namespace WOLF3D
             using (FileStream file = new FileStream(gameMaps, FileMode.Open))
             {
                 List<Map> maps = new List<Map>();
-                foreach (long offset in new long[] { Offsets[0] })
+                foreach (long offset in Offsets)
                 {
                     file.Seek(offset, 0);
                     Map map = new Map
@@ -76,7 +77,6 @@ namespace WOLF3D
                     // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
 
                     int[] mapData;
-
                     file.Seek(map.MapOffset, 0);
                     if (map.IsCarmackized)
                         mapData = CarmackExpand(file);
@@ -86,11 +86,32 @@ namespace WOLF3D
                         for (uint i = 0; i < mapData.Length; i++)
                             mapData[i] = file.ReadSWord();
                     }
+                    map.MapData = RlewExpand(mapData, map.Height * map.Width, 0xABCD);
 
-                    map.MapData = RlewExpand(mapData, 64 * 64, 0xABCD);
+                    int[] objectData;
+                    file.Seek(map.ObjectOffset, 0);
+                    if (map.IsCarmackized)
+                        objectData = CarmackExpand(file);
+                    else
+                    {
+                        objectData = new int[map.ObjectByteSize / 2];
+                        for (uint i = 0; i < objectData.Length; i++)
+                            objectData[i] = file.ReadSWord();
+                    }
+                    map.ObjectData = RlewExpand(objectData, map.Height * map.Width, 0xABCD);
 
-                    int[] objectData = new int[map.ObjectByteSize];
-                    int[] otherData = new int[map.OtherByteSize];
+                    int[] otherData;
+                    file.Seek(map.OtherOffset, 0);
+                    if (map.IsCarmackized)
+                        otherData = CarmackExpand(file);
+                    else
+                    {
+                        otherData = new int[map.OtherByteSize / 2];
+                        for (uint i = 0; i < otherData.Length; i++)
+                            otherData[i] = file.ReadSWord();
+                    }
+                    map.OtherData = RlewExpand(otherData, map.Height * map.Width, 0xABCD);
+
                     maps.Add(map);
                 }
                 Maps = maps.ToArray();
