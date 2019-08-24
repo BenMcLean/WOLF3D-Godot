@@ -1,7 +1,7 @@
 using Godot;
 using WOLF3DSim;
 
-public class Game : Node2D
+public class Game : Spatial
 {
     public static VSwap vswap = new VSwap();
 
