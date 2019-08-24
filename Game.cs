@@ -13,7 +13,7 @@ public class Game : Node2D
         vswap.SetPalette("Palettes\\Wolf3D.pal");
 
         Godot.Image image = new Image();
-        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.PaletteTexture());
+        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.TiledPaletteTexture());
         ImageTexture it = new ImageTexture();
         it.CreateFromImage(image, 0);
 

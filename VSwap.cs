@@ -180,6 +180,27 @@ namespace WOLF3D
             return bytes;
         }
 
+        public byte[] TiledPaletteTexture()
+        {
+            return TiledPaletteTexture(Palette);
+        }
+
+        public static byte[] TiledPaletteTexture(uint[] palette)
+        {
+            return Int2ByteArray(Tile(palette, 4));
+        }
+
+        public static uint[] Tile(uint[] squareTexture, uint tileSqrt)
+        {
+            uint side = (uint)System.Math.Sqrt(squareTexture.Length);
+            uint newSide = side * tileSqrt;
+            uint[] tiled = new uint[squareTexture.Length * tileSqrt * tileSqrt];
+            for (int x = 0; x < newSide; x++)
+                for (int y = 0; y < newSide; y++)
+                    tiled[x * newSide + y] = squareTexture[x % side * side + y % side];
+            return tiled;
+        }
+
         public byte[] PaletteTexture()
         {
             return PaletteTexture(Palette);
