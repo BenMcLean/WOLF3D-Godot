@@ -10,7 +10,7 @@ public class Game : Node2D
     {
         WOLF3D.DownloadShareware.Main(new string[] { "" });
 
-        vswap.LoadPalette("Palettes\\Wolf3D.pal");
+        vswap.SetPalette("Palettes\\Wolf3D.pal");
 
         Godot.Image image = new Image();
         image.CreateFromData(16, 16, false, Image.Format.Rgba8, VSwap.Int2ByteArray(vswap.Palette));

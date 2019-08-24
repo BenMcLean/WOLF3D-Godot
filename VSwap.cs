@@ -22,6 +22,10 @@ namespace WOLF3D
 
         public uint[] Palette { get; set; }
         public byte[][] Pages { get; set; }
+
+        /// <summary>
+        /// C# expects file pointers to be long
+        /// </summary>
         public long[] PageOffsets { get; set; }
         public ushort[] PageLengths { get; set; }
         public ushort SpritePageStart { get; set; }
@@ -67,16 +71,13 @@ namespace WOLF3D
                 for (; page < SoundPageStart; page++)
                     if (PageOffsets[page] != 0)
                     {
-                        // TODO: ONLY FOR SHAREWARE
-                        //if (page == 293) page = 403;
-                        //if (page == 413) page = 514;
                         file.Seek(PageOffsets[page], 0);
                         ushort leftExtent = file.ReadWord(),
                             rightExtent = file.ReadWord(),
                             startY, endY;
                         byte[] sprite = new byte[dimension * dimension];
                         for (ushort i = 0; i < sprite.Length; i++)
-                            sprite[i] = 255;
+                            sprite[i] = 255; // set transparent
                         long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
                         for (ushort i = 0; i < columnDataOffsets.Length; i++)
                             columnDataOffsets[i] = PageOffsets[page] + file.ReadWord();
@@ -116,13 +117,13 @@ namespace WOLF3D
             return this;
         }
 
-        public VSwap LoadPalette(string file)
+        public VSwap SetPalette(string file)
         {
-            Palette = MakePalette(file);
+            Palette = LoadPalette(file);
             return this;
         }
 
-        public static uint[] MakePalette(string file)
+        public static uint[] LoadPalette(string file)
         {
             uint[] result = new uint[COLORS];
             using (StreamReader input = new StreamReader(file))
@@ -149,16 +150,23 @@ namespace WOLF3D
             return result;
         }
 
+        /// <param name="page">Recommend value be smaller than SoundPageStart</param>
+        /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
         public byte[] Graphic(ushort page)
         {
             return Index2ByteArray(Pages[page]);
         }
 
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
         public byte[] Index2ByteArray(byte[] index)
         {
             return Index2ByteArray(index, Palette);
         }
 
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <param name="palette">256 rgba8888 color values</param>
+        /// <returns>rgba8888 texture (four bytes per pixel)</returns>
         public static byte[] Index2ByteArray(byte[] index, uint[] palette)
         {
             byte[] bytes = new byte[index.Length * 4];
@@ -172,6 +180,8 @@ namespace WOLF3D
             return bytes;
         }
 
+        /// <param name="ints">rgba8888 color values (one uint per pixel)</param>
+        /// <returns>rgba8888 texture (four bytes per pixel)</returns>
         public static byte[] Int2ByteArray(uint[] ints)
         {
             byte[] bytes = new byte[ints.Length * 4];

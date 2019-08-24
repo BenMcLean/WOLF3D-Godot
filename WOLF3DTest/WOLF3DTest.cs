@@ -13,7 +13,7 @@ namespace WOLF3DTest
         {
             WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
             VSwap vswap = new VSwap()
-                .LoadPalette(@"..\..\..\Palettes\Wolf3D.pal")
+                .SetPalette(@"..\..\..\Palettes\Wolf3D.pal")
                 .Read(@"..\..\..\WOLF3D\VSWAP.WL1");
         }
 
