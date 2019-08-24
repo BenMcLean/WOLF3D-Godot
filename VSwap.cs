@@ -21,26 +21,22 @@ namespace WOLF3D
         private static readonly ushort COLORS = 256;
 
         public uint[] Palette { get; set; }
-        public byte[][] Graphics { get; set; }
+        public byte[][] Pages { get; set; }
         public long[] PageOffsets { get; set; }
         public ushort[] PageLengths { get; set; }
-        public ushort WallEndIndex { get; set; }
-        public ushort SpritePageOffset { get; set; }
-        public ushort SoundPageOffset { get; set; }
-        public ushort GraphicChunks { get; set; }
-        public ushort SpriteStartIndex { get; set; }
-        public ushort SpriteEndIndex { get; set; }
-        public byte[][] Sounds { get; set; }
+        public ushort SpritePageStart { get; set; }
+        public ushort SoundPageStart { get; set; }
 
         public VSwap Read(string vswap, ushort dimension = 64)
         {
             using (FileStream file = new FileStream(vswap, FileMode.Open))
             {
                 // parse header info
-                PageOffsets = new long[file.ReadWord()];
-                SpritePageOffset = file.ReadWord();
-                SoundPageOffset = file.ReadWord();
-                GraphicChunks = SoundPageOffset;
+                Pages = new byte[file.ReadWord()][];
+                SpritePageStart = file.ReadWord();
+                SoundPageStart = file.ReadWord();
+
+                PageOffsets = new long[Pages.Length];
                 long dataStart = 0;
                 for (ushort i = 0; i < PageOffsets.Length; i++)
                 {
@@ -50,15 +46,15 @@ namespace WOLF3D
                     if ((PageOffsets[i] != 0 && PageOffsets[i] < dataStart) || PageOffsets[i] > file.Length)
                         throw new InvalidDataException("VSWAP file '" + file.Name + "' contains invalid page offsets.");
                 }
-                PageLengths = new ushort[PageOffsets.Length];
-                for (ushort i = 0; i < PageOffsets.Length; i++)
+                PageLengths = new ushort[Pages.Length];
+                for (ushort i = 0; i < PageLengths.Length; i++)
                     PageLengths[i] = file.ReadWord();
 
                 // parse graphic data
                 List<byte[]> graphics = new List<byte[]>();
                 ushort page;
                 // read in walls
-                for (page = 0; page < SpritePageOffset; page++)
+                for (page = 0; page < SpritePageStart; page++)
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
@@ -70,7 +66,7 @@ namespace WOLF3D
                     }
 
                 // read in sprites
-                for (; page < GraphicChunks; page++)
+                for (; page < SoundPageStart; page++)
                     if (PageOffsets[page] != 0)
                     {
                         // TODO: ONLY FOR SHAREWARE
@@ -105,20 +101,18 @@ namespace WOLF3D
                                 file.Seek(commands, 0);
                             }
                         }
-                        graphics.Add(sprite);
+                        Pages[page] = sprite;
                     }
-                Graphics = graphics.ToArray();
 
                 // read in sounds
-                Sounds = new byte[PageOffsets.Length - page][];
-                for (; page < PageOffsets.Length; page++)
+                for (; page < Pages.Length; page++)
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
                         byte[] sound = new byte[PageLengths[page]];
                         for (uint i=0; i < sound.Length; i++)
                             sound[i] = ((byte)(file.ReadByte() - 128)); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
-                        Sounds[page - SoundPageOffset] = sound;
+                        Pages[page] = sound;
                     }
             }
             return this;
