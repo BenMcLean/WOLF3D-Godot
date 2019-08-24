@@ -64,7 +64,7 @@ namespace WOLF3D
                         for (ushort col = 0; col < dimension; col++)
                             for (ushort row = 0; row < dimension; row++)
                                 wall[dimension * row + col] = (byte)file.ReadByte();
-                        Pages[page] = wall;
+                        Pages[page] = Index2ByteArray(wall);
                     }
 
                 // read in sprites
@@ -100,7 +100,7 @@ namespace WOLF3D
                                 file.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = sprite;
+                        Pages[page] = Index2ByteArray(sprite);
                     }
 
                 // read in sounds
@@ -150,13 +150,6 @@ namespace WOLF3D
             return result;
         }
 
-        /// <param name="page">Recommend value be smaller than SoundPageStart</param>
-        /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
-        public byte[] Graphic(ushort page)
-        {
-            return Index2ByteArray(Pages[page]);
-        }
-
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
         public byte[] Index2ByteArray(byte[] index)
@@ -180,14 +173,14 @@ namespace WOLF3D
             return bytes;
         }
 
-        public byte[] TiledPaletteTexture()
-        {
-            return TiledPaletteTexture(Palette);
-        }
+        private byte[] tiledPaletteTexture;
 
-        public static byte[] TiledPaletteTexture(uint[] palette)
+        public byte[] TiledPaletteTexture
         {
-            return Int2ByteArray(Tile(palette, 4));
+            get
+            {
+                return tiledPaletteTexture ?? (tiledPaletteTexture = Int2ByteArray(Tile(Palette, 4)));
+            }
         }
 
         public static uint[] Tile(uint[] squareTexture, uint tileSqrt)
@@ -201,14 +194,14 @@ namespace WOLF3D
             return tiled;
         }
 
-        public byte[] PaletteTexture()
-        {
-            return PaletteTexture(Palette);
-        }
+        private byte[] paletteTexture;
 
-        public static byte[] PaletteTexture(uint[] palette)
+        public byte[] PaletteTexture
         {
-            return Int2ByteArray(Scale(palette, 4));
+            get
+            {
+                return paletteTexture ?? (paletteTexture = Int2ByteArray(Scale(Palette, 4)));
+            }
         }
 
         public static uint[] Scale(uint[] squareTexture, int factor)

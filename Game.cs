@@ -13,7 +13,7 @@ public class Game : Node2D
         vswap.SetPalette("Palettes\\Wolf3D.pal");
 
         Godot.Image image = new Image();
-        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.TiledPaletteTexture());
+        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.TiledPaletteTexture);
         ImageTexture it = new ImageTexture();
         it.CreateFromImage(image, 0);
 
@@ -29,7 +29,7 @@ public class Game : Node2D
         vswap.Read(@"WOLF3D\VSWAP.WL1");
 
         Godot.Image imageWall = new Image();
-        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Graphic((ushort)(vswap.SoundPageStart - 1)));
+        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Pages[vswap.SoundPageStart - 1]);
         ImageTexture itWall = new ImageTexture();
         itWall.CreateFromImage(imageWall, 0);
 
