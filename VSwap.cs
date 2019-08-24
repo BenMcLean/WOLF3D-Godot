@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace WOLF3D
 {
-    static class FileStreamExtension
+    public static class FileStreamExtension
     {
         public static ushort ReadWord(this FileStream file)
         {
@@ -24,7 +24,7 @@ namespace WOLF3D
         public byte[][] Pages { get; set; }
 
         /// <summary>
-        /// C# expects file pointers to be long
+        /// C# expects file offsets to be long
         /// </summary>
         public long[] PageOffsets { get; set; }
         public ushort[] PageLengths { get; set; }
@@ -180,6 +180,8 @@ namespace WOLF3D
         {
             get
             {
+                if (Palette == null)
+                    throw new InvalidDataException("Palette is null!");
                 return tiledPaletteTexture ?? (tiledPaletteTexture = Int2ByteArray(Tile(Palette, 4)));
             }
         }
@@ -189,8 +191,8 @@ namespace WOLF3D
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
             uint newSide = side * tileSqrt;
             uint[] tiled = new uint[squareTexture.Length * tileSqrt * tileSqrt];
-            for (int x = 0; x < newSide; x++)
-                for (int y = 0; y < newSide; y++)
+            for (uint x = 0; x < newSide; x++)
+                for (uint y = 0; y < newSide; y++)
                     tiled[x * newSide + y] = squareTexture[x % side * side + y % side];
             return tiled;
         }
@@ -201,6 +203,8 @@ namespace WOLF3D
         {
             get
             {
+                if (Palette == null)
+                    throw new InvalidDataException("Palette is null!");
                 return paletteTexture ?? (paletteTexture = Int2ByteArray(Scale(Palette, 4)));
             }
         }
@@ -210,8 +214,8 @@ namespace WOLF3D
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
             int newSide = (int)side * factor;
             uint[] scaled = new uint[squareTexture.Length * factor * factor];
-            for (int x = 0; x < newSide; x++)
-                for (int y = 0; y < newSide; y++)
+            for (uint x = 0; x < newSide; x++)
+                for (uint y = 0; y < newSide; y++)
                     scaled[x * newSide + y] = squareTexture[x / factor * side + y / factor];
             return scaled;
         }
