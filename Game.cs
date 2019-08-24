@@ -13,7 +13,7 @@ public class Game : Spatial
         vswap.SetPalette(@"Wolf3DSim\Palettes\Wolf3D.pal");
 
         Godot.Image image = new Image();
-        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.TiledPaletteTexture);
+        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.PaletteTextureRepeated);
         ImageTexture it = new ImageTexture();
         it.CreateFromImage(image, 0);
 

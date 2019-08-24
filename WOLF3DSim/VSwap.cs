@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace WOLF3DSim
@@ -174,15 +175,35 @@ namespace WOLF3DSim
             return bytes;
         }
 
-        private byte[] tiledPaletteTexture;
+        private byte[] paletteTextureRepeated;
 
-        public byte[] TiledPaletteTexture
+        public byte[] PaletteTextureRepeated
         {
             get
             {
                 if (Palette == null)
                     throw new InvalidDataException("Palette is null!");
-                return tiledPaletteTexture ?? (tiledPaletteTexture = Int2ByteArray(Tile(Palette, 4)));
+                return paletteTextureRepeated ?? (paletteTextureRepeated = Int2ByteArray(Repeat256(Palette)));
+            }
+        }
+
+        public static uint[] Repeat256(uint[] pixels256)
+        {
+            uint[] repeated = new uint[4096];
+            for (uint x = 0; x < repeated.Length; x += 256)
+                Array.Copy(pixels256, 0, repeated, x, 256);
+            return repeated;
+        }
+
+        private byte[] paletteTextureTiled;
+
+        public byte[] PaletteTextureTiled
+        {
+            get
+            {
+                if (Palette == null)
+                    throw new InvalidDataException("Palette is null!");
+                return paletteTextureTiled ?? (paletteTextureTiled = Int2ByteArray(Tile(Palette, 4)));
             }
         }
 
