@@ -50,8 +50,6 @@ namespace WOLF3D
                 for (ushort i = 0; i < PageLengths.Length; i++)
                     PageLengths[i] = file.ReadWord();
 
-                // parse graphic data
-                List<byte[]> graphics = new List<byte[]>();
                 ushort page;
                 // read in walls
                 for (page = 0; page < SpritePageStart; page++)
@@ -62,7 +60,7 @@ namespace WOLF3D
                         for (ushort col = 0; col < dimension; col++)
                             for (ushort row = 0; row < dimension; row++)
                                 wall[dimension * row + col] = (byte)file.ReadByte();
-                        graphics.Add(wall);
+                        Pages[page] = wall;
                     }
 
                 // read in sprites
@@ -149,6 +147,11 @@ namespace WOLF3D
                 }
             }
             return result;
+        }
+
+        public byte[] Graphic(ushort page)
+        {
+            return Index2ByteArray(Pages[page]);
         }
 
         public byte[] Index2ByteArray(byte[] index)
