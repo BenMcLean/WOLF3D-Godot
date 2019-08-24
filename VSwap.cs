@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Linq;
 
 namespace WOLF3D
 {
@@ -28,17 +28,19 @@ namespace WOLF3D
         /// </summary>
         public long[] PageOffsets { get; set; }
         public ushort[] PageLengths { get; set; }
-        public ushort SpritePageStart { get; set; }
-        public ushort SoundPageStart { get; set; }
+        public ushort SpritePage { get; set; }
+        public ushort SoundPage { get; set; }
 
         public VSwap Read(string vswap, ushort tileSqrt = 64)
         {
+            if (Palette == null)
+                throw new InvalidDataException("Must load a palette before loading a VSWAP!");
             using (FileStream file = new FileStream(vswap, FileMode.Open))
             {
                 // parse header info
                 Pages = new byte[file.ReadWord()][];
-                SpritePageStart = file.ReadWord();
-                SoundPageStart = file.ReadWord();
+                SpritePage = file.ReadWord();
+                SoundPage = file.ReadWord();
 
                 PageOffsets = new long[Pages.Length];
                 long dataStart = 0;
@@ -56,7 +58,7 @@ namespace WOLF3D
 
                 ushort page;
                 // read in walls
-                for (page = 0; page < SpritePageStart; page++)
+                for (page = 0; page < SpritePage; page++)
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
@@ -68,7 +70,7 @@ namespace WOLF3D
                     }
 
                 // read in sprites
-                for (; page < SoundPageStart; page++)
+                for (; page < SoundPage; page++)
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
@@ -108,8 +110,8 @@ namespace WOLF3D
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
-                        Pages[page] = new byte[(int)(PageLengths[page] * 1.5)];
-                        for (uint i=0; i < Pages[page].Length; i++)
+                        Pages[page] = new byte[PageLengths[page]];
+                        for (uint i = 0; i < Pages[page].Length; i++)
                             Pages[page][i] = (byte)(file.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
             }
@@ -227,6 +229,18 @@ namespace WOLF3D
                 bytes[i * 4 + 3] = (byte)ints[i];
             }
             return bytes;
+        }
+
+        public static T[] ConcatArrays<T>(params T[][] list)
+        {
+            var result = new T[list.Sum(a => a.Length)];
+            int offset = 0;
+            for (int x = 0; x < list.Length; x++)
+            {
+                list[x].CopyTo(result, offset);
+                offset += list[x].Length;
+            }
+            return result;
         }
     }
 }
