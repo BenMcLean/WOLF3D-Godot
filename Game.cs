@@ -29,7 +29,7 @@ public class Game : Spatial
         vswap.Read(@"WOLF3D\VSWAP.WL1");
 
         Godot.Image imageWall = new Image();
-        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Pages[vswap.SoundPage - 1]);
+        imageWall.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.Pages[0]);
         ImageTexture itWall = new ImageTexture();
         itWall.CreateFromImage(imageWall, 0);
 
@@ -64,6 +64,28 @@ public class Game : Spatial
         AddChild(audioStreamPlayer);
 
         audioStreamPlayer.Play();
+
+        Sprite3D sprite3D = new Sprite3D
+        {
+            Name = "Sprite3",
+            Texture = it,
+            Scale = new Vector3(5, 5, 5)
+        };
+
+        AddChild(sprite3D);
+
+        //CubeMesh cubeMesh = new CubeMesh()
+        //{
+        //    Size = new Vector3(1, 1, 1),
+        //    Material = new 
+        //};
+
+        //MeshInstance meshInsatnce = new MeshInstance()
+        //{
+        //    Mesh = cubeMesh
+        //};
+
+        //AddChild(meshInsatnce);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
