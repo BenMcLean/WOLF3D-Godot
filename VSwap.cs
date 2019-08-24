@@ -59,52 +59,54 @@ namespace WOLF3D
                 ushort page;
                 // read in walls
                 for (page = 0; page < SpritePageOffset; page++)
-                {
-                    file.Seek(PageOffsets[page], 0);
-                    byte[] wall = new byte[dimension * dimension];
-                    for (ushort col = 0; col < dimension; col++)
-                        for (ushort row = 0; row < dimension; row++)
-                            wall[dimension * row + col] = (byte)file.ReadByte();
-                    graphics.Add(wall);
-                }
+                    if (PageOffsets[page] != 0)
+                    {
+                        file.Seek(PageOffsets[page], 0);
+                        byte[] wall = new byte[dimension * dimension];
+                        for (ushort col = 0; col < dimension; col++)
+                            for (ushort row = 0; row < dimension; row++)
+                                wall[dimension * row + col] = (byte)file.ReadByte();
+                        graphics.Add(wall);
+                    }
 
                 // read in sprites
                 for (; page < GraphicChunks; page++)
-                {
-                    // TODO: ONLY FOR SHAREWARE
-                    if (page == 293) page = 403;
-                    if (page == 413) page = 514;
-                    file.Seek(PageOffsets[page], 0);
-                    ushort leftExtent = file.ReadWord(),
-                        rightExtent = file.ReadWord(),
-                        startY, endY;
-                    byte[] sprite = new byte[dimension * dimension];
-                    for (ushort i = 0; i < sprite.Length; i++)
-                        sprite[i] = 255;
-                    long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
-                    for (ushort i = 0; i < columnDataOffsets.Length; i++)
-                        columnDataOffsets[i] = PageOffsets[page] + file.ReadWord();
-                    long trexels = file.Position;
-                    for (ushort column = 0; column <= rightExtent - leftExtent; column++)
+                    if (PageOffsets[page] != 0)
                     {
-                        long commands = columnDataOffsets[column];
-                        file.Seek(commands, 0);
-                        while ((endY = file.ReadWord()) != 0)
+                        // TODO: ONLY FOR SHAREWARE
+                        //if (page == 293) page = 403;
+                        //if (page == 413) page = 514;
+                        file.Seek(PageOffsets[page], 0);
+                        ushort leftExtent = file.ReadWord(),
+                            rightExtent = file.ReadWord(),
+                            startY, endY;
+                        byte[] sprite = new byte[dimension * dimension];
+                        for (ushort i = 0; i < sprite.Length; i++)
+                            sprite[i] = 255;
+                        long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
+                        for (ushort i = 0; i < columnDataOffsets.Length; i++)
+                            columnDataOffsets[i] = PageOffsets[page] + file.ReadWord();
+                        long trexels = file.Position;
+                        for (ushort column = 0; column <= rightExtent - leftExtent; column++)
                         {
-                            endY >>= 1;
-                            file.ReadWord(); // Not using this value for anything. Don't know why it's here!
-                            startY = file.ReadWord();
-                            startY >>= 1;
-                            commands = file.Position;
-                            file.Seek(trexels, 0);
-                            for (ushort row = startY; row < endY; row++)
-                                sprite[(row * dimension - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
-                            trexels = file.Position;
+                            long commands = columnDataOffsets[column];
                             file.Seek(commands, 0);
+                            while ((endY = file.ReadWord()) != 0)
+                            {
+                                endY >>= 1;
+                                file.ReadWord(); // Not using this value for anything. Don't know why it's here!
+                                startY = file.ReadWord();
+                                startY >>= 1;
+                                commands = file.Position;
+                                file.Seek(trexels, 0);
+                                for (ushort row = startY; row < endY; row++)
+                                    sprite[(row * dimension - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
+                                trexels = file.Position;
+                                file.Seek(commands, 0);
+                            }
                         }
+                        graphics.Add(sprite);
                     }
-                    graphics.Add(sprite);
-                }
                 Graphics = graphics.ToArray();
 
                 // read in sounds
@@ -113,7 +115,7 @@ namespace WOLF3D
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
-                        byte[] sound = new byte[PageLengths[page] * 2];
+                        byte[] sound = new byte[PageLengths[page]];
                         for (uint i=0; i < sound.Length; i++)
                             sound[i] = ((byte)(file.ReadByte() - 128)); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                         Sounds[page - SoundPageOffset] = sound;
