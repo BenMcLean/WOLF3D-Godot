@@ -13,7 +13,7 @@ public class Game : Node2D
         vswap.SetPalette("Palettes\\Wolf3D.pal");
 
         Godot.Image image = new Image();
-        image.CreateFromData(16, 16, false, Image.Format.Rgba8, VSwap.Int2ByteArray(vswap.Palette));
+        image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.PaletteTexture());
         ImageTexture it = new ImageTexture();
         it.CreateFromImage(image, 0);
 
@@ -22,7 +22,7 @@ public class Game : Node2D
             Name = "Sprite1",
             Texture = it,
             Position = new Vector2(200, 200),
-            Scale = new Vector2(20, 20)
+            Scale = new Vector2(5, 5)
         };
         AddChild(sprite);
 

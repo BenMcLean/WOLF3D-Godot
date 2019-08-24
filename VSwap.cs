@@ -180,6 +180,27 @@ namespace WOLF3D
             return bytes;
         }
 
+        public byte[] PaletteTexture()
+        {
+            return PaletteTexture(Palette);
+        }
+
+        public static byte[] PaletteTexture(uint[] palette)
+        {
+            return Int2ByteArray(Scale(palette, 4));
+        }
+
+        public static uint[] Scale(uint[] squareTexture, int factor)
+        {
+            uint side = (uint)System.Math.Sqrt(squareTexture.Length);
+            int newSide = (int)side * factor;
+            uint[] scaled = new uint[squareTexture.Length * factor * factor];
+            for (int x = 0; x < newSide; x++)
+                for (int y = 0; y < newSide; y++)
+                    scaled[x * newSide + y] = squareTexture[x / factor * side + y / factor];
+            return scaled;
+        }
+
         /// <param name="ints">rgba8888 color values (one uint per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel)</returns>
         public static byte[] Int2ByteArray(uint[] ints)
