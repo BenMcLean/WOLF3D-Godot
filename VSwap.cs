@@ -108,10 +108,9 @@ namespace WOLF3D
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
-                        byte[] sound = new byte[PageLengths[page]];
-                        for (uint i=0; i < sound.Length; i++)
-                            sound[i] = ((byte)(file.ReadByte() - 128)); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
-                        Pages[page] = sound;
+                        Pages[page] = new byte[(int)(PageLengths[page] * 1.5)];
+                        for (uint i=0; i < Pages[page].Length; i++)
+                            Pages[page][i] = (byte)(file.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
             }
             return this;
