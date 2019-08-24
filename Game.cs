@@ -46,7 +46,7 @@ public class Game : Node2D
 
         AudioStreamSample audioStreamSample = new AudioStreamSample()
         {
-            Data = vswap.Sounds[0],
+            Data = vswap.Sounds[1],
             Format = AudioStreamSample.FormatEnum.Format8Bits,
             MixRate = 7000,
             Stereo = false
