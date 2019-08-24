@@ -29,6 +29,7 @@ namespace WOLF3D
         public ushort GraphicChunks { get; set; }
         public ushort SpriteStartIndex { get; set; }
         public ushort SpriteEndIndex { get; set; }
+        public byte[][] Sounds { get; set; }
 
         public VSwap Read(string vswap, ushort dimension = 64)
         {
@@ -39,9 +40,9 @@ namespace WOLF3D
                 SpritePageOffset = file.ReadWord();
                 SoundPageOffset = file.ReadWord();
                 GraphicChunks = SoundPageOffset;
-                uint[] pageOffsets = new uint[GraphicChunks];
+                uint[] pageOffsets = new uint[GraphicChunks + 1];
                 uint dataStart = 0;
-                for (ushort x = 0; x < GraphicChunks; x++)
+                for (ushort x = 0; x <= GraphicChunks; x++)
                 {
                     pageOffsets[x] = file.ReadDWord();
                     if (x == 0)
@@ -107,6 +108,13 @@ namespace WOLF3D
                     graphics.Add(sprite);
                 }
                 Graphics = graphics.ToArray();
+
+                file.Seek(pageOffsets[SoundPageOffset], 0);
+                Sounds = new byte[1][];
+                List<byte> sounds = new List<byte>();
+                while (file.Position < file.Length)
+                    sounds.Add((byte)(file.ReadByte() - 128)); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
+                Sounds[0] = sounds.ToArray();
             }
             return this;
         }

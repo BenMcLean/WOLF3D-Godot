@@ -43,6 +43,24 @@ public class Game : Node2D
         AddChild(sprite2);
 
         GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
+
+        AudioStreamSample audioStreamSample = new AudioStreamSample()
+        {
+            Data = vswap.Sounds[0],
+            Format = AudioStreamSample.FormatEnum.Format8Bits,
+            MixRate = 7000,
+            Stereo = false
+        };
+
+        AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
+        {
+            Stream = audioStreamSample,
+            VolumeDb = 0.01f
+        };
+
+        AddChild(audioStreamPlayer);
+
+        audioStreamPlayer.Play();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
