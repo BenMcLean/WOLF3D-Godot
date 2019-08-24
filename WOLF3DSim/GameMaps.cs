@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace WOLF3D
+namespace WOLF3DSim
 {
     public class GameMaps
     {
@@ -58,6 +58,7 @@ namespace WOLF3D
                     char[] name = new char[16];
                     for (uint i = 0; i < 16; i++)
                         name[i] = (char)file.ReadByte();
+                    name[14] = ' '; // getting rid of null characters at the end
                     name[15] = ' '; // getting rid of null characters at the end
                     map.Name = new string(name);
 
@@ -69,7 +70,6 @@ namespace WOLF3D
                     // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
                     // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
                     // http://www.shikadi.net/moddingwiki/GameMaps_Format#Map_data_.28GAMEMAPS.29
-
                     // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
 
                     ushort[] mapData;

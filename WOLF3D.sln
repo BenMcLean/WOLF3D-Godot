@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF3D", "WOLF3D.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF3DTest", "WOLF3DTest\WOLF3DTest.csproj", "{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF3DSim", "Wolf3DSim\WOLF3DSim.csproj", "{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,12 @@ Global
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.Tools|Any CPU.ActiveCfg = Release|Any CPU
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.Tools|Any CPU.Build.0 = Release|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Tools|Any CPU.ActiveCfg = Release|Any CPU
+		{88907434-B63C-4AB8-ADAD-4EA458EBCFEF}.Tools|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

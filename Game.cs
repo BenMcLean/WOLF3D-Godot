@@ -1,5 +1,5 @@
 using Godot;
-using WOLF3D;
+using WOLF3DSim;
 
 public class Game : Node2D
 {
@@ -8,9 +8,9 @@ public class Game : Node2D
     /// Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        WOLF3D.DownloadShareware.Main(new string[] { "" });
+        DownloadShareware.Main(new string[] { "" });
 
-        vswap.SetPalette("Palettes\\Wolf3D.pal");
+        vswap.SetPalette(@"Wolf3DSim\Palettes\Wolf3D.pal");
 
         Godot.Image image = new Image();
         image.CreateFromData(64, 64, false, Image.Format.Rgba8, vswap.TiledPaletteTexture);

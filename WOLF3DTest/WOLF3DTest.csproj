@@ -60,9 +60,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WOLF3D.csproj">
-      <Project>{0c1f239e-f2c1-4d04-81a2-fbd561c1e887}</Project>
-      <Name>WOLF3D</Name>
+    <ProjectReference Include="..\Wolf3DSim\WOLF3DSim.csproj">
+      <Project>{88907434-b63c-4ab8-adad-4ea458ebcfef}</Project>
+      <Name>WOLF3DSim</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

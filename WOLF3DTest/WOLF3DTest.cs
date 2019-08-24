@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WOLF3D;
+using WOLF3DSim;
 
 namespace WOLF3DTest
 {
@@ -11,18 +10,18 @@ namespace WOLF3DTest
         [TestMethod]
         public void VSwapTest()
         {
-            WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
+            DownloadShareware.Main(new string[] { @"..\..\..\" });
             VSwap vswap = new VSwap()
-                .SetPalette(@"..\..\..\Palettes\Wolf3D.pal")
+                .SetPalette(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal")
                 .Read(@"..\..\..\WOLF3D\VSWAP.WL1");
         }
 
         [TestMethod]
         public void GameMapsTest()
         {
-            WOLF3D.DownloadShareware.Main(new string[] { @"..\..\..\" });
+            DownloadShareware.Main(new string[] { @"..\..\..\" });
             GameMaps gameMaps = new GameMaps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", @"..\..\..\WOLF3D\GAMEMAPS.WL1");
-            GameMaps.Map map = gameMaps.Maps[8];
+            GameMaps.Map map = gameMaps.Maps[0];
             Console.WriteLine();
             string result = string.Empty;
             for (uint i=0; i<map.MapData.Length; i++)

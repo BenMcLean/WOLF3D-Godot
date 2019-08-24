@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace WOLF3D
+namespace WOLF3DSim
 {
     public static class FileStreamExtension
     {
