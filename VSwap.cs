@@ -31,7 +31,7 @@ namespace WOLF3D
         public ushort SpritePageStart { get; set; }
         public ushort SoundPageStart { get; set; }
 
-        public VSwap Read(string vswap, ushort dimension = 64)
+        public VSwap Read(string vswap, ushort tileSqrt = 64)
         {
             using (FileStream file = new FileStream(vswap, FileMode.Open))
             {
@@ -60,10 +60,10 @@ namespace WOLF3D
                     if (PageOffsets[page] != 0)
                     {
                         file.Seek(PageOffsets[page], 0);
-                        byte[] wall = new byte[dimension * dimension];
-                        for (ushort col = 0; col < dimension; col++)
-                            for (ushort row = 0; row < dimension; row++)
-                                wall[dimension * row + col] = (byte)file.ReadByte();
+                        byte[] wall = new byte[tileSqrt * tileSqrt];
+                        for (ushort col = 0; col < tileSqrt; col++)
+                            for (ushort row = 0; row < tileSqrt; row++)
+                                wall[tileSqrt * row + col] = (byte)file.ReadByte();
                         Pages[page] = Index2ByteArray(wall);
                     }
 
@@ -75,7 +75,7 @@ namespace WOLF3D
                         ushort leftExtent = file.ReadWord(),
                             rightExtent = file.ReadWord(),
                             startY, endY;
-                        byte[] sprite = new byte[dimension * dimension];
+                        byte[] sprite = new byte[tileSqrt * tileSqrt];
                         for (ushort i = 0; i < sprite.Length; i++)
                             sprite[i] = 255; // set transparent
                         long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
@@ -95,7 +95,7 @@ namespace WOLF3D
                                 commands = file.Position;
                                 file.Seek(trexels, 0);
                                 for (ushort row = startY; row < endY; row++)
-                                    sprite[(row * dimension - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
+                                    sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
                                 trexels = file.Position;
                                 file.Seek(commands, 0);
                             }
