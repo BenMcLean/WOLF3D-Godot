@@ -65,27 +65,25 @@ public class Game : Spatial
 
         audioStreamPlayer.Play();
 
+        SpatialMaterial spatialMaterial = new SpatialMaterial()
+        {
+            FlagsUnshaded = true,
+            FlagsDoNotReceiveShadows = true,
+            FlagsDisableAmbientLight = true,
+            ParamsDiffuseMode = SpatialMaterial.DiffuseMode.Toon,
+            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            ParamsCullMode = SpatialMaterial.CullMode.Disabled
+        };
+
         Sprite3D sprite3D = new Sprite3D
         {
             Name = "Sprite3",
             Texture = it,
-            Scale = new Vector3(5, 5, 5)
+            Scale = new Vector3(5, 5, 5),
+            MaterialOverride = spatialMaterial
         };
 
         AddChild(sprite3D);
-
-        //CubeMesh cubeMesh = new CubeMesh()
-        //{
-        //    Size = new Vector3(1, 1, 1),
-        //    Material = new 
-        //};
-
-        //MeshInstance meshInsatnce = new MeshInstance()
-        //{
-        //    Mesh = cubeMesh
-        //};
-
-        //AddChild(meshInsatnce);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
