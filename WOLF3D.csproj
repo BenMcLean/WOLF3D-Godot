@@ -52,6 +52,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
