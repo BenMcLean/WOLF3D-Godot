@@ -20,33 +20,30 @@ public class Game : Spatial
         Sprite3D sprite0 = new Sprite3D
         {
             Name = "Sprite0",
-            Texture = Assets.Graphics[0],
-            Scale = new Vector3(Assets.WallScale, Assets.WallScale, 1),
+            Texture = Assets.Textures[0],
+            PixelSize = Assets.PixelSize,
             MaterialOverride = Assets.WallMaterial,
-            Transform = new Transform(Basis.Identity, new Vector3(Assets.WallLength, 0, Assets.WallLength)),
-            //Offset = new Vector2(
-            //    Assets.WallLength / 2f,
-            //    Assets.WallLength / 2f
-            //    ),
-            Centered = false
+            Centered = false,
+            Transform = new Transform(
+                Basis.Identity,
+                new Vector3(Assets.WallSize, 0, Assets.WallSize)
+            ).Orthonormalized()
         };
         AddChild(sprite0);
 
         Sprite3D sprite1 = new Sprite3D
         {
             Name = "Sprite1",
-            Texture = Assets.Graphics[1],
-            Scale = new Vector3(Assets.WallScale, Assets.WallScale, 1),
+            Texture = Assets.Textures[1],
+            PixelSize = Assets.PixelSize,
             MaterialOverride = Assets.WallMaterial,
-            Transform = new Transform(Basis.Identity, new Vector3(Assets.WallLength * 2f, 0, Assets.WallLength)),
-            //Offset = new Vector2(
-            //    Assets.WallLength / 2f,
-            //    Assets.WallLength / 2f
-            //    ),
-            Centered = false
+            Axis = Vector3.Axis.X,
+            Centered = false,
+            Transform = new Transform(
+                Basis.Identity,
+                new Vector3(Assets.WallSize * 2f, 0, Assets.WallSize)
+            ).Orthonormalized()
         };
-        //sprite1.RotateObjectLocal(Vector3.Up, Mathf.Pi / 2f);
-        //sprite1.Transform = sprite1.Transform.Orthonormalized();
         AddChild(sprite1);
     }
 

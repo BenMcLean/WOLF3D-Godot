@@ -11,13 +11,11 @@ namespace WOLF3D
         //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
         //However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
-        public static readonly float PixelLength = 0.0381f;
-        public static readonly float WallLength = 2.4384f;
-        // 64 pixels is 0.64 game units by default.
-        public static readonly float WallScale = 3.81f;
+        public static readonly float PixelSize = 0.0381f;
+        public static readonly float WallSize = 2.4384f;
 
         public VSwap VSwap { get; set; }
-        public ImageTexture[] Graphics { get; set; }
+        public ImageTexture[] Textures { get; set; }
 
         public Assets(VSwap vswap)
         {
@@ -27,14 +25,14 @@ namespace WOLF3D
         public Assets Load(VSwap vswap)
         {
             VSwap = vswap;
-            Graphics = new ImageTexture[VSwap.SoundPage];
-            for (uint i = 0; i < Graphics.Length; i++)
+            Textures = new ImageTexture[VSwap.SoundPage];
+            for (uint i = 0; i < Textures.Length; i++)
                 if (VSwap.Pages[i] != null)
                 {
                     Godot.Image image = new Image(); ;
                     image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
-                    Graphics[i] = new ImageTexture();
-                    Graphics[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                    Textures[i] = new ImageTexture();
+                    Textures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
                 }
             return this;
         }
