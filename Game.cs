@@ -15,9 +15,9 @@ public class Game : Spatial
             .Read(@"WOLF3D\VSWAP.WL1")
         );
 
-        //GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
+        GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
 
-        MapWalls mapWalls = new MapWalls().BuildCube(0, 0, 0);
+        MapWalls mapWalls = new MapWalls().Load(maps.Maps[0]);
         foreach (Sprite3D sprite in mapWalls.Walls)
             AddChild(sprite);
     }
