@@ -17,34 +17,9 @@ public class Game : Spatial
 
         //GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
 
-        Sprite3D sprite0 = new Sprite3D
-        {
-            Name = "Sprite0",
-            Texture = Assets.Textures[0],
-            PixelSize = Assets.PixelSize,
-            MaterialOverride = Assets.WallMaterial,
-            Centered = false,
-            Transform = new Transform(
-                Basis.Identity,
-                new Vector3(Assets.WallSize, 0, Assets.WallSize)
-            ).Orthonormalized()
-        };
-        AddChild(sprite0);
-
-        Sprite3D sprite1 = new Sprite3D
-        {
-            Name = "Sprite1",
-            Texture = Assets.Textures[1],
-            PixelSize = Assets.PixelSize,
-            MaterialOverride = Assets.WallMaterial,
-            Axis = Vector3.Axis.X,
-            Centered = false,
-            Transform = new Transform(
-                Basis.Identity,
-                new Vector3(Assets.WallSize * 2f, 0, Assets.WallSize)
-            ).Orthonormalized()
-        };
-        AddChild(sprite1);
+        MapWalls mapWalls = new MapWalls().BuildCube(0, 0, 0);
+        foreach (Sprite3D sprite in mapWalls.Walls)
+            AddChild(sprite);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

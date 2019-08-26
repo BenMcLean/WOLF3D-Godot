@@ -55,6 +55,7 @@
     <Compile Include="Assets.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameEnum.cs" />
+    <Compile Include="MapWalls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
