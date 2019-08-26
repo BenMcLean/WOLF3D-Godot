@@ -23,7 +23,7 @@ public class Game : Spatial
             Texture = Assets.Graphics[0],
             Scale = new Vector3(1, 1, 1),
             MaterialOverride = Assets.WallMaterial,
-            Transform = new Transform(Basis.Identity, new Vector3(0, 0, 1))
+            Transform = new Transform(Basis.Identity, new Vector3(0, 0, 1f))
         };
         AddChild(sprite0);
 
@@ -33,8 +33,10 @@ public class Game : Spatial
             Texture = Assets.Graphics[2],
             Scale = new Vector3(1, 1, 1),
             MaterialOverride = Assets.WallMaterial,
-            Transform = new Transform(Basis.Identity, new Vector3(1, 0, 0))
+            Transform = new Transform(Basis.Identity, new Vector3(1, 0, 1))
         };
+        sprite1.RotateObjectLocal(Vector3.Up, Mathf.Pi / 2f);
+        sprite1.Transform = sprite1.Transform.Orthonormalized();
         AddChild(sprite1);
     }
 
