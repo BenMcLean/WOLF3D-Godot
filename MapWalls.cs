@@ -21,9 +21,9 @@ namespace WOLF3D
                     if (z > 0 && IsWall(wall = Get(x, z - 1)))
                         Walls.Add(SouthWall(x, z - 1, (uint)(wall - 1) * 2 + 1));
                     if (z < 63 && IsWall(wall = Get(x, z + 1)))
-                        Walls.Add(SouthWall(x, z, (uint)(wall - 1) * 2 + 1));
+                        Walls.Add(SouthWall(x, z, (uint)(wall - 1) * 2 + 1, true));
                     if (x < 63 && IsWall(wall = Get(x + 1, z)))
-                        Walls.Add(WestWall(x + 1, z, (uint)(wall - 1) * 2));
+                        Walls.Add(WestWall(x + 1, z, (uint)(wall - 1) * 2, true));
                     if (x > 0 && IsWall(wall = Get(x - 1, z)))
                         Walls.Add(WestWall(x, z, (uint)(wall - 1) * 2));
                 }
@@ -69,17 +69,17 @@ namespace WOLF3D
             return (ushort)(i / 64);
         }
 
-        public Sprite3D SouthWall(uint x, uint z, uint texture = 0)
+        public Sprite3D SouthWall(uint x, uint z, uint texture = 0, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z));
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z), flipH);
         }
 
-        public Sprite3D WestWall(uint x, uint z, uint texture = 0)
+        public Sprite3D WestWall(uint x, uint z, uint texture = 0, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z));
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z), flipH);
         }
 
-        public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position)
+        public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
             return new Sprite3D()
             {
@@ -88,7 +88,8 @@ namespace WOLF3D
                 MaterialOverride = Assets.WallMaterial,
                 Axis = axis,
                 Centered = false,
-                Transform = new Transform(Basis.Identity, position)
+                Transform = new Transform(Basis.Identity, position),
+                FlipH = flipH
             };
         }
     }
