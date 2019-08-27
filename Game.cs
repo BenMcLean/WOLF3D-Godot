@@ -17,16 +17,24 @@ public class Game : Spatial
 
         GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");
 
-        MapWalls mapWalls = new MapWalls().Load(maps.Maps[0]);
-        foreach (Sprite3D sprite in mapWalls.Walls)
+        MapWalls = new MapWalls().Load(maps.Maps[0]);
+        foreach (Sprite3D sprite in MapWalls.Walls)
             AddChild(sprite);
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
+    public MapWalls MapWalls;
+
+    ///// <summary>
+    ///// Called every frame.
+    ///// </summary>
+    ///// <param name="delta">'delta' is the elapsed time since the previous frame.</param>
+    //public override void _Process(float delta)
+    //{
+    //    Vector3 cameraPos = GetViewport().GetCamera().GlobalTransform.origin;
+    //    cameraPos.y = 0;
+    //    foreach (Sprite3D wall in MapWalls.Walls)
+    //        wall.LookAt(cameraPos, Vector3.Up);
+    //}
 
     public Game PlayASound()
     {
