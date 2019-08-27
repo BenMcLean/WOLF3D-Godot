@@ -15,7 +15,7 @@ namespace WOLF3D
             for (uint i = 0; i < Map.MapData.Length; i++)
             {
                 uint x = X(i), z = Z(i), here = Get(x, z);
-                if (!IsWall(here))
+                if (!IsWall(here) && !IsDoor(here))
                 {
                     ushort wall;
                     if (z > 0 && IsWall(wall = Get(x, z - 1)))
@@ -31,9 +31,27 @@ namespace WOLF3D
             return this;
         }
 
-        public bool IsWall(uint wall)
+        public bool IsWall(uint cell)
         {
-            return wall < Game.Assets.VSwap.SpritePage;
+            return (cell - 1) * 2 < Game.Assets.VSwap.SpritePage;
+        }
+
+        public static bool IsDoor(uint cell)
+        {
+            switch (cell)
+            {
+                case 90: // "Door vertical"
+                case 91: // "Door horizontal",
+                case 92: // "Door vertical (gold key)",
+                case 93: // "Door horizontal (gold key)",
+                case 94: // "Door vertical (silver key)",
+                case 95: // "Door horizontal (silver key)",
+                case 100: // "Elevator door (normal)",
+                case 101: // "Elevator door (horizontal)",
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public ushort Get(uint x, uint z)
