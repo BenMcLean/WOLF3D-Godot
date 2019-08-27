@@ -24,10 +24,10 @@ namespace WOLF3DTest
             GameMaps.Map map = gameMaps.Maps[0];
             Console.WriteLine();
             string result = string.Empty;
-            for (uint i=0; i<map.MapData.Length; i++)
+            for (uint i = 0; i < map.MapData.Length; i++)
             {
                 result += map.MapData[i].ToString("D3") + " ";
-                if (i % map.Width == map.Width-1)
+                if (i % map.Width == map.Width - 1)
                     result += "\n";
             }
             Console.WriteLine(result);
