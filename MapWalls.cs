@@ -15,7 +15,20 @@ namespace WOLF3D
             for (uint i = 0; i < Map.MapData.Length; i++)
             {
                 uint x = X(i), z = Z(i), here = Get(x, z);
-                if (!IsWall(here) && !IsDoor(here))
+                if (IsDoor(here))
+                {
+                    if (here % 2 == 0) // Even numbered doors are vertical
+                    {
+                        Walls.Add(WestWall(x + 1, z, 100, true));
+                        Walls.Add(WestWall(x, z, 100));
+                    }
+                    else // Odd numbered doors are horizontal
+                    {
+                        Walls.Add(SouthWall(x, z - 1, 101));
+                        Walls.Add(SouthWall(x, z, 101, true));
+                    }
+                }
+                else if (!IsWall(here))
                 {
                     ushort wall;
                     if (z > 0 && IsWall(wall = Get(x, z - 1)))
