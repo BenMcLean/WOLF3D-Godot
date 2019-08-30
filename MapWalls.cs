@@ -11,7 +11,7 @@ namespace WOLF3D
 
         public MapWalls Load(GameMaps.Map map)
         {
-            void HorizontalCheck (uint x, uint z)
+            void HorizontalCheck(uint x, uint z)
             {
                 uint wall;
                 if (x < 63 && IsWall(wall = Get(x + 1, z)))
@@ -19,7 +19,7 @@ namespace WOLF3D
                 if (x > 0 && IsWall(wall = Get(x - 1, z)))
                     Walls.Add(WestWall(x, z, (uint)(wall - 1) * 2));
             }
-            void VerticalCheck (uint x, uint z)
+            void VerticalCheck(uint x, uint z)
             {
                 uint wall;
                 if (z > 0 && IsWall(wall = Get(x, z - 1)))
@@ -119,36 +119,38 @@ namespace WOLF3D
 
         public Sprite3D SouthWall(uint x, uint z, uint texture = 0, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z), flipH);
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
         public Sprite3D WestWall(uint x, uint z, uint texture = 0, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * z), flipH);
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
         public Sprite3D HorizontalDoor(uint x, uint z, uint texture = 98, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallSize * x, 0, Assets.WallSize * (z - 0.5f)), flipH);
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
         }
 
         public Sprite3D VerticalDoor(uint x, uint z, uint texture = 98, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallSize * (x + 0.5f), 0, Assets.WallSize * z), flipH);
+            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
         }
 
         public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
-            return new Sprite3D()
+            Sprite3D sprite = new Sprite3D()
             {
                 Texture = texture,
-                PixelSize = Assets.PixelSize,
+                PixelSize = Assets.PixelWidth,
+                Scale = Assets.Scale,
                 MaterialOverride = Assets.WallMaterial,
                 Axis = axis,
                 Centered = false,
                 Transform = new Transform(Basis.Identity, position),
                 FlipH = flipH
             };
+            return sprite;
         }
     }
 }
