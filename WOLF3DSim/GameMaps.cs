@@ -26,92 +26,89 @@ namespace WOLF3DSim
 
         public Map[] Maps { get; set; }
 
-        public GameMaps Read(string mapHead, string gameMaps)
+        public GameMaps Read(Stream mapHead, Stream gameMaps)
         {
-            using (FileStream file = new FileStream(mapHead, FileMode.Open))
+            // Read in MAPHEAD
+            if (mapHead.ReadWord() != 0xABCD)
+                throw new InvalidDataException("File \"" + mapHead + "\" has invalid signature code!");
+            List<long> offsets = new List<long>();
+            uint mapHeadOffset;
+            while ((mapHeadOffset = mapHead.ReadDWord()) != 0 && mapHead.Position < mapHead.Length)
+                offsets.Add(mapHeadOffset);
+            Offsets = offsets.ToArray();
+
+            // Read in GAMEMAPS
+            List<Map> maps = new List<Map>();
+            foreach (long offset in Offsets)
             {
-                if (file.ReadWord() != 0xABCD)
-                    throw new InvalidDataException("File \"" + mapHead + "\" has invalid signature code!");
-                List<long> offsets = new List<long>();
-                uint offset;
-                while ((offset = file.ReadDWord()) != 0 && file.Position < file.Length)
-                    offsets.Add(offset);
-                Offsets = offsets.ToArray();
-            }
-            using (FileStream file = new FileStream(gameMaps, FileMode.Open))
-            {
-                List<Map> maps = new List<Map>();
-                foreach (long offset in Offsets)
+                gameMaps.Seek(offset, 0);
+                Map map = new Map
                 {
-                    file.Seek(offset, 0);
-                    Map map = new Map
-                    {
-                        MapOffset = file.ReadDWord(),
-                        ObjectOffset = file.ReadDWord(),
-                        OtherOffset = file.ReadDWord(),
-                        MapByteSize = file.ReadWord(),
-                        ObjectByteSize = file.ReadWord(),
-                        OtherByteSize = file.ReadWord(),
-                        Width = file.ReadWord(),
-                        Height = file.ReadWord()
-                    };
-                    char[] name = new char[16];
-                    for (uint i = 0; i < 16; i++)
-                        name[i] = (char)file.ReadByte();
-                    name[14] = ' '; // getting rid of null characters at the end
-                    name[15] = ' '; // getting rid of null characters at the end
-                    map.Name = new string(name);
+                    MapOffset = gameMaps.ReadDWord(),
+                    ObjectOffset = gameMaps.ReadDWord(),
+                    OtherOffset = gameMaps.ReadDWord(),
+                    MapByteSize = gameMaps.ReadWord(),
+                    ObjectByteSize = gameMaps.ReadWord(),
+                    OtherByteSize = gameMaps.ReadWord(),
+                    Width = gameMaps.ReadWord(),
+                    Height = gameMaps.ReadWord()
+                };
+                char[] name = new char[16];
+                for (uint i = 0; i < 16; i++)
+                    name[i] = (char)gameMaps.ReadByte();
+                name[14] = ' '; // getting rid of null characters at the end
+                name[15] = ' '; // getting rid of null characters at the end
+                map.Name = new string(name);
 
-                    char[] carmackized = new char[4];
-                    for (uint i = 0; i < 4; i++)
-                        carmackized[i] = (char)file.ReadByte();
-                    map.IsCarmackized = new string(carmackized).Equals("!ID!");
+                char[] carmackized = new char[4];
+                for (uint i = 0; i < 4; i++)
+                    carmackized[i] = (char)gameMaps.ReadByte();
+                map.IsCarmackized = new string(carmackized).Equals("!ID!");
 
-                    // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
-                    // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
-                    // http://www.shikadi.net/moddingwiki/GameMaps_Format#Map_data_.28GAMEMAPS.29
-                    // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
+                // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
+                // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
+                // http://www.shikadi.net/moddingwiki/GameMaps_Format#Map_data_.28GAMEMAPS.29
+                // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
 
-                    ushort[] mapData;
-                    file.Seek(map.MapOffset, 0);
-                    if (map.IsCarmackized)
-                        mapData = CarmackExpand(file);
-                    else
-                    {
-                        mapData = new ushort[map.MapByteSize / 2];
-                        for (uint i = 0; i < mapData.Length; i++)
-                            mapData[i] = file.ReadWord();
-                    }
-                    map.MapData = RlewExpand(mapData, (ushort)(map.Height * map.Width), 0xABCD);
-
-                    ushort[] objectData;
-                    file.Seek(map.ObjectOffset, 0);
-                    if (map.IsCarmackized)
-                        objectData = CarmackExpand(file);
-                    else
-                    {
-                        objectData = new ushort[map.ObjectByteSize / 2];
-                        for (uint i = 0; i < objectData.Length; i++)
-                            objectData[i] = file.ReadWord();
-                    }
-                    map.ObjectData = RlewExpand(objectData, (ushort)(map.Height * map.Width), 0xABCD);
-
-                    ushort[] otherData;
-                    file.Seek(map.OtherOffset, 0);
-                    if (map.IsCarmackized)
-                        otherData = CarmackExpand(file);
-                    else
-                    {
-                        otherData = new ushort[map.OtherByteSize / 2];
-                        for (uint i = 0; i < otherData.Length; i++)
-                            otherData[i] = file.ReadWord();
-                    }
-                    map.OtherData = RlewExpand(otherData, (ushort)(map.Height * map.Width), 0xABCD);
-
-                    maps.Add(map);
+                ushort[] mapData;
+                gameMaps.Seek(map.MapOffset, 0);
+                if (map.IsCarmackized)
+                    mapData = CarmackExpand(gameMaps);
+                else
+                {
+                    mapData = new ushort[map.MapByteSize / 2];
+                    for (uint i = 0; i < mapData.Length; i++)
+                        mapData[i] = gameMaps.ReadWord();
                 }
-                Maps = maps.ToArray();
+                map.MapData = RlewExpand(mapData, (ushort)(map.Height * map.Width), 0xABCD);
+
+                ushort[] objectData;
+                gameMaps.Seek(map.ObjectOffset, 0);
+                if (map.IsCarmackized)
+                    objectData = CarmackExpand(gameMaps);
+                else
+                {
+                    objectData = new ushort[map.ObjectByteSize / 2];
+                    for (uint i = 0; i < objectData.Length; i++)
+                        objectData[i] = gameMaps.ReadWord();
+                }
+                map.ObjectData = RlewExpand(objectData, (ushort)(map.Height * map.Width), 0xABCD);
+
+                ushort[] otherData;
+                gameMaps.Seek(map.OtherOffset, 0);
+                if (map.IsCarmackized)
+                    otherData = CarmackExpand(gameMaps);
+                else
+                {
+                    otherData = new ushort[map.OtherByteSize / 2];
+                    for (uint i = 0; i < otherData.Length; i++)
+                        otherData[i] = gameMaps.ReadWord();
+                }
+                map.OtherData = RlewExpand(otherData, (ushort)(map.Height * map.Width), 0xABCD);
+
+                maps.Add(map);
             }
+            Maps = maps.ToArray();
             return this;
         }
 
@@ -141,32 +138,32 @@ namespace WOLF3DSim
             return rawMapData;
         }
 
-        public ushort[] CarmackExpand(FileStream file)
+        public ushort[] CarmackExpand(Stream stream)
         {
             ////////////////////////////
             // Get to the correct chunk
             ushort ch, chhigh, count, offset, index;
             // First word is expanded length
-            ushort length = file.ReadWord();
+            ushort length = stream.ReadWord();
             ushort[] expandedWords = new ushort[length]; // array of WORDS
             length /= 2;
             index = 0;
             while (length > 0)
             {
-                ch = file.ReadWord();
+                ch = stream.ReadWord();
                 chhigh = (ushort)(ch >> 8);
                 if (chhigh == CARMACK_NEAR)
                 {
                     count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (ushort)file.ReadByte();
+                        ch |= (ushort)stream.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = (ushort)file.ReadByte();
+                        offset = (ushort)stream.ReadByte();
                         length -= count;
                         if (length < 0)
                         {
@@ -184,13 +181,13 @@ namespace WOLF3DSim
                     count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (ushort)file.ReadByte();
+                        ch |= (ushort)stream.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = (ushort)file.ReadWord();
+                        offset = (ushort)stream.ReadWord();
                         length -= count;
                         if (length < 0)
                         {

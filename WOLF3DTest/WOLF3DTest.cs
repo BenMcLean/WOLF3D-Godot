@@ -22,9 +22,12 @@ namespace WOLF3DTest
         [TestMethod]
         public void GameMapsTest()
         {
+            GameMaps maps;
             DownloadShareware.Main(new string[] { @"..\..\..\" });
-            GameMaps gameMaps = new GameMaps().Read(@"..\..\..\WOLF3D\MAPHEAD.WL1", @"..\..\..\WOLF3D\GAMEMAPS.WL1");
-            GameMaps.Map map = gameMaps.Maps[0];
+            using (FileStream mapHead = new FileStream(@"..\..\..\WOLF3D\MAPHEAD.WL1", FileMode.Open))
+            using (FileStream gameMaps = new FileStream(@"..\..\..\WOLF3D\GAMEMAPS.WL1", FileMode.Open))
+                maps = new GameMaps().Read(mapHead, gameMaps);
+            GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
             string result = string.Empty;
             for (uint i = 0; i < map.MapData.Length; i++)
