@@ -139,7 +139,7 @@ namespace WOLF3D
 
         public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
-            Sprite3D sprite = new Sprite3D()
+            return new Sprite3D()
             {
                 Texture = texture,
                 PixelSize = Assets.PixelWidth,
@@ -150,7 +150,6 @@ namespace WOLF3D
                 Transform = new Transform(Basis.Identity, position),
                 FlipH = flipH
             };
-            return sprite;
         }
     }
 }

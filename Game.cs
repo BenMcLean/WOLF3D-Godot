@@ -1,4 +1,5 @@
 using Godot;
+using System.IO;
 using WOLF3D;
 using WOLF3DSim;
 
@@ -10,9 +11,10 @@ public class Game : Spatial
     public override void _Ready()
     {
         DownloadShareware.Main(new string[] { "" });
-        Assets = new Assets(new VSwap()
+        using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
+            Assets = new Assets(new VSwap()
             .SetPalette(@"Wolf3DSim\Palettes\Wolf3D.pal")
-            .Read(@"WOLF3D\VSWAP.WL1")
+            .Read(file)
         );
 
         GameMaps maps = new GameMaps().Read(@"WOLF3D\MAPHEAD.WL1", @"WOLF3D\GAMEMAPS.WL1");

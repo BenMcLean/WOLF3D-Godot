@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3DSim;
 
@@ -12,8 +13,10 @@ namespace WOLF3DTest
         {
             DownloadShareware.Main(new string[] { @"..\..\..\" });
             VSwap vswap = new VSwap()
-                .SetPalette(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal")
-                .Read(@"..\..\..\WOLF3D\VSWAP.WL1");
+                .SetPalette(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal");
+
+            using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
+                vswap.Read(file);
         }
 
         [TestMethod]

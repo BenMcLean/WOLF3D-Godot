@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace WOLF3DSim
 {
-    public static class FileStreamExtension
+    public static class StreamExtension
     {
-        public static ushort ReadWord(this FileStream file)
+        public static ushort ReadWord(this Stream stream)
         {
-            return (ushort)(file.ReadByte() + (file.ReadByte() << 8));
+            return (ushort)(stream.ReadByte() + (stream.ReadByte() << 8));
         }
 
-        public static uint ReadDWord(this FileStream file)
+        public static uint ReadDWord(this Stream stream)
         {
-            return file.ReadWord() + (uint)(file.ReadWord() << 16);
+            return stream.ReadWord() + (uint)(stream.ReadWord() << 16);
         }
     }
 
@@ -32,90 +32,87 @@ namespace WOLF3DSim
         public ushort SpritePage { get; set; }
         public ushort SoundPage { get; set; }
 
-        public VSwap Read(string vswap, ushort tileSqrt = 64)
+        public VSwap Read(Stream stream, ushort tileSqrt = 64)
         {
             if (Palette == null)
                 throw new InvalidDataException("Must load a palette before loading a VSWAP!");
-            using (FileStream file = new FileStream(vswap, FileMode.Open))
+            // parse header info
+            Pages = new byte[stream.ReadWord()][];
+            SpritePage = stream.ReadWord();
+            SoundPage = stream.ReadWord();
+
+            PageOffsets = new long[Pages.Length];
+            long dataStart = 0;
+            for (ushort i = 0; i < PageOffsets.Length; i++)
             {
-                // parse header info
-                Pages = new byte[file.ReadWord()][];
-                SpritePage = file.ReadWord();
-                SoundPage = file.ReadWord();
-
-                PageOffsets = new long[Pages.Length];
-                long dataStart = 0;
-                for (ushort i = 0; i < PageOffsets.Length; i++)
-                {
-                    PageOffsets[i] = file.ReadDWord();
-                    if (i == 0)
-                        dataStart = PageOffsets[0];
-                    if ((PageOffsets[i] != 0 && PageOffsets[i] < dataStart) || PageOffsets[i] > file.Length)
-                        throw new InvalidDataException("VSWAP file '" + file.Name + "' contains invalid page offsets.");
-                }
-                PageLengths = new ushort[Pages.Length];
-                for (ushort i = 0; i < PageLengths.Length; i++)
-                    PageLengths[i] = file.ReadWord();
-
-                ushort page;
-                // read in walls
-                for (page = 0; page < SpritePage; page++)
-                    if (PageOffsets[page] != 0)
-                    {
-                        file.Seek(PageOffsets[page], 0);
-                        byte[] wall = new byte[tileSqrt * tileSqrt];
-                        for (ushort col = 0; col < tileSqrt; col++)
-                            for (ushort row = 0; row < tileSqrt; row++)
-                                wall[tileSqrt * row + col] = (byte)file.ReadByte();
-                        Pages[page] = Index2ByteArray(wall);
-                    }
-
-                // read in sprites
-                for (; page < SoundPage; page++)
-                    if (PageOffsets[page] != 0)
-                    {
-                        file.Seek(PageOffsets[page], 0);
-                        ushort leftExtent = file.ReadWord(),
-                            rightExtent = file.ReadWord(),
-                            startY, endY;
-                        byte[] sprite = new byte[tileSqrt * tileSqrt];
-                        for (ushort i = 0; i < sprite.Length; i++)
-                            sprite[i] = 255; // set transparent
-                        long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
-                        for (ushort i = 0; i < columnDataOffsets.Length; i++)
-                            columnDataOffsets[i] = PageOffsets[page] + file.ReadWord();
-                        long trexels = file.Position;
-                        for (ushort column = 0; column <= rightExtent - leftExtent; column++)
-                        {
-                            long commands = columnDataOffsets[column];
-                            file.Seek(commands, 0);
-                            while ((endY = file.ReadWord()) != 0)
-                            {
-                                endY >>= 1;
-                                file.ReadWord(); // Not using this value for anything. Don't know why it's here!
-                                startY = file.ReadWord();
-                                startY >>= 1;
-                                commands = file.Position;
-                                file.Seek(trexels, 0);
-                                for (ushort row = startY; row < endY; row++)
-                                    sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = (byte)file.ReadByte();
-                                trexels = file.Position;
-                                file.Seek(commands, 0);
-                            }
-                        }
-                        Pages[page] = Index2ByteArray(sprite);
-                    }
-
-                // read in sounds
-                for (; page < Pages.Length; page++)
-                    if (PageOffsets[page] != 0)
-                    {
-                        file.Seek(PageOffsets[page], 0);
-                        Pages[page] = new byte[PageLengths[page]];
-                        for (uint i = 0; i < Pages[page].Length; i++)
-                            Pages[page][i] = (byte)(file.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
-                    }
+                PageOffsets[i] = stream.ReadDWord();
+                if (i == 0)
+                    dataStart = PageOffsets[0];
+                if ((PageOffsets[i] != 0 && PageOffsets[i] < dataStart) || PageOffsets[i] > stream.Length)
+                    throw new InvalidDataException("VSWAP contains invalid page offsets.");
             }
+            PageLengths = new ushort[Pages.Length];
+            for (ushort i = 0; i < PageLengths.Length; i++)
+                PageLengths[i] = stream.ReadWord();
+
+            ushort page;
+            // read in walls
+            for (page = 0; page < SpritePage; page++)
+                if (PageOffsets[page] != 0)
+                {
+                    stream.Seek(PageOffsets[page], 0);
+                    byte[] wall = new byte[tileSqrt * tileSqrt];
+                    for (ushort col = 0; col < tileSqrt; col++)
+                        for (ushort row = 0; row < tileSqrt; row++)
+                            wall[tileSqrt * row + col] = (byte)stream.ReadByte();
+                    Pages[page] = Index2ByteArray(wall);
+                }
+
+            // read in sprites
+            for (; page < SoundPage; page++)
+                if (PageOffsets[page] != 0)
+                {
+                    stream.Seek(PageOffsets[page], 0);
+                    ushort leftExtent = stream.ReadWord(),
+                        rightExtent = stream.ReadWord(),
+                        startY, endY;
+                    byte[] sprite = new byte[tileSqrt * tileSqrt];
+                    for (ushort i = 0; i < sprite.Length; i++)
+                        sprite[i] = 255; // set transparent
+                    long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
+                    for (ushort i = 0; i < columnDataOffsets.Length; i++)
+                        columnDataOffsets[i] = PageOffsets[page] + stream.ReadWord();
+                    long trexels = stream.Position;
+                    for (ushort column = 0; column <= rightExtent - leftExtent; column++)
+                    {
+                        long commands = columnDataOffsets[column];
+                        stream.Seek(commands, 0);
+                        while ((endY = stream.ReadWord()) != 0)
+                        {
+                            endY >>= 1;
+                            stream.ReadWord(); // Not using this value for anything. Don't know why it's here!
+                            startY = stream.ReadWord();
+                            startY >>= 1;
+                            commands = stream.Position;
+                            stream.Seek(trexels, 0);
+                            for (ushort row = startY; row < endY; row++)
+                                sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = (byte)stream.ReadByte();
+                            trexels = stream.Position;
+                            stream.Seek(commands, 0);
+                        }
+                    }
+                    Pages[page] = Index2ByteArray(sprite);
+                }
+
+            // read in sounds
+            for (; page < Pages.Length; page++)
+                if (PageOffsets[page] != 0)
+                {
+                    stream.Seek(PageOffsets[page], 0);
+                    Pages[page] = new byte[PageLengths[page]];
+                    for (uint i = 0; i < Pages[page].Length; i++)
+                        Pages[page][i] = (byte)(stream.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
+                }
             return this;
         }
 
