@@ -20,7 +20,7 @@ public class Game : Spatial
         GameMaps maps;
         using (FileStream mapHead = new FileStream(@"WOLF3D\MAPHEAD.WL1", FileMode.Open))
         using (FileStream gameMaps = new FileStream(@"WOLF3D\GAMEMAPS.WL1", FileMode.Open))
-            maps = new GameMaps().Read(mapHead, gameMaps);
+            maps = new GameMaps(mapHead, gameMaps);
 
         MapWalls = new MapWalls().Load(maps.Maps[0]);
         foreach (Sprite3D sprite in MapWalls.Walls)

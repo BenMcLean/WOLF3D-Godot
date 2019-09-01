@@ -26,7 +26,7 @@ namespace WOLF3DSim
 
         public Map[] Maps { get; set; }
 
-        public GameMaps Read(Stream mapHead, Stream gameMaps)
+        public GameMaps(Stream mapHead, Stream gameMaps)
         {
             // Read in MAPHEAD
             if (mapHead.ReadWord() != 0xABCD)
@@ -109,7 +109,6 @@ namespace WOLF3DSim
                 maps.Add(map);
             }
             Maps = maps.ToArray();
-            return this;
         }
 
         #region Decompression algorithms
@@ -138,7 +137,7 @@ namespace WOLF3DSim
             return rawMapData;
         }
 
-        public ushort[] CarmackExpand(Stream stream)
+        public static ushort[] CarmackExpand(Stream stream)
         {
             ////////////////////////////
             // Get to the correct chunk

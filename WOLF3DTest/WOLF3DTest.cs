@@ -26,7 +26,7 @@ namespace WOLF3DTest
             DownloadShareware.Main(new string[] { @"..\..\..\" });
             using (FileStream mapHead = new FileStream(@"..\..\..\WOLF3D\MAPHEAD.WL1", FileMode.Open))
             using (FileStream gameMaps = new FileStream(@"..\..\..\WOLF3D\GAMEMAPS.WL1", FileMode.Open))
-                maps = new GameMaps().Read(mapHead, gameMaps);
+                maps = new GameMaps(mapHead, gameMaps);
             GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
             string result = string.Empty;
