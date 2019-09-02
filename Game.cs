@@ -2,6 +2,7 @@ using Godot;
 using System.IO;
 using WOLF3D;
 using WOLF3DSim;
+using static WOLF3DSim.GameMaps;
 
 public class Game : Spatial
 {
@@ -19,9 +20,15 @@ public class Game : Spatial
         using (FileStream gameMaps = new FileStream(@"WOLF3D\GAMEMAPS.WL1", FileMode.Open))
             maps = new GameMaps(mapHead, gameMaps);
 
-        MapWalls = new MapWalls().Load(maps.Maps[0]);
+        Map map = maps.Maps[0];
+
+        MapWalls = new MapWalls().Load(map);
         foreach (Sprite3D sprite in MapWalls.Walls)
             AddChild(sprite);
+
+        map.StartPosition(out ushort x, out ushort z);
+
+        GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
     }
 
     public MapWalls MapWalls;

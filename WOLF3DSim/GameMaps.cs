@@ -22,6 +22,22 @@ namespace WOLF3DSim
             public ushort[] ObjectData { get; set; }
             public ushort[] OtherData { get; set; }
             public bool IsCarmackized { get; set; }
+
+            public Map StartPosition (out ushort x, out ushort z)
+            {
+                //19,"Start position/North",
+                //20,"Start position/East",
+                //21,"Start position/South",
+                //22,"Start position/West",
+                for (uint i = 0; i < ObjectData.Length; i++)
+                    if (ObjectData[i] >= 19 && ObjectData[i] <= 22)
+                    {
+                        x = (ushort)(i / Width);
+                        z = (ushort)(i % Height);
+                        return this;
+                    }
+                throw new InvalidDataException("Map \"" + Name + "\" has no starting position!");
+            }
         }
 
         public Map[] Maps { get; set; }
