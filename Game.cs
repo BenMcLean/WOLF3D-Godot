@@ -7,7 +7,6 @@ public class Game : Spatial
 {
     public static Assets Assets;
 
-    /// Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         DownloadShareware.Main(new string[] { "" });
@@ -48,7 +47,7 @@ public class Game : Spatial
                 Assets.VSwap.Pages[Assets.VSwap.SoundPage + 1]
             ),
             Format = AudioStreamSample.FormatEnum.Format8Bits,
-            MixRate = 7000,
+            MixRate = 6896, // http://www.wolfenstein3d.co.uk/sounds.htm
             Stereo = false
         };
         AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
