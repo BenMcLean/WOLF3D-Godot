@@ -12,11 +12,11 @@ namespace WOLF3DTest
         public void VSwapTest()
         {
             DownloadShareware.Main(new string[] { @"..\..\..\" });
-            VSwap vswap = new VSwap()
-                .SetPalette(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal");
 
+            VSwap vswap;
+            using (FileStream palette = new FileStream(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
             using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
-                vswap.Read(file);
+                vswap = new VSwap(new StreamReader(palette), file);
         }
 
         [TestMethod]

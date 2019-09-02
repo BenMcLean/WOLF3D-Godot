@@ -11,11 +11,9 @@ public class Game : Spatial
     public override void _Ready()
     {
         DownloadShareware.Main(new string[] { "" });
+        using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
         using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
-            Assets = new Assets(new VSwap()
-            .SetPalette(@"Wolf3DSim\Palettes\Wolf3D.pal")
-            .Read(file)
-        );
+            Assets = new Assets(new VSwap(new StreamReader(palette), file));
 
         GameMaps maps;
         using (FileStream mapHead = new FileStream(@"WOLF3D\MAPHEAD.WL1", FileMode.Open))

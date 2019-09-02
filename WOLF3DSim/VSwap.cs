@@ -32,6 +32,18 @@ namespace WOLF3DSim
         public ushort SpritePage { get; set; }
         public ushort SoundPage { get; set; }
 
+        public VSwap(StreamReader palette, Stream vswap)
+        {
+            Palette = LoadPalette(palette);
+            Read(vswap);
+        }
+
+        public VSwap(uint[] palette, Stream vswap)
+        {
+            Palette = palette;
+            Read(vswap);
+        }
+
         public VSwap Read(Stream stream, ushort tileSqrt = 64)
         {
             if (Palette == null)
@@ -116,35 +128,27 @@ namespace WOLF3DSim
             return this;
         }
 
-        public VSwap SetPalette(string file)
+        public static uint[] LoadPalette(StreamReader stream)
         {
-            Palette = LoadPalette(file);
-            return this;
-        }
+            if (!stream.ReadLine().Equals("JASC-PAL") || !stream.ReadLine().Equals("0100"))
+                throw new InvalidDataException("Palette stream is an incorrectly formatted JASC palette.");
+            if (!uint.TryParse(stream.ReadLine(), out uint numColors)
+             || numColors != COLORS)
+                throw new InvalidDataException("Palette stream does not contain exactly " + COLORS + " colors.");
 
-        public static uint[] LoadPalette(string file)
-        {
-            uint[] result = new uint[COLORS];
-            using (StreamReader input = new StreamReader(file))
+            uint[] result = new uint[numColors];
+            for (uint x = 0; x < numColors; x++)
             {
-                if (!input.ReadLine().Equals("JASC-PAL") || !input.ReadLine().Equals("0100"))
-                    throw new InvalidDataException("Palette \"" + file + "\" is an incorrectly formatted JASC palette.");
-                if (!uint.TryParse(input.ReadLine(), out uint numColors)
-                 || numColors != COLORS)
-                    throw new InvalidDataException("Palette \"" + file + "\" does not contain exactly " + COLORS + " colors.");
-                for (uint x = 0; x < numColors; x++)
-                {
-                    string[] tokens = input.ReadLine()?.Split(' ');
-                    if (tokens == null || tokens.Length != 3
-                        || !byte.TryParse(tokens[0], out byte r)
-                        || !byte.TryParse(tokens[1], out byte g)
-                        || !byte.TryParse(tokens[2], out byte b))
-                        throw new InvalidDataException("Palette \"" + file + "\" is an incorrectly formatted JASC palette.");
-                    result[x] = (uint)(r << 24)
-                        + (uint)(g << 16)
-                        + (uint)(b << 8)
-                        + (uint)(x == 255 ? 0 : 255);
-                }
+                string[] tokens = stream.ReadLine()?.Split(' ');
+                if (tokens == null || tokens.Length != 3
+                    || !byte.TryParse(tokens[0], out byte r)
+                    || !byte.TryParse(tokens[1], out byte g)
+                    || !byte.TryParse(tokens[2], out byte b))
+                    throw new InvalidDataException("Palette stream is an incorrectly formatted JASC palette.");
+                result[x] = (uint)(r << 24)
+                    + (uint)(g << 16)
+                    + (uint)(b << 8)
+                    + (uint)(x == 255 ? 0 : 255);
             }
             return result;
         }

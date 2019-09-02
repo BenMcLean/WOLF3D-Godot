@@ -54,14 +54,12 @@ namespace WOLF3DSim
                     Height = gameMaps.ReadWord()
                 };
                 char[] name = new char[16];
-                for (uint i = 0; i < 16; i++)
+                for (uint i = 0; i < name.Length; i++)
                     name[i] = (char)gameMaps.ReadByte();
-                name[14] = ' '; // getting rid of null characters at the end
-                name[15] = ' '; // getting rid of null characters at the end
                 map.Name = new string(name);
 
                 char[] carmackized = new char[4];
-                for (uint i = 0; i < 4; i++)
+                for (uint i = 0; i < carmackized.Length; i++)
                     carmackized[i] = (char)gameMaps.ReadByte();
                 map.IsCarmackized = new string(carmackized).Equals("!ID!");
 
