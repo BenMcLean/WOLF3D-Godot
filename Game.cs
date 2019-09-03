@@ -13,7 +13,7 @@ public class Game : Spatial
         DownloadShareware.Main(new string[] { "" });
         using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
         using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
-            Assets = new Assets(new VSwap(new StreamReader(palette), file));
+            Assets = new Assets(new VSwap(palette, file));
 
         GameMaps maps;
         using (FileStream mapHead = new FileStream(@"WOLF3D\MAPHEAD.WL1", FileMode.Open))
@@ -33,16 +33,25 @@ public class Game : Spatial
 
     public MapWalls MapWalls;
 
+    public Vector3 CameraFloor
+    {
+        get
+        {
+            cameraFloor.Set(GetViewport().GetCamera().GlobalTransform.origin);
+            cameraFloor.y = 0f;
+            return cameraFloor;
+        }
+    }
+    private Vector3 cameraFloor = new Vector3(0f, 0f, 0f);
+
     ///// <summary>
     ///// Called every frame.
     ///// </summary>
     ///// <param name="delta">'delta' is the elapsed time since the previous frame.</param>
     //public override void _Process(float delta)
     //{
-    //    Vector3 cameraPos = GetViewport().GetCamera().GlobalTransform.origin;
-    //    cameraPos.y = 0;
     //    foreach (Sprite3D wall in MapWalls.Walls)
-    //        wall.LookAt(cameraPos, Vector3.Up);
+    //        wall.LookAt(CameraFloor, Vector3.Up);
     //}
 
     public Game PlayASound()

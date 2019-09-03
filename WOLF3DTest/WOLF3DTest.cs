@@ -16,7 +16,7 @@ namespace WOLF3DTest
             VSwap vswap;
             using (FileStream palette = new FileStream(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
             using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
-                vswap = new VSwap(new StreamReader(palette), file);
+                vswap = new VSwap(palette, file);
         }
 
         [TestMethod]

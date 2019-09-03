@@ -23,7 +23,7 @@ namespace WOLF3DSim
             public ushort[] OtherData { get; set; }
             public bool IsCarmackized { get; set; }
 
-            public Map StartPosition (out ushort x, out ushort z)
+            public Map StartPosition(out ushort x, out ushort z)
             {
                 //19,"Start position/North",
                 //20,"Start position/East",
