@@ -63,7 +63,7 @@ public class Game : Spatial
                 Assets.VSwap.Pages[Assets.VSwap.SoundPage + 1]
             ),
             Format = AudioStreamSample.FormatEnum.Format8Bits,
-            MixRate = 6896, // http://www.wolfenstein3d.co.uk/sounds.htm
+            MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
             Stereo = false
         };
         AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
