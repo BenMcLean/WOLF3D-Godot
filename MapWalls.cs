@@ -147,7 +147,7 @@ namespace WOLF3D
                 MaterialOverride = Assets.WallMaterial,
                 Axis = axis,
                 Centered = false,
-                Transform = new Transform(Basis.Identity, position),
+                GlobalTransform = new Transform(Basis.Identity, position),
                 FlipH = flipH
             };
         }

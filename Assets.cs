@@ -20,6 +20,8 @@ namespace WOLF3D
         public static readonly float PixelHeight = 0.04572f;
         public static readonly double WallHeight = 2.92608;
 
+        public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
+
         public VSwap VSwap { get; set; }
         public ImageTexture[] Textures { get; set; }
 

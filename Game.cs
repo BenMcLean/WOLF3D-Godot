@@ -29,20 +29,16 @@ public class Game : Spatial
         map.StartPosition(out ushort x, out ushort z);
 
         GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
+
+        Billboard billboard = new Billboard()
+        {
+            GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth)),
+        };
+        billboard.Sprite3D.Texture = Assets.Textures[24];
+        AddChild(billboard);
     }
 
     public MapWalls MapWalls;
-
-    public Vector3 CameraFloor
-    {
-        get
-        {
-            cameraFloor.Set(GetViewport().GetCamera().GlobalTransform.origin);
-            cameraFloor.y = 0f;
-            return cameraFloor;
-        }
-    }
-    private Vector3 cameraFloor = new Vector3(0f, 0f, 0f);
 
     ///// <summary>
     ///// Called every frame.

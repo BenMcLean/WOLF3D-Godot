@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
+    <Compile Include="Billboard.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameEnum.cs" />
     <Compile Include="MapWalls.cs" />
