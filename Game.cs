@@ -32,9 +32,9 @@ public class Game : Spatial
 
         Billboard billboard = new Billboard()
         {
-            GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth)),
+            GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 2.5f) * Assets.WallWidth)),
         };
-        billboard.Sprite3D.Texture = Assets.Textures[24];
+        billboard.Sprite3D.Texture = Assets.Textures[201];
         AddChild(billboard);
     }
 
@@ -46,8 +46,6 @@ public class Game : Spatial
     ///// <param name="delta">'delta' is the elapsed time since the previous frame.</param>
     //public override void _Process(float delta)
     //{
-    //    foreach (Sprite3D wall in MapWalls.Walls)
-    //        wall.LookAt(CameraFloor, Vector3.Up);
     //}
 
     public Game PlayASound()

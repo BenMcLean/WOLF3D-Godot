@@ -13,6 +13,7 @@ namespace WOLF3D
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
         public static readonly float PixelWidth = 0.0381f;
         public static readonly float WallWidth = 2.4384f;
+        public static readonly float HalfWallWidth = 1.2192f;
 
         // However, Wolfenstein 3D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.

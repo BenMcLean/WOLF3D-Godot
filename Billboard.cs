@@ -15,7 +15,7 @@ namespace WOLF3D
             {
                 PixelSize = Assets.PixelWidth,
                 Scale = Assets.Scale,
-                MaterialOverride = Assets.WallMaterial,
+                MaterialOverride = BillboardMaterial,
                 Centered = false,
                 GlobalTransform = new Transform(Basis.Identity, Assets.BillboardLocal),
             };
@@ -41,8 +41,18 @@ namespace WOLF3D
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (Sprite3D.Visible)
+            if (Sprite3D.Visible)// && GlobalTransform.origin.DistanceTo(CameraFloor) > Assets.HalfWallWidth)
                 LookAt(CameraFloor, Vector3.Up);
         }
+
+        public static readonly SpatialMaterial BillboardMaterial = new SpatialMaterial()
+        {
+            FlagsUnshaded = true,
+            FlagsDoNotReceiveShadows = true,
+            FlagsDisableAmbientLight = true,
+            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            ParamsCullMode = SpatialMaterial.CullMode.Front,
+            FlagsTransparent = true,
+        };
     }
 }
