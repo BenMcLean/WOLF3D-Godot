@@ -28,7 +28,7 @@ namespace WOLF3D
         {
             base._Process(delta);
             if (Sprite3D.Visible)
-                Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y + Mathf.Pi, 0f);
+                Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
         }
 
         public static readonly SpatialMaterial BillboardMaterial = new SpatialMaterial()
@@ -37,7 +37,7 @@ namespace WOLF3D
             FlagsDoNotReceiveShadows = true,
             FlagsDisableAmbientLight = true,
             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-            ParamsCullMode = SpatialMaterial.CullMode.Front,
+            ParamsCullMode = SpatialMaterial.CullMode.Back,
             FlagsTransparent = true,
         };
     }
