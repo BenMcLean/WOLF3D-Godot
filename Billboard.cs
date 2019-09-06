@@ -24,25 +24,11 @@ namespace WOLF3D
 
         public Sprite3D Sprite3D;
 
-        public Vector3 CameraFloor
-        {
-            get
-            {
-                cameraFloor.Set(
-                    GetViewport().GetCamera().GlobalTransform.origin.x,
-                    0f,
-                    GetViewport().GetCamera().GlobalTransform.origin.z
-                    );
-                return cameraFloor;
-            }
-        }
-        private static Vector3 cameraFloor = new Vector3(0f, 0f, 0f);
-
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (Sprite3D.Visible)// && GlobalTransform.origin.DistanceTo(CameraFloor) > Assets.HalfWallWidth)
-                LookAt(CameraFloor, Vector3.Up);
+            if (Sprite3D.Visible)
+                Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y + Mathf.Pi, 0f);
         }
 
         public static readonly SpatialMaterial BillboardMaterial = new SpatialMaterial()
