@@ -1,1 +1,84 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Game Name="Wolfenstein 3D Shareware">
+  <VSwap Name="VSWAP.WL1">
+    <Wall Number="1" Pages="0,1" Name="Grey Brick 1" />
+    <Wall Number="2" Pages="2,3" Name="Grey Brick 2" />
+    <Wall Number="3" Pages="4,5" Name="Grey Brick with Flag" />
+    <Wall Number="4" Pages="6,7" Name="Grey Brick with Hitler" />
+    <Wall Number="5" Pages="8,9" Name="Cell" />
+    <Wall Number="6" Pages="10,11" Name="Grey Brick with Eagle" />
+    <Wall Number="7" Pages="12,13" Name="Cell with Skeleton" />
+    <Wall Number="8" Pages="14,15" Name="Blue Brick 1" />
+    <Wall Number="9" Pages="16,17" Name="Blue Brick 2" />
+    <Wall Number="10" Pages="18,19" Name="Wood with Eagle" />
+    <Wall Number="11" Pages="20,21" Name="Wood with Hitler" />
+    <Wall Number="12" Pages="22,23" Name="Wood" />
+    <Wall Number="13" Pages="24,25" Name="Entrance to Level" />
+    <Wall Number="14" Pages="26,27" Name="Steel with Sign" />
+    <Wall Number="15" Pages="28,29" Name="Steel" />
+    <Wall Number="16" Pages="30,31" Name="Landscape" />
+    <Wall Number="17" Pages="32,33" Name="Red Brick" />
+    <Wall Number="18" Pages="34,35" Name="Red Brick with Swastika" />
+    <Wall Number="19" Pages="36,37" Name="Purple" />
+    <Wall Number="20" Pages="38,39" Name="Red Brick with Flag" />
+    <Wall Number="21" Pages="40,41" Name="Elevator" />
+    <Wall Number="22" Pages="42,43" Name="Fake Elevator" />
+    <Wall Number="23" Pages="44,45" Name="Wood with Iron Cross" />
+    <Wall Number="24" Pages="46,47" Name="Dirty Brick 1" />
+    <Wall Number="25" Pages="48,49" Name="Purple with Blood" />
+    <Wall Number="26" Pages="50,51" Name="Dirty Brick 2" />
+    <Wall Number="27" Pages="52,53" Name="Grey Brick 3" />
+    <Wall Number="28" Pages="54,55" Name="Grey Brick with Sign" />
+    <Wall Number="50" Pages="98,99" Name="Fake Door" />
+    <Wall Number="51" Pages="100,101" Name="Door Excavation (Side of Door)" />
+    <Wall Number="52" Pages="102,103" Name="Fake Elevator Again" />
+    <Wall Number="53" Pages="104,105" Name="Fake Locked Door" />
+    <Wall Number="85" Pages="42,43" Name="Elevator Wall" />
+    <Door Number="90" Pages="98" Name="Door (E/W)" Direction="E" />
+    <Door Number="91" Pages="99" Name="Door (N/S)" Direction ="N" />
+    <Door Number="92" Pages="104" Name="Door (Gold Key - E/W)" Direction="E" Lock="Gold Key" />
+    <Door Number="93" Pages="105" Name="Door (Gold Key - N/S)" Direction="N" Lock="Gold Key" />
+    <Door Number="94" Pages="104" Name="Door (Silver Key - E/W)" Direction="E" Lock="Silver Key" />
+    <Door Number="95" Pages="105" Name="Door (Silver Key - N/S)" Direction="N" Lock="Silver Key" />
+    <Door Number="100" Pages="102" Name="Elevator Door (E/W)" Direction ="E" />
+    <Door Number="101" Pages="103" Name="Elevator Door (N/S)" Direction="N" />
+    <Special Number="106" Name="Deaf Guard" />
+    <Special Number="107" Name="Elevator to Secret Floor" />
+    <Special Number="108" Name="Floor 6C" />
+    <Special Number="109" Name="Floor 6D" />
+    <Special Number="110" Name="Floor 6E" />
+    <Special Number="111" Name="Floor 6F" />
+    <Special Number="112" Name="Floor 70" />
+    <Special Number="113" Name="Floor 71" />
+    <Special Number="114" Name="Floor 72" />
+    <Special Number="115" Name="Floor 73" />
+    <Special Number="116" Name="Floor 74" />
+    <Special Number="117" Name="Floor 75" />
+    <Special Number="118" Name="Floor 76" />
+    <Special Number="119" Name="Floor 77" />
+    <Special Number="120" Name="Floor 78" />
+    <Special Number="121" Name="Floor 79" />
+    <Special Number="122" Name="Floor 7A" />
+    <Special Number="123" Name="Floor 7B" />
+    <Special Number="124" Name="Floor 7C" />
+    <Special Number="125" Name="Floor 7D" />
+    <Special Number="126" Name="Floor 7E" />
+    <Special Number="127" Name="Floor 7F" />
+    <Special Number="128" Name="Floor 80" />
+    <Special Number="129" Name="Floor 81" />
+    <Special Number="130" Name="Floor 82" />
+    <Special Number="131" Name="Floor 83" />
+    <Special Number="132" Name="Floor 84" />
+    <Special Number="133" Name="Floor 85" />
+    <Special Number="134" Name="Floor 86" />
+    <Special Number="135" Name="Floor 87" />
+    <Special Number="136" Name="Floor 88" />
+    <Special Number="137" Name="Floor 89" />
+    <Special Number="138" Name="Floor 8A" />
+    <Special Number="139" Name="Floor 8B" />
+    <Special Number="140" Name="Floor 8C" />
+    <Special Number="141" Name="Floor 8D" />
+    <Special Number="142" Name="Floor 8E" />
+    <Special Number="143" Name="Floor 8F" />
+  </VSwap>
+</Game>
