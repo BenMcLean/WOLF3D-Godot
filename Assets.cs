@@ -26,23 +26,29 @@ namespace WOLF3D
 
         public XElement Game { get; set; }
 
-        public VSwap VSwap { get; set; }
-        public ImageTexture[] Textures { get; set; }
-
-        public Assets Load(VSwap vswap)
+        public VSwap VSwap
         {
-            VSwap = vswap;
-            Textures = new ImageTexture[VSwap.SoundPage];
-            for (uint i = 0; i < Textures.Length; i++)
-                if (VSwap.Pages[i] != null)
-                {
-                    Godot.Image image = new Image(); ;
-                    image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
-                    Textures[i] = new ImageTexture();
-                    Textures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
-                }
-            return this;
+            get
+            {
+                return vswap;
+            }
+            set
+            {
+                vswap = value;
+                Textures = new ImageTexture[VSwap.SoundPage];
+                for (uint i = 0; i < Textures.Length; i++)
+                    if (VSwap.Pages[i] != null)
+                    {
+                        Godot.Image image = new Image();
+                        image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
+                        Textures[i] = new ImageTexture();
+                        Textures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                    }
+            }
         }
+        private VSwap vswap;
+
+        public ImageTexture[] Textures;
 
         public static readonly SpatialMaterial WallMaterial = new SpatialMaterial()
         {
