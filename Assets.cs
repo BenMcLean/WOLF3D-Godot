@@ -25,6 +25,7 @@ namespace WOLF3D
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
         public XElement Game { get; set; }
+        public GameMaps GameMaps { get; set; }
 
         public VSwap VSwap
         {
@@ -56,7 +57,7 @@ namespace WOLF3D
             FlagsDoNotReceiveShadows = true,
             FlagsDisableAmbientLight = true,
             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-            ParamsCullMode = SpatialMaterial.CullMode.Disabled
+            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
         };
     }
 }

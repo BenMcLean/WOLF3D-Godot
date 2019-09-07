@@ -17,11 +17,21 @@ namespace WOLF3DSim
             public ushort ObjectByteSize { get; set; }
             public ushort OtherByteSize { get; set; }
             public ushort Width { get; set; }
-            public ushort Height { get; set; }
+            public ushort Depth { get; set; }
             public ushort[] MapData { get; set; }
             public ushort[] ObjectData { get; set; }
             public ushort[] OtherData { get; set; }
             public bool IsCarmackized { get; set; }
+
+            public ushort X(uint i)
+            {
+                return (ushort)(i % Width);
+            }
+
+            public ushort Z(uint i)
+            {
+                return (ushort)(i / Depth);
+            }
 
             public Map StartPosition(out ushort x, out ushort z)
             {
@@ -33,7 +43,7 @@ namespace WOLF3DSim
                     if (ObjectData[i] >= 19 && ObjectData[i] <= 22)
                     {
                         x = (ushort)(i / Width);
-                        z = (ushort)(i % Height);
+                        z = (ushort)(i % Depth);
                         return this;
                     }
                 throw new InvalidDataException("Map \"" + Name + "\" has no starting position!");
@@ -67,7 +77,7 @@ namespace WOLF3DSim
                     ObjectByteSize = gameMaps.ReadWord(),
                     OtherByteSize = gameMaps.ReadWord(),
                     Width = gameMaps.ReadWord(),
-                    Height = gameMaps.ReadWord()
+                    Depth = gameMaps.ReadWord()
                 };
                 char[] name = new char[16];
                 for (uint i = 0; i < name.Length; i++)
@@ -94,7 +104,7 @@ namespace WOLF3DSim
                     for (uint i = 0; i < mapData.Length; i++)
                         mapData[i] = gameMaps.ReadWord();
                 }
-                map.MapData = RlewExpand(mapData, (ushort)(map.Height * map.Width), 0xABCD);
+                map.MapData = RlewExpand(mapData, (ushort)(map.Depth * map.Width), 0xABCD);
 
                 ushort[] objectData;
                 gameMaps.Seek(map.ObjectOffset, 0);
@@ -106,7 +116,7 @@ namespace WOLF3DSim
                     for (uint i = 0; i < objectData.Length; i++)
                         objectData[i] = gameMaps.ReadWord();
                 }
-                map.ObjectData = RlewExpand(objectData, (ushort)(map.Height * map.Width), 0xABCD);
+                map.ObjectData = RlewExpand(objectData, (ushort)(map.Depth * map.Width), 0xABCD);
 
                 ushort[] otherData;
                 gameMaps.Seek(map.OtherOffset, 0);
@@ -118,7 +128,7 @@ namespace WOLF3DSim
                     for (uint i = 0; i < otherData.Length; i++)
                         otherData[i] = gameMaps.ReadWord();
                 }
-                map.OtherData = RlewExpand(otherData, (ushort)(map.Height * map.Width), 0xABCD);
+                map.OtherData = RlewExpand(otherData, (ushort)(map.Depth * map.Width), 0xABCD);
 
                 maps.Add(map);
             }

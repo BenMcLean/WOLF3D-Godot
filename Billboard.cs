@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using WOLF3DSim;
 
 namespace WOLF3D
 {
@@ -40,5 +42,30 @@ namespace WOLF3D
             ParamsCullMode = SpatialMaterial.CullMode.Back,
             FlagsTransparent = true,
         };
+
+        public static Billboard[] MakeBillboards(GameMaps.Map map)
+        {
+            XElement objects = Game.Assets.Game.Element("VSwap").Element("Objects");
+            if (objects == null)
+                throw new NullReferenceException("objects was null!");
+            List<Billboard> billboards = new List<Billboard>();
+            for (uint i = 0; i < map.ObjectData.Length; i++)
+                if (uint.TryParse(
+                    (from e in objects.Elements("Billboard")
+                     where (uint)e.Attribute("Number") == map.ObjectData[i]
+                     select e.Attribute("Pages")).FirstOrDefault()?.Value
+                     ?? string.Empty,
+                    out uint page
+                    ))
+                {
+                    Billboard billboard = new Billboard()
+                    {
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) + 2.5f) * Assets.WallWidth)),
+                    };
+                    billboard.Sprite3D.Texture = Game.Assets.Textures[page];
+                    billboards.Add(billboard);
+                }
+            return billboards.ToArray();
+        }
     }
 }

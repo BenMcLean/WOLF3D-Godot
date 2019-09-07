@@ -15,19 +15,17 @@ public class Game : Spatial
         DownloadShareware.Main(new string[] { "" });
         using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
         using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
-        using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
+        using (FileStream vswap = new FileStream(System.IO.Path.Combine(Folder, "VSWAP.WL1"), FileMode.Open))
+        using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, "MAPHEAD.WL1"), FileMode.Open))
+        using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, "GAMEMAPS.WL1"), FileMode.Open))
             Assets = new Assets
             {
                 Game = XElement.Load(game),
-                VSwap = new VSwap(palette, file),
+                VSwap = new VSwap(palette, vswap),
+                GameMaps = new GameMaps(mapHead, gameMaps),
             };
 
-        GameMaps maps;
-        using (FileStream mapHead = new FileStream(@"WOLF3D\MAPHEAD.WL1", FileMode.Open))
-        using (FileStream gameMaps = new FileStream(@"WOLF3D\GAMEMAPS.WL1", FileMode.Open))
-            maps = new GameMaps(mapHead, gameMaps);
-
-        Map map = maps.Maps[0];
+        Map map = Assets.GameMaps.Maps[0];
 
         MapWalls = new MapWalls().Load(map);
         foreach (Sprite3D sprite in MapWalls.Walls)
@@ -37,12 +35,15 @@ public class Game : Spatial
 
         GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
 
-        Billboard billboard = new Billboard()
-        {
-            GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 2.5f) * Assets.WallWidth)),
-        };
-        billboard.Sprite3D.Texture = Assets.Textures[201];
-        AddChild(billboard);
+        foreach (Billboard billboard in Billboard.MakeBillboards(map))
+            AddChild(billboard);
+
+        //Billboard billboard = new Billboard()
+        //{
+        //    GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 2.5f) * Assets.WallWidth)),
+        //};
+        //billboard.Sprite3D.Texture = Assets.Textures[201];
+        //AddChild(billboard);
     }
 
     public MapWalls MapWalls;
