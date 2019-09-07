@@ -1,5 +1,7 @@
 using Godot;
+using System;
 using System.IO;
+using System.Text;
 using System.Xml.Linq;
 using WOLF3D;
 using WOLF3DSim;
@@ -12,18 +14,22 @@ public class Game : Spatial
 
     public override void _Ready()
     {
-        DownloadShareware.Main(new string[] { "" });
+        DownloadShareware.Main(new string[] { Folder });
+        XElement xml;
         using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
-        using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
+            xml = XElement.Load(game);
+        using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
         using (FileStream vswap = new FileStream(System.IO.Path.Combine(Folder, "VSWAP.WL1"), FileMode.Open))
         using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, "MAPHEAD.WL1"), FileMode.Open))
         using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, "GAMEMAPS.WL1"), FileMode.Open))
+        {
             Assets = new Assets
             {
-                Game = XElement.Load(game),
+                Game = xml,
                 VSwap = new VSwap(palette, vswap),
                 GameMaps = new GameMaps(mapHead, gameMaps),
             };
+        }
 
         Map map = Assets.GameMaps.Maps[0];
 
@@ -38,6 +44,11 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
+        XElement pal = new XElement("Palette");
+        using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
+        using (StreamReader streamReader = new StreamReader(palette))
+            pal.Value = streamReader.ReadToEnd();
+        pal.Save("palette.xml");
         //Billboard billboard = new Billboard()
         //{
         //    GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 2.5f) * Assets.WallWidth)),

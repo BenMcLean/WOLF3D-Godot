@@ -120,15 +120,17 @@ namespace WOLF3DSim
             uint[] result;
             using (StreamReader streamReader = new StreamReader(stream))
             {
-                if (!streamReader.ReadLine().Equals("JASC-PAL") || !streamReader.ReadLine().Equals("0100"))
+                string line;
+                while (string.IsNullOrWhiteSpace(line = streamReader.ReadLine().Trim())) { }
+                if (!line.Equals("JASC-PAL") || !streamReader.ReadLine().Trim().Equals("0100"))
                     throw new InvalidDataException("Palette stream is an incorrectly formatted JASC palette.");
-                if (!uint.TryParse(streamReader.ReadLine(), out uint numColors)
+                if (!uint.TryParse(streamReader.ReadLine()?.Trim(), out uint numColors)
                  || numColors != COLORS)
                     throw new InvalidDataException("Palette stream does not contain exactly " + COLORS + " colors.");
                 result = new uint[numColors];
                 for (uint x = 0; x < numColors; x++)
                 {
-                    string[] tokens = streamReader.ReadLine()?.Split(' ');
+                    string[] tokens = streamReader.ReadLine()?.Trim().Split(' ');
                     if (tokens == null || tokens.Length != 3
                         || !byte.TryParse(tokens[0], out byte r)
                         || !byte.TryParse(tokens[1], out byte g)

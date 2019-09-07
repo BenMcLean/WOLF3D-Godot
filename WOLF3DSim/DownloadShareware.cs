@@ -6,9 +6,11 @@ namespace WOLF3DSim
 {
     public class DownloadShareware
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args = null)
         {
-            if (!System.IO.File.Exists(System.IO.Path.Combine(args[0], @"WOLF3D\WOLF3D.EXE")))
+            if (args == null || args.Length == 0)
+                args = new string[] { string.Empty };
+            if (!System.IO.File.Exists(System.IO.Path.Combine(args[0], "WOLF3D.EXE")))
             {
                 // I would very much prefer to use the official URL ftp://ftp.3drealms.com/share/1wolf14.zip
                 // However, that packs the shareware episode inside it's original installer, and extracting files from that is a pain.
@@ -20,7 +22,7 @@ namespace WOLF3DSim
                 {
                     client.DownloadFile("https://archive.org/download/Wolfenstein3d/Wolfenstein3dV14sw.ZIP", "Wolfenstein3dV14sw.ZIP");
                 }
-                ZipFile.ExtractToDirectory("Wolfenstein3dV14sw.ZIP", System.IO.Path.Combine(args[0], @"WOLF3D"));
+                ZipFile.ExtractToDirectory("Wolfenstein3dV14sw.ZIP", args[0]);
                 System.IO.File.Delete("Wolfenstein3dV14sw.ZIP");
             }
         }

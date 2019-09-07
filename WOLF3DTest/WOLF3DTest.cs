@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3DSim;
 
@@ -8,24 +10,34 @@ namespace WOLF3DTest
     [TestClass]
     public class WOLF3DTest
     {
+        public static readonly string Folder = @"..\..\..\WOLF3D\";
+
         [TestMethod]
         public void VSwapTest()
         {
-            DownloadShareware.Main(new string[] { @"..\..\..\" });
+            DownloadShareware.Main(new string[] { Folder });
+
+            XElement xml;
+            using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
+                xml = XElement.Load(game);
 
             VSwap vswap;
-            using (FileStream palette = new FileStream(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
-            using (FileStream file = new FileStream(@"..\..\..\WOLF3D\VSWAP.WL1", FileMode.Open))
+            //using (FileStream palette = new FileStream(@"..\..\..\Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
+            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
+            using (FileStream file = new FileStream(System.IO.Path.Combine(Folder, "VSWAP.WL1"), FileMode.Open))
+            {
+                palette.Seek(0, 0);
                 vswap = new VSwap(palette, file);
+            }
         }
 
         [TestMethod]
         public void GameMapsTest()
         {
             GameMaps maps;
-            DownloadShareware.Main(new string[] { @"..\..\..\" });
-            using (FileStream mapHead = new FileStream(@"..\..\..\WOLF3D\MAPHEAD.WL1", FileMode.Open))
-            using (FileStream gameMaps = new FileStream(@"..\..\..\WOLF3D\GAMEMAPS.WL1", FileMode.Open))
+            DownloadShareware.Main(new string[] { Folder });
+            using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, "MAPHEAD.WL1"), FileMode.Open))
+            using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, "GAMEMAPS.WL1"), FileMode.Open))
                 maps = new GameMaps(mapHead, gameMaps);
             GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
