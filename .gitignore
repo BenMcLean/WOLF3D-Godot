@@ -367,4 +367,5 @@ export_presets.cfg
 # Downloaded WOLF3D shareware files
 WOLF3D/*
 !WOLF3D/game.xml
+!WOLF3D/.gdignore
 Wolfenstein3dV14sw.ZIP

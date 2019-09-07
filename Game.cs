@@ -1,5 +1,6 @@
 using Godot;
 using System.IO;
+using System.Xml.Linq;
 using WOLF3D;
 using WOLF3DSim;
 using static WOLF3DSim.GameMaps;
@@ -7,13 +8,19 @@ using static WOLF3DSim.GameMaps;
 public class Game : Spatial
 {
     public static Assets Assets;
+    public static string Folder = "WOLF3D";
 
     public override void _Ready()
     {
         DownloadShareware.Main(new string[] { "" });
+        using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
         using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
         using (FileStream file = new FileStream(@"WOLF3D\VSWAP.WL1", FileMode.Open))
-            Assets = new Assets(new VSwap(palette, file));
+            Assets = new Assets
+            {
+                Game = XElement.Load(game),
+                VSwap = new VSwap(palette, file),
+            };
 
         GameMaps maps;
         using (FileStream mapHead = new FileStream(@"WOLF3D\MAPHEAD.WL1", FileMode.Open))

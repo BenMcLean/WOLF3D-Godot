@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Xml.Linq;
 using WOLF3DSim;
 
 namespace WOLF3D
@@ -23,13 +24,10 @@ namespace WOLF3D
 
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
+        public XElement Game { get; set; }
+
         public VSwap VSwap { get; set; }
         public ImageTexture[] Textures { get; set; }
-
-        public Assets(VSwap vswap)
-        {
-            Load(vswap);
-        }
 
         public Assets Load(VSwap vswap)
         {
