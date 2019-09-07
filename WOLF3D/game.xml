@@ -91,212 +91,126 @@
       <Spawn Number="20" Walk="true" Name="Start" />
       <Spawn Number="21" Walk="true" Name="Start" />
       <Spawn Number="22" Walk="true" Name="Start" />
-      <Object Number="23" Pages="108" Walk="true" Name="Pool of Water" />
-      <Object Number="24" Pages="109" Name="Oil Drum" />
-      <Object Number="25" Pages="110" Name="Table with Chairs" />
-      <Object Number="26" Pages="111" Name="Floor Lamp" />
-      <Object Number="27" Pages="112" Walk="true" Name="Chandalier" />
-      <Object Number="28" Pages="113" Name="Hanging Skeleton" />
-      <Object Number="29" Pages="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
-      <Object Number="30" Pages="115" Name="White Column" />
-      <Object Number="31" Pages="116" Name="Green Plant" />
-      <Object Number="32" Pages="117" Walk="true" Name="Skeleton" />
-      <Object Number="33" Pages="118" Name="Sink" />
-      <Object Number="34" Pages="119" Name="Brown Plant" />
-      <Object Number="35" Pages="120" Name="Vase" />
-      <Object Number="36" Pages="121" Name="Table" />
-      <Object Number="37" Pages="122" Walk="true" Name="Ceiling Light" />
-      <Object Number="38" Pages="123" Walk="true" Name="Utensils (Brown)" />
-      <Object Number="39" Pages="124" Name="Armor" />
-      <Object Number="40" Pages="125" Name="Empty Cage" />
-      <Object Number="41" Pages="126" Name="Cage with Skeleton" />
-      <Object Number="42" Pages="127" Walk="true" Name="Bones 1" />
-      <Object Number="43" Pages="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
-      <Object Number="44" Pages="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
-      <Object Number="45" Pages="130" Name="Bed" />
-      <Object Number="46" Pages="131" Walk="true" Name="Basket" />
-      <Object Number="47" Pages="132" Walk="true" Pickup="true" Health="10" Name="Food" />
-      <Object Number="48" Pages="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
-      <Object Number="49" Pages="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
-      <Object Number="50" Pages="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
-      <Object Number="51" Pages="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
-      <Object Number="52" Pages="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
-      <Object Number="53" Pages="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
-      <Object Number="54" Pages="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
-      <Object Number="55" Pages="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
-      <!--56=O,35,0000000000B00000B9B000B999B000B9B00000B0000000000,Extra Life-->
-
-      <!--57=O,36,00000000CCCCC00CCCCC00CCCCC00CCCCC00CCCCC00000000,Bones with Blood-->
-
-      <!--58=S,37,0044400004440000444000044400004440000444000044400,Barrel-->
-
-      <!--59=S,38,0077700077777077797777799977777977707777700077700,Well with Water-->
-
-      <!--60=S,39,0077700077777077707777700077777077707777700077700,Well-->
-
-      <!--61=O,40,00CCC000CCCCC0CCCCCCCCCCCCCCCCCCCCC0CCCCC000CCC00,Pool of Blood-->
-
-      <!--62=S,41,00CCC0000CCC0000CCC0000CCC0000CCC0000CCC0000CCC00,Flag-->
-
-      <!--63=S,42,000000000EEE00CCCCCCC0CEEEC000CEC000EEEEE00000000,Aardwolf-->
-
-      <!--64=O,43,0000000077777007777700777770077777007777700000000,Bones 2-->
-
-      <!--65=O,44,00000000EEEEE00EEEEE00EEEEE00EEEEE00EEEEE00000000,Bones 3-->
-
-      <!--66=O,45,00000000FFFFF00FFFFF00FFFFF00FFFFF00FFFFF00000000,Bones 4-->
-
-      <!--67=O,46,0033300033333033393333399933333933303333300033300,Utensils (Blue)-->
-
-      <!--68=S,47,0080800008080088888880080800888888800808000080800,Stove-->
-
-      <!--69=S,48,4400440004400444004400044004440044000440044400440,Rack-->
-
-      <!--70=O,49,0020200002020022222220020200222222200202000020200,Vines-->
-
-      <!--90=R0,-1,000F0000000F0000000F0FFFFFFF00000F00000F00000F000,Turn-->
-
-      <!--91=R1,-1,000FFFF00000FF0000F0F000F00F00F00000F00000F000000,Turn-->
-
-      <!--92=R2,-1,000F00000FFF000F0F0F0F00F00F000F000000F000000F000,Turn-->
-
-      <!--93=R3,-1,FFFF000FF00000F0F0000F00F0000000F0000000F0000000F,Turn-->
-
-      <!--94=R4,-1,000F00000F00000F00000FFFFFFF0F0000000F0000000F000,Turn-->
-
-      <!--95=R5,-1,000000F00000F00000F00F00F000F0F0000FF00000FFFF000,Turn-->
-
-      <!--96=R6,-1,000F000000F000000F000F00F00F0F0F0F000FFF00000F000,Turn-->
-
-      <!--97=R7,-1,F0000000F0000000F0000000F00F0000F0F00000FF000FFFF,Turn-->
-
-      <!--98=D,-1,FFFFFFFF00000FF00000FF00000FF00000FF00000FFFFFFFF,Secret Door-->
-
-      <!--99=E,-1,00000000C000C000C0C00000C00000C0C000C000C00000000,End Game Trigger-->
-
-      <!--108=10,50,0440000044400004444000444440044440004440000440000,Guard 1 (Standing)-->
-
-      <!--109=12,50,0000000000400000444000444440444444444444440000000,Guard 1 (Standing)-->
-
-      <!--110=14,50,0000440000444000444400444440004444000044400000440,Guard 1 (Standing)-->
-
-      <!--111=16,50,0000000444444444444440444440004440000040000000000,Guard 1 (Standing)-->
-
-      <!--112=1M0,50,0004000000040000000404444444000004000004000004000,Guard 1 (Moving)-->
-
-      <!--113=1M2,50,0004000004440004040404004004000400000040000004000,Guard 1 (Moving)-->
-
-      <!--114=1M4,50,0004000004000004000004444444040000000400000004000,Guard 1 (Moving)-->
-
-      <!--115=1M6,50,0004000000400000040004004004040404000444000004000,Guard 1 (Moving)-->
-
-      <!--124=G,95,0000000050005000505000005000005050005000500000000,Dead Guard-->
-
-      <!--126=10,138,0110000011100001111000111110011110001110000110000,SS 1 (Standing)-->
-
-      <!--127=12,138,0000000000100000111000111110111111111111110000000,SS 1 (Standing)-->
-
-      <!--128=14,138,0000110000111000111100111110001111000011100000110,SS 1 (Standing)-->
-
-      <!--129=16,138,0000000111111111111110111110001110000010000000000,SS 1 (Standing)-->
-
-      <!--130=1M0,138,0001000000010000000101111111000001000001000001000,SS 1 (Moving)-->
-
-      <!--131=1M2,138,0001000001110001010101001001000100000010000001000,SS 1 (Moving)-->
-
-      <!--132=1M4,138,0001000001000001000001111111010000000100000001000,SS 1 (Moving)-->
-
-      <!--133=1M6,138,0001000000100000010001001001010101000111000001000,SS 1 (Moving)-->
-
-      <!--138=1M0,99,0006000000060000000606666666000006000006000006000,Dog 1 (Moving)-->
-
-      <!--139=1M2,99,0006000006660006060606006006000600000060000006000,Dog 1 (Moving)-->
-
-      <!--140=1M4,99,0006000006000006000006666666060000000600000006000,Dog 1 (Moving)-->
-
-      <!--141=1M6,99,0006000000600000060006006006060606000666000006000,Dog 1 (Moving)-->
-
-      <!--144=30,50,0550000055500005555000555550055550005550000550000,Guard 3 (Standing)-->
-
-      <!--145=32,50,0000000000500000555000555550555555555555550000000,Guard 3 (Standing)-->
-
-      <!--146=34,50,0000550000555000555500555550005555000055500000550,Guard 3 (Standing)-->
-
-      <!--147=36,50,0000000555555555555550555550005550000050000000000,Guard 3 (Standing)-->
-
-      <!--148=3M0,50,0005000000050000000505555555000005000005000005000,Guard 3 (Moving)-->
-
-      <!--149=3M2,50,0005000005550005050505005005000500000050000005000,Guard 3 (Moving)-->
-
-      <!--150=3M4,50,0005000005000005000005555555050000000500000005000,Guard 3 (Moving)-->
-
-      <!--151=3M6,50,0005000000500000050005005005050505000555000005000,Guard 3 (Moving)-->
-
-      <!--162=30,138,0990000099900009999000999990099990009990000990000,SS 3 (Standing)-->
-
-      <!--163=32,138,0000000000900000999000999990999999999999990000000,SS 3 (Standing)-->
-
-      <!--164=34,138,0000990000999000999900999990009999000099900000990,SS 3 (Standing)-->
-
-      <!--165=36,138,0000000999999999999990999990009990000090000000000,SS 3 (Standing)-->
-
-      <!--166=3M0,138,0009000000090000000909999999000009000009000009000,SS 3 (Moving)-->
-
-      <!--167=3M2,138,0009000009990009090909009009000900000090000009000,SS 3 (Moving)-->
-
-      <!--168=3M4,138,0009000009000009000009999999090000000900000009000,SS 3 (Moving)-->
-
-      <!--169=3M6,138,0009000000900000090009009009090909000999000009000,SS 3 (Moving)-->
-
-      <!--174=3M0,99,0007000000070000000707777777000007000007000007000,Dog 3 (Moving)-->
-
-      <!--175=3M2,99,0007000007770007070707007007000700000070000007000,Dog 3 (Moving)-->
-
-      <!--176=3M4,99,0007000007000007000007777777070000000700000007000,Dog 3 (Moving)-->
-
-      <!--177=3M6,99,0007000000700000070007007007070707000777000007000,Dog 3 (Moving)-->
-
-      <!--180=40,50,0CC00000CCC0000CCCC000CCCCC00CCCC000CCC0000CC0000,Guard 4 (Standing)-->
-
-      <!--181=42,50,0000000000C00000CCC000CCCCC0CCCCCCCCCCCCCC0000000,Guard 4 (Standing)-->
-
-      <!--182=44,50,0000CC0000CCC000CCCC00CCCCC000CCCC0000CCC00000CC0,Guard 4 (Standing)-->
-
-      <!--183=46,50,0000000CCCCCCCCCCCCCC0CCCCC000CCC00000C0000000000,Guard 4 (Standing)-->
-
-      <!--184=4M0,50,000C0000000C0000000C0CCCCCCC00000C00000C00000C000,Guard 4 (Moving)-->
-
-      <!--185=4M2,50,000C00000CCC000C0C0C0C00C00C000C000000C000000C000,Guard 4 (Moving)-->
-
-      <!--186=4M4,50,000C00000C00000C00000CCCCCCC0C0000000C0000000C000,Guard 4 (Moving)-->
-
-      <!--187=4M6,50,000C000000C000000C000C00C00C0C0C0C000CCC00000C000,Guard 4 (Moving)-->
-
-      <!--198=40,138,0BB00000BBB0000BBBB000BBBBB00BBBB000BBB0000BB0000,SS 4 (Standing)-->
-
-      <!--199=42,138,0000000000B00000BBB000BBBBB0BBBBBBBBBBBBBB0000000,SS 4 (Standing)-->
-
-      <!--200=44,138,0000BB0000BBB000BBBB00BBBBB000BBBB0000BBB00000BB0,SS 4 (Standing)-->
-
-      <!--201=46,138,0000000BBBBBBBBBBBBBB0BBBBB000BBB00000B0000000000,SS 4 (Standing)-->
-
-      <!--202=4M0,138,000B0000000B0000000B0BBBBBBB00000B00000B00000B000,SS 4 (Moving)-->
-
-      <!--203=4M2,138,000B00000BBB000B0B0B0B00B00B000B000000B000000B000,SS 4 (Moving)-->
-
-      <!--204=4M4,138,000B00000B00000B00000BBBBBBB0B0000000B0000000B000,SS 4 (Moving)-->
-
-      <!--205=4M6,138,000B000000B000000B000B00B00B0B0B0B000BBB00000B000,SS 4 (Moving)-->
-
-      <!--210=4M0,99,000E0000000E0000000E0EEEEEEE00000E00000E00000E000,Dog 4 (Moving)-->
-
-      <!--211=4M2,99,000E00000EEE000E0E0E0E00E00E000E000000E000000E000,Dog 4 (Moving)-->
-
-      <!--212=4M4,99,000E00000E00000E00000EEEEEEE0E0000000E0000000E000,Dog 4 (Moving)-->
-
-      <!--213=4M6,99,000E000000E000000E000E00E00E0E0E0E000EEE00000E000,Dog 4 (Moving)-->
-
-      <!--214=B1,296,0009900099999990000000999990000000999999900099000,Hans-->
+      <Billboard Number="23" Pages="108" Walk="true" Name="Pool of Water" />
+      <Billboard Number="24" Pages="109" Name="Oil Drum" />
+      <Billboard Number="25" Pages="110" Name="Table with Chairs" />
+      <Billboard Number="26" Pages="111" Name="Floor Lamp" />
+      <Billboard Number="27" Pages="112" Walk="true" Name="Chandalier" />
+      <Billboard Number="28" Pages="113" Name="Hanging Skeleton" />
+      <Billboard Number="29" Pages="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
+      <Billboard Number="30" Pages="115" Name="White Column" />
+      <Billboard Number="31" Pages="116" Name="Green Plant" />
+      <Billboard Number="32" Pages="117" Walk="true" Name="Skeleton" />
+      <Billboard Number="33" Pages="118" Name="Sink" />
+      <Billboard Number="34" Pages="119" Name="Brown Plant" />
+      <Billboard Number="35" Pages="120" Name="Vase" />
+      <Billboard Number="36" Pages="121" Name="Table" />
+      <Billboard Number="37" Pages="122" Walk="true" Name="Ceiling Light" />
+      <Billboard Number="38" Pages="123" Walk="true" Name="Utensils (Brown)" />
+      <Billboard Number="39" Pages="124" Name="Armor" />
+      <Billboard Number="40" Pages="125" Name="Empty Cage" />
+      <Billboard Number="41" Pages="126" Name="Cage with Skeleton" />
+      <Billboard Number="42" Pages="127" Walk="true" Name="Bones 1" />
+      <Billboard Number="43" Pages="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
+      <Billboard Number="44" Pages="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
+      <Billboard Number="45" Pages="130" Name="Bed" />
+      <Billboard Number="46" Pages="131" Walk="true" Name="Basket" />
+      <Billboard Number="47" Pages="132" Walk="true" Pickup="true" Health="10" Name="Food" />
+      <Billboard Number="48" Pages="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
+      <Billboard Number="49" Pages="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
+      <Billboard Number="50" Pages="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
+      <Billboard Number="51" Pages="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
+      <Billboard Number="52" Pages="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
+      <Billboard Number="53" Pages="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
+      <Billboard Number="54" Pages="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
+      <Billboard Number="55" Pages="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
+      <Billboard Number="56" Pages="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
+      <Billboard Number="57" Pages="142" Walk="true" Name="Bones with Blood" />
+      <Billboard Number="58" Pages="143" Name="Barrel" />
+      <Billboard Number="59" Pages="144" Name="Well with Water" />
+      <Billboard Number="60" Pages="145" Name="Well" />
+      <Billboard Number="61" Pages="146" Walk="true" Name="Pool of Blood" />
+      <Billboard Number="62" Pages="147" Name="Flag" />
+      <Billboard Number="63" Pages="148" Name="Aardwolf" />
+      <Billboard Number="64" Pages="149" Walk="true" Name="Bones 2" />
+      <Billboard Number="65" Pages="150" Walk="true" Name="Bones 3" />
+      <Billboard Number="66" Pages="151" Walk="true" Name="Bones 4" />
+      <Billboard Number="67" Pages="152" Walk="true" Name="Utensils (Blue)" />
+      <Billboard Number="68" Pages="153" Name="Stove" />
+      <Billboard Number="69" Pages="154" Name="Rack" />
+      <Billboard Number="70" Pages="155" Name="Vines" />
+      <Turn Number="90" Walk="true" Name="Turn" />
+      <Turn Number="91" Walk="true" Name="Turn" />
+      <Turn Number="92" Walk="true" Name="Turn" />
+      <Turn Number="93" Walk="true" Name="Turn" />
+      <Turn Number="94" Walk="true" Name="Turn" />
+      <Turn Number="95" Walk="true" Name="Turn" />
+      <Turn Number="96" Walk="true" Name="Turn" />
+      <Turn Number="97" Walk="true" Name="Turn" />
+      <Umm Number="98" Walk="true" Name="Secret Door" />
+      <Trigger Number="99" Walk="true" Name="End Game Trigger" />
+      <Enemy Number="108" Name="Guard 1 (Standing)" />
+      <Enemy Number="109" Name="Guard 1 (Standing)" />
+      <Enemy Number="110" Name="Guard 1 (Standing)" />
+      <Enemy Number="111" Name="Guard 1 (Standing)" />
+      <Enemy Number="112" Name="Guard 1 (Moving)" />
+      <Enemy Number="113" Name="Guard 1 (Moving)" />
+      <Enemy Number="114" Name="Guard 1 (Moving)" />
+      <Enemy Number="115" Name="Guard 1 (Moving)" />
+      <Billboard Number="124" Pages="201" Walk="true" Name="Dead Guard" />
+      <Enemy Number="126" Name="SS 1 (Standing)" />
+      <Enemy Number="127" Name="SS 1 (Standing)" />
+      <Enemy Number="128" Name="SS 1 (Standing)" />
+      <Enemy Number="129" Name="SS 1 (Standing)" />
+      <Enemy Number="130" Name="SS 1 (Moving)" />
+      <Enemy Number="131" Name="SS 1 (Moving)" />
+      <Enemy Number="132" Name="SS 1 (Moving)" />
+      <Enemy Number="133" Name="SS 1 (Moving)" />
+      <Enemy Number="138" Name="Dog 1 (Moving)" />
+      <Enemy Number="139" Name="Dog 1 (Moving)" />
+      <Enemy Number="140" Name="Dog 1 (Moving)" />
+      <Enemy Number="141" Name="Dog 1 (Moving)" />
+      <Enemy Number="144" Name="Guard 3 (Standing)" />
+      <Enemy Number="145" Name="Guard 3 (Standing)" />
+      <Enemy Number="146" Name="Guard 3 (Standing)" />
+      <Enemy Number="147" Name="Guard 3 (Standing)" />
+      <Enemy Number="148" Name="Guard 3 (Moving)" />
+      <Enemy Number="149" Name="Guard 3 (Moving)" />
+      <Enemy Number="150" Name="Guard 3 (Moving)" />
+      <Enemy Number="151" Name="Guard 3 (Moving)" />
+      <Enemy Number="162" Name="SS 3 (Standing)" />
+      <Enemy Number="163" Name="SS 3 (Standing)" />
+      <Enemy Number="164" Name="SS 3 (Standing)" />
+      <Enemy Number="165" Name="SS 3 (Standing)" />
+      <Enemy Number="166" Name="SS 3 (Moving)" />
+      <Enemy Number="167" Name="SS 3 (Moving)" />
+      <Enemy Number="168" Name="SS 3 (Moving)" />
+      <Enemy Number="169" Name="SS 3 (Moving)" />
+      <Enemy Number="174" Name="Dog 3 (Moving)" />
+      <Enemy Number="175" Name="Dog 3 (Moving)" />
+      <Enemy Number="176" Name="Dog 3 (Moving)" />
+      <Enemy Number="177" Name="Dog 3 (Moving)" />
+      <Enemy Number="180" Name="Guard 4 (Standing)" />
+      <Enemy Number="181" Name="Guard 4 (Standing)" />
+      <Enemy Number="182" Name="Guard 4 (Standing)" />
+      <Enemy Number="183" Name="Guard 4 (Standing)" />
+      <Enemy Number="183" Name="Guard 4 (Moving)" />
+      <Enemy Number="183" Name="Guard 4 (Moving)" />
+      <Enemy Number="183" Name="Guard 4 (Moving)" />
+      <Enemy Number="183" Name="Guard 4 (Moving)" />
+      <Enemy Number="198" Name="SS 4 (Standing)" />
+      <Enemy Number="199" Name="SS 4 (Standing)" />
+      <Enemy Number="200" Name="SS 4 (Standing)" />
+      <Enemy Number="201" Name="SS 4 (Standing)" />
+      <Enemy Number="202" Name="SS 4 (Moving)" />
+      <Enemy Number="203" Name="SS 4 (Moving)" />
+      <Enemy Number="204" Name="SS 4 (Moving)" />
+      <Enemy Number="205" Name="SS 4 (Moving)" />
+      <Enemy Number="210" Name="Dog 4 (Moving)" />
+      <Enemy Number="211" Name="Dog 4 (Moving)" />
+      <Enemy Number="212" Name="Dog 4 (Moving)" />
+      <Enemy Number="213" Name="Dog 4 (Moving)" />
+      <Enemy Number="214" Name="Hans" />
     </Objects>
   </VSwap>
 </Game>

@@ -70,8 +70,9 @@
       <Name>WOLF3DSim</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="WOLF3D\" />
+    <Content Include="WOLF3D\game.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
