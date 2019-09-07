@@ -118,14 +118,12 @@
       <Object Number="47" Pages="132" Walk="true" Pickup="true" Health="10" Name="Food" />
       <Object Number="48" Pages="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
       <Object Number="49" Pages="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
-      <Object Number="50" Pages="135" Walk="true" Name="Machine Gun" />
-      <Object Number="51" Pages="136" Walk="true" Name="Gatling Gun" />
-      <Object Number="52" Pages="137" Walk="true" Name="Cross" />
-      <Object Number="53" Pages="138" Walk="true" Name="Chalice" />
-      <!--54=T,33,0000000000E00000EAEE00E9ECE00EECCE000EEE000000000,Chest of Jewels-->
-
-      <!--55=T,34,000E0000E0E0E0ECEEECEECCECCE0ECECE000EEE000000000,Crown-->
-
+      <Object Number="50" Pages="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
+      <Object Number="51" Pages="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
+      <Object Number="52" Pages="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
+      <Object Number="53" Pages="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
+      <Object Number="54" Pages="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
+      <Object Number="55" Pages="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
       <!--56=O,35,0000000000B00000B9B000B999B000B9B00000B0000000000,Extra Life-->
 
       <!--57=O,36,00000000CCCCC00CCCCC00CCCCC00CCCCC00CCCCC00000000,Bones with Blood-->
