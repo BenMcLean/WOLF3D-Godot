@@ -30,7 +30,7 @@ namespace WOLF3D
             Map = map;
             for (uint i = 0; i < Map.MapData.Length; i++)
             {
-                uint x = X(i), z = Z(i), here = Get(x, z);
+                uint x = map.X(i), z = map.Z(i), here = Get(x, z);
                 if (IsDoor(here))
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
@@ -105,16 +105,6 @@ namespace WOLF3D
         public ushort Get(uint x, uint z)
         {
             return Map.MapData[(x * 64) + 63 - z];
-        }
-
-        public static ushort X(uint i)
-        {
-            return (ushort)(i % 64);
-        }
-
-        public static ushort Z(uint i)
-        {
-            return (ushort)(i / 64);
         }
 
         public Sprite3D SouthWall(uint x, uint z, uint texture = 0, bool flipH = false)

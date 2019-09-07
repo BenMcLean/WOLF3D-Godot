@@ -60,7 +60,7 @@ namespace WOLF3D
                 {
                     Billboard billboard = new Billboard()
                     {
-                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) + 2.5f) * Assets.WallWidth)),
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
                     };
                     billboard.Sprite3D.Texture = Game.Assets.Textures[page];
                     billboards.Add(billboard);

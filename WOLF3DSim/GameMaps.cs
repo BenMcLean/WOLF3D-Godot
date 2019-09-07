@@ -25,12 +25,12 @@ namespace WOLF3DSim
 
             public ushort X(uint i)
             {
-                return (ushort)(i % Width);
+                return (ushort)(i / Width);
             }
 
             public ushort Z(uint i)
             {
-                return (ushort)(i / Depth);
+                return (ushort)(63 - i % Depth);
             }
 
             public Map StartPosition(out ushort x, out ushort z)
