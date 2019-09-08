@@ -63,7 +63,8 @@ namespace WOLF3DTest
 
             AudioT audioT;
             using (FileStream audioHed = new FileStream(System.IO.Path.Combine(Folder, "AUDIOHED.WL1"), FileMode.Open))
-                audioT = new AudioT(audioHed);
+            using (FileStream audioTStream = new FileStream(System.IO.Path.Combine(Folder, "AUDIOT.WL1"), FileMode.Open))
+                audioT = new AudioT(audioHed, audioTStream);
 
             foreach (uint i in audioT.AudioHed)
                 Console.Write(i.ToString() + ", ");
