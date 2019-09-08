@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WOLF3D;
 using WOLF3DSim;
 
 namespace WOLF3DTest
@@ -34,8 +35,9 @@ namespace WOLF3DTest
         [TestMethod]
         public void GameMapsTest()
         {
-            GameMaps maps;
             DownloadShareware.Main(new string[] { Folder });
+
+            GameMaps maps;
             using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, "MAPHEAD.WL1"), FileMode.Open))
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, "GAMEMAPS.WL1"), FileMode.Open))
                 maps = new GameMaps(mapHead, gameMaps);
@@ -52,6 +54,19 @@ namespace WOLF3DTest
 
             //foreach (GameMaps.Map map in gameMaps.Maps)
             //    Console.WriteLine(map.Name);
+        }
+
+        [TestMethod]
+        public void AudioTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+
+            AudioT audioT;
+            using (FileStream audioHed = new FileStream(System.IO.Path.Combine(Folder, "AUDIOHED.WL1"), FileMode.Open))
+                audioT = new AudioT(audioHed);
+
+            foreach (uint i in audioT.AudioHed)
+                Console.Write(i.ToString() + ", ");
         }
     }
 }
