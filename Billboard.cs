@@ -45,7 +45,7 @@ namespace WOLF3D
 
         public static Billboard[] MakeBillboards(GameMaps.Map map)
         {
-            XElement objects = Game.Assets.Game.Element("VSwap").Element("Objects");
+            XElement objects = Game.Assets?.Game?.Element("VSwap")?.Element("Objects");
             if (objects == null)
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();
@@ -53,7 +53,7 @@ namespace WOLF3D
                 if (uint.TryParse(
                     (from e in objects.Elements("Billboard")
                      where (uint)e.Attribute("Number") == map.ObjectData[i]
-                     select e.Attribute("Pages")).FirstOrDefault()?.Value
+                     select e.Attribute("Page")).FirstOrDefault()?.Value
                      ?? string.Empty,
                     out uint page
                     ))

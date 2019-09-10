@@ -1,5 +1,8 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using WOLF3DSim;
 
 namespace WOLF3D
@@ -11,21 +14,24 @@ namespace WOLF3D
 
         public MapWalls Load(GameMaps.Map map)
         {
+            XElement walls = Game.Assets?.Game?.Element("VSwap")?.Element("Walls");
+            if (walls == null)
+                throw new NullReferenceException("walls was null!");
             void HorizontalCheck(uint x, uint z)
             {
                 uint wall;
                 if (x < 63 && IsWall(wall = Get(x + 1, z)))
-                    Walls.Add(WestWall(x + 1, z, (uint)(wall - 1) * 2, true));
+                    Walls.Add(WestWall(x + 1, z, Game.Assets.Textures[(wall - 1) * 2], true));
                 if (x > 0 && IsWall(wall = Get(x - 1, z)))
-                    Walls.Add(WestWall(x, z, (uint)(wall - 1) * 2));
+                    Walls.Add(WestWall(x, z, Game.Assets.Textures[(wall - 1) * 2]));
             }
             void VerticalCheck(uint x, uint z)
             {
                 uint wall;
                 if (z > 0 && IsWall(wall = Get(x, z - 1)))
-                    Walls.Add(SouthWall(x, z - 1, (uint)(wall - 1) * 2 + 1));
+                    Walls.Add(SouthWall(x, z - 1, Game.Assets.Textures[(wall - 1) * 2 + 1]));
                 if (z < 63 && IsWall(wall = Get(x, z + 1)))
-                    Walls.Add(SouthWall(x, z, (uint)(wall - 1) * 2 + 1, true));
+                    Walls.Add(SouthWall(x, z, Game.Assets.Textures[(wall - 1) * 2 + 1], true));
             }
             Map = map;
             for (uint i = 0; i < Map.MapData.Length; i++)
@@ -35,17 +41,17 @@ namespace WOLF3D
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {
-                        Walls.Add(WestWall(x + 1, z, 100, true));
-                        Walls.Add(WestWall(x, z, 100));
+                        Walls.Add(WestWall(x + 1, z, Game.Assets.Textures[100]));
+                        Walls.Add(WestWall(x, z, Game.Assets.Textures[100]));
                         HorizontalCheck(x, z);
-                        Walls.Add(HorizontalDoor(x, z, DoorTexture(here)));
+                        Walls.Add(HorizontalDoor(x, z, Game.Assets.Textures[DoorTexture(here)]));
                     }
                     else // Odd numbered doors are horizontal
                     {
-                        Walls.Add(SouthWall(x, z - 1, 101));
-                        Walls.Add(SouthWall(x, z, 101, true));
+                        Walls.Add(SouthWall(x, z - 1, Game.Assets.Textures[101]));
+                        Walls.Add(SouthWall(x, z, Game.Assets.Textures[101], true));
                         VerticalCheck(x, z);
-                        Walls.Add(VerticalDoor(x, z, DoorTexture(here)));
+                        Walls.Add(VerticalDoor(x, z, Game.Assets.Textures[DoorTexture(here)]));
                     }
                 }
                 else if (!IsWall(here))
@@ -84,22 +90,18 @@ namespace WOLF3D
             }
         }
 
+        public static uint Door(uint cell)
+        {
+            return (uint)(from e in Game.Assets?.Game?.Element("VSwap")?.Element("Walls").Elements("Door") ?? Enumerable.Empty<XElement>()
+                          where (uint)e.Attribute("Number") == cell
+                          select e.Attribute("Page")).FirstOrDefault();
+        }
+
         public static bool IsDoor(uint cell)
         {
-            switch (cell)
-            {
-                case 90: // "Door vertical"
-                case 91: // "Door horizontal",
-                case 92: // "Door vertical (gold key)",
-                case 93: // "Door horizontal (gold key)",
-                case 94: // "Door vertical (silver key)",
-                case 95: // "Door horizontal (silver key)",
-                case 100: // "Elevator door (normal)",
-                case 101: // "Elevator door (horizontal)",
-                    return true;
-                default:
-                    return false;
-            }
+            return (from e in Game.Assets?.Game?.Element("VSwap")?.Element("Walls").Elements("Door") ?? Enumerable.Empty<XElement>()
+                    where (uint)e.Attribute("Number") == cell
+                    select e).Any();
         }
 
         public ushort Get(uint x, uint z)
@@ -107,24 +109,24 @@ namespace WOLF3D
             return Map.MapData[(x * 64) + 63 - z];
         }
 
-        public Sprite3D SouthWall(uint x, uint z, uint texture = 0, bool flipH = false)
+        public Sprite3D SouthWall(uint x, uint z, Texture texture, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            return BuildWall(texture, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public Sprite3D WestWall(uint x, uint z, uint texture = 0, bool flipH = false)
+        public Sprite3D WestWall(uint x, uint z, Texture texture, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            return BuildWall(texture, Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public Sprite3D HorizontalDoor(uint x, uint z, uint texture = 98, bool flipH = false)
+        public Sprite3D HorizontalDoor(uint x, uint z, Texture texture, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
+            return BuildWall(texture, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
         }
 
-        public Sprite3D VerticalDoor(uint x, uint z, uint texture = 98, bool flipH = false)
+        public Sprite3D VerticalDoor(uint x, uint z, Texture texture, bool flipH = false)
         {
-            return BuildWall(Game.Assets.Textures[texture], Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
+            return BuildWall(texture, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
         }
 
         public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)

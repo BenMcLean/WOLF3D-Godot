@@ -2,47 +2,47 @@
 <Game Name="Wolfenstein 3D Shareware v1.4">
   <VSwap Name="VSWAP.WL1">
     <Walls>
-      <Wall Number="1" Pages="0,1" Name="Grey Brick 1" />
-      <Wall Number="2" Pages="2,3" Name="Grey Brick 2" />
-      <Wall Number="3" Pages="4,5" Name="Grey Brick with Flag" />
-      <Wall Number="4" Pages="6,7" Name="Grey Brick with Hitler" />
-      <Wall Number="5" Pages="8,9" Name="Cell" />
-      <Wall Number="6" Pages="10,11" Name="Grey Brick with Eagle" />
-      <Wall Number="7" Pages="12,13" Name="Cell with Skeleton" />
-      <Wall Number="8" Pages="14,15" Name="Blue Brick 1" />
-      <Wall Number="9" Pages="16,17" Name="Blue Brick 2" />
-      <Wall Number="10" Pages="18,19" Name="Wood with Eagle" />
-      <Wall Number="11" Pages="20,21" Name="Wood with Hitler" />
-      <Wall Number="12" Pages="22,23" Name="Wood" />
-      <Wall Number="13" Pages="24,25" Name="Entrance to Level" />
-      <Wall Number="14" Pages="26,27" Name="Steel with Sign" />
-      <Wall Number="15" Pages="28,29" Name="Steel" />
-      <Wall Number="16" Pages="30,31" Name="Landscape" />
-      <Wall Number="17" Pages="32,33" Name="Red Brick" />
-      <Wall Number="18" Pages="34,35" Name="Red Brick with Swastika" />
-      <Wall Number="19" Pages="36,37" Name="Purple" />
-      <Wall Number="20" Pages="38,39" Name="Red Brick with Flag" />
-      <Wall Number="21" Pages="40,41" Name="Elevator" />
-      <Wall Number="22" Pages="42,43" Name="Fake Elevator" />
-      <Wall Number="23" Pages="44,45" Name="Wood with Iron Cross" />
-      <Wall Number="24" Pages="46,47" Name="Dirty Brick 1" />
-      <Wall Number="25" Pages="48,49" Name="Purple with Blood" />
-      <Wall Number="26" Pages="50,51" Name="Dirty Brick 2" />
-      <Wall Number="27" Pages="52,53" Name="Grey Brick 3" />
-      <Wall Number="28" Pages="54,55" Name="Grey Brick with Sign" />
-      <Wall Number="50" Pages="98,99" Name="Fake Door" />
-      <Wall Number="51" Pages="100,101" Name="Door Excavation (Side of Door)" />
-      <Wall Number="52" Pages="102,103" Name="Fake Elevator Again" />
-      <Wall Number="53" Pages="104,105" Name="Fake Locked Door" />
-      <Wall Number="85" Pages="42,43" Name="Elevator Wall" />
-      <Door Number="90" Pages="98" Name="Door (E/W)" Direction="E" />
-      <Door Number="91" Pages="99" Name="Door (N/S)" Direction ="N" />
-      <Door Number="92" Pages="104" Name="Door (Gold Key - E/W)" Direction="E" Lock="Gold Key" />
-      <Door Number="93" Pages="105" Name="Door (Gold Key - N/S)" Direction="N" Lock="Gold Key" />
-      <Door Number="94" Pages="104" Name="Door (Silver Key - E/W)" Direction="E" Lock="Silver Key" />
-      <Door Number="95" Pages="105" Name="Door (Silver Key - N/S)" Direction="N" Lock="Silver Key" />
-      <Door Number="100" Pages="102" Name="Elevator Door (E/W)" Direction ="E" />
-      <Door Number="101" Pages="103" Name="Elevator Door (N/S)" Direction="N" />
+      <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
+      <Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
+      <Wall Number="3" Page="4" DarkSide="5" Name="Grey Brick with Flag" />
+      <Wall Number="4" Page="6" DarkSide="7" Name="Grey Brick with Hitler" />
+      <Wall Number="5" Page="8" DarkSide="9" Name="Cell" />
+      <Wall Number="6" Page="10" DarkSide="11" Name="Grey Brick with Eagle" />
+      <Wall Number="7" Page="12" DarkSide="13" Name="Cell with Skeleton" />
+      <Wall Number="8" Page="14" DarkSide="15" Name="Blue Brick 1" />
+      <Wall Number="9" Page="16" DarkSide="17" Name="Blue Brick 2" />
+      <Wall Number="10" Page="18" DarkSide="19" Name="Wood with Eagle" />
+      <Wall Number="11" Page="20" DarkSide="21" Name="Wood with Hitler" />
+      <Wall Number="12" Page="22" DarkSide="23" Name="Wood" />
+      <Wall Number="13" Page="24" DarkSide="25" Name="Entrance to Level" />
+      <Wall Number="14" Page="26" DarkSide="27" Name="Steel with Sign" />
+      <Wall Number="15" Page="28" DarkSide="29" Name="Steel" />
+      <Wall Number="16" Page="30" DarkSide="31" Name="Landscape" />
+      <Wall Number="17" Page="32" DarkSide="33" Name="Red Brick" />
+      <Wall Number="18" Page="34" DarkSide="35" Name="Red Brick with Swastika" />
+      <Wall Number="19" Page="36" DarkSide="37" Name="Purple" />
+      <Wall Number="20" Page="38" DarkSide="39" Name="Red Brick with Flag" />
+      <Wall Number="21" Page="40" DarkSide="41" Name="Elevator" />
+      <Wall Number="22" Page="42" DarkSide="43" Name="Fake Elevator" />
+      <Wall Number="23" Page="44" DarkSide="45" Name="Wood with Iron Cross" />
+      <Wall Number="24" Page="46" DarkSide="47" Name="Dirty Brick 1" />
+      <Wall Number="25" Page="48" DarkSide="49" Name="Purple with Blood" />
+      <Wall Number="26" Page="50" DarkSide="51" Name="Dirty Brick 2" />
+      <Wall Number="27" Page="52" DarkSide="53" Name="Grey Brick 3" />
+      <Wall Number="28" Page="54" DarkSide="55" Name="Grey Brick with Sign" />
+      <Wall Number="50" Page="98" DarkSide="99" Name="Fake Door" />
+      <Wall Number="51" Page="100" DarkSide="101" Name="Door Excavation (Side of Door)" />
+      <Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
+      <Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
+      <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
+      <Door Number="90" Page="98" Name="Door (E/W)" Direction="E" />
+      <Door Number="91" Page="99" Name="Door (N/S)" Direction ="N" />
+      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="E" Lock="Gold Key" />
+      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="N" Lock="Gold Key" />
+      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="E" Lock="Silver Key" />
+      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="N" Lock="Silver Key" />
+      <Door Number="100" Page="102" Name="Elevator Door (E/W)" Direction ="E" />
+      <Door Number="101" Page="103" Name="Elevator Door (N/S)" Direction="N" />
       <Special Number="106" Walk="true" Name="Deaf Guard" />
       <Exit Number="107" Name="Elevator to Secret Floor" />
       <Exit Number="108" Name="Floor 6C" />
@@ -83,62 +83,62 @@
       <Exit Number="143" Name="Floor 8F" />
     </Walls>
     <Sprites>
-      <Sprite Pages="106" Name="Demo" />
-      <Sprite Pages="107" Name="DeathCam" />
+      <Sprite Page="106" Name="Demo" />
+      <Sprite Page="107" Name="DeathCam" />
     </Sprites>
     <Objects>
       <Spawn Number="19" Walk="true" Name="Start" />
       <Spawn Number="20" Walk="true" Name="Start" />
       <Spawn Number="21" Walk="true" Name="Start" />
       <Spawn Number="22" Walk="true" Name="Start" />
-      <Billboard Number="23" Pages="108" Walk="true" Name="Pool of Water" />
-      <Billboard Number="24" Pages="109" Name="Oil Drum" />
-      <Billboard Number="25" Pages="110" Name="Table with Chairs" />
-      <Billboard Number="26" Pages="111" Name="Floor Lamp" />
-      <Billboard Number="27" Pages="112" Walk="true" Name="Chandalier" />
-      <Billboard Number="28" Pages="113" Name="Hanging Skeleton" />
-      <Billboard Number="29" Pages="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
-      <Billboard Number="30" Pages="115" Name="White Column" />
-      <Billboard Number="31" Pages="116" Name="Green Plant" />
-      <Billboard Number="32" Pages="117" Walk="true" Name="Skeleton" />
-      <Billboard Number="33" Pages="118" Name="Sink" />
-      <Billboard Number="34" Pages="119" Name="Brown Plant" />
-      <Billboard Number="35" Pages="120" Name="Vase" />
-      <Billboard Number="36" Pages="121" Name="Table" />
-      <Billboard Number="37" Pages="122" Walk="true" Name="Ceiling Light" />
-      <Billboard Number="38" Pages="123" Walk="true" Name="Utensils (Brown)" />
-      <Billboard Number="39" Pages="124" Name="Armor" />
-      <Billboard Number="40" Pages="125" Name="Empty Cage" />
-      <Billboard Number="41" Pages="126" Name="Cage with Skeleton" />
-      <Billboard Number="42" Pages="127" Walk="true" Name="Bones 1" />
-      <Billboard Number="43" Pages="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
-      <Billboard Number="44" Pages="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
-      <Billboard Number="45" Pages="130" Name="Bed" />
-      <Billboard Number="46" Pages="131" Walk="true" Name="Basket" />
-      <Billboard Number="47" Pages="132" Walk="true" Pickup="true" Health="10" Name="Food" />
-      <Billboard Number="48" Pages="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
-      <Billboard Number="49" Pages="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
-      <Billboard Number="50" Pages="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
-      <Billboard Number="51" Pages="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
-      <Billboard Number="52" Pages="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
-      <Billboard Number="53" Pages="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
-      <Billboard Number="54" Pages="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
-      <Billboard Number="55" Pages="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
-      <Billboard Number="56" Pages="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
-      <Billboard Number="57" Pages="142" Walk="true" Name="Bones with Blood" />
-      <Billboard Number="58" Pages="143" Name="Barrel" />
-      <Billboard Number="59" Pages="144" Name="Well with Water" />
-      <Billboard Number="60" Pages="145" Name="Well" />
-      <Billboard Number="61" Pages="146" Walk="true" Name="Pool of Blood" />
-      <Billboard Number="62" Pages="147" Name="Flag" />
-      <Billboard Number="63" Pages="148" Name="Aardwolf" />
-      <Billboard Number="64" Pages="149" Walk="true" Name="Bones 2" />
-      <Billboard Number="65" Pages="150" Walk="true" Name="Bones 3" />
-      <Billboard Number="66" Pages="151" Walk="true" Name="Bones 4" />
-      <Billboard Number="67" Pages="152" Walk="true" Name="Utensils (Blue)" />
-      <Billboard Number="68" Pages="153" Name="Stove" />
-      <Billboard Number="69" Pages="154" Name="Rack" />
-      <Billboard Number="70" Pages="155" Name="Vines" />
+      <Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
+      <Billboard Number="24" Page="109" Name="Oil Drum" />
+      <Billboard Number="25" Page="110" Name="Table with Chairs" />
+      <Billboard Number="26" Page="111" Name="Floor Lamp" />
+      <Billboard Number="27" Page="112" Walk="true" Name="Chandalier" />
+      <Billboard Number="28" Page="113" Name="Hanging Skeleton" />
+      <Billboard Number="29" Page="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
+      <Billboard Number="30" Page="115" Name="White Column" />
+      <Billboard Number="31" Page="116" Name="Green Plant" />
+      <Billboard Number="32" Page="117" Walk="true" Name="Skeleton" />
+      <Billboard Number="33" Page="118" Name="Sink" />
+      <Billboard Number="34" Page="119" Name="Brown Plant" />
+      <Billboard Number="35" Page="120" Name="Vase" />
+      <Billboard Number="36" Page="121" Name="Table" />
+      <Billboard Number="37" Page="122" Walk="true" Name="Ceiling Light" />
+      <Billboard Number="38" Page="123" Walk="true" Name="Utensils (Brown)" />
+      <Billboard Number="39" Page="124" Name="Armor" />
+      <Billboard Number="40" Page="125" Name="Empty Cage" />
+      <Billboard Number="41" Page="126" Name="Cage with Skeleton" />
+      <Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
+      <Billboard Number="43" Page="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
+      <Billboard Number="44" Page="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
+      <Billboard Number="45" Page="130" Name="Bed" />
+      <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
+      <Billboard Number="47" Page="132" Walk="true" Pickup="true" Health="10" Name="Food" />
+      <Billboard Number="48" Page="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
+      <Billboard Number="49" Page="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
+      <Billboard Number="50" Page="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
+      <Billboard Number="51" Page="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
+      <Billboard Number="52" Page="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
+      <Billboard Number="53" Page="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
+      <Billboard Number="54" Page="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
+      <Billboard Number="55" Page="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
+      <Billboard Number="56" Page="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
+      <Billboard Number="57" Page="142" Walk="true" Name="Bones with Blood" />
+      <Billboard Number="58" Page="143" Name="Barrel" />
+      <Billboard Number="59" Page="144" Name="Well with Water" />
+      <Billboard Number="60" Page="145" Name="Well" />
+      <Billboard Number="61" Page="146" Walk="true" Name="Pool of Blood" />
+      <Billboard Number="62" Page="147" Name="Flag" />
+      <Billboard Number="63" Page="148" Name="Aardwolf" />
+      <Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
+      <Billboard Number="65" Page="150" Walk="true" Name="Bones 3" />
+      <Billboard Number="66" Page="151" Walk="true" Name="Bones 4" />
+      <Billboard Number="67" Page="152" Walk="true" Name="Utensils (Blue)" />
+      <Billboard Number="68" Page="153" Name="Stove" />
+      <Billboard Number="69" Page="154" Name="Rack" />
+      <Billboard Number="70" Page="155" Name="Vines" />
       <Turn Number="90" Walk="true" Name="Turn" />
       <Turn Number="91" Walk="true" Name="Turn" />
       <Turn Number="92" Walk="true" Name="Turn" />
@@ -157,7 +157,7 @@
       <Enemy Number="113" Name="Guard 1 (Moving)" />
       <Enemy Number="114" Name="Guard 1 (Moving)" />
       <Enemy Number="115" Name="Guard 1 (Moving)" />
-      <Billboard Number="124" Pages="201" Walk="true" Name="Dead Guard" />
+      <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
       <Enemy Number="126" Name="SS 1 (Standing)" />
       <Enemy Number="127" Name="SS 1 (Standing)" />
       <Enemy Number="128" Name="SS 1 (Standing)" />
