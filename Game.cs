@@ -54,7 +54,7 @@ public class Game : Spatial
         using (FileStream audioTFile = new FileStream(System.IO.Path.Combine(Folder, "AUDIOT.WL1"), FileMode.Open))
             Assets.AudioT = new AudioT(audioHed, audioTFile);
 
-        using (MemoryStream song = new MemoryStream(Assets.AudioT.AudioTFile[273]))
+        using (MemoryStream song = new MemoryStream(Assets.AudioT.AudioTFile[264]))
             Assets.OplPlayer.ImfPlayer.Song = Imf.ReadImf(song);
     }
 
