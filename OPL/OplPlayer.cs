@@ -11,6 +11,8 @@ namespace OPL
         }
 
         public IOpl Opl { get; set; }
+        public ImfPlayer ImfPlayer { get; set; }
+        public AdlPlayer AdlPlayer { get; set; }
 
         private AudioStreamPlayer audioStreamPlayer;
 
@@ -50,9 +52,11 @@ namespace OPL
         public override void _Ready()
         {
             base._Ready();
-            AudioStreamPlayer = new AudioStreamPlayer();
+            AddChild(AudioStreamPlayer = new AudioStreamPlayer());
             Opl.Init((int)AudioStreamGenerator.MixRate);
             AudioStreamPlayer.Play();
+            AddChild(ImfPlayer = new ImfPlayer(Opl));
+            AddChild(AdlPlayer = new AdlPlayer(Opl));
             FillBuffer();
         }
 

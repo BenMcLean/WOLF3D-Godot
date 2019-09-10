@@ -66,8 +66,17 @@ namespace WOLF3DTest
             using (FileStream audioTStream = new FileStream(System.IO.Path.Combine(Folder, "AUDIOT.WL1"), FileMode.Open))
                 audioT = new AudioT(audioHed, audioTStream);
 
-            foreach (uint i in audioT.AudioHed)
-                Console.Write(i.ToString() + ", ");
+            //foreach (uint i in audioT.AudioHed)
+            //    Console.Write(i.ToString() + ", ");
+
+            Console.WriteLine(audioT.AudioTFile.Length);
+
+            for (uint i = 0; i < audioT.AudioTFile.Length; i++)
+                Console.Write("(" + i.ToString() + ": " + audioT.AudioTFile[i].Length.ToString() + "), ");
+
+            //using (MemoryStream song = new MemoryStream(audioT.AudioTFile[207]))
+            //using (StreamReader streamReader = new StreamReader(song))
+            //    Console.WriteLine(streamReader.ReadToEnd());
         }
     }
 }

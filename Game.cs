@@ -1,4 +1,6 @@
 using Godot;
+using NScumm.Core.Audio.OPL.DosBox;
+using OPL;
 using System;
 using System.IO;
 using System.Text;
@@ -44,17 +46,16 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        XElement pal = new XElement("Palette");
-        using (FileStream palette = new FileStream(@"Wolf3DSim\Palettes\Wolf3D.pal", FileMode.Open))
-        using (StreamReader streamReader = new StreamReader(palette))
-            pal.Value = streamReader.ReadToEnd();
-        pal.Save("palette.xml");
-        //Billboard billboard = new Billboard()
-        //{
-        //    GlobalTransform = new Transform(Basis.Identity, new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 2.5f) * Assets.WallWidth)),
-        //};
-        //billboard.Sprite3D.Texture = Assets.Textures[201];
-        //AddChild(billboard);
+        AddChild(Assets.OplPlayer = new OPL.OplPlayer(
+            Assets.Opl = new DosBoxOPL(NScumm.Core.Audio.OPL.OplType.Opl3)
+            ));
+
+        using (FileStream audioHed = new FileStream(System.IO.Path.Combine(Folder, "AUDIOHED.WL1"), FileMode.Open))
+        using (FileStream audioTFile = new FileStream(System.IO.Path.Combine(Folder, "AUDIOT.WL1"), FileMode.Open))
+            Assets.AudioT = new AudioT(audioHed, audioTFile);
+
+        using (MemoryStream song = new MemoryStream(Assets.AudioT.AudioTFile[273]))
+            Assets.OplPlayer.ImfPlayer.Song = Imf.ReadImf(song);
     }
 
     public MapWalls MapWalls;

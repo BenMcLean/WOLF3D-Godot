@@ -1,4 +1,6 @@
 ﻿using Godot;
+using NScumm.Core.Audio.OPL;
+using OPL;
 using System.Xml.Linq;
 using WOLF3DSim;
 
@@ -26,6 +28,10 @@ namespace WOLF3D
 
         public XElement Game { get; set; }
         public GameMaps GameMaps { get; set; }
+
+        public IOpl Opl { get; set; }
+        public OplPlayer OplPlayer { get; set; }
+        public AudioT AudioT { get; set; }
 
         public VSwap VSwap
         {
