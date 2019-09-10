@@ -20,7 +20,7 @@ First of all, [this is mind-blowing](https://bitbucket.org/NY00123/gamesrc-ver-r
 
 Second, Valéry Sablonnière has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
 
-Third, [Adam Biser](https://adambiser.itch.io/wdc), [Fabien Sanglard](http://fabiensanglard.net/gebbwolf3d/), [Blzut3](http://maniacsvault.net/ecwolf/) and even John Carmack himsself have been quite helpful, not only by having made significant contributions to the Wolfenstein 3D fan community but also by directly answering some of my emailed technical questions.
+Third, [Adam Biser](https://adambiser.itch.io/wdc), [Fabien Sanglard](http://fabiensanglard.net/gebbwolf3d/), [Blzut3](http://maniacsvault.net/ecwolf/) and even John Carmack himsself have been quite helpful, not only by having made significant contributions to the Wolfenstein 3D fan community but also by directly answering some of my emailed technical questions. Also, the [Game Modding wiki](http://www.shikadi.net/moddingwiki/Wolfenstein_3-D) has been quite helpful as a resource.
 
 [kalbert312](https://github.com/kalbert312) helped me figure the sprite graphics format out by sending me some of his Java and TypeScript code to translate into C#.
 
