@@ -45,7 +45,7 @@ namespace WOLF3D
 
         public static Billboard[] MakeBillboards(GameMaps.Map map)
         {
-            XElement objects = Game.Assets?.Game?.Element("VSwap")?.Element("Objects");
+            XElement objects = Game.Assets?.XML?.Element("VSwap")?.Element("Objects");
             if (objects == null)
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();

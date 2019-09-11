@@ -14,7 +14,7 @@ namespace WOLF3D
 
         public MapWalls(GameMaps.Map map)
         {
-            XElement doorFrameX = (from e in Game.Assets?.Game?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
+            XElement doorFrameX = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
                                    where e.Attribute("Name").Value.Equals("Door Frame")
                                    select e).FirstOrDefault();
             if (doorFrameX == null)
@@ -87,14 +87,14 @@ namespace WOLF3D
 
         public static IEnumerable<XElement> XWall(uint cell)
         {
-            return from e in Game.Assets?.Game?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
+            return from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
                    where (uint)e.Attribute("Number") == cell
                    select e;
         }
 
         public static IEnumerable<XElement> XDoor(uint cell)
         {
-            return from e in Game.Assets?.Game?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
+            return from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
                    where (uint)e.Attribute("Number") == cell
                    select e;
         }

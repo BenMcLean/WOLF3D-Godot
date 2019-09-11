@@ -1,6 +1,8 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
 using OPL;
+using System.IO;
+using System.Text;
 using System.Xml.Linq;
 using WOLF3DSim;
 
@@ -26,10 +28,27 @@ namespace WOLF3D
 
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
-        public XElement Game { get; set; }
+        public Assets(string folder, string file = "game.xml")
+        {
+            using (FileStream game = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
+                XML = XElement.Load(game);
+
+            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(XML.Element("Palette").Value)))
+            using (FileStream vswap = new FileStream(System.IO.Path.Combine(folder, XML.Element("VSwap").Attribute("Name").Value), FileMode.Open))
+                VSwap = new VSwap(palette, vswap);
+
+            using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+            using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
+                GameMaps = new GameMaps(mapHead, gameMaps);
+
+            using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
+            using (FileStream audioTFile = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
+                AudioT = new AudioT(audioHead, audioTFile);
+        }
+
+        public XElement XML { get; set; }
         public GameMaps GameMaps { get; set; }
 
-        public IOpl Opl { get; set; }
         public OplPlayer OplPlayer { get; set; }
         public AudioT AudioT { get; set; }
 

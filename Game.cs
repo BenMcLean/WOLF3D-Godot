@@ -17,22 +17,11 @@ public class Game : Spatial
     public override void _Ready()
     {
         DownloadShareware.Main(new string[] { Folder });
-        XElement xml;
-        using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
-            xml = XElement.Load(game);
+        Assets = new Assets(Folder);
 
-        using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
-        using (FileStream vswap = new FileStream(System.IO.Path.Combine(Folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-        using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
-        using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-        {
-            Assets = new Assets
-            {
-                Game = xml,
-                VSwap = new VSwap(palette, vswap),
-                GameMaps = new GameMaps(mapHead, gameMaps),
-            };
-        }
+        AddChild(Assets.OplPlayer = new OplPlayer(
+            new DosBoxOPL(NScumm.Core.Audio.OPL.OplType.Opl3)
+        ));
 
         Map map = Assets.GameMaps.Maps[0];
 
@@ -41,19 +30,10 @@ public class Game : Spatial
             AddChild(sprite);
 
         map.StartPosition(out ushort x, out ushort z);
-
         GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
 
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
-
-        AddChild(Assets.OplPlayer = new OPL.OplPlayer(
-            Assets.Opl = new DosBoxOPL(NScumm.Core.Audio.OPL.OplType.Opl3)
-            ));
-
-        using (FileStream audioHed = new FileStream(System.IO.Path.Combine(Folder, "AUDIOHED.WL1"), FileMode.Open))
-        using (FileStream audioTFile = new FileStream(System.IO.Path.Combine(Folder, "AUDIOT.WL1"), FileMode.Open))
-            Assets.AudioT = new AudioT(audioHed, audioTFile);
 
         using (MemoryStream song = new MemoryStream(Assets.AudioT.AudioTFile[264]))
             Assets.OplPlayer.ImfPlayer.Song = Imf.ReadImf(song);
