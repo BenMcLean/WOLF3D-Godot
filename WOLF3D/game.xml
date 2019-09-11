@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Game Name="Wolfenstein 3D Shareware v1.4">
+  <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1" />
   <VSwap Name="VSWAP.WL1">
     <Walls>
       <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />

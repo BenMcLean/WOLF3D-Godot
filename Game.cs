@@ -20,10 +20,11 @@ public class Game : Spatial
         XElement xml;
         using (FileStream game = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
             xml = XElement.Load(game);
+
         using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
-        using (FileStream vswap = new FileStream(System.IO.Path.Combine(Folder, "VSWAP.WL1"), FileMode.Open))
-        using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, "MAPHEAD.WL1"), FileMode.Open))
-        using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, "GAMEMAPS.WL1"), FileMode.Open))
+        using (FileStream vswap = new FileStream(System.IO.Path.Combine(Folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
+        using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+        using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
         {
             Assets = new Assets
             {
