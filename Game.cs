@@ -35,19 +35,10 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        using (MemoryStream song = new MemoryStream(Assets.AudioT.AudioTFile[264]))
-            Assets.OplPlayer.ImfPlayer.Song = Imf.ReadImf(song);
+        Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[3];
     }
 
     public MapWalls MapWalls;
-
-    ///// <summary>
-    ///// Called every frame.
-    ///// </summary>
-    ///// <param name="delta">'delta' is the elapsed time since the previous frame.</param>
-    //public override void _Process(float delta)
-    //{
-    //}
 
     public Game PlayASound()
     {

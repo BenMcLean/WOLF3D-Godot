@@ -46,7 +46,7 @@ namespace WOLF3D
             if (XML.Element("Audio") != null)
                 using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
                 using (FileStream audioT = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
-                    AudioT = new AudioT(audioHead, audioT);
+                    AudioT = new AudioT(audioHead, audioT, XML.Element("Audio"));
         }
 
         public XElement XML { get; set; }
