@@ -30,20 +30,23 @@ namespace WOLF3D
 
         public Assets(string folder, string file = "game.xml")
         {
-            using (FileStream game = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
-                XML = XElement.Load(game);
+            using (FileStream xml = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
+                XML = XElement.Load(xml);
 
-            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(XML.Element("Palette").Value)))
-            using (FileStream vswap = new FileStream(System.IO.Path.Combine(folder, XML.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                VSwap = new VSwap(palette, vswap);
+            if (XML.Element("Palette") != null && XML.Element("VSwap") != null)
+                using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(XML.Element("Palette").Value)))
+                using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, XML.Element("VSwap").Attribute("Name").Value), FileMode.Open))
+                    VSwap = new VSwap(palette, vSwap);
 
-            using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
-            using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-                GameMaps = new GameMaps(mapHead, gameMaps);
+            if (XML.Element("Maps") != null)
+                using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+                using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, XML.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
+                    GameMaps = new GameMaps(mapHead, gameMaps);
 
-            using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
-            using (FileStream audioTFile = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
-                AudioT = new AudioT(audioHead, audioTFile);
+            if (XML.Element("Audio") != null)
+                using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
+                using (FileStream audioT = new FileStream(System.IO.Path.Combine(folder, XML.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
+                    AudioT = new AudioT(audioHead, audioT);
         }
 
         public XElement XML { get; set; }
