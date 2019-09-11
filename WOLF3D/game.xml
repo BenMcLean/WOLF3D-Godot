@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Game Name="Wolfenstein 3D Shareware v1.4">
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1" />
-  <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288">
+  <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartDigiSounds="174" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />
     <Sound Number="1" Name="SELECTWPNSND" />
     <Sound Number="2" Name="SELECTITEMSND" />
@@ -89,6 +89,33 @@
     <Sound Number="84" Name="ROSESND" />
     <Sound Number="85" Name="MISSILEFIRESND" />
     <Sound Number="86" Name="MISSILEHITSND" />
+    <Imf Number="0" Name="CORNER_MUS" />
+    <Imf Number="1" Name="DUNGEON_MUS" />
+    <Imf Number="2" Name="WARMARCH_MUS" />
+    <Imf Number="3" Name="GETTHEM_MUS" />
+    <Imf Number="4" Name="HEADACHE_MUS" />
+    <Imf Number="5" Name="HITLWLTZ_MUS" />
+    <Imf Number="6" Name="INTROCW3_MUS" />
+    <Imf Number="7" Name="NAZI_NOR_MUS" />
+    <Imf Number="8" Name="NAZI_OMI_MUS" />
+    <Imf Number="9" Name="POW_MUS" />
+    <Imf Number="10" Name="SALUTE_MUS" />
+    <Imf Number="11" Name="SEARCHN_MUS" />
+    <Imf Number="12" Name="SUSPENSE_MUS" />
+    <Imf Number="13" Name="VICTORS_MUS" />
+    <Imf Number="14" Name="WONDERIN_MUS" />
+    <Imf Number="15" Name="FUNKYOU_MUS" />
+    <Imf Number="16" Name="ENDLEVEL_MUS" />
+    <Imf Number="17" Name="GOINGAFT_MUS" />
+    <Imf Number="18" Name="PREGNANT_MUS" />
+    <Imf Number="19" Name="ULTIMATE_MUS" />
+    <Imf Number="20" Name="NAZI_RAP_MUS" />
+    <Imf Number="21" Name="ZEROHOUR_MUS" />
+    <Imf Number="22" Name="TWELFTH_MUS" />
+    <Imf Number="23" Name="ROSTER_MUS" />
+    <Imf Number="24" Name="URAHERO_MUS" />
+    <Imf Number="25" Name="VICMARCH_MUS" />
+    <Imf Number="26" Name="PACMAN_MUS" />
   </Audio>
   <VSwap Name="VSWAP.WL1">
     <Walls>
