@@ -29,7 +29,7 @@ namespace OPL
             }
             set
             {
-                song = value;
+                if (song != value) song = value;
                 CurrentPacket = -1;
                 CurrentPacketDelay = 0f;
                 TimeSinceLastPacket = 0f;
