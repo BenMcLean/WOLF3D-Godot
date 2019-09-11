@@ -38,8 +38,8 @@ namespace WOLF3D
             }
 
             // Convert byte arrays into sounds
-            Sounds = new Adl[(uint)audio.Attribute("NumSounds")];
             uint startAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");
+            Sounds = new Adl[(uint)audio.Attribute("NumSounds")];
             for (uint i = 0; i < Sounds.Length; i++)
                 if (AudioTFile[startAdlibSounds + i] != null)
                     using (MemoryStream sound = new MemoryStream(AudioTFile[startAdlibSounds + i]))

@@ -55,5 +55,33 @@ namespace WOLF3DTest
             //foreach (GameMaps.Map map in gameMaps.Maps)
             //    Console.WriteLine(map.Name);
         }
+
+        [TestMethod]
+        public void AssetsTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+
+            XElement XML;
+            using (FileStream xml = new FileStream(System.IO.Path.Combine(Folder, "game.xml"), FileMode.Open))
+                XML = XElement.Load(xml);
+
+            VSwap VSwap;
+            if (XML.Element("Palette") != null && XML.Element("VSwap") != null)
+                using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(XML.Element("Palette").Value)))
+                using (FileStream vSwap = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VSwap").Attribute("Name").Value), FileMode.Open))
+                    VSwap = new VSwap(palette, vSwap);
+
+            GameMaps GameMaps;
+            if (XML.Element("Maps") != null)
+                using (FileStream mapHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+                using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(Folder, XML.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
+                    GameMaps = new GameMaps(mapHead, gameMaps);
+
+            AudioT AudioT;
+            if (XML.Element("Audio") != null)
+                using (FileStream audioHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
+                using (FileStream audioT = new FileStream(System.IO.Path.Combine(Folder, XML.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
+                    AudioT = new AudioT(audioHead, audioT, XML.Element("Audio"));
+        }
     }
 }
