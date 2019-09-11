@@ -35,7 +35,7 @@ public class Game : Spatial
 
         Map map = Assets.GameMaps.Maps[0];
 
-        MapWalls = new MapWalls().Load(map);
+        MapWalls = new MapWalls(map);
         foreach (Sprite3D sprite in MapWalls.Walls)
             AddChild(sprite);
 
