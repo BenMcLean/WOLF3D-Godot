@@ -94,7 +94,7 @@ namespace WOLF3D
                                 commands = stream.Position;
                                 stream.Seek(trexels, 0);
                                 for (ushort row = startY; row < endY; row++)
-                                    sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = (byte)stream.ReadByte();
+                                    sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = binaryReader.ReadByte();
                                 trexels = stream.Position;
                                 stream.Seek(commands, 0);
                             }
