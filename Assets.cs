@@ -99,14 +99,5 @@ namespace WOLF3D
         private VSwap vswap;
 
         public ImageTexture[] Textures;
-
-        public static readonly SpatialMaterial WallMaterial = new SpatialMaterial()
-        {
-            FlagsUnshaded = true,
-            FlagsDoNotReceiveShadows = true,
-            FlagsDisableAmbientLight = true,
-            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-        };
     }
 }

@@ -141,12 +141,21 @@ namespace WOLF3D
                 Texture = texture,
                 PixelSize = Assets.PixelWidth,
                 Scale = Assets.Scale,
-                MaterialOverride = Assets.WallMaterial,
+                MaterialOverride = WallMaterial,
                 Axis = axis,
                 Centered = false,
                 GlobalTransform = new Transform(Basis.Identity, position),
                 FlipH = flipH
             };
         }
+
+        public static readonly SpatialMaterial WallMaterial = new SpatialMaterial()
+        {
+            FlagsUnshaded = true,
+            FlagsDoNotReceiveShadows = true,
+            FlagsDisableAmbientLight = true,
+            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+        };
     }
 }
