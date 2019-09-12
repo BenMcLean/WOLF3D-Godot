@@ -62,6 +62,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OPL\OPL.csproj">
+      <Project>{CC078116-75E0-49AC-A92A-58F7E505B9C2}</Project>
+      <Name>OPL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WOLF3D.csproj">
       <Project>{0C1F239E-F2C1-4D04-81A2-FBD561C1E887}</Project>
       <Name>WOLF3D</Name>

@@ -62,7 +62,7 @@ namespace OPL
                     : 0;
             }
             if (CurrentPacket >= Song.Length)
-                Song = Mute && Loop ? Song : null;
+                Song = Loop ? Song : null;
             return this;
         }
     }

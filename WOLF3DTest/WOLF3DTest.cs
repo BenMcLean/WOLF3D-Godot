@@ -32,11 +32,19 @@ namespace WOLF3DTest
         }
 
         [TestMethod]
-        public void AssetsTest()
+        public void SongTest()
         {
             DownloadShareware.Main(new string[] { Folder });
             Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT);
 
+
+            byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
+                bytes = new byte[1];
+            Array.Copy(song, song.Length - bytes.Length, bytes, 0, bytes.Length);
+
+            using (Stream stream = new MemoryStream(bytes))
+            using (StreamReader streamReader = new StreamReader(stream))
+                Console.WriteLine(streamReader.ReadToEnd());
         }
     }
 }

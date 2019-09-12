@@ -1,10 +1,6 @@
 using Godot;
 using NScumm.Core.Audio.OPL.DosBox;
 using OPL;
-using System;
-using System.IO;
-using System.Text;
-using System.Xml.Linq;
 using WOLF3D;
 using WOLF3DSim;
 using static WOLF3DSim.GameMaps;
