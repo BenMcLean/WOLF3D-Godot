@@ -1,10 +1,8 @@
 ﻿using Godot;
-using NScumm.Core.Audio.OPL;
 using OPL;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using WOLF3DSim;
 
 namespace WOLF3D
 {

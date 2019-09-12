@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace WOLF3DSim
+namespace WOLF3D
 {
     public class GameMaps
     {

@@ -3,13 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using WOLF3DSim;
 
 namespace WOLF3D
 {
     public class MapWalls
     {
-        public WOLF3DSim.GameMaps.Map Map { get; set; }
+        public GameMaps.Map Map { get; set; }
         public List<Sprite3D> Walls = new List<Sprite3D>();
 
         public MapWalls(GameMaps.Map map)

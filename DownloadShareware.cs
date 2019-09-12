@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Security;
 
-namespace WOLF3DSim
+namespace WOLF3D
 {
     public class DownloadShareware
     {

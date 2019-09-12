@@ -57,9 +57,12 @@
     <Compile Include="Assets.cs" />
     <Compile Include="AudioT.cs" />
     <Compile Include="Billboard.cs" />
+    <Compile Include="DownloadShareware.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameMaps.cs" />
     <Compile Include="MapWalls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VSwap.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CH.Compressor.Huffman">
@@ -70,10 +73,6 @@
     <ProjectReference Include="OPL\OPL.csproj">
       <Project>{cc078116-75e0-49ac-a92a-58f7e505b9c2}</Project>
       <Name>OPL</Name>
-    </ProjectReference>
-    <ProjectReference Include="Wolf3DSim\WOLF3DSim.csproj">
-      <Project>{88907434-b63c-4ab8-adad-4ea458ebcfef}</Project>
-      <Name>WOLF3DSim</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

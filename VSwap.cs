@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace WOLF3DSim
+namespace WOLF3D
 {
     public class VSwap
     {

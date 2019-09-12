@@ -2,8 +2,6 @@ using Godot;
 using NScumm.Core.Audio.OPL.DosBox;
 using OPL;
 using WOLF3D;
-using WOLF3DSim;
-using static WOLF3DSim.GameMaps;
 
 public class Game : Spatial
 {
@@ -19,7 +17,7 @@ public class Game : Spatial
             new DosBoxOPL(NScumm.Core.Audio.OPL.OplType.Opl3)
         ));
 
-        Map map = Assets.GameMaps.Maps[0];
+        GameMaps.Map map = Assets.GameMaps.Maps[0];
 
         MapWalls = new MapWalls(map);
         foreach (Sprite3D sprite in MapWalls.Walls)
@@ -31,7 +29,8 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[3];
+        //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[3];
+        //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
     }
 
     public MapWalls MapWalls;
