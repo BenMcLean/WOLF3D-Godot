@@ -10,12 +10,13 @@ namespace WOLF3DTest
     public class WOLF3DTest
     {
         public static readonly string Folder = @"..\..\..\WOLF3D\";
+        public static readonly XElement XML = Assets.LoadXML(Folder);
 
         [TestMethod]
         public void GameMapsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT, out VgaGraph vgaGraph);
+            GameMaps maps = XML.Element("Maps") == null ? null : GameMaps.Load(Folder, XML);
 
             GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
@@ -33,8 +34,7 @@ namespace WOLF3DTest
         public void SongTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT, out VgaGraph vgaGraph);
-
+            AudioT audioT = XML.Element("Audio") == null ? null : AudioT.Load(Folder, XML);
             byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
                 bytes = new byte[1];
             Array.Copy(song, song.Length - bytes.Length, bytes, 0, bytes.Length);

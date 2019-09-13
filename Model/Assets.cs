@@ -28,38 +28,24 @@ namespace WOLF3D
 
         public Assets(string folder, string file = "game.xml")
         {
-            Load(folder, file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph);
-            XML = xml;
-            VSwap = vSwap;
-            GameMaps = gameMaps;
-            AudioT = audioT;
+            XML = LoadXML(folder, file);
+            VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
+            GameMaps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
+            AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
+
+            if (XML.Element("VgaGraph") != null)
+                using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
+                using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
+                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
+                    VgaGraph = new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
+            else
+                VgaGraph = null;
         }
 
-        public static void Load(string folder, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
-        {
-            Load(folder, "game.xml", out xml, out vSwap, out gameMaps, out audioT, out vgaGraph);
-        }
-
-        public static void Load(string folder, string file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
+        public static XElement LoadXML(string folder, string file = "game.xml")
         {
             using (FileStream xmlStream = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
-                xml = XElement.Load(xmlStream);
-            Load(folder, xml, out vSwap, out gameMaps, out audioT, out vgaGraph);
-        }
-
-        public static void Load(string folder, XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
-        {
-            vSwap = xml.Element("VSwap") == null ? null : VSwap.Load(folder, xml);
-            gameMaps = xml.Element("Maps") == null ? null : GameMaps.Load(folder, xml);
-            audioT = xml.Element("Audio") == null ? null : AudioT.Load(folder, xml);
-
-            if (xml.Element("VgaGraph") != null)
-                using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
-                using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
-                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
-                    vgaGraph = new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
-            else
-                vgaGraph = null;
+                return XElement.Load(xmlStream);
         }
 
         public XElement XML { get; set; }
