@@ -4,45 +4,38 @@
     {
         //HuffNode[] grhuffman = new HuffNode[255];
 
-        public struct HuffNode
-        {
-            /// <summary>
-            /// 0-255 is a character, > is a pointer to a node
-            /// </summary>
-            public ushort bit0, bit1;
-        }
-
         /// <summary>
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260
         /// </summary>
-        public static byte[] CAL_HuffExpand(byte[] source, uint length, HuffNode[] huffTable)
+        /// <param name="dictionary">The Huffman dictionary is a ushort[255][2]</param>
+        public static byte[] CAL_HuffExpand(byte[] source, uint length, ushort[][] dictionary)
         {
             byte[] dest = new byte[length];
-            HuffNode huffNode = huffTable[254];
+            ushort[] huffNode = dictionary[254];
             uint read = 0, written = 0;
             ushort nodeVal;
             byte val = source[read++], mask = 1;
-            do
+            while (written < dest.Length)
             {
                 if ((val & mask) == 0)
-                    nodeVal = huffNode.bit0;
+                    nodeVal = huffNode[0];
                 else
-                    nodeVal = huffNode.bit1;
+                    nodeVal = huffNode[1];
                 if (mask == 0x80)
                 {
                     val = source[read++];
                     mask = 1;
                 }
-                else mask <<= 1;
+                else
+                    mask <<= 1;
                 if (nodeVal < 256)
-                {
+                { // 0-255 is a character, > is a pointer to a node
                     dest[written++] = (byte)nodeVal;
-                    huffNode = huffTable[254];
+                    huffNode = dictionary[254];
                 }
                 else
-                    huffNode = huffTable[nodeVal - 256];
+                    huffNode = dictionary[nodeVal - 256];
             }
-            while (written < dest.Length);
             return dest;
         }
     }
