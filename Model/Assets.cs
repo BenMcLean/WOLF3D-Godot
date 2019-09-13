@@ -32,14 +32,7 @@ namespace WOLF3D
             VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
             GameMaps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
             AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
-
-            if (XML.Element("VgaGraph") != null)
-                using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
-                using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
-                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, XML.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
-                    VgaGraph = new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
-            else
-                VgaGraph = null;
+            VgaGraph = XML.Element("VgaGraph") == null ? null : VgaGraph.Load(folder, XML);
         }
 
         public static XElement LoadXML(string folder, string file = "game.xml")

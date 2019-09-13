@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Xml.Linq;
 
 namespace WOLF3D
 {
     public class VgaGraph
     {
+        public static VgaGraph Load(string folder, XElement xml)
+        {
+            using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
+            using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
+            using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
+                return new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
+        }
+
         public ushort[][] Dictionary { get; set; }
         public uint[] VgaHead { get; set; }
         public byte[][] VgaGraphFile { get; set; }
