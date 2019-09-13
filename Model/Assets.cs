@@ -69,9 +69,9 @@ namespace WOLF3D
 
             if (xml.Element("VgaGraph") != null)
                 using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
-                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
                 using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
-                    vgaGraph = new VgaGraph(vgaDict, vgaGraphStream, vgaHead);
+                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
+                    vgaGraph = new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
             else
                 vgaGraph = null;
         }

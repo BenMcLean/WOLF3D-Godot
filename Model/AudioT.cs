@@ -15,29 +15,35 @@ namespace WOLF3D
         public uint StartAdlibSounds;
         public uint StartMusic;
 
-        public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio)
+        public static uint[] ParseHead(Stream stream)
         {
-            // Parse AUDIOHED file
-            using (BinaryReader binaryReader = new BinaryReader(audioHedStream))
-            {
-                List<uint> list = new List<uint>();
-                while (audioHedStream.Position < audioHedStream.Length)
+            List<uint> list = new List<uint>();
+            using (BinaryReader binaryReader = new BinaryReader(stream))
+                while (stream.Position <= stream.Length - 4) // minus 4 because a 32 bits is 4 bytes
                     list.Add(binaryReader.ReadUInt32());
-                AudioHead = list.ToArray();
-            }
+            return list.ToArray();
+        }
 
-            // Convert AUDIOT file into byte arrays
-            AudioTFile = new byte[AudioHead.Length - 1][];
-            for (uint chunk = 0; chunk < AudioTFile.Length; chunk++)
+        public static byte[][] SplitFile(uint[] head, Stream file)
+        {
+            byte[][] split = new byte[head.Length - 1][];
+            for (uint chunk = 0; chunk < split.Length; chunk++)
             {
-                uint size = AudioHead[chunk + 1] - AudioHead[chunk];
+                uint size = head[chunk + 1] - head[chunk];
                 if (size > 0)
                 {
-                    AudioTFile[chunk] = new byte[size];
-                    audioTStream.Seek(AudioHead[chunk], 0);
-                    audioTStream.Read(AudioTFile[chunk], 0, AudioTFile[chunk].Length);
+                    split[chunk] = new byte[size];
+                    file.Seek(head[chunk], 0);
+                    file.Read(split[chunk], 0, split[chunk].Length);
                 }
             }
+            return split;
+        }
+
+        public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio)
+        {
+            AudioHead = ParseHead(audioHedStream);
+            AudioTFile = SplitFile(AudioHead, audioTStream);
 
             // Convert byte arrays into sounds
             StartAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");

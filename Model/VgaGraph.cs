@@ -7,19 +7,14 @@ namespace WOLF3D
     {
         public ushort[][] Dictionary { get; set; }
         public uint[] VgaHead { get; set; }
+        public byte[][] VgaGraphFile { get; set; }
 
-        public VgaGraph(Stream vgaDict, Stream vgaGraph, Stream vgaHead)
+        public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph)
         {
-            Dictionary = LoadDictionary(vgaDict);
-
-            // Parse VGAHEAD file
-            //using (BinaryReader binaryReader = new BinaryReader(vgaHead))
-            //{
-            //    List<uint> list = new List<uint>();
-            //    while (vgaHead.Position < vgaHead.Length)
-            //        list.Add(binaryReader.ReadUInt32());
-            //    VgaHead = list.ToArray();
-            //}
+            Dictionary = LoadDictionary(dictionary);
+            VgaHead = AudioT.ParseHead(vgaHead);
+            VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
+            //VgaGraphBytes = LoadVgaGraph(Dictionary, VgaHead, vgaGraph);
         }
 
         /// <summary>
