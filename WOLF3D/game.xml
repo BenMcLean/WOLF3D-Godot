@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Game Name="Wolfenstein 3D Shareware v1.4">
+  <VgaGraph VgaDict="VGADICT.WL1" VgaGraph="VGAGRAPH.WL1" VgaHead="VGAHEAD.WL1" />
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1" />
   <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartDigiSounds="174" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />

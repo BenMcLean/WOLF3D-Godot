@@ -1,10 +1,11 @@
-﻿namespace WOLF3D.Model
+﻿using System.IO;
+
+namespace WOLF3D
 {
     class VgaGraph
     {
-        //HuffNode[] grhuffman = new HuffNode[255];
-
         /// <summary>
+        /// Implementing Huffman decompression. http://www.shikadi.net/moddingwiki/Huffman_Compression#Huffman_implementation_in_ID_Software_games
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260
         /// </summary>
         /// <param name="dictionary">The Huffman dictionary is a ushort[255][2]</param>
@@ -37,6 +38,24 @@
                     huffNode = dictionary[nodeVal - 256];
             }
             return dest;
+        }
+
+        public static ushort[][] LoadDictionary(Stream stream)
+        {
+            using (BinaryReader binaryReader = new BinaryReader(stream))
+                return LoadDictionary(binaryReader);
+        }
+
+        public static ushort[][] LoadDictionary(BinaryReader binaryReader)
+        {
+            ushort[][] dictionary = new ushort[255][];
+            for (uint i = 0; i < dictionary.Length; i++)
+                dictionary[i] = new ushort[]
+                {
+                    binaryReader.ReadUInt16(),
+                    binaryReader.ReadUInt16()
+                };
+            return dictionary;
         }
     }
 }
