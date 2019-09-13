@@ -8,6 +8,13 @@ namespace WOLF3D
 {
     public class AudioT
     {
+        public static AudioT Load(string folder, XElement xml)
+        {
+            using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
+            using (FileStream audioTStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
+                return new AudioT(audioHead, audioTStream, xml.Element("Audio"));
+        }
+
         public uint[] AudioHead;
         public byte[][] AudioTFile;
         public Adl[] Sounds;

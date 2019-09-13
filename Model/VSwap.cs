@@ -1,11 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 
 namespace WOLF3D
 {
     public class VSwap
     {
+        public static VSwap Load(string folder, XElement xml)
+        {
+            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
+            using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
+                return new VSwap(palette, vSwap);
+        }
+
         private static readonly ushort COLORS = 256;
 
         public uint[] Palette { get; set; }

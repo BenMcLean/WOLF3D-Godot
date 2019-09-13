@@ -1,10 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 
 namespace WOLF3D
 {
     public class GameMaps
     {
+        public static GameMaps Load(string folder, XElement xml)
+        {
+            using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+            using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
+                return new GameMaps(mapHead, gameMaps);
+        }
+
         public long[] Offsets { get; set; }
 
         public struct Map

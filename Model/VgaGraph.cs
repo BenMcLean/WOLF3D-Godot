@@ -13,7 +13,7 @@ namespace WOLF3D
         {
             Dictionary = LoadDictionary(dictionary);
             VgaHead = AudioT.ParseHead(vgaHead);
-            VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
+            //VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
             //VgaGraphBytes = LoadVgaGraph(Dictionary, VgaHead, vgaGraph);
         }
 

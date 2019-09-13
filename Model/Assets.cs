@@ -49,23 +49,9 @@ namespace WOLF3D
 
         public static void Load(string folder, XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
         {
-            if (xml.Element("Palette") != null && xml.Element("VSwap") != null)
-                using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
-                using (FileStream vSwapStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                    vSwap = new VSwap(palette, vSwapStream);
-            else vSwap = null;
-
-            if (xml.Element("Maps") != null)
-                using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
-                using (FileStream gameMapsStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-                    gameMaps = new GameMaps(mapHead, gameMapsStream);
-            else gameMaps = null;
-
-            if (xml.Element("Audio") != null)
-                using (FileStream audioHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Audio").Attribute("AudioHead").Value), FileMode.Open))
-                using (FileStream audioTStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
-                    audioT = new AudioT(audioHead, audioTStream, xml.Element("Audio"));
-            else audioT = null;
+            vSwap = xml.Element("VSwap") == null ? null : VSwap.Load(folder, xml);
+            gameMaps = xml.Element("Maps") == null ? null : GameMaps.Load(folder, xml);
+            audioT = xml.Element("Audio") == null ? null : AudioT.Load(folder, xml);
 
             if (xml.Element("VgaGraph") != null)
                 using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
