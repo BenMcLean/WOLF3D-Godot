@@ -65,7 +65,7 @@ namespace WOLF3D
             Songs = new ImfPacket[AudioTFile.Length - StartMusic][];
             for (uint i = 0; i < Songs.Length; i++)
                 if (AudioTFile[StartMusic + i] != null)
-                    using (MemoryStream song = new MemoryStream(AudioTFile[StartMusic + i], 0, AudioTFile[StartMusic + i].Length))
+                    using (MemoryStream song = new MemoryStream(AudioTFile[StartMusic + i]))
                         Songs[i] = ReadImf(song);
         }
     }
