@@ -16,7 +16,7 @@ namespace WOLF3DTest
         public void GameMapsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            GameMaps maps = XML.Element("Maps") == null ? null : GameMaps.Load(Folder, XML);
+            GameMaps maps = GameMaps.Load(Folder, XML);
 
             GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
@@ -34,14 +34,24 @@ namespace WOLF3DTest
         public void SongTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            AudioT audioT = XML.Element("Audio") == null ? null : AudioT.Load(Folder, XML);
+            AudioT audioT = AudioT.Load(Folder, XML);
             byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
                 bytes = new byte[1];
             Array.Copy(song, song.Length - bytes.Length, bytes, 0, bytes.Length);
 
-            using (Stream stream = new MemoryStream(bytes))
-            using (StreamReader streamReader = new StreamReader(stream))
-                Console.WriteLine(streamReader.ReadToEnd());
+            //using (Stream stream = new MemoryStream(bytes))
+            //using (StreamReader streamReader = new StreamReader(stream))
+            //    Console.WriteLine(streamReader.ReadToEnd());
+        }
+
+        [TestMethod]
+        public void VgaGraphTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+            VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
+
+            foreach (uint i in vgaGraph.VgaHead)
+                Console.Write(i.ToString() + ", ");
         }
     }
 }

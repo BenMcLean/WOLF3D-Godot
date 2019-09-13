@@ -26,9 +26,12 @@ namespace WOLF3D
 
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
-        public Assets(string folder, string file = "game.xml")
+        public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
+        { }
+
+        public Assets(string folder, XElement xml)
         {
-            XML = LoadXML(folder, file);
+            XML = xml;
             VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
             GameMaps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
             AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
