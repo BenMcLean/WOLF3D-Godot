@@ -39,10 +39,7 @@ namespace WOLF3D
             byte val = source[read++], mask = 1;
             while (written < dest.Length)
             {
-                if ((val & mask) == 0)
-                    nodeVal = huffNode[0];
-                else
-                    nodeVal = huffNode[1];
+                nodeVal = huffNode[(val & mask) == 0 ? 0 : 1];
                 if (mask == 0x80)
                 {
                     val = source[read++];
