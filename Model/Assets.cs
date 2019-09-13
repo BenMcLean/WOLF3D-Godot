@@ -28,26 +28,26 @@ namespace WOLF3D
 
         public Assets(string folder, string file = "game.xml")
         {
-            Load(folder, file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT);
+            Load(folder, file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph);
             XML = xml;
             VSwap = vSwap;
             GameMaps = gameMaps;
             AudioT = audioT;
         }
 
-        public static void Load(string folder, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT)
+        public static void Load(string folder, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
         {
-            Load(folder, "game.xml", out xml, out vSwap, out gameMaps, out audioT);
+            Load(folder, "game.xml", out xml, out vSwap, out gameMaps, out audioT, out vgaGraph);
         }
 
-        public static void Load(string folder, string file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT)
+        public static void Load(string folder, string file, out XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
         {
             using (FileStream xmlStream = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
                 xml = XElement.Load(xmlStream);
-            Load(folder, xml, out vSwap, out gameMaps, out audioT);
+            Load(folder, xml, out vSwap, out gameMaps, out audioT, out vgaGraph);
         }
 
-        public static void Load(string folder, XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT)
+        public static void Load(string folder, XElement xml, out VSwap vSwap, out GameMaps gameMaps, out AudioT audioT, out VgaGraph vgaGraph)
         {
             if (xml.Element("Palette") != null && xml.Element("VSwap") != null)
                 using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
@@ -66,6 +66,14 @@ namespace WOLF3D
                 using (FileStream audioTStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("Audio").Attribute("AudioT").Value), FileMode.Open))
                     audioT = new AudioT(audioHead, audioTStream, xml.Element("Audio"));
             else audioT = null;
+
+            if (xml.Element("VgaGraph") != null)
+                using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
+                using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
+                using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
+                    vgaGraph = new VgaGraph(vgaDict, vgaGraphStream, vgaHead);
+            else
+                vgaGraph = null;
         }
 
         public XElement XML { get; set; }
@@ -95,6 +103,8 @@ namespace WOLF3D
             }
         }
         private VSwap vswap;
+
+        public VgaGraph VgaGraph { get; set; }
 
         public ImageTexture[] Textures;
     }

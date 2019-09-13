@@ -1,9 +1,27 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace WOLF3D
 {
-    class VgaGraph
+    public class VgaGraph
     {
+        public ushort[][] Dictionary { get; set; }
+        public uint[] VgaHead { get; set; }
+
+        public VgaGraph(Stream vgaDict, Stream vgaGraph, Stream vgaHead)
+        {
+            Dictionary = LoadDictionary(vgaDict);
+
+            // Parse VGAHEAD file
+            //using (BinaryReader binaryReader = new BinaryReader(vgaHead))
+            //{
+            //    List<uint> list = new List<uint>();
+            //    while (vgaHead.Position < vgaHead.Length)
+            //        list.Add(binaryReader.ReadUInt32());
+            //    VgaHead = list.ToArray();
+            //}
+        }
+
         /// <summary>
         /// Implementing Huffman decompression. http://www.shikadi.net/moddingwiki/Huffman_Compression#Huffman_implementation_in_ID_Software_games
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260

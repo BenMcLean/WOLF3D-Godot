@@ -15,7 +15,7 @@ namespace WOLF3DTest
         public void GameMapsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT);
+            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT, out VgaGraph vgaGraph);
 
             GameMaps.Map map = maps.Maps[0];
             Console.WriteLine();
@@ -33,7 +33,7 @@ namespace WOLF3DTest
         public void SongTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT);
+            Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT, out VgaGraph vgaGraph);
 
             byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
                 bytes = new byte[1];
