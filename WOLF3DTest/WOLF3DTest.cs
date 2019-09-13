@@ -35,7 +35,6 @@ namespace WOLF3DTest
             DownloadShareware.Main(new string[] { Folder });
             Assets.Load(Folder, out XElement xml, out VSwap vSwap, out GameMaps maps, out AudioT audioT);
 
-
             byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
                 bytes = new byte[1];
             Array.Copy(song, song.Length - bytes.Length, bytes, 0, bytes.Length);

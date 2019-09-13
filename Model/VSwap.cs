@@ -109,7 +109,7 @@ namespace WOLF3D
                         stream.Seek(PageOffsets[page], 0);
                         Pages[page] = new byte[PageLengths[page]];
                         for (uint i = 0; i < Pages[page].Length; i++)
-                            Pages[page][i] = (byte)(stream.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
+                            Pages[page][i] = (byte)(binaryReader.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
             }
             return this;

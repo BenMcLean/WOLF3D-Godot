@@ -61,6 +61,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Model\GameMaps.cs" />
     <Compile Include="MapWalls.cs" />
+    <Compile Include="Model\VgaGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\VSwap.cs" />
   </ItemGroup>
