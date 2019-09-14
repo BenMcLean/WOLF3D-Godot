@@ -11,14 +11,16 @@ namespace WOLF3D
             using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
             using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
-                return new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
+                return new VgaGraph(vgaDict, vgaHead, vgaGraphStream, xml);
         }
 
         public byte[][] VgaGraphFile { get; set; }
+        public uint[] Palette { get; set; }
 
-        public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph)
+        public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph, XElement xml)
         {
             VgaGraphFile = SplitFile(ParseHead(vgaHead), vgaGraph, LoadDictionary(dictionary));
+            Palette = VSwap.LoadPalette(xml);
         }
 
         public static uint[] ParseHead(Stream stream)

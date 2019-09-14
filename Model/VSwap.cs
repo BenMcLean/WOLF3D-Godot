@@ -10,9 +10,8 @@ namespace WOLF3D
     {
         public static VSwap Load(string folder, XElement xml)
         {
-            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
             using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                return new VSwap(palette, vSwap);
+                return new VSwap(LoadPalette(xml), vSwap);
         }
 
         private static readonly ushort COLORS = 256;
@@ -122,6 +121,12 @@ namespace WOLF3D
                     }
             }
             return this;
+        }
+
+        public static uint[] LoadPalette(XElement xml)
+        {
+            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
+                return LoadPalette(palette);
         }
 
         public static uint[] LoadPalette(Stream stream)
