@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
 
 namespace WOLF3D
@@ -20,9 +21,22 @@ namespace WOLF3D
         public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph)
         {
             Dictionary = LoadDictionary(dictionary);
-            VgaHead = AudioT.ParseHead(vgaHead);
-            //VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
+            VgaHead = ParseHead(vgaHead);
+            VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
             //VgaGraphBytes = LoadVgaGraph(Dictionary, VgaHead, vgaGraph);
+        }
+
+        public static uint[] ParseHead(Stream stream)
+        {
+            uint[] head = new uint[stream.Length / 3];
+            for (uint i = 0; i < head.Length; i++)
+                head[i] = Read24Bits(stream);
+            return head;
+        }
+
+        public static uint Read24Bits(Stream stream)
+        {
+            return (uint)(stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16));
         }
 
         /// <summary>

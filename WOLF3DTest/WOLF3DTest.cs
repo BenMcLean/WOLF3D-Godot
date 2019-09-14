@@ -50,8 +50,8 @@ namespace WOLF3DTest
             DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
 
-            foreach (uint i in vgaGraph.VgaHead)
-                Console.Write(i.ToString() + ", ");
+            foreach (byte[] chunk in vgaGraph.VgaGraphFile)
+                Console.Write(chunk.Length.ToString() + ", ");
         }
     }
 }

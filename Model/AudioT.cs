@@ -26,7 +26,7 @@ namespace WOLF3D
         {
             List<uint> list = new List<uint>();
             using (BinaryReader binaryReader = new BinaryReader(stream))
-                while (stream.Position <= stream.Length - 4) // minus 4 because a 32 bits is 4 bytes
+                while (stream.Position < stream.Length)
                     list.Add(binaryReader.ReadUInt32());
             return list.ToArray();
         }
