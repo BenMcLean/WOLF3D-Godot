@@ -22,8 +22,11 @@ namespace WOLF3D
         {
             Dictionary = LoadDictionary(dictionary);
             VgaHead = ParseHead(vgaHead);
-            VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
-            //VgaGraphBytes = LoadVgaGraph(Dictionary, VgaHead, vgaGraph);
+            //VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
+            byte[][] chunks = AudioT.SplitFile(VgaHead, vgaGraph);
+            VgaGraphFile = new byte[chunks.Length][];
+            for (uint chunk = 0; chunk < chunks.Length; chunk++)
+                VgaGraphFile[chunk] = CAL_HuffExpand(chunks[chunk], Dictionary);
         }
 
         public static uint[] ParseHead(Stream stream)
@@ -44,14 +47,14 @@ namespace WOLF3D
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260
         /// </summary>
         /// <param name="dictionary">The Huffman dictionary is a ushort[255][2]</param>
-        public static byte[] CAL_HuffExpand(byte[] source, uint length, ushort[][] dictionary)
+        public static byte[] CAL_HuffExpand(byte[] source, ushort[][] dictionary)
         {
-            byte[] dest = new byte[length];
+            List<byte> dest = new List<byte>();
             ushort[] huffNode = dictionary[254];
-            uint read = 0, written = 0;
+            uint read = 0;
             ushort nodeVal;
             byte val = source[read++], mask = 1;
-            while (written < dest.Length)
+            while (read < source.Length)
             {
                 nodeVal = huffNode[(val & mask) == 0 ? 0 : 1];
                 if (mask == 0x80)
@@ -63,13 +66,13 @@ namespace WOLF3D
                     mask <<= 1;
                 if (nodeVal < 256)
                 { // 0-255 is a character, > is a pointer to a node
-                    dest[written++] = (byte)nodeVal;
+                    dest.Add((byte)nodeVal);
                     huffNode = dictionary[254];
                 }
                 else
                     huffNode = dictionary[nodeVal - 256];
             }
-            return dest;
+            return dest.ToArray();
         }
 
         public static ushort[][] LoadDictionary(Stream stream)
