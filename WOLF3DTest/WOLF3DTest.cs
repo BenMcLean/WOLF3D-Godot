@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3D;
@@ -50,8 +51,26 @@ namespace WOLF3DTest
             DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
 
-            foreach (byte[] chunk in vgaGraph.VgaGraphFile)
-                Console.Write(chunk.Length.ToString() + ", ");
+            Console.Write("Lengths: ");
+            foreach (byte[] length in vgaGraph.File)
+                Console.Write(length.Length.ToString() + ", ");
+            Console.WriteLine();
+
+            if (vgaGraph.Sizes != null)
+            {
+                Console.Write("Image sizes: ");
+                foreach (ushort[] size in vgaGraph.Sizes)
+                    if (size != null)
+                        Console.Write("(" + size[0].ToString() + ", " + size[1].ToString() + ") ");
+                Console.WriteLine();
+            }
+
+            uint chunk = 1;
+            Console.Write("Chunk " + chunk.ToString() + " contents: ");
+            foreach (byte bite in vgaGraph.File[chunk])
+                Console.Write(bite.ToString() + ", ");
+            Console.WriteLine();
+
         }
     }
 }

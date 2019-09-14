@@ -31,6 +31,20 @@ public class Game : Spatial
 
         //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[3];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
+
+        Godot.Image image = new Image();
+        image.CreateFromData(Assets.VgaGraph.Sizes[1][0], Assets.VgaGraph.Sizes[1][1], false, Image.Format.Rgba8, VSwap.Index2ByteArray(Assets.VgaGraph.File[3], Assets.VSwap.Palette));
+        ImageTexture imageTexture = new ImageTexture();
+        imageTexture.CreateFromImage(image, 0);
+
+        Sprite sprite1 = new Sprite
+        {
+            Name = "Sprite1",
+            Texture = imageTexture,
+            Position = new Vector2(200, 200),
+            Scale = new Vector2(5, 5)
+        };
+        AddChild(sprite1);
     }
 
     public MapWalls MapWalls;

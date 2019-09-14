@@ -14,12 +14,20 @@ namespace WOLF3D
                 return new VgaGraph(vgaDict, vgaHead, vgaGraphStream, xml);
         }
 
-        public byte[][] VgaGraphFile { get; set; }
+        public byte[][] File { get; set; }
         public uint[] Palette { get; set; }
+        public ushort[][] Sizes { get; set; }
+
+        public ushort[] Size(uint pic)
+        {
+            return Sizes[pic];
+        }
 
         public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph, XElement xml)
         {
-            VgaGraphFile = SplitFile(ParseHead(vgaHead), vgaGraph, LoadDictionary(dictionary));
+            File = SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitTuples(dictionary));
+            using (MemoryStream sizes = new MemoryStream(File[0]))
+                Sizes = Load16BitTuples(sizes);
             Palette = VSwap.LoadPalette(xml);
         }
 
@@ -39,18 +47,18 @@ namespace WOLF3D
         public static byte[][] SplitFile(uint[] head, Stream file, ushort[][] dictionary)
         {
             byte[][] split = new byte[head.Length - 1][];
-            for (uint i = 0; i < split.Length; i++)
-            {
-                uint size = head[i + 1] - head[i];
-                if (size > 0)
+            using (BinaryReader binaryReader = new BinaryReader(file))
+                for (uint i = 0; i < split.Length; i++)
                 {
-                    split[i] = new byte[size];
-                    file.Seek(head[i], 0);
-                    uint length = Read24Bits(file);
-                    file.Read(split[i], 0, split[i].Length - 3);
-                    split[i] = CAL_HuffExpand(split[i], dictionary, length);
+                    uint size = head[i + 1] - head[i];
+                    if (size > 0)
+                    {
+                        file.Seek(head[i], 0);
+                        uint length = Read24Bits(file);
+                        file.Read(split[i] = new byte[size - 3], 0, split[i].Length);
+                        split[i] = CAL_HuffExpand(split[i], dictionary, length);
+                    }
                 }
-            }
             return split;
         }
 
@@ -87,22 +95,17 @@ namespace WOLF3D
             return dest.ToArray();
         }
 
-        public static ushort[][] LoadDictionary(Stream stream)
+        public static ushort[][] Load16BitTuples(Stream stream)
         {
+            ushort[][] dest = new ushort[stream.Length / 4][];
             using (BinaryReader binaryReader = new BinaryReader(stream))
-                return LoadDictionary(binaryReader);
-        }
-
-        public static ushort[][] LoadDictionary(BinaryReader binaryReader)
-        {
-            ushort[][] dictionary = new ushort[255][];
-            for (uint i = 0; i < dictionary.Length; i++)
-                dictionary[i] = new ushort[]
-                {
-                    binaryReader.ReadUInt16(),
-                    binaryReader.ReadUInt16()
-                };
-            return dictionary;
+                for (uint i = 0; i < dest.Length; i++)
+                    dest[i] = new ushort[]
+                    {
+                        binaryReader.ReadUInt16(),
+                        binaryReader.ReadUInt16()
+                    };
+            return dest;
         }
     }
 }
