@@ -14,16 +14,11 @@ namespace WOLF3D
                 return new VgaGraph(vgaDict, vgaHead, vgaGraphStream);
         }
 
-        public ushort[][] Dictionary { get; set; }
-        public uint[] VgaHead { get; set; }
         public byte[][] VgaGraphFile { get; set; }
 
         public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph)
         {
-            Dictionary = LoadDictionary(dictionary);
-            VgaHead = ParseHead(vgaHead);
-            VgaGraphFile = AudioT.SplitFile(VgaHead, vgaGraph);
-            //VgaGraphBytes = LoadVgaGraph(Dictionary, VgaHead, vgaGraph);
+            VgaGraphFile = SplitFile(ParseHead(vgaHead), vgaGraph, LoadDictionary(dictionary));
         }
 
         public static uint[] ParseHead(Stream stream)
@@ -39,19 +34,37 @@ namespace WOLF3D
             return (uint)(stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16));
         }
 
+        public static byte[][] SplitFile(uint[] head, Stream file, ushort[][] dictionary)
+        {
+            byte[][] split = new byte[head.Length - 1][];
+            for (uint i = 0; i < split.Length; i++)
+            {
+                uint size = head[i + 1] - head[i];
+                if (size > 0)
+                {
+                    split[i] = new byte[size];
+                    file.Seek(head[i], 0);
+                    uint length = Read24Bits(file);
+                    file.Read(split[i], 0, split[i].Length - 3);
+                    split[i] = CAL_HuffExpand(split[i], dictionary, length);
+                }
+            }
+            return split;
+        }
+
         /// <summary>
         /// Implementing Huffman decompression. http://www.shikadi.net/moddingwiki/Huffman_Compression#Huffman_implementation_in_ID_Software_games
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260
         /// </summary>
         /// <param name="dictionary">The Huffman dictionary is a ushort[255][2]</param>
-        public static byte[] CAL_HuffExpand(byte[] source, uint length, ushort[][] dictionary)
+        public static byte[] CAL_HuffExpand(byte[] source, ushort[][] dictionary, uint length = 0)
         {
-            byte[] dest = new byte[length];
+            List<byte> dest = new List<byte>();
             ushort[] huffNode = dictionary[254];
-            uint read = 0, written = 0;
+            uint read = 0;
             ushort nodeVal;
             byte val = source[read++], mask = 1;
-            while (written < dest.Length)
+            while (read < source.Length && (length <= 0 || dest.Count < length))
             {
                 nodeVal = huffNode[(val & mask) == 0 ? 0 : 1];
                 if (mask == 0x80)
@@ -63,13 +76,13 @@ namespace WOLF3D
                     mask <<= 1;
                 if (nodeVal < 256)
                 { // 0-255 is a character, > is a pointer to a node
-                    dest[written++] = (byte)nodeVal;
+                    dest.Add((byte)nodeVal);
                     huffNode = dictionary[254];
                 }
                 else
                     huffNode = dictionary[nodeVal - 256];
             }
-            return dest;
+            return dest.ToArray();
         }
 
         public static ushort[][] LoadDictionary(Stream stream)
