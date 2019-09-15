@@ -17,17 +17,21 @@ namespace WOLF3D
         public byte[][] File { get; set; }
         public uint[] Palette { get; set; }
         public ushort[][] Sizes { get; set; }
+        public uint PicStart { get; set; }
 
         public ushort[] Size(uint pic)
         {
-            return Sizes[pic];
+            return Sizes[pic - PicStart + 1];
         }
 
         public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph, XElement xml)
         {
             File = SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitTuples(dictionary));
-            using (MemoryStream sizes = new MemoryStream(File[0]))
+            using (MemoryStream sizes = new MemoryStream(File[(uint)xml.Element("VgaGraph").Element("Sizes").Attribute("Number")]))
                 Sizes = Load16BitTuples(sizes);
+            PicStart = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("PicStart");
+            for (uint i = PicStart; i < 141; i++)
+                File[i] = Deplanify(File[i], Size(i));
             Palette = VSwap.LoadPalette(xml);
         }
 
@@ -60,6 +64,27 @@ namespace WOLF3D
                     }
                 }
             return split;
+        }
+
+        public static byte[] Deplanify(byte[] input, ushort[] size)
+        {
+            return Deplanify(input, size[0], size[1]);
+        }
+
+        public static byte[] Deplanify(byte[] input, ushort width, ushort height)
+        {
+            byte[] bytes = new byte[input.Length];
+            for (uint i = 0; i < bytes.Length; i++)
+            {
+                uint o = i < 5 ? (uint)bytes.Length - i - 1 : (uint)((i + 4) % (bytes.Length - 1));
+                uint x = o % width,
+                    y = o / width,
+                    x2 = x, //(uint)((x % 4) * (width / 4 - 1)),
+                    y2 = y,
+                    t = y2 * width + x2;
+                bytes[i] = input[t];
+            }
+            return bytes;
         }
 
         /// <summary>

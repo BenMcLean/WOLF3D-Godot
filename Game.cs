@@ -33,7 +33,8 @@ public class Game : Spatial
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
 
         Godot.Image image = new Image();
-        image.CreateFromData(Assets.VgaGraph.Sizes[1][0], Assets.VgaGraph.Sizes[1][1], false, Image.Format.Rgba8, VSwap.Index2ByteArray(Assets.VgaGraph.File[3], Assets.VSwap.Palette));
+        uint pic = 3;
+        image.CreateFromData(Assets.VgaGraph.Size(pic)[0], Assets.VgaGraph.Size(pic)[1], false, Image.Format.Rgba8, VSwap.Index2ByteArray(Assets.VgaGraph.File[pic], Assets.VSwap.Palette));
         ImageTexture imageTexture = new ImageTexture();
         imageTexture.CreateFromImage(image, 0);
 
@@ -41,8 +42,8 @@ public class Game : Spatial
         {
             Name = "Sprite1",
             Texture = imageTexture,
-            Position = new Vector2(200, 200),
-            Scale = new Vector2(5, 5)
+            Position = new Vector2(200, 300),
+            Scale = new Vector2(4f, 4.8f),
         };
         AddChild(sprite1);
     }
