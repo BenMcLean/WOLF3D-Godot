@@ -79,11 +79,11 @@ namespace WOLF3D
             byte[] bytes = new byte[input.Length];
             for (uint i = 0; i < bytes.Length; i++)
             {
-                uint o = i < 5 ? (uint)bytes.Length - i - 1 : (uint)((i + 4) % (bytes.Length - 1));
-                uint x = o % width,
+                uint o = i < 5 ? (uint)bytes.Length - i - 1 : (uint)((i + 4) % (bytes.Length - 1)),
+                    x = o % width,
                     y = o / width,
-                    x2 = x, //(uint)((x % 4) * (width / 4 - 1)),
-                    y2 = y,
+                    x2 = (uint)(x / 4 + (x % 4) * (width / 4)),
+                    y2 = (uint)(y / 4 + (y % 4) * (height / 4)),
                     t = y2 * width + x2;
                 bytes[i] = input[t];
             }
