@@ -18,12 +18,6 @@ namespace WOLF3D
 
         public uint[] Palette { get; set; }
         public byte[][] Pages { get; set; }
-
-        /// <summary>
-        /// C# expects file offsets to be long
-        /// </summary>
-        public long[] PageOffsets { get; set; }
-        public ushort[] PageLengths { get; set; }
         public ushort SpritePage { get; set; }
         public ushort SoundPage { get; set; }
 
@@ -47,26 +41,26 @@ namespace WOLF3D
                 SpritePage = binaryReader.ReadUInt16();
                 SoundPage = binaryReader.ReadUInt16();
 
-                PageOffsets = new long[Pages.Length];
+                long[] pageOffsets = new long[Pages.Length];
                 long dataStart = 0;
-                for (ushort i = 0; i < PageOffsets.Length; i++)
+                for (ushort i = 0; i < pageOffsets.Length; i++)
                 {
-                    PageOffsets[i] = binaryReader.ReadUInt32();
+                    pageOffsets[i] = binaryReader.ReadUInt32();
                     if (i == 0)
-                        dataStart = PageOffsets[0];
-                    if ((PageOffsets[i] != 0 && PageOffsets[i] < dataStart) || PageOffsets[i] > stream.Length)
+                        dataStart = pageOffsets[0];
+                    if ((pageOffsets[i] != 0 && pageOffsets[i] < dataStart) || pageOffsets[i] > stream.Length)
                         throw new InvalidDataException("VSWAP contains invalid page offsets.");
                 }
-                PageLengths = new ushort[Pages.Length];
-                for (ushort i = 0; i < PageLengths.Length; i++)
-                    PageLengths[i] = binaryReader.ReadUInt16();
+                ushort[] pageLengths = new ushort[Pages.Length];
+                for (ushort i = 0; i < pageLengths.Length; i++)
+                    pageLengths[i] = binaryReader.ReadUInt16();
 
                 ushort page;
                 // read in walls
                 for (page = 0; page < SpritePage; page++)
-                    if (PageOffsets[page] != 0)
+                    if (pageOffsets[page] > 0)
                     {
-                        stream.Seek(PageOffsets[page], 0);
+                        stream.Seek(pageOffsets[page], 0);
                         byte[] wall = new byte[tileSqrt * tileSqrt];
                         for (ushort col = 0; col < tileSqrt; col++)
                             for (ushort row = 0; row < tileSqrt; row++)
@@ -76,9 +70,9 @@ namespace WOLF3D
 
                 // read in sprites
                 for (; page < SoundPage; page++)
-                    if (PageOffsets[page] != 0)
+                    if (pageOffsets[page] > 0)
                     {
-                        stream.Seek(PageOffsets[page], 0);
+                        stream.Seek(pageOffsets[page], 0);
                         ushort leftExtent = binaryReader.ReadUInt16(),
                             rightExtent = binaryReader.ReadUInt16(),
                             startY, endY;
@@ -87,7 +81,7 @@ namespace WOLF3D
                             sprite[i] = 255; // set transparent
                         long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
                         for (ushort i = 0; i < columnDataOffsets.Length; i++)
-                            columnDataOffsets[i] = PageOffsets[page] + binaryReader.ReadUInt16();
+                            columnDataOffsets[i] = pageOffsets[page] + binaryReader.ReadUInt16();
                         long trexels = stream.Position;
                         for (ushort column = 0; column <= rightExtent - leftExtent; column++)
                         {
@@ -112,10 +106,10 @@ namespace WOLF3D
 
                 // read in sounds
                 for (; page < Pages.Length; page++)
-                    if (PageOffsets[page] != 0)
+                    if (pageOffsets[page] > 0)
                     {
-                        stream.Seek(PageOffsets[page], 0);
-                        Pages[page] = new byte[PageLengths[page]];
+                        stream.Seek(pageOffsets[page], 0);
+                        Pages[page] = new byte[pageLengths[page]];
                         for (uint i = 0; i < Pages[page].Length; i++)
                             Pages[page][i] = (byte)(binaryReader.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }

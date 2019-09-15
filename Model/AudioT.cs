@@ -15,7 +15,6 @@ namespace WOLF3D
                 return new AudioT(audioHead, audioTStream, xml.Element("Audio"));
         }
 
-        public uint[] AudioHead;
         public byte[][] AudioTFile;
         public Adl[] Sounds;
         public ImfPacket[][] Songs;
@@ -49,8 +48,7 @@ namespace WOLF3D
 
         public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio)
         {
-            AudioHead = ParseHead(audioHedStream);
-            AudioTFile = SplitFile(AudioHead, audioTStream);
+            AudioTFile = SplitFile(ParseHead(audioHedStream), audioTStream);
 
             // Convert byte arrays into sounds
             StartAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");
