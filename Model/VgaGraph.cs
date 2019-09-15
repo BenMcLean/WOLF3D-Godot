@@ -8,10 +8,10 @@ namespace WOLF3D
     {
         public static VgaGraph Load(string folder, XElement xml)
         {
-            using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
             using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
-                return new VgaGraph(vgaDict, vgaHead, vgaGraphStream, xml);
+            using (FileStream vgaDict = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaDict").Value), FileMode.Open))
+                return new VgaGraph(vgaHead, vgaGraphStream, vgaDict, xml);
         }
 
         public byte[][] File { get; set; }
@@ -24,9 +24,12 @@ namespace WOLF3D
             return Sizes[pic - PicStart + 1];
         }
 
-        public VgaGraph(Stream dictionary, Stream vgaHead, Stream vgaGraph, XElement xml)
+        public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitTuples(dictionary)), xml)
+        { }
+
+        public VgaGraph(byte[][] file, XElement xml)
         {
-            File = SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitTuples(dictionary));
+            File = file;
             using (MemoryStream sizes = new MemoryStream(File[(uint)xml.Element("VgaGraph").Element("Sizes").Attribute("Number")]))
                 Sizes = Load16BitTuples(sizes);
             PicStart = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("PicStart");
