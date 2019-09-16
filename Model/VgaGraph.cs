@@ -91,19 +91,13 @@ namespace WOLF3D
         public static byte[] Deplanify(byte[] input, ushort width, ushort height)
         {
             byte[] bytes = new byte[input.Length];
-            for (uint i = 0; i < bytes.Length; i++)
+            for (int i = 0; i < bytes.Length; i++)
             {
-                //plane = i / ((width * height) / 4);
-                //sx = ((i % (linewidth)) * 4) + plane;
-                //sy = ((i / linewidth) % height);
-                uint x = i % width,
-                    y = i / width,
-                    linewidth = (uint)width / 4,
-                    plane = (uint)(i / (width * height) / 4),
+                int linewidth = width / 4,
+                    plane = i / ((width * height) / 4),
                     sx = ((i % (linewidth)) * 4) + plane,
-                    sy = ((i / linewidth) % height),
-                    t = sy * width + sx;
-                bytes[t] = input[i];
+                    sy = ((i / linewidth) % height);
+                bytes[sy * width + sx] = input[i];
             }
             return bytes;
         }
