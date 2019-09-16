@@ -35,8 +35,8 @@ namespace WOLF3D
                 Sizes = Load16BitTuples(sizes);
             StartPics = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("StartPics");
             NumPics = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("NumPics");
-            //for (uint i = NumPics; i < 141; i++)
-            //    File[i] = Deplanify(File[i], Size(i));
+            for (uint i = StartPics; i < NumPics - StartPics; i++)
+                File[i] = Deplanify(File[i], Size(i));
             Palette = VSwap.LoadPalette(xml);
         }
 
@@ -93,11 +93,10 @@ namespace WOLF3D
             byte[] bytes = new byte[input.Length];
             for (uint i = 0; i < bytes.Length; i++)
             {
-                uint o = i,// < 5 ? (uint)bytes.Length - i - 1 : (uint)((i + 4) % (bytes.Length - 1)),
-                    x = o % width,
-                    y = o / width,
-                    x2 = x,//(uint)(x / 4 + (x % 4) * (width / 4)),
-                    y2 = y,//(uint)(y / 4 + (y % 4) * (height / 4)),
+                uint x = i % width,
+                    y = i / width,
+                    x2 = (uint)(x / 4 + (x % 4) * (width / 4)),
+                    y2 = (uint)(y / 4 + (y % 4) * (height / 4)),
                     t = y2 * width + x2;
                 bytes[i] = input[t];
             }
