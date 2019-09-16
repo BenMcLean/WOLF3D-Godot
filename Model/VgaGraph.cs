@@ -6,6 +6,8 @@ namespace WOLF3D
 {
     public class VgaGraph
     {
+        XElement XML { get; set; }
+
         public static VgaGraph Load(string folder, XElement xml)
         {
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
@@ -15,29 +17,27 @@ namespace WOLF3D
         }
 
         public byte[][] File { get; set; }
+        public byte[][] Pic { get; set; }
         public uint[] Palette { get; set; }
         public ushort[][] Sizes { get; set; }
         public uint StartPics { get; set; }
         public uint NumPics { get; set; }
 
-        public ushort[] Size(uint pic)
-        {
-            return Sizes[pic - StartPics];
-        }
-
-        public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitTuples(dictionary)), xml)
+        public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitPairs(dictionary)), xml)
         { }
 
         public VgaGraph(byte[][] file, XElement xml)
         {
             File = file;
-            using (MemoryStream sizes = new MemoryStream(File[(uint)xml.Element("VgaGraph").Element("Sizes").Attribute("Number")]))
-                Sizes = Load16BitTuples(sizes);
-            StartPics = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("StartPics");
-            NumPics = (uint)xml.Element("VgaGraph").Element("Sizes").Attribute("NumPics");
-            for (uint i = StartPics; i < NumPics - StartPics; i++)
-                File[i] = Deplanify(File[i], Size(i));
+            XML = xml.Element("VgaGraph");
             Palette = VSwap.LoadPalette(xml);
+            using (MemoryStream sizes = new MemoryStream(File[(uint)xml.Element("VgaGraph").Element("Sizes").Attribute("Chunk")]))
+                Sizes = Load16BitPairs(sizes);
+            StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
+            NumPics = (uint)XML.Element("Sizes").Attribute("NumPics");
+            Pic = new byte[NumPics][];
+            for (uint i = 0; i < NumPics; i++)
+                Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i]), Palette);
         }
 
         public static uint[] ParseHead(Stream stream)
@@ -135,7 +135,7 @@ namespace WOLF3D
             return dest.ToArray();
         }
 
-        public static ushort[][] Load16BitTuples(Stream stream)
+        public static ushort[][] Load16BitPairs(Stream stream)
         {
             ushort[][] dest = new ushort[stream.Length / 4][];
             using (BinaryReader binaryReader = new BinaryReader(stream))

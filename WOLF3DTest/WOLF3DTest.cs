@@ -92,9 +92,15 @@ namespace WOLF3DTest
                 Console.Write((size[0] * size[1]).ToString() + ", ");
             Console.WriteLine();
 
-            Console.WriteLine("Huffman decompressed sizes ");
+            Console.WriteLine("Huffman decompressed sizes: ");
             foreach (byte[] chunk in vgaGraph.File)
                 Console.Write(chunk.Length.ToString() + ", ");
+            Console.WriteLine();
+
+            Console.WriteLine("Pic sizes / 4: ");
+            foreach (byte[] pic in vgaGraph.Pic)
+                if (pic != null)
+                    Console.Write((pic.Length / 4).ToString() + ", ");
             Console.WriteLine();
         }
     }

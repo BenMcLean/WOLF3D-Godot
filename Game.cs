@@ -33,8 +33,8 @@ public class Game : Spatial
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
 
         Godot.Image image = new Image();
-        uint pic = 3;
-        image.CreateFromData(Assets.VgaGraph.Size(pic)[0], Assets.VgaGraph.Size(pic)[1], false, Image.Format.Rgba8, VSwap.Index2ByteArray(Assets.VgaGraph.File[pic], Assets.VSwap.Palette));
+        uint pic = 0;
+        image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pic[pic]);
         ImageTexture imageTexture = new ImageTexture();
         imageTexture.CreateFromImage(image, 0);
 
