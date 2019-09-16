@@ -37,7 +37,7 @@ namespace WOLF3D
             NumPics = (uint)XML.Element("Sizes").Attribute("NumPics");
             Pic = new byte[NumPics][];
             for (uint i = 0; i < NumPics; i++)
-                Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i]), Palette);
+                Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i][0]), Palette);
         }
 
         public static uint[] ParseHead(Stream stream)
@@ -83,13 +83,9 @@ namespace WOLF3D
             return split;
         }
 
-        public static byte[] Deplanify(byte[] input, ushort[] size)
+        public static byte[] Deplanify(byte[] input, ushort width)
         {
-            return Deplanify(input, size[0], size[1]);
-        }
-
-        public static byte[] Deplanify(byte[] input, ushort width, ushort height)
-        {
+            ushort height = (ushort)(input.Length / width);
             byte[] bytes = new byte[input.Length];
             for (int i = 0; i < bytes.Length; i++)
             {
