@@ -65,12 +65,37 @@ namespace WOLF3DTest
                 Console.WriteLine();
             }
 
-            uint chunk = 1;
-            Console.Write("Chunk " + chunk.ToString() + " contents: ");
-            foreach (byte bite in vgaGraph.File[chunk])
-                Console.Write(bite.ToString() + ", ");
+            //uint chunk = 0;
+            //Console.Write("Chunk " + chunk.ToString() + " contents: ");
+            //foreach (byte bite in vgaGraph.File[chunk])
+            //    Console.Write(bite.ToString() + ", ");
+            //Console.WriteLine();
+        }
+
+        [TestMethod]
+        public void LengthsTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+            uint[] lengths;
+            using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
+            using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
+                lengths = VgaGraph.GetLengths(VgaGraph.ParseHead(vgaHead), vgaGraphStream);
+
+            Console.WriteLine("Lengths from start of each chunk: ");
+            foreach (uint length in lengths)
+                Console.Write(length.ToString() + ", ");
             Console.WriteLine();
 
+            Console.WriteLine("Sizes from chunk 0: ");
+            VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
+            foreach (ushort[] size in vgaGraph.Sizes)
+                Console.Write((size[0] * size[1]).ToString() + ", ");
+            Console.WriteLine();
+
+            Console.WriteLine("Huffman decompressed sizes ");
+            foreach (byte[] chunk in vgaGraph.File)
+                Console.Write(chunk.Length.ToString() + ", ");
+            Console.WriteLine();
         }
     }
 }
