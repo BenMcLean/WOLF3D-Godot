@@ -93,11 +93,16 @@ namespace WOLF3D
             byte[] bytes = new byte[input.Length];
             for (uint i = 0; i < bytes.Length; i++)
             {
+                //plane = i / ((width * height) / 4);
+                //sx = ((i % (linewidth)) * 4) + plane;
+                //sy = ((i / linewidth) % height);
                 uint x = i % width,
                     y = i / width,
-                    x2 = (uint)(x / 4 + (x % 4) * (width / 4)),
-                    y2 = (uint)(y / 4 + (y % 4) * (height / 4)),
-                    t = y2 * width + x2;
+                    linewidth = (uint)width / 4,
+                    plane = (uint)(i / (width * height) / 4),
+                    sx = ((i % (linewidth)) * 4) + plane,
+                    sy = ((i / linewidth) % height),
+                    t = ((sx * 2) + (sy * width) * 2) / 4; //sy * width + sx;
                 bytes[i] = input[t];
             }
             return bytes;

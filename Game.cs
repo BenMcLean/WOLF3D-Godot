@@ -43,7 +43,7 @@ public class Game : Spatial
             Name = "Sprite1",
             Texture = imageTexture,
             Position = new Vector2(200, 300),
-            Scale = new Vector2(4f, 4.8f),
+            //Scale = new Vector2(4f, 4.8f),
         };
         AddChild(sprite1);
     }
