@@ -76,10 +76,17 @@ namespace WOLF3DTest
         public void LengthsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            uint[] lengths;
+            uint[] head;
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
+                head = VgaGraph.ParseHead(vgaHead);
+            uint[] lengths = new uint[head.Length - 1];
             using (FileStream vgaGraphStream = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaGraph").Value), FileMode.Open))
-                lengths = VgaGraph.GetLengths(VgaGraph.ParseHead(vgaHead), vgaGraphStream);
+            using (BinaryReader binaryReader = new BinaryReader(vgaGraphStream))
+                for (uint i = 0; i < lengths.Length; i++)
+                {
+                    vgaGraphStream.Seek(head[i], 0);
+                    lengths[i] = binaryReader.ReadUInt32();
+                }
 
             Console.WriteLine("Lengths from start of each chunk: ");
             foreach (uint length in lengths)

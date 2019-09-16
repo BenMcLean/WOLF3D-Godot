@@ -31,7 +31,7 @@ namespace WOLF3D
             File = file;
             XML = xml.Element("VgaGraph");
             Palette = VSwap.LoadPalette(xml);
-            using (MemoryStream sizes = new MemoryStream(File[(uint)xml.Element("VgaGraph").Element("Sizes").Attribute("Chunk")]))
+            using (MemoryStream sizes = new MemoryStream(File[(uint)XML.Element("Sizes").Attribute("Chunk")]))
                 Sizes = Load16BitPairs(sizes);
             StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
             NumPics = (uint)XML.Element("Sizes").Attribute("NumPics");
@@ -51,18 +51,6 @@ namespace WOLF3D
         public static uint Read24Bits(Stream stream)
         {
             return (uint)(stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16));
-        }
-
-        public static uint[] GetLengths(uint[] head, Stream file)
-        {
-            uint[] lengths = new uint[head.Length - 1];
-            using (BinaryReader binaryReader = new BinaryReader(file))
-                for (uint i = 0; i < lengths.Length; i++)
-                {
-                    file.Seek(head[i], 0);
-                    lengths[i] = binaryReader.ReadUInt32();
-                }
-            return lengths;
         }
 
         public static byte[][] SplitFile(uint[] head, Stream file, ushort[][] dictionary)
