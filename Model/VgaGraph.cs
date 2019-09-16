@@ -102,8 +102,8 @@ namespace WOLF3D
                     plane = (uint)(i / (width * height) / 4),
                     sx = ((i % (linewidth)) * 4) + plane,
                     sy = ((i / linewidth) % height),
-                    t = ((sx * 2) + (sy * width) * 2) / 4; //sy * width + sx;
-                bytes[i] = input[t];
+                    t = sy * width + sx;
+                bytes[t] = input[i];
             }
             return bytes;
         }
