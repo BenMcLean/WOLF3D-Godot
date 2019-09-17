@@ -71,10 +71,10 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 }
             }
 
-            public uint ForwardNoise()
+            public int ForwardNoise()
             {
                 noiseCounter += noiseAdd;
-                uint count = noiseCounter >> LfoShift;
+                int count = noiseCounter >> LfoShift;
                 noiseCounter &= WaveMask;
                 for (; count > 0; --count)
                 {
@@ -186,37 +186,34 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 return 0;
             }
 
-            public void GenerateBlock2(uint total, int[] output)
+            public void GenerateBlock2(int total, int pos, short[] output)
             {
-                int pos = 0;
                 while (total > 0)
                 {
-                    uint samples = ForwardLFO(total);
-                    Array.Clear(output, pos, (int)samples);
+                    int samples = ForwardLFO(total);
+                    Array.Clear(output, pos, samples);
                     for (var ch = chan[0]; ch.ChannelNum < 9;)
                     {
                         ch = ch.SynthHandler(this, samples, output, pos);
                     }
                     total -= samples;
-                    pos += (int)samples;
+                    pos += samples;
                 }
             }
 
-            public void GenerateBlock3(uint total, int[] output)
+            public void GenerateBlock3(int total, int pos, short[] output)
             {
-                int pos = 0;
                 while (total > 0)
                 {
-                    uint samples = ForwardLFO(total);
-                    Array.Clear(output, pos, (int)samples * 2);
+                    int samples = ForwardLFO(total);
+                    Array.Clear(output, pos, samples * 2);
 
-                    for (var i = 0; i < 18; i++)
+                    for (var ch = chan[0]; ch.ChannelNum < 18;)
                     {
-                        var ch = chan[i];
-                        ch.SynthHandler(this, samples, output, pos);
+                        ch = ch.SynthHandler(this, samples, output, pos);
                     }
                     total -= samples;
-                    pos += (int)(samples * 2);
+                    pos += (samples * 2);
                 }
             }
 
@@ -225,12 +222,12 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 double scale = OPLRATE / (double)rate;
 
                 //Noise counter is run at the same precision as general waves
-                noiseAdd = (uint)(0.5 + scale * (1 << LfoShift));
+                noiseAdd = (int)(0.5 + scale * (1 << LfoShift));
                 noiseCounter = 0;
                 noiseValue = 1; //Make sure it triggers the noise xor the first time
                 //The low frequency oscillation counter
                 //Every time his overflows vibrato and tremoloindex are increased
-                lfoAdd = (uint)(0.5 + scale * (1 << LfoShift));
+                lfoAdd = (int)(0.5 + scale * (1 << LfoShift));
                 lfoCounter = 0;
                 vibratoIndex = 0;
                 tremoloIndex = 0;
@@ -359,7 +356,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
             /// </summary>
             /// <returns>The maximum amount of samples before and LFO change.</returns>
             /// <param name="samples">Samples.</param>
-            uint ForwardLFO(uint samples)
+            int ForwardLFO(int samples)
             {
                 //Current vibrato value, runs 4x slower than tremolo
                 vibratoSign = (sbyte)((VibratoTable[vibratoIndex >> 2]) >> 7);
@@ -367,8 +364,8 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 tremoloValue = (byte)(tremoloTable[tremoloIndex] >> tremoloStrength);
 
                 //Check hom many samples there can be done before the value changes
-                uint todo = LfoMax - lfoCounter;
-                uint count = (todo + lfoAdd - 1) / lfoAdd;
+                int todo = LfoMax - lfoCounter;
+                int count = (todo + lfoAdd - 1) / lfoAdd;
                 if (count > samples)
                 {
                     count = samples;
@@ -489,12 +486,12 @@ namespace NScumm.Core.Audio.OPL.DosBox
             }
 
             //This is used as the base counter for vibrato and tremolo
-            uint lfoCounter;
-            uint lfoAdd;
+            int lfoCounter;
+            int lfoAdd;
 
-            uint noiseCounter;
-            uint noiseAdd;
-            uint noiseValue;
+            int noiseCounter;
+            int noiseAdd;
+            int noiseValue;
 
             uint[] freqMul = new uint[16];
             uint[] linearRates = new uint[76];

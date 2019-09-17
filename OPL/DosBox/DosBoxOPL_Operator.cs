@@ -316,7 +316,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 return (uint)(currentLevel + volHandler());
             }
 
-            public int GetSample(int modulation)
+            public short GetSample(int modulation)
             {
                 uint vol = ForwardVolume();
                 if (EnvSilent((int)vol))
@@ -333,9 +333,9 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 }
             }
 
-            public int GetWave(int index, uint vol)
+            public short GetWave(int index, uint vol)
             {
-                return (waveTable[waveBase + (index & waveMask)] * mulTable[vol >> EnvExtra]) >> MulShift;
+                return (short)((waveTable[waveBase + (index & waveMask)] * mulTable[vol >> EnvExtra]) >> MulShift);
             }
 
             public Operator()
