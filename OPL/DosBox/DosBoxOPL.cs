@@ -22,23 +22,25 @@
 #define DBOPL_WAVE_EQUALS_WAVE_TABLEMUL
 
 using System;
-using System.Runtime.InteropServices;
 
 namespace NScumm.Core.Audio.OPL.DosBox
 {
     public partial class DosBoxOPL: IOpl
     {
-        [StructLayout(LayoutKind.Explicit)]
         struct Reg
         {
-            [FieldOffset(0)]
             public byte Dual1;
-
-            [FieldOffset(1)]
             public byte Dual2;
 
-            [FieldOffset(0)]
-            public ushort Normal;
+            public ushort Normal
+            {
+                get { return (ushort)(Dual1 | (Dual2 << 8)); }
+                set
+                {
+                    Dual1 = (byte)(value & 0xFF);
+                    Dual2 = (byte)((value >> 8) & 0xFF);
+                }
+            }
         }
 
         public DosBoxOPL(OplType type)
@@ -67,13 +69,6 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 // Setup opl3 mode in the hander
                 _emulator.WriteReg(0x105, 1);
             }
-
-            _rate = rate;
-        }
-
-        private void Reset()
-        {
-            Init(_rate);
         }
 
         public void WriteReg(int r, int v)
@@ -127,38 +122,14 @@ namespace NScumm.Core.Audio.OPL.DosBox
             if (_type != OplType.Opl2)
                 length >>= 1;
 
-            const uint bufferLength = 512;
-            var tempBuffer = new int[bufferLength * 2];
-
             if (_emulator.Opl3Active != 0)
             {
-                while (length > 0)
-                {
-                    uint readSamples = (uint)Math.Min(length, bufferLength);
 
-                    _emulator.GenerateBlock3(readSamples, tempBuffer);
-
-                    for (uint i = 0; i < (readSamples << 1); ++i)
-                        buffer[pos + i] = (short)tempBuffer[i];
-
-                    pos += (int)(readSamples << 1);
-                    length -= (int)readSamples;
-                }
+                _emulator.GenerateBlock3(length, pos, buffer);
             }
             else
             {
-                while (length > 0)
-                {
-                    uint readSamples = (uint)Math.Min(length, bufferLength << 1);
-
-                    _emulator.GenerateBlock2(readSamples, tempBuffer);
-
-                    for (var i = 0; i < readSamples; ++i)
-                        buffer[pos + i] = (short)tempBuffer[i];
-
-                    pos += (int)readSamples;
-                    length -= (int)readSamples;
-                }
+                _emulator.GenerateBlock2(length, pos, buffer);
             }
         }
 
@@ -436,7 +407,6 @@ namespace NScumm.Core.Audio.OPL.DosBox
             }
         }
 
-        int _rate;
         OplType _type;
 
         Chip _emulator;

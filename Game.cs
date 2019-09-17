@@ -1,4 +1,5 @@
 using Godot;
+using NScumm.Audio.OPL.Woody;
 using NScumm.Core.Audio.OPL.DosBox;
 using OPL;
 using WOLF3D;
@@ -14,7 +15,7 @@ public class Game : Spatial
         Assets = new Assets(Folder);
 
         AddChild(Assets.OplPlayer = new OplPlayer(
-            new DosBoxOPL(NScumm.Core.Audio.OPL.OplType.Opl3)
+            new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
         ));
 
         GameMaps.Map map = Assets.GameMaps.Maps[0];
@@ -29,7 +30,7 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[3];
+        Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
 
         Godot.Image image = new Image();

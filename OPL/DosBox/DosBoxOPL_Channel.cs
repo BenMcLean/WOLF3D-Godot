@@ -184,7 +184,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 }
             }
 
-            public Channel SynthHandler(Chip chip, uint samples, int[] output, int pos)
+            public Channel SynthHandler(Chip chip, int samples, short[] output, int pos)
             {
                 return BlockTemplate(SynthMode, chip, samples, output, pos);
             }
@@ -194,7 +194,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 Chip = chip;
                 ChannelNum = index;
 
-                old = new int[2];
+                old = new short[2];
                 Ops = new Operator[2];
                 for (int i = 0; i < Ops.Length; i++)
                 {
@@ -216,7 +216,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
             /// <param name="samples">Samples.</param>
             /// <param name="output">Output.</param>
             /// <param name="pos">Position.</param>
-            Channel BlockTemplate(SynthMode mode, Chip chip, uint samples, int[] output, int pos)
+            Channel BlockTemplate(SynthMode mode, Chip chip, int samples, short[] output, int pos)
             {
                 switch (mode)
                 {
@@ -306,21 +306,21 @@ namespace NScumm.Core.Audio.OPL.DosBox
                         GeneratePercussion(false, chip, output, pos + i);
                         continue;   //Prevent some unitialized value bitching
                     }
-                    else if (mode == SynthMode.Sm3Percussion)
+                    if (mode == SynthMode.Sm3Percussion)
                     {
                         GeneratePercussion(true, chip, output, pos + i * 2);
                         continue;   //Prevent some unitialized value bitching
                     }
 
                     //Do unsigned shift so we can shift out all bits but still stay in 10 bit range otherwise
-                    int mod = (int)((old[0] + old[1]) >> feedback);
+                    int mod = (old[0] + old[1]) >> feedback;
                     old[0] = old[1];
                     old[1] = Op(0).GetSample(mod);
-                    int sample = 0;
-                    int out0 = old[0];
+                    short sample = 0;
+                    short out0 = old[0];
                     if (mode == SynthMode.Sm2AM || mode == SynthMode.Sm3AM)
                     {
-                        sample = out0 + Op(1).GetSample(0);
+                        sample = (short)(out0 + Op(1).GetSample(0));
                     }
                     else if (mode == SynthMode.Sm2FM || mode == SynthMode.Sm3FM)
                     {
@@ -364,8 +364,8 @@ namespace NScumm.Core.Audio.OPL.DosBox
                         case SynthMode.Sm3AMFM:
                         case SynthMode.Sm3FMAM:
                         case SynthMode.Sm3AMAM:
-                            output[pos + i * 2 + 0] += sample & maskLeft;
-                            output[pos + i * 2 + 1] += sample & maskRight;
+                            output[pos + i * 2 + 0] += (short)(sample & maskLeft);
+                            output[pos + i * 2 + 1] += (short)(sample & maskRight);
                             break;
                         case SynthMode.Sm2Percussion:
                                 // This case was not handled in the DOSBox code either
@@ -418,7 +418,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 return null;
             }
 
-            Operator Op(uint index)
+            Operator Op(int index)
             {
                 return Chip.Channels[ChannelNum + (index >> 1)].Ops[index & 1];
             }
@@ -478,12 +478,12 @@ namespace NScumm.Core.Audio.OPL.DosBox
             }
 
             // call this for the first channel
-            void GeneratePercussion(bool opl3Mode, Chip chip, int[] output, int pos)
+            void GeneratePercussion(bool opl3Mode, Chip chip, short[] output, int pos)
             {
                 Channel chan = this;
 
                 //BassDrum
-                int mod = (int)((old[0] + old[1])) >> feedback;
+                int mod = (old[0] + old[1]) >> feedback;
                 old[0] = old[1];
                 old[1] = Op(0).GetSample(mod);
 
@@ -496,14 +496,14 @@ namespace NScumm.Core.Audio.OPL.DosBox
                 {
                     mod = old[0];
                 }
-                int sample = Op(1).GetSample(mod);
+                short sample = Op(1).GetSample(mod);
 
 
                 //Precalculate stuff used by other outputs
-                uint noiseBit = chip.ForwardNoise() & 0x1;
+                int noiseBit = chip.ForwardNoise() & 0x1;
                 int c2 = Op(2).ForwardWave();
                 int c5 = Op(5).ForwardWave();
-                int phaseBit = (int)((((c2 & 0x88) ^ ((c2 << 5) & 0x80)) | ((c5 ^ (c5 << 2)) & 0x20)) != 0 ? 0x02 : 0x00);
+                int phaseBit = (((c2 & 0x88) ^ ((c2 << 5) & 0x80)) | ((c5 ^ (c5 << 2)) & 0x20)) != 0 ? 0x02 : 0x00;
 
                 //Hi-Hat
                 uint hhVol = Op(2).ForwardVolume();
@@ -549,7 +549,7 @@ namespace NScumm.Core.Audio.OPL.DosBox
             /// <summary>
             /// Old data for feedback.
             /// </summary>
-            readonly int[] old;
+            readonly short[] old;
 
             /// <summary>
             /// Feedback shift.

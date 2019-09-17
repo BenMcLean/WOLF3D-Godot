@@ -79,8 +79,6 @@ namespace NScumm.Core.Audio.OPL.DosBox
 
         delegate int VolumeHandler();
 
-        delegate Channel SynthHandler(Chip chip,uint samples,int[] output,int pos);
-
         #if ( DBOPL_WAVE_EQUALS_WAVE_HANDLER ) || ( DBOPL_WAVE_EQUALS_WAVE_TABLELOG )
         static ushort[] ExpTable = new ushort[256];
         #endif
