@@ -16,6 +16,16 @@ namespace WOLF3D
                 return new VgaGraph(vgaHead, vgaGraphStream, vgaDict, xml);
         }
 
+        public struct Font
+        {
+            ushort height;
+            ushort[] location;
+            byte[] width;
+            //short height;
+            //short location[256];
+            //char width[256];
+        }
+
         public byte[][] File { get; set; }
         public byte[][] Pic { get; set; }
         public uint[] Palette { get; set; }
