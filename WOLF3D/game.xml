@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Game Name="Wolfenstein 3D Shareware v1.4" Exe="WOLF3D.EXE" HighScores="CONFIG.WL1">
   <VgaGraph VgaDict="VGADICT.WL1" VgaGraph="VGAGRAPH.WL1" VgaHead="VGAHEAD.WL1">
-    <Sizes Chunk="0" StartPics="3" NumPics="140" />
+    <Sizes Chunk="0" StartPics="3" NumPics="140" StartFont="1" NumFont="2" />
     <Font Number="0" Chunk="1" Name="Small" />
     <Font Number="1" Chunk="2" Name="Large" />
     <Pic Number="0" Chunk="3" Name="H_BJPIC" />

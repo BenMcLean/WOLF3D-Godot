@@ -18,20 +18,41 @@ namespace WOLF3D
 
         public struct Font
         {
-            ushort height;
-            ushort[] location;
-            byte[] width;
-            //short height;
-            //short location[256];
-            //char width[256];
+            public ushort Height;
+            public ushort[] Location;
+            public byte[] Width;
+            public bool[][] Character;
+
+            public Font(Stream stream)
+            {
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    Height = binaryReader.ReadUInt16();
+                    Location = new ushort[256];
+                    for (uint i = 0; i < Location.Length; i++)
+                        Location[i] = binaryReader.ReadUInt16();
+                    Width = new byte[Location.Length];
+                    for (uint i = 0; i < Width.Length; i++)
+                        Width[i] = binaryReader.ReadByte();
+                    Character = new bool[Width.Length][];
+                    for (uint i = 0; i < Character.Length; i++)
+                    {
+                        Character[i] = new bool[Width[i] * Height];
+                        stream.Seek(Location[i], 0);
+                        for (uint j = 0; j < Character[i].Length; j++)
+                            Character[i][j] = binaryReader.ReadByte() == 1;
+                    }
+                }
+            }
         }
 
         public byte[][] File { get; set; }
+        public Font[] Fonts { get; set; }
         public byte[][] Pic { get; set; }
         public uint[] Palette { get; set; }
         public ushort[][] Sizes { get; set; }
         public uint StartPics { get; set; }
-        public uint NumPics { get; set; }
+        public uint StartFont { get; set; }
 
         public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitPairs(dictionary)), xml)
         { }
@@ -44,10 +65,14 @@ namespace WOLF3D
             using (MemoryStream sizes = new MemoryStream(File[(uint)XML.Element("Sizes").Attribute("Chunk")]))
                 Sizes = Load16BitPairs(sizes);
             StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
-            NumPics = (uint)XML.Element("Sizes").Attribute("NumPics");
-            Pic = new byte[NumPics][];
-            for (uint i = 0; i < NumPics; i++)
+            Pic = new byte[(uint)XML.Element("Sizes").Attribute("NumPics")][];
+            for (uint i = 0; i < Pic.Length; i++)
                 Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i][0]), Palette);
+            StartFont = (uint)XML.Element("Sizes").Attribute("StartFont");
+            Fonts = new Font[(uint)XML.Element("Sizes").Attribute("NumFont")];
+            for (uint i = 0; i < Fonts.Length; i++)
+                using (MemoryStream font = new MemoryStream(File[StartFont + i]))
+                    Fonts[i] = new Font(font);
         }
 
         public static uint[] ParseHead(Stream stream)
