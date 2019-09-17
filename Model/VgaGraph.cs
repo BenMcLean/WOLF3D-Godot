@@ -19,7 +19,6 @@ namespace WOLF3D
         public struct Font
         {
             public ushort Height;
-            public ushort[] Location;
             public byte[] Width;
             public bool[][] Character;
 
@@ -28,21 +27,31 @@ namespace WOLF3D
                 using (BinaryReader binaryReader = new BinaryReader(stream))
                 {
                     Height = binaryReader.ReadUInt16();
-                    Location = new ushort[256];
-                    for (uint i = 0; i < Location.Length; i++)
-                        Location[i] = binaryReader.ReadUInt16();
-                    Width = new byte[Location.Length];
+                    ushort[] location = new ushort[256];
+                    for (uint i = 0; i < location.Length; i++)
+                        location[i] = binaryReader.ReadUInt16();
+                    Width = new byte[location.Length];
                     for (uint i = 0; i < Width.Length; i++)
-                        Width[i] = binaryReader.ReadByte();
+                        Width[i] = (byte)stream.ReadByte();
                     Character = new bool[Width.Length][];
                     for (uint i = 0; i < Character.Length; i++)
                     {
                         Character[i] = new bool[Width[i] * Height];
-                        stream.Seek(Location[i], 0);
+                        stream.Seek(location[i], 0);
                         for (uint j = 0; j < Character[i].Length; j++)
-                            Character[i][j] = binaryReader.ReadByte() == 1;
+                            Character[i][j] = (byte)stream.ReadByte() != 0;
                     }
                 }
+            }
+
+            public static byte[] White(bool[] boolean)
+            {
+                byte[] bytes = new byte[boolean.Length * 4];
+                for (uint i = 0; i < boolean.Length; i++)
+                    if (boolean[i])
+                        for (uint j = 0; j < 4; j++)
+                            bytes[i * 4 + j] = 255;
+                return bytes;
             }
         }
 
@@ -64,15 +73,15 @@ namespace WOLF3D
             Palette = VSwap.LoadPalette(xml);
             using (MemoryStream sizes = new MemoryStream(File[(uint)XML.Element("Sizes").Attribute("Chunk")]))
                 Sizes = Load16BitPairs(sizes);
-            StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
-            Pic = new byte[(uint)XML.Element("Sizes").Attribute("NumPics")][];
-            for (uint i = 0; i < Pic.Length; i++)
-                Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i][0]), Palette);
             StartFont = (uint)XML.Element("Sizes").Attribute("StartFont");
             Fonts = new Font[(uint)XML.Element("Sizes").Attribute("NumFont")];
             for (uint i = 0; i < Fonts.Length; i++)
                 using (MemoryStream font = new MemoryStream(File[StartFont + i]))
                     Fonts[i] = new Font(font);
+            StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
+            Pic = new byte[(uint)XML.Element("Sizes").Attribute("NumPics")][];
+            for (uint i = 0; i < Pic.Length; i++)
+                Pic[i] = VSwap.Index2ByteArray(File[StartPics + i] = Deplanify(File[StartPics + i], Sizes[i][0]), Palette);
         }
 
         public static uint[] ParseHead(Stream stream)
@@ -108,7 +117,11 @@ namespace WOLF3D
 
         public static byte[] Deplanify(byte[] input, ushort width)
         {
-            ushort height = (ushort)(input.Length / width);
+            return Deplanify(input, width, (ushort)(input.Length / width));
+        }
+
+        public static byte[] Deplanify(byte[] input, ushort width, ushort height)
+        {
             byte[] bytes = new byte[input.Length];
             for (int i = 0; i < bytes.Length; i++)
             {
