@@ -45,6 +45,29 @@ namespace WOLF3D
                     }
                 }
             }
+
+            public byte[] Line(string input)
+            {
+                int width = CalcWidth(input) * 4;
+                byte[] bytes = new byte[width * Height];
+                int rowStart = 0;
+                foreach (char c in input)
+                {
+                    for (int y = 0; y < Height; y++)
+                        for (int x = 0; x < Width[c] * 4; x++)
+                            bytes[y * width + rowStart + x] = Character[c][y * Width[c] + x];
+                    rowStart += Width[c] * 4;
+                }
+                return bytes;
+            }
+
+            public int CalcWidth(string input)
+            {
+                int result = 0;
+                foreach (char c in input)
+                    result += Width[c];
+                return result;
+            }
         }
 
         public byte[][] File { get; set; }

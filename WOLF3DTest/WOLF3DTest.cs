@@ -110,5 +110,25 @@ namespace WOLF3DTest
                     Console.Write((pic.Length / 4).ToString() + ", ");
             Console.WriteLine();
         }
+
+        [TestMethod]
+        public void FontTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+            VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
+            uint font = 0;
+            char letter = 'A';
+            Console.Write("Writing letter \"" + letter + "\":");
+            for (uint i = 0; i < vgaGraph.Fonts[font].Character[letter].Length; i++)
+            {
+                if (i % (vgaGraph.Fonts[font].Width[letter] * 4) == 0)
+                    Console.WriteLine();
+                Console.Write(
+                    vgaGraph.Fonts[font].Character[letter][i] == 0 ?
+                    "0"
+                    : "1"
+                    );
+            }
+        }
     }
 }

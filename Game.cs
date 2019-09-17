@@ -30,15 +30,17 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
+        //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
 
         Godot.Image image = new Image();
         //uint pic = 0;
         //image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pic[pic]);
-        uint font = 1;
-        uint character = 48;
-        image.CreateFromData(Assets.VgaGraph.Fonts[font].Width[character], Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Character[character]);
+        uint font = 0;
+        string str = "A";
+        //uint character = 48;
+        //image.CreateFromData(Assets.VgaGraph.Fonts[font].Width[character], Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Character[character]);
+        image.CreateFromData((int)Assets.VgaGraph.Fonts[font].CalcWidth(str), Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Line(str));
         ImageTexture imageTexture = new ImageTexture();
         imageTexture.CreateFromImage(image, 0);
 
