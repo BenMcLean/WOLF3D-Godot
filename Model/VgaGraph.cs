@@ -20,7 +20,7 @@ namespace WOLF3D
         {
             public ushort Height;
             public byte[] Width;
-            public bool[][] Character;
+            public byte[][] Character;
 
             public Font(Stream stream)
             {
@@ -32,26 +32,18 @@ namespace WOLF3D
                         location[i] = binaryReader.ReadUInt16();
                     Width = new byte[location.Length];
                     for (uint i = 0; i < Width.Length; i++)
-                        Width[i] = (byte)stream.ReadByte();
-                    Character = new bool[Width.Length][];
+                        Width[i] = binaryReader.ReadByte();
+                    Character = new byte[Width.Length][];
                     for (uint i = 0; i < Character.Length; i++)
                     {
-                        Character[i] = new bool[Width[i] * Height];
+                        Character[i] = new byte[Width[i] * Height * 4];
                         stream.Seek(location[i], 0);
-                        for (uint j = 0; j < Character[i].Length; j++)
-                            Character[i][j] = (byte)stream.ReadByte() != 0;
+                        for (uint j = 0; j < Character[i].Length / 4; j++)
+                            if (binaryReader.ReadByte() != 0)
+                                for (uint k = 0; k < 4; k++)
+                                    Character[i][j * 4 + k] = 255;
                     }
                 }
-            }
-
-            public static byte[] White(bool[] boolean)
-            {
-                byte[] bytes = new byte[boolean.Length * 4];
-                for (uint i = 0; i < boolean.Length; i++)
-                    if (boolean[i])
-                        for (uint j = 0; j < 4; j++)
-                            bytes[i * 4 + j] = 255;
-                return bytes;
             }
         }
 

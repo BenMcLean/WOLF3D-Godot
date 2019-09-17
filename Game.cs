@@ -38,7 +38,7 @@ public class Game : Spatial
         //image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pic[pic]);
         uint font = 1;
         uint character = 48;
-        image.CreateFromData(Assets.VgaGraph.Fonts[font].Width[character], Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, VgaGraph.Font.White(Assets.VgaGraph.Fonts[font].Character[character]));
+        image.CreateFromData(Assets.VgaGraph.Fonts[font].Width[character], Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Character[character]);
         ImageTexture imageTexture = new ImageTexture();
         imageTexture.CreateFromImage(image, 0);
 
