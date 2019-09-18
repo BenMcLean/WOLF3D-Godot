@@ -129,6 +129,22 @@ namespace WOLF3DTest
                     : "1"
                     );
             }
+            Console.WriteLine();
+
+            string str = "Ab";
+            Console.Write("Writing string \"" + str + "\":");
+            byte[] test = vgaGraph.Fonts[font].Line(str);
+            int width = vgaGraph.Fonts[font].CalcWidth(str) * 4;
+            for (uint i = 0; i < test.Length; i++)
+            {
+                if (i % width == 0)
+                    Console.WriteLine();
+                Console.Write(
+                    test[i] == 0 ?
+                    "0"
+                    : "1"
+                    );
+            }
         }
     }
 }
