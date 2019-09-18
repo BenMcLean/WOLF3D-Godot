@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace WOLF3D
 {
-    public class VgaGraph
+    public struct VgaGraph
     {
         XElement XML { get; set; }
 
@@ -119,7 +119,7 @@ namespace WOLF3D
                     {
                         file.Seek(head[i], 0);
                         uint length = binaryReader.ReadUInt32();
-                        file.Read(split[i] = new byte[size - 2], 0, split[i].Length);
+                        binaryReader.Read(split[i] = new byte[size - 2], 0, split[i].Length);
                         split[i] = CAL_HuffExpand(split[i], dictionary, length);
                     }
                 }
@@ -134,11 +134,11 @@ namespace WOLF3D
         public static byte[] Deplanify(byte[] input, ushort width, ushort height)
         {
             byte[] bytes = new byte[input.Length];
+            int linewidth = width / 4;
             for (int i = 0; i < bytes.Length; i++)
             {
-                int linewidth = width / 4,
-                    plane = i / ((width * height) / 4),
-                    sx = ((i % (linewidth)) * 4) + plane,
+                int plane = i / ((width * height) / 4),
+                    sx = ((i % linewidth) * 4) + plane,
                     sy = ((i / linewidth) % height);
                 bytes[sy * width + sx] = input[i];
             }

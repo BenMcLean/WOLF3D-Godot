@@ -32,10 +32,14 @@ namespace WOLF3D
         public Assets(string folder, XElement xml)
         {
             XML = xml;
-            VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
-            Maps = XML.Element("Maps") == null ? null : GameMap.Load(folder, XML);
-            AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
-            VgaGraph = XML.Element("VgaGraph") == null ? null : VgaGraph.Load(folder, XML);
+            if (XML.Element("VSwap") != null)
+                VSwap = VSwap.Load(folder, XML);
+            if (XML.Element("Maps") != null)
+                Maps = GameMap.Load(folder, XML);
+            if (XML.Element("Audio") != null)
+                AudioT = AudioT.Load(folder, XML);
+            if (XML.Element("VgaGraph") != null)
+                VgaGraph = VgaGraph.Load(folder, XML);
         }
 
         public static XElement LoadXML(string folder, string file = "game.xml")
