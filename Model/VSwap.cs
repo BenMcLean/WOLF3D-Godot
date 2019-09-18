@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace WOLF3D
 {
-    public class VSwap
+    public struct VSwap
     {
         public static VSwap Load(string folder, XElement xml)
         {
@@ -34,14 +34,9 @@ namespace WOLF3D
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
 
-        public VSwap(uint[] palette, Stream vswap)
+        public VSwap(uint[] palette, Stream stream, ushort tileSqrt = 64)
         {
             Palette = palette;
-            Read(vswap);
-        }
-
-        public VSwap Read(Stream stream, ushort tileSqrt = 64)
-        {
             if (Palette == null)
                 throw new InvalidDataException("Must load a palette before loading a VSWAP!");
             using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -75,7 +70,7 @@ namespace WOLF3D
                         for (ushort col = 0; col < tileSqrt; col++)
                             for (ushort row = 0; row < tileSqrt; row++)
                                 wall[tileSqrt * row + col] = (byte)stream.ReadByte();
-                        Pages[page] = Index2ByteArray(wall);
+                        Pages[page] = Index2ByteArray(wall, palette);
                     }
 
                 // read in sprites
@@ -111,7 +106,7 @@ namespace WOLF3D
                                 stream.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = Index2ByteArray(sprite);
+                        Pages[page] = Index2ByteArray(sprite, palette);
                     }
 
                 // read in sounds
@@ -124,7 +119,6 @@ namespace WOLF3D
                             Pages[page][i] = (byte)(binaryReader.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
             }
-            return this;
         }
 
         public static uint[] LoadPalette(XElement xml)
@@ -186,36 +180,12 @@ namespace WOLF3D
             return bytes;
         }
 
-        private byte[] paletteTextureRepeated;
-
-        public byte[] PaletteTextureRepeated
-        {
-            get
-            {
-                if (Palette == null)
-                    throw new InvalidDataException("Palette is null!");
-                return paletteTextureRepeated ?? (paletteTextureRepeated = Int2ByteArray(Repeat256(Palette)));
-            }
-        }
-
         public static uint[] Repeat256(uint[] pixels256)
         {
             uint[] repeated = new uint[4096];
             for (uint x = 0; x < repeated.Length; x += 256)
                 Array.Copy(pixels256, 0, repeated, x, 256);
             return repeated;
-        }
-
-        private byte[] paletteTextureTiled;
-
-        public byte[] PaletteTextureTiled
-        {
-            get
-            {
-                if (Palette == null)
-                    throw new InvalidDataException("Palette is null!");
-                return paletteTextureTiled ?? (paletteTextureTiled = Int2ByteArray(Tile(Palette, 4)));
-            }
         }
 
         public static uint[] Tile(uint[] squareTexture, uint tileSqrt)
@@ -227,18 +197,6 @@ namespace WOLF3D
                 for (uint y = 0; y < newSide; y++)
                     tiled[x * newSide + y] = squareTexture[x % side * side + y % side];
             return tiled;
-        }
-
-        private byte[] paletteTexture;
-
-        public byte[] PaletteTexture
-        {
-            get
-            {
-                if (Palette == null)
-                    throw new InvalidDataException("Palette is null!");
-                return paletteTexture ?? (paletteTexture = Int2ByteArray(Scale(Palette, 4)));
-            }
         }
 
         public static uint[] Scale(uint[] squareTexture, int factor)

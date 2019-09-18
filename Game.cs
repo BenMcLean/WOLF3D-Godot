@@ -30,7 +30,7 @@ public class Game : Spatial
         foreach (Billboard billboard in Billboard.MakeBillboards(map))
             AddChild(billboard);
 
-        Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
+        //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
     }
 
