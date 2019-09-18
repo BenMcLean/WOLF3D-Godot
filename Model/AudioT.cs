@@ -6,7 +6,7 @@ using static OPL.Imf;
 
 namespace WOLF3D
 {
-    public class AudioT
+    public struct AudioT
     {
         public static AudioT Load(string folder, XElement xml)
         {
@@ -15,11 +15,8 @@ namespace WOLF3D
                 return new AudioT(audioHead, audioTStream, xml.Element("Audio"));
         }
 
-        public byte[][] AudioTFile;
         public Adl[] Sounds;
         public ImfPacket[][] Songs;
-        public uint StartAdlibSounds;
-        public uint StartMusic;
 
         public static uint[] ParseHead(Stream stream)
         {
@@ -28,6 +25,11 @@ namespace WOLF3D
                 while (stream.Position < stream.Length)
                     list.Add(binaryReader.ReadUInt32());
             return list.ToArray();
+        }
+
+        public static byte[][] SplitFile(Stream head, Stream file)
+        {
+            return SplitFile(ParseHead(head), file);
         }
 
         public static byte[][] SplitFile(uint[] head, Stream file)
@@ -46,24 +48,22 @@ namespace WOLF3D
             return split;
         }
 
-        public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio)
-        {
-            AudioTFile = SplitFile(ParseHead(audioHedStream), audioTStream);
+        public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio) : this(SplitFile(audioHedStream, audioTStream), audio)
+        { }
 
-            // Convert byte arrays into sounds
-            StartAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");
+        public AudioT(byte[][] file, XElement audio)
+        {
+            uint startAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");
             Sounds = new Adl[(uint)audio.Attribute("NumSounds")];
             for (uint i = 0; i < Sounds.Length; i++)
-                if (AudioTFile[StartAdlibSounds + i] != null)
-                    using (MemoryStream sound = new MemoryStream(AudioTFile[StartAdlibSounds + i]))
+                if (file[startAdlibSounds + i] != null)
+                    using (MemoryStream sound = new MemoryStream(file[startAdlibSounds + i]))
                         Sounds[i] = new Adl(sound);
-
-            // Convert byte arrays into songs
-            StartMusic = (uint)audio.Attribute("StartMusic");
-            Songs = new ImfPacket[AudioTFile.Length - StartMusic][];
+            uint startMusic = (uint)audio.Attribute("StartMusic");
+            Songs = new ImfPacket[file.Length - startMusic][];
             for (uint i = 0; i < Songs.Length; i++)
-                if (AudioTFile[StartMusic + i] != null)
-                    using (MemoryStream song = new MemoryStream(AudioTFile[StartMusic + i]))
+                if (file[startMusic + i] != null)
+                    using (MemoryStream song = new MemoryStream(file[startMusic + i]))
                         Songs[i] = ReadImf(song);
         }
     }

@@ -32,20 +32,6 @@ namespace WOLF3DTest
         }
 
         [TestMethod]
-        public void SongTest()
-        {
-            DownloadShareware.Main(new string[] { Folder });
-            AudioT audioT = AudioT.Load(Folder, XML);
-            byte[] song = audioT.AudioTFile[audioT.StartMusic + 14],
-                bytes = new byte[1];
-            Array.Copy(song, song.Length - bytes.Length, bytes, 0, bytes.Length);
-
-            //using (Stream stream = new MemoryStream(bytes))
-            //using (StreamReader streamReader = new StreamReader(stream))
-            //    Console.WriteLine(streamReader.ReadToEnd());
-        }
-
-        [TestMethod]
         public void VgaGraphTest()
         {
             DownloadShareware.Main(new string[] { Folder });
