@@ -33,25 +33,19 @@ public class Game : Spatial
         //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
 
-        Godot.Image image = new Image();
+        //Godot.Image image = new Image();
         //uint pic = 0;
-        //image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pic[pic]);
-        uint font = 0;
-        string str = "Dopefish Lives!";
-        //uint character = 48;
-        //image.CreateFromData(Assets.VgaGraph.Fonts[font].Width[character], Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Character[character]);
-        image.CreateFromData((int)Assets.VgaGraph.Fonts[font].CalcWidth(str), Assets.VgaGraph.Fonts[font].Height, false, Image.Format.Rgba8, Assets.VgaGraph.Fonts[font].Line(str));
-        ImageTexture imageTexture = new ImageTexture();
-        imageTexture.CreateFromImage(image, 0);
-
-        Sprite sprite1 = new Sprite
-        {
-            Name = "Sprite1",
-            Texture = imageTexture,
-            Position = new Vector2(200, 300),
-            Scale = new Vector2(4f, 4.8f),
-        };
-        AddChild(sprite1);
+        //image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pics[pic]);
+        //ImageTexture imageTexture = new ImageTexture();
+        //imageTexture.CreateFromImage(image, 0);
+        //Sprite sprite1 = new Sprite
+        //{
+        //    Name = "Sprite1",
+        //    Texture = imageTexture,
+        //    Position = new Vector2(200, 300),
+        //    Scale = new Vector2(4f, 4.8f),
+        //};
+        //AddChild(sprite1);
     }
 
     public MapWalls MapWalls;

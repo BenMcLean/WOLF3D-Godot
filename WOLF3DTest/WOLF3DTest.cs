@@ -51,11 +51,6 @@ namespace WOLF3DTest
             DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
 
-            Console.Write("Lengths: ");
-            foreach (byte[] length in vgaGraph.File)
-                Console.Write(length.Length.ToString() + ", ");
-            Console.WriteLine();
-
             if (vgaGraph.Sizes != null)
             {
                 Console.Write("Image sizes: ");
@@ -99,13 +94,8 @@ namespace WOLF3DTest
                 Console.Write((size[0] * size[1]).ToString() + ", ");
             Console.WriteLine();
 
-            Console.WriteLine("Huffman decompressed sizes: ");
-            foreach (byte[] chunk in vgaGraph.File)
-                Console.Write(chunk.Length.ToString() + ", ");
-            Console.WriteLine();
-
             Console.WriteLine("Pic sizes / 4: ");
-            foreach (byte[] pic in vgaGraph.Pic)
+            foreach (byte[] pic in vgaGraph.Pics)
                 if (pic != null)
                     Console.Write((pic.Length / 4).ToString() + ", ");
             Console.WriteLine();
