@@ -72,10 +72,8 @@ namespace WOLF3D
 
         public Font[] Fonts { get; set; }
         public byte[][] Pics { get; set; }
-        public uint[] Palette { get; set; }
         public ushort[][] Sizes { get; set; }
-        public uint StartPics { get; set; }
-        public uint StartFont { get; set; }
+        public uint[] Palette { get; set; }
 
         public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitPairs(dictionary)), xml)
         { }
@@ -86,15 +84,15 @@ namespace WOLF3D
             XML = xml.Element("VgaGraph");
             using (MemoryStream sizes = new MemoryStream(file[(uint)XML.Element("Sizes").Attribute("Chunk")]))
                 Sizes = Load16BitPairs(sizes);
-            StartFont = (uint)XML.Element("Sizes").Attribute("StartFont");
+            uint startFont = (uint)XML.Element("Sizes").Attribute("StartFont");
             Fonts = new Font[(uint)XML.Element("Sizes").Attribute("NumFont")];
             for (uint i = 0; i < Fonts.Length; i++)
-                using (MemoryStream font = new MemoryStream(file[StartFont + i]))
+                using (MemoryStream font = new MemoryStream(file[startFont + i]))
                     Fonts[i] = new Font(font);
-            StartPics = (uint)XML.Element("Sizes").Attribute("StartPics");
+            uint startPics = (uint)XML.Element("Sizes").Attribute("StartPics");
             Pics = new byte[(uint)XML.Element("Sizes").Attribute("NumPics")][];
             for (uint i = 0; i < Pics.Length; i++)
-                Pics[i] = VSwap.Index2ByteArray(Deplanify(file[StartPics + i], Sizes[i][0]), Palette);
+                Pics[i] = VSwap.Index2ByteArray(Deplanify(file[startPics + i], Sizes[i][0]), Palette);
         }
 
         public static uint[] ParseHead(Stream stream)
