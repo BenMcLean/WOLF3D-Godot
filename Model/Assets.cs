@@ -33,7 +33,7 @@ namespace WOLF3D
         {
             XML = xml;
             VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
-            GameMaps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
+            Maps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
             AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
             VgaGraph = XML.Element("VgaGraph") == null ? null : VgaGraph.Load(folder, XML);
         }
@@ -45,8 +45,7 @@ namespace WOLF3D
         }
 
         public XElement XML { get; set; }
-        public GameMaps GameMaps { get; set; }
-
+        public GameMaps.Map[] Maps { get; set; }
         public OplPlayer OplPlayer { get; set; }
         public AudioT AudioT { get; set; }
 
@@ -72,8 +71,29 @@ namespace WOLF3D
         }
         private VSwap vswap;
 
-        public VgaGraph VgaGraph { get; set; }
+        public VgaGraph VgaGraph
+        {
+            get
+            {
+                return vgaGraph;
+            }
+            set
+            {
+                vgaGraph = value;
+                Pics = new ImageTexture[VgaGraph.Pics.Length];
+                for (uint i = 0; i < Pics.Length; i++)
+                    if (VgaGraph.Pics[i] != null)
+                    {
+                        Godot.Image image = new Image();
+                        image.CreateFromData(VgaGraph.Sizes[i][0], VgaGraph.Sizes[i][1], false, Image.Format.Rgba8, VgaGraph.Pics[i]);
+                        Pics[i] = new ImageTexture();
+                        Pics[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
+                    }
+            }
+        }
+        private VgaGraph vgaGraph;
 
         public ImageTexture[] Textures;
+        public ImageTexture[] Pics;
     }
 }

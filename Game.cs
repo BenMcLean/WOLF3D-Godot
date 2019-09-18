@@ -18,7 +18,7 @@ public class Game : Spatial
             new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
         ));
 
-        GameMaps.Map map = Assets.GameMaps.Maps[0];
+        GameMaps.Map map = Assets.Maps[0];
 
         MapWalls = new MapWalls(map);
         foreach (Sprite3D sprite in MapWalls.Walls)
@@ -32,20 +32,6 @@ public class Game : Spatial
 
         //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
-
-        //Godot.Image image = new Image();
-        //uint pic = 0;
-        //image.CreateFromData(Assets.VgaGraph.Sizes[pic][0], Assets.VgaGraph.Sizes[pic][1], false, Image.Format.Rgba8, Assets.VgaGraph.Pics[pic]);
-        //ImageTexture imageTexture = new ImageTexture();
-        //imageTexture.CreateFromImage(image, 0);
-        //Sprite sprite1 = new Sprite
-        //{
-        //    Name = "Sprite1",
-        //    Texture = imageTexture,
-        //    Position = new Vector2(200, 300),
-        //    Scale = new Vector2(4f, 4.8f),
-        //};
-        //AddChild(sprite1);
     }
 
     public MapWalls MapWalls;

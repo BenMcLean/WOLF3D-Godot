@@ -4,32 +4,23 @@ using System.Xml.Linq;
 
 namespace WOLF3D
 {
-    public class GameMaps
+    public static class GameMaps
     {
-        public static GameMaps Load(string folder, XElement xml)
+        public static Map[] Load(string folder, XElement xml)
         {
             using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-                return new GameMaps(mapHead, gameMaps);
+                return Maps(mapHead, gameMaps);
         }
-
-        public long[] Offsets { get; set; }
 
         public struct Map
         {
             public string Name { get; set; }
-            public long MapOffset { get; set; }
-            public long ObjectOffset { get; set; }
-            public long OtherOffset { get; set; }
-            public ushort MapByteSize { get; set; }
-            public ushort ObjectByteSize { get; set; }
-            public ushort OtherByteSize { get; set; }
             public ushort Width { get; set; }
             public ushort Depth { get; set; }
             public ushort[] MapData { get; set; }
             public ushort[] ObjectData { get; set; }
             public ushort[] OtherData { get; set; }
-            public bool IsCarmackized { get; set; }
 
             public ushort X(uint i)
             {
@@ -58,40 +49,45 @@ namespace WOLF3D
             }
         }
 
-        public Map[] Maps { get; set; }
-
-        public GameMaps(Stream mapHead, Stream gameMaps)
+        public static long[] ParseMapHead(Stream stream)
         {
-            using (BinaryReader mapHeadReader = new BinaryReader(mapHead))
+            List<long> offsets = new List<long>();
+            using (BinaryReader mapHeadReader = new BinaryReader(stream))
             {
-                // Read in MAPHEAD
                 if (mapHeadReader.ReadUInt16() != 0xABCD)
-                    throw new InvalidDataException("File \"" + mapHead + "\" has invalid signature code!");
-                List<long> offsets = new List<long>();
+                    throw new InvalidDataException("File \"" + stream + "\" has invalid signature code!");
                 uint mapHeadOffset;
-                while ((mapHeadOffset = mapHeadReader.ReadUInt16()) != 0 && mapHead.Position < mapHead.Length)
+                while (stream.Position < stream.Length && (mapHeadOffset = mapHeadReader.ReadUInt16()) != 0)
                     offsets.Add(mapHeadOffset);
-                Offsets = offsets.ToArray();
             }
+            return offsets.ToArray();
+        }
 
-            // Read in GAMEMAPS
+        public static Map[] Maps(Stream mapHead, Stream gameMaps)
+        {
+            return Maps(ParseMapHead(mapHead), gameMaps);
+        }
+
+        public static Map[] Maps(long[] offsets, Stream gameMaps)
+        {
             List<Map> maps = new List<Map>();
             using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
             {
-                foreach (long offset in Offsets)
+                foreach (long offset in offsets)
                 {
                     gameMaps.Seek(offset, 0);
+                    long mapOffset = gameMapsReader.ReadUInt32(),
+                        objectOffset = gameMapsReader.ReadUInt32(),
+                        otherOffset = gameMapsReader.ReadUInt32();
+                    ushort mapByteSize = gameMapsReader.ReadUInt16(),
+                        objectByteSize = gameMapsReader.ReadUInt16(),
+                        otherByteSize = gameMapsReader.ReadUInt16();
                     Map map = new Map
                     {
-                        MapOffset = gameMapsReader.ReadUInt32(),
-                        ObjectOffset = gameMapsReader.ReadUInt32(),
-                        OtherOffset = gameMapsReader.ReadUInt32(),
-                        MapByteSize = gameMapsReader.ReadUInt16(),
-                        ObjectByteSize = gameMapsReader.ReadUInt16(),
-                        OtherByteSize = gameMapsReader.ReadUInt16(),
                         Width = gameMapsReader.ReadUInt16(),
                         Depth = gameMapsReader.ReadUInt16()
                     };
+
                     char[] name = new char[16];
                     for (uint i = 0; i < name.Length; i++)
                         name[i] = (char)gameMapsReader.ReadByte();
@@ -100,7 +96,7 @@ namespace WOLF3D
                     char[] carmackized = new char[4];
                     for (uint i = 0; i < carmackized.Length; i++)
                         carmackized[i] = (char)gameMapsReader.ReadByte();
-                    map.IsCarmackized = new string(carmackized).Equals("!ID!");
+                    bool isCarmackized = new string(carmackized).Equals("!ID!");
 
                     // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
                     // "Note that for Wolfenstein 3D v1.0, map files are not carmackized, only RLEW compression is applied."
@@ -108,36 +104,36 @@ namespace WOLF3D
                     // Carmackized game maps files are external GAMEMAPS.xxx files and the map header is stored internally in the executable. The map header must be extracted and the game maps decompressed before TED5 can access them. TED5 itself can produce carmackized files and external MAPHEAD.xxx files. Carmackization does not replace the RLEW compression used in uncompressed data, but compresses this data, that is, the data is doubly compressed.
 
                     ushort[] mapData;
-                    gameMaps.Seek(map.MapOffset, 0);
-                    if (map.IsCarmackized)
+                    gameMaps.Seek(mapOffset, 0);
+                    if (isCarmackized)
                         mapData = CarmackExpand(gameMapsReader);
                     else
                     {
-                        mapData = new ushort[map.MapByteSize / 2];
+                        mapData = new ushort[mapByteSize / 2];
                         for (uint i = 0; i < mapData.Length; i++)
                             mapData[i] = gameMapsReader.ReadUInt16();
                     }
                     map.MapData = RlewExpand(mapData, (ushort)(map.Depth * map.Width), 0xABCD);
 
                     ushort[] objectData;
-                    gameMaps.Seek(map.ObjectOffset, 0);
-                    if (map.IsCarmackized)
+                    gameMaps.Seek(objectOffset, 0);
+                    if (isCarmackized)
                         objectData = CarmackExpand(gameMapsReader);
                     else
                     {
-                        objectData = new ushort[map.ObjectByteSize / 2];
+                        objectData = new ushort[objectByteSize / 2];
                         for (uint i = 0; i < objectData.Length; i++)
                             objectData[i] = gameMapsReader.ReadUInt16();
                     }
                     map.ObjectData = RlewExpand(objectData, (ushort)(map.Depth * map.Width), 0xABCD);
 
                     ushort[] otherData;
-                    gameMaps.Seek(map.OtherOffset, 0);
-                    if (map.IsCarmackized)
+                    gameMaps.Seek(otherOffset, 0);
+                    if (isCarmackized)
                         otherData = CarmackExpand(gameMapsReader);
                     else
                     {
-                        otherData = new ushort[map.OtherByteSize / 2];
+                        otherData = new ushort[otherByteSize / 2];
                         for (uint i = 0; i < otherData.Length; i++)
                             otherData[i] = gameMapsReader.ReadUInt16();
                     }
@@ -146,7 +142,7 @@ namespace WOLF3D
                     maps.Add(map);
                 }
             }
-            Maps = maps.ToArray();
+            return maps.ToArray();
         }
 
         #region Decompression algorithms
@@ -160,12 +156,10 @@ namespace WOLF3D
             do
             {
                 ushort value = carmackExpanded[src_index++]; // WORDS!!
-                if (value != tag)
-                    // uncompressed
+                if (value != tag) // uncompressed
                     rawMapData[dest_index++] = value;
                 else
-                {
-                    // compressed string
+                { // compressed string
                     ushort count = carmackExpanded[src_index++];
                     value = carmackExpanded[src_index++];
                     for (ushort i = 1; i <= count; i++)

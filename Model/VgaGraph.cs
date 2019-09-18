@@ -82,8 +82,8 @@ namespace WOLF3D
 
         public VgaGraph(byte[][] file, XElement xml)
         {
-            XML = xml.Element("VgaGraph");
             Palette = VSwap.LoadPalette(xml);
+            XML = xml.Element("VgaGraph");
             using (MemoryStream sizes = new MemoryStream(file[(uint)XML.Element("Sizes").Attribute("Chunk")]))
                 Sizes = Load16BitPairs(sizes);
             StartFont = (uint)XML.Element("Sizes").Attribute("StartFont");

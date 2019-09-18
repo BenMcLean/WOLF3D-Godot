@@ -21,6 +21,16 @@ namespace WOLF3D
         public ushort SpritePage { get; set; }
         public ushort SoundPage { get; set; }
 
+        public byte[] Sprite(ushort number)
+        {
+            return Pages[SpritePage + number];
+        }
+
+        public byte[] SoundBite(ushort number)
+        {
+            return Pages[SoundPage + number];
+        }
+
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
 
