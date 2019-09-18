@@ -33,7 +33,7 @@ namespace WOLF3D
         {
             XML = xml;
             VSwap = XML.Element("VSwap") == null ? null : VSwap.Load(folder, XML);
-            Maps = XML.Element("Maps") == null ? null : GameMaps.Load(folder, XML);
+            Maps = XML.Element("Maps") == null ? null : GameMap.Load(folder, XML);
             AudioT = XML.Element("Audio") == null ? null : AudioT.Load(folder, XML);
             VgaGraph = XML.Element("VgaGraph") == null ? null : VgaGraph.Load(folder, XML);
         }
@@ -45,7 +45,7 @@ namespace WOLF3D
         }
 
         public XElement XML { get; set; }
-        public GameMaps.Map[] Maps { get; set; }
+        public GameMap[] Maps { get; set; }
         public OplPlayer OplPlayer { get; set; }
         public AudioT AudioT { get; set; }
 

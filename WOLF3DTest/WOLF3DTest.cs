@@ -17,9 +17,9 @@ namespace WOLF3DTest
         public void GameMapsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
-            GameMaps.Map[] maps = GameMaps.Load(Folder, XML);
+            GameMap[] maps = GameMap.Load(Folder, XML);
 
-            GameMaps.Map map = maps[0];
+            GameMap map = maps[0];
             Console.WriteLine();
             for (uint i = 0; i < map.MapData.Length; i++)
             {

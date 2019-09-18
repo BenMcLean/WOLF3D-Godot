@@ -8,10 +8,10 @@ namespace WOLF3D
 {
     public class MapWalls
     {
-        public GameMaps.Map Map { get; set; }
+        public GameMap Map { get; set; }
         public List<Sprite3D> Walls = new List<Sprite3D>();
 
-        public MapWalls(GameMaps.Map map)
+        public MapWalls(GameMap map)
         {
             XElement doorFrameX = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
                                    where e.Attribute("Name").Value.Equals("Door Frame")

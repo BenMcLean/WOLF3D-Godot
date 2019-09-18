@@ -18,7 +18,7 @@ public class Game : Spatial
             new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
         ));
 
-        GameMaps.Map map = Assets.Maps[0];
+        GameMap map = Assets.Maps[0];
 
         MapWalls = new MapWalls(map);
         foreach (Sprite3D sprite in MapWalls.Walls)

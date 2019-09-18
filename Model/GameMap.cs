@@ -4,49 +4,46 @@ using System.Xml.Linq;
 
 namespace WOLF3D
 {
-    public static class GameMaps
+    public struct GameMap
     {
-        public static Map[] Load(string folder, XElement xml)
+        public static GameMap[] Load(string folder, XElement xml)
         {
             using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
                 return Maps(mapHead, gameMaps);
         }
 
-        public struct Map
+        public string Name { get; set; }
+        public ushort Width { get; set; }
+        public ushort Depth { get; set; }
+        public ushort[] MapData { get; set; }
+        public ushort[] ObjectData { get; set; }
+        public ushort[] OtherData { get; set; }
+
+        public ushort X(uint i)
         {
-            public string Name { get; set; }
-            public ushort Width { get; set; }
-            public ushort Depth { get; set; }
-            public ushort[] MapData { get; set; }
-            public ushort[] ObjectData { get; set; }
-            public ushort[] OtherData { get; set; }
+            return (ushort)(i / Width);
+        }
 
-            public ushort X(uint i)
-            {
-                return (ushort)(i / Width);
-            }
+        public ushort Z(uint i)
+        {
+            return (ushort)(63 - i % Depth);
+        }
 
-            public ushort Z(uint i)
-            {
-                return (ushort)(63 - i % Depth);
-            }
-
-            public Map StartPosition(out ushort x, out ushort z)
-            {
-                //19,"Start position/North",
-                //20,"Start position/East",
-                //21,"Start position/South",
-                //22,"Start position/West",
-                for (uint i = 0; i < ObjectData.Length; i++)
-                    if (ObjectData[i] >= 19 && ObjectData[i] <= 22)
-                    {
-                        x = (ushort)(i / Width);
-                        z = (ushort)(i % Depth);
-                        return this;
-                    }
-                throw new InvalidDataException("Map \"" + Name + "\" has no starting position!");
-            }
+        public GameMap StartPosition(out ushort x, out ushort z)
+        {
+            //19,"Start position/North",
+            //20,"Start position/East",
+            //21,"Start position/South",
+            //22,"Start position/West",
+            for (uint i = 0; i < ObjectData.Length; i++)
+                if (ObjectData[i] >= 19 && ObjectData[i] <= 22)
+                {
+                    x = (ushort)(i / Width);
+                    z = (ushort)(i % Depth);
+                    return this;
+                }
+            throw new InvalidDataException("Map \"" + Name + "\" has no starting position!");
         }
 
         public static long[] ParseMapHead(Stream stream)
@@ -63,26 +60,26 @@ namespace WOLF3D
             return offsets.ToArray();
         }
 
-        public static Map[] Maps(Stream mapHead, Stream gameMaps)
+        public static GameMap[] Maps(Stream mapHead, Stream gameMaps)
         {
             return Maps(ParseMapHead(mapHead), gameMaps);
         }
 
-        public static Map[] Maps(long[] offsets, Stream gameMaps)
+        public static GameMap[] Maps(long[] offsets, Stream gameMaps)
         {
-            List<Map> maps = new List<Map>();
+            List<GameMap> maps = new List<GameMap>();
             using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
             {
                 foreach (long offset in offsets)
                 {
                     gameMaps.Seek(offset, 0);
-                    long mapOffset = gameMapsReader.ReadUInt32(),
+                    uint mapOffset = gameMapsReader.ReadUInt32(),
                         objectOffset = gameMapsReader.ReadUInt32(),
                         otherOffset = gameMapsReader.ReadUInt32();
                     ushort mapByteSize = gameMapsReader.ReadUInt16(),
                         objectByteSize = gameMapsReader.ReadUInt16(),
                         otherByteSize = gameMapsReader.ReadUInt16();
-                    Map map = new Map
+                    GameMap map = new GameMap
                     {
                         Width = gameMapsReader.ReadUInt16(),
                         Depth = gameMapsReader.ReadUInt16()

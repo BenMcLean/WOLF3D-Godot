@@ -40,7 +40,7 @@ namespace WOLF3D
             FlagsTransparent = true,
         };
 
-        public static Billboard[] MakeBillboards(GameMaps.Map map)
+        public static Billboard[] MakeBillboards(GameMap map)
         {
             XElement objects = Game.Assets?.XML?.Element("VSwap")?.Element("Objects");
             if (objects == null)

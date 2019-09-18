@@ -61,7 +61,7 @@
     <Compile Include="Billboard.cs" />
     <Compile Include="Model\DownloadShareware.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Model\GameMaps.cs" />
+    <Compile Include="Model\GameMap.cs" />
     <Compile Include="MapWalls.cs" />
     <Compile Include="Model\VgaGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
