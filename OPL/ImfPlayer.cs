@@ -16,7 +16,7 @@ namespace OPL
         public int CurrentPacket { get; set; } = 0;
         public float TimeSinceLastPacket { get; set; } = 0f;
 
-        public ImfPacket[] Song
+        public Imf[] Song
         {
             get { return song; }
             set
@@ -27,7 +27,7 @@ namespace OPL
                 TimeSinceLastPacket = 0f;
             }
         }
-        private ImfPacket[] song;
+        private Imf[] song;
 
         public override void _PhysicsProcess(float delta)
         {
@@ -50,7 +50,7 @@ namespace OPL
                 }
                 while (CurrentPacket < Song.Length && Song[CurrentPacket].Delay == 0);
                 CurrentPacketDelay = CurrentPacket < Song.Length ?
-                    Delay(Song[CurrentPacket].Delay)
+                    CalcDelay(Song[CurrentPacket].Delay)
                     : 0;
             }
             if (CurrentPacket >= Song.Length)

@@ -16,7 +16,7 @@ namespace WOLF3D
         }
 
         public Adl[] Sounds;
-        public ImfPacket[][] Songs;
+        public Imf[][] Songs;
 
         public static uint[] ParseHead(Stream stream)
         {
@@ -60,7 +60,7 @@ namespace WOLF3D
                     using (MemoryStream sound = new MemoryStream(file[startAdlibSounds + i]))
                         Sounds[i] = new Adl(sound);
             uint startMusic = (uint)audio.Attribute("StartMusic");
-            Songs = new ImfPacket[file.Length - startMusic][];
+            Songs = new Imf[file.Length - startMusic][];
             for (uint i = 0; i < Songs.Length; i++)
                 if (file[startMusic + i] != null)
                     using (MemoryStream song = new MemoryStream(file[startMusic + i]))
