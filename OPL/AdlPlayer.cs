@@ -8,22 +8,24 @@ namespace OPL
     /// </summary>
     public class AdlPlayer : Node
     {
-        public AdlPlayer(IOpl Opl)
+        public IOpl Opl
         {
-            this.Opl = Opl;
+            get { return opl; }
+            set
+            {
+                opl = value;
+                if (Opl != null) Opl.WriteReg(1, 0x20); // Enable different wave type selections
+            }
         }
+        private IOpl opl;
 
-        public IOpl Opl { get; set; }
         public bool Mute { get; set; } = false;
         public uint CurrentNote = 0;
         private float SinceLastNote = 0f;
 
         public Adl Adl
         {
-            get
-            {
-                return adl;
-            }
+            get { return adl; }
             set
             {
                 if (!Mute && (adl == null || value == null || value.Priority >= adl.Priority))
@@ -42,12 +44,6 @@ namespace OPL
         }
         private Adl adl;
 
-        public override void _Ready()
-        {
-            base._Ready();
-            Opl.WriteReg(1, 0x20); // Enable different wave type selections
-        }
-
         public override void _PhysicsProcess(float delta)
         {
             if (Opl != null && Adl != null)
@@ -63,10 +59,7 @@ namespace OPL
 
         public bool Note
         {
-            get
-            {
-                return note;
-            }
+            get { return note; }
             set
             {
                 if (note = value)

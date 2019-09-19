@@ -5,12 +5,26 @@ namespace OPL
 {
     public class OplPlayer : Node
     {
-        public OplPlayer(IOpl Opl)
+        public OplPlayer()
         {
-            this.Opl = Opl;
+            AddChild(AudioStreamPlayer = new AudioStreamPlayer());
+            AddChild(ImfPlayer = new ImfPlayer());
+            AddChild(AdlPlayer = new AdlPlayer());
         }
 
-        public IOpl Opl { get; set; }
+        public IOpl Opl
+        {
+            get { return opl; }
+            set
+            {
+                opl = value;
+                if (value != null) Opl.Init((int)AudioStreamGenerator.MixRate);
+                if (ImfPlayer != null) ImfPlayer.Opl = value;
+                if (AdlPlayer != null) AdlPlayer.Opl = value;
+            }
+        }
+        private IOpl opl;
+
         public ImfPlayer ImfPlayer { get; set; }
         public AdlPlayer AdlPlayer { get; set; }
 
@@ -52,11 +66,7 @@ namespace OPL
         public override void _Ready()
         {
             base._Ready();
-            AddChild(AudioStreamPlayer = new AudioStreamPlayer());
-            Opl.Init((int)AudioStreamGenerator.MixRate);
             AudioStreamPlayer.Play();
-            AddChild(ImfPlayer = new ImfPlayer(Opl));
-            AddChild(AdlPlayer = new AdlPlayer(Opl));
             FillBuffer();
         }
 

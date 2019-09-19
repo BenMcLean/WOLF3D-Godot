@@ -14,9 +14,10 @@ public class Game : Spatial
         DownloadShareware.Main(new string[] { Folder });
         Assets = new Assets(Folder);
 
-        AddChild(Assets.OplPlayer = new OplPlayer(
-            new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
-        ));
+        AddChild(Assets.OplPlayer = new OplPlayer()
+        {
+            Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
+        });
 
         GameMap map = Assets.Maps[0];
 

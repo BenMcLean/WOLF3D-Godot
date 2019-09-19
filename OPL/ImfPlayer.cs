@@ -9,11 +9,6 @@ namespace OPL
     /// </summary>
     public class ImfPlayer : Node
     {
-        public ImfPlayer(IOpl Opl)
-        {
-            this.Opl = Opl;
-        }
-
         public IOpl Opl { get; set; }
         public bool Mute { get; set; } = false;
         public bool Loop { get; set; } = true;
@@ -23,10 +18,7 @@ namespace OPL
 
         public ImfPacket[] Song
         {
-            get
-            {
-                return song;
-            }
+            get { return song; }
             set
             {
                 if (song != value) song = value;
@@ -40,7 +32,7 @@ namespace OPL
         public override void _PhysicsProcess(float delta)
         {
             base._Process(delta);
-            if (!Mute && Song != null)
+            if (!Mute && Opl != null && Song != null)
                 PlayNotes(delta);
         }
 

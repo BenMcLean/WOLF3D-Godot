@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
+[mono]
+
+export/include_scripts_content=true
+
 [rendering]
 
 quality/filters/anisotropic_filter_level=1
