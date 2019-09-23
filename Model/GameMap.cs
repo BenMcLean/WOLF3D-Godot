@@ -88,7 +88,7 @@ namespace WOLF3D
                     char[] name = new char[16];
                     for (uint i = 0; i < name.Length; i++)
                         name[i] = (char)gameMapsReader.ReadByte();
-                    map.Name = new string(name);
+                    map.Name = new string(name).Replace("\0", string.Empty);
 
                     char[] carmackized = new char[4];
                     for (uint i = 0; i < carmackized.Length; i++)

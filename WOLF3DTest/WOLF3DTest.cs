@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3D;
@@ -14,13 +13,21 @@ namespace WOLF3DTest
         public static readonly XElement XML = Assets.LoadXML(Folder);
 
         [TestMethod]
+        public void VSwapTest()
+        {
+            DownloadShareware.Main(new string[] { Folder });
+            VSwap vSwap = VSwap.Load(Folder, XML);
+            Console.WriteLine("SoundPage: " + vSwap.SoundPage.ToString());
+        }
+
+        [TestMethod]
         public void GameMapsTest()
         {
             DownloadShareware.Main(new string[] { Folder });
             GameMap[] maps = GameMap.Load(Folder, XML);
 
             GameMap map = maps[0];
-            Console.WriteLine();
+            Console.WriteLine(map.Name + ": ");
             for (uint i = 0; i < map.MapData.Length; i++)
             {
                 Console.Write(map.MapData[i].ToString("D3"));
