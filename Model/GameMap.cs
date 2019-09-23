@@ -69,7 +69,6 @@ namespace WOLF3D
         {
             List<GameMap> maps = new List<GameMap>();
             using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
-            {
                 foreach (long offset in offsets)
                 {
                     gameMaps.Seek(offset, 0);
@@ -86,13 +85,11 @@ namespace WOLF3D
                     };
 
                     char[] name = new char[16];
-                    for (uint i = 0; i < name.Length; i++)
-                        name[i] = (char)gameMapsReader.ReadByte();
+                    gameMapsReader.Read(name, 0, name.Length);
                     map.Name = new string(name).Replace("\0", string.Empty);
 
                     char[] carmackized = new char[4];
-                    for (uint i = 0; i < carmackized.Length; i++)
-                        carmackized[i] = (char)gameMapsReader.ReadByte();
+                    gameMapsReader.Read(carmackized, 0, carmackized.Length);
                     bool isCarmackized = new string(carmackized).Equals("!ID!");
 
                     // "Note that for Wolfenstein 3D, a 4-byte signature string ("!ID!") will normally be present directly after the level name. The signature does not appear to be used anywhere, but is useful for distinguishing between v1.0 files (the signature string is missing), and files for v1.1 and later (includes the signature string)."
@@ -138,7 +135,6 @@ namespace WOLF3D
 
                     maps.Add(map);
                 }
-            }
             return maps.ToArray();
         }
 
@@ -185,18 +181,16 @@ namespace WOLF3D
                     count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (ushort)binaryReader.ReadByte();
+                        ch |= binaryReader.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
                     else
                     {
-                        offset = (ushort)binaryReader.ReadByte();
+                        offset = binaryReader.ReadByte();
                         length -= count;
                         if (length < 0)
-                        {
                             return expandedWords;
-                        }
                         while ((count--) > 0)
                         {
                             expandedWords[index] = expandedWords[index - offset];
@@ -209,7 +203,7 @@ namespace WOLF3D
                     count = (ushort)(ch & 0xFF);
                     if (count == 0)
                     {
-                        ch |= (ushort)binaryReader.ReadByte();
+                        ch |= binaryReader.ReadByte();
                         expandedWords[index++] = ch;
                         length--;
                     }
@@ -218,13 +212,9 @@ namespace WOLF3D
                         offset = binaryReader.ReadUInt16();
                         length -= count;
                         if (length < 0)
-                        {
                             return expandedWords;
-                        }
                         while ((count--) > 0)
-                        {
                             expandedWords[index++] = expandedWords[offset++];
-                        }
                     }
                 }
                 else
