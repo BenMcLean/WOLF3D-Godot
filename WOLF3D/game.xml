@@ -475,6 +475,30 @@
       <Enemy Number="213" Name="Dog 4 (Moving)" />
       <Enemy Number="214" Name="Hans" />
     </Objects>
+    <DigiSounds>
+      <!-- HALTSND,                0, -->
+      <DigiSound Number="0" Page="542" Pages="2" Name="HALTSND" />
+      <!-- DOGBARKSND,             1, -->
+      <!-- CLOSEDOORSND,           2, -->
+      <!-- OPENDOORSND,            3, -->
+      <!-- ATKMACHINEGUNSND,       4, -->
+      <!-- ATKPISTOLSND,           5, -->
+      <!-- ATKGATLINGSND,          6, -->
+      <!-- SCHUTZADSND,            7, -->
+      <!-- GUTENTAGSND,            8, -->
+      <!-- MUTTISND,               9, -->
+      <!-- BOSSFIRESND,            10, -->
+      <!-- SSFIRESND,              11, -->
+      <!-- DEATHSCREAM1SND,        12, -->
+      <!-- DEATHSCREAM2SND,        13, -->
+      <!-- DEATHSCREAM3SND,        13, -->
+      <!-- TAKEDAMAGESND,          14, -->
+      <!-- PUSHWALLSND,            15, -->
+      <!-- LEBENSND,               20, -->
+      <!-- NAZIFIRESND,            21, -->
+      <!-- SLURPIESND,             22, -->
+      <!-- YEAHSND,				32, -->
+    </DigiSounds>
   </VSwap>
   <Palette>
     JASC-PAL
