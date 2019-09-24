@@ -106,14 +106,14 @@ namespace WOLF3D
                         Pages[page] = Index2ByteArray(sprite, palette);
                     }
 
-                // read in sounds
+                // read in digisounds
                 byte[] soundData = new byte[stream.Length - pageOffsets[Pages.Length]];
                 stream.Seek(pageOffsets[Pages.Length], 0);
                 stream.Read(soundData, 0, soundData.Length);
 
-                int pageStart = (int)(pageOffsets[NumPages - 1] - pageOffsets[Pages.Length]);
+                uint start = pageOffsets[NumPages - 1] - pageOffsets[Pages.Length];
                 ushort[][] soundTable;
-                using (MemoryStream memoryStream = new MemoryStream(soundData, pageStart, soundData.Length - pageStart))
+                using (MemoryStream memoryStream = new MemoryStream(soundData, (int)start, soundData.Length - (int)start))
                     soundTable = VgaGraph.Load16BitPairs(memoryStream);
 
                 uint numDigiSounds = 0;
@@ -125,7 +125,7 @@ namespace WOLF3D
                     if (soundTable[sound][1] > 0 && pageOffsets[Pages.Length + soundTable[sound][0]] > 0)
                     {
                         DigiSounds[sound] = new byte[soundTable[sound][1]];
-                        uint start = pageOffsets[Pages.Length + soundTable[sound][0]] - pageOffsets[Pages.Length];
+                        start = pageOffsets[Pages.Length + soundTable[sound][0]] - pageOffsets[Pages.Length];
                         for (uint bite = 0; bite < DigiSounds[sound].Length; bite++)
                             DigiSounds[sound][bite] = (byte)(soundData[start + bite] - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
