@@ -345,10 +345,8 @@
       <Exit Number="142" Name="Floor 8E" />
       <Exit Number="143" Name="Floor 8F" />
     </Walls>
-    <Sprites>
-      <Sprite Page="106" Name="Demo" />
-      <Sprite Page="107" Name="DeathCam" />
-    </Sprites>
+    <Sprite Page="106" Name="Demo" />
+    <Sprite Page="107" Name="DeathCam" />
     <Objects>
       <Spawn Number="19" Walk="true" Name="Start" />
       <Spawn Number="20" Walk="true" Name="Start" />
@@ -475,30 +473,27 @@
       <Enemy Number="213" Name="Dog 4 (Moving)" />
       <Enemy Number="214" Name="Hans" />
     </Objects>
-    <DigiSounds StartDigiSounds="174" NumSounds="32">
-      <!-- HALTSND,                0, -->
-      <DigiSound Number="0" Name="HALTSND" />
-      <!-- DOGBARKSND,             1, -->
-      <!-- CLOSEDOORSND,           2, -->
-      <!-- OPENDOORSND,            3, -->
-      <!-- ATKMACHINEGUNSND,       4, -->
-      <!-- ATKPISTOLSND,           5, -->
-      <!-- ATKGATLINGSND,          6, -->
-      <!-- SCHUTZADSND,            7, -->
-      <!-- GUTENTAGSND,            8, -->
-      <!-- MUTTISND,               9, -->
-      <!-- BOSSFIRESND,            10, -->
-      <!-- SSFIRESND,              11, -->
-      <!-- DEATHSCREAM1SND,        12, -->
-      <!-- DEATHSCREAM2SND,        13, -->
-      <!-- DEATHSCREAM3SND,        13, -->
-      <!-- TAKEDAMAGESND,          14, -->
-      <!-- PUSHWALLSND,            15, -->
-      <!-- LEBENSND,               20, -->
-      <!-- NAZIFIRESND,            21, -->
-      <!-- SLURPIESND,             22, -->
-      <!-- YEAHSND,				32, -->
-    </DigiSounds>
+    <DigiSound Number="0" Name="HALTSND" />
+    <DigiSound Number="1" Name="DOGBARKSND" />
+    <DigiSound Number="2" Name="CLOSEDOORSND" />
+    <DigiSound Number="3" Name="OPENDOORSND" />
+    <DigiSound Number="4" Name="ATKMACHINEGUNSND" />
+    <DigiSound Number="5" Name="ATKPISTOLSND" />
+    <DigiSound Number="6" Name="ATKGATLINGSND" />
+    <DigiSound Number="7" Name="SCHUTZADSND" />
+    <DigiSound Number="8" Name="GUTENTAGSND" />
+    <DigiSound Number="9" Name="MUTTISND" />
+    <DigiSound Number="10" Name="BOSSFIRESND" />
+    <DigiSound Number="11" Name="SSFIRESND" />
+    <DigiSound Number="12" Name="DEATHSCREAM1SND" />
+    <DigiSound Number="13" Name="DEATHSCREAM2SND" />
+    <DigiSound Number="13" Name="DEATHSCREAM3SND" />
+    <DigiSound Number="14" Name="TAKEDAMAGESND" />
+    <DigiSound Number="15" Name="PUSHWALLSND" />
+    <DigiSound Number="20" Name="LEBENSND" />
+    <DigiSound Number="21" Name="NAZIFIRESND" />
+    <DigiSound Number="22" Name="SLURPIESND" />
+    <DigiSound Number="32" Name="YEAHSND" />
   </VSwap>
   <Palette>
     JASC-PAL
