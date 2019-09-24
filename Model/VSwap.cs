@@ -41,7 +41,7 @@ namespace WOLF3D
                 // parse header info
                 NumPages = binaryReader.ReadUInt16();
                 SpritePage = binaryReader.ReadUInt16();
-                Pages = new byte[binaryReader.ReadUInt16()][];
+                Pages = new byte[binaryReader.ReadUInt16()][]; // SoundPage
 
                 uint[] pageOffsets = new uint[NumPages];
                 uint dataStart = 0;
@@ -116,17 +116,19 @@ namespace WOLF3D
                 using (MemoryStream memoryStream = new MemoryStream(soundData, pageStart, soundData.Length - pageStart))
                     soundTable = VgaGraph.Load16BitPairs(memoryStream);
 
-                List<byte[]> sounds = new List<byte[]>();
-                foreach (ushort[] pair in soundTable)
-                    if (pair[1] > 0 && pageOffsets[Pages.Length + pair[0]] > 0)
+                uint numDigiSounds = 0;
+                while (numDigiSounds < soundTable.Length && soundTable[numDigiSounds][1] > 0)
+                    numDigiSounds++;
+
+                DigiSounds = new byte[numDigiSounds][];
+                for (uint sound = 0; sound < DigiSounds.Length; sound++)
+                    if (soundTable[sound][1] > 0 && pageOffsets[Pages.Length + soundTable[sound][0]] > 0)
                     {
-                        byte[] sound = new byte[pair[1]];
-                        uint start = pageOffsets[Pages.Length + pair[0]] - pageOffsets[Pages.Length];
-                        for (uint i = 0; i < sound.Length; i++)
-                            sound[i] = (byte)(soundData[start + i] - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
-                        sounds.Add(sound);
+                        DigiSounds[sound] = new byte[soundTable[sound][1]];
+                        uint start = pageOffsets[Pages.Length + soundTable[sound][0]] - pageOffsets[Pages.Length];
+                        for (uint bite = 0; bite < DigiSounds[sound].Length; bite++)
+                            DigiSounds[sound][bite] = (byte)(soundData[start + bite] - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
                     }
-                DigiSounds = sounds.ToArray();
             }
         }
 

@@ -42,7 +42,7 @@ public class Game : Spatial
     {
         AudioStreamSample audioStreamSample = new AudioStreamSample()
         {
-            Data = Assets.VSwap.DigiSounds[19],
+            Data = Assets.VSwap.DigiSounds[32],
             Format = AudioStreamSample.FormatEnum.Format8Bits,
             MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
             Stereo = false
