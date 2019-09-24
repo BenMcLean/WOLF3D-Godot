@@ -1,7 +1,6 @@
 ﻿using Godot;
 using OPL;
 using System.IO;
-using System.Text;
 using System.Xml.Linq;
 
 namespace WOLF3D
@@ -62,7 +61,7 @@ namespace WOLF3D
             set
             {
                 vswap = value;
-                Textures = new ImageTexture[VSwap.SoundPage];
+                Textures = new ImageTexture[VSwap.Pages.Length];
                 for (uint i = 0; i < Textures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {

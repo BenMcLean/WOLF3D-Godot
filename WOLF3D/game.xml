@@ -147,7 +147,7 @@
     <Pic Number="140" Chunk="558" Name="ENUMEND" />
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1" />
-  <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartDigiSounds="174" StartMusic="261">
+  <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />
     <Sound Number="1" Name="SELECTWPNSND" />
     <Sound Number="2" Name="SELECTITEMSND" />
@@ -475,9 +475,9 @@
       <Enemy Number="213" Name="Dog 4 (Moving)" />
       <Enemy Number="214" Name="Hans" />
     </Objects>
-    <DigiSounds>
+    <DigiSounds StartDigiSounds="174" NumSounds="32">
       <!-- HALTSND,                0, -->
-      <DigiSound Number="0" Page="542" Pages="2" Name="HALTSND" />
+      <DigiSound Number="0" Name="HALTSND" />
       <!-- DOGBARKSND,             1, -->
       <!-- CLOSEDOORSND,           2, -->
       <!-- OPENDOORSND,            3, -->

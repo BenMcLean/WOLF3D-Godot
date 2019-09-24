@@ -17,7 +17,8 @@ namespace WOLF3DTest
         {
             DownloadShareware.Main(new string[] { Folder });
             VSwap vSwap = VSwap.Load(Folder, XML);
-            Console.WriteLine("SoundPage: " + vSwap.SoundPage.ToString());
+            Console.WriteLine("Number of graphics pages: " + vSwap.Pages.Length.ToString());
+            Console.WriteLine("Number of DigiSounds: " + vSwap.DigiSounds.Length.ToString());
         }
 
         [TestMethod]

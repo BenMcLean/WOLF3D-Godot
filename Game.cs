@@ -33,6 +33,7 @@ public class Game : Spatial
 
         //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
         //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
+        PlayASound();
     }
 
     public MapWalls MapWalls;
@@ -41,10 +42,7 @@ public class Game : Spatial
     {
         AudioStreamSample audioStreamSample = new AudioStreamSample()
         {
-            Data = VSwap.ConcatArrays(
-                Assets.VSwap.Pages[Assets.VSwap.SoundPage],
-                Assets.VSwap.Pages[Assets.VSwap.SoundPage + 1]
-            ),
+            Data = Assets.VSwap.DigiSounds[19],
             Format = AudioStreamSample.FormatEnum.Format8Bits,
             MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
             Stereo = false

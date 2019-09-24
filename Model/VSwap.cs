@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,17 +19,13 @@ namespace WOLF3D
 
         public uint[] Palette { get; set; }
         public byte[][] Pages { get; set; }
+        public byte[][] DigiSounds { get; set; }
         public ushort SpritePage { get; set; }
-        public ushort SoundPage { get; set; }
+        public ushort NumPages { get; set; }
 
         public byte[] Sprite(ushort number)
         {
             return Pages[SpritePage + number];
-        }
-
-        public byte[] SoundBite(ushort number)
-        {
-            return Pages[SoundPage + number];
         }
 
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
@@ -42,12 +39,12 @@ namespace WOLF3D
             using (BinaryReader binaryReader = new BinaryReader(stream))
             {
                 // parse header info
-                Pages = new byte[binaryReader.ReadUInt16()][];
+                NumPages = binaryReader.ReadUInt16();
                 SpritePage = binaryReader.ReadUInt16();
-                SoundPage = binaryReader.ReadUInt16();
+                Pages = new byte[binaryReader.ReadUInt16()][];
 
-                long[] pageOffsets = new long[Pages.Length];
-                long dataStart = 0;
+                uint[] pageOffsets = new uint[NumPages];
+                uint dataStart = 0;
                 for (ushort i = 0; i < pageOffsets.Length; i++)
                 {
                     pageOffsets[i] = binaryReader.ReadUInt32();
@@ -56,7 +53,7 @@ namespace WOLF3D
                     if ((pageOffsets[i] != 0 && pageOffsets[i] < dataStart) || pageOffsets[i] > stream.Length)
                         throw new InvalidDataException("VSWAP contains invalid page offsets.");
                 }
-                ushort[] pageLengths = new ushort[Pages.Length];
+                ushort[] pageLengths = new ushort[NumPages];
                 for (ushort i = 0; i < pageLengths.Length; i++)
                     pageLengths[i] = binaryReader.ReadUInt16();
 
@@ -74,7 +71,7 @@ namespace WOLF3D
                     }
 
                 // read in sprites
-                for (; page < SoundPage; page++)
+                for (; page < Pages.Length; page++)
                     if (pageOffsets[page] > 0)
                     {
                         stream.Seek(pageOffsets[page], 0);
@@ -110,14 +107,26 @@ namespace WOLF3D
                     }
 
                 // read in sounds
-                for (; page < Pages.Length; page++)
-                    if (pageOffsets[page] > 0)
+                byte[] soundData = new byte[stream.Length - pageOffsets[Pages.Length]];
+                stream.Seek(pageOffsets[Pages.Length], 0);
+                stream.Read(soundData, 0, soundData.Length);
+
+                int pageStart = (int)(pageOffsets[NumPages - 1] - pageOffsets[Pages.Length]);
+                ushort[][] soundTable;
+                using (MemoryStream memoryStream = new MemoryStream(soundData, pageStart, soundData.Length - pageStart))
+                    soundTable = VgaGraph.Load16BitPairs(memoryStream);
+
+                List<byte[]> sounds = new List<byte[]>();
+                foreach (ushort[] pair in soundTable)
+                    if (pair[1] > 0 && pageOffsets[Pages.Length + pair[0]] > 0)
                     {
-                        stream.Seek(pageOffsets[page], 0);
-                        Pages[page] = new byte[pageLengths[page]];
-                        for (uint i = 0; i < Pages[page].Length; i++)
-                            Pages[page][i] = (byte)(binaryReader.ReadByte() - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
+                        byte[] sound = new byte[pair[1]];
+                        uint start = pageOffsets[Pages.Length + pair[0]] - pageOffsets[Pages.Length];
+                        for (uint i = 0; i < sound.Length; i++)
+                            sound[i] = (byte)(soundData[start + i] - 128); // Godot makes some kind of oddball conversion from the unsigned byte to a signed byte
+                        sounds.Add(sound);
                     }
+                DigiSounds = sounds.ToArray();
             }
         }
 
