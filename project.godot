@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
+[gdnative]
+
+singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
+
 [mono]
 
 export/include_scripts_content=true
