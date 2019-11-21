@@ -25,6 +25,11 @@ namespace WOLF3D
 
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
+        // For text mode, I would like to make the screen be the same width as a Wolfenstein 3-D wall.
+        // Typical MS-DOS VGA text mode was 720x400 resolution in a 4:3 aspect ratio showing a 9x16 fixed width font which could be displayed in 80 columns and 25 rows.
+        public static readonly float TextModePixelWidth = 0.00338666666f;
+        public static readonly Vector3 TextModeScale = new Vector3(1f, 1.35f, 1f);
+
         public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
         { }
 
