@@ -3,7 +3,7 @@ using OPL;
 using System.IO;
 using System.Xml.Linq;
 
-namespace WOLF3D
+namespace WOLF3DGame.Model
 {
     /// <summary>
     /// Assets takes the bytes extracted from VSwap and creates the corresponding Godot objects for them to be used throughout the game.

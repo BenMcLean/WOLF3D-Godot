@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WOLF3D;
+using WOLF3DGame.Model;
 
 namespace WOLF3DTest
 {

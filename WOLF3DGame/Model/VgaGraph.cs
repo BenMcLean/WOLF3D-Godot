@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 
-namespace WOLF3D
+namespace WOLF3DGame.Model
 {
     public struct VgaGraph
     {

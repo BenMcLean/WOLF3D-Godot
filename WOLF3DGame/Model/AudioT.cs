@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Linq;
 using static OPL.Imf;
 
-namespace WOLF3D
+namespace WOLF3DGame.Model
 {
     public struct AudioT
     {

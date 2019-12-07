@@ -66,9 +66,9 @@
       <Project>{CC078116-75E0-49AC-A92A-58F7E505B9C2}</Project>
       <Name>OPL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WOLF3D.csproj">
-      <Project>{0C1F239E-F2C1-4D04-81A2-FBD561C1E887}</Project>
-      <Name>WOLF3D</Name>
+    <ProjectReference Include="..\WOLF3DGame\WOLF3DGame.csproj">
+      <Project>{c33ebf82-55f2-464e-8c48-5867e5475c87}</Project>
+      <Name>WOLF3DGame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace WOLF3D
+namespace WOLF3DGame.Model
 {
     public struct VSwap
     {

@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3DGame.Model;
 
-namespace WOLF3D
+namespace WOLF3DGame
 {
     class Billboard : Spatial
     {
