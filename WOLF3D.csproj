@@ -52,8 +52,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setup\DosScreen.cs" />
+    <Compile Include="Setup\Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="WOLF3DGame\WOLF3DGame.csproj">
+      <Project>{C33EBF82-55F2-464E-8C48-5867E5475C87}</Project>
+      <Name>WOLF3DGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

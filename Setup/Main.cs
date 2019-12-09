@@ -1,5 +1,7 @@
 using Godot;
 using System.Linq;
+using WOLF3DGame;
+using WOLF3DGame.Model;
 
 public class Main : Spatial
 {
@@ -34,6 +36,14 @@ public class Main : Spatial
 					break;
 				case LoadingState.DOWNLOAD_SHAREWARE:
 					DosScreen.Screen.WriteLine("Downloading shareware!");
+					string folder = System.IO.Path.Combine(Path, "WOLF3D", "SHARE");
+					DownloadShareware.Main(new string[] { folder });
+					PackedScene game = new PackedScene();
+					game.Pack(new Game()
+					{
+						Folder = folder,
+					});
+					GetTree().ChangeSceneTo(game);
 					break;
 			}
 		}

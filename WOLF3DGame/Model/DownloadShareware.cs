@@ -8,8 +8,15 @@ namespace WOLF3DGame.Model
     {
         public static void Main(string[] args = null)
         {
-            if (args == null || args.Length == 0)
+            if (args == null || args.Length == 0 || string.IsNullOrWhiteSpace(args[0]))
                 args = new string[] { string.Empty };
+            else
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(args[0]));
+
+            string xml = System.IO.Path.Combine(args[0], "game.xml");
+            if (!System.IO.File.Exists(xml))
+                (new Godot.Directory()).Copy("res://share.xml", xml);
+
             if (!System.IO.File.Exists(System.IO.Path.Combine(args[0], "WOLF3D.EXE")))
             {
                 // I would very much prefer to use the official URL ftp://ftp.3drealms.com/share/1wolf14.zip

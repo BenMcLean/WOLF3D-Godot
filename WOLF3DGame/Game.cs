@@ -9,11 +9,10 @@ namespace WOLF3DGame
     public class Game : Spatial
     {
         public static Assets Assets;
-        public static string Folder = "WOLF3D";
+        public string Folder { get; set; }
 
         public override void _Ready()
         {
-            DownloadShareware.Main(new string[] { Folder });
             Assets = new Assets(Folder);
 
             AddChild(Assets.OplPlayer = new OplPlayer()
