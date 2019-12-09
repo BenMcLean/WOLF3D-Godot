@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 using WOLF3DGame;
 using WOLF3DGame.Model;
@@ -32,14 +33,20 @@ public class Main : Spatial
 			{
 				case LoadingState.ASK_PERMISSION:
 					DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's external storage.");
+					DosScreen.Screen.WriteLine("Internet access is also requested to download Wolfenstein 3-D shareware data if it is not present.");
 					DosScreen.Screen.WriteLine("Press any button to open permission request.");
 					break;
 				case LoadingState.DOWNLOAD_SHAREWARE:
 					DosScreen.Screen.WriteLine("Downloading shareware!");
-					Game.Folder = System.IO.Path.Combine(Path, "WOLF3D", "SHARE");
-					GD.Print("In Main, folder == \"" + Game.Folder + "\"");
-
-					DownloadShareware.Main(new string[] { Game.Folder });
+					try
+					{
+						Game.Folder = System.IO.Path.Combine(Path, "WOLF3D", "WL1");
+						DownloadShareware.Main(new string[] { Game.Folder });
+					}
+					catch (Exception ex)
+					{
+						DosScreen.Screen.WriteLine(ex.GetType().Name + ": " + ex.Message);
+					}
 					PackedScene game = new PackedScene();
 					game.Pack(new Game());
 					GetTree().ChangeSceneTo(game);

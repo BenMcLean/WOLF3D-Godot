@@ -364,8 +364,5 @@ export_presets.cfg
 
 # End of https://www.gitignore.io/api/godot,csharp
 
-# Downloaded WOLF3D shareware files
+# WOLF3D game files
 WOLF3D/*
-!WOLF3D/game.xml
-!WOLF3D/.gdignore
-Wolfenstein3dV14sw.ZIP
