@@ -36,13 +36,12 @@ public class Main : Spatial
 					break;
 				case LoadingState.DOWNLOAD_SHAREWARE:
 					DosScreen.Screen.WriteLine("Downloading shareware!");
-					string folder = System.IO.Path.Combine(Path, "WOLF3D", "SHARE");
-					DownloadShareware.Main(new string[] { folder });
+					Game.Folder = System.IO.Path.Combine(Path, "WOLF3D", "SHARE");
+					GD.Print("In Main, folder == \"" + Game.Folder + "\"");
+
+					DownloadShareware.Main(new string[] { Game.Folder });
 					PackedScene game = new PackedScene();
-					game.Pack(new Game()
-					{
-						Folder = folder,
-					});
+					game.Pack(new Game());
 					GetTree().ChangeSceneTo(game);
 					break;
 			}
@@ -95,6 +94,7 @@ public class Main : Spatial
 				State = PermissionsGranted ? LoadingState.DOWNLOAD_SHAREWARE : LoadingState.ASK_PERMISSION;
 				break;
 			default:
+				Path = System.IO.Directory.GetCurrentDirectory();
 				ARVRInterface = ARVRServer.FindInterface("OpenVR");
 				State = LoadingState.DOWNLOAD_SHAREWARE;
 				break;

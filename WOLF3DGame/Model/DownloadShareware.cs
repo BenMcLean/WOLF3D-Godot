@@ -9,9 +9,9 @@ namespace WOLF3DGame.Model
         public static void Main(string[] args = null)
         {
             if (args == null || args.Length == 0 || string.IsNullOrWhiteSpace(args[0]))
-                args = new string[] { string.Empty };
+                args = new string[] { System.IO.Directory.GetCurrentDirectory() };
             else
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(args[0]));
+                System.IO.Directory.CreateDirectory(args[0]);
 
             string xml = System.IO.Path.Combine(args[0], "game.xml");
             if (!System.IO.File.Exists(xml))
