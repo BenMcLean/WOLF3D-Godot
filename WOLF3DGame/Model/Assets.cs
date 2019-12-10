@@ -67,6 +67,7 @@ namespace WOLF3DGame.Model
             {
                 vswap = value;
                 Textures = new ImageTexture[VSwap.Pages.Length];
+                WallMaterials = new Material[Textures.Length];
                 for (uint i = 0; i < Textures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
@@ -74,6 +75,15 @@ namespace WOLF3DGame.Model
                         image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
                         Textures[i] = new ImageTexture();
                         Textures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                        WallMaterials[i] = new SpatialMaterial()
+                        {
+                            AlbedoTexture = Textures[i],
+                            FlagsUnshaded = true,
+                            FlagsDoNotReceiveShadows = true,
+                            FlagsDisableAmbientLight = true,
+                            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                        };
                     }
             }
         }
@@ -102,6 +112,7 @@ namespace WOLF3DGame.Model
         private VgaGraph vgaGraph;
 
         public ImageTexture[] Textures;
+        public Material[] WallMaterials;
         public ImageTexture[] Pics;
     }
 }

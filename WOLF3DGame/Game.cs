@@ -58,14 +58,13 @@ namespace WOLF3DGame
             foreach (Sprite3D sprite in MapWalls.Walls)
                 AddChild(sprite);
 
-            //GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
+            map.StartPosition(out ushort x, out ushort z);
+            ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
 
-            Billboard[] billboards = Billboard.MakeBillboards(map);
-
-            foreach (Billboard billboard in billboards)
-                AddChild(billboard);
-
-            GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
+            //Billboard[] billboards = Billboard.MakeBillboards(map);
+            //foreach (Billboard billboard in billboards)
+            //    AddChild(billboard);
+            //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];

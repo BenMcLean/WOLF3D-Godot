@@ -134,6 +134,9 @@ namespace WOLF3DGame
             return BuildWall(texture, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
         }
 
+        /// <summary>
+        /// "Of course Momma's gonna help build the wall." - Pink Floyd
+        /// </summary>
         public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
             return new Sprite3D()
