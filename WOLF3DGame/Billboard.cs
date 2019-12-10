@@ -28,7 +28,7 @@ namespace WOLF3DGame
         {
             base._Process(delta);
             if (Sprite3D.Visible)
-                Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
+                Rotation = Game.BillboardRotation;
         }
 
         public static readonly SpatialMaterial BillboardMaterial = new SpatialMaterial()

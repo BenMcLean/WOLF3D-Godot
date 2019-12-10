@@ -60,12 +60,24 @@ namespace WOLF3DGame
 
             //GetViewport().GetCamera().GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
 
-            foreach (Billboard billboard in Billboard.MakeBillboards(map))
+            Billboard[] billboards = Billboard.MakeBillboards(map);
+
+            foreach (Billboard billboard in billboards)
                 AddChild(billboard);
+
+            GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
+        }
+
+        public static Vector3 BillboardRotation { get; set; }
+
+        public override void _Process(float delta)
+        {
+            base._Process(delta);
+            BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
         }
 
         public MapWalls MapWalls;
