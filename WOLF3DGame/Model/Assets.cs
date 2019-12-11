@@ -24,7 +24,6 @@ namespace WOLF3DGame.Model
         public static readonly double WallHeight = 2.92608;
         public static readonly double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
-
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
         // For text mode, I would like to make the screen be the same width as a Wolfenstein 3-D wall.

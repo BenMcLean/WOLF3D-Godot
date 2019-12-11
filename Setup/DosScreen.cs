@@ -146,7 +146,6 @@ public class DosScreen : Spatial
     }
     public readonly VirtualScreenText Screen = new VirtualScreenText();
     private Viewport Viewport;
-    private Sprite3D Sprite3D;
 
     public DosScreen()
     {
@@ -164,13 +163,15 @@ public class DosScreen : Spatial
             RectSize = Viewport.Size,
         });
 
-        AddChild(Sprite3D = new Sprite3D()
+        AddChild(new MeshInstance()
         {
-            Texture = Viewport.GetTexture(),
-            PixelSize = 0.00338666666f,
-            Scale = new Vector3(1f, 1.35f, 1f),
+            Mesh = new QuadMesh()
+            {
+                Size = new Vector2(2.4384f, 1.8288f),
+            },
             MaterialOverride = new SpatialMaterial()
             {
+                AlbedoTexture = Viewport.GetTexture(),
                 FlagsUnshaded = true,
                 FlagsDoNotReceiveShadows = true,
                 FlagsDisableAmbientLight = true,
@@ -178,7 +179,6 @@ public class DosScreen : Spatial
                 ParamsCullMode = SpatialMaterial.CullMode.Back,
                 FlagsTransparent = false,
             },
-            //GlobalTransform = new Transform(Basis.Identity, new Vector3(2.4384f / -2f, 0f, 0f)),
         });
 
         BitmapFont font = new BitmapFont();
@@ -209,7 +209,7 @@ public class DosScreen : Spatial
     {
         base._Process(delta);
         Screen.UpdateCursor(delta);
-        if (Sprite3D.Visible)
+        if (Visible)
             Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
     }
 }
