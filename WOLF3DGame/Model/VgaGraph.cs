@@ -149,6 +149,7 @@ namespace WOLF3DGame.Model
         /// Implementing Huffman decompression. http://www.shikadi.net/moddingwiki/Huffman_Compression#Huffman_implementation_in_ID_Software_games
         /// Translated from https://github.com/mozzwald/wolf4sdl/blob/master/id_ca.cpp#L214-L260
         /// </summary>
+        /// <param name="length">When to stop. Default 0 indicates to keep going until source is exhausted.</param>
         /// <param name="dictionary">The Huffman dictionary is a ushort[255][2]</param>
         public static byte[] CAL_HuffExpand(byte[] source, ushort[][] dictionary, uint length = 0)
         {
