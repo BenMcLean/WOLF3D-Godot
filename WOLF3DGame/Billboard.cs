@@ -9,37 +9,24 @@ namespace WOLF3DGame
 {
     class Billboard : Spatial
     {
-        public Billboard()
+        public Billboard(Material material)
         {
-            Sprite3D = new Sprite3D()
+            AddChild(MeshInstance = new MeshInstance()
             {
-                PixelSize = Assets.PixelWidth,
-                Scale = Assets.Scale,
-                MaterialOverride = BillboardMaterial,
-                Centered = false,
-                GlobalTransform = new Transform(Basis.Identity, Assets.BillboardLocal),
-            };
-            AddChild(Sprite3D);
+                Mesh = Assets.Wall,
+                MaterialOverride = material,
+                Transform = Assets.BillboardTransform,
+            });
         }
 
-        public Sprite3D Sprite3D;
+        public MeshInstance MeshInstance;
 
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (Sprite3D.Visible)
+            if (Visible)
                 Rotation = Game.BillboardRotation;
         }
-
-        public static readonly SpatialMaterial BillboardMaterial = new SpatialMaterial()
-        {
-            FlagsUnshaded = true,
-            FlagsDoNotReceiveShadows = true,
-            FlagsDisableAmbientLight = true,
-            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-            ParamsCullMode = SpatialMaterial.CullMode.Back,
-            FlagsTransparent = true,
-        };
 
         public static Billboard[] MakeBillboards(GameMap map)
         {
@@ -56,11 +43,10 @@ namespace WOLF3DGame
                     out uint page
                     ))
                 {
-                    Billboard billboard = new Billboard()
+                    Billboard billboard = new Billboard(Game.Assets.WallMaterials[page])
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
                     };
-                    billboard.Sprite3D.Texture = Game.Assets.Textures[page];
                     billboards.Add(billboard);
                 }
             return billboards.ToArray();

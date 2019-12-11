@@ -61,9 +61,9 @@ namespace WOLF3DGame
             map.StartPosition(out ushort x, out ushort z);
             ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
 
-            //Billboard[] billboards = Billboard.MakeBillboards(map);
-            //foreach (Billboard billboard in billboards)
-            //    AddChild(billboard);
+            Billboard[] billboards = Billboard.MakeBillboards(map);
+            foreach (Billboard billboard in billboards)
+                AddChild(billboard);
             //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];

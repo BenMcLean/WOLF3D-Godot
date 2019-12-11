@@ -24,7 +24,7 @@ namespace WOLF3DGame.Model
         public static readonly double WallHeight = 2.92608;
         public static readonly double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
-        public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
+        public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
         // For text mode, I would like to make the screen be the same width as a Wolfenstein 3-D wall.
         // Typical MS-DOS VGA text mode was 720x400 resolution in a 4:3 aspect ratio showing a 9x16 fixed width font which could be displayed in 80 columns and 25 rows.
@@ -82,8 +82,9 @@ namespace WOLF3DGame.Model
                             FlagsUnshaded = true,
                             FlagsDoNotReceiveShadows = true,
                             FlagsDisableAmbientLight = true,
+                            FlagsTransparent = i >= VSwap.SpritePage,
+                            ParamsCullMode = i >= VSwap.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                         };
                     }
             }
