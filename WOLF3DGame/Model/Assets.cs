@@ -114,5 +114,25 @@ namespace WOLF3DGame.Model
         public ImageTexture[] Textures;
         public Material[] WallMaterials;
         public ImageTexture[] Pics;
+
+        public static readonly QuadMesh Wall = new QuadMesh()
+        {
+            Size = new Vector2(WallWidth, (float)WallHeight),
+        };
+
+        public static Vector3 Axis(Vector3.Axis axis)
+        {
+            switch (axis)
+            {
+                case Vector3.Axis.X:
+                    return Vector3.Right;
+                case Vector3.Axis.Y:
+                    return Vector3.Up;
+                case Vector3.Axis.Z:
+                    return Vector3.Forward;
+                default:
+                    return Vector3.Zero;
+            }
+        }
     }
 }

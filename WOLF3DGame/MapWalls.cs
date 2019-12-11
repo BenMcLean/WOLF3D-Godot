@@ -10,7 +10,7 @@ namespace WOLF3DGame
     public class MapWalls
     {
         public GameMap Map { get; set; }
-        public List<Sprite3D> Walls = new List<Sprite3D>();
+        public List<MeshInstance> Walls = new List<MeshInstance>();
 
         public MapWalls(GameMap map)
         {
@@ -25,17 +25,17 @@ namespace WOLF3DGame
             {
                 uint wall;
                 if (x < 63 && IsWall(wall = Get(x + 1, z)))
-                    Walls.Add(WestWall(x + 1, z, Game.Assets.Textures[WallTexture(wall)], true));
+                    Walls.Add(WestWall(x + 1, z, wall, true));
                 if (x > 0 && IsWall(wall = Get(x - 1, z)))
-                    Walls.Add(WestWall(x, z, Game.Assets.Textures[WallTexture(wall)]));
+                    Walls.Add(WestWall(x, z, wall));
             }
             void VerticalCheck(uint x, uint z)
             {
                 uint wall;
                 if (z > 0 && IsWall(wall = Get(x, z - 1)))
-                    Walls.Add(SouthWall(x, z - 1, Game.Assets.Textures[DarkSide(wall)]));
+                    Walls.Add(SouthWall(x, z - 1, wall));
                 if (z < 63 && IsWall(wall = Get(x, z + 1)))
-                    Walls.Add(SouthWall(x, z, Game.Assets.Textures[DarkSide(wall)], true));
+                    Walls.Add(SouthWall(x, z, wall, true));
             }
             Map = map;
             for (uint i = 0; i < Map.MapData.Length; i++)
@@ -45,17 +45,17 @@ namespace WOLF3DGame
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {
-                        Walls.Add(WestWall(x + 1, z, Game.Assets.Textures[doorFrame], true));
-                        Walls.Add(WestWall(x, z, Game.Assets.Textures[doorFrame]));
+                        Walls.Add(WestWall(x + 1, z, doorFrame, true));
+                        Walls.Add(WestWall(x, z, doorFrame));
                         HorizontalCheck(x, z);
-                        Walls.Add(HorizontalDoor(x, z, Game.Assets.Textures[DoorTexture(here)]));
+                        Walls.Add(HorizontalDoor(x, z, DoorTexture(here)));
                     }
                     else // Odd numbered doors are horizontal
                     {
-                        Walls.Add(SouthWall(x, z - 1, Game.Assets.Textures[darkFrame]));
-                        Walls.Add(SouthWall(x, z, Game.Assets.Textures[darkFrame], true));
+                        Walls.Add(SouthWall(x, z - 1, darkFrame));
+                        Walls.Add(SouthWall(x, z, darkFrame, true));
                         VerticalCheck(x, z);
-                        Walls.Add(VerticalDoor(x, z, Game.Assets.Textures[DoorTexture(here)]));
+                        Walls.Add(VerticalDoor(x, z, DoorTexture(here)));
                     }
                 }
                 else if (!IsWall(here))
@@ -114,51 +114,47 @@ namespace WOLF3DGame
             return Map.MapData[(x * Map.Width) + Map.Depth - 1 - z];
         }
 
-        public Sprite3D SouthWall(uint x, uint z, Texture texture, bool flipH = false)
+        public MeshInstance SouthWall(uint x, uint z, uint wall, bool flipH = false)
         {
-            return BuildWall(texture, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            return BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public Sprite3D WestWall(uint x, uint z, Texture texture, bool flipH = false)
+        public MeshInstance WestWall(uint x, uint z, uint wall, bool flipH = false)
         {
-            return BuildWall(texture, Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            return BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public Sprite3D HorizontalDoor(uint x, uint z, Texture texture, bool flipH = false)
+        public MeshInstance HorizontalDoor(uint x, uint z, uint wall, bool flipH = false)
         {
-            return BuildWall(texture, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
+            return BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
         }
 
-        public Sprite3D VerticalDoor(uint x, uint z, Texture texture, bool flipH = false)
+        public MeshInstance VerticalDoor(uint x, uint z, uint wall, bool flipH = false)
         {
-            return BuildWall(texture, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
+            return BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
         }
 
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd
         /// </summary>
-        public Sprite3D BuildWall(Texture texture, Vector3.Axis axis, Vector3 position, bool flipH = false)
+        public MeshInstance BuildWall(uint wall, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
-            return new Sprite3D()
+            return new MeshInstance()
             {
-                Texture = texture,
-                PixelSize = Assets.PixelWidth,
-                Scale = Assets.Scale,
-                MaterialOverride = WallMaterial,
-                Axis = axis,
-                Centered = false,
+                MaterialOverride = Game.Assets.WallMaterials[wall],
+                Mesh = Assets.Wall,
                 GlobalTransform = new Transform(Basis.Identity, position),
-                FlipH = flipH
+                Rotation = Assets.Axis(axis),
             };
         }
 
-        public static readonly SpatialMaterial WallMaterial = new SpatialMaterial()
-        {
-            FlagsUnshaded = true,
-            FlagsDoNotReceiveShadows = true,
-            FlagsDisableAmbientLight = true,
-            ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-            ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-        };
+        //Texture = texture,
+        //PixelSize = Assets.PixelWidth,
+        //Scale = Assets.Scale,
+        //MaterialOverride = WallMaterial,
+        //Axis = axis,
+        //Centered = false,
+        //GlobalTransform = new Transform(Basis.Identity, position),
+        //FlipH = flipH
     }
 }
