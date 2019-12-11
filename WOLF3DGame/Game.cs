@@ -55,7 +55,7 @@ namespace WOLF3DGame
             GameMap map = Assets.Maps[0];
 
             MapWalls = new MapWalls(map);
-            foreach (MeshInstance sprite in MapWalls.Walls)
+            foreach (Spatial sprite in MapWalls.Walls)
                 AddChild(sprite);
 
             map.StartPosition(out ushort x, out ushort z);

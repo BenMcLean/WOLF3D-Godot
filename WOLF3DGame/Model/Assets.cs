@@ -22,6 +22,8 @@ namespace WOLF3DGame.Model
         public static readonly Vector3 Scale = new Vector3(1f, 1.2f, 1f);
         public static readonly float PixelHeight = 0.04572f;
         public static readonly double WallHeight = 2.92608;
+        public static readonly double HalfWallHeight = 1.46304;
+        public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
 
         public static readonly Vector3 BillboardLocal = new Vector3(WallWidth / -2f, 0f, 0f);
 
@@ -120,16 +122,17 @@ namespace WOLF3DGame.Model
             Size = new Vector2(WallWidth, (float)WallHeight),
         };
 
+        public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);
+
         public static Vector3 Axis(Vector3.Axis axis)
         {
             switch (axis)
             {
                 case Vector3.Axis.X:
-                    return Vector3.Right;
+                    return Rotate90;
                 case Vector3.Axis.Y:
                     return Vector3.Up;
                 case Vector3.Axis.Z:
-                    return Vector3.Forward;
                 default:
                     return Vector3.Zero;
             }

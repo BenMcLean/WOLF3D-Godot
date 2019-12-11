@@ -10,7 +10,7 @@ namespace WOLF3DGame
     public class MapWalls
     {
         public GameMap Map { get; set; }
-        public List<MeshInstance> Walls = new List<MeshInstance>();
+        public List<Spatial> Walls = new List<Spatial>();
 
         public MapWalls(GameMap map)
         {
@@ -25,17 +25,17 @@ namespace WOLF3DGame
             {
                 uint wall;
                 if (x < 63 && IsWall(wall = Get(x + 1, z)))
-                    Walls.Add(WestWall(x + 1, z, wall, true));
+                    Walls.Add(WestWall(x + 1, z, WallTexture(wall), true));
                 if (x > 0 && IsWall(wall = Get(x - 1, z)))
-                    Walls.Add(WestWall(x, z, wall));
+                    Walls.Add(WestWall(x, z, WallTexture(wall)));
             }
             void VerticalCheck(uint x, uint z)
             {
                 uint wall;
                 if (z > 0 && IsWall(wall = Get(x, z - 1)))
-                    Walls.Add(SouthWall(x, z - 1, wall));
+                    Walls.Add(SouthWall(x, z - 1, DarkSide(wall)));
                 if (z < 63 && IsWall(wall = Get(x, z + 1)))
-                    Walls.Add(SouthWall(x, z, wall, true));
+                    Walls.Add(SouthWall(x, z, DarkSide(wall), true));
             }
             Map = map;
             for (uint i = 0; i < Map.MapData.Length; i++)
@@ -114,22 +114,22 @@ namespace WOLF3DGame
             return Map.MapData[(x * Map.Width) + Map.Depth - 1 - z];
         }
 
-        public MeshInstance SouthWall(uint x, uint z, uint wall, bool flipH = false)
+        public Spatial SouthWall(uint x, uint z, uint wall, bool flipH = false)
         {
             return BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public MeshInstance WestWall(uint x, uint z, uint wall, bool flipH = false)
+        public Spatial WestWall(uint x, uint z, uint wall, bool flipH = false)
         {
             return BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
         }
 
-        public MeshInstance HorizontalDoor(uint x, uint z, uint wall, bool flipH = false)
+        public Spatial HorizontalDoor(uint x, uint z, uint wall, bool flipH = false)
         {
             return BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
         }
 
-        public MeshInstance VerticalDoor(uint x, uint z, uint wall, bool flipH = false)
+        public Spatial VerticalDoor(uint x, uint z, uint wall, bool flipH = false)
         {
             return BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
         }
@@ -137,15 +137,20 @@ namespace WOLF3DGame
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd
         /// </summary>
-        public MeshInstance BuildWall(uint wall, Vector3.Axis axis, Vector3 position, bool flipH = false)
+        public Spatial BuildWall(uint wall, Vector3.Axis axis, Vector3 position, bool flipH = false)
         {
-            return new MeshInstance()
+            Spatial spatial = new Spatial()
             {
-                MaterialOverride = Game.Assets.WallMaterials[wall],
-                Mesh = Assets.Wall,
                 GlobalTransform = new Transform(Basis.Identity, position),
                 Rotation = Assets.Axis(axis),
             };
+            spatial.AddChild(new MeshInstance()
+            {
+                MaterialOverride = Game.Assets.WallMaterials[wall],
+                Mesh = Assets.Wall,
+                Transform = Assets.WallTransform,
+            });
+            return spatial;
         }
 
         //Texture = texture,
