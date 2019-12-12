@@ -146,7 +146,7 @@ namespace WOLF3DGame
             };
             spatial.AddChild(new MeshInstance()
             {
-                MaterialOverride = Game.Assets.WallMaterials[wall],
+                MaterialOverride = Game.Assets.VSwapMaterials[wall],
                 Mesh = Assets.Wall,
                 Transform = Assets.WallTransform,
             });

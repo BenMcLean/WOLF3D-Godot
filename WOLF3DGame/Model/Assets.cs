@@ -70,18 +70,18 @@ namespace WOLF3DGame.Model
             set
             {
                 vswap = value;
-                Textures = new ImageTexture[VSwap.Pages.Length];
-                WallMaterials = new Material[Textures.Length];
-                for (uint i = 0; i < Textures.Length; i++)
+                VSwapTextures = new ImageTexture[VSwap.Pages.Length];
+                VSwapMaterials = new Material[VSwapTextures.Length];
+                for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
                         Godot.Image image = new Image();
                         image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
-                        Textures[i] = new ImageTexture();
-                        Textures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
-                        WallMaterials[i] = new SpatialMaterial()
+                        VSwapTextures[i] = new ImageTexture();
+                        VSwapTextures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                        VSwapMaterials[i] = new SpatialMaterial()
                         {
-                            AlbedoTexture = Textures[i],
+                            AlbedoTexture = VSwapTextures[i],
                             FlagsUnshaded = true,
                             FlagsDoNotReceiveShadows = true,
                             FlagsDisableAmbientLight = true,
@@ -116,8 +116,8 @@ namespace WOLF3DGame.Model
         }
         private VgaGraph vgaGraph;
 
-        public ImageTexture[] Textures;
-        public Material[] WallMaterials;
+        public ImageTexture[] VSwapTextures;
+        public Material[] VSwapMaterials;
         public ImageTexture[] Pics;
 
         public static readonly QuadMesh Wall = new QuadMesh()

@@ -43,7 +43,7 @@ namespace WOLF3DGame
                     out uint page
                     ))
                 {
-                    Billboard billboard = new Billboard(Game.Assets.WallMaterials[page])
+                    Billboard billboard = new Billboard(Game.Assets.VSwapMaterials[page])
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
                     };
