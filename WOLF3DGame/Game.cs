@@ -78,12 +78,19 @@ namespace WOLF3DGame
             base._Process(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
 
-            Vector3 forward = new Vector3(GetViewport().GetCamera().GlobalTransform.basis.z.x, 0f, GetViewport().GetCamera().GlobalTransform.basis.z.z).Normalized();
+            Vector3 forward = ARVRCamera.GlobalTransform.basis.z * -1f;
+            forward.y = 0f;
+            forward = forward.Normalized();
             if (RightController.GetJoystickAxis(1) > Assets.DeadZone)
-                ARVROrigin.Translate(forward * Assets.RunSpeed * delta * -1f);
+                ARVROrigin.Translation += forward * Assets.RunSpeed * delta;
+
             float axis0 = RightController.GetJoystickAxis(0);
             if (Mathf.Abs(axis0) > Assets.DeadZone)
+            {
+                Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
                 ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
+                ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
+            }
         }
 
         public MapWalls MapWalls;
