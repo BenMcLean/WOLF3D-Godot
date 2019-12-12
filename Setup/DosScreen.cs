@@ -6,6 +6,10 @@ using System.Text;
 
 public class DosScreen : Spatial
 {
+    /// <summary>
+    /// For text mode, I would like to make the screen be the same width as a Wolfenstein 3-D wall.
+    /// Typical MS-DOS VGA text mode was 720x400 resolution in a 4:3 aspect ratio showing a 9x16 fixed width font which could be displayed in 80 columns and 25 rows.
+    /// </summary>
     public class VirtualScreenText
     {
         private readonly Queue<string> lines = new Queue<string>();

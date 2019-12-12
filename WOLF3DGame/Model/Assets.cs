@@ -26,10 +26,11 @@ namespace WOLF3DGame.Model
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
         public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
-        // For text mode, I would like to make the screen be the same width as a Wolfenstein 3-D wall.
-        // Typical MS-DOS VGA text mode was 720x400 resolution in a 4:3 aspect ratio showing a 9x16 fixed width font which could be displayed in 80 columns and 25 rows.
-        public static readonly float TextModePixelWidth = 0.00338666666f;
-        public static readonly Vector3 TextModeScale = new Vector3(1f, 1.35f, 1f);
+        // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
+        // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
+        // Walking speed is half of running speed.
+        public static readonly float RunSpeed = 27.34714368f;
+        public static readonly float WalkSpeed = 13.67357184f;
 
         public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
         { }
