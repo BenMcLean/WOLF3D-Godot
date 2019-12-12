@@ -32,6 +32,8 @@ namespace WOLF3DGame.Model
         public static readonly float RunSpeed = 27.34714368f;
         public static readonly float WalkSpeed = 13.67357184f;
 
+        public static readonly float DeadZone = 0.65f;
+
         public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
         { }
 

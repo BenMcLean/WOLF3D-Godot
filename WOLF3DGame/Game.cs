@@ -77,6 +77,9 @@ namespace WOLF3DGame
         {
             base._Process(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
+
+            if (RightController.GetJoystickAxis(1) > Assets.DeadZone)
+                ARVROrigin.Translate(ARVRCamera.GlobalTransform.basis.z.Normalized() * Assets.RunSpeed * delta * -1f);
         }
 
         public MapWalls MapWalls;
