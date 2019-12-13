@@ -36,14 +36,14 @@ namespace WOLF3DGame
             });
             RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
 
-            //AddChild(new WorldEnvironment()
-            //{
-            //    Environment = new Godot.Environment()
-            //    {
-            //        BackgroundColor = Color.Color8(0, 0, 0, 255),
-            //        BackgroundMode = Godot.Environment.BGMode.Color,
-            //    },
-            //});
+            AddChild(new WorldEnvironment()
+            {
+                Environment = new Godot.Environment()
+                {
+                    BackgroundColor = Color.Color8(0, 0, 0, 255),
+                    BackgroundMode = Godot.Environment.BGMode.Color,
+                },
+            });
 
             Assets = new Assets(Folder);
 
@@ -65,6 +65,28 @@ namespace WOLF3DGame
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
             //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
+
+            AddChild(new MeshInstance()
+            {
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Color.Color8(255, 255, 255, 255),
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+                Transform = new Transform(
+                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
+                new Vector3(map.Width * Assets.WallWidth / 2f, Assets.HalfWallWidth, map.Depth * Assets.WallWidth / 2f)
+                ),
+            });
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
