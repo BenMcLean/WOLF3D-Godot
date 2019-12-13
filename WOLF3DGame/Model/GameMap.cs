@@ -27,7 +27,7 @@ namespace WOLF3DGame.Model
 
         public ushort Z(uint i)
         {
-            return (ushort)(63 - i % Depth);
+            return (ushort)(Depth - 1 - i % Depth);
         }
 
         public GameMap StartPosition(out ushort x, out ushort z)

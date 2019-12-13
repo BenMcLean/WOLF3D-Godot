@@ -24,7 +24,7 @@ namespace WOLF3DGame
             void HorizontalCheck(uint x, uint z)
             {
                 uint wall;
-                if (x < 63 && IsWall(wall = Get(x + 1, z)))
+                if (x < map.Width - 1 && IsWall(wall = Get(x + 1, z)))
                     Walls.Add(WestWall(x + 1, z, WallTexture(wall), true));
                 if (x > 0 && IsWall(wall = Get(x - 1, z)))
                     Walls.Add(WestWall(x, z, WallTexture(wall)));
@@ -34,7 +34,7 @@ namespace WOLF3DGame
                 uint wall;
                 if (z > 0 && IsWall(wall = Get(x, z - 1)))
                     Walls.Add(SouthWall(x, z - 1, DarkSide(wall)));
-                if (z < 63 && IsWall(wall = Get(x, z + 1)))
+                if (z < map.Depth - 1 && IsWall(wall = Get(x, z + 1)))
                     Walls.Add(SouthWall(x, z, DarkSide(wall), true));
             }
             Map = map;
