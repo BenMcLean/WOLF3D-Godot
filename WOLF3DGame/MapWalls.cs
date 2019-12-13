@@ -47,14 +47,14 @@ namespace WOLF3DGame
                     {
                         Walls.Add(WestWall(x + 1, z, doorFrame, true));
                         Walls.Add(WestWall(x, z, doorFrame));
-                        HorizontalCheck(x, z);
+                        VerticalCheck(x, z);
                         Walls.Add(HorizontalDoor(x, z, DoorTexture(here)));
                     }
                     else // Odd numbered doors are horizontal
                     {
                         Walls.Add(SouthWall(x, z - 1, darkFrame));
                         Walls.Add(SouthWall(x, z, darkFrame, true));
-                        VerticalCheck(x, z);
+                        HorizontalCheck(x, z);
                         Walls.Add(VerticalDoor(x, z, DoorTexture(here)));
                     }
                 }
