@@ -146,7 +146,18 @@
     <Pic Number="139" Chunk="557" Name="ORDERSCREEN" />
     <Pic Number="140" Chunk="558" Name="ENUMEND" />
   </VgaGraph>
-  <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1" />
+  <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
+    <Map Number="0" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="1" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="2" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="3" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="4" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="5" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="6" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="7" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="8" Floor="25" Ceiling="29" Border="127" />
+    <Map Number="9" Floor="25" Ceiling="191" Border="127" />
+  </Maps>
   <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />
     <Sound Number="1" Name="SELECTWPNSND" />

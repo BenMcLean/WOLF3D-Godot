@@ -168,6 +168,26 @@ namespace WOLF3DGame.Model
             return result;
         }
 
+        public static byte R(uint color)
+        {
+            return (byte)(color >> 24);
+        }
+
+        public static byte G(uint color)
+        {
+            return (byte)(color >> 16);
+        }
+
+        public static byte B(uint color)
+        {
+            return (byte)(color >> 8);
+        }
+
+        public static byte A(uint color)
+        {
+            return (byte)color;
+        }
+
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
         public byte[] Index2ByteArray(byte[] index)

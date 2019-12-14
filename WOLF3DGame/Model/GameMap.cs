@@ -8,9 +8,21 @@ namespace WOLF3DGame.Model
     {
         public static GameMap[] Load(string folder, XElement xml)
         {
+            GameMap[] maps;
             using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-                return Maps(mapHead, gameMaps);
+                maps = Maps(mapHead, gameMaps);
+            foreach (XElement map in xml.Element("Maps").Elements("Map"))
+                if (uint.TryParse(map.Attribute("Number")?.Value, out uint mapNumber) && mapNumber < maps.Length)
+                {
+                    if (byte.TryParse(map.Attribute("Floor")?.Value, out byte floor))
+                        maps[mapNumber].Floor = floor;
+                    if (byte.TryParse(map.Attribute("Ceiling")?.Value, out byte ceiling))
+                        maps[mapNumber].Ceiling = ceiling;
+                    if (byte.TryParse(map.Attribute("Border")?.Value, out byte border))
+                        maps[mapNumber].Border = border;
+                }
+            return maps;
         }
 
         public string Name { get; set; }
@@ -19,6 +31,9 @@ namespace WOLF3DGame.Model
         public ushort[] MapData { get; set; }
         public ushort[] ObjectData { get; set; }
         public ushort[] OtherData { get; set; }
+        public byte Ceiling { get; set; }
+        public byte Floor { get; set; }
+        public byte Border { get; set; }
 
         public ushort X(uint i)
         {
@@ -53,9 +68,9 @@ namespace WOLF3DGame.Model
             {
                 if (mapHeadReader.ReadUInt16() != 0xABCD)
                     throw new InvalidDataException("File \"" + stream + "\" has invalid signature code!");
-                uint mapHeadOffset;
-                while (stream.Position < stream.Length && (mapHeadOffset = mapHeadReader.ReadUInt16()) != 0)
-                    offsets.Add(mapHeadOffset);
+                uint offset;
+                while (stream.CanRead && (offset = mapHeadReader.ReadUInt32()) != 0)
+                    offsets.Add(offset);
             }
             return offsets.ToArray();
         }
@@ -81,7 +96,10 @@ namespace WOLF3DGame.Model
                     GameMap map = new GameMap
                     {
                         Width = gameMapsReader.ReadUInt16(),
-                        Depth = gameMapsReader.ReadUInt16()
+                        Depth = gameMapsReader.ReadUInt16(),
+                        //Floor = 24,
+                        //Ceiling = 28,
+                        //Border = 126,
                     };
 
                     char[] name = new char[16];

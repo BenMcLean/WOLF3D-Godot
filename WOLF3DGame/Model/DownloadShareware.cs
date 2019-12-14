@@ -18,11 +18,11 @@ namespace WOLF3DGame.Model
             }
 
             string xml = System.IO.Path.Combine(args[0], "game.xml");
-            if (!System.IO.File.Exists(xml))
-            {
-                (new Godot.Directory()).Copy("res://WL1.xml", xml);
-                GD.Print("Copied \"" + xml + "\"");
-            }
+            //if (!System.IO.File.Exists(xml))
+            //{
+            (new Godot.Directory()).Copy("res://WL1.xml", xml);
+            GD.Print("Copied \"" + xml + "\"");
+            //}
 
             if (!System.IO.File.Exists(System.IO.Path.Combine(args[0], "WOLF3D.EXE")))
             {

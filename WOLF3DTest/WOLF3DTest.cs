@@ -9,23 +9,47 @@ namespace WOLF3DTest
     [TestClass]
     public class WOLF3DTest
     {
-        public static readonly string Folder = @"..\..\..\WOLF3D\";
-        public static readonly XElement XML = Assets.LoadXML(Folder);
+        public static readonly string Folder = @"..\..\..\WOLF3D\WL1\";
+        public static readonly XElement XML = LoadXML(Folder);
+
+        public static XElement LoadXML(string folder, string file = "game.xml")
+        {
+            using (FileStream xmlStream = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
+                return XElement.Load(xmlStream);
+        }
 
         [TestMethod]
         public void VSwapTest()
         {
-            DownloadShareware.Main(new string[] { Folder });
+            //DownloadShareware.Main(new string[] { Folder });
             VSwap vSwap = VSwap.Load(Folder, XML);
             Console.WriteLine("Number of graphics pages: " + vSwap.Pages.Length.ToString());
             Console.WriteLine("Number of DigiSounds: " + vSwap.DigiSounds.Length.ToString());
+            Console.WriteLine();
+            for (int color = 0; color < vSwap.Palette.Length; color++)
+                Console.WriteLine("Color " + color + ": " +
+                    VSwap.R(vSwap.Palette[color]) + ", " +
+                    VSwap.G(vSwap.Palette[color]) + ", " +
+                    VSwap.B(vSwap.Palette[color]) + ", " +
+                    VSwap.A(vSwap.Palette[color])
+                    );
         }
 
         [TestMethod]
         public void GameMapsTest()
         {
-            DownloadShareware.Main(new string[] { Folder });
+            //DownloadShareware.Main(new string[] { Folder });
             GameMap[] maps = GameMap.Load(Folder, XML);
+
+            Console.WriteLine("Number of maps: " + maps.Length);
+
+            for (int i = 0; i < maps.Length; i++)
+                Console.WriteLine(
+                    "\"" + maps[i].Name + "\" " +
+                    "Floor: " + maps[i].Floor +
+                    ", Ceiling: " + maps[i].Ceiling +
+                    ", Border: " + maps[i].Border
+                    );
 
             GameMap map = maps[0];
             Console.WriteLine(map.Name + ": ");
@@ -42,7 +66,7 @@ namespace WOLF3DTest
         [TestMethod]
         public void VgaGraphTest()
         {
-            DownloadShareware.Main(new string[] { Folder });
+            //DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
 
             if (vgaGraph.Sizes != null)
@@ -64,7 +88,7 @@ namespace WOLF3DTest
         [TestMethod]
         public void LengthsTest()
         {
-            DownloadShareware.Main(new string[] { Folder });
+            //DownloadShareware.Main(new string[] { Folder });
             uint[] head;
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
                 head = VgaGraph.ParseHead(vgaHead);
@@ -98,7 +122,7 @@ namespace WOLF3DTest
         [TestMethod]
         public void FontTest()
         {
-            DownloadShareware.Main(new string[] { Folder });
+            //DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
             uint font = 0;
             char letter = 'A';

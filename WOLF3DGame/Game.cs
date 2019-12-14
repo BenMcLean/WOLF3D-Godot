@@ -15,6 +15,8 @@ namespace WOLF3DGame
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
+        public MeshInstance Floor { get; set; }
+        public MeshInstance Ceiling { get; set; }
 
         public override void _Ready()
         {
@@ -36,15 +38,6 @@ namespace WOLF3DGame
             });
             RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
 
-            AddChild(new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Color.Color8(0, 0, 0, 255),
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
-
             Assets = new Assets(Folder);
 
             AddChild(Assets.OplPlayer = new OplPlayer()
@@ -53,6 +46,15 @@ namespace WOLF3DGame
             });
 
             GameMap map = Assets.Maps[0];
+
+            AddChild(new WorldEnvironment()
+            {
+                Environment = new Godot.Environment()
+                {
+                    BackgroundColor = Assets.Palette[map.Border],
+                    BackgroundMode = Godot.Environment.BGMode.Color,
+                },
+            });
 
             MapWalls = new MapWalls(map);
             foreach (Spatial sprite in MapWalls.Walls)
@@ -66,34 +68,7 @@ namespace WOLF3DGame
                 AddChild(billboard);
             //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
 
-            AddChild(new MeshInstance()
-            {
-                Mesh = new QuadMesh()
-                {
-                    Size = new Vector2(map.Width * Assets.WallWidth, Assets.PixelWidth)
-                },
-
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Color.Color8(255, 0, 0, 255),
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-                Transform = new Transform(
-                    Basis.Identity,
-                    new Vector3(
-                        map.Width * Assets.WallWidth / 2f,
-                        0f,
-                        map.Depth * Assets.WallWidth / 2f
-                    )
-                ),
-            });
-
-            AddChild(new MeshInstance()
+            AddChild(Floor = new MeshInstance()
             {
                 Mesh = new QuadMesh()
                 {
@@ -101,7 +76,7 @@ namespace WOLF3DGame
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Color.Color8(255, 255, 255, 255),
+                    AlbedoColor = Assets.Palette[map.Floor],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -111,7 +86,33 @@ namespace WOLF3DGame
                 },
                 Transform = new Transform(
                     Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                new Vector3(map.Width * Assets.WallWidth / 2f, 0f, map.Depth * Assets.WallWidth / 2f)
+                new Vector3(map.Width * Assets.HalfWallWidth, 0f, map.Depth * Assets.HalfWallWidth)
+                ),
+            });
+
+            AddChild(Ceiling = new MeshInstance()
+            {
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Assets.Palette[map.Ceiling],
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+                Transform = new Transform(
+                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
+                new Vector3(
+                    map.Width * Assets.HalfWallWidth,
+                    (float)Assets.WallHeight,
+                    map.Depth * Assets.HalfWallWidth
+                    )
                 ),
             });
 

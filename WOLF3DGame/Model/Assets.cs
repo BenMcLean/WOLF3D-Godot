@@ -70,6 +70,14 @@ namespace WOLF3DGame.Model
             set
             {
                 vswap = value;
+                Palette = new Color[VSwap.Palette.Length];
+                for (uint i = 0; i < Palette.Length; i++)
+                    Palette[i] = Color.Color8(
+                            VSwap.R(VSwap.Palette[i]),
+                            VSwap.G(VSwap.Palette[i]),
+                            VSwap.B(VSwap.Palette[i]),
+                            VSwap.A(VSwap.Palette[i])
+                        );
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
                 VSwapMaterials = new Material[VSwapTextures.Length];
                 for (uint i = 0; i < VSwapTextures.Length; i++)
@@ -115,7 +123,7 @@ namespace WOLF3DGame.Model
             }
         }
         private VgaGraph vgaGraph;
-
+        public Color[] Palette;
         public ImageTexture[] VSwapTextures;
         public Material[] VSwapMaterials;
         public ImageTexture[] Pics;
