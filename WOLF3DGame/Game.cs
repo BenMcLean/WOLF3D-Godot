@@ -59,12 +59,39 @@ namespace WOLF3DGame
                 AddChild(sprite);
 
             map.StartPosition(out ushort x, out ushort z);
-            ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, (float)Assets.WallHeight / 2f, (z + 4.5f) * Assets.WallWidth));
+            ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
 
             Billboard[] billboards = Billboard.MakeBillboards(map);
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
             //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
+
+            AddChild(new MeshInstance()
+            {
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(map.Width * Assets.WallWidth, Assets.PixelWidth)
+                },
+
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Color.Color8(255, 0, 0, 255),
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+                Transform = new Transform(
+                    Basis.Identity,
+                    new Vector3(
+                        map.Width * Assets.WallWidth / 2f,
+                        0f,
+                        map.Depth * Assets.WallWidth / 2f
+                    )
+                ),
+            });
 
             AddChild(new MeshInstance()
             {
@@ -84,7 +111,7 @@ namespace WOLF3DGame
                 },
                 Transform = new Transform(
                     Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                new Vector3(map.Width * Assets.WallWidth / 2f, Assets.HalfWallWidth, map.Depth * Assets.WallWidth / 2f)
+                new Vector3(map.Width * Assets.WallWidth / 2f, 0f, map.Depth * Assets.WallWidth / 2f)
                 ),
             });
 
@@ -113,6 +140,7 @@ namespace WOLF3DGame
                 ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
                 ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
             }
+            //ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, new Vector3(ARVROrigin.GlobalTransform.origin.x, 0f, ARVROrigin.GlobalTransform.origin.z));
         }
 
         public MapWalls MapWalls;

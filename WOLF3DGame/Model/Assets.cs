@@ -23,8 +23,8 @@ namespace WOLF3DGame.Model
         public static readonly float PixelHeight = 0.04572f;
         public static readonly double WallHeight = 2.92608;
         public static readonly double HalfWallHeight = 1.46304;
-        public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)WallHeight, 0));
-        public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)WallHeight, 0f));
+        public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
+        public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
         // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second

@@ -17,6 +17,26 @@ namespace WOLF3DGame
                 MaterialOverride = material,
                 Transform = Assets.BillboardTransform,
             });
+            /*
+            // Cube for debugging purposes
+            AddChild(new MeshInstance()
+            {
+                Mesh = new CubeMesh()
+                {
+                    Size = new Vector3(Assets.PixelWidth, Assets.PixelHeight, Assets.PixelWidth),
+                    Material = new SpatialMaterial()
+                    {
+                        AlbedoColor = Color.Color8(0, 0, 255, 255),
+                        FlagsUnshaded = true,
+                        FlagsDoNotReceiveShadows = true,
+                        FlagsDisableAmbientLight = true,
+                        FlagsTransparent = false,
+                        ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                        ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    },
+                }
+            });
+            */
         }
 
         public MeshInstance MeshInstance;
