@@ -13,6 +13,8 @@ namespace WOLF3DGame
             Value = 0,
             ShortName = "S",
             Name = "South",
+            X = 0,
+            Z = 1,
             Vector2 = Vector2.Down,
             Vector3 = Vector3.Back,
         };
@@ -21,6 +23,8 @@ namespace WOLF3DGame
             Value = 1,
             ShortName = "SW",
             Name = "Southwest",
+            X = -1,
+            Z = 1,
             Vector2 = new Vector2(-1, 1).Normalized(),
             Vector3 = new Vector3(-1, 0, 1).Normalized(),
         };
@@ -29,6 +33,8 @@ namespace WOLF3DGame
             Value = 2,
             ShortName = "W",
             Name = "West",
+            X = -1,
+            Z = 0,
             Vector2 = Vector2.Left,
             Vector3 = Vector3.Left,
         };
@@ -37,14 +43,18 @@ namespace WOLF3DGame
             Value = 3,
             ShortName = "NW",
             Name = "Northwest",
-            Vector2 = new Vector2(1, 1).Normalized(),
-            Vector3 = new Vector3(1, 0, 1).Normalized(),
+            X = -1,
+            Z = -1,
+            Vector2 = new Vector2(-1, -1).Normalized(),
+            Vector3 = new Vector3(-1, 0, -1).Normalized(),
         };
         public static readonly Direction8 NORTH = new Direction8()
         {
             Value = 4,
             ShortName = "N",
             Name = "North",
+            X = 0,
+            Z = -1,
             Vector2 = Vector2.Up,
             Vector3 = Vector3.Forward,
         };
@@ -53,6 +63,8 @@ namespace WOLF3DGame
             Value = 5,
             ShortName = "NE",
             Name = "Northeast",
+            X = 1,
+            Z = -1,
             Vector2 = new Vector2(1, -1).Normalized(),
             Vector3 = new Vector3(1, 0, -1).Normalized(),
         };
@@ -61,6 +73,8 @@ namespace WOLF3DGame
             Value = 6,
             ShortName = "E",
             Name = "East",
+            X = 1,
+            Z = 0,
             Vector2 = Vector2.Right,
             Vector3 = Vector3.Right,
         };
@@ -69,12 +83,17 @@ namespace WOLF3DGame
             Value = 7,
             ShortName = "SE",
             Name = "Southeast",
-            Vector2 = new Vector2(-1, -1).Normalized(),
-            Vector3 = new Vector3(-1, 0, -1).Normalized(),
+            X = 1,
+            Z = 1,
+            Vector2 = new Vector2(1, 1).Normalized(),
+            Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
         public static readonly Direction8[] Values = new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST };
 
         public uint Value { get; private set; }
+        public int X { get; private set; }
+        public readonly static int Y = 0;
+        public int Z { get; private set; }
         public string Name { get; private set; }
         public string ShortName { get; private set; }
         public Vector2 Vector2 { get; private set; }
