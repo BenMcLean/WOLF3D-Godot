@@ -120,19 +120,27 @@ namespace WOLF3DGame
         private Direction8 Add(int @int) => Values[Modulus((((int)Value) + @int), Values.Length)];
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
 
-        public static Direction8 From(string @string)
-            => uint.TryParse(@string, out uint result) && result < Values.Length ?
-                Values[result]
-                : (from v in Values
-                   where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
-                   || string.Equals(v.Name, @string, StringComparison.CurrentCultureIgnoreCase)
-                   select v).FirstOrDefault();
-
         public static Direction8 From(Vector3 vector3) => From(new Vector2(vector3.x, vector3.z));
 
-        public static Direction8 From(Vector2 vector2)
-        {
-            return null; // TODO: FIX THIS!
-        }
+        public static Direction8 From(Vector2 vector2) => From(vector2.Angle());
+
+        public static Direction8 From(float angle) =>
+            angle < Mathf.Pi / 16f ? SOUTH
+            : angle < Mathf.Pi * 3f / 16f ? SOUTHWEST
+            : angle < Mathf.Pi * 5f / 16f ? WEST
+            : angle < Mathf.Pi * 7f / 16f ? NORTHWEST
+            : angle < Mathf.Pi * 9f / 16f ? NORTH
+            : angle < Mathf.Pi * 11f / 16f ? NORTHEAST
+            : angle < Mathf.Pi * 13f / 16f ? EAST
+            : angle < Mathf.Pi * 15f / 16f ? SOUTHEAST
+            : SOUTH;
+
+        public static Direction8 From(string @string)
+    => uint.TryParse(@string, out uint result) && result < Values.Length ?
+        Values[result]
+        : (from v in Values
+           where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
+           || string.Equals(v.Name, @string, StringComparison.CurrentCultureIgnoreCase)
+           select v).FirstOrDefault();
     }
 }
