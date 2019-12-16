@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace WOLF3DGame
@@ -88,7 +89,8 @@ namespace WOLF3DGame
             Vector2 = new Vector2(1, 1).Normalized(),
             Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
-        public static readonly Direction8[] Values = new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST };
+        private static readonly Direction8[] values = new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST };
+        public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(values);
 
         public uint Value { get; private set; }
         public int X { get; private set; }
@@ -109,22 +111,35 @@ namespace WOLF3DGame
         public static implicit operator string(Direction8 d) => d.Name;
         public static implicit operator Vector2(Direction8 d) => d.Vector2;
         public static implicit operator Vector3(Direction8 d) => d.Vector3;
+        public static Direction8 operator +(Direction8 a, Direction8 b) => a + (int)b.Value;
+        public static Direction8 operator +(Direction8 direction8, int @int) => From((int)direction8.Value + @int);
+        public static Direction8 operator +(Direction8 direction8, uint @uint) => direction8 + (int)@uint;
+        public static Direction8 operator +(int @int, Direction8 direction8) => direction8 + @int;
+        public static Direction8 operator +(uint @uint, Direction8 direction8) => direction8 + (int)@uint;
+        public static Direction8 operator -(Direction8 a, Direction8 b) => a - (int)b.Value;
+        public static Direction8 operator -(Direction8 direction8, int @int) => From((int)direction8.Value - @int);
+        public static Direction8 operator -(Direction8 direction8, uint @uint) => direction8 - (int)@uint;
+        public static Direction8 operator -(int @int, Direction8 direction8) => From(@int - (int)direction8.Value);
+        public static Direction8 operator -(uint @uint, Direction8 direction8) => (int)@uint - direction8;
+        public static Direction8 operator ++(Direction8 direction8) => direction8 += 1;
+        public static Direction8 operator --(Direction8 direction8) => direction8 -= 1;
+        public Direction8 Clock => this + 1;
+        public Direction8 Counter => this - 1;
+        public Direction8 Clock90 => this + 2;
+        public Direction8 Counter90 => this - 2;
+        public Direction8 Clock135 => this + 3;
+        public Direction8 Counter135 => this - 3;
+        public Direction8 Opposite => this + 4;
 
-        public Direction8 Clock => Add(1);
-        public Direction8 Counter => Add(-1);
-        public Direction8 Clock90 => Add(2);
-        public Direction8 Counter90 => Add(-2);
-        public Direction8 Clock135 => Add(3);
-        public Direction8 Counter135 => Add(-3);
-        public Direction8 Opposite => Add(4);
-        private Direction8 Add(int @int) => Values[Modulus((((int)Value) + @int), Values.Length)];
+        public static Direction8 From(int @int) => values[Modulus(@int, values.Length)];
+        public static Direction8 From(uint @uint) => From((int)@uint);
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
 
-        public static Direction8 From(Vector3 vector3) => From(new Vector2(vector3.x, vector3.z));
+        public static Direction8 From(Vector3 vector3) => Angle(Mathf.Atan2(vector3.x, vector3.z));
 
-        public static Direction8 From(Vector2 vector2) => From(vector2.Angle());
+        public static Direction8 From(Vector2 vector2) => Angle(vector2.Angle());
 
-        public static Direction8 From(float angle) =>
+        public static Direction8 Angle(float angle) =>
             angle < Mathf.Tau / 16f ? SOUTH
             : angle < Mathf.Tau * 3f / 16f ? SOUTHWEST
             : angle < Mathf.Tau * 5f / 16f ? WEST
@@ -135,12 +150,12 @@ namespace WOLF3DGame
             : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
             : SOUTH;
 
-        public static Direction8 From(string @string)
-    => uint.TryParse(@string, out uint result) && result < Values.Length ?
-        Values[result]
-        : (from v in Values
-           where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
-           || string.Equals(v.Name, @string, StringComparison.CurrentCultureIgnoreCase)
-           select v).FirstOrDefault();
+        public static Direction8 From(string @string) =>
+            uint.TryParse(@string, out uint result) ?
+                From(result)
+                : (from v in Values
+                   where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
+                   || string.Equals(v.Name, @string, StringComparison.CurrentCultureIgnoreCase)
+                   select v).FirstOrDefault();
     }
 }

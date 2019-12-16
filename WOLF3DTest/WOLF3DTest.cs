@@ -156,29 +156,6 @@ namespace WOLF3DTest
             }
         }
 
-        private int wrap(int x, int y)
-        {
-            //replace ((x + 1) * -1) with -(x + 1)
-            return x < 0 ? y - 1 - ((x + 1) * -1) % y : x % y;
-            //return x < 0 ? y - 1 - ((x + 1) * -1) % y : x % y;
-        }
-
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
-
-        [TestMethod]
-        public void Direction8Test()
-        {
-
-            for (int x = -12; x < 12; x++)
-                Console.Write(Modulus(x, 8) + ", ");
-
-            return;
-            Direction8 direction = Direction8.NORTH;
-            for (int i = 0; i < 12; i++)
-            {
-                Console.WriteLine(direction.Name);
-                direction = direction.Counter();
-            }
-        }
     }
 }
