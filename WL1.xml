@@ -359,10 +359,10 @@
     <Sprite Page="106" Name="Demo" />
     <Sprite Page="107" Name="DeathCam" />
     <Objects>
-      <Spawn Number="19" Walk="true" Name="Start" />
-      <Spawn Number="20" Walk="true" Name="Start" />
-      <Spawn Number="21" Walk="true" Name="Start" />
-      <Spawn Number="22" Walk="true" Name="Start" />
+      <Start Number="19" Walk="true" Name="Start" />
+      <Start Number="20" Walk="true" Name="Start" />
+      <Start Number="21" Walk="true" Name="Start" />
+      <Start Number="22" Walk="true" Name="Start" />
       <Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
       <Billboard Number="24" Page="109" Name="Oil Drum" />
       <Billboard Number="25" Page="110" Name="Table with Chairs" />
@@ -421,68 +421,68 @@
       <Turn Number="97" Walk="true" Name="Turn" />
       <Pushwall Number="98" Walk="true" Name="Secret Door" />
       <Trigger Number="99" Walk="true" Name="End Game Trigger" />
-      <Enemy Number="108" Name="Guard 1 (Standing)" />
-      <Enemy Number="109" Name="Guard 1 (Standing)" />
-      <Enemy Number="110" Name="Guard 1 (Standing)" />
-      <Enemy Number="111" Name="Guard 1 (Standing)" />
-      <Enemy Number="112" Name="Guard 1 (Moving)" />
-      <Enemy Number="113" Name="Guard 1 (Moving)" />
-      <Enemy Number="114" Name="Guard 1 (Moving)" />
-      <Enemy Number="115" Name="Guard 1 (Moving)" />
+      <Spawn Number="108" Name="Guard 1 (Standing)" />
+      <Spawn Number="109" Name="Guard 1 (Standing)" />
+      <Spawn Number="110" Name="Guard 1 (Standing)" />
+      <Spawn Number="111" Name="Guard 1 (Standing)" />
+      <Spawn Number="112" Name="Guard 1 (Moving)" />
+      <Spawn Number="113" Name="Guard 1 (Moving)" />
+      <Spawn Number="114" Name="Guard 1 (Moving)" />
+      <Spawn Number="115" Name="Guard 1 (Moving)" />
       <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
-      <Enemy Number="126" Name="SS 1 (Standing)" />
-      <Enemy Number="127" Name="SS 1 (Standing)" />
-      <Enemy Number="128" Name="SS 1 (Standing)" />
-      <Enemy Number="129" Name="SS 1 (Standing)" />
-      <Enemy Number="130" Name="SS 1 (Moving)" />
-      <Enemy Number="131" Name="SS 1 (Moving)" />
-      <Enemy Number="132" Name="SS 1 (Moving)" />
-      <Enemy Number="133" Name="SS 1 (Moving)" />
-      <Enemy Number="138" Name="Dog 1 (Moving)" />
-      <Enemy Number="139" Name="Dog 1 (Moving)" />
-      <Enemy Number="140" Name="Dog 1 (Moving)" />
-      <Enemy Number="141" Name="Dog 1 (Moving)" />
-      <Enemy Number="144" Name="Guard 3 (Standing)" />
-      <Enemy Number="145" Name="Guard 3 (Standing)" />
-      <Enemy Number="146" Name="Guard 3 (Standing)" />
-      <Enemy Number="147" Name="Guard 3 (Standing)" />
-      <Enemy Number="148" Name="Guard 3 (Moving)" />
-      <Enemy Number="149" Name="Guard 3 (Moving)" />
-      <Enemy Number="150" Name="Guard 3 (Moving)" />
-      <Enemy Number="151" Name="Guard 3 (Moving)" />
-      <Enemy Number="162" Name="SS 3 (Standing)" />
-      <Enemy Number="163" Name="SS 3 (Standing)" />
-      <Enemy Number="164" Name="SS 3 (Standing)" />
-      <Enemy Number="165" Name="SS 3 (Standing)" />
-      <Enemy Number="166" Name="SS 3 (Moving)" />
-      <Enemy Number="167" Name="SS 3 (Moving)" />
-      <Enemy Number="168" Name="SS 3 (Moving)" />
-      <Enemy Number="169" Name="SS 3 (Moving)" />
-      <Enemy Number="174" Name="Dog 3 (Moving)" />
-      <Enemy Number="175" Name="Dog 3 (Moving)" />
-      <Enemy Number="176" Name="Dog 3 (Moving)" />
-      <Enemy Number="177" Name="Dog 3 (Moving)" />
-      <Enemy Number="180" Name="Guard 4 (Standing)" />
-      <Enemy Number="181" Name="Guard 4 (Standing)" />
-      <Enemy Number="182" Name="Guard 4 (Standing)" />
-      <Enemy Number="183" Name="Guard 4 (Standing)" />
-      <Enemy Number="183" Name="Guard 4 (Moving)" />
-      <Enemy Number="183" Name="Guard 4 (Moving)" />
-      <Enemy Number="183" Name="Guard 4 (Moving)" />
-      <Enemy Number="183" Name="Guard 4 (Moving)" />
-      <Enemy Number="198" Name="SS 4 (Standing)" />
-      <Enemy Number="199" Name="SS 4 (Standing)" />
-      <Enemy Number="200" Name="SS 4 (Standing)" />
-      <Enemy Number="201" Name="SS 4 (Standing)" />
-      <Enemy Number="202" Name="SS 4 (Moving)" />
-      <Enemy Number="203" Name="SS 4 (Moving)" />
-      <Enemy Number="204" Name="SS 4 (Moving)" />
-      <Enemy Number="205" Name="SS 4 (Moving)" />
-      <Enemy Number="210" Name="Dog 4 (Moving)" />
-      <Enemy Number="211" Name="Dog 4 (Moving)" />
-      <Enemy Number="212" Name="Dog 4 (Moving)" />
-      <Enemy Number="213" Name="Dog 4 (Moving)" />
-      <Enemy Number="214" Name="Hans" />
+      <Spawn Number="126" Name="SS 1 (Standing)" />
+      <Spawn Number="127" Name="SS 1 (Standing)" />
+      <Spawn Number="128" Name="SS 1 (Standing)" />
+      <Spawn Number="129" Name="SS 1 (Standing)" />
+      <Spawn Number="130" Name="SS 1 (Moving)" />
+      <Spawn Number="131" Name="SS 1 (Moving)" />
+      <Spawn Number="132" Name="SS 1 (Moving)" />
+      <Spawn Number="133" Name="SS 1 (Moving)" />
+      <Spawn Number="138" Name="Dog 1 (Moving)" />
+      <Spawn Number="139" Name="Dog 1 (Moving)" />
+      <Spawn Number="140" Name="Dog 1 (Moving)" />
+      <Spawn Number="141" Name="Dog 1 (Moving)" />
+      <Spawn Number="144" Name="Guard 3 (Standing)" />
+      <Spawn Number="145" Name="Guard 3 (Standing)" />
+      <Spawn Number="146" Name="Guard 3 (Standing)" />
+      <Spawn Number="147" Name="Guard 3 (Standing)" />
+      <Spawn Number="148" Name="Guard 3 (Moving)" />
+      <Spawn Number="149" Name="Guard 3 (Moving)" />
+      <Spawn Number="150" Name="Guard 3 (Moving)" />
+      <Spawn Number="151" Name="Guard 3 (Moving)" />
+      <Spawn Number="162" Name="SS 3 (Standing)" />
+      <Spawn Number="163" Name="SS 3 (Standing)" />
+      <Spawn Number="164" Name="SS 3 (Standing)" />
+      <Spawn Number="165" Name="SS 3 (Standing)" />
+      <Spawn Number="166" Name="SS 3 (Moving)" />
+      <Spawn Number="167" Name="SS 3 (Moving)" />
+      <Spawn Number="168" Name="SS 3 (Moving)" />
+      <Spawn Number="169" Name="SS 3 (Moving)" />
+      <Spawn Number="174" Name="Dog 3 (Moving)" />
+      <Spawn Number="175" Name="Dog 3 (Moving)" />
+      <Spawn Number="176" Name="Dog 3 (Moving)" />
+      <Spawn Number="177" Name="Dog 3 (Moving)" />
+      <Spawn Number="180" Name="Guard 4 (Standing)" />
+      <Spawn Number="181" Name="Guard 4 (Standing)" />
+      <Spawn Number="182" Name="Guard 4 (Standing)" />
+      <Spawn Number="183" Name="Guard 4 (Standing)" />
+      <Spawn Number="183" Name="Guard 4 (Moving)" />
+      <Spawn Number="183" Name="Guard 4 (Moving)" />
+      <Spawn Number="183" Name="Guard 4 (Moving)" />
+      <Spawn Number="183" Name="Guard 4 (Moving)" />
+      <Spawn Number="198" Name="SS 4 (Standing)" />
+      <Spawn Number="199" Name="SS 4 (Standing)" />
+      <Spawn Number="200" Name="SS 4 (Standing)" />
+      <Spawn Number="201" Name="SS 4 (Standing)" />
+      <Spawn Number="202" Name="SS 4 (Moving)" />
+      <Spawn Number="203" Name="SS 4 (Moving)" />
+      <Spawn Number="204" Name="SS 4 (Moving)" />
+      <Spawn Number="205" Name="SS 4 (Moving)" />
+      <Spawn Number="210" Name="Dog 4 (Moving)" />
+      <Spawn Number="211" Name="Dog 4 (Moving)" />
+      <Spawn Number="212" Name="Dog 4 (Moving)" />
+      <Spawn Number="213" Name="Dog 4 (Moving)" />
+      <Spawn Number="214" Name="Hans" />
     </Objects>
     <DigiSound Number="0" Name="HALTSND" />
     <DigiSound Number="1" Name="DOGBARKSND" />

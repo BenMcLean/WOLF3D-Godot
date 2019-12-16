@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Billboard.cs" />
+    <Compile Include="Direction8.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MapWalls.cs" />
     <Compile Include="Model\Assets.cs" />
