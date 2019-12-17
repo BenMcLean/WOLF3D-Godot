@@ -17,15 +17,17 @@ namespace WOLF3DGame
             if (MeshInstance.Visible && Game.Assets.Animations.TryGetValue(ActorName + "/" + Animation, out uint[][] frame))
             {
                 uint newFrame = frame[Frame][Direction8.Modulus(
-                    Direction8.Angle(
-                        new Vector2(
-                        GetViewport().GetCamera().GlobalTransform.origin.x,
-                        GetViewport().GetCamera().GlobalTransform.origin.z
-                        ).AngleToPoint(new Vector2(
-                            GlobalTransform.origin.x,
-                            GlobalTransform.origin.z
-                            ))
-                    ) + Direction,
+                        Direction8.Angle(
+                            new Vector2(
+                                GlobalTransform.origin.x,
+                                GlobalTransform.origin.z
+                            ).AngleToPoint(
+                            new Vector2(
+                                GetViewport().GetCamera().GlobalTransform.origin.x,
+                                GetViewport().GetCamera().GlobalTransform.origin.z
+                            )
+                        )
+                    ).MirrorX.Counter90,
                     frame[Frame].Length
                     )];
                 if (newFrame != LastFrame)
