@@ -636,6 +636,52 @@
         <Frame Number="2" Page="243" />
       </Animation>
     </Actor>
+    <Actor Name="SS">
+      <Animation Name="Standing" Frames="1">
+        <Frame Number="0" Page="244" Direction="S" />
+        <Frame Number="0" Page="245" Direction="SW" />
+        <Frame Number="0" Page="246" Direction="W" />
+        <Frame Number="0" Page="247" Direction="NW" />
+        <Frame Number="0" Page="248" Direction="N" />
+        <Frame Number="0" Page="249" Direction="NE" />
+        <Frame Number="0" Page="250" Direction="E" />
+        <Frame Number="0" Page="251" Direction="SE" />
+      </Animation>
+      <Animation Name="Moving" Frames="4">
+        <Frame Number="0" Page="252" Direction="S" />
+        <Frame Number="0" Page="253" Direction="SW" />
+        <Frame Number="0" Page="254" Direction="W" />
+        <Frame Number="0" Page="255" Direction="NW" />
+        <Frame Number="0" Page="256" Direction="N" />
+        <Frame Number="0" Page="257" Direction="NE" />
+        <Frame Number="0" Page="258" Direction="E" />
+        <Frame Number="0" Page="259" Direction="SE" />
+        <Frame Number="1" Page="260" Direction="S" />
+        <Frame Number="1" Page="261" Direction="SW" />
+        <Frame Number="1" Page="262" Direction="W" />
+        <Frame Number="1" Page="263" Direction="NW" />
+        <Frame Number="1" Page="264" Direction="N" />
+        <Frame Number="1" Page="265" Direction="NE" />
+        <Frame Number="1" Page="266" Direction="E" />
+        <Frame Number="1" Page="267" Direction="SE" />
+        <Frame Number="2" Page="268" Direction="S" />
+        <Frame Number="2" Page="269" Direction="SW" />
+        <Frame Number="2" Page="270" Direction="W" />
+        <Frame Number="2" Page="271" Direction="NW" />
+        <Frame Number="2" Page="272" Direction="N" />
+        <Frame Number="2" Page="273" Direction="NE" />
+        <Frame Number="2" Page="274" Direction="E" />
+        <Frame Number="2" Page="275" Direction="SE" />
+        <Frame Number="3" Page="276" Direction="S" />
+        <Frame Number="3" Page="277" Direction="SW" />
+        <Frame Number="3" Page="278" Direction="W" />
+        <Frame Number="3" Page="279" Direction="NW" />
+        <Frame Number="3" Page="280" Direction="N" />
+        <Frame Number="3" Page="281" Direction="NE" />
+        <Frame Number="3" Page="282" Direction="E" />
+        <Frame Number="3" Page="283" Direction="SE" />
+      </Animation>
+    </Actor>
   </Actors>
   <Palette>
     JASC-PAL
