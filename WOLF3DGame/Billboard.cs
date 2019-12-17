@@ -7,16 +7,20 @@ using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
-    class Billboard : Spatial
+    public class Billboard : Spatial
     {
-        public Billboard(Material material)
+        public Billboard()
         {
             AddChild(MeshInstance = new MeshInstance()
             {
                 Mesh = Assets.Wall,
-                MaterialOverride = material,
                 Transform = Assets.BillboardTransform,
             });
+        }
+
+        public Billboard(Material material) : this()
+        {
+            MeshInstance.MaterialOverride = material;
             /*
             // Cube for debugging purposes
             AddChild(new MeshInstance()
@@ -39,7 +43,7 @@ namespace WOLF3DGame
             */
         }
 
-        public MeshInstance MeshInstance;
+        public MeshInstance MeshInstance { get; set; }
 
         public override void _Process(float delta)
         {

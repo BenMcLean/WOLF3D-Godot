@@ -1,6 +1,8 @@
 ﻿using Godot;
 using OPL;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3DGame.Model
@@ -48,7 +50,34 @@ namespace WOLF3DGame.Model
                 AudioT = AudioT.Load(folder, XML);
             if (XML.Element("VgaGraph") != null)
                 VgaGraph = VgaGraph.Load(folder, XML);
+            Animations = new Dictionary<string, uint[][]>();
+            foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actors") ?? Enumerable.Empty<XElement>())
+                foreach (XElement animation in actor.Elements("Animation"))
+                {
+                    bool directional = IsTrue(animation, "Directional");
+                    uint[][] frames = new uint[(uint)animation.Attribute("Frames")][];
+                    for (uint frame = 0; frame < frames.Length; frame++)
+                        if (directional)
+                        {
+                            frames[frame] = new uint[Direction8.Values.Count];
+                            for (uint direction = 0; direction < frames[frame].Length; direction++)
+                                frames[frame][direction] = (from e in animation.Elements("Frame")
+                                                            where (uint)e.Attribute("Frame") == frame
+                                                            && Direction8.From(e.Attribute("Direction").Value).Value == direction
+                                                            select (uint)e.Attribute("Page")).First();
+                        }
+                        else
+                            frames[frame] = new uint[1] {
+                            (from e in animation.Elements("Frame")
+                            where (uint)e.Attribute("Frame") == frame
+                            select (uint)e.Attribute("Page")).First()
+                            };
+                    Animations.Add(actor.Attribute("Name").Value + "/" + animation.Attribute("Name").Value, frames);
+                }
         }
+
+        public static bool IsTrue(XElement xElement, string attribute) =>
+            bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {
@@ -126,6 +155,7 @@ namespace WOLF3DGame.Model
         public Color[] Palette;
         public ImageTexture[] VSwapTextures;
         public Material[] VSwapMaterials;
+        public Dictionary<string, uint[][]> Animations;
         public ImageTexture[] Pics;
 
         public static readonly QuadMesh Wall = new QuadMesh()

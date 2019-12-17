@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Model
 {
     public class Direction8
     {
