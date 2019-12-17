@@ -51,7 +51,7 @@ namespace WOLF3DGame.Model
             if (XML.Element("VgaGraph") != null)
                 VgaGraph = VgaGraph.Load(folder, XML);
             Animations = new Dictionary<string, uint[][]>();
-            foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actors") ?? Enumerable.Empty<XElement>())
+            foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actor") ?? Enumerable.Empty<XElement>())
                 foreach (XElement animation in actor.Elements("Animation"))
                 {
                     bool directional = IsTrue(animation, "Directional");
@@ -62,14 +62,14 @@ namespace WOLF3DGame.Model
                             frames[frame] = new uint[Direction8.Values.Count];
                             for (uint direction = 0; direction < frames[frame].Length; direction++)
                                 frames[frame][direction] = (from e in animation.Elements("Frame")
-                                                            where (uint)e.Attribute("Frame") == frame
+                                                            where (uint)e.Attribute("Number") == frame
                                                             && Direction8.From(e.Attribute("Direction").Value).Value == direction
                                                             select (uint)e.Attribute("Page")).First();
                         }
                         else
                             frames[frame] = new uint[1] {
                             (from e in animation.Elements("Frame")
-                            where (uint)e.Attribute("Frame") == frame
+                            where (uint)e.Attribute("Number") == frame
                             select (uint)e.Attribute("Page")).First()
                             };
                     Animations.Add(actor.Attribute("Name").Value + "/" + animation.Attribute("Name").Value, frames);

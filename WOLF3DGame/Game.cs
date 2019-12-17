@@ -116,6 +116,18 @@ namespace WOLF3DGame
                 ),
             });
 
+            AddChild(new Actor()
+            {
+                GlobalTransform = new Transform(
+                    Basis.Identity,
+                    new Vector3(
+                        map.Width * Assets.HalfWallWidth,
+                        0f,
+                        map.Depth * Assets.HalfWallWidth
+                        )
+                    ),
+            });
+
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
