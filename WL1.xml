@@ -647,7 +647,7 @@
         <Frame Number="0" Page="250" Direction="E" />
         <Frame Number="0" Page="251" Direction="SE" />
       </Animation>
-      <Animation Name="Moving" Frames="4">
+      <Animation Name="Moving" Frames="4" Loop="true">
         <Frame Number="0" Page="252" Direction="S" />
         <Frame Number="0" Page="253" Direction="SW" />
         <Frame Number="0" Page="254" Direction="W" />
@@ -680,6 +680,21 @@
         <Frame Number="3" Page="281" Direction="NE" />
         <Frame Number="3" Page="282" Direction="E" />
         <Frame Number="3" Page="283" Direction="SE" />
+      </Animation>
+      <Animation Name="Dying" Frames="5" Unidirectional="true">
+        <Frame Number="0" Page="284" />
+        <Frame Number="1" Page="285" />
+        <Frame Number="2" Page="286" />
+        <Frame Number="3" Page="287" />
+        <Frame Number="4" Page="289" />
+      </Animation>
+      <Animation Name="Dead" Frames="1" Unidirectional="true">
+        <Frame Number="0" Page="289" />
+      </Animation>
+      <Animation Name="Attack" Frames="3" Unidirectional="true">
+        <Frame Number="0" Page="290" />
+        <Frame Number="1" Page="291" />
+        <Frame Number="2" Page="292" />
       </Animation>
     </Actor>
   </Actors>
