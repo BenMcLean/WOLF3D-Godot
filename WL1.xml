@@ -421,68 +421,68 @@
       <Turn Number="97" Walk="true" Name="Turn" />
       <Pushwall Number="98" Walk="true" Name="Secret Door" />
       <Trigger Number="99" Walk="true" Name="End Game Trigger" />
-      <Spawn Number="108" Name="Guard" Direction="E" Difficulty="1" State="Standing" />
-      <Spawn Number="109" Name="Guard" Direction="N" Difficulty="1" State="Standing" />
-      <Spawn Number="110" Name="Guard" Direction="W" Difficulty="1" State="Standing" />
-      <Spawn Number="111" Name="Guard" Direction="S" Difficulty="1" State="Standing" />
-      <Spawn Number="112" Name="Guard" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="113" Name="Guard" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="114" Name="Guard" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="115" Name="Guard" Direction="S" Difficulty="1" State="Moving" />
+      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="Standing" />
+      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="Standing" />
+      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="Standing" />
+      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="Standing" />
+      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="Moving" />
+      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="Moving" />
+      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="Moving" />
+      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="Moving" />
       <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
-      <Spawn Number="126" Name="SS" Direction="E" Difficulty="1" State="Standing" />
-      <Spawn Number="127" Name="SS" Direction="N" Difficulty="1" State="Standing" />
-      <Spawn Number="128" Name="SS" Direction="W" Difficulty="1" State="Standing" />
-      <Spawn Number="129" Name="SS" Direction="S" Difficulty="1" State="Standing" />
-      <Spawn Number="130" Name="SS" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="131" Name="SS" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="132" Name="SS" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="133" Name="SS" Direction="S" Difficulty="1" State="Moving" />
-      <Spawn Number="138" Name="Dog" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="139" Name="Dog" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="140" Name="Dog" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="141" Name="Dog" Direction="S" Difficulty="1" State="Moving" />
-      <Spawn Number="144" Name="Guard" Direction="E" Difficulty="3" State="Standing" />
-      <Spawn Number="145" Name="Guard" Direction="N" Difficulty="3" State="Standing" />
-      <Spawn Number="146" Name="Guard" Direction="W" Difficulty="3" State="Standing" />
-      <Spawn Number="147" Name="Guard" Direction="S" Difficulty="3" State="Standing" />
-      <Spawn Number="148" Name="Guard" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="149" Name="Guard" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="150" Name="Guard" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="151" Name="Guard" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="162" Name="SS" Direction="E" Difficulty="3" State="Standing" />
-      <Spawn Number="163" Name="SS" Direction="N" Difficulty="3" State="Standing" />
-      <Spawn Number="164" Name="SS" Direction="W" Difficulty="3" State="Standing" />
-      <Spawn Number="165" Name="SS" Direction="S" Difficulty="3" State="Standing" />
-      <Spawn Number="166" Name="SS" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="167" Name="SS" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="168" Name="SS" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="169" Name="SS" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="174" Name="Dog" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="175" Name="Dog" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="176" Name="Dog" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="177" Name="Dog" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="180" Name="Guard" Direction="E" Difficulty="4" State="Standing" />
-      <Spawn Number="181" Name="Guard" Direction="N" Difficulty="4" State="Standing" />
-      <Spawn Number="182" Name="Guard" Direction="W" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Name="Guard" Direction="S" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Name="Guard" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Name="Guard" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Name="Guard" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Name="Guard" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="198" Name="SS" Direction="E" Difficulty="4" State="Standing" />
-      <Spawn Number="199" Name="SS" Direction="N" Difficulty="4" State="Standing" />
-      <Spawn Number="200" Name="SS" Direction="W" Difficulty="4" State="Standing" />
-      <Spawn Number="201" Name="SS" Direction="S" Difficulty="4" State="Standing" />
-      <Spawn Number="202" Name="SS" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="203" Name="SS" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="204" Name="SS" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="205" Name="SS" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="210" Name="Dog" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="211" Name="Dog" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="212" Name="Dog" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="213" Name="Dog" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="214" Name="Hans" Direction="S" />
+      <Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="Standing" />
+      <Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="Standing" />
+      <Spawn Number="128" Actor="SS" Direction="W" Difficulty="1" State="Standing" />
+      <Spawn Number="129" Actor="SS" Direction="S" Difficulty="1" State="Standing" />
+      <Spawn Number="130" Actor="SS" Direction="E" Difficulty="1" State="Moving" />
+      <Spawn Number="131" Actor="SS" Direction="N" Difficulty="1" State="Moving" />
+      <Spawn Number="132" Actor="SS" Direction="W" Difficulty="1" State="Moving" />
+      <Spawn Number="133" Actor="SS" Direction="S" Difficulty="1" State="Moving" />
+      <Spawn Number="138" Actor="Dog" Direction="E" Difficulty="1" State="Moving" />
+      <Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="Moving" />
+      <Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="Moving" />
+      <Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="Moving" />
+      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="Standing" />
+      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="Standing" />
+      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="Standing" />
+      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="Standing" />
+      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="Moving" />
+      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="Moving" />
+      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="Moving" />
+      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="Moving" />
+      <Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="Standing" />
+      <Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="Standing" />
+      <Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="Standing" />
+      <Spawn Number="165" Actor="SS" Direction="S" Difficulty="3" State="Standing" />
+      <Spawn Number="166" Actor="SS" Direction="E" Difficulty="3" State="Moving" />
+      <Spawn Number="167" Actor="SS" Direction="N" Difficulty="3" State="Moving" />
+      <Spawn Number="168" Actor="SS" Direction="W" Difficulty="3" State="Moving" />
+      <Spawn Number="169" Actor="SS" Direction="S" Difficulty="3" State="Moving" />
+      <Spawn Number="174" Actor="Dog" Direction="E" Difficulty="3" State="Moving" />
+      <Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="Moving" />
+      <Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="Moving" />
+      <Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="Moving" />
+      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="Standing" />
+      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="Standing" />
+      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="Standing" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Standing" />
+      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="Moving" />
+      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="Moving" />
+      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="Moving" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Moving" />
+      <Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="Standing" />
+      <Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="Standing" />
+      <Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="Standing" />
+      <Spawn Number="201" Actor="SS" Direction="S" Difficulty="4" State="Standing" />
+      <Spawn Number="202" Actor="SS" Direction="E" Difficulty="4" State="Moving" />
+      <Spawn Number="203" Actor="SS" Direction="N" Difficulty="4" State="Moving" />
+      <Spawn Number="204" Actor="SS" Direction="W" Difficulty="4" State="Moving" />
+      <Spawn Number="205" Actor="SS" Direction="S" Difficulty="4" State="Moving" />
+      <Spawn Number="210" Actor="Dog" Direction="E" Difficulty="4" State="Moving" />
+      <Spawn Number="211" Actor="Dog" Direction="N" Difficulty="4" State="Moving" />
+      <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="Moving" />
+      <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="Moving" />
+      <Spawn Number="214" Actor="Hans" Direction="S" />
     </Objects>
     <DigiSound Number="0" Name="HALTSND" />
     <DigiSound Number="1" Name="DOGBARKSND" />
@@ -506,6 +506,64 @@
     <DigiSound Number="22" Name="SLURPIESND" />
     <DigiSound Number="32" Name="YEAHSND" />
   </VSwap>
+  <Actors>
+    <Actor Name="Guard">
+      <Animation Name="Standing" Frames="1">
+        <Frame Number="0" Page="156" Direction="S" />
+        <Frame Number="0" Page="157" Direction="SW" />
+        <Frame Number="0" Page="158" Direction="W" />
+        <Frame Number="0" Page="159" Direction="NW" />
+        <Frame Number="0" Page="160" Direction="N" />
+        <Frame Number="0" Page="161" Direction="NE" />
+        <Frame Number="0" Page="162" Direction="E" />
+        <Frame Number="0" Page="163" Direction="SE" />
+      </Animation>
+      <Animation Name="Moving" Frames="4" Loop="true">
+        <Frame Number="0" Page="164" Direction="S" />
+        <Frame Number="0" Page="165" Direction="SW" />
+        <Frame Number="0" Page="166" Direction="W" />
+        <Frame Number="0" Page="167" Direction="NW" />
+        <Frame Number="0" Page="168" Direction="N" />
+        <Frame Number="0" Page="169" Direction="NE" />
+        <Frame Number="0" Page="170" Direction="E" />
+        <Frame Number="0" Page="171" Direction="SE" />
+        <Frame Number="1" Page="172" Direction="S" />
+        <Frame Number="1" Page="173" Direction="SW" />
+        <Frame Number="1" Page="174" Direction="W" />
+        <Frame Number="1" Page="175" Direction="NW" />
+        <Frame Number="1" Page="176" Direction="N" />
+        <Frame Number="1" Page="177" Direction="NE" />
+        <Frame Number="1" Page="178" Direction="E" />
+        <Frame Number="1" Page="179" Direction="SE" />
+        <Frame Number="2" Page="180" Direction="S" />
+        <Frame Number="2" Page="181" Direction="SW" />
+        <Frame Number="2" Page="182" Direction="W" />
+        <Frame Number="2" Page="183" Direction="NW" />
+        <Frame Number="2" Page="184" Direction="N" />
+        <Frame Number="2" Page="185" Direction="NE" />
+        <Frame Number="2" Page="186" Direction="E" />
+        <Frame Number="2" Page="187" Direction="SE" />
+        <Frame Number="3" Page="188" Direction="S" />
+        <Frame Number="3" Page="189" Direction="SW" />
+        <Frame Number="3" Page="190" Direction="W" />
+        <Frame Number="3" Page="191" Direction="NW" />
+        <Frame Number="3" Page="192" Direction="N" />
+        <Frame Number="3" Page="193" Direction="NE" />
+        <Frame Number="3" Page="194" Direction="E" />
+        <Frame Number="3" Page="195" Direction="SE" />
+      </Animation>
+      <Animation Name="Dying" Frames="5" Unidirectional="true">
+        <Frame Number="0" Page="196" />
+        <Frame Number="1" Page="197" />
+        <Frame Number="2" Page="198" />
+        <Frame Number="3" Page="199" />
+        <Frame Number="4" Page="201" />
+      </Animation>
+      <Animation Name="Dead" Frames="1" Unidirectional="true">
+        <Frame Number="0" Page="201" />
+      </Animation>
+    </Actor>
+  </Actors>
   <Palette>
     JASC-PAL
     0100
