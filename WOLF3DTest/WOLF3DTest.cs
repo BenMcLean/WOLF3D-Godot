@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using Godot;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WOLF3DGame;
 using WOLF3DGame.Model;
@@ -156,6 +157,17 @@ namespace WOLF3DTest
             }
         }
 
-        public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
+        [TestMethod]
+        public void Direction8Test()
+        {
+            foreach (Direction8 direction8 in Direction8.Values)
+                thing(direction8.Vector2);
+        }
+
+        public void thing(Vector2 vector2)
+        {
+            float angle = Vector2.Zero.AngleToPoint(vector2);
+            Console.WriteLine("From zero to " + vector2.x + ", " + vector2.y + " would be " + angle + " radians which is " + Direction8.Angle(angle));
+        }
     }
 }

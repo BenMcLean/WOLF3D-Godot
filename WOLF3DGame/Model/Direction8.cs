@@ -139,16 +139,17 @@ namespace WOLF3DGame.Model
 
         public static Direction8 From(Vector2 vector2) => Angle(vector2.Angle());
 
-        public static Direction8 Angle(float angle) =>
-            angle < Mathf.Tau / 16f ? SOUTH
-            : angle < Mathf.Tau * 3f / 16f ? SOUTHWEST
-            : angle < Mathf.Tau * 5f / 16f ? WEST
-            : angle < Mathf.Tau * 7f / 16f ? NORTHWEST
-            : angle < Mathf.Tau * 9f / 16f ? NORTH
-            : angle < Mathf.Tau * 11f / 16f ? NORTHEAST
-            : angle < Mathf.Tau * 13f / 16f ? EAST
-            : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
-            : SOUTH;
+        public static Direction8 Angle(float angle) => PositiveAngle(angle + Mathf.Pi);
+        public static Direction8 PositiveAngle(float angle) =>
+            angle < Mathf.Tau / 16f ? EAST
+            : angle < Mathf.Tau * 3f / 16f ? SOUTHEAST
+            : angle < Mathf.Tau * 5f / 16f ? SOUTH
+            : angle < Mathf.Tau * 7f / 16f ? SOUTHWEST
+            : angle < Mathf.Tau * 9f / 16f ? WEST
+            : angle < Mathf.Tau * 11f / 16f ? NORTHWEST
+            : angle < Mathf.Tau * 13f / 16f ? NORTH
+            : angle < Mathf.Tau * 15f / 16f ? NORTHEAST
+            : EAST;
 
         public static Direction8 From(string @string) =>
             uint.TryParse(@string, out uint result) ?
