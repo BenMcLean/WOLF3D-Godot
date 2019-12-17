@@ -721,6 +721,51 @@
         <Frame Number="3" Page="409" />
       </Animation>
     </Actor>
+    <Actor Name="BJ" Human="true">
+      <Animation Name="Standing" Frames="1">
+        <Frame Number="0" Page="514" />
+      </Animation>
+      <Animation Name="Moving" Frames="4" Loop="true">
+        <Frame Number="0" Page="514" />
+        <Frame Number="1" Page="515" />
+        <Frame Number="2" Page="516" />
+        <Frame Number="3" Page="517" />
+      </Animation>
+      <Animation Name="Yeah" Frames="8">
+        <Frame Number="0" Page="514" />
+        <Frame Number="1" Page="515" />
+        <Frame Number="2" Page="516" />
+        <Frame Number="3" Page="517" />
+        <Frame Number="4" Page="518" />
+        <Frame Number="5" Page="519" />
+        <Frame Number="6" Page="520" />
+        <Frame Number="7" Page="521" />
+      </Animation>
+      <Animation Name="Knife" Frames="6">
+        <Frame Number="0" Page="522" />
+        <Frame Number="1" Page="523" />
+        <Frame Number="2" Page="524" />
+        <Frame Number="3" Page="525" />
+        <Frame Number="4" Page="526" />
+        <Frame Number="5" Page="522" />
+      </Animation>
+      <Animation Name="Pistol" Frames="6">
+        <Frame Number="0" Page="527" />
+        <Frame Number="1" Page="528" />
+        <Frame Number="2" Page="529" />
+        <Frame Number="3" Page="530" />
+        <Frame Number="4" Page="531" />
+        <Frame Number="5" Page="527" />
+      </Animation>
+      <Animation Name="Machine Gun" Frames="6">
+        <Frame Number="0" Page="537" />
+        <Frame Number="1" Page="538" />
+        <Frame Number="2" Page="539" />
+        <Frame Number="3" Page="540" />
+        <Frame Number="4" Page="541" />
+        <Frame Number="5" Page="537" />
+      </Animation>
+    </Actor>
   </Actors>
   <Palette>
     JASC-PAL
