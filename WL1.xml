@@ -562,6 +562,23 @@
       <Animation Name="Dead" Frames="1" Unidirectional="true">
         <Frame Number="0" Page="201" />
       </Animation>
+      <Animation Name="Alarm" Frames="3" Unidirectional="true">
+        <Frame Number="0" Page="202" />
+        <Frame Number="1" Page="203" />
+        <Frame Number="2" Page="204" />
+      </Animation>
+    </Actor>
+    <Actor Name="Dog">
+      <Animation Name="Standing">
+        <Frame Number="0" Page="205" Direction="S" />
+        <Frame Number="0" Page="206" Direction="SW" />
+        <Frame Number="0" Page="207" Direction="W" />
+        <Frame Number="0" Page="208" Direction="NW" />
+        <Frame Number="0" Page="209" Direction="N" />
+        <Frame Number="0" Page="210" Direction="NE" />
+        <Frame Number="0" Page="211" Direction="E" />
+        <Frame Number="0" Page="212" Direction="SE" />
+      </Animation>
     </Actor>
   </Actors>
   <Palette>
