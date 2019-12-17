@@ -58,21 +58,27 @@ namespace WOLF3DGame
             if (objects == null)
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();
+            XElement spawn;
             for (uint i = 0; i < map.ObjectData.Length; i++)
                 if (uint.TryParse(
                     (from e in objects.Elements("Billboard")
                      where (uint)e.Attribute("Number") == map.ObjectData[i]
-                     select e.Attribute("Page")).FirstOrDefault()?.Value
-                     ?? string.Empty,
+                     select e.Attribute("Page")).FirstOrDefault()?.Value,
                     out uint page
                     ))
-                {
-                    Billboard billboard = new Billboard(Game.Assets.VSwapMaterials[page])
+                    billboards.Add(new Billboard(Game.Assets.VSwapMaterials[page])
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
-                    };
-                    billboards.Add(billboard);
-                }
+                    });
+                else if ((spawn = (from e in objects.Elements("Spawn")
+                                   where (uint)e.Attribute("Number") == map.ObjectData[i]
+                                   select e).FirstOrDefault()) != null)
+                    billboards.Add(new Actor()
+                    {
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
+                        Direction = Direction8.From(spawn.Attribute("Direction").Value),
+                        ActorName = spawn.Attribute("Actor").Value,
+                    });
             return billboards.ToArray();
         }
     }

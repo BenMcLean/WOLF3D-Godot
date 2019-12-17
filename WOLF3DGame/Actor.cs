@@ -27,7 +27,7 @@ namespace WOLF3DGame
                                 GetViewport().GetCamera().GlobalTransform.origin.z
                             )
                         )
-                    ).MirrorX.Counter90,
+                    ).MirrorX.Counter90 + Direction,
                     frame[Frame].Length
                     )];
                 if (newFrame != LastFrame)
