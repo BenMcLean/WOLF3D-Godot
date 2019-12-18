@@ -26,7 +26,7 @@ namespace WOLF3DGame.Model
         public const double WallHeight = 2.92608;
         public const double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
-        public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Vector3.Up, Mathf.Pi), new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
+        public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Vector3.Up, Mathf.Pi), WallTransform.origin);
 
         public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
