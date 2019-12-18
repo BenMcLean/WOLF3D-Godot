@@ -47,74 +47,10 @@ namespace WOLF3DGame
 
             GameMap map = Assets.Maps[0];
 
-            AddChild(new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Assets.Palette[map.Border],
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
-
-            MapWalls = new MapWalls(map);
-            foreach (Spatial sprite in MapWalls.Walls)
-                AddChild(sprite);
+            AddChild(new Level(map));
 
             map.StartPosition(out ushort x, out ushort z);
             ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
-
-            Billboard[] billboards = Billboard.MakeBillboards(map);
-            foreach (Billboard billboard in billboards)
-                AddChild(billboard);
-            //GD.Print(MapWalls.Walls.Count + " walls and " + billboards.Length + "billboards");
-
-            AddChild(Floor = new MeshInstance()
-            {
-                Mesh = new QuadMesh()
-                {
-                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Assets.Palette[map.Floor],
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-                Transform = new Transform(
-                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                new Vector3(map.Width * Assets.HalfWallWidth, 0f, map.Depth * Assets.HalfWallWidth)
-                ),
-            });
-
-            AddChild(Ceiling = new MeshInstance()
-            {
-                Mesh = new QuadMesh()
-                {
-                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Assets.Palette[map.Ceiling],
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-                Transform = new Transform(
-                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                new Vector3(
-                    map.Width * Assets.HalfWallWidth,
-                    (float)Assets.WallHeight,
-                    map.Depth * Assets.HalfWallWidth
-                    )
-                ),
-            });
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
@@ -143,8 +79,6 @@ namespace WOLF3DGame
             }
             //ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, new Vector3(ARVROrigin.GlobalTransform.origin.x, 0f, ARVROrigin.GlobalTransform.origin.z));
         }
-
-        public MapWalls MapWalls;
 
         public Game PlayASound()
         {
