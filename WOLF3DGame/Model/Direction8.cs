@@ -94,7 +94,7 @@ namespace WOLF3DGame.Model
 
         public uint Value { get; private set; }
         public int X { get; private set; }
-        public readonly static int Y = 0;
+        public const int Y = 0;
         public int Z { get; private set; }
         public string Name { get; private set; }
         public string ShortName { get; private set; }
@@ -130,7 +130,7 @@ namespace WOLF3DGame.Model
         public Direction8 Clock135 => this + 3;
         public Direction8 Counter135 => this - 3;
         public Direction8 Opposite => this + 4;
-        public Direction8 MirrorX => From(Values.Count - (int)Value);
+        public Direction8 MirrorX => Values[Values.Count - (int)Value];
         public Direction8 MirrorZ => MirrorX.Opposite;
 
         public static Direction8 From(int @int) => values[Modulus(@int, values.Length)];

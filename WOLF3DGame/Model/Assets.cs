@@ -8,33 +8,33 @@ using System.Xml.Linq;
 namespace WOLF3DGame.Model
 {
     /// <summary>
-    /// Assets takes the bytes extracted from VSwap and creates the corresponding Godot objects for them to be used throughout the game.
+    /// Assets takes the bytes extracted from the Wolfenstein 3-D files and creates the corresponding Godot objects for them to be used throughout the game.
     /// </summary>
     public class Assets
     {
-        //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
+        //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3-D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
         //However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
-        public static readonly float PixelWidth = 0.0381f;
-        public static readonly float WallWidth = 2.4384f;
-        public static readonly float HalfWallWidth = 1.2192f;
+        public const float PixelWidth = 0.0381f;
+        public const float WallWidth = 2.4384f;
+        public const float HalfWallWidth = 1.2192f;
 
         // However, Wolfenstein 3D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
         public static readonly Vector3 Scale = new Vector3(1f, 1.2f, 1f);
-        public static readonly float PixelHeight = 0.04572f;
-        public static readonly double WallHeight = 2.92608;
-        public static readonly double HalfWallHeight = 1.46304;
+        public const float PixelHeight = 0.04572f;
+        public const double WallHeight = 2.92608;
+        public const double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
         public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
         // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
         // Walking speed is half of running speed.
-        public static readonly float RunSpeed = 27.34714368f;
-        public static readonly float WalkSpeed = 13.67357184f;
+        public const float RunSpeed = 27.34714368f;
+        public const float WalkSpeed = 13.67357184f;
 
-        public static readonly float DeadZone = 0.65f;
+        public const float DeadZone = 0.65f;
 
         public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
         { }
