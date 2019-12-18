@@ -130,60 +130,8 @@ namespace WOLF3DGame.Model
         public Direction8 Clock135 => this + 3;
         public Direction8 Counter135 => this - 3;
         public Direction8 Opposite => this + 4;
-
-        public Direction8 MirrorX
-        {
-            get
-            {
-                switch (ShortName)
-                {
-                    default:
-                    case "S":
-                        return SOUTH;
-                    case "SW":
-                        return SOUTHEAST;
-                    case "W":
-                        return EAST;
-                    case "NW":
-                        return NORTHEAST;
-                    case "N":
-                        return NORTH;
-                    case "NE":
-                        return NORTHWEST;
-                    case "E":
-                        return WEST;
-                    case "SE":
-                        return SOUTHWEST;
-                }
-            }
-        }
-
-        public Direction8 MirrorZ
-        {
-            get
-            {
-                switch (ShortName)
-                {
-                    default:
-                    case "S":
-                        return NORTH;
-                    case "SW":
-                        return NORTHWEST;
-                    case "W":
-                        return WEST;
-                    case "NW":
-                        return SOUTHWEST;
-                    case "N":
-                        return SOUTH;
-                    case "NE":
-                        return SOUTHEAST;
-                    case "E":
-                        return EAST;
-                    case "SE":
-                        return NORTHEAST;
-                }
-            }
-        }
+        public Direction8 MirrorX => From(Values.Count - (int)Value);
+        public Direction8 MirrorZ => MirrorX.Opposite;
 
         public static Direction8 From(int @int) => values[Modulus(@int, values.Length)];
         public static Direction8 From(uint @uint) => From((int)@uint);

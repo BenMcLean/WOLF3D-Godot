@@ -161,13 +161,13 @@ namespace WOLF3DTest
         public void Direction8Test()
         {
             foreach (Direction8 direction8 in Direction8.Values)
-                thing(direction8.Vector2);
-        }
-
-        public void thing(Vector2 vector2)
-        {
-            float angle = Vector2.Zero.AngleToPoint(vector2);
-            Console.WriteLine("From zero to " + vector2.x + ", " + vector2.y + " would be " + angle + " radians which is " + Direction8.Angle(angle));
+                Console.WriteLine(direction8 + " mirrorZ " + direction8.MirrorZ);
+            Console.WriteLine();
+            foreach (Direction8 direction8 in Direction8.Values)
+            {
+                float angle = Vector2.Zero.AngleToPoint(direction8.Vector2);
+                Console.WriteLine("From zero to (" + direction8.Vector2.x + ", " + direction8.Vector2.y + ") would be " + angle + " radians which is " + Direction8.Angle(angle));
+            }
         }
     }
 }
