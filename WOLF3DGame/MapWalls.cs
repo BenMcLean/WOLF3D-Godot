@@ -148,18 +148,9 @@ namespace WOLF3DGame
             {
                 MaterialOverride = Game.Assets.VSwapMaterials[wall],
                 Mesh = Assets.Wall,
-                Transform = Assets.WallTransform,
+                Transform = flipH ? Assets.WallTransformFlipped : Assets.WallTransform,
             });
             return spatial;
         }
-
-        //Texture = texture,
-        //PixelSize = Assets.PixelWidth,
-        //Scale = Assets.Scale,
-        //MaterialOverride = WallMaterial,
-        //Axis = axis,
-        //Centered = false,
-        //GlobalTransform = new Transform(Basis.Identity, position),
-        //FlipH = flipH
     }
 }
