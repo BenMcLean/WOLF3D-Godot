@@ -18,6 +18,8 @@ namespace WOLF3DGame
         public MeshInstance Floor { get; set; }
         public MeshInstance Ceiling { get; set; }
 
+        public bool Roomscale = false;
+
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
@@ -77,7 +79,13 @@ namespace WOLF3DGame
                 ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
                 ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
             }
-            //ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, new Vector3(ARVROrigin.GlobalTransform.origin.x, 0f, ARVROrigin.GlobalTransform.origin.z));
+            ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, new Vector3(
+                ARVROrigin.GlobalTransform.origin.x,
+                Roomscale ?
+                0f
+                : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
+                ARVROrigin.GlobalTransform.origin.z
+                ));
         }
 
         public Game PlayASound()

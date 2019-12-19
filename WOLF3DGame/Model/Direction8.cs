@@ -89,8 +89,7 @@ namespace WOLF3DGame.Model
             Vector2 = new Vector2(1, 1).Normalized(),
             Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
-        private static readonly Direction8[] values = new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST };
-        public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(values);
+        public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST });
 
         public uint Value { get; private set; }
         public int X { get; private set; }
@@ -130,10 +129,10 @@ namespace WOLF3DGame.Model
         public Direction8 Clock135 => this + 3;
         public Direction8 Counter135 => this - 3;
         public Direction8 Opposite => this + 4;
-        public Direction8 MirrorX => From(values.Length - (int)Value);
+        public Direction8 MirrorX => From(Values.Count - (int)Value);
         public Direction8 MirrorZ => MirrorX.Opposite;
 
-        public static Direction8 From(int @int) => values[Modulus(@int, values.Length)];
+        public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
 
