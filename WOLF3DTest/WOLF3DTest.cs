@@ -167,6 +167,8 @@ namespace WOLF3DTest
             {
                 float angle = Vector2.Zero.AngleToPoint(direction8.Vector2);
                 Console.WriteLine("From zero to (" + direction8.Vector2.x + ", " + direction8.Vector2.y + ") would be " + angle + " radians which is " + Direction8.Angle(angle));
+                Assert.AreEqual(direction8, Direction8.Angle(angle));
+                Assert.AreEqual(Direction8.Angle(angle), Direction8.AngleToPoint(direction8.Vector2.x, direction8.Vector2.y));
             }
         }
     }
