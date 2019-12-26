@@ -137,9 +137,10 @@ namespace WOLF3DGame.Model
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
 
         public static Direction8 From(Vector3 vector3) => Angle(Mathf.Atan2(vector3.x, vector3.z));
-
         public static Direction8 From(Vector2 vector2) => Angle(vector2.Angle());
 
+        public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
+        public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => Angle(Mathf.Atan2(y1 - y2, x1 - x2));
         public static Direction8 Angle(float angle) => PositiveAngle(angle + Mathf.Pi);
         public static Direction8 PositiveAngle(float angle) =>
             angle < Mathf.Tau / 16f ? EAST
