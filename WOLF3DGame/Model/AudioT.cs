@@ -27,10 +27,8 @@ namespace WOLF3DGame.Model
             return list.ToArray();
         }
 
-        public static byte[][] SplitFile(Stream head, Stream file)
-        {
-            return SplitFile(ParseHead(head), file);
-        }
+        public static byte[][] SplitFile(Stream head, Stream file) =>
+            SplitFile(ParseHead(head), file);
 
         public static byte[][] SplitFile(uint[] head, Stream file)
         {

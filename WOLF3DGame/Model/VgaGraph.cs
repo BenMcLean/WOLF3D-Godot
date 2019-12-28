@@ -126,10 +126,8 @@ namespace WOLF3DGame.Model
             return split;
         }
 
-        public static byte[] Deplanify(byte[] input, ushort width)
-        {
-            return Deplanify(input, width, (ushort)(input.Length / width));
-        }
+        public static byte[] Deplanify(byte[] input, ushort width) =>
+            Deplanify(input, width, (ushort)(input.Length / width));
 
         public static byte[] Deplanify(byte[] input, ushort width, ushort height)
         {

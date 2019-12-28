@@ -35,15 +35,9 @@ namespace WOLF3DGame.Model
         public byte Floor { get; set; }
         public byte Border { get; set; }
 
-        public ushort X(uint i)
-        {
-            return (ushort)(i / Width);
-        }
-
-        public ushort Z(uint i)
-        {
-            return (ushort)(Depth - 1 - i % Depth);
-        }
+        public ushort X(uint i) => (ushort)(i / Width);
+        public ushort Z(uint i) => (ushort)(Depth - 1 - i % Depth);
+        public ushort Get(uint x, uint z) => MapData[(x * Width) + Depth - 1 - z];
 
         public GameMap StartPosition(out ushort x, out ushort z)
         {
@@ -75,10 +69,8 @@ namespace WOLF3DGame.Model
             return offsets.ToArray();
         }
 
-        public static GameMap[] Maps(Stream mapHead, Stream gameMaps)
-        {
-            return Maps(ParseMapHead(mapHead), gameMaps);
-        }
+        public static GameMap[] Maps(Stream mapHead, Stream gameMaps) =>
+            Maps(ParseMapHead(mapHead), gameMaps);
 
         public static GameMap[] Maps(long[] offsets, Stream gameMaps)
         {

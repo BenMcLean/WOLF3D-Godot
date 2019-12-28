@@ -1,6 +1,5 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
-using NScumm.Core.Audio.OPL.DosBox;
 using OPL;
 using WOLF3DGame.Model;
 

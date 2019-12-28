@@ -12,6 +12,7 @@ namespace WOLF3DGame.Model
     /// </summary>
     public class Assets
     {
+        #region Math
         //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3-D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
         //However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
@@ -38,6 +39,34 @@ namespace WOLF3DGame.Model
 
         public const float DeadZone = 0.65f;
 
+        public static readonly QuadMesh Wall = new QuadMesh()
+        {
+            Size = new Vector2(WallWidth, (float)WallHeight),
+        };
+
+        public static readonly BoxShape BoxShape = new BoxShape()
+        {
+            Extents = new Vector3(WallWidth, (float)WallHeight, WallWidth),
+        };
+
+        public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);
+
+        public static Vector3 Axis(Vector3.Axis axis)
+        {
+            switch (axis)
+            {
+                case Vector3.Axis.X:
+                    return Rotate90;
+                case Vector3.Axis.Y:
+                    return Vector3.Up;
+                case Vector3.Axis.Z:
+                default:
+                    return Vector3.Zero;
+            }
+        }
+        #endregion Math
+
+        #region Game assets
         public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
         { }
 
@@ -159,26 +188,6 @@ namespace WOLF3DGame.Model
         public Material[] VSwapMaterials;
         public Dictionary<string, uint[][]> Animations;
         public ImageTexture[] Pics;
-
-        public static readonly QuadMesh Wall = new QuadMesh()
-        {
-            Size = new Vector2(WallWidth, (float)WallHeight),
-        };
-
-        public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);
-
-        public static Vector3 Axis(Vector3.Axis axis)
-        {
-            switch (axis)
-            {
-                case Vector3.Axis.X:
-                    return Rotate90;
-                case Vector3.Axis.Y:
-                    return Vector3.Up;
-                case Vector3.Axis.Z:
-                default:
-                    return Vector3.Zero;
-            }
-        }
+        #endregion Game assets
     }
 }

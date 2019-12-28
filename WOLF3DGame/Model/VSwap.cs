@@ -23,10 +23,7 @@ namespace WOLF3DGame.Model
         public ushort SpritePage { get; set; }
         public ushort NumPages { get; set; }
 
-        public byte[] Sprite(ushort number)
-        {
-            return Pages[SpritePage + number];
-        }
+        public byte[] Sprite(ushort number) => Pages[SpritePage + number];
 
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
@@ -168,32 +165,14 @@ namespace WOLF3DGame.Model
             return result;
         }
 
-        public static byte R(uint color)
-        {
-            return (byte)(color >> 24);
-        }
-
-        public static byte G(uint color)
-        {
-            return (byte)(color >> 16);
-        }
-
-        public static byte B(uint color)
-        {
-            return (byte)(color >> 8);
-        }
-
-        public static byte A(uint color)
-        {
-            return (byte)color;
-        }
+        public static byte R(uint color) => (byte)(color >> 24);
+        public static byte G(uint color) => (byte)(color >> 16);
+        public static byte B(uint color) => (byte)(color >> 8);
+        public static byte A(uint color) => (byte)color;
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
-        public byte[] Index2ByteArray(byte[] index)
-        {
-            return Index2ByteArray(index, Palette);
-        }
+        public byte[] Index2ByteArray(byte[] index) => Index2ByteArray(index, Palette);
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <param name="palette">256 rgba8888 color values</param>

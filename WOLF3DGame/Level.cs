@@ -1,4 +1,7 @@
 ﻿using Godot;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
@@ -9,6 +12,7 @@ namespace WOLF3DGame
         public WorldEnvironment WorldEnvironment { get; private set; }
         public MeshInstance Floor { get; private set; }
         public MeshInstance Ceiling { get; private set; }
+        public Area Area { get; private set; }
 
         public Level(GameMap map)
         {
@@ -80,6 +84,44 @@ namespace WOLF3DGame
             Billboard[] billboards = Billboard.MakeBillboards(map);
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
+
+            Area = new Area()
+            {
+
+            };
+
+            CollisionShape CollisionShape = new CollisionShape()
+            {
+                Shape = Assets.BoxShape,
+                Disabled = false,
+            };
         }
+
+        public static bool IsWall(uint cell) => XWall(cell).Any();
+
+        public static uint WallTexture(uint cell) =>
+            (uint)XWall(cell).FirstOrDefault()?.Attribute("Page");
+
+        /// <summary>
+        /// Never underestimate the power of the Dark Side
+        /// </summary>
+        public static uint DarkSide(uint cell) =>
+            (uint)XWall(cell).FirstOrDefault()?.Attribute("DarkSide");
+
+        public static IEnumerable<XElement> XWall(uint cell) =>
+            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
+            where (uint)e.Attribute("Number") == cell
+            select e;
+
+        public static IEnumerable<XElement> XDoor(uint cell) =>
+            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
+            where (uint)e.Attribute("Number") == cell
+            select e;
+
+        public static uint DoorTexture(uint cell) =>
+            (uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
+
+        public static bool IsDoor(uint cell) =>
+            XDoor(cell).Any();
     }
 }
