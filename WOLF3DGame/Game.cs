@@ -12,6 +12,7 @@ namespace WOLF3DGame
         public ARVRInterface ARVRInterface { get; set; }
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
+        public Area PlayerHead { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
         public MeshInstance Floor { get; set; }
@@ -38,6 +39,18 @@ namespace WOLF3DGame
             {
                 Current = true,
             });
+            ARVRCamera.AddChild(PlayerHead = new Area()
+            {
+                Name = "Player's head area",
+            });
+            PlayerHead.AddChild(new CollisionShape()
+            {
+                Name = "Player's head",
+                Shape = new SphereShape()
+                {
+                    Radius = 0.5f,
+                },
+            });
 
             Assets = new Assets(Folder);
 
@@ -56,6 +69,7 @@ namespace WOLF3DGame
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
+            RightController.Connect("button_pressed", this, nameof(ButtonPressed));
         }
 
         public static Vector3 BillboardRotation { get; set; }
@@ -85,6 +99,12 @@ namespace WOLF3DGame
                 : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
                 ARVROrigin.GlobalTransform.origin.z
                 ));
+        }
+
+        public void ButtonPressed(int buttonIndex)
+        {
+            if (buttonIndex == (int)JoystickList.OculusAx)
+                GD.Print("You pressed X");
         }
 
         public Game PlayASound()

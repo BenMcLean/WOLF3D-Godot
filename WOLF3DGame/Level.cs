@@ -96,6 +96,7 @@ namespace WOLF3DGame
                     if (!IsWall(Map.GetMapData(x, z)) || IsByFloor(x, z))
                         StaticBody.AddChild(CollisionShapes[x][z] = new CollisionShape()
                         {
+                            Name = "CollisionShape at " + x + ", " + z,
                             Shape = Assets.BoxShape,
                             Disabled = false,
                             Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
