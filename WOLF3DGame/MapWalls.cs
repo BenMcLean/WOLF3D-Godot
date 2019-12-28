@@ -24,23 +24,23 @@ namespace WOLF3DGame
             void HorizontalCheck(uint x, uint z)
             {
                 uint wall;
-                if (x < map.Width - 1 && Level.IsWall(wall = Map.Get(x + 1, z)))
+                if (x < map.Width - 1 && Level.IsWall(wall = Map.GetMapData(x + 1, z)))
                     Walls.Add(WestWall(x + 1, z, Level.WallTexture(wall), true));
-                if (x > 0 && Level.IsWall(wall = Map.Get(x - 1, z)))
+                if (x > 0 && Level.IsWall(wall = Map.GetMapData(x - 1, z)))
                     Walls.Add(WestWall(x, z, Level.WallTexture(wall)));
             }
             void VerticalCheck(uint x, uint z)
             {
                 uint wall;
-                if (z > 0 && Level.IsWall(wall = Map.Get(x, z - 1)))
+                if (z > 0 && Level.IsWall(wall = Map.GetMapData(x, z - 1)))
                     Walls.Add(SouthWall(x, z - 1, Level.DarkSide(wall)));
-                if (z < map.Depth - 1 && Level.IsWall(wall = Map.Get(x, z + 1)))
+                if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, z + 1)))
                     Walls.Add(SouthWall(x, z, Level.DarkSide(wall), true));
             }
             Map = map;
             for (uint i = 0; i < Map.MapData.Length; i++)
             {
-                uint x = map.X(i), z = map.Z(i), here = Map.Get(x, z);
+                uint x = map.X(i), z = map.Z(i), here = Map.GetMapData(x, z);
                 if (Level.IsDoor(here))
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical

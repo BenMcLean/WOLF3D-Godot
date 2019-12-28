@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -12,7 +13,8 @@ namespace WOLF3DGame
         public WorldEnvironment WorldEnvironment { get; private set; }
         public MeshInstance Floor { get; private set; }
         public MeshInstance Ceiling { get; private set; }
-        public Area Area { get; private set; }
+        public StaticBody StaticBody { get; private set; }
+        public CollisionShape[][] CollisionShapes { get; private set; }
 
         public Level(GameMap map)
         {
@@ -85,19 +87,39 @@ namespace WOLF3DGame
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
 
-            Area = new Area()
+            StaticBody = new StaticBody();
+            CollisionShapes = new CollisionShape[Map.Width][];
+            for (ushort x = 0; x < Map.Width; x++)
             {
-
-            };
-
-            CollisionShape CollisionShape = new CollisionShape()
-            {
-                Shape = Assets.BoxShape,
-                Disabled = false,
-            };
+                CollisionShapes[x] = new CollisionShape[Map.Depth];
+                for (ushort z = 0; z < Map.Depth; z++)
+                    if (!IsWall(Map.GetMapData(x, z)) || IsByFloor(x, z))
+                        StaticBody.AddChild(CollisionShapes[x][z] = new CollisionShape()
+                        {
+                            Shape = Assets.BoxShape,
+                            Disabled = false,
+                            Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
+                        });
+            }
         }
 
+        public bool IsWall(ushort x, ushort z) => IsWall(Map.GetMapData(x, z));
+
         public static bool IsWall(uint cell) => XWall(cell).Any();
+
+        /// <returns>if the specified map coordinate is adjacent to a floor</returns>
+        public bool IsByFloor(ushort x, ushort z)
+        {
+            ushort startX = x < 1 ? x : x > Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x - 1),
+                startZ = z < 1 ? z : z > Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z - 1),
+                endX = x > Map.Width - 1 ? (ushort)(Map.Width - 1) : x,
+                endZ = z > Map.Depth - 1 ? (ushort)(Map.Depth - 1) : z;
+            for (ushort dx = startX; dx <= endX; dx++)
+                for (ushort dz = startZ; dz <= endZ; dz++)
+                    if ((dx != x || dz != z) && !IsWall(Map.GetMapData(dx, dz)))
+                        return true;
+            return false;
+        }
 
         public static uint WallTexture(uint cell) =>
             (uint)XWall(cell).FirstOrDefault()?.Attribute("Page");
