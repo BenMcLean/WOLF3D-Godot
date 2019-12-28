@@ -25,10 +25,6 @@ namespace WOLF3DGame
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 
             AddChild(ARVROrigin = new ARVROrigin());
-            ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
-            {
-                Current = true,
-            });
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {
                 ControllerId = 1,
@@ -39,6 +35,10 @@ namespace WOLF3DGame
                 ControllerId = 2,
             });
             RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
+            ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
+            {
+                Current = true,
+            });
 
             Assets = new Assets(Folder);
 
@@ -61,7 +61,7 @@ namespace WOLF3DGame
 
         public static Vector3 BillboardRotation { get; set; }
 
-        public override void _Process(float delta)
+        public override void _PhysicsProcess(float delta)
         {
             base._Process(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
