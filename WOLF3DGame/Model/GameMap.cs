@@ -35,9 +35,12 @@ namespace WOLF3DGame.Model
         public byte Floor { get; set; }
         public byte Border { get; set; }
 
-        public ushort X(uint i) => (ushort)(i / Width);
-        public ushort Z(uint i) => (ushort)(Depth - 1 - i % Depth);
-        public ushort Get(uint x, uint z) => MapData[(x * Width) + Depth - 1 - z];
+        public ushort X(uint i) => X((ushort)i);
+        public ushort X(ushort i) => (ushort)(i / Width);
+        public ushort Z(uint i) => Z((ushort)i);
+        public ushort Z(ushort i) => (ushort)(Depth - 1 - i % Depth);
+        public ushort Get(uint x, uint z) => Get((ushort)x, (ushort)z);
+        public ushort Get(ushort x, ushort z) => MapData[(x * Width) + Depth - 1 - z];
 
         public GameMap StartPosition(out ushort x, out ushort z)
         {
@@ -96,7 +99,7 @@ namespace WOLF3DGame.Model
 
                     char[] name = new char[16];
                     gameMapsReader.Read(name, 0, name.Length);
-                    map.Name = new string(name).Replace("\0", string.Empty);
+                    map.Name = new string(name).Replace("\0", string.Empty).Trim();
 
                     char[] carmackized = new char[4];
                     gameMapsReader.Read(carmackized, 0, carmackized.Length);
