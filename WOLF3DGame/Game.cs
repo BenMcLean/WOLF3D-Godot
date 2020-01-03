@@ -9,10 +9,11 @@ namespace WOLF3DGame
     {
         public static Assets Assets { get; set; }
         public static string Folder { get; set; }
+        public KinematicBody ARVRKinematicBody { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
-        public Area PlayerHead { get; set; }
+        public CollisionShape PlayerHead { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
         public MeshInstance Floor { get; set; }
@@ -23,8 +24,8 @@ namespace WOLF3DGame
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-
-            AddChild(ARVROrigin = new ARVROrigin());
+            AddChild(ARVRKinematicBody = new KinematicBody());
+            ARVRKinematicBody.AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {
                 ControllerId = 1,
@@ -39,11 +40,7 @@ namespace WOLF3DGame
             {
                 Current = true,
             });
-            ARVRCamera.AddChild(PlayerHead = new Area()
-            {
-                Name = "Player's head area",
-            });
-            PlayerHead.AddChild(new CollisionShape()
+            ARVRCamera.AddChild(PlayerHead = new CollisionShape()
             {
                 Name = "Player's head",
                 Shape = new SphereShape()
@@ -82,10 +79,15 @@ namespace WOLF3DGame
             Vector3 forward = ARVRCamera.GlobalTransform.basis.z * -1f;
             forward.y = 0f;
             forward = forward.Normalized();
-            if (RightController.GetJoystickAxis(1) > Assets.DeadZone)
+            if (RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
                 ARVROrigin.Translation += forward * Assets.RunSpeed * delta;
 
             float axis0 = RightController.GetJoystickAxis(0);
+            if (Input.IsKeyPressed((int)KeyList.Left))
+                axis0 -= 1;
+            if (Input.IsKeyPressed((int)KeyList.Right))
+                axis0 += 1;
+
             if (Mathf.Abs(axis0) > Assets.DeadZone)
             {
                 Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
