@@ -9,7 +9,7 @@ namespace WOLF3DGame
     {
         public static Assets Assets { get; set; }
         public static string Folder { get; set; }
-        public KinematicBody ARVRKinematicBody { get; set; }
+        public KinematicBody PlayerOrigin { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
@@ -24,8 +24,8 @@ namespace WOLF3DGame
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(ARVRKinematicBody = new KinematicBody());
-            ARVRKinematicBody.AddChild(ARVROrigin = new ARVROrigin());
+            AddChild(PlayerOrigin = new KinematicBody());
+            PlayerOrigin.AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {
                 ControllerId = 1,
@@ -118,7 +118,23 @@ namespace WOLF3DGame
 
         public void print()
         {
-            GD.Print("You pressed X");
+            Vector2 playerPosition = PlayerPosition;
+            GD.Print("You are at: " + playerPosition.x + ", " + playerPosition.y);
+        }
+
+        public Vector2 PlayerPosition
+        {
+            get => new Vector2(ARVRCamera.GlobalTransform.origin.x, ARVRCamera.GlobalTransform.origin.z);
+            set => PlayerOrigin.GlobalTransform = new Transform(
+                    PlayerOrigin.GlobalTransform.basis,
+                    new Vector3(
+                        value.x - ARVRCamera.Transform.origin.x,
+                        Roomscale ?
+                        0f
+                        : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
+                        value.y - ARVRCamera.Transform.origin.z
+                    )
+                );
         }
 
         public Game PlayASound()

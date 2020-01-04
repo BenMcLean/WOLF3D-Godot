@@ -123,10 +123,7 @@ namespace WOLF3DGame.Model
 
         public VSwap VSwap
         {
-            get
-            {
-                return vswap;
-            }
+            get => vswap;
             set
             {
                 vswap = value;
@@ -164,10 +161,7 @@ namespace WOLF3DGame.Model
 
         public VgaGraph VgaGraph
         {
-            get
-            {
-                return vgaGraph;
-            }
+            get => vgaGraph;
             set
             {
                 vgaGraph = value;
