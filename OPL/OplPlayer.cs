@@ -14,7 +14,7 @@ namespace OPL
 
         public IOpl Opl
         {
-            get { return opl; }
+            get => opl;
             set
             {
                 opl = value;
@@ -32,10 +32,7 @@ namespace OPL
 
         public AudioStreamPlayer AudioStreamPlayer
         {
-            get
-            {
-                return audioStreamPlayer;
-            }
+            get => audioStreamPlayer;
             private set
             {
                 audioStreamPlayer = value;
@@ -49,18 +46,12 @@ namespace OPL
 
         public AudioStreamGeneratorPlayback AudioStreamGeneratorPlayback
         {
-            get
-            {
-                return (AudioStreamGeneratorPlayback)AudioStreamPlayer?.GetStreamPlayback();
-            }
+            get => (AudioStreamGeneratorPlayback)AudioStreamPlayer?.GetStreamPlayback();
         }
 
         public AudioStreamGenerator AudioStreamGenerator
         {
-            get
-            {
-                return (AudioStreamGenerator)AudioStreamPlayer?.GetStream();
-            }
+            get => (AudioStreamGenerator)AudioStreamPlayer?.GetStream();
         }
 
         public override void _Ready()

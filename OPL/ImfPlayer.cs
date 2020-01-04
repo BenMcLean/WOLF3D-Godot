@@ -18,7 +18,7 @@ namespace OPL
 
         public Imf[] Song
         {
-            get { return song; }
+            get => song;
             set
             {
                 if (song != value) song = value;

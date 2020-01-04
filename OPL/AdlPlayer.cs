@@ -10,7 +10,7 @@ namespace OPL
     {
         public IOpl Opl
         {
-            get { return opl; }
+            get => opl;
             set
             {
                 opl = value;
@@ -25,7 +25,7 @@ namespace OPL
 
         public Adl Adl
         {
-            get { return adl; }
+            get => adl;
             set
             {
                 if (!Mute && (adl == null || value == null || value.Priority >= adl.Priority))
@@ -59,7 +59,7 @@ namespace OPL
 
         public bool Note
         {
-            get { return note; }
+            get => note;
             set
             {
                 if (note = value)

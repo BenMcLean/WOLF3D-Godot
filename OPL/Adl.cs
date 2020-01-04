@@ -26,8 +26,7 @@ namespace OPL
         public ushort Priority;
 
         public Adl(Stream stream) : this(new BinaryReader(stream))
-        {
-        }
+        { }
 
         public Adl(BinaryReader binaryReader)
         {
@@ -41,10 +40,7 @@ namespace OPL
 
         public byte Block
         {
-            get
-            {
-                return (byte)((Octave & 7) << 2);
-            }
+            get => (byte)((Octave & 7) << 2);
         }
 
         public static readonly byte KeyFlag = 0x20;
