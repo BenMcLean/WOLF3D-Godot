@@ -103,10 +103,22 @@ namespace WOLF3DGame
                 ));
         }
 
+        public override void _Input(InputEvent @event)
+        {
+            base._Input(@event);
+            if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo && inputEventKey.Scancode == (uint)KeyList.X)
+                GD.Print("you pressed a key!");
+        }
+
         public void ButtonPressed(int buttonIndex)
         {
             if (buttonIndex == (int)JoystickList.OculusAx)
-                GD.Print("You pressed X");
+                print();
+        }
+
+        public void print()
+        {
+            GD.Print("You pressed X");
         }
 
         public Game PlayASound()
