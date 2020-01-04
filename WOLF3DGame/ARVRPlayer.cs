@@ -1,9 +1,9 @@
 ﻿using Godot;
 using WOLF3DGame.Model;
 
-namespace WOLF3D
+namespace WOLF3DGame
 {
-    public class VRPlayer : KinematicBody
+    public class ARVRPlayer : KinematicBody
     {
         public bool Roomscale { get; set; } = false;
         public ARVROrigin ARVROrigin { get; set; }

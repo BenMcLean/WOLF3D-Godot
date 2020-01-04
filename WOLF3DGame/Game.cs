@@ -9,13 +9,9 @@ namespace WOLF3DGame
     {
         public static Assets Assets { get; set; }
         public static string Folder { get; set; }
-        public KinematicBody PlayerOrigin { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
-        public ARVROrigin ARVROrigin { get; set; }
-        public ARVRCamera ARVRCamera { get; set; }
+        public ARVRPlayer ARVRPlayer { get; set; }
         public CollisionShape PlayerHead { get; set; }
-        public ARVRController LeftController { get; set; }
-        public ARVRController RightController { get; set; }
         public MeshInstance Floor { get; set; }
         public MeshInstance Ceiling { get; set; }
 
@@ -24,23 +20,10 @@ namespace WOLF3DGame
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(PlayerOrigin = new KinematicBody());
-            PlayerOrigin.AddChild(ARVROrigin = new ARVROrigin());
-            ARVROrigin.AddChild(LeftController = new ARVRController()
-            {
-                ControllerId = 1,
-            });
-            LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
-            ARVROrigin.AddChild(RightController = new ARVRController()
-            {
-                ControllerId = 2,
-            });
-            RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
-            ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
-            {
-                Current = true,
-            });
-            ARVRCamera.AddChild(PlayerHead = new CollisionShape()
+            AddChild(ARVRPlayer = new ARVRPlayer());
+            ARVRPlayer.LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
+            ARVRPlayer.RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
+            ARVRPlayer.ARVRCamera.AddChild(PlayerHead = new CollisionShape()
             {
                 Name = "Player's head",
                 Shape = new SphereShape()
@@ -61,12 +44,12 @@ namespace WOLF3DGame
             AddChild(new Level(map));
 
             map.StartPosition(out ushort x, out ushort z);
-            ARVROrigin.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
+            ARVRPlayer.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
-            RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+            ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
         }
 
         public static Vector3 BillboardRotation { get; set; }
@@ -76,13 +59,13 @@ namespace WOLF3DGame
             base._Process(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
 
-            Vector3 forward = ARVRCamera.GlobalTransform.basis.z * -1f;
+            Vector3 forward = ARVRPlayer.ARVRCamera.GlobalTransform.basis.z * -1f;
             forward.y = 0f;
             forward = forward.Normalized();
-            if (RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
-                ARVROrigin.Translation += forward * Assets.RunSpeed * delta;
+            if (ARVRPlayer.RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
+                ARVRPlayer.Translation += forward * Assets.RunSpeed * delta;
 
-            float axis0 = RightController.GetJoystickAxis(0);
+            float axis0 = ARVRPlayer.RightController.GetJoystickAxis(0);
             if (Input.IsKeyPressed((int)KeyList.Left))
                 axis0 -= 1;
             if (Input.IsKeyPressed((int)KeyList.Right))
@@ -90,16 +73,16 @@ namespace WOLF3DGame
 
             if (Mathf.Abs(axis0) > Assets.DeadZone)
             {
-                Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
-                ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
-                ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
+                Vector3 origHeadPos = ARVRPlayer.ARVRCamera.GlobalTransform.origin;
+                ARVRPlayer.ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
+                ARVRPlayer.ARVROrigin.GlobalTransform = new Transform(ARVRPlayer.ARVROrigin.GlobalTransform.basis, ARVRPlayer.ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRPlayer.ARVRCamera.GlobalTransform.origin).Orthonormalized();
             }
-            ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, new Vector3(
-                ARVROrigin.GlobalTransform.origin.x,
+            ARVRPlayer.ARVROrigin.GlobalTransform = new Transform(ARVRPlayer.ARVROrigin.GlobalTransform.basis, new Vector3(
+                ARVRPlayer.ARVROrigin.GlobalTransform.origin.x,
                 Roomscale ?
                 0f
-                : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
-                ARVROrigin.GlobalTransform.origin.z
+                : (float)Assets.HalfWallHeight - ARVRPlayer.ARVRCamera.Transform.origin.y,
+                ARVRPlayer.ARVROrigin.GlobalTransform.origin.z
                 ));
         }
 
@@ -124,15 +107,15 @@ namespace WOLF3DGame
 
         public Vector2 PlayerPosition
         {
-            get => new Vector2(ARVRCamera.GlobalTransform.origin.x, ARVRCamera.GlobalTransform.origin.z);
-            set => PlayerOrigin.GlobalTransform = new Transform(
-                    PlayerOrigin.GlobalTransform.basis,
+            get => new Vector2(ARVRPlayer.ARVRCamera.GlobalTransform.origin.x, ARVRPlayer.ARVRCamera.GlobalTransform.origin.z);
+            set => ARVRPlayer.GlobalTransform = new Transform(
+                    ARVRPlayer.GlobalTransform.basis,
                     new Vector3(
-                        value.x - ARVRCamera.Transform.origin.x,
+                        value.x,
                         Roomscale ?
                         0f
-                        : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
-                        value.y - ARVRCamera.Transform.origin.z
+                        : (float)Assets.HalfWallHeight - ARVRPlayer.ARVRCamera.Transform.origin.y,
+                        value.y
                     )
                 );
         }
