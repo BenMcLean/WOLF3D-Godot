@@ -19,6 +19,7 @@ namespace WOLF3DGame.Model
         public const float PixelWidth = 0.0381f;
         public const float WallWidth = 2.4384f;
         public const float HalfWallWidth = 1.2192f;
+        public static int MapCoordinate(float x) => Mathf.FloorToInt(x / WallWidth);
 
         // However, Wolfenstein 3D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
@@ -28,7 +29,6 @@ namespace WOLF3DGame.Model
         public const double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
         public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Vector3.Up, Mathf.Pi), WallTransform.origin);
-
         public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938

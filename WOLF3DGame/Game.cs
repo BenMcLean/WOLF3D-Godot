@@ -90,7 +90,7 @@ namespace WOLF3DGame
         {
             base._Input(@event);
             if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo && inputEventKey.Scancode == (uint)KeyList.X)
-                GD.Print("you pressed a key!");
+                print();
         }
 
         public void ButtonPressed(int buttonIndex)
@@ -102,7 +102,7 @@ namespace WOLF3DGame
         public void print()
         {
             Vector2 playerPosition = PlayerPosition;
-            GD.Print("You are at: " + playerPosition.x + ", " + playerPosition.y);
+            GD.Print("You are at: " + playerPosition.x + ", " + playerPosition.y + " which is map coordinate " + Assets.MapCoordinate(playerPosition.x) + ", " + Assets.MapCoordinate(playerPosition.y));
         }
 
         public Vector2 PlayerPosition
