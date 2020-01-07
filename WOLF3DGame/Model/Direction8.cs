@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace WOLF3DGame.Model
 {
+    // TODO: +x is south, +y is up, +z is west
     public class Direction8
     {
         private Direction8() { }

@@ -102,7 +102,13 @@ namespace WOLF3DGame
         public void print()
         {
             Vector2 playerPosition = PlayerPosition;
-            GD.Print("You are at: " + playerPosition.x + ", " + playerPosition.y + " which is map coordinate " + Assets.MapCoordinate(playerPosition.x) + ", " + Assets.MapCoordinate(playerPosition.y));
+            GD.Print("You are at: " +
+                playerPosition.x + ", " + playerPosition.y +
+                " which is map coordinate " +
+                Assets.IntCoordinate(playerPosition.x) + ", " + Assets.IntCoordinate(playerPosition.y) +
+                " and the center of that square is " +
+                Assets.CenterSquare(Assets.IntCoordinate(playerPosition.x)) + ", " + Assets.CenterSquare(Assets.IntCoordinate(playerPosition.y))
+                );
         }
 
         public Vector2 PlayerPosition

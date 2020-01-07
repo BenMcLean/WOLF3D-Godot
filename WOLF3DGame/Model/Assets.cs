@@ -19,7 +19,16 @@ namespace WOLF3DGame.Model
         public const float PixelWidth = 0.0381f;
         public const float WallWidth = 2.4384f;
         public const float HalfWallWidth = 1.2192f;
-        public static int MapCoordinate(float x) => Mathf.FloorToInt(x / WallWidth);
+
+        /// <param name="x">A distance in meters</param>
+        /// <returns>The corresponding map coordinate</returns>
+        public static int IntCoordinate(float x) => Mathf.FloorToInt(x / WallWidth);
+        /// <param name="x">A map coordinate</param>
+        /// <returns>Center of the map square in meters</returns>
+        public static float CenterSquare(int x) => x * WallWidth + HalfWallWidth;
+        /// <param name="x">A map coordinate</param>
+        /// <returns>North or east corner of map square in meters</returns>
+        public static float FloatCoordinate(int x) => x * WallWidth;
 
         // However, Wolfenstein 3D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
