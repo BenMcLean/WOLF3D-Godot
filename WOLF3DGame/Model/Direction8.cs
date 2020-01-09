@@ -11,7 +11,6 @@ namespace WOLF3DGame.Model
     public class Direction8
     {
         private Direction8() { }
-
         public static readonly Direction8 WEST = new Direction8()
         {
             Value = 0,
@@ -93,7 +92,6 @@ namespace WOLF3DGame.Model
             Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
         public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
-
         public uint Value { get; private set; }
         public int X { get; private set; }
         public const int Y = 0;
@@ -102,7 +100,6 @@ namespace WOLF3DGame.Model
         public string ShortName { get; private set; }
         public Vector2 Vector2 { get; private set; }
         public Vector3 Vector3 { get; private set; }
-
         public static implicit operator ulong(Direction8 d) => d.Value;
         public static implicit operator long(Direction8 d) => d.Value;
         public static implicit operator uint(Direction8 d) => d.Value;
@@ -136,14 +133,15 @@ namespace WOLF3DGame.Model
         public Direction8 MirrorZ => From(Values.Count - (int)Value);
         public bool Cardinal => Value % 2 == 0;
         public bool Diagonal => !Cardinal;
-
         public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
-
         public static Direction8 From(Vector3 vector3) => Angle(Mathf.Atan2(vector3.x, vector3.z));
         public static Direction8 From(Vector2 vector2) => Angle(vector2.Angle());
-
+        public static Direction8 AngleToPoint(Vector2 vector2) => AngleToPoint(Vector2.Zero, vector2);
+        public static Direction8 AngleToPoint(Vector2 a, Vector2 b) => AngleToPoint(a.x, a.y, b.x, b.y);
+        public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
+        public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => Angle(Mathf.Atan2(y1 - y2, x1 - x2));
         public static Direction8 Angle(float angle) => PositiveAngle(angle + Mathf.Pi);
@@ -157,9 +155,8 @@ namespace WOLF3DGame.Model
             : angle < Mathf.Tau * 13f / 16f ? EAST
             : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
             : SOUTH;
-
         public static Direction8 From(string @string) =>
-            uint.TryParse(@string, out uint result) ?
+            int.TryParse(@string, out int result) ?
                 From(result)
                 : (from v in Values
                    where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
