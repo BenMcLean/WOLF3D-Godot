@@ -5,92 +5,94 @@ using System.Linq;
 
 namespace WOLF3DGame.Model
 {
-    // TODO: +x is south, +y is up, +z is west
+    /// <summary>
+    /// +x is south, +y is up, +z is west
+    /// </summary>
     public class Direction8
     {
         private Direction8() { }
 
-        public static readonly Direction8 SOUTH = new Direction8()
+        public static readonly Direction8 WEST = new Direction8()
         {
             Value = 0,
-            ShortName = "S",
-            Name = "South",
+            ShortName = "W",
+            Name = "West",
             X = 0,
             Z = 1,
             Vector2 = Vector2.Down,
             Vector3 = Vector3.Back,
         };
-        public static readonly Direction8 SOUTHWEST = new Direction8()
+        public static readonly Direction8 NORTHWEST = new Direction8()
         {
             Value = 1,
-            ShortName = "SW",
-            Name = "Southwest",
+            ShortName = "NW",
+            Name = "Northwest",
             X = -1,
             Z = 1,
             Vector2 = new Vector2(-1, 1).Normalized(),
             Vector3 = new Vector3(-1, 0, 1).Normalized(),
         };
-        public static readonly Direction8 WEST = new Direction8()
+        public static readonly Direction8 NORTH = new Direction8()
         {
             Value = 2,
-            ShortName = "W",
-            Name = "West",
+            ShortName = "N",
+            Name = "North",
             X = -1,
             Z = 0,
             Vector2 = Vector2.Left,
             Vector3 = Vector3.Left,
         };
-        public static readonly Direction8 NORTHWEST = new Direction8()
+        public static readonly Direction8 NORTHEAST = new Direction8()
         {
             Value = 3,
-            ShortName = "NW",
-            Name = "Northwest",
+            ShortName = "NE",
+            Name = "Northeast",
             X = -1,
             Z = -1,
             Vector2 = new Vector2(-1, -1).Normalized(),
             Vector3 = new Vector3(-1, 0, -1).Normalized(),
         };
-        public static readonly Direction8 NORTH = new Direction8()
+        public static readonly Direction8 EAST = new Direction8()
         {
             Value = 4,
-            ShortName = "N",
-            Name = "North",
+            ShortName = "E",
+            Name = "East",
             X = 0,
             Z = -1,
             Vector2 = Vector2.Up,
             Vector3 = Vector3.Forward,
         };
-        public static readonly Direction8 NORTHEAST = new Direction8()
+        public static readonly Direction8 SOUTHEAST = new Direction8()
         {
             Value = 5,
-            ShortName = "NE",
-            Name = "Northeast",
+            ShortName = "SE",
+            Name = "Southeast",
             X = 1,
             Z = -1,
             Vector2 = new Vector2(1, -1).Normalized(),
             Vector3 = new Vector3(1, 0, -1).Normalized(),
         };
-        public static readonly Direction8 EAST = new Direction8()
+        public static readonly Direction8 SOUTH = new Direction8()
         {
             Value = 6,
-            ShortName = "E",
-            Name = "East",
+            ShortName = "S",
+            Name = "South",
             X = 1,
             Z = 0,
             Vector2 = Vector2.Right,
             Vector3 = Vector3.Right,
         };
-        public static readonly Direction8 SOUTHEAST = new Direction8()
+        public static readonly Direction8 SOUTHWEST = new Direction8()
         {
             Value = 7,
-            ShortName = "SE",
-            Name = "Southeast",
+            ShortName = "SW",
+            Name = "Southwest",
             X = 1,
             Z = 1,
             Vector2 = new Vector2(1, 1).Normalized(),
             Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
-        public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { SOUTH, SOUTHWEST, WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST });
+        public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
 
         public uint Value { get; private set; }
         public int X { get; private set; }
@@ -130,8 +132,10 @@ namespace WOLF3DGame.Model
         public Direction8 Clock135 => this + 3;
         public Direction8 Counter135 => this - 3;
         public Direction8 Opposite => this + 4;
-        public Direction8 MirrorX => From(Values.Count - (int)Value);
-        public Direction8 MirrorZ => MirrorX.Opposite;
+        public Direction8 MirrorX => MirrorZ.Opposite;
+        public Direction8 MirrorZ => From(Values.Count - (int)Value);
+        public bool Cardinal => Value % 2 == 0;
+        public bool Diagonal => !Cardinal;
 
         public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
@@ -144,15 +148,15 @@ namespace WOLF3DGame.Model
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => Angle(Mathf.Atan2(y1 - y2, x1 - x2));
         public static Direction8 Angle(float angle) => PositiveAngle(angle + Mathf.Pi);
         public static Direction8 PositiveAngle(float angle) =>
-            angle < Mathf.Tau / 16f ? EAST
-            : angle < Mathf.Tau * 3f / 16f ? SOUTHEAST
-            : angle < Mathf.Tau * 5f / 16f ? SOUTH
-            : angle < Mathf.Tau * 7f / 16f ? SOUTHWEST
-            : angle < Mathf.Tau * 9f / 16f ? WEST
-            : angle < Mathf.Tau * 11f / 16f ? NORTHWEST
-            : angle < Mathf.Tau * 13f / 16f ? NORTH
-            : angle < Mathf.Tau * 15f / 16f ? NORTHEAST
-            : EAST;
+            angle < Mathf.Tau / 16f ? SOUTH
+            : angle < Mathf.Tau * 3f / 16f ? SOUTHWEST
+            : angle < Mathf.Tau * 5f / 16f ? WEST
+            : angle < Mathf.Tau * 7f / 16f ? NORTHWEST
+            : angle < Mathf.Tau * 9f / 16f ? NORTH
+            : angle < Mathf.Tau * 11f / 16f ? NORTHEAST
+            : angle < Mathf.Tau * 13f / 16f ? EAST
+            : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
+            : SOUTH;
 
         public static Direction8 From(string @string) =>
             uint.TryParse(@string, out uint result) ?
