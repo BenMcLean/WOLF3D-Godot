@@ -484,213 +484,100 @@
       <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="Moving" />
       <Spawn Number="214" Actor="Hans" Direction="S" />
       <Actor Name="Guard">
-        <Animation Name="Standing" Frames="1" Directional="true">
-          <Frame Number="0" Page="156" Direction="S" />
-          <Frame Number="0" Page="157" Direction="SW" />
-          <Frame Number="0" Page="158" Direction="W" />
-          <Frame Number="0" Page="159" Direction="NW" />
-          <Frame Number="0" Page="160" Direction="N" />
-          <Frame Number="0" Page="161" Direction="NE" />
-          <Frame Number="0" Page="162" Direction="E" />
-          <Frame Number="0" Page="163" Direction="SE" />
+        <Animation Name="Standing" Directional="true">
+          <Frame Number="0" Page="156" />
         </Animation>
-        <Animation Name="Moving" Frames="4" Directional="true" Loop="true">
-          <Frame Number="0" Page="164" Direction="S" />
-          <Frame Number="0" Page="165" Direction="SW" />
-          <Frame Number="0" Page="166" Direction="W" />
-          <Frame Number="0" Page="167" Direction="NW" />
-          <Frame Number="0" Page="168" Direction="N" />
-          <Frame Number="0" Page="169" Direction="NE" />
-          <Frame Number="0" Page="170" Direction="E" />
-          <Frame Number="0" Page="171" Direction="SE" />
-          <Frame Number="1" Page="172" Direction="S" />
-          <Frame Number="1" Page="173" Direction="SW" />
-          <Frame Number="1" Page="174" Direction="W" />
-          <Frame Number="1" Page="175" Direction="NW" />
-          <Frame Number="1" Page="176" Direction="N" />
-          <Frame Number="1" Page="177" Direction="NE" />
-          <Frame Number="1" Page="178" Direction="E" />
-          <Frame Number="1" Page="179" Direction="SE" />
-          <Frame Number="2" Page="180" Direction="S" />
-          <Frame Number="2" Page="181" Direction="SW" />
-          <Frame Number="2" Page="182" Direction="W" />
-          <Frame Number="2" Page="183" Direction="NW" />
-          <Frame Number="2" Page="184" Direction="N" />
-          <Frame Number="2" Page="185" Direction="NE" />
-          <Frame Number="2" Page="186" Direction="E" />
-          <Frame Number="2" Page="187" Direction="SE" />
-          <Frame Number="3" Page="188" Direction="S" />
-          <Frame Number="3" Page="189" Direction="SW" />
-          <Frame Number="3" Page="190" Direction="W" />
-          <Frame Number="3" Page="191" Direction="NW" />
-          <Frame Number="3" Page="192" Direction="N" />
-          <Frame Number="3" Page="193" Direction="NE" />
-          <Frame Number="3" Page="194" Direction="E" />
-          <Frame Number="3" Page="195" Direction="SE" />
+        <Animation Name="Moving" Directional="true" Loop="true">
+          <Frame Number="0" Page="164" />
+          <Frame Number="1" Page="172" />
+          <Frame Number="2" Page="180" />
+          <Frame Number="3" Page="188" />
         </Animation>
-        <Animation Name="Dying" Frames="5">
+        <Animation Name="Dying" >
           <Frame Number="0" Page="196" />
           <Frame Number="1" Page="197" />
           <Frame Number="2" Page="198" />
           <Frame Number="3" Page="199" />
           <Frame Number="4" Page="201" />
         </Animation>
-        <Animation Name="Dead" Frames="1">
+        <Animation Name="Dead" >
           <Frame Number="0" Page="201" />
         </Animation>
-        <Animation Name="Attack" Frames="3">
+        <Animation Name="Attack" >
           <Frame Number="0" Page="202" />
           <Frame Number="1" Page="203" />
           <Frame Number="2" Page="204" />
         </Animation>
       </Actor>
       <Actor Name="Dog">
-        <Animation Name="Standing" Frames="1" Directional="true">
-          <Frame Number="0" Page="205" Direction="S" />
-          <Frame Number="0" Page="206" Direction="SW" />
-          <Frame Number="0" Page="207" Direction="W" />
-          <Frame Number="0" Page="208" Direction="NW" />
-          <Frame Number="0" Page="209" Direction="N" />
-          <Frame Number="0" Page="210" Direction="NE" />
-          <Frame Number="0" Page="211" Direction="E" />
-          <Frame Number="0" Page="212" Direction="SE" />
+        <Animation Name="Standing" Directional="true" >
+          <Frame Number="0" Page="205" />
         </Animation>
-        <Animation Name="Moving" Frames="5" Directional="true" Loop="true">
-          <Frame Number="0" Page="205" Direction="S" />
-          <Frame Number="0" Page="206" Direction="SW" />
-          <Frame Number="0" Page="207" Direction="W" />
-          <Frame Number="0" Page="208" Direction="NW" />
-          <Frame Number="0" Page="209" Direction="N" />
-          <Frame Number="0" Page="210" Direction="NE" />
-          <Frame Number="0" Page="211" Direction="E" />
-          <Frame Number="0" Page="212" Direction="SE" />
-          <Frame Number="1" Page="213" Direction="S" />
-          <Frame Number="1" Page="206" Direction="SW" />
-          <Frame Number="1" Page="207" Direction="W" />
-          <Frame Number="1" Page="208" Direction="NW" />
-          <Frame Number="1" Page="209" Direction="N" />
-          <Frame Number="1" Page="210" Direction="NE" />
-          <Frame Number="1" Page="211" Direction="E" />
-          <Frame Number="1" Page="212" Direction="SE" />
-          <Frame Number="2" Page="213" Direction="S" />
-          <Frame Number="2" Page="214" Direction="SW" />
-          <Frame Number="2" Page="215" Direction="W" />
-          <Frame Number="2" Page="216" Direction="NW" />
-          <Frame Number="2" Page="217" Direction="N" />
-          <Frame Number="2" Page="218" Direction="NE" />
-          <Frame Number="2" Page="219" Direction="E" />
-          <Frame Number="2" Page="220" Direction="SE" />
-          <Frame Number="3" Page="221" Direction="S" />
-          <Frame Number="3" Page="222" Direction="SW" />
-          <Frame Number="3" Page="223" Direction="W" />
-          <Frame Number="3" Page="224" Direction="NW" />
-          <Frame Number="3" Page="225" Direction="N" />
-          <Frame Number="3" Page="226" Direction="NE" />
-          <Frame Number="3" Page="227" Direction="E" />
-          <Frame Number="3" Page="228" Direction="SE" />
-          <Frame Number="4" Page="229" Direction="S" />
-          <Frame Number="4" Page="230" Direction="SW" />
-          <Frame Number="4" Page="231" Direction="W" />
-          <Frame Number="4" Page="232" Direction="NW" />
-          <Frame Number="4" Page="233" Direction="N" />
-          <Frame Number="4" Page="234" Direction="NE" />
-          <Frame Number="4" Page="235" Direction="E" />
-          <Frame Number="4" Page="236" Direction="SE" />
+        <Animation Name="Moving" Directional="true" Loop="true">
+          <Frame Number="0" Page="205" />
+          <Frame Number="1" Page="213" />
+          <Frame Number="2" Page="221" />
+          <Frame Number="3" Page="229" />
         </Animation>
-        <Animation Name="Dying" Frames="4">
+        <Animation Name="Dying" >
           <Frame Number="0" Page="237" />
           <Frame Number="1" Page="238" />
           <Frame Number="2" Page="239" />
           <Frame Number="3" Page="240" />
         </Animation>
-        <Animation Name="Dead" Frames="1">
+        <Animation Name="Dead" >
           <Frame Number="0" Page="240" />
         </Animation>
-        <Animation Name="Attack" Frames="3">
+        <Animation Name="Attack" >
           <Frame Number="0" Page="241" />
           <Frame Number="1" Page="242" />
           <Frame Number="2" Page="243" />
         </Animation>
       </Actor>
       <Actor Name="SS">
-        <Animation Name="Standing" Frames="1" Directional="true">
-          <Frame Number="0" Page="244" Direction="S" />
-          <Frame Number="0" Page="245" Direction="SW" />
-          <Frame Number="0" Page="246" Direction="W" />
-          <Frame Number="0" Page="247" Direction="NW" />
-          <Frame Number="0" Page="248" Direction="N" />
-          <Frame Number="0" Page="249" Direction="NE" />
-          <Frame Number="0" Page="250" Direction="E" />
-          <Frame Number="0" Page="251" Direction="SE" />
+        <Animation Name="Standing" Directional="true">
+          <Frame Number="0" Page="244" />
         </Animation>
-        <Animation Name="Moving" Frames="4" Directional="true" Loop="true">
-          <Frame Number="0" Page="252" Direction="S" />
-          <Frame Number="0" Page="253" Direction="SW" />
-          <Frame Number="0" Page="254" Direction="W" />
-          <Frame Number="0" Page="255" Direction="NW" />
-          <Frame Number="0" Page="256" Direction="N" />
-          <Frame Number="0" Page="257" Direction="NE" />
-          <Frame Number="0" Page="258" Direction="E" />
-          <Frame Number="0" Page="259" Direction="SE" />
-          <Frame Number="1" Page="260" Direction="S" />
-          <Frame Number="1" Page="261" Direction="SW" />
-          <Frame Number="1" Page="262" Direction="W" />
-          <Frame Number="1" Page="263" Direction="NW" />
-          <Frame Number="1" Page="264" Direction="N" />
-          <Frame Number="1" Page="265" Direction="NE" />
-          <Frame Number="1" Page="266" Direction="E" />
-          <Frame Number="1" Page="267" Direction="SE" />
-          <Frame Number="2" Page="268" Direction="S" />
-          <Frame Number="2" Page="269" Direction="SW" />
-          <Frame Number="2" Page="270" Direction="W" />
-          <Frame Number="2" Page="271" Direction="NW" />
-          <Frame Number="2" Page="272" Direction="N" />
-          <Frame Number="2" Page="273" Direction="NE" />
-          <Frame Number="2" Page="274" Direction="E" />
-          <Frame Number="2" Page="275" Direction="SE" />
-          <Frame Number="3" Page="276" Direction="S" />
-          <Frame Number="3" Page="277" Direction="SW" />
-          <Frame Number="3" Page="278" Direction="W" />
-          <Frame Number="3" Page="279" Direction="NW" />
-          <Frame Number="3" Page="280" Direction="N" />
-          <Frame Number="3" Page="281" Direction="NE" />
-          <Frame Number="3" Page="282" Direction="E" />
-          <Frame Number="3" Page="283" Direction="SE" />
+        <Animation Name="Moving" Directional="true" Loop="true">
+          <Frame Number="0" Page="252" />
+          <Frame Number="1" Page="260" />
+          <Frame Number="2" Page="268" />
+          <Frame Number="3" Page="276" />
         </Animation>
-        <Animation Name="Dying" Frames="5">
+        <Animation Name="Dying" >
           <Frame Number="0" Page="284" />
           <Frame Number="1" Page="285" />
           <Frame Number="2" Page="286" />
           <Frame Number="3" Page="287" />
           <Frame Number="4" Page="289" />
         </Animation>
-        <Animation Name="Dead" Frames="1">
+        <Animation Name="Dead" >
           <Frame Number="0" Page="289" />
         </Animation>
-        <Animation Name="Attack" Frames="3">
+        <Animation Name="Attack" >
           <Frame Number="0" Page="290" />
           <Frame Number="1" Page="291" />
           <Frame Number="2" Page="292" />
         </Animation>
       </Actor>
       <Actor Name="Hans">
-        <Animation Name="Standing" Frames="1">
+        <Animation Name="Standing" >
           <Frame Number="0" Page="406" />
         </Animation>
-        <Animation Name="Moving" Frames="4" Loop="true">
+        <Animation Name="Moving" Loop="true">
           <Frame Number="0" Page="402" />
           <Frame Number="1" Page="403" />
           <Frame Number="2" Page="404" />
           <Frame Number="3" Page="405" />
         </Animation>
-        <Animation Name="Attack" Frames="2" Loop="true">
+        <Animation Name="Attack" Loop="true">
           <Frame Number="0" Page="407" />
           <Frame Number="1" Page="408" />
         </Animation>
-        <Animation Name="Dead" Frames="1">
+        <Animation Name="Dead" >
           <Frame Number="0" Page="409" />
         </Animation>
-        <Animation Name="Dying" Frames="4" Loop="true">
+        <Animation Name="Dying" Loop="true">
           <Frame Number="0" Page="410" />
           <Frame Number="1" Page="411" />
           <Frame Number="2" Page="412" />
@@ -698,16 +585,16 @@
         </Animation>
       </Actor>
       <Actor Name="BJ" Human="true">
-        <Animation Name="Standing" Frames="1">
+        <Animation Name="Standing" >
           <Frame Number="0" Page="514" />
         </Animation>
-        <Animation Name="Moving" Frames="4" Loop="true">
+        <Animation Name="Moving" Loop="true">
           <Frame Number="0" Page="514" />
           <Frame Number="1" Page="515" />
           <Frame Number="2" Page="516" />
           <Frame Number="3" Page="517" />
         </Animation>
-        <Animation Name="Yeah" Frames="8">
+        <Animation Name="Yeah" >
           <Frame Number="0" Page="514" />
           <Frame Number="1" Page="515" />
           <Frame Number="2" Page="516" />
@@ -717,7 +604,7 @@
           <Frame Number="6" Page="520" />
           <Frame Number="7" Page="521" />
         </Animation>
-        <Animation Name="Knife" Frames="6">
+        <Animation Name="Knife" >
           <Frame Number="0" Page="522" />
           <Frame Number="1" Page="523" />
           <Frame Number="2" Page="524" />
@@ -725,7 +612,7 @@
           <Frame Number="4" Page="526" />
           <Frame Number="5" Page="522" />
         </Animation>
-        <Animation Name="Pistol" Frames="6">
+        <Animation Name="Pistol" >
           <Frame Number="0" Page="527" />
           <Frame Number="1" Page="528" />
           <Frame Number="2" Page="529" />
@@ -733,7 +620,7 @@
           <Frame Number="4" Page="531" />
           <Frame Number="5" Page="527" />
         </Animation>
-        <Animation Name="Machine Gun" Frames="6">
+        <Animation Name="Machine Gun" >
           <Frame Number="0" Page="537" />
           <Frame Number="1" Page="538" />
           <Frame Number="2" Page="539" />
