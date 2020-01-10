@@ -16,6 +16,8 @@ namespace WOLF3DGame
         public StaticBody StaticBody { get; private set; }
         public CollisionShape[][] CollisionShapes { get; private set; }
 
+        public bool CanWalk(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
+
         public bool CanWalk(int x, int z)
         {
             return !(x < 0 || z < 0 || x >= Map.Width || z >= Map.Depth);
@@ -23,11 +25,12 @@ namespace WOLF3DGame
 
         public Level(GameMap map)
         {
+            Map = map;
             AddChild(WorldEnvironment = new WorldEnvironment()
             {
                 Environment = new Godot.Environment()
                 {
-                    BackgroundColor = Game.Assets.Palette[map.Border],
+                    BackgroundColor = Game.Assets.Palette[Map.Border],
                     BackgroundMode = Godot.Environment.BGMode.Color,
                 },
             });
@@ -36,11 +39,11 @@ namespace WOLF3DGame
             {
                 Mesh = new QuadMesh()
                 {
-                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
+                    Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Game.Assets.Palette[map.Floor],
+                    AlbedoColor = Game.Assets.Palette[Map.Floor],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -51,9 +54,9 @@ namespace WOLF3DGame
                 Transform = new Transform(
                     Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
                     new Vector3(
-                        map.Width * Assets.HalfWallWidth,
+                        Map.Width * Assets.HalfWallWidth,
                         0f,
-                        map.Depth * Assets.HalfWallWidth
+                        Map.Depth * Assets.HalfWallWidth
                     )
                 ),
             });
@@ -62,11 +65,11 @@ namespace WOLF3DGame
             {
                 Mesh = new QuadMesh()
                 {
-                    Size = new Vector2(map.Width * Assets.WallWidth, map.Depth * Assets.WallWidth),
+                    Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Game.Assets.Palette[map.Ceiling],
+                    AlbedoColor = Game.Assets.Palette[Map.Ceiling],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -77,18 +80,18 @@ namespace WOLF3DGame
                 Transform = new Transform(
                     Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
                     new Vector3(
-                        map.Width * Assets.HalfWallWidth,
+                        Map.Width * Assets.HalfWallWidth,
                         (float)Assets.WallHeight,
-                        map.Depth * Assets.HalfWallWidth
+                        Map.Depth * Assets.HalfWallWidth
                     )
                 ),
             });
 
-            MapWalls mapWalls = new MapWalls(map);
+            MapWalls mapWalls = new MapWalls(Map);
             foreach (Spatial sprite in mapWalls.Walls)
                 AddChild(sprite);
 
-            Billboard[] billboards = Billboard.MakeBillboards(map);
+            Billboard[] billboards = Billboard.MakeBillboards(Map);
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
 

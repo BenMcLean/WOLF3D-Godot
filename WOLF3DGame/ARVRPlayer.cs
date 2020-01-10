@@ -37,7 +37,8 @@ namespace WOLF3DGame
             if (RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
                 there += forward * Assets.RunSpeed * delta;
 
-            PlayerPosition = there;
+            if (CanWalk(there))
+                PlayerPosition = there;
 
             // Joystick and keyboard rotation
             float axis0 = RightController.GetJoystickAxis(0);
@@ -73,6 +74,9 @@ namespace WOLF3DGame
         public Vector2 ARVRCameraPosition => Vector2(ARVRCamera.GlobalTransform.origin);
         public Vector2 ARVRCameraDirection => -Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
         public Vector2 ARVRCameraMovement => ARVRCameraPosition - Vector2(GlobalTransform.origin);
+
+        public delegate bool CanWalkDelegate(Vector2 there);
+        public CanWalkDelegate CanWalk { get; set; } = (Vector2 there) => true;
 
         public Vector2 PlayerPosition
         {

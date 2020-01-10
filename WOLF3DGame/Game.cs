@@ -15,6 +15,8 @@ namespace WOLF3DGame
         public MeshInstance Floor { get; set; }
         public MeshInstance Ceiling { get; set; }
 
+        public Level Level { get; set; }
+
         public bool Roomscale = false;
 
         public override void _Ready()
@@ -41,7 +43,7 @@ namespace WOLF3DGame
 
             GameMap map = Assets.Maps[0];
 
-            AddChild(new Level(map));
+            AddChild(Level = new Level(map));
 
             map.StartPosition(out ushort x, out ushort z);
             ARVRPlayer.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
@@ -50,6 +52,8 @@ namespace WOLF3DGame
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+
+            ARVRPlayer.CanWalk = Level.CanWalk;
         }
 
         public static Vector3 BillboardRotation { get; set; }

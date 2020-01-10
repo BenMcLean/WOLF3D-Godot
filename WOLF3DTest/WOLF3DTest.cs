@@ -54,7 +54,7 @@ namespace WOLF3DTest
                     );
 
             GameMap map = maps[0];
-            Console.WriteLine(map.Name + ": ");
+            Console.WriteLine("\"" + map.Name + "\", Width: " + map.Width + ", Depth: " + map.Depth);
             for (uint i = 0; i < map.MapData.Length; i++)
             {
                 Console.Write(map.MapData[i].ToString("D3"));
