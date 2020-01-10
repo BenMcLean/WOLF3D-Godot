@@ -67,16 +67,16 @@ namespace WOLF3DGame
         }
 
         public static Spatial SouthWall(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.FloatCoordinate(x), 0, Assets.FloatCoordinate(z + 1)), flipH);
 
         public static Spatial WestWall(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * z), flipH);
+            BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.FloatCoordinate(x), 0, Assets.FloatCoordinate(z + 1)), flipH);
 
         public static Spatial HorizontalDoor(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.WallWidth * x, 0, Assets.WallWidth * (z - 0.5f)), flipH);
+            BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.FloatCoordinate(x), 0, Assets.CenterSquare((int)z)), flipH);
 
         public static Spatial VerticalDoor(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.WallWidth * (x + 0.5f), 0, Assets.WallWidth * z), flipH);
+            BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.CenterSquare(x), 0, Assets.FloatCoordinate(z + 1)), flipH);
 
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd

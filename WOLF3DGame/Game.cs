@@ -17,8 +17,6 @@ namespace WOLF3DGame
 
         public Level Level { get; set; }
 
-        public bool Roomscale = false;
-
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));

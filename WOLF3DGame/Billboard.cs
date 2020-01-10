@@ -68,14 +68,14 @@ namespace WOLF3DGame
                     ))
                     billboards.Add(new Billboard(Game.Assets.VSwapMaterials[page])
                     {
-                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                     });
                 else if ((spawn = (from e in objects.Elements("Spawn")
                                    where (uint)e.Attribute("Number") == map.ObjectData[i]
                                    select e).FirstOrDefault()) != null)
                     billboards.Add(new Actor()
                     {
-                        GlobalTransform = new Transform(Basis.Identity, new Vector3((map.X(i) + 0.5f) * Assets.WallWidth, 0f, (map.Z(i) - 0.5f) * Assets.WallWidth)),
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                         Direction = Direction8.From(spawn.Attribute("Direction").Value),
                         ActorName = spawn.Attribute("Actor").Value,
                     });
