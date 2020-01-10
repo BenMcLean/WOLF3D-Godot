@@ -58,32 +58,6 @@ namespace WOLF3DGame
         {
             base._Process(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
-
-            Vector3 forward = ARVRPlayer.ARVRCamera.GlobalTransform.basis.z * -1f;
-            forward.y = 0f;
-            forward = forward.Normalized();
-            if (ARVRPlayer.RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
-                ARVRPlayer.Translation += forward * Assets.RunSpeed * delta;
-
-            float axis0 = ARVRPlayer.RightController.GetJoystickAxis(0);
-            if (Input.IsKeyPressed((int)KeyList.Left))
-                axis0 -= 1;
-            if (Input.IsKeyPressed((int)KeyList.Right))
-                axis0 += 1;
-
-            if (Mathf.Abs(axis0) > Assets.DeadZone)
-            {
-                Vector3 origHeadPos = ARVRPlayer.ARVRCamera.GlobalTransform.origin;
-                ARVRPlayer.ARVROrigin.Rotate(Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
-                ARVRPlayer.ARVROrigin.GlobalTransform = new Transform(ARVRPlayer.ARVROrigin.GlobalTransform.basis, ARVRPlayer.ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRPlayer.ARVRCamera.GlobalTransform.origin).Orthonormalized();
-            }
-            ARVRPlayer.ARVROrigin.GlobalTransform = new Transform(ARVRPlayer.ARVROrigin.GlobalTransform.basis, new Vector3(
-                ARVRPlayer.ARVROrigin.GlobalTransform.origin.x,
-                Roomscale ?
-                0f
-                : (float)Assets.HalfWallHeight - ARVRPlayer.ARVRCamera.Transform.origin.y,
-                ARVRPlayer.ARVROrigin.GlobalTransform.origin.z
-                ));
         }
 
         public override void _Input(InputEvent @event)
@@ -101,28 +75,13 @@ namespace WOLF3DGame
 
         public void print()
         {
-            Vector2 playerPosition = PlayerPosition;
+            Vector2 playerPosition = ARVRPlayer.PlayerPosition;
             GD.Print("You are at: " +
                 playerPosition.x + ", " + playerPosition.y +
                 " which is map coordinate " +
                 Assets.IntCoordinate(playerPosition.x) + ", " + Assets.IntCoordinate(playerPosition.y) +
                 " and the center of that square is " +
                 Assets.CenterSquare(Assets.IntCoordinate(playerPosition.x)) + ", " + Assets.CenterSquare(Assets.IntCoordinate(playerPosition.y))
-                );
-        }
-
-        public Vector2 PlayerPosition
-        {
-            get => new Vector2(ARVRPlayer.ARVRCamera.GlobalTransform.origin.x, ARVRPlayer.ARVRCamera.GlobalTransform.origin.z);
-            set => ARVRPlayer.GlobalTransform = new Transform(
-                    ARVRPlayer.GlobalTransform.basis,
-                    new Vector3(
-                        value.x,
-                        Roomscale ?
-                        0f
-                        : (float)Assets.HalfWallHeight - ARVRPlayer.ARVRCamera.Transform.origin.y,
-                        value.y
-                    )
                 );
         }
 

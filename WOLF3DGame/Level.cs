@@ -16,6 +16,11 @@ namespace WOLF3DGame
         public StaticBody StaticBody { get; private set; }
         public CollisionShape[][] CollisionShapes { get; private set; }
 
+        public bool CanWalk(int x, int z)
+        {
+            return !(x < 0 || z < 0 || x >= Map.Width || z >= Map.Depth);
+        }
+
         public Level(GameMap map)
         {
             AddChild(WorldEnvironment = new WorldEnvironment()
