@@ -5,7 +5,7 @@ namespace WOLF3DGame
 {
     public class ARVRPlayer : KinematicBody
     {
-        public bool Roomscale { get; set; } = false;
+        public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
