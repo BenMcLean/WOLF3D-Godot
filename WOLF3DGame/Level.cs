@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
 
@@ -18,10 +19,9 @@ namespace WOLF3DGame
 
         public bool CanWalk(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
 
-        public bool CanWalk(int x, int z)
-        {
-            return !(x < 0 || z < 0 || x >= Map.Width || z >= Map.Depth);
-        }
+        public bool CanWalk(int x, int z) =>
+            !(x < 0 || z < 0 || x >= Map.Width || z >= Map.Depth) &&
+            (CollisionShapes[x][z]?.Disabled ?? true);
 
         public Level(GameMap map)
         {
@@ -106,10 +106,20 @@ namespace WOLF3DGame
                         {
                             Name = "CollisionShape at " + x + ", " + z,
                             Shape = Assets.BoxShape,
-                            Disabled = false,
+                            Disabled = !IsWall(Map.GetMapData(x, z)),
                             Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
                         });
             }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int sx = 0; sx < Map.Width; sx++)
+            {
+                for (int sz = Map.Depth - 1; sz >= 0; sz--)
+                    stringBuilder.Append(CollisionShapes[sx][sz] == null ? " " :
+                        CollisionShapes[sx][sz].Disabled ? "_" : "X");
+                stringBuilder.Append("\n");
+            }
+            GD.Print(stringBuilder.ToString());
         }
 
         public bool IsWall(ushort x, ushort z) => IsWall(Map.GetMapData(x, z));
@@ -121,8 +131,8 @@ namespace WOLF3DGame
         {
             ushort startX = x < 1 ? x : x > Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x - 1),
                 startZ = z < 1 ? z : z > Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z - 1),
-                endX = x > Map.Width - 1 ? (ushort)(Map.Width - 1) : x,
-                endZ = z > Map.Depth - 1 ? (ushort)(Map.Depth - 1) : z;
+                endX = x >= Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x + 1),
+                endZ = z >= Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z + 1);
             for (ushort dx = startX; dx <= endX; dx++)
                 for (ushort dz = startZ; dz <= endZ; dz++)
                     if ((dx != x || dz != z) && !IsWall(Map.GetMapData(dx, dz)))
