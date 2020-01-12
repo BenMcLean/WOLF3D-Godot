@@ -5,6 +5,7 @@ namespace WOLF3DGame
 {
     public class ARVRPlayer : KinematicBody
     {
+        public const float ds = Assets.PixelWidth * 2f;
         public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
@@ -26,6 +27,41 @@ namespace WOLF3DGame
             {
                 Current = true,
             });
+
+            ARVROrigin.AddChild(new MeshInstance()
+            {
+                Mesh = new CubeMesh()
+                {
+                    Size = new Vector3(ds, ds, ds),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Color.Color8(255, 165, 0, 255), // Orange
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+            });
+            AddChild(new MeshInstance()
+            {
+                Mesh = new CubeMesh()
+                {
+                    Size = new Vector3(ds, ds, ds),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Color.Color8(255, 0, 255, 255), // Purple
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+            });
         }
 
         public override void _PhysicsProcess(float delta)
@@ -40,19 +76,6 @@ namespace WOLF3DGame
             if (CanWalk(there))
                 PlayerPosition = there;
 
-            // Joystick and keyboard rotation
-            float axis0 = RightController.GetJoystickAxis(0);
-            if (Input.IsKeyPressed((int)KeyList.Left))
-                axis0 -= 1;
-            if (Input.IsKeyPressed((int)KeyList.Right))
-                axis0 += 1;
-            if (Mathf.Abs(axis0) > Assets.DeadZone)
-            {
-                Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
-                ARVROrigin.Rotate(Godot.Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
-                ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
-            }
-
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
                 ARVROrigin.Transform.basis,
@@ -62,6 +85,22 @@ namespace WOLF3DGame
                     -ARVRCamera.Transform.origin.z
                 )
             );
+
+            // Joystick and keyboard rotation
+            float axis0 = RightController.GetJoystickAxis(0);
+            if (Input.IsKeyPressed((int)KeyList.Left))
+                axis0 -= 1;
+            if (Input.IsKeyPressed((int)KeyList.Right))
+                axis0 += 1;
+            if (Mathf.Abs(axis0) > Assets.DeadZone)
+                Rotate(Godot.Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
+            /*
+            {
+                Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
+                ARVROrigin.Rotate(Godot.Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
+                ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
+            }
+            */
         }
 
         public float Height => Roomscale ?

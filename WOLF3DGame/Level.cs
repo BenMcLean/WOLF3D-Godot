@@ -1,8 +1,6 @@
 ﻿using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
 
@@ -110,16 +108,6 @@ namespace WOLF3DGame
                             Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
                         });
             }
-
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int sx = 0; sx < Map.Width; sx++)
-            {
-                for (int sz = Map.Depth - 1; sz >= 0; sz--)
-                    stringBuilder.Append(CollisionShapes[sx][sz] == null ? " " :
-                        CollisionShapes[sx][sz].Disabled ? "_" : "X");
-                stringBuilder.Append("\n");
-            }
-            GD.Print(stringBuilder.ToString());
         }
 
         public bool IsWall(ushort x, ushort z) => IsWall(Map.GetMapData(x, z));
