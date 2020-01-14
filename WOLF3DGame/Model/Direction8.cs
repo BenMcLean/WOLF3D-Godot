@@ -92,6 +92,9 @@ namespace WOLF3DGame.Model
             Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
         public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
+        public static readonly ReadOnlyCollection<Direction8> Cardinals = Array.AsReadOnly(new Direction8[] { WEST, NORTH, EAST, SOUTH });
+        public static readonly ReadOnlyCollection<Direction8> Diagonals = Array.AsReadOnly(new Direction8[] { NORTHWEST, NORTHEAST, SOUTHEAST, SOUTHWEST });
+
         public uint Value { get; private set; }
         public int X { get; private set; }
         public const int Y = 0;

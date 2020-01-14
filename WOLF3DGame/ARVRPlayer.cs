@@ -5,7 +5,9 @@ namespace WOLF3DGame
 {
     public class ARVRPlayer : KinematicBody
     {
-        public const float ds = Assets.PixelWidth * 2f;
+        public const float HeadXZ = Assets.PixelWidth * 2f;
+        public static readonly float HeadDiagonal = Mathf.Sqrt(Mathf.Pow(HeadXZ, 2) * 2f); // Pythagorean theorem
+
         public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
@@ -32,7 +34,7 @@ namespace WOLF3DGame
             {
                 Mesh = new CubeMesh()
                 {
-                    Size = new Vector3(ds, ds, ds),
+                    Size = new Vector3(HeadXZ, HeadXZ, HeadXZ),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
@@ -49,7 +51,7 @@ namespace WOLF3DGame
             {
                 Mesh = new CubeMesh()
                 {
-                    Size = new Vector3(ds, ds, ds),
+                    Size = new Vector3(HeadXZ, HeadXZ, HeadXZ),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
@@ -73,7 +75,7 @@ namespace WOLF3DGame
             if (RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
                 there += forward * Assets.RunSpeed * delta;
 
-            if (CanWalk(there))
+            if (CanReallyWalk(there))
                 PlayerPosition = there;
 
             // Move ARVROrigin so that camera global position matches player global position
@@ -116,6 +118,14 @@ namespace WOLF3DGame
 
         public delegate bool CanWalkDelegate(Vector2 there);
         public CanWalkDelegate CanWalk { get; set; } = (Vector2 there) => true;
+
+        public bool CanReallyWalk(Vector2 there)
+        {
+            foreach (Direction8 direction in Direction8.Diagonals)
+                if (!CanWalk(there + direction.Vector2 * HeadDiagonal))
+                    return false;
+            return CanWalk(there);
+        }
 
         public Vector2 PlayerPosition
         {
