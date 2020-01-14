@@ -315,7 +315,7 @@
       <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="N" Lock="Gold Key" />
       <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="E" Lock="Silver Key" />
       <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="N" Lock="Silver Key" />
-      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction ="E" />
+      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="E" />
       <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="N" />
       <Special Number="106" Walk="true" Name="Deaf Guard" />
       <Exit Number="107" Name="Elevator to Secret Floor" />

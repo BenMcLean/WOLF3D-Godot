@@ -99,12 +99,12 @@ namespace WOLF3DGame
             {
                 CollisionShapes[x] = new CollisionShape[Map.Depth];
                 for (ushort z = 0; z < Map.Depth; z++)
-                    if (!IsWall(Map.GetMapData(x, z)) || IsByFloor(x, z))
+                    if (!IsWall(x, z) || IsByFloor(x, z))
                         StaticBody.AddChild(CollisionShapes[x][z] = new CollisionShape()
                         {
                             Name = "CollisionShape at " + x + ", " + z,
                             Shape = Assets.BoxShape,
-                            Disabled = !IsWall(Map.GetMapData(x, z)),
+                            Disabled = !(IsWall(x, z) || !IsNavigable(x, z)),
                             Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
                         });
             }
@@ -113,6 +113,16 @@ namespace WOLF3DGame
         public bool IsWall(ushort x, ushort z) => IsWall(Map.GetMapData(x, z));
 
         public static bool IsWall(uint cell) => XWall(cell).Any();
+
+        public bool IsNavigable(ushort x, ushort z) => IsNavigable(Map.GetObjectData(x, z));
+
+        public static bool IsNavigable(uint cell)
+        {
+            XElement mapObject = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
+                                  where (uint)e.Attribute("Number") == cell
+                                  select e).FirstOrDefault();
+            return mapObject == null || Assets.IsTrue(mapObject, "Walk");
+        }
 
         /// <returns>if the specified map coordinate is adjacent to a floor</returns>
         public bool IsByFloor(ushort x, ushort z)
@@ -123,7 +133,7 @@ namespace WOLF3DGame
                 endZ = z >= Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z + 1);
             for (ushort dx = startX; dx <= endX; dx++)
                 for (ushort dz = startZ; dz <= endZ; dz++)
-                    if ((dx != x || dz != z) && !IsWall(Map.GetMapData(dx, dz)))
+                    if ((dx != x || dz != z) && !IsWall(dx, dz))
                         return true;
             return false;
         }
