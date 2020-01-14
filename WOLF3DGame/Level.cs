@@ -138,6 +138,27 @@ namespace WOLF3DGame
             return false;
         }
 
+        public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
+
+        public List<ushort> SquaresOccupied(Vector2 vector2)
+        {
+            List<ushort> list = new List<ushort>();
+            void add(Vector2 here)
+            {
+                int x = Assets.IntCoordinate(here.x), z = Assets.IntCoordinate(here.y);
+                if (x >= 0 && z >= 0 && x < Map.Depth && z < Map.Width)
+                {
+                    ushort square = Map.GetIndex((uint)x, (uint)z);
+                    if (!list.Contains(square))
+                        list.Add(square);
+                }
+            }
+            add(vector2);
+            foreach (Direction8 direction in Direction8.Diagonals)
+                add(vector2 + direction.Vector2 * Assets.HeadDiagonal);
+            return list;
+        }
+
         public static uint WallTexture(uint cell) =>
             (uint)XWall(cell).FirstOrDefault()?.Attribute("Page");
 

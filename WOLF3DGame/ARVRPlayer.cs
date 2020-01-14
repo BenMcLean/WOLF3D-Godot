@@ -1,13 +1,12 @@
 ﻿using Godot;
+using System.Collections;
+using System.Collections.Generic;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
     public class ARVRPlayer : KinematicBody
     {
-        public const float HeadXZ = Assets.PixelWidth * 2f;
-        public static readonly float HeadDiagonal = Mathf.Sqrt(Mathf.Pow(HeadXZ, 2) * 2f); // Pythagorean theorem
-
         public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
@@ -34,7 +33,7 @@ namespace WOLF3DGame
             {
                 Mesh = new CubeMesh()
                 {
-                    Size = new Vector3(HeadXZ, HeadXZ, HeadXZ),
+                    Size = new Vector3(Assets.HeadXZ, Assets.HeadXZ, Assets.HeadXZ),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
@@ -51,7 +50,7 @@ namespace WOLF3DGame
             {
                 Mesh = new CubeMesh()
                 {
-                    Size = new Vector3(HeadXZ, HeadXZ, HeadXZ),
+                    Size = new Vector3(Assets.HeadXZ, Assets.HeadXZ, Assets.HeadXZ),
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
@@ -109,12 +108,10 @@ namespace WOLF3DGame
             0f
             : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
 
-        public static Vector2 Vector2(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
-        public static Vector3 Vector3(Vector2 vector2) => new Vector3(vector2.x, 0f, vector2.y);
-        public Vector2 ARVROriginPosition => Vector2(ARVROrigin.GlobalTransform.origin);
-        public Vector2 ARVRCameraPosition => Vector2(ARVRCamera.GlobalTransform.origin);
-        public Vector2 ARVRCameraDirection => -Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
-        public Vector2 ARVRCameraMovement => ARVRCameraPosition - Vector2(GlobalTransform.origin);
+        public Vector2 ARVROriginPosition => Assets.Vector2(ARVROrigin.GlobalTransform.origin);
+        public Vector2 ARVRCameraPosition => Assets.Vector2(ARVRCamera.GlobalTransform.origin);
+        public Vector2 ARVRCameraDirection => -Assets.Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
+        public Vector2 ARVRCameraMovement => ARVRCameraPosition - Assets.Vector2(GlobalTransform.origin);
 
         public delegate bool CanWalkDelegate(Vector2 there);
         public CanWalkDelegate CanWalk { get; set; } = (Vector2 there) => true;
@@ -122,14 +119,14 @@ namespace WOLF3DGame
         public bool CanReallyWalk(Vector2 there)
         {
             foreach (Direction8 direction in Direction8.Diagonals)
-                if (!CanWalk(there + direction.Vector2 * HeadDiagonal))
+                if (!CanWalk(there + direction.Vector2 * Assets.HeadDiagonal))
                     return false;
             return CanWalk(there);
         }
 
         public Vector2 PlayerPosition
         {
-            get => Vector2(GlobalTransform.origin);
+            get => Assets.Vector2(GlobalTransform.origin);
             set => GlobalTransform = new Transform(
                     GlobalTransform.basis,
                     new Vector3(

@@ -1,6 +1,7 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
 using OPL;
+using System.Text;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
@@ -14,7 +15,6 @@ namespace WOLF3DGame
         public CollisionShape PlayerHead { get; set; }
         public MeshInstance Floor { get; set; }
         public MeshInstance Ceiling { get; set; }
-
         public Level Level { get; set; }
 
         public override void _Ready()
@@ -77,14 +77,14 @@ namespace WOLF3DGame
 
         public void print()
         {
-            Vector2 playerPosition = ARVRPlayer.PlayerPosition;
-            GD.Print("You are at: " +
-                playerPosition.x + ", " + playerPosition.y +
-                " which is map coordinate " +
-                Assets.IntCoordinate(playerPosition.x) + ", " + Assets.IntCoordinate(playerPosition.y) +
-                " and the center of that square is " +
-                Assets.CenterSquare(Assets.IntCoordinate(playerPosition.x)) + ", " + Assets.CenterSquare(Assets.IntCoordinate(playerPosition.y))
-                );
+            StringBuilder stringBuilder = new StringBuilder().Append("Squares occupied: {");
+            foreach (ushort square in Level.SquaresOccupied(ARVRPlayer.PlayerPosition))
+                stringBuilder.Append("[")
+                    .Append(Level.Map.X(square))
+                    .Append(", ")
+                    .Append(Level.Map.Z(square))
+                    .Append("] ");
+            GD.Print(stringBuilder.Append("}").ToString());
         }
 
         public Game PlayASound()

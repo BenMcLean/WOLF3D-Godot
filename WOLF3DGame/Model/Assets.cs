@@ -44,7 +44,7 @@ namespace WOLF3DGame.Model
         public const double WallHeight = 2.92608;
         public const double HalfWallHeight = 1.46304;
         public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
-        public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Vector3.Up, Mathf.Pi), WallTransform.origin);
+        public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Godot.Vector3.Up, Mathf.Pi), WallTransform.origin);
         public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
@@ -67,17 +67,26 @@ namespace WOLF3DGame.Model
 
         public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);
 
+        /// <summary>
+        /// This value is used to determine how big the player's head is for collision detection
+        /// </summary>
+        public const float HeadXZ = PixelWidth * 2f;
+        public static readonly float HeadDiagonal = Mathf.Sqrt(Mathf.Pow(HeadXZ, 2) * 2f); // Pythagorean theorem
+
+        public static Vector2 Vector2(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
+        public static Vector3 Vector3(Vector2 vector2) => new Vector3(vector2.x, 0f, vector2.y);
+
         public static Vector3 Axis(Vector3.Axis axis)
         {
             switch (axis)
             {
-                case Vector3.Axis.X:
+                case Godot.Vector3.Axis.X:
                     return Rotate90;
-                case Vector3.Axis.Y:
-                    return Vector3.Up;
-                case Vector3.Axis.Z:
+                case Godot.Vector3.Axis.Y:
+                    return Godot.Vector3.Up;
+                case Godot.Vector3.Axis.Z:
                 default:
-                    return Vector3.Zero;
+                    return Godot.Vector3.Zero;
             }
         }
         #endregion Math
