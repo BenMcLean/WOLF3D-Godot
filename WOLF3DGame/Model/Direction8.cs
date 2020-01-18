@@ -149,7 +149,7 @@ namespace WOLF3DGame.Model
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
         public float Angle => Mathf.Atan2(-Vector2.x, -Vector2.y);
-        public Basis Basis => new Basis(Vector3.Up, Angle);
+        public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
         public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
         public static Direction8 PositiveAngle(float angle) =>
             angle < Mathf.Tau / 16f ? SOUTH

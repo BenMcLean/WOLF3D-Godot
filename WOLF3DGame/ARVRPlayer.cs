@@ -29,6 +29,7 @@ namespace WOLF3DGame
                 Current = true,
             });
 
+            /*
             ARVROrigin.AddChild(new MeshInstance()
             {
                 Mesh = new CubeMesh()
@@ -63,16 +64,58 @@ namespace WOLF3DGame
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                 },
             });
+            */
         }
+
+        public static float Strength(float input) =>
+            Mathf.Abs(input) < Assets.DeadZone ? 0f
+            : (Mathf.Abs(input) - Assets.DeadZone) / (1f - Assets.DeadZone) * Mathf.Sign(input);
 
         public override void _PhysicsProcess(float delta)
         {
-            Vector2 here = PlayerPosition, // where we are
-                there = ARVRCameraPosition, // where we're going
-                forward = ARVRCameraDirection; // which way we're facing
+            Vector2 there = ARVRCameraPosition, // where we're going
+                forward = ARVRCameraDirection, // which way we're facing
+                movement = Vector2.Zero; // movement vector from joystick and keyboard input
+            bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
+            if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
+            { // Don't want to move this way if both keys are pressed at once.
+                if (Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
+                {
+                    movement += forward;
+                    keyPressed = true;
+                }
+                if (Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S))
+                {
+                    movement += forward.Rotated(Mathf.Pi);
+                    keyPressed = true;
+                }
+            }
+            if (!Input.IsKeyPressed((int)KeyList.A) || !Input.IsKeyPressed((int)KeyList.D))
+            { // Don't want to move this way if both keys are pressed at once.
+                if (Input.IsKeyPressed((int)KeyList.A))
+                {
+                    movement += forward.Rotated(Mathf.Pi / -2f);
+                    keyPressed = true;
+                }
+                if (Input.IsKeyPressed((int)KeyList.D))
+                {
+                    movement += forward.Rotated(Mathf.Pi / 2f);
+                    keyPressed = true;
+                }
+            }
+            if (keyPressed)
+                movement = movement.Normalized();
+            else
+            {
+                Vector2 joystick = new Vector2(LeftController.GetJoystickAxis(1), LeftController.GetJoystickAxis(0));
+                float strength = Strength(joystick.Length());
+                if (Mathf.Abs(strength) > 1)
+                    strength = Mathf.Sign(strength);
+                if (Mathf.Abs(strength) > float.Epsilon)
+                    movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
+            }
 
-            if (RightController.GetJoystickAxis(1) > Assets.DeadZone || Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
-                there += forward * Assets.RunSpeed * delta;
+            there += movement * delta * (Shift ? Assets.WalkSpeed : Assets.RunSpeed);
 
             if (CanReallyWalk(there))
                 PlayerPosition = there;
@@ -88,13 +131,13 @@ namespace WOLF3DGame
             );
 
             // Joystick and keyboard rotation
-            float axis0 = RightController.GetJoystickAxis(0);
+            float axis0 = -Strength(RightController.GetJoystickAxis(0));
             if (Input.IsKeyPressed((int)KeyList.Left))
-                axis0 -= 1;
-            if (Input.IsKeyPressed((int)KeyList.Right))
                 axis0 += 1;
-            if (Mathf.Abs(axis0) > Assets.DeadZone)
-                Rotate(Godot.Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
+            if (Input.IsKeyPressed((int)KeyList.Right))
+                axis0 -= 1;
+            if (Mathf.Abs(axis0) > float.Epsilon)
+                Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
             /*
             {
                 Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
@@ -103,6 +146,8 @@ namespace WOLF3DGame
             }
             */
         }
+
+        public static bool Shift => Input.IsKeyPressed((int)KeyList.Shift);
 
         public float Height => Roomscale ?
             0f
