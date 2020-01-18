@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
@@ -185,21 +186,26 @@ namespace WOLF3DGame
         public static bool IsDoor(uint cell) =>
             XDoor(cell).Any();
 
-        public bool StartPosition(out ushort cell, out Direction8 direction)
+        public Transform StartTransform =>
+            Start(out ushort index, out Direction8 direction) ?
+            new Transform(direction.Basis, new Vector3(Assets.CenterSquare(Map.X(index)), 0f, Assets.CenterSquare(Map.Z(index))))
+            : throw new InvalidDataException("Could not find start of level!");
+
+        public bool Start(out ushort index, out Direction8 direction)
         {
             foreach (XElement start in Game.Assets?.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
             {
                 if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
                     continue;
-                int index = Array.FindIndex(Map.ObjectData, o => o == find);
-                if (index > -1)
+                int found = Array.FindIndex(Map.ObjectData, o => o == find);
+                if (found > -1)
                 {
-                    cell = (ushort)index;
+                    index = (ushort)found;
                     direction = Direction8.From(start.Attribute("Direction"));
                     return true;
                 }
             }
-            cell = 0;
+            index = 0;
             direction = null;
             return false;
         }

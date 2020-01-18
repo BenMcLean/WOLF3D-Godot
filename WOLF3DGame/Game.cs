@@ -47,19 +47,7 @@ namespace WOLF3DGame
 
             AddChild(Level = new Level(map));
 
-            if (Level.StartPosition(out ushort cell, out Direction8 direction))
-                ARVRPlayer.GlobalTransform = new Transform(
-                    direction.Basis,
-                    new Vector3(
-                        Assets.CenterSquare(Level.Map.X(cell)),
-                        0f,
-                        Assets.CenterSquare(Level.Map.Z(cell))
-                    ));
-            else
-            {
-                GD.Print("Couldn't find start position!");
-                GetTree().Quit();
-            }
+            ARVRPlayer.GlobalTransform = Level.StartTransform;
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];

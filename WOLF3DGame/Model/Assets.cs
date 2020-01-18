@@ -70,7 +70,7 @@ namespace WOLF3DGame.Model
         /// <summary>
         /// This value is used to determine how big the player's head is for collision detection
         /// </summary>
-        public const float HeadXZ = PixelWidth * 2f;
+        public const float HeadXZ = PixelWidth * 3f;
         public static readonly float HeadDiagonal = Mathf.Sqrt(Mathf.Pow(HeadXZ, 2) * 2f); // Pythagorean theorem
 
         public static Vector2 Vector2(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
