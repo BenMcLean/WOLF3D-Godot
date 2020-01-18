@@ -22,8 +22,9 @@ namespace WOLF3DGame
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(ARVRPlayer = new ARVRPlayer()
             {
-                Roomscale = false,
-            });
+                //Roomscale = false,
+            }
+            );
             ARVRPlayer.LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
             ARVRPlayer.RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
             ARVRPlayer.ARVRCamera.AddChild(PlayerHead = new CollisionShape()
@@ -48,7 +49,7 @@ namespace WOLF3DGame
 
             if (Level.StartPosition(out ushort cell, out Direction8 direction))
                 ARVRPlayer.GlobalTransform = new Transform(
-                    new Basis(Vector3.Up, direction.Angle),
+                    direction.Basis,
                     new Vector3(
                         Assets.CenterSquare(Level.Map.X(cell)),
                         0f,
@@ -59,7 +60,6 @@ namespace WOLF3DGame
                 GD.Print("Couldn't find start position!");
                 GetTree().Quit();
             }
-
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
