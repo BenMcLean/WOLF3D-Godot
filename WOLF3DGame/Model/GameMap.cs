@@ -48,22 +48,6 @@ namespace WOLF3DGame.Model
         public ushort GetOtherData(uint x, uint z) => GetOtherData((ushort)x, (ushort)z);
         public ushort GetOtherData(ushort x, ushort z) => OtherData[GetIndex(x, z)];
 
-        public GameMap StartPosition(out ushort x, out ushort z)
-        {
-            //19,"Start position/North",
-            //20,"Start position/East",
-            //21,"Start position/South",
-            //22,"Start position/West",
-            for (uint i = 0; i < ObjectData.Length; i++)
-                if (ObjectData[i] >= 19 && ObjectData[i] <= 22)
-                {
-                    x = (ushort)(i / Width);
-                    z = (ushort)(i % Depth);
-                    return this;
-                }
-            throw new InvalidDataException("Map \"" + Name + "\" has no starting position!");
-        }
-
         public static long[] ParseMapHead(Stream stream)
         {
             List<long> offsets = new List<long>();

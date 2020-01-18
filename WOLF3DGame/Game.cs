@@ -20,7 +20,10 @@ namespace WOLF3DGame
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(ARVRPlayer = new ARVRPlayer());
+            AddChild(ARVRPlayer = new ARVRPlayer()
+            {
+                Roomscale = false,
+            });
             ARVRPlayer.LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
             ARVRPlayer.RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
             ARVRPlayer.ARVRCamera.AddChild(PlayerHead = new CollisionShape()
@@ -43,8 +46,22 @@ namespace WOLF3DGame
 
             AddChild(Level = new Level(map));
 
-            map.StartPosition(out ushort x, out ushort z);
-            ARVRPlayer.GlobalTranslate(new Vector3((x + 0.5f) * Assets.WallWidth, 0f, (z + 4.5f) * Assets.WallWidth));
+            if (Level.StartPosition(out ushort cell, out Direction8 direction))
+            {
+                GD.Print("Map: " + Level.Map.Width + ", " + Level.Map.Depth);
+                GD.Print("Found start position: " + cell + " which is " + Level.Map.X(cell) + ", " + Level.Map.Z(cell));
+                ARVRPlayer.GlobalTranslate(new Vector3(
+                    Assets.CenterSquare(Level.Map.X(cell)),
+                    0f,
+                    Assets.CenterSquare(Level.Map.Z(cell))
+                    ));
+            }
+            else
+            {
+                GD.Print("Couldn't find start position!");
+                GetTree().Quit();
+            }
+
 
             //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
@@ -52,6 +69,16 @@ namespace WOLF3DGame
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 
             ARVRPlayer.CanWalk = Level.CanWalk;
+
+            //StringBuilder stringBuilder = new StringBuilder();
+            //for (int sx = 0; sx < Level.Map.Width; sx++)
+            //{
+            //    for (int sz = Level.Map.Depth - 1; sz >= 0; sz--)
+            //        stringBuilder.Append(Level.CollisionShapes[sx][sz] == null ? " " :
+            //        Level.CollisionShapes[sx][sz].Disabled ? "_" : "X");
+            //    stringBuilder.Append("\n");
+            //}
+            //GD.Print(stringBuilder.ToString());
         }
 
         public static Vector3 BillboardRotation { get; set; }

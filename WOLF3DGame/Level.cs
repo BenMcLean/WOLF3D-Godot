@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -183,5 +184,24 @@ namespace WOLF3DGame
 
         public static bool IsDoor(uint cell) =>
             XDoor(cell).Any();
+
+        public bool StartPosition(out ushort cell, out Direction8 direction)
+        {
+            foreach (XElement start in Game.Assets?.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
+            {
+                if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
+                    continue;
+                int index = Array.FindIndex(Map.ObjectData, o => o == find);
+                if (index > -1)
+                {
+                    cell = (ushort)index;
+                    direction = Direction8.From(start.Attribute("Direction"));
+                    return true;
+                }
+            }
+            cell = 0;
+            direction = null;
+            return false;
+        }
     }
 }

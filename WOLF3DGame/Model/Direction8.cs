@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace WOLF3DGame.Model
 {
@@ -158,6 +159,7 @@ namespace WOLF3DGame.Model
             : angle < Mathf.Tau * 13f / 16f ? EAST
             : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
             : SOUTH;
+        public static Direction8 From(XAttribute xAttribute) => From(xAttribute.Value);
         public static Direction8 From(string @string) =>
             int.TryParse(@string, out int result) ?
                 From(result)

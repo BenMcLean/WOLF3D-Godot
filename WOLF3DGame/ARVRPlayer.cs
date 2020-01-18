@@ -79,7 +79,7 @@ namespace WOLF3DGame
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
-                ARVROrigin.Transform.basis,
+                ARVROrigin.Transform.basis.Orthonormalized(),
                 new Vector3(
                     -ARVRCamera.Transform.origin.x,
                     Height,
