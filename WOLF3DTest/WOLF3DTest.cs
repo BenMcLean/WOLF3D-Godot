@@ -166,9 +166,9 @@ namespace WOLF3DTest
             foreach (Direction8 direction8 in Direction8.Values)
             {
                 float angle = Vector2.Zero.AngleToPoint(direction8.Vector2);
-                Console.WriteLine("From zero to (" + direction8.Vector2.x + ", " + direction8.Vector2.y + ") would be " + angle + " radians which is " + Direction8.Angle(angle));
-                Assert.AreEqual(direction8, Direction8.Angle(angle));
-                Assert.AreEqual(Direction8.Angle(angle), Direction8.AngleToPoint(direction8.Vector2.x, direction8.Vector2.y));
+                Console.WriteLine("From zero to (" + direction8.Vector2.x + ", " + direction8.Vector2.y + ") would be " + angle + " radians which is " + Direction8.FromAngle(angle));
+                Assert.AreEqual(direction8, Direction8.FromAngle(angle));
+                Assert.AreEqual(Direction8.FromAngle(angle), Direction8.AngleToPoint(direction8.Vector2.x, direction8.Vector2.y));
             }
         }
     }

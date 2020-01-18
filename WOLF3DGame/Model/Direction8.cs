@@ -140,15 +140,16 @@ namespace WOLF3DGame.Model
         public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
-        public static Direction8 From(Vector3 vector3) => Angle(Mathf.Atan2(vector3.x, vector3.z));
-        public static Direction8 From(Vector2 vector2) => Angle(vector2.Angle());
+        public static Direction8 From(Vector3 vector3) => FromAngle(Mathf.Atan2(vector3.x, vector3.z));
+        public static Direction8 From(Vector2 vector2) => FromAngle(vector2.Angle());
         public static Direction8 AngleToPoint(Vector2 vector2) => AngleToPoint(Vector2.Zero, vector2);
         public static Direction8 AngleToPoint(Vector2 a, Vector2 b) => AngleToPoint(a.x, a.y, b.x, b.y);
         public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
         public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
-        public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => Angle(Mathf.Atan2(y1 - y2, x1 - x2));
-        public static Direction8 Angle(float angle) => PositiveAngle(angle + Mathf.Pi);
+        public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
+        public float Angle => Mathf.Atan2(-Vector2.x, -Vector2.y);
+        public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
         public static Direction8 PositiveAngle(float angle) =>
             angle < Mathf.Tau / 16f ? SOUTH
             : angle < Mathf.Tau * 3f / 16f ? SOUTHWEST

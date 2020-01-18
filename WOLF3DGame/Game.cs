@@ -42,20 +42,18 @@ namespace WOLF3DGame
                 Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
             });
 
-            GameMap map = Assets.Maps[0];
+            GameMap map = Assets.Maps[8];
 
             AddChild(Level = new Level(map));
 
             if (Level.StartPosition(out ushort cell, out Direction8 direction))
-            {
-                GD.Print("Map: " + Level.Map.Width + ", " + Level.Map.Depth);
-                GD.Print("Found start position: " + cell + " which is " + Level.Map.X(cell) + ", " + Level.Map.Z(cell));
-                ARVRPlayer.GlobalTranslate(new Vector3(
-                    Assets.CenterSquare(Level.Map.X(cell)),
-                    0f,
-                    Assets.CenterSquare(Level.Map.Z(cell))
+                ARVRPlayer.GlobalTransform = new Transform(
+                    new Basis(Vector3.Up, direction.Angle),
+                    new Vector3(
+                        Assets.CenterSquare(Level.Map.X(cell)),
+                        0f,
+                        Assets.CenterSquare(Level.Map.Z(cell))
                     ));
-            }
             else
             {
                 GD.Print("Couldn't find start position!");
