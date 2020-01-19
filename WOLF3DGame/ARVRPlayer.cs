@@ -107,7 +107,7 @@ namespace WOLF3DGame
                 movement = movement.Normalized();
             else
             {
-                Vector2 joystick = new Vector2(LeftController.GetJoystickAxis(1), LeftController.GetJoystickAxis(0));
+                Vector2 joystick = new Vector2(LeftController.GetJoystickAxis(1) + RightController.GetJoystickAxis(1), LeftController.GetJoystickAxis(0));
                 float strength = Strength(joystick.Length());
                 if (Mathf.Abs(strength) > 1)
                     strength = Mathf.Sign(strength);
