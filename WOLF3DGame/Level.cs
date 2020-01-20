@@ -14,14 +14,13 @@ namespace WOLF3DGame
         public WorldEnvironment WorldEnvironment { get; private set; }
         public MeshInstance Floor { get; private set; }
         public MeshInstance Ceiling { get; private set; }
-        public StaticBody StaticBody { get; private set; }
-        public CollisionShape[][] CollisionShapes { get; private set; }
+        public bool[][] Open { get; private set; }
 
         public bool CanWalk(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
 
         public bool CanWalk(int x, int z) =>
-            !(x < 0 || z < 0 || x >= Map.Width || z >= Map.Depth) &&
-            (CollisionShapes[x][z]?.Disabled ?? true);
+            x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth &&
+            Open[x][z];
 
         public Level(GameMap map)
         {
@@ -95,20 +94,12 @@ namespace WOLF3DGame
             foreach (Billboard billboard in billboards)
                 AddChild(billboard);
 
-            StaticBody = new StaticBody();
-            CollisionShapes = new CollisionShape[Map.Width][];
+            Open = new bool[Map.Width][];
             for (ushort x = 0; x < Map.Width; x++)
             {
-                CollisionShapes[x] = new CollisionShape[Map.Depth];
+                Open[x] = new bool[Map.Depth];
                 for (ushort z = 0; z < Map.Depth; z++)
-                    if (!IsWall(x, z) || IsByFloor(x, z))
-                        StaticBody.AddChild(CollisionShapes[x][z] = new CollisionShape()
-                        {
-                            Name = "CollisionShape at " + x + ", " + z,
-                            Shape = Assets.BoxShape,
-                            Disabled = !(IsWall(x, z) || !IsNavigable(x, z)),
-                            Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth + Assets.HalfWallWidth, (float)Assets.HalfWallHeight, z * Assets.WallWidth + Assets.HalfWallWidth)),
-                        });
+                    Open[x][z] = !(IsWall(x, z) || !IsNavigable(x, z));
             }
         }
 

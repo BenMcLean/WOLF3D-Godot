@@ -43,7 +43,7 @@ namespace WOLF3DGame
                 Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
             });
 
-            GameMap map = Assets.Maps[8];
+            GameMap map = Assets.Maps[0];
 
             AddChild(Level = new Level(map));
 
