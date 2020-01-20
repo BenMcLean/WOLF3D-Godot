@@ -17,6 +17,7 @@ namespace WOLF3DGame
             Map = map;
             AddChild(Floor = new MeshInstance()
             {
+                Name = "Floor",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
@@ -43,6 +44,7 @@ namespace WOLF3DGame
 
             AddChild(Ceiling = new MeshInstance()
             {
+                Name = "Ceiling",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
@@ -78,17 +80,17 @@ namespace WOLF3DGame
             {
                 uint wall;
                 if (x < map.Width - 1 && Level.IsWall(wall = Map.GetMapData(x + 1, z)))
-                    AddChild(WestWall(x + 1, z, Level.WallTexture(wall), true));
+                    AddChild(BuildWall(Level.WallTexture(wall), true, (int)x + 1, (int)z, true));
                 if (x > 0 && Level.IsWall(wall = Map.GetMapData(x - 1, z)))
-                    AddChild(WestWall(x, z, Level.WallTexture(wall)));
+                    AddChild(BuildWall(Level.WallTexture(wall), true, (int)x, (int)z));
             }
             void VerticalCheck(uint x, uint z)
             {
                 uint wall;
                 if (z > 0 && Level.IsWall(wall = Map.GetMapData(x, z - 1)))
-                    AddChild(SouthWall(x, z - 1, Level.DarkSide(wall)));
+                    AddChild(BuildWall(Level.DarkSide(wall), false, (int)x, (int)z - 1));
                 if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, z + 1)))
-                    AddChild(SouthWall(x, z, Level.DarkSide(wall), true));
+                    AddChild(BuildWall(Level.DarkSide(wall), false, (int)x, (int)z, true));
             }
             for (uint i = 0; i < Map.MapData.Length; i++)
             {
@@ -97,15 +99,15 @@ namespace WOLF3DGame
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {
-                        AddChild(WestWall(x + 1, z, doorFrame, true));
-                        AddChild(WestWall(x, z, doorFrame));
+                        AddChild(BuildWall(doorFrame, true, (int)x + 1, (int)z, true));
+                        AddChild(BuildWall(doorFrame, true, (int)x, (int)z));
                         VerticalCheck(x, z);
                         //AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
                     }
                     else // Odd numbered doors are horizontal
                     {
-                        AddChild(SouthWall(x, z - 1, darkFrame));
-                        AddChild(SouthWall(x, z, darkFrame, true));
+                        AddChild(BuildWall(darkFrame, false, (int)x, (int)z - 1));
+                        AddChild(BuildWall(darkFrame, false, (int)x, (int)z, true));
                         HorizontalCheck(x, z);
                         //AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
                     }
@@ -118,11 +120,6 @@ namespace WOLF3DGame
             }
         }
 
-        public static Spatial SouthWall(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, false, (int)x, (int)z, flipH);
-        public static Spatial WestWall(uint x, uint z, uint wall, bool flipH = false) =>
-            BuildWall(wall, true, (int)x, (int)z, flipH);
-
         //public static Spatial HorizontalDoor(uint x, uint z, uint wall, bool flipH = false) =>
         //    BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.FloatCoordinate(x), 0, Assets.CenterSquare((int)z)), flipH);
         //public static Spatial VerticalDoor(uint x, uint z, uint wall, bool flipH = false) =>
@@ -134,6 +131,7 @@ namespace WOLF3DGame
         public static MeshInstance BuildWall(uint wall, bool WesternWall, int x, int z, bool flipH = false) =>
             new MeshInstance()
             {
+                Name = (WesternWall ? "West" : "South") + " wall at [" + x + ", " + z + "]",
                 MaterialOverride = Game.Assets.VSwapMaterials[wall],
                 Mesh = Assets.Wall,
                 Transform = new Transform(
