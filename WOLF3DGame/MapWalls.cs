@@ -143,7 +143,7 @@ namespace WOLF3DGame
                             (float)Assets.HalfWallHeight,
                             WesternWall ? Assets.CenterSquare(z) : Assets.FloatCoordinate(z + 1)
                         )
-                    )
+                )
             };
     }
 }

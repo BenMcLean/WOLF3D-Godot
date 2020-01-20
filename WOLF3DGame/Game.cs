@@ -102,16 +102,9 @@ namespace WOLF3DGame
 
         public Game PlayASound()
         {
-            AudioStreamSample audioStreamSample = new AudioStreamSample()
-            {
-                Data = Assets.VSwap.DigiSounds[32],
-                Format = AudioStreamSample.FormatEnum.Format8Bits,
-                MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
-                Stereo = false
-            };
             AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
             {
-                Stream = audioStreamSample,
+                Stream = Assets.DigiSounds[32],
                 VolumeDb = 0.01f
             };
             AddChild(audioStreamPlayer);

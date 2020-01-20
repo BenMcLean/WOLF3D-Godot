@@ -181,6 +181,14 @@ namespace WOLF3DGame.Model
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                         };
                     }
+                DigiSounds = new AudioStreamSample[VSwap.DigiSounds.Length];
+                for (uint i = 0; i < DigiSounds.Length; i++)
+                    DigiSounds[i] = new AudioStreamSample()
+                    {
+                        Data = VSwap.DigiSounds[i],
+                        Format = AudioStreamSample.FormatEnum.Format8Bits,
+                        MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
+                    };
             }
         }
         private VSwap vswap;
@@ -208,6 +216,7 @@ namespace WOLF3DGame.Model
         public Material[] VSwapMaterials;
         public Dictionary<string, uint[][]> Animations;
         public ImageTexture[] Pics;
+        public AudioStreamSample[] DigiSounds;
         #endregion Game assets
     }
 }
