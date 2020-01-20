@@ -128,25 +128,22 @@ namespace WOLF3DGame
         //public static Spatial VerticalDoor(uint x, uint z, uint wall, bool flipH = false) =>
         //    BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.CenterSquare(x), 0, Assets.FloatCoordinate(z + 1)), flipH);
 
-        public static MeshInstance BuildWall(uint wall, bool WesternWall, int x, int z, bool flipH = false) => BuildWall(wall, WesternWall ? Direction8.WEST : Direction8.SOUTH, x, z, flipH);
-
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd
         /// </summary>
-        /// <param name="direction">Either SOUTH or WEST</param>
-        public static MeshInstance BuildWall(uint wall, Direction8 direction, int x, int z, bool flipH = false) =>
+        public static MeshInstance BuildWall(uint wall, bool WesternWall, int x, int z, bool flipH = false) =>
             new MeshInstance()
             {
                 MaterialOverride = Game.Assets.VSwapMaterials[wall],
                 Mesh = Assets.Wall,
                 Transform = new Transform(
-                    direction == Direction8.WEST ?
-                        flipH ? direction.Counter90.Basis : direction.Clock90.Basis
-                    : flipH ? direction.Clock90.Basis : direction.Counter90.Basis,
+                    WesternWall ?
+                        flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
+                        : flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
                     new Vector3(
-                            direction == Direction8.WEST ? Assets.FloatCoordinate(x) : Assets.CenterSquare(x),
+                            WesternWall ? Assets.FloatCoordinate(x) : Assets.CenterSquare(x),
                             (float)Assets.HalfWallHeight,
-                            direction == Direction8.SOUTH ? Assets.FloatCoordinate(z + 1) : Assets.CenterSquare(z)
+                            WesternWall ? Assets.CenterSquare(z) : Assets.FloatCoordinate(z + 1)
                         )
                     )
             };
