@@ -53,7 +53,7 @@ namespace WOLF3DGame.Model
         public const float RunSpeed = 27.34714368f;
         public const float WalkSpeed = 13.67357184f;
 
-        public const float DeadZone = 0.65f;
+        public const float DeadZone = 0.5f;
 
         public static readonly QuadMesh Wall = new QuadMesh()
         {

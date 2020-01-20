@@ -12,9 +12,8 @@ namespace WOLF3DGame
     {
         public GameMap Map { get; private set; }
         public WorldEnvironment WorldEnvironment { get; private set; }
-        public MeshInstance Floor { get; private set; }
-        public MeshInstance Ceiling { get; private set; }
         public bool[][] Open { get; private set; }
+        public MapWalls MapWalls { get; private set; }
 
         public bool CanWalk(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
 
@@ -33,62 +32,7 @@ namespace WOLF3DGame
                     BackgroundMode = Godot.Environment.BGMode.Color,
                 },
             });
-
-            AddChild(Floor = new MeshInstance()
-            {
-                Mesh = new QuadMesh()
-                {
-                    Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Game.Assets.Palette[Map.Floor],
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-                Transform = new Transform(
-                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                    new Vector3(
-                        Map.Width * Assets.HalfWallWidth,
-                        0f,
-                        Map.Depth * Assets.HalfWallWidth
-                    )
-                ),
-            });
-
-            AddChild(Ceiling = new MeshInstance()
-            {
-                Mesh = new QuadMesh()
-                {
-                    Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Game.Assets.Palette[Map.Ceiling],
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-                Transform = new Transform(
-                    Basis.Identity.Rotated(Vector3.Right, Mathf.Pi / 2f),
-                    new Vector3(
-                        Map.Width * Assets.HalfWallWidth,
-                        (float)Assets.WallHeight,
-                        Map.Depth * Assets.HalfWallWidth
-                    )
-                ),
-            });
-
-            MapWalls mapWalls = new MapWalls(Map);
-            foreach (Spatial sprite in mapWalls.Walls)
-                AddChild(sprite);
+            AddChild(MapWalls = new MapWalls(Map));
 
             Billboard[] billboards = Billboard.MakeBillboards(Map);
             foreach (Billboard billboard in billboards)
