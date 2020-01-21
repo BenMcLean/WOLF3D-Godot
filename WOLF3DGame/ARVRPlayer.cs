@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using WOLF3DGame.Model;
@@ -138,14 +139,23 @@ namespace WOLF3DGame
                 axis0 -= 1;
             if (Mathf.Abs(axis0) > float.Epsilon)
                 Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
-            /*
+
+            if (RightController.IsButtonPressed((int)Godot.JoystickList.VrTrigger) > 0)
             {
-                Vector3 origHeadPos = ARVRCamera.GlobalTransform.origin;
-                ARVROrigin.Rotate(Godot.Vector3.Up, Mathf.Pi * delta * (axis0 > 0f ? -1f : 1f));
-                ARVROrigin.GlobalTransform = new Transform(ARVROrigin.GlobalTransform.basis, ARVROrigin.GlobalTransform.origin + origHeadPos - ARVRCamera.GlobalTransform.origin).Orthonormalized();
+                if (!Shooting)
+                {
+                    PhysicsDirectSpaceState spaceState = GetWorld().DirectSpaceState;
+                    Godot.Collections.Dictionary result = spaceState.IntersectRay(RightController.GlobalTransform.origin, RightController.GlobalTransform.basis.z);
+                    GD.Print("Shooting! " + DateTime.Now);
+                    GD.Print(result.Count);
+                    Shooting = true;
+                }
             }
-            */
+            else
+                Shooting = false;
         }
+
+        public bool Shooting { get; set; } = false;
 
         public static bool Shift => Input.IsKeyPressed((int)KeyList.Shift);
 
