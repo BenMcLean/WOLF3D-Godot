@@ -9,14 +9,32 @@ namespace WOLF3DGame
     public class MapWalls : StaticBody
     {
         public GameMap Map { get; set; }
-        public MeshInstance Floor { get; private set; }
-        public MeshInstance Ceiling { get; private set; }
+        public CollisionShape Floor { get; private set; }
+        public MeshInstance FloorMesh { get; private set; }
+        public CollisionShape Ceiling { get; private set; }
+        public MeshInstance CeilingMesh { get; private set; }
         public float DiagonalLength { get; private set; }
 
         public MapWalls(GameMap map)
         {
             Map = map;
-            AddChild(Floor = new MeshInstance()
+            AddChild(Floor = new CollisionShape()
+            {
+                Name = "Floor",
+                Shape = new BoxShape()
+                {
+                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Assets.PixelHeight, Map.Depth * Assets.HalfWallWidth)
+                },
+                Transform = new Transform(
+                    new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
+                    new Vector3(
+                        Map.Width * Assets.HalfWallWidth,
+                        0f,
+                        Map.Depth * Assets.HalfWallWidth
+                    )
+                ),
+            });
+            Floor.AddChild(FloorMesh = new MeshInstance()
             {
                 Name = "Floor Mesh",
                 Mesh = new QuadMesh()
@@ -33,17 +51,24 @@ namespace WOLF3DGame
                     ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                 },
+            });
+            AddChild(Ceiling = new CollisionShape()
+            {
+                Name = "Ceiling",
+                Shape = new BoxShape()
+                {
+                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Assets.PixelHeight, Map.Depth * Assets.HalfWallWidth)
+                },
                 Transform = new Transform(
                     new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
                     new Vector3(
                         Map.Width * Assets.HalfWallWidth,
-                        0f,
+                        (float)Assets.WallHeight,
                         Map.Depth * Assets.HalfWallWidth
                     )
                 ),
             });
-
-            AddChild(Ceiling = new MeshInstance()
+            Ceiling.AddChild(CeilingMesh = new MeshInstance()
             {
                 Name = "Ceiling Mesh",
                 Mesh = new QuadMesh()
@@ -60,14 +85,6 @@ namespace WOLF3DGame
                     ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                 },
-                Transform = new Transform(
-                    new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
-                    new Vector3(
-                        Map.Width * Assets.HalfWallWidth,
-                        (float)Assets.WallHeight,
-                        Map.Depth * Assets.HalfWallWidth
-                    )
-                ),
             });
 
             XElement doorFrameX = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
