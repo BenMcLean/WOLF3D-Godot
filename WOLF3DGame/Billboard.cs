@@ -13,7 +13,7 @@ namespace WOLF3DGame
         {
             AddChild(MeshInstance = new MeshInstance()
             {
-                Mesh = Assets.Wall,
+                Mesh = Assets.WallMesh,
                 Transform = Assets.BillboardTransform,
             });
         }

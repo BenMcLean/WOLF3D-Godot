@@ -55,9 +55,13 @@ namespace WOLF3DGame.Model
 
         public const float DeadZone = 0.5f;
 
-        public static readonly QuadMesh Wall = new QuadMesh()
+        public static readonly QuadMesh WallMesh = new QuadMesh()
         {
             Size = new Vector2(WallWidth, (float)WallHeight),
+        };
+        public static readonly BoxShape WallShape = new BoxShape()
+        {
+            Extents = new Vector3(HalfWallWidth, (float)HalfWallHeight, PixelWidth),
         };
 
         public static readonly BoxShape BoxShape = new BoxShape()

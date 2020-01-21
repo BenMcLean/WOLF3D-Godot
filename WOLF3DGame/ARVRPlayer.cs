@@ -6,7 +6,7 @@ using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
-    public class ARVRPlayer : KinematicBody
+    public class ARVRPlayer : Spatial
     {
         public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
@@ -144,8 +144,10 @@ namespace WOLF3DGame
             {
                 if (!Shooting)
                 {
-                    PhysicsDirectSpaceState spaceState = GetWorld().DirectSpaceState;
-                    Godot.Collections.Dictionary result = spaceState.IntersectRay(RightController.GlobalTransform.origin, RightController.GlobalTransform.basis.z);
+                    Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
+                        RightController.GlobalTransform.origin,
+                        RightController.GlobalTransform.origin + RightController.GlobalTransform.basis.z * ShotRange
+                        );
                     GD.Print("Shooting! " + DateTime.Now);
                     GD.Print(result.Count);
                     Shooting = true;
@@ -156,6 +158,7 @@ namespace WOLF3DGame
         }
 
         public bool Shooting { get; set; } = false;
+        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2 + Mathf.Pow((float)Assets.WallHeight, 2));
 
         public static bool Shift => Input.IsKeyPressed((int)KeyList.Shift);
 

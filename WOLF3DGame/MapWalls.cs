@@ -11,13 +11,14 @@ namespace WOLF3DGame
         public GameMap Map { get; set; }
         public MeshInstance Floor { get; private set; }
         public MeshInstance Ceiling { get; private set; }
+        public float DiagonalLength { get; private set; }
 
         public MapWalls(GameMap map)
         {
             Map = map;
             AddChild(Floor = new MeshInstance()
             {
-                Name = "Floor",
+                Name = "Floor Mesh",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
@@ -44,7 +45,7 @@ namespace WOLF3DGame
 
             AddChild(Ceiling = new MeshInstance()
             {
-                Name = "Ceiling",
+                Name = "Ceiling Mesh",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
@@ -118,6 +119,8 @@ namespace WOLF3DGame
                     VerticalCheck(x, z);
                 }
             }
+
+            DiagonalLength = Mathf.Sqrt(Mathf.Pow(Map.Width * Assets.WallWidth, 2) + Mathf.Pow((float)Assets.WallHeight, 2) + Mathf.Pow(Map.Depth * Assets.WallWidth, 2));
         }
 
         //public static Spatial HorizontalDoor(uint x, uint z, uint wall, bool flipH = false) =>
@@ -128,22 +131,30 @@ namespace WOLF3DGame
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd
         /// </summary>
-        public static MeshInstance BuildWall(uint wall, bool WesternWall, int x, int z, bool flipH = false) =>
-            new MeshInstance()
+        public static CollisionShape BuildWall(uint wall, bool westernWall, int x, int z, bool flipH = false)
+        {
+            CollisionShape result = new CollisionShape()
             {
-                Name = (WesternWall ? "West" : "South") + " wall at [" + x + ", " + z + "]",
-                MaterialOverride = Game.Assets.VSwapMaterials[wall],
-                Mesh = Assets.Wall,
+                Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]",
                 Transform = new Transform(
-                    WesternWall ?
+                    westernWall ?
                         flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
                         : flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
                     new Vector3(
-                            WesternWall ? Assets.FloatCoordinate(x) : Assets.CenterSquare(x),
+                            westernWall ? Assets.FloatCoordinate(x) : Assets.CenterSquare(x),
                             (float)Assets.HalfWallHeight,
-                            WesternWall ? Assets.CenterSquare(z) : Assets.FloatCoordinate(z + 1)
+                            westernWall ? Assets.CenterSquare(z) : Assets.FloatCoordinate(z + 1)
                         )
-                )
+                    ),
+                Shape = Assets.WallShape,
             };
+            result.AddChild(new MeshInstance()
+            {
+                Name = (westernWall ? "West" : "South") + " wall mesh instance at [" + x + ", " + z + "]",
+                MaterialOverride = Game.Assets.VSwapMaterials[wall],
+                Mesh = Assets.WallMesh,
+            });
+            return result;
+        }
     }
 }
