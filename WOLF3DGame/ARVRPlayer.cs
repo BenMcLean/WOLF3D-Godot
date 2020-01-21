@@ -149,7 +149,15 @@ namespace WOLF3DGame
                         RightController.GlobalTransform.origin + RightController.GlobalTransform.basis.z * ShotRange
                         );
                     GD.Print("Shooting! " + DateTime.Now);
-                    GD.Print(result.Count);
+                    if (result.Count > 0)
+                    {
+                        CollisionObject collider = (CollisionObject)result["collider"];
+                        GD.Print(
+                            ((CollisionShape)collider.ShapeOwnerGetOwner(collider.ShapeFindOwner((int)result["shape"]))).Name
+                            );
+                    }
+                    else
+                        GD.Print("Hit nothing! :(");
                     Shooting = true;
                 }
             }
