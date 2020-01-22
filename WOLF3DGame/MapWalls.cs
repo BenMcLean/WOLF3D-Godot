@@ -23,7 +23,7 @@ namespace WOLF3DGame
                 Name = "Floor",
                 Shape = new BoxShape()
                 {
-                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Assets.PixelHeight, Map.Depth * Assets.HalfWallWidth)
+                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
                 },
                 Transform = new Transform(
                     new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
@@ -57,7 +57,7 @@ namespace WOLF3DGame
                 Name = "Ceiling",
                 Shape = new BoxShape()
                 {
-                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Assets.PixelHeight, Map.Depth * Assets.HalfWallWidth)
+                    Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
                 },
                 Transform = new Transform(
                     new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),

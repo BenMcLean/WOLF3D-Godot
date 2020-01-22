@@ -17,6 +17,8 @@ namespace WOLF3DGame
         public MeshInstance Ceiling { get; set; }
         public Level Level { get; set; }
 
+        public static Line3D Line3D { get; set; }
+
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
@@ -55,6 +57,11 @@ namespace WOLF3DGame
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 
             ARVRPlayer.CanWalk = Level.CanWalk;
+
+            AddChild(Line3D = new Line3D()
+            {
+                Color = Color.Color8(255, 0, 0, 255),
+            });
 
             //StringBuilder stringBuilder = new StringBuilder();
             //for (int sx = 0; sx < Level.Map.Width; sx++)

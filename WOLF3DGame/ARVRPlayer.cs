@@ -123,7 +123,7 @@ namespace WOLF3DGame
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
-                ARVROrigin.Transform.basis.Orthonormalized(),
+                Basis.Identity,
                 new Vector3(
                     -ARVRCamera.Transform.origin.x,
                     Height,
@@ -144,11 +144,16 @@ namespace WOLF3DGame
             {
                 if (!Shooting)
                 {
-                    Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
+                    Game.Line3D.Vertices = new Vector3[] {
                         RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + RightController.GlobalTransform.basis.z * ShotRange
+                        RightController.GlobalTransform.origin + (-RightController.GlobalTransform.basis.y.Normalized() - RightController.GlobalTransform.basis.z.Normalized()).Normalized() * 64 * Assets.WallWidth
+                    };
+                    Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
+                        Game.Line3D.Vertices[0],
+                        Game.Line3D.Vertices[1]
                         );
-                    GD.Print("Shooting! " + DateTime.Now);
+
+                    GD.Print("Shooting! Range: " + ShotRange + " Time: " + DateTime.Now);
                     if (result.Count > 0)
                     {
                         CollisionObject collider = (CollisionObject)result["collider"];
