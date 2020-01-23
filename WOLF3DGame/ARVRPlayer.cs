@@ -171,7 +171,7 @@ namespace WOLF3DGame
         }
 
         public bool Shooting { get; set; } = false;
-        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2 + Mathf.Pow((float)Assets.WallHeight, 2));
+        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow((float)Assets.WallHeight, 2));
 
         public static bool Shift => Input.IsKeyPressed((int)KeyList.Shift);
 
@@ -184,7 +184,7 @@ namespace WOLF3DGame
         public Vector2 ARVRCameraDirection => -Assets.Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
         public Vector2 ARVRCameraMovement => ARVRCameraPosition - Assets.Vector2(GlobalTransform.origin);
 
-        public static Vector3 ARVRControllerDirection(Basis basis) => -basis.y.Rotated(basis.x.Normalized(), Mathf.Pi / 8f).Normalized();
+        public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -Mathf.Pi * 3f / 16f).Normalized();
         public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
         public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
 
