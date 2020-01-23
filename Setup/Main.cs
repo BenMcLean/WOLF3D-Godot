@@ -16,7 +16,7 @@ public class Main : Spatial
 	public enum LoadingState
 	{
 		ASK_PERMISSION,
-		DOWNLOAD_SHAREWARE
+		GET_SHAREWARE
 	};
 
 	private LoadingState state;
@@ -33,11 +33,10 @@ public class Main : Spatial
 			{
 				case LoadingState.ASK_PERMISSION:
 					DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's external storage.");
-					DosScreen.Screen.WriteLine("Internet access is also requested to download Wolfenstein 3-D shareware data if it is not present.");
 					DosScreen.Screen.WriteLine("Press any button to open permission request.");
 					break;
-				case LoadingState.DOWNLOAD_SHAREWARE:
-					DosScreen.Screen.WriteLine("Downloading shareware!");
+				case LoadingState.GET_SHAREWARE:
+					DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
 					try
 					{
 						Game.Folder = System.IO.Path.Combine(Path, "WOLF3D", "WL1");
@@ -70,12 +69,10 @@ public class Main : Spatial
 		{
 			ControllerId = 1,
 		});
-		LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
 		ARVROrigin.AddChild(RightController = new ARVRController()
 		{
 			ControllerId = 2,
 		});
-		RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
 
 		AddChild(new WorldEnvironment()
 		{
@@ -86,9 +83,10 @@ public class Main : Spatial
 			},
 		});
 
-		AddChild(DosScreen = new DosScreen()
+		ARVRCamera.AddChild(DosScreen = new DosScreen()
 		{
-			GlobalTransform = new Transform(Basis.Identity, new Vector3(0, 0, -2)),
+			//GlobalTransform = new Transform(Basis.Identity, new Vector3(0, 0, -2)),
+			Transform = new Transform(Basis.Identity, Vector3.Forward * 3f),
 		});
 
 		DosScreen.Screen.WriteLine("Platform detected: " + OS.GetName());
@@ -98,12 +96,12 @@ public class Main : Spatial
 			case "Android":
 				Path = "/storage/emulated/0/";
 				ARVRInterface = ARVRServer.FindInterface("OVRMobile");
-				State = PermissionsGranted ? LoadingState.DOWNLOAD_SHAREWARE : LoadingState.ASK_PERMISSION;
+				State = PermissionsGranted ? LoadingState.GET_SHAREWARE : LoadingState.ASK_PERMISSION;
 				break;
 			default:
 				Path = System.IO.Directory.GetCurrentDirectory();
 				ARVRInterface = ARVRServer.FindInterface("OpenVR");
-				State = LoadingState.DOWNLOAD_SHAREWARE;
+				State = LoadingState.GET_SHAREWARE;
 				break;
 		}
 
@@ -147,7 +145,7 @@ public class Main : Spatial
 			{
 				case LoadingState.ASK_PERMISSION:
 					if (PermissionsGranted)
-						State = LoadingState.DOWNLOAD_SHAREWARE;
+						State = LoadingState.GET_SHAREWARE;
 					else
 						OS.RequestPermissions();
 					break;

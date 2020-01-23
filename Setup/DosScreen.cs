@@ -213,7 +213,7 @@ public class DosScreen : Spatial
     {
         base._Process(delta);
         Screen.UpdateCursor(delta);
-        if (Visible)
-            Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
+        //if (Visible)
+        //    Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
     }
 }

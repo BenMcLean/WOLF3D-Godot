@@ -12,11 +12,7 @@ namespace WOLF3DGame
         public static string Folder { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVRPlayer ARVRPlayer { get; set; }
-        public CollisionShape PlayerHead { get; set; }
-        public MeshInstance Floor { get; set; }
-        public MeshInstance Ceiling { get; set; }
         public Level Level { get; set; }
-
         public static Line3D Line3D { get; set; }
 
         public override void _Ready()
@@ -33,14 +29,6 @@ namespace WOLF3DGame
             controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
             controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
             ARVRPlayer.RightController.AddChild(controller);
-            ARVRPlayer.ARVRCamera.AddChild(PlayerHead = new CollisionShape()
-            {
-                Name = "Player's head",
-                Shape = new SphereShape()
-                {
-                    Radius = 0.5f,
-                },
-            });
 
             Assets = new Assets(Folder);
 
