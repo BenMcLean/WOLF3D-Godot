@@ -15,15 +15,59 @@ namespace WOLF3DGame
         public bool[][] Open { get; private set; }
         public MapWalls MapWalls { get; private set; }
 
-        public Vector2 Walk(Vector2 here, Vector2 there) => CanWalk(there) ? there : here;
+        public Vector2 Walk(Vector2 here, Vector2 there)
+        {
+            if (CanWalk(there, out Vector2 cant))
+                return there;
+            int moveX = Assets.IntCoordinate(there.x) - Assets.IntCoordinate(here.x),
+                moveZ = Assets.IntCoordinate(there.y) - Assets.IntCoordinate(here.y);
+            Vector2 movement = there - here, trying;
+            if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
+            {
+                // try SlideX
+                if (CanWalk(trying = new Vector2(ToTheEdgeFromFloat(here.x, moveX), there.y)))
+                    return trying;
+                // try SlideY
+                if (CanWalk(trying = new Vector2(there.x, ToTheEdgeFromFloat(here.y, moveZ))))
+                    return trying;
+            }
+            else
+            {
+                // try SlideY
+                if (CanWalk(trying = new Vector2(there.x, ToTheEdgeFromFloat(here.y, moveZ))))
+                    return trying;
+                // try SlideX
+                if (CanWalk(new Vector2(ToTheEdgeFromFloat(here.x, moveX), there.y)))
+                    return trying;
+            }
+            return CanWalk(trying = new Vector2(ToTheEdgeFromFloat(here.x, moveX), ToTheEdgeFromFloat(here.y, moveZ))) ? trying : here;
+        }
 
-        public bool CanWalk(Vector2 there)
+        public float ToTheEdgeFromFloat(float here, int mvoe) => mvoe == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), mvoe);
+
+        /// <summary>
+        /// "Close to the edge, down by a river" - Yes
+        /// </summary>
+        public float ToTheEdge(int here, int move) =>
+            move > 0 ?
+            Assets.FloatCoordinate(here + 1) - Assets.HeadXZ - float.Epsilon
+            : move < 0 ?
+            Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
+            : Assets.CenterSquare(here);
+
+        //public Vector2 Slide(Vector2 here, int moveX, int moveY) => new Vector2(ToTheEdgeFromFloat(here.x, moveX), ToTheEdgeFromFloat(here.y, moveY));
+        //public Vector2 SlideX(Vector2 here, int move) => new Vector2(ToTheEdgeFromFloat(here.x, move), here.y);
+        //public Vector2 SlideZ(Vector2 here, int move) => new Vector2(here.x, ToTheEdgeFromFloat(here.y, move));
+
+        public bool CanWalk(Vector2 there, out Vector2 cant)
         {
             foreach (Direction8 direction in Direction8.Diagonals)
-                if (!CanWalkPoint(there + direction.Vector2 * Assets.HeadDiagonal))
+                if (!CanWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
                     return false;
-            return CanWalkPoint(there);
+            return CanWalkPoint(cant = there);
         }
+
+        public bool CanWalk(Vector2 there) => CanWalk(there, out _);
 
         public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
         public bool CanWalk(int x, int z) =>
