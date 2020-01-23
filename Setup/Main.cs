@@ -22,18 +22,16 @@ public class Main : Spatial
 	private LoadingState state;
 	public LoadingState State
 	{
-		get
-		{
-			return state;
-		}
+		get => state;
 		set
 		{
 			state = value;
 			switch (State)
 			{
 				case LoadingState.ASK_PERMISSION:
-					DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's external storage.");
-					DosScreen.Screen.WriteLine("Press any button to open permission request.");
+					DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's")
+						.WriteLine("external storage.")
+						.WriteLine("Press any button to open permission request.");
 					break;
 				case LoadingState.GET_SHAREWARE:
 					DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
@@ -59,7 +57,14 @@ public class Main : Spatial
 	public override void _Ready()
 	{
 		VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-
+		AddChild(new WorldEnvironment()
+		{
+			Environment = new Godot.Environment()
+			{
+				BackgroundColor = Color.Color8(0, 0, 0, 255),
+				BackgroundMode = Godot.Environment.BGMode.Color,
+			},
+		});
 		AddChild(ARVROrigin = new ARVROrigin());
 		ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
 		{
@@ -73,19 +78,8 @@ public class Main : Spatial
 		{
 			ControllerId = 2,
 		});
-
-		AddChild(new WorldEnvironment()
-		{
-			Environment = new Godot.Environment()
-			{
-				BackgroundColor = Color.Color8(0, 0, 0, 255),
-				BackgroundMode = Godot.Environment.BGMode.Color,
-			},
-		});
-
 		ARVRCamera.AddChild(DosScreen = new DosScreen()
 		{
-			//GlobalTransform = new Transform(Basis.Identity, new Vector3(0, 0, -2)),
 			Transform = new Transform(Basis.Identity, Vector3.Forward * 3f),
 		});
 
@@ -151,19 +145,4 @@ public class Main : Spatial
 					break;
 			}
 	}
-
-	//public override void _Process(float delta)
-	//{
-	//}
-
-	/*
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
-
-		DosScreen.Screen.WriteLine(
-			"InputEvent: \"" + @event + "\""
-			);
-	}
-	*/
 }

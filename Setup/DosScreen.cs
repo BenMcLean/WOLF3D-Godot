@@ -33,7 +33,7 @@ public class DosScreen : Spatial
         private Godot.Label label;
         public Godot.Label Label
         {
-            get { return label; }
+            get => label;
             set
             {
                 label = value;
@@ -45,7 +45,7 @@ public class DosScreen : Spatial
         private Godot.ColorRect cursor;
         public Godot.ColorRect Cursor
         {
-            get { return cursor; }
+            get => cursor;
             set
             {
                 cursor = value;
@@ -54,11 +54,8 @@ public class DosScreen : Spatial
             }
         }
 
-        public VirtualScreenText SetCursor()
-        {
-            uint x = (uint)(lines.Count == 0 ? 0 : lines.Last().Length > 79 ? 0 : lines.Last().Length);
-            return SetCursor(x, (uint)(lines.Count - (lines.Count > 0 ? 1 : 0)));
-        }
+        public VirtualScreenText SetCursor() =>
+            SetCursor((uint)(lines.Count == 0 ? 0 : lines.Last().Length > 79 ? 0 : lines.Last().Length), (uint)(lines.Count - (lines.Count > 0 ? 1 : 0)));
 
         public VirtualScreenText SetCursor(uint x, uint y)
         {
@@ -67,18 +64,13 @@ public class DosScreen : Spatial
             return this;
         }
 
-        public uint Height { get; set; } = 25;
-        public uint Width { get; set; } = 80;
-
-        public float BlinkRate { get; set; } = 0.25f;
+        public const uint Height = 25;
+        public const uint Width = 80;
+        public const float BlinkRate = 0.25f;
         private float Blink { get; set; } = 0f;
-
         public bool ShowCursor
         {
-            get
-            {
-                return Cursor == null ? false : Cursor.Visible;
-            }
+            get => Cursor == null ? false : Cursor.Visible;
             set
             {
                 if (Cursor != null)
@@ -97,10 +89,7 @@ public class DosScreen : Spatial
             return this;
         }
 
-        public override string ToString()
-        {
-            return Text;
-        }
+        public override string ToString() => Text;
 
         public VirtualScreenText CLS()
         {
@@ -121,11 +110,7 @@ public class DosScreen : Spatial
             return this;
         }
 
-        public string Wrap(string value)
-        {
-            return Wrap(value, Width);
-        }
-
+        public string Wrap(string value) => Wrap(value, Width);
         public static string Wrap(string value, uint width)
         {
             if (width <= 0)
@@ -143,10 +128,8 @@ public class DosScreen : Spatial
                 yield return str.Substring(i, Math.Min((int)maxChunkSize, str.Length - i));
         }
 
-        public static string TrimLastCharacter(string str)
-        {
-            return string.IsNullOrEmpty(str) ? str : str.Substring(0, (str.Length - 1));
-        }
+        public static string TrimLastCharacter(string str) =>
+            string.IsNullOrEmpty(str) ? str : str.Substring(0, (str.Length - 1));
     }
     public readonly VirtualScreenText Screen = new VirtualScreenText();
     private Viewport Viewport;
@@ -160,13 +143,11 @@ public class DosScreen : Spatial
             RenderTargetClearMode = Viewport.ClearMode.OnlyNextFrame,
             RenderTargetVFlip = true,
         });
-
         Viewport.AddChild(new ColorRect()
         {
             Color = Color.Color8(0, 0, 0, 255),
             RectSize = Viewport.Size,
         });
-
         AddChild(new MeshInstance()
         {
             Mesh = new QuadMesh()
@@ -184,7 +165,6 @@ public class DosScreen : Spatial
                 FlagsTransparent = false,
             },
         });
-
         BitmapFont font = new BitmapFont();
         font.CreateFromFnt("res://Bm437_IBM_VGA9.fnt");
         Label label = new Label()
@@ -199,7 +179,6 @@ public class DosScreen : Spatial
         label.Set("custom_colors/font_color", Color.Color8(170, 170, 170, 255));
         Viewport.AddChild(label);
         Screen.Label = label;
-
         ColorRect cursor = new ColorRect
         {
             Color = Color.Color8(170, 170, 170, 255),
@@ -213,7 +192,5 @@ public class DosScreen : Spatial
     {
         base._Process(delta);
         Screen.UpdateCursor(delta);
-        //if (Visible)
-        //    Rotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
     }
 }
