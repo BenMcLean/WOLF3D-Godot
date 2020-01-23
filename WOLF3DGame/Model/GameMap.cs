@@ -41,8 +41,8 @@ namespace WOLF3DGame.Model
         public ushort Z(ushort i) => (ushort)(Depth - 1 - i % Depth);
         public ushort GetIndex(uint x, uint z) => GetIndex((ushort)x, (ushort)z);
         public ushort GetIndex(ushort x, ushort z) => (ushort)((x * Width) + Depth - 1 - z);
-        public ushort GetMapData(uint x, uint z) => GetMapData((ushort)x, (ushort)z);
         public ushort GetMapData(ushort x, ushort z) => MapData[GetIndex(x, z)];
+        public ushort GetMapData(uint x, uint z) => GetMapData((ushort)x, (ushort)z);
         public ushort GetObjectData(uint x, uint z) => GetObjectData((ushort)x, (ushort)z);
         public ushort GetObjectData(ushort x, ushort z) => ObjectData[GetIndex(x, z)];
         public ushort GetOtherData(uint x, uint z) => GetOtherData((ushort)x, (ushort)z);

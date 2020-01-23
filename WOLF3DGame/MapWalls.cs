@@ -94,21 +94,21 @@ namespace WOLF3DGame
                 throw new NullReferenceException("Could not find \"Door Frame\" in walls!");
             uint doorFrame = (uint)doorFrameX.Attribute("Page"),
                 darkFrame = (uint)doorFrameX.Attribute("DarkSide");
-            void HorizontalCheck(uint x, uint z)
+            void HorizontalCheck(ushort x, ushort z)
             {
                 uint wall;
-                if (x < map.Width - 1 && Level.IsWall(wall = Map.GetMapData(x + 1, z)))
-                    AddChild(BuildWall(Level.WallTexture(wall), true, (int)x + 1, (int)z, true));
-                if (x > 0 && Level.IsWall(wall = Map.GetMapData(x - 1, z)))
-                    AddChild(BuildWall(Level.WallTexture(wall), true, (int)x, (int)z));
+                if (x < map.Width - 1 && Level.IsWall(wall = Map.GetMapData((ushort)(x + 1), z)))
+                    AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
+                if (x > 0 && Level.IsWall(wall = Map.GetMapData((ushort)(x - 1), z)))
+                    AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
             }
-            void VerticalCheck(uint x, uint z)
+            void VerticalCheck(ushort x, ushort z)
             {
                 uint wall;
-                if (z > 0 && Level.IsWall(wall = Map.GetMapData(x, z - 1)))
-                    AddChild(BuildWall(Level.DarkSide(wall), false, (int)x, (int)z - 1));
-                if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, z + 1)))
-                    AddChild(BuildWall(Level.DarkSide(wall), false, (int)x, (int)z, true));
+                if (z > 0 && Level.IsWall(wall = Map.GetMapData(x, (ushort)(z - 1))))
+                    AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
+                if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, (ushort)(z + 1))))
+                    AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
             }
             for (ushort i = 0; i < Map.MapData.Length; i++)
             {
@@ -117,15 +117,15 @@ namespace WOLF3DGame
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {
-                        AddChild(BuildWall(doorFrame, true, (int)x + 1, (int)z, true));
-                        AddChild(BuildWall(doorFrame, true, (int)x, (int)z));
+                        AddChild(BuildWall(doorFrame, false, x + 1, z, true));
+                        AddChild(BuildWall(doorFrame, false, x, z));
                         VerticalCheck(x, z);
                         //AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
                     }
                     else // Odd numbered doors are horizontal
                     {
-                        AddChild(BuildWall(darkFrame, false, (int)x, (int)z - 1));
-                        AddChild(BuildWall(darkFrame, false, (int)x, (int)z, true));
+                        AddChild(BuildWall(darkFrame, true, x, z - 1));
+                        AddChild(BuildWall(darkFrame, true, x, z, true));
                         HorizontalCheck(x, z);
                         //AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
                     }
@@ -155,12 +155,12 @@ namespace WOLF3DGame
                 Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]",
                 Transform = new Transform(
                     westernWall ?
-                        flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
-                        : flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
+                        flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis
+                        : flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis,
                     new Vector3(
-                            westernWall ? Assets.FloatCoordinate(x) : Assets.CenterSquare(x),
+                            westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
                             (float)Assets.HalfWallHeight,
-                            westernWall ? Assets.CenterSquare(z) : Assets.FloatCoordinate(z + 1)
+                            westernWall ? Assets.FloatCoordinate(z + 1) : Assets.CenterSquare(z)
                         )
                     ),
                 Shape = Assets.WallShape,
