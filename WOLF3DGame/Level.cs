@@ -47,9 +47,7 @@ namespace WOLF3DGame
             }
         }
 
-        public bool IsWall(ushort x, ushort z) => IsWall(Map.GetMapData(x, z));
-
-        public static bool IsWall(uint cell) => XWall(cell).Any();
+        public bool IsWall(ushort x, ushort z) => Game.Assets.Walls.Contains(Map.GetMapData(x, z));
 
         public bool IsNavigable(ushort x, ushort z) => IsNavigable(Map.GetObjectData(x, z));
 
@@ -96,27 +94,27 @@ namespace WOLF3DGame
             return list;
         }
 
-        public static uint WallTexture(uint cell) =>
-            (uint)XWall(cell).FirstOrDefault()?.Attribute("Page");
+        public static ushort WallTexture(ushort cell) =>
+            ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
 
         /// <summary>
-        /// Never underestimate the power of the Dark Side
+        /// If you only knew the power of the Dark Side
         /// </summary>
-        public static uint DarkSide(uint cell) =>
-            (uint)XWall(cell).FirstOrDefault()?.Attribute("DarkSide");
+        public static ushort DarkSide(ushort cell) =>
+            ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallTexture(cell);
 
-        public static IEnumerable<XElement> XWall(uint cell) =>
-            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
+        public static IEnumerable<XElement> XWall(ushort cell) =>
+            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>()
             where (uint)e.Attribute("Number") == cell
             select e;
 
-        public static IEnumerable<XElement> XDoor(uint cell) =>
+        public static IEnumerable<XElement> XDoor(ushort cell) =>
             from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
             where (uint)e.Attribute("Number") == cell
             select e;
 
-        public static uint DoorTexture(uint cell) =>
-            (uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
+        public static ushort DoorTexture(ushort cell) =>
+            (ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
 
         public Transform StartTransform =>
             Start(out ushort index, out Direction8 direction) ?

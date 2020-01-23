@@ -136,7 +136,7 @@ namespace WOLF3DGame.Model
                 }
 
             List<ushort> walls = new List<ushort>();
-            foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>())
+            foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>())
                 walls.Add((ushort)(int)wall.Attribute("Number"));
             Walls = walls.ToArray();
 

@@ -92,22 +92,22 @@ namespace WOLF3DGame
                                    select e).FirstOrDefault();
             if (doorFrameX == null)
                 throw new NullReferenceException("Could not find \"Door Frame\" in walls!");
-            uint doorFrame = (uint)doorFrameX.Attribute("Page"),
-                darkFrame = (uint)doorFrameX.Attribute("DarkSide");
+            ushort doorFrame = (ushort)(uint)doorFrameX.Attribute("Page"),
+                darkFrame = (ushort)(uint)doorFrameX.Attribute("DarkSide");
             void HorizontalCheck(ushort x, ushort z)
             {
-                uint wall;
-                if (x < map.Width - 1 && Level.IsWall(wall = Map.GetMapData((ushort)(x + 1), z)))
+                ushort wall;
+                if (x < map.Width - 1 && Game.Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x + 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
-                if (x > 0 && Level.IsWall(wall = Map.GetMapData((ushort)(x - 1), z)))
+                if (x > 0 && Game.Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x - 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
             }
             void VerticalCheck(ushort x, ushort z)
             {
-                uint wall;
-                if (z > 0 && Level.IsWall(wall = Map.GetMapData(x, (ushort)(z - 1))))
+                ushort wall;
+                if (z > 0 && Game.Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z - 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
-                if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, (ushort)(z + 1))))
+                if (z < map.Depth - 1 && Game.Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z + 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
             }
             for (ushort i = 0; i < Map.MapData.Length; i++)
@@ -130,7 +130,7 @@ namespace WOLF3DGame
                         //AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
                     }
                 }
-                else if (!Level.IsWall(here))
+                else if (!Game.Assets.Walls.Contains(here))
                 {
                     HorizontalCheck(x, z);
                     VerticalCheck(x, z);
@@ -148,7 +148,7 @@ namespace WOLF3DGame
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd
         /// </summary>
-        public static CollisionShape BuildWall(uint wall, bool westernWall, int x, int z, bool flipH = false)
+        public static CollisionShape BuildWall(ushort wall, bool westernWall, int x, int z, bool flipH = false)
         {
             CollisionShape result = new CollisionShape()
             {
