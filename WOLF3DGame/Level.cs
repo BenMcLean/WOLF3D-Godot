@@ -19,28 +19,15 @@ namespace WOLF3DGame
         {
             if (CanWalk(there, out Vector2 cant))
                 return there;
-            int moveX = Assets.IntCoordinate(there.x) - Assets.IntCoordinate(here.x),
-                moveZ = Assets.IntCoordinate(there.y) - Assets.IntCoordinate(here.y);
+            int hereX = Assets.IntCoordinate(here.x),
+                hereZ = Assets.IntCoordinate(here.y),
+                moveX = Assets.IntCoordinate(cant.x) - hereX,
+                moveZ = Assets.IntCoordinate(cant.y) - hereZ;
             Vector2 movement = there - here, trying;
-            if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
-            {
-                // try SlideX
-                if (CanWalk(trying = new Vector2(ToTheEdgeFromFloat(here.x, moveX), there.y)))
-                    return trying;
-                // try SlideY
-                if (CanWalk(trying = new Vector2(there.x, ToTheEdgeFromFloat(here.y, moveZ))))
-                    return trying;
-            }
-            else
-            {
-                // try SlideY
-                if (CanWalk(trying = new Vector2(there.x, ToTheEdgeFromFloat(here.y, moveZ))))
-                    return trying;
-                // try SlideX
-                if (CanWalk(new Vector2(ToTheEdgeFromFloat(here.x, moveX), there.y)))
-                    return trying;
-            }
-            return CanWalk(trying = new Vector2(ToTheEdgeFromFloat(here.x, moveX), ToTheEdgeFromFloat(here.y, moveZ))) ? trying : here;
+            return CanWalk(trying = new Vector2(
+                CanWalk(hereX + moveX, hereZ) ? there.x : ToTheEdge(hereX, moveX),
+                CanWalk(hereX, hereZ + moveZ) ? there.y : ToTheEdge(hereZ, moveZ)
+                )) ? trying : here;
         }
 
         public float ToTheEdgeFromFloat(float here, int mvoe) => mvoe == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), mvoe);
@@ -54,10 +41,6 @@ namespace WOLF3DGame
             : move < 0 ?
             Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
             : Assets.CenterSquare(here);
-
-        //public Vector2 Slide(Vector2 here, int moveX, int moveY) => new Vector2(ToTheEdgeFromFloat(here.x, moveX), ToTheEdgeFromFloat(here.y, moveY));
-        //public Vector2 SlideX(Vector2 here, int move) => new Vector2(ToTheEdgeFromFloat(here.x, move), here.y);
-        //public Vector2 SlideZ(Vector2 here, int move) => new Vector2(here.x, ToTheEdgeFromFloat(here.y, move));
 
         public bool CanWalk(Vector2 there, out Vector2 cant)
         {

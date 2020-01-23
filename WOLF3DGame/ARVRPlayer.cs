@@ -74,8 +74,7 @@ namespace WOLF3DGame
 
         public override void _PhysicsProcess(float delta)
         {
-            Vector2 there = ARVRCameraPosition, // where we're going
-                forward = ARVRCameraDirection, // which way we're facing
+            Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
             if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
@@ -116,9 +115,17 @@ namespace WOLF3DGame
                     movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
             }
 
-            there += movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed);
-
-            PlayerPosition = Walk(PlayerPosition, there);
+            PlayerPosition = Walk(PlayerPosition, Walk(
+                    PlayerPosition,
+                    PlayerPosition + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
+                    ));
+            //GlobalTransform = new Transform(
+            //    GlobalTransform.basis,
+            //    Assets.Vector3(Walk(
+            //        PlayerPosition,
+            //        PlayerPosition + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
+            //        ))
+            //    );
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
