@@ -17,17 +17,9 @@ namespace WOLF3DGame
 
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
-            if (CanWalk(there, out Vector2 cant))
-                return there;
-            int hereX = Assets.IntCoordinate(here.x),
-                hereZ = Assets.IntCoordinate(here.y),
-                moveX = Assets.IntCoordinate(cant.x) - hereX,
-                moveZ = Assets.IntCoordinate(cant.y) - hereZ;
-            Vector2 movement = there - here, trying;
-            return CanWalk(trying = new Vector2(
-                CanWalk(hereX + moveX, hereZ) ? there.x : ToTheEdge(hereX, moveX),
-                CanWalk(hereX, hereZ + moveZ) ? there.y : ToTheEdge(hereZ, moveZ)
-                )) ? trying : here;
+            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x,
+                z = CanWalk(new Vector2(x, there.y)) ? there.y : here.y;
+            return CanWalk(there = new Vector2(x, z)) ? there : here;
         }
 
         public float ToTheEdgeFromFloat(float here, int mvoe) => mvoe == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), mvoe);

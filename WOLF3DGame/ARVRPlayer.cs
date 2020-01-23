@@ -119,13 +119,6 @@ namespace WOLF3DGame
                     PlayerPosition,
                     PlayerPosition + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
                     ));
-            //GlobalTransform = new Transform(
-            //    GlobalTransform.basis,
-            //    Assets.Vector3(Walk(
-            //        PlayerPosition,
-            //        PlayerPosition + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
-            //        ))
-            //    );
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
