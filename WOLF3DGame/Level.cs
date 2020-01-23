@@ -118,9 +118,6 @@ namespace WOLF3DGame
         public static uint DoorTexture(uint cell) =>
             (uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
 
-        public static bool IsDoor(uint cell) =>
-            XDoor(cell).Any();
-
         public Transform StartTransform =>
             Start(out ushort index, out Direction8 direction) ?
             new Transform(direction.Basis, new Vector3(Assets.CenterSquare(Map.X(index)), 0f, Assets.CenterSquare(Map.Z(index))))

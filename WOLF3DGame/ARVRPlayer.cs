@@ -204,11 +204,7 @@ namespace WOLF3DGame
             get => Assets.Vector2(GlobalTransform.origin);
             set => GlobalTransform = new Transform(
                     GlobalTransform.basis,
-                    new Vector3(
-                        value.x,
-                        0f,
-                        value.y
-                    )
+                    Assets.Vector3(value)
                 );
         }
     }

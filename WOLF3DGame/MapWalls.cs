@@ -110,10 +110,10 @@ namespace WOLF3DGame
                 if (z < map.Depth - 1 && Level.IsWall(wall = Map.GetMapData(x, z + 1)))
                     AddChild(BuildWall(Level.DarkSide(wall), false, (int)x, (int)z, true));
             }
-            for (uint i = 0; i < Map.MapData.Length; i++)
+            for (ushort i = 0; i < Map.MapData.Length; i++)
             {
-                uint x = map.X(i), z = map.Z(i), here = Map.GetMapData(x, z);
-                if (Level.IsDoor(here))
+                ushort x = map.X(i), z = map.Z(i), here = Map.GetMapData(x, z);
+                if (Game.Assets.Doors.Contains(here))
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {

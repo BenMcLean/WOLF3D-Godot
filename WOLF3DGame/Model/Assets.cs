@@ -52,7 +52,6 @@ namespace WOLF3DGame.Model
         // Walking speed is half of running speed.
         public const float RunSpeed = 27.34714368f;
         public const float WalkSpeed = 13.67357184f;
-
         public const float DeadZone = 0.5f;
 
         public static readonly QuadMesh WallMesh = new QuadMesh()
@@ -135,7 +134,20 @@ namespace WOLF3DGame.Model
                             };
                     Animations.Add(actor.Attribute("Name").Value + "/" + animation.Attribute("Name").Value, frames);
                 }
+
+            List<ushort> walls = new List<ushort>();
+            foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>())
+                walls.Add((ushort)(int)wall.Attribute("Number"));
+            Walls = walls.ToArray();
+
+            List<ushort> doors = new List<ushort>();
+            foreach (XElement door in XML.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>())
+                doors.Add((ushort)(int)door.Attribute("Number"));
+            Doors = doors.ToArray();
         }
+
+        public ushort[] Walls { get; set; }
+        public ushort[] Doors { get; set; }
 
         public static bool IsTrue(XElement xElement, string attribute) =>
             bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
