@@ -145,9 +145,9 @@ namespace WOLF3DGame
                 if (!Shooting)
                 {
                     Game.Line3D.Vertices = new Vector3[] {
-                        RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + (-RightController.GlobalTransform.basis.y.Normalized() - RightController.GlobalTransform.basis.z.Normalized()).Normalized() * 64 * Assets.WallWidth
-                    };
+            RightController.GlobalTransform.origin,
+            RightController.GlobalTransform.origin + RightControllerDirection * ShotRange
+        };
                     Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
                         Game.Line3D.Vertices[0],
                         Game.Line3D.Vertices[1]
@@ -183,6 +183,10 @@ namespace WOLF3DGame
         public Vector2 ARVRCameraPosition => Assets.Vector2(ARVRCamera.GlobalTransform.origin);
         public Vector2 ARVRCameraDirection => -Assets.Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
         public Vector2 ARVRCameraMovement => ARVRCameraPosition - Assets.Vector2(GlobalTransform.origin);
+
+        public static Vector3 ARVRControllerDirection(Basis basis) => -basis.y.Rotated(basis.x.Normalized(), Mathf.Pi / 8f).Normalized();
+        public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
+        public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
 
         public delegate bool CanWalkDelegate(Vector2 there);
         public CanWalkDelegate CanWalk { get; set; } = (Vector2 there) => true;

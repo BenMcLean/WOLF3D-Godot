@@ -27,8 +27,12 @@ namespace WOLF3DGame
                 //Roomscale = false,
             }
             );
-            ARVRPlayer.LeftController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance());
-            ARVRPlayer.RightController.AddChild(GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance());
+            Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
+            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+            ARVRPlayer.LeftController.AddChild(controller);
+            controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
+            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+            ARVRPlayer.RightController.AddChild(controller);
             ARVRPlayer.ARVRCamera.AddChild(PlayerHead = new CollisionShape()
             {
                 Name = "Player's head",
