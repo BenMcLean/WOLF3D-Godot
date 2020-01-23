@@ -48,7 +48,7 @@ namespace WOLF3DGame
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 
-            ARVRPlayer.CanWalk = Level.CanWalk;
+            ARVRPlayer.Walk = Level.Walk;
 
             AddChild(Line3D = new Line3D()
             {

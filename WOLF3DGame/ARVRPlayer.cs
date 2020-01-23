@@ -116,10 +116,9 @@ namespace WOLF3DGame
                     movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
             }
 
-            there += movement * delta * (Shift ? Assets.WalkSpeed : Assets.RunSpeed);
+            there += movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed);
 
-            if (CanReallyWalk(there))
-                PlayerPosition = there;
+            PlayerPosition = Walk(PlayerPosition, there);
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
@@ -145,9 +144,9 @@ namespace WOLF3DGame
                 if (!Shooting)
                 {
                     Game.Line3D.Vertices = new Vector3[] {
-            RightController.GlobalTransform.origin,
-            RightController.GlobalTransform.origin + RightControllerDirection * ShotRange
-        };
+                        RightController.GlobalTransform.origin,
+                        RightController.GlobalTransform.origin + RightControllerDirection * ShotRange
+                    };
                     Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
                         Game.Line3D.Vertices[0],
                         Game.Line3D.Vertices[1]
@@ -173,8 +172,6 @@ namespace WOLF3DGame
         public bool Shooting { get; set; } = false;
         public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow((float)Assets.WallHeight, 2));
 
-        public static bool Shift => Input.IsKeyPressed((int)KeyList.Shift);
-
         public float Height => Roomscale ?
             0f
             : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
@@ -188,16 +185,8 @@ namespace WOLF3DGame
         public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
         public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
 
-        public delegate bool CanWalkDelegate(Vector2 there);
-        public CanWalkDelegate CanWalk { get; set; } = (Vector2 there) => true;
-
-        public bool CanReallyWalk(Vector2 there)
-        {
-            foreach (Direction8 direction in Direction8.Diagonals)
-                if (!CanWalk(there + direction.Vector2 * Assets.HeadDiagonal))
-                    return false;
-            return CanWalk(there);
-        }
+        public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
+        public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;
 
         public Vector2 PlayerPosition
         {

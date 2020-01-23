@@ -15,8 +15,17 @@ namespace WOLF3DGame
         public bool[][] Open { get; private set; }
         public MapWalls MapWalls { get; private set; }
 
-        public bool CanWalk(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
+        public Vector2 Walk(Vector2 here, Vector2 there) => CanWalk(there) ? there : here;
 
+        public bool CanWalk(Vector2 there)
+        {
+            foreach (Direction8 direction in Direction8.Diagonals)
+                if (!CanWalkPoint(there + direction.Vector2 * Assets.HeadDiagonal))
+                    return false;
+            return CanWalkPoint(there);
+        }
+
+        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
         public bool CanWalk(int x, int z) =>
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth &&
             Open[x][z];
