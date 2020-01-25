@@ -46,6 +46,7 @@ namespace OPL
 
         public override void _PhysicsProcess(float delta)
         {
+            base._PhysicsProcess(delta);
             if (Opl != null && Adl != null)
             {
                 SinceLastNote += delta;

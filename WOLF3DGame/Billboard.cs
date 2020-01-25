@@ -52,7 +52,7 @@ namespace WOLF3DGame
                 Rotation = Game.BillboardRotation;
         }
 
-        public static Billboard[] MakeBillboards(GameMap map)
+        public static Billboard[] Billboards(GameMap map)
         {
             XElement objects = Game.Assets?.XML?.Element("VSwap")?.Element("Objects");
             if (objects == null)

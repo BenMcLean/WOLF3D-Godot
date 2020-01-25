@@ -31,7 +31,7 @@ namespace OPL
 
         public override void _PhysicsProcess(float delta)
         {
-            base._Process(delta);
+            base._PhysicsProcess(delta);
             if (!Mute && Opl != null && Song != null)
                 PlayNotes(delta);
         }

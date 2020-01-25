@@ -14,20 +14,20 @@ namespace WOLF3DGame
         public WorldEnvironment WorldEnvironment { get; private set; }
         public bool[][] Open { get; private set; }
         public MapWalls MapWalls { get; private set; }
+        public Door[] Doors { get; private set; }
 
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
-            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x,
-                z = CanWalk(new Vector2(x, there.y)) ? there.y : here.y;
-            return CanWalk(there = new Vector2(x, z)) ? there : here;
+            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
+            return new Vector2(x, CanWalk(new Vector2(x, there.y)) ? there.y : here.y);
         }
 
-        public float ToTheEdgeFromFloat(float here, int mvoe) => mvoe == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), mvoe);
+        public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
 
         /// <summary>
         /// "Close to the edge, down by a river" - Yes
         /// </summary>
-        public float ToTheEdge(int here, int move) =>
+        public static float ToTheEdge(int here, int move) =>
             move > 0 ?
             Assets.FloatCoordinate(here + 1) - Assets.HeadXZ - float.Epsilon
             : move < 0 ?
@@ -62,8 +62,10 @@ namespace WOLF3DGame
             });
             AddChild(MapWalls = new MapWalls(Map));
 
-            Billboard[] billboards = Billboard.MakeBillboards(Map);
-            foreach (Billboard billboard in billboards)
+            foreach (Door door in Door.Doors(Map))
+                AddChild(door);
+
+            foreach (Billboard billboard in Billboard.Billboards(Map))
                 AddChild(billboard);
 
             Open = new bool[Map.Width][];

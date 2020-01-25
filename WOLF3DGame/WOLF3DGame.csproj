@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="Billboard.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Line3D.cs" />
     <Compile Include="Model\Direction8.cs" />
