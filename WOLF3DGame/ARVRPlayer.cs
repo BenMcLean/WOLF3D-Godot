@@ -74,6 +74,7 @@ namespace WOLF3DGame
 
         public override void _PhysicsProcess(float delta)
         {
+            base._PhysicsProcess(delta);
             Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
@@ -114,6 +115,9 @@ namespace WOLF3DGame
                 if (Mathf.Abs(strength) > float.Epsilon)
                     movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
             }
+
+            if (movement.Length() > 1f)
+                movement = movement.Normalized();
 
             PlayerPosition = Walk(PlayerPosition, Walk(
                     PlayerPosition,

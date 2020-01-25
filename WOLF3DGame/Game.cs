@@ -70,7 +70,7 @@ namespace WOLF3DGame
 
         public override void _PhysicsProcess(float delta)
         {
-            base._Process(delta);
+            base._PhysicsProcess(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
         }
 
