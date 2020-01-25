@@ -14,7 +14,14 @@ namespace WOLF3DGame
         public WorldEnvironment WorldEnvironment { get; private set; }
         public bool[][] Open { get; private set; }
         public MapWalls MapWalls { get; private set; }
-        public Door[] Doors { get; private set; }
+        public Door[][] Doors { get; private set; }
+        public IEnumerable<Door> GetDoors()
+        {
+            for (uint x = 0; x < Doors.Length; x++)
+                for (uint z = 0; z < Doors[x].Length; z++)
+                    if (Doors[x][z] != null)
+                        yield return Doors[x][z];
+        }
 
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
@@ -62,7 +69,8 @@ namespace WOLF3DGame
             });
             AddChild(MapWalls = new MapWalls(Map));
 
-            foreach (Door door in Door.Doors(Map))
+            Doors = Door.Doors(Map);
+            foreach (Door door in GetDoors())
                 AddChild(door);
 
             foreach (Billboard billboard in Billboard.Billboards(Map))

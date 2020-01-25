@@ -10,9 +10,36 @@ namespace WOLF3DGame
     {
         public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
-        public float Progress { get; private set; } = 0f;
+        public float Progress
+        {
+            get => progress;
+            set
+            {
+                progress = value;
+                if (Moving) DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(progress / OpeningSeconds / Assets.WallWidth, 0f, 0f));
+            }
+        }
+        private float progress = 0f;
         public enum StateEnum { CLOSED, OPENING, OPEN, CLOSING }
-        public StateEnum State { get; private set; } = StateEnum.CLOSED;
+        public StateEnum State
+        {
+            get => state;
+            set
+            {
+                switch (value)
+                {
+                    case StateEnum.CLOSED:
+                        Progress = 0f;
+                        break;
+                    case StateEnum.OPEN:
+                        Progress = OpeningSeconds;
+                        break;
+                }
+                state = value;
+            }
+        }
+        private StateEnum state = StateEnum.CLOSED;
+        public bool Moving => State == StateEnum.OPENING || State == StateEnum.CLOSING;
         public bool Western { get; private set; } = true;
         public int X { get; private set; } = 0;
         public int Z { get; private set; } = 0;
@@ -37,7 +64,6 @@ namespace WOLF3DGame
             AddChild(DoorCollider = new CollisionShape()
             {
                 Name = (Western ? "West" : "South") + " door shape at [" + x + ", " + z + "]",
-                Transform = new Transform(, Vector3.Zero),
                 Shape = Assets.WallShape,
             });
             DoorCollider.AddChild(new MeshInstance()
@@ -48,27 +74,51 @@ namespace WOLF3DGame
             });
         }
 
-        public static Door[] Doors(GameMap map)
+        public static Door[][] Doors(GameMap map)
         {
             XElement door;
-            List<Door> doors = new List<Door>();
+            Door[][] doors = new Door[map.Width][];
             for (ushort x = 0; x < map.Width; x++)
-                for (ushort z = 0; z < map.Width; z++)
+            {
+                doors[x] = new Door[map.Depth];
+                for (ushort z = 0; z < map.Depth; z++)
                     if ((door = (from e in Game.Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
                                  where ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == map.GetMapData(x, z)
                                  select e).FirstOrDefault()) != null)
-                        doors.Add(new Door(
+                        doors[x][z] = new Door(
                             Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                             x,
                             z,
                             Direction8.From(door.Attribute("Direction")) == Direction8.WEST
-                            ));
-            return doors.ToArray();
+                            );
+            }
+            return doors;
         }
 
         public override void _PhysicsProcess(float delta)
         {
             base._PhysicsProcess(delta);
+            switch (State)
+            {
+                case StateEnum.OPENING:
+                    Progress += delta;
+                    if (Progress > OpeningSeconds)
+                        State = StateEnum.OPEN;
+                    break;
+                case StateEnum.CLOSING:
+                    Progress -= delta;
+                    if (Progress < 0)
+                        State = StateEnum.CLOSED;
+                    break;
+                case StateEnum.OPEN:
+                    Progress += delta;
+                    if (Progress > OpenSeconds)
+                    {
+                        Progress = 0;
+                        //TryClose();
+                    }
+                    break;
+            }
         }
     }
 }
