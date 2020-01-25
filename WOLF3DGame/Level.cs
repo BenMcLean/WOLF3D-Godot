@@ -56,6 +56,9 @@ namespace WOLF3DGame
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth &&
             Open[x][z];
 
+        public bool SetOpen(ushort x, ushort z, bool open) => Open[x][z] = open;
+        public bool IsOpen(ushort x, ushort z) => Open[x][z];
+
         public Level(GameMap map)
         {
             Map = map;
@@ -67,15 +70,6 @@ namespace WOLF3DGame
                     BackgroundMode = Godot.Environment.BGMode.Color,
                 },
             });
-            AddChild(MapWalls = new MapWalls(Map));
-
-            Doors = Door.Doors(Map);
-            foreach (Door door in GetDoors())
-                AddChild(door);
-
-            foreach (Billboard billboard in Billboard.Billboards(Map))
-                AddChild(billboard);
-
             Open = new bool[Map.Width][];
             for (ushort x = 0; x < Map.Width; x++)
             {
@@ -83,6 +77,14 @@ namespace WOLF3DGame
                 for (ushort z = 0; z < Map.Depth; z++)
                     Open[x][z] = !(IsWall(x, z) || !IsNavigable(x, z));
             }
+            AddChild(MapWalls = new MapWalls(Map));
+
+            Doors = Door.Doors(Map, this);
+            foreach (Door door in GetDoors())
+                AddChild(door);
+
+            foreach (Billboard billboard in Billboard.Billboards(Map))
+                AddChild(billboard);
         }
 
         public bool IsWall(ushort x, ushort z) => Game.Assets.Walls.Contains(Map.GetMapData(x, z));
@@ -97,7 +99,7 @@ namespace WOLF3DGame
             return mapObject == null || Assets.IsTrue(mapObject, "Walk");
         }
 
-        /// <returns>if the specified map coordinate is adjacent to a floor</returns>
+        /// <returns>if the specified map coordinates are adjacent to a floor</returns>
         public bool IsByFloor(ushort x, ushort z)
         {
             ushort startX = x < 1 ? x : x > Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x - 1),

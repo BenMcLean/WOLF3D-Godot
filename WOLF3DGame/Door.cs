@@ -36,20 +36,34 @@ namespace WOLF3DGame
                         break;
                 }
                 state = value;
+                SetOpen?.Invoke(X, Z, state == StateEnum.OPEN);
             }
         }
         private StateEnum state = StateEnum.CLOSED;
         public bool Moving => State == StateEnum.OPENING || State == StateEnum.CLOSING;
         public bool Western { get; private set; } = true;
-        public int X { get; private set; } = 0;
-        public int Z { get; private set; } = 0;
+        public ushort X { get; private set; } = 0;
+        public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
         public CollisionShape PlusCollider { get; private set; }
         public CollisionShape MinusCollider { get; private set; }
 
-        public Door(Material material, int x, int z, bool western)
+        public delegate bool SetOpenDelegate(ushort x, ushort z, bool open);
+        public SetOpenDelegate SetOpen { get; set; }
+        public delegate bool IsOpenDelegate(ushort x, ushort z);
+        public IsOpenDelegate IsOpen { get; set; }
+
+        public Door SetDelegates(Level level)
         {
-            GD.Print("Creating " + (western ? "western" : "southern") + " door at " + x + ", " + z + "!");
+            (SetOpen = level.SetOpen)?.Invoke(X, Z, state == StateEnum.OPEN);
+            IsOpen = level.IsOpen;
+            return this;
+        }
+
+        public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => SetDelegates(level);
+
+        public Door(Material material, ushort x, ushort z, bool western)
+        {
             X = x;
             Z = z;
             Western = western;
@@ -74,7 +88,7 @@ namespace WOLF3DGame
             });
         }
 
-        public static Door[][] Doors(GameMap map)
+        public static Door[][] Doors(GameMap map, Level level = null)
         {
             XElement door;
             Door[][] doors = new Door[map.Width][];
@@ -85,11 +99,19 @@ namespace WOLF3DGame
                     if ((door = (from e in Game.Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
                                  where ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == map.GetMapData(x, z)
                                  select e).FirstOrDefault()) != null)
-                        doors[x][z] = new Door(
-                            Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
-                            x,
-                            z,
-                            Direction8.From(door.Attribute("Direction")) == Direction8.WEST
+                        doors[x][z] = level == null ?
+                            new Door(
+                                Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+                                x,
+                                z,
+                                Direction8.From(door.Attribute("Direction")) == Direction8.WEST
+                            )
+                            : new Door(
+                                Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+                                x,
+                                z,
+                                Direction8.From(door.Attribute("Direction")) == Direction8.WEST,
+                                level
                             );
             }
             return doors;
