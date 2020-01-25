@@ -6,6 +6,11 @@ using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
+    /// <summary>
+    /// This StaticBody contains the ceiling, floor and all the non-moving walls for a level.
+    /// <para />
+    /// The idea here is to "set it and forget it" since nothing in here ever changes during gameplay. Save games also don't have to get any information from any children of MapWalls, since MapWalls does not change no matter what the state of gameplay is.
+    /// </summary>
     public class MapWalls : StaticBody
     {
         public GameMap Map { get; set; }

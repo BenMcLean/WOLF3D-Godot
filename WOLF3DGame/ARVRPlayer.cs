@@ -117,7 +117,7 @@ namespace WOLF3DGame
 
             PlayerPosition = Walk(PlayerPosition, Walk(
                     PlayerPosition,
-                    PlayerPosition + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
+                    PlayerPosition + ARVRCameraMovement + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
                     ));
 
             // Move ARVROrigin so that camera global position matches player global position

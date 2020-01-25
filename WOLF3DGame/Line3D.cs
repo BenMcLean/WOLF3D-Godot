@@ -2,6 +2,9 @@
 
 namespace WOLF3DGame
 {
+    /// <summary>
+    /// Draws a 3D line in space, used for debugging.
+    /// </summary>
     public class Line3D : ImmediateGeometry
     {
         public Line3D() =>
