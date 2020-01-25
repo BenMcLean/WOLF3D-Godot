@@ -199,12 +199,16 @@ namespace WOLF3DGame.Model
                     }
                 DigiSounds = new AudioStreamSample[VSwap.DigiSounds.Length];
                 for (uint i = 0; i < DigiSounds.Length; i++)
-                    DigiSounds[i] = new AudioStreamSample()
-                    {
-                        Data = VSwap.DigiSounds[i],
-                        Format = AudioStreamSample.FormatEnum.Format8Bits,
-                        MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
-                    };
+                    if (VSwap.DigiSounds[i] != null)
+                        DigiSounds[i] = new AudioStreamSample()
+                        {
+                            ResourceName = (from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
+                                            where ushort.TryParse(e.Attribute("Number")?.Value, out ushort result) && result == i
+                                            select e.Attribute("Name")?.Value).FirstOrDefault(),
+                            Data = VSwap.DigiSounds[i],
+                            Format = AudioStreamSample.FormatEnum.Format8Bits,
+                            MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
+                        };
             }
         }
         private VSwap vswap;
