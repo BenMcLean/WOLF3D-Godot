@@ -41,6 +41,10 @@ namespace WOLF3DGame
                     case StateEnum.OPEN:
                         Slide = Progress = OpeningSeconds;
                         break;
+                    case StateEnum.CLOSING:
+                        if (Progress > OpeningSeconds)
+                            Slide = Progress = OpeningSeconds;
+                        break;
                 }
                 state = value;
                 Open = state == StateEnum.OPEN;
