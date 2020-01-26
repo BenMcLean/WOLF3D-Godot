@@ -176,7 +176,10 @@ namespace WOLF3DGame
             {
                 if (!Pushing)
                 {
-                    Push(PlayerPosition + ARVRCameraDirection * Assets.HalfWallWidth);
+                    Push(new Vector2(
+                        PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                        PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                        ));
                     Pushing = true;
                 }
             }

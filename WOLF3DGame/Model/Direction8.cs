@@ -140,8 +140,10 @@ namespace WOLF3DGame.Model
         public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
         public static int Modulus(int lhs, int rhs) => (lhs % rhs + rhs) % rhs;
-        public static Direction8 From(Vector3 vector3) => FromAngle(Mathf.Atan2(vector3.x, vector3.z));
+        public static Direction8 From(Vector3 vector3) => From(Assets.Vector2(vector3));
         public static Direction8 From(Vector2 vector2) => FromAngle(vector2.Angle());
+        public static Direction8 CardinalFrom(Vector3 vector3) => CardinalFrom(Assets.Vector2(vector3));
+        public static Direction8 CardinalFrom(Vector2 vector2) => CardinalFromAngle(vector2.Angle());
         public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
         public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);

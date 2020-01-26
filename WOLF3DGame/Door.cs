@@ -9,18 +9,7 @@ namespace WOLF3DGame
     {
         public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
-        public float Progress
-        {
-            get => progress;
-            set
-            {
-                progress = value;
-                if (State != StateEnum.OPEN)
-                    Slide = progress;
-            }
-        }
-        private float progress = 0f;
-
+        public float Progress { get; set; }
         public float Slide
         {
             get => DoorCollider.Transform.origin.x * OpeningSeconds / Assets.WallWidth;
@@ -36,13 +25,13 @@ namespace WOLF3DGame
                 switch (value)
                 {
                     case StateEnum.CLOSED:
-                        Progress = 0f;
+                        Slide = Progress = 0f;
                         break;
                     case StateEnum.OPEN:
                         Slide = Progress = OpeningSeconds;
                         break;
                     case StateEnum.CLOSING:
-                        if (Progress > OpeningSeconds)
+                        if (State == StateEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
                 }
@@ -139,12 +128,12 @@ namespace WOLF3DGame
             switch (State)
             {
                 case StateEnum.OPENING:
-                    Progress += delta;
+                    Slide = Progress += delta;
                     if (Progress > OpeningSeconds)
                         State = StateEnum.OPEN;
                     break;
                 case StateEnum.CLOSING:
-                    Progress -= delta;
+                    Slide = Progress -= delta;
                     if (Progress < 0)
                         State = StateEnum.CLOSED;
                     break;
