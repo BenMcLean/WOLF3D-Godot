@@ -1,5 +1,4 @@
 ﻿using Godot;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
@@ -16,10 +15,18 @@ namespace WOLF3DGame
             set
             {
                 progress = value;
-                if (Moving) DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(progress / OpeningSeconds * Assets.WallWidth, 0f, 0f));
+                if (State != StateEnum.OPEN)
+                    Slide = progress;
             }
         }
         private float progress = 0f;
+
+        public float Slide
+        {
+            get => DoorCollider.Transform.origin.x * OpeningSeconds / Assets.WallWidth;
+            set => DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(value / OpeningSeconds * Assets.WallWidth, 0f, 0f));
+        }
+
         public enum StateEnum { CLOSED, OPENING, OPEN, CLOSING }
         public StateEnum State
         {
@@ -32,7 +39,7 @@ namespace WOLF3DGame
                         Progress = 0f;
                         break;
                     case StateEnum.OPEN:
-                        Progress = OpeningSeconds;
+                        Slide = Progress = OpeningSeconds;
                         break;
                 }
                 state = value;
