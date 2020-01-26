@@ -160,8 +160,8 @@ namespace WOLF3DGame
                 Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]",
                 Transform = new Transform(
                     westernWall ?
-                        flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis
-                        : flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis,
+                        flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
+                        : flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
                     new Vector3(
                             westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
                             (float)Assets.HalfWallHeight,

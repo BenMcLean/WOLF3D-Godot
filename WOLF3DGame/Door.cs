@@ -80,7 +80,7 @@ namespace WOLF3DGame
             Z = z;
             Western = western;
             GlobalTransform = new Transform(
-                    Western ? Direction8.EAST.Basis : Direction8.NORTH.Basis,
+                    Western ? Direction8.NORTH.Basis : Direction8.EAST.Basis,
                     new Vector3(
                         Assets.CenterSquare(x),
                         (float)Assets.HalfWallHeight,

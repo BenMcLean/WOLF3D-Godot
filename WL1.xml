@@ -359,10 +359,10 @@
     <Sprite Page="106" Name="Demo" />
     <Sprite Page="107" Name="DeathCam" />
     <Objects>
-      <Start Number="19" Walk="true" Direction="N" Name="Start" />
-      <Start Number="20" Walk="true" Direction="E" Name="Start" />
-      <Start Number="21" Walk="true" Direction="S" Name="Start" />
-      <Start Number="22" Walk="true" Direction="W" Name="Start" />
+      <Start Number="19" Walk="true" Direction="E" Name="Start" />
+      <Start Number="20" Walk="true" Direction="N" Name="Start" />
+      <Start Number="21" Walk="true" Direction="W" Name="Start" />
+      <Start Number="22" Walk="true" Direction="S" Name="Start" />
       <Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
       <Billboard Number="24" Page="109" Name="Oil Drum" />
       <Billboard Number="25" Page="110" Name="Table with Chairs" />

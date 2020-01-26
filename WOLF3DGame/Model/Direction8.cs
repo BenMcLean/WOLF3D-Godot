@@ -146,7 +146,7 @@ namespace WOLF3DGame.Model
         public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
-        public float Angle => Mathf.Atan2(-X, -Z);
+        public float Angle => Mathf.Atan2(-Z, -X);
         public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
 
         public static Direction8 FromAxis(Vector3.Axis axis)
@@ -163,6 +163,8 @@ namespace WOLF3DGame.Model
             }
         }
 
+        public static Direction8 FromAngle(Transform transform) => FromAngle(transform.basis);
+        public static Direction8 FromAngle(Basis basis) => FromAngle(basis.GetEuler().y);
         public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
         public static Direction8 PositiveAngle(float angle) =>
             angle < Mathf.Tau / 16f ? SOUTH
@@ -173,6 +175,15 @@ namespace WOLF3DGame.Model
             : angle < Mathf.Tau * 11f / 16f ? NORTHEAST
             : angle < Mathf.Tau * 13f / 16f ? EAST
             : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
+            : SOUTH;
+        public static Direction8 CardinalFromAngle(Transform transform) => CardinalFromAngle(transform.basis);
+        public static Direction8 CardinalFromAngle(Basis basis) => CardinalFromAngle(basis.GetEuler().y);
+        public static Direction8 CardinalFromAngle(float angle) => CardinalPositiveAngle(angle + Mathf.Pi);
+        public static Direction8 CardinalPositiveAngle(float angle) =>
+            angle < Mathf.Tau / 8f ? SOUTH
+            : angle < Mathf.Tau * 3f / 8f ? WEST
+            : angle < Mathf.Tau * 5f / 8f ? NORTH
+            : angle < Mathf.Tau * 7f / 8f ? EAST
             : SOUTH;
         public static Direction8 From(XAttribute xAttribute) => From(xAttribute.Value);
         public static Direction8 From(string @string) =>
