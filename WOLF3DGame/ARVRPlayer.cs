@@ -1,7 +1,5 @@
 ﻿using Godot;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame

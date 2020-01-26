@@ -16,31 +16,43 @@ namespace WOLF3DGame
             set => DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(value / OpeningSeconds * Assets.WallWidth, 0f, 0f));
         }
 
-        public enum StateEnum { CLOSED, OPENING, OPEN, CLOSING }
-        public StateEnum State
+        public enum DoorEnum { CLOSED, OPENING, OPEN, CLOSING }
+        public static DoorEnum NextState(DoorEnum s) =>
+            s == DoorEnum.CLOSED ? DoorEnum.OPENING
+            : s == DoorEnum.OPENING ? DoorEnum.OPEN
+            : s == DoorEnum.OPEN ? DoorEnum.CLOSING
+            : DoorEnum.CLOSED;
+        public static DoorEnum PushedState(DoorEnum s) =>
+            s == DoorEnum.CLOSED ? DoorEnum.OPENING
+            : s == DoorEnum.OPENING ? DoorEnum.CLOSING
+            : s == DoorEnum.OPEN ? DoorEnum.CLOSING
+            : DoorEnum.OPENING;
+        public DoorEnum State
         {
             get => state;
             set
             {
+                if (State == DoorEnum.OPEN && value != DoorEnum.OPEN && !TryClose())
+                    return;
                 switch (value)
                 {
-                    case StateEnum.CLOSED:
+                    case DoorEnum.CLOSED:
                         Slide = Progress = 0f;
                         break;
-                    case StateEnum.OPEN:
+                    case DoorEnum.OPEN:
                         Slide = Progress = OpeningSeconds;
+                        Open = true;
                         break;
-                    case StateEnum.CLOSING:
-                        if (State == StateEnum.OPEN || Progress > OpeningSeconds)
+                    case DoorEnum.CLOSING:
+                        if (State == DoorEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
                 }
                 state = value;
-                Open = state == StateEnum.OPEN;
             }
         }
-        private StateEnum state = StateEnum.CLOSED;
-        public bool Moving => State == StateEnum.OPENING || State == StateEnum.CLOSING;
+        private DoorEnum state = DoorEnum.CLOSED;
+        public bool Moving => State == DoorEnum.OPENING || State == DoorEnum.CLOSING;
         public bool Western { get; private set; } = true;
         public ushort X { get; private set; } = 0;
         public ushort Z { get; private set; } = 0;
@@ -48,19 +60,21 @@ namespace WOLF3DGame
         public CollisionShape PlusCollider { get; private set; }
         public CollisionShape MinusCollider { get; private set; }
 
-        public delegate bool SetOpenDelegate(ushort x, ushort z, bool open);
-        public SetOpenDelegate SetOpen { get; set; }
+        public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
+        public TryOpenDeelgate TryOpen { get; set; }
+        public bool TryClose() => TryOpen?.Invoke(X, Z, false) ?? false;
+
         public delegate bool IsOpenDelegate(ushort x, ushort z);
         public IsOpenDelegate IsOpen { get; set; }
         public bool Open
         {
             get => IsOpen(X, Z);
-            set => SetOpen?.Invoke(X, Z, value);
+            set => TryOpen?.Invoke(X, Z, value);
         }
 
         public Door SetDelegates(Level level)
         {
-            (SetOpen = level.SetOpen)?.Invoke(X, Z, state == StateEnum.OPEN);
+            TryOpen = level.TryOpen;
             IsOpen = level.IsOpen;
             return this;
         }
@@ -122,49 +136,43 @@ namespace WOLF3DGame
             return doors;
         }
 
+        public override void _Ready()
+        {
+            base._Ready();
+            State = TryClose() ? DoorEnum.CLOSED : DoorEnum.OPEN;
+        }
+
         public override void _PhysicsProcess(float delta)
         {
             base._PhysicsProcess(delta);
             switch (State)
             {
-                case StateEnum.OPENING:
+                case DoorEnum.OPENING:
                     Slide = Progress += delta;
                     if (Progress > OpeningSeconds)
-                        State = StateEnum.OPEN;
+                        State = DoorEnum.OPEN;
                     break;
-                case StateEnum.CLOSING:
+                case DoorEnum.CLOSING:
                     Slide = Progress -= delta;
                     if (Progress < 0)
-                        State = StateEnum.CLOSED;
+                        State = DoorEnum.CLOSED;
                     break;
-                case StateEnum.OPEN:
+                case DoorEnum.OPEN:
                     Progress += delta;
                     if (Progress > OpenSeconds)
-                    {
-                        Progress = 0;
-                        //TryClose();
-                    }
+                        if (TryClose())
+                            State = DoorEnum.CLOSING;
+                        else
+                            Progress = 0;
                     break;
             }
         }
 
+        public DoorEnum Pushed => PushedState(State);
+
         public bool Push()
         {
-            switch (State)
-            {
-                case StateEnum.CLOSED:
-                    State = StateEnum.OPENING;
-                    break;
-                case StateEnum.OPENING:
-                    State = StateEnum.CLOSING;
-                    break;
-                case StateEnum.OPEN:
-                    State = StateEnum.CLOSING;
-                    break;
-                case StateEnum.CLOSING:
-                    State = StateEnum.OPENING;
-                    break;
-            }
+            State = Pushed;
             return true;
         }
     }

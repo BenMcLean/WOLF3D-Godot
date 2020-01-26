@@ -60,7 +60,16 @@ namespace WOLF3DGame
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth &&
             Open[x][z];
 
-        public bool SetOpen(ushort x, ushort z, bool open) => Open[x][z] = open;
+        public bool TryClose(ushort x, ushort z)
+        {
+            if (x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z)))
+            {
+                Open[x][z] = false;
+                return true;
+            }
+            return false;
+        }
+        public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth ? Open[x][z] = true : TryClose(x, z);
         public bool IsOpen(ushort x, ushort z) => Open[x][z];
 
         public Level(GameMap map)
@@ -117,8 +126,10 @@ namespace WOLF3DGame
             return false;
         }
 
-        public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
+        public ARVRPlayer ARVRPlayer { get; set; }
 
+        public List<ushort> Occupied => SquaresOccupied(ARVRPlayer.PlayerPosition);
+        public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
         public List<ushort> SquaresOccupied(Vector2 vector2)
         {
             List<ushort> list = new List<ushort>();

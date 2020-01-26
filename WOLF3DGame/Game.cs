@@ -39,7 +39,10 @@ namespace WOLF3DGame
 
             GameMap map = Assets.Maps[0];
 
-            AddChild(Level = new Level(map));
+            AddChild(Level = new Level(map)
+            {
+                ARVRPlayer = ARVRPlayer,
+            });
 
             ARVRPlayer.GlobalTransform = Level.StartTransform;
 
