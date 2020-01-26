@@ -40,7 +40,8 @@ namespace WOLF3DGame
                         Slide = Progress = 0f;
                         break;
                     case DoorEnum.OPEN:
-                        Slide = Progress = OpeningSeconds;
+                        Slide = OpeningSeconds;
+                        Progress = 0;
                         Open = true;
                         break;
                     case DoorEnum.CLOSING:
