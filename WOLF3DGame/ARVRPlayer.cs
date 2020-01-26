@@ -171,9 +171,21 @@ namespace WOLF3DGame
             }
             else
                 Shooting = false;
+
+            if (Input.IsKeyPressed((int)KeyList.Space))
+            {
+                if (!Pushing)
+                {
+                    Push(PlayerPosition + ARVRCameraDirection * Assets.HalfWallWidth);
+                    Pushing = true;
+                }
+            }
+            else
+                Pushing = false;
         }
 
         public bool Shooting { get; set; } = false;
+        public bool Pushing { get; set; } = false;
         public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow((float)Assets.WallHeight, 2));
 
         public float Height => Roomscale ?
@@ -191,6 +203,8 @@ namespace WOLF3DGame
 
         public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
         public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;
+        public delegate bool PushDelegate(Vector2 where);
+        public PushDelegate Push { get; set; }
 
         public Vector2 PlayerPosition
         {

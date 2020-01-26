@@ -16,7 +16,7 @@ namespace WOLF3DGame
             set
             {
                 progress = value;
-                if (Moving) DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(progress / OpeningSeconds / Assets.WallWidth, 0f, 0f));
+                if (Moving) DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(progress / OpeningSeconds * Assets.WallWidth, 0f, 0f));
             }
         }
         private float progress = 0f;
@@ -36,7 +36,7 @@ namespace WOLF3DGame
                         break;
                 }
                 state = value;
-                SetOpen?.Invoke(X, Z, state == StateEnum.OPEN);
+                Open = state == StateEnum.OPEN;
             }
         }
         private StateEnum state = StateEnum.CLOSED;
@@ -52,6 +52,11 @@ namespace WOLF3DGame
         public SetOpenDelegate SetOpen { get; set; }
         public delegate bool IsOpenDelegate(ushort x, ushort z);
         public IsOpenDelegate IsOpen { get; set; }
+        public bool Open
+        {
+            get => IsOpen(X, Z);
+            set => SetOpen?.Invoke(X, Z, value);
+        }
 
         public Door SetDelegates(Level level)
         {
@@ -141,6 +146,26 @@ namespace WOLF3DGame
                     }
                     break;
             }
+        }
+
+        public bool Push()
+        {
+            switch (State)
+            {
+                case StateEnum.CLOSED:
+                    State = StateEnum.OPENING;
+                    break;
+                case StateEnum.OPENING:
+                    State = StateEnum.CLOSING;
+                    break;
+                case StateEnum.OPEN:
+                    State = StateEnum.CLOSING;
+                    break;
+                case StateEnum.CLOSING:
+                    State = StateEnum.OPENING;
+                    break;
+            }
+            return true;
         }
     }
 }
