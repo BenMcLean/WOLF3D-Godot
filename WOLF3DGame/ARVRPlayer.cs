@@ -181,6 +181,22 @@ namespace WOLF3DGame
                     Pushing = true;
                 }
             }
+            else if (RightController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
+            {
+                if (!Pushing)
+                {
+                    Push(Assets.Vector2(RightController.GlobalTransform.origin));
+                    Pushing = true;
+                }
+            }
+            else if (LeftController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
+            {
+                if (!Pushing)
+                {
+                    Push(Assets.Vector2(LeftController.GlobalTransform.origin));
+                    Pushing = true;
+                }
+            }
             else
                 Pushing = false;
         }
