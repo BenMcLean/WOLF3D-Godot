@@ -50,6 +50,7 @@ namespace WOLF3DGame
                         break;
                 }
                 state = value;
+                GatesEnabled = state == DoorEnum.CLOSED;
             }
         }
         private DoorEnum state = DoorEnum.CLOSED;
@@ -58,8 +59,8 @@ namespace WOLF3DGame
         public ushort X { get; private set; } = 0;
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
-        public CollisionShape PlusCollider { get; private set; }
-        public CollisionShape MinusCollider { get; private set; }
+        public CollisionShape PlusGate { get; private set; }
+        public CollisionShape MinusGate { get; private set; }
 
         public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
         public TryOpenDeelgate TryOpen { get; set; }
@@ -106,6 +107,24 @@ namespace WOLF3DGame
                 MaterialOverride = material,
                 Mesh = Assets.WallMesh,
             });
+            AddChild(PlusGate = new CollisionShape()
+            {
+                Name = (Western ? "West" : "South") + " +gate shape at [" + x + ", " + z + "]",
+                Shape = Assets.WallShape,
+                Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.HalfWallWidth)),
+            });
+            AddChild(MinusGate = new CollisionShape()
+            {
+                Name = (Western ? "West" : "South") + " -zgate shape at [" + x + ", " + z + "]",
+                Shape = Assets.WallShape,
+                Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -Assets.HalfWallWidth)),
+            });
+        }
+
+        public bool GatesEnabled
+        {
+            get => !PlusGate.Disabled || !MinusGate.Disabled;
+            set => PlusGate.Disabled = MinusGate.Disabled = !value;
         }
 
         public static Door[][] Doors(GameMap map, Level level = null)
