@@ -93,14 +93,15 @@ namespace WOLF3DGame
 
         public void print()
         {
-            StringBuilder stringBuilder = new StringBuilder().Append("Squares occupied: {");
-            foreach (ushort square in Level.SquaresOccupied(ARVRPlayer.PlayerPosition))
-                stringBuilder.Append("[")
-                    .Append(Level.Map.X(square))
-                    .Append(", ")
-                    .Append(Level.Map.Z(square))
-                    .Append("] ");
-            GD.Print(stringBuilder.Append("}").ToString());
+            GD.Print("Left joystick: {" + ARVRPlayer.LeftController.GetJoystickAxis(0) + ", " + ARVRPlayer.LeftController.GetJoystickAxis(1) + "} Right joystick: " + ARVRPlayer.RightController.GetJoystickAxis(0) + ", " + ARVRPlayer.RightController.GetJoystickAxis(1) + "}");
+            //StringBuilder stringBuilder = new StringBuilder().Append("Squares occupied: {");
+            //foreach (ushort square in Level.SquaresOccupied(ARVRPlayer.PlayerPosition))
+            //    stringBuilder.Append("[")
+            //        .Append(Level.Map.X(square))
+            //        .Append(", ")
+            //        .Append(Level.Map.Z(square))
+            //        .Append("] ");
+            //GD.Print(stringBuilder.Append("}").ToString());
         }
 
         public Game PlayASound()
