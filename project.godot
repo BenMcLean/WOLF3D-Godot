@@ -53,6 +53,8 @@ texture={
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+quality/filters/anisotropic_filter_level=1
+vram_compression/import_etc=true
 quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
