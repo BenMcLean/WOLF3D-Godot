@@ -39,12 +39,16 @@ namespace WOLF3DGame
                     case DoorEnum.CLOSED:
                         Slide = Progress = 0f;
                         break;
+                    case DoorEnum.OPENING:
+                        Play = OpeningSound;
+                        break;
                     case DoorEnum.OPEN:
                         Slide = OpeningSeconds;
                         Progress = 0;
                         Open = true;
                         break;
                     case DoorEnum.CLOSING:
+                        Play = ClosingSound;
                         if (State == DoorEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
@@ -59,6 +63,8 @@ namespace WOLF3DGame
         public ushort X { get; private set; } = 0;
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
+        public MeshInstance DoorMesh { get; private set; }
+        public AudioStreamPlayer3D Doorknob { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
 
@@ -101,11 +107,15 @@ namespace WOLF3DGame
                 Name = (Western ? "West" : "South") + " door shape at [" + x + ", " + z + "]",
                 Shape = Assets.WallShape,
             });
-            DoorCollider.AddChild(new MeshInstance()
+            DoorCollider.AddChild(DoorMesh = new MeshInstance()
             {
                 Name = (Western ? "West" : "South") + " door mesh instance at [" + x + ", " + z + "]",
                 MaterialOverride = material,
                 Mesh = Assets.WallMesh,
+            });
+            DoorCollider.AddChild(Doorknob = new AudioStreamPlayer3D()
+            {
+                Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
             });
             AddChild(PlusGate = new CollisionShape()
             {
@@ -195,5 +205,19 @@ namespace WOLF3DGame
             State = Pushed;
             return true;
         }
+
+        public AudioStreamSample Play
+        {
+            get => (AudioStreamSample)Doorknob.Stream;
+            set
+            {
+                Doorknob.Stream = value;
+                if (value != null)
+                    Doorknob.Play();
+            }
+        }
+
+        public static AudioStreamSample OpeningSound { get; set; } = null;
+        public static AudioStreamSample ClosingSound { get; set; } = null;
     }
 }
