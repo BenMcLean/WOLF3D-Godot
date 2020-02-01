@@ -12,8 +12,32 @@ namespace WOLF3DGame
         public static string Folder { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVRPlayer ARVRPlayer { get; set; }
-        public Level Level { get; set; }
+        public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
+        public ushort NextMap => (ushort)(MapNumber + 1 >= Assets.Maps.Length ? 0 : MapNumber + 1);
+        public GameMap Map => Assets.Maps[MapNumber];
+        public ushort MapNumber
+        {
+            get => mapNumber;
+            set
+            {
+                mapNumber = value;
+                if (Level != null)
+                    RemoveChild(Level);
+
+                AddChild(Level = new Level(Map)
+                {
+                    ARVRPlayer = ARVRPlayer,
+                });
+
+                ARVRPlayer.GlobalTransform = Level.StartTransform;
+                ARVRPlayer.Walk = Level.Walk;
+                ARVRPlayer.Push = Level.Push;
+
+                Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[Map.Song];
+            }
+        }
+        private ushort mapNumber = 0;
 
         public override void _Ready()
         {
@@ -37,22 +61,11 @@ namespace WOLF3DGame
                 Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
             });
 
-            GameMap map = Assets.Maps[0];
+            MapNumber = 0;
 
-            AddChild(Level = new Level(map)
-            {
-                ARVRPlayer = ARVRPlayer,
-            });
-
-            ARVRPlayer.GlobalTransform = Level.StartTransform;
-
-            Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[map.Song];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
-
-            ARVRPlayer.Walk = Level.Walk;
-            ARVRPlayer.Push = Level.Push;
 
             AddChild(Line3D = new Line3D()
             {
@@ -89,6 +102,8 @@ namespace WOLF3DGame
         {
             if (buttonIndex == (int)JoystickList.OculusAx)
                 print();
+            if (buttonIndex == (int)JoystickList.OculusBy)
+                MapNumber = NextMap;
         }
 
         public void print()
