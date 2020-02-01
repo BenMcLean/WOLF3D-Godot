@@ -6,11 +6,24 @@ This project aims to re-create the experience of the classic 1992 first person s
 
 There has already been [an admirable effort at recreating Wolfenstein 3D in VR](https://further-beyond.itch.io/wolf3dvr) so anyone who just wants to play the game in VR right now on their PC should check that version out. However, in my view, that version leaves some gaps which this project aims to fill in:
 
-1. This is on the Godot-Mono engine, so the entire technology stack is as open source as possible. This remains true despite the fact that almost none of the original Wolfenstein 3D code is directly involved in this project. It's a port, but it's not a source port: it's a rough approximation of the game's rules re-interpreted for VR.
+1. This is on the Godot-Mono engine, so the entire technology stack is as open source as possible. This remains true despite the fact that almost none of the original Wolfenstein 3D code is directly involved in this project. It's a port, but it's not a source port: it is a brand new high-level emulator of the game's rules re-interpreted for VR.
 2. This version is going to load in all the assets from the original 1992 game files at runtime with no intermediary formats. (beyond adding some XML for things normally compiled into the EXE) If you can't auto-download the shareware or otherwise obtain the original MS-DOS game files then you can't play.
 3. Apart from rendering in HD, this version is going to keep the aesthetics strictly matching the original 1992 MS-DOS PC version to a ridiculously autistic and even slightly creepy degree. This means emulated Adlib / Sound Blaster sound, no dynamic lighting and no high resolution textures. If you don't like the original pixel art by Adrian Carmack and the original Adlib soundtrack by Robert Prince then this is not the version of Wolfenstein 3D for you.
-4. This version is going to have extensive mod support, including directly supporting classic mods and user-made map packs from the original game and/or made with existing modding tools from the community. In fact, the whole thing is being constructed from the beginning such that everything (even the full registered Wolf3D) is treated during development as a mod of the shareware version. Mods that require patching WOLF3D.EXE will probably not run, but most mods will probably run.
+4. This version is going to have extensive mod support, including directly supporting classic mods and user-made map packs from the original game and/or made with existing modding tools from the community. In fact, the whole thing is being constructed from the beginning such that everything (even the full registered Wolf3D) is treated during development as a mod of the shareware version. Mods that require patching actual new code features into WOLF3D.EXE will probably not run, but most mods will probably run.
 5. The goal is to make this program work on the Oculus Quest. Other platforms, like PC VR, may also be supported, but the Oculus Quest is the main goal.
+
+At this time, I do NOT plan to work on support for Blake Stone, Corridor 7 or Rise of the Triad.
+
+# Building
+
+Currently works with Godot Mono 3.2 Stable.
+
+In your Android export preset for Oculus Quest, you need these settings:
+* `Options > Xr Features > XR Mode`: `Oculus Mobile VR`
+* `Options > Xr Features > Degrees of Freedom`: `3DOF and 6DOF` (3DOF mode might not actually work but allowing it doesn't hurt anything)
+* `Options > Xr Features > Hand tracking`: `None` (I have no plans to support hand tracking)
+* `Options > Permissions`: select both `Read External Storage` and `Write External Storage`. (required to read the game files and write the shareware files)
+* `Resources > Filters to export non-resource files/folders`: add `*.zip, *.xml` to include the Wolfenstein 3-D shareware and the settings XML. (game will crash without this!)
 
 # Thanks
 
