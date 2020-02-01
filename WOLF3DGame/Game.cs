@@ -46,7 +46,7 @@ namespace WOLF3DGame
 
             ARVRPlayer.GlobalTransform = Level.StartTransform;
 
-            //Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[14];
+            Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[map.Song];
             //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));

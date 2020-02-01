@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3DGame.Model
@@ -21,6 +23,14 @@ namespace WOLF3DGame.Model
                         maps[mapNumber].Ceiling = ceiling;
                     if (byte.TryParse(map.Attribute("Border")?.Value, out byte border))
                         maps[mapNumber].Border = border;
+                    if (TimeSpan.TryParse(map.Attribute("Par")?.Value, out TimeSpan par))
+                        maps[mapNumber].Par = par;
+                    if (ushort.TryParse(
+                        (from e in xml.Element("Audio")?.Elements("Imf") ?? Enumerable.Empty<XElement>()
+                         where e.Attribute("Name")?.Value.Trim().Equals(map.Attribute("Song")?.Value.Trim(), System.StringComparison.InvariantCultureIgnoreCase) ?? false
+                         select e.Attribute("Number")?.Value).FirstOrDefault(),
+                        out ushort song))
+                        maps[mapNumber].Song = song;
                 }
             return maps;
         }
@@ -34,6 +44,8 @@ namespace WOLF3DGame.Model
         public byte Ceiling { get; set; }
         public byte Floor { get; set; }
         public byte Border { get; set; }
+        public TimeSpan Par { get; set; }
+        public ushort Song { get; set; }
 
         public ushort X(uint i) => X((ushort)i);
         public ushort X(ushort i) => (ushort)(i / Width);
