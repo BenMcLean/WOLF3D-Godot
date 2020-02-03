@@ -94,6 +94,7 @@ namespace WOLF3DGame
             X = x;
             Z = z;
             Western = western;
+            Name = (Western ? "West" : "South") + " door at [" + x + ", " + z + "]";
             GlobalTransform = new Transform(
                     Western ? Direction8.NORTH.Basis : Direction8.EAST.Basis,
                     new Vector3(

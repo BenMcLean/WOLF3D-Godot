@@ -94,8 +94,16 @@ namespace WOLF3DGame
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
-            if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo && inputEventKey.Scancode == (uint)KeyList.X)
-                print();
+            if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
+                switch (inputEventKey.Scancode)
+                {
+                    case (uint)KeyList.X:
+                        print();
+                        break;
+                    case (uint)KeyList.Z:
+                        MapNumber = NextMap;
+                        break;
+                }
         }
 
         public void ButtonPressed(int buttonIndex)

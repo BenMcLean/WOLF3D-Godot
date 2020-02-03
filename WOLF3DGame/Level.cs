@@ -22,7 +22,7 @@ namespace WOLF3DGame
                     if (Doors[x][z] != null)
                         yield return Doors[x][z];
         }
-        public Door GetDoor(int x, int z) => x >= 0 && z >= 8 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
+        public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
 
         public bool Push(Vector2 where) =>
             GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y))?.Push() ?? false;
