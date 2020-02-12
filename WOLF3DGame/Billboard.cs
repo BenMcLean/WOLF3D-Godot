@@ -7,14 +7,26 @@ using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
-    public class Billboard : Spatial
+    public class Billboard : StaticBody
     {
+        public static readonly BoxShape BillboardShape = new BoxShape()
+        {
+            Extents = new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.PixelWidth / 2f),
+        };
+
+        public CollisionShape Shape { get; private set; }
+
         public Billboard()
         {
-            AddChild(MeshInstance = new MeshInstance()
+            AddChild(Shape = new CollisionShape()
+            {
+                Shape = BillboardShape,
+                Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, -Assets.PixelWidth)),
+            });
+            Shape.AddChild(MeshInstance = new MeshInstance()
             {
                 Mesh = Assets.WallMesh,
-                Transform = Assets.BillboardTransform,
+                Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
         }
 

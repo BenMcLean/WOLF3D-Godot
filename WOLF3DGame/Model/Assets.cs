@@ -41,11 +41,14 @@ namespace WOLF3DGame.Model
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
         public static readonly Vector3 Scale = new Vector3(1f, 1.2f, 1f);
         public const float PixelHeight = 0.04572f;
-        public const double WallHeight = 2.92608;
-        public const double HalfWallHeight = 1.46304;
-        public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, (float)HalfWallHeight, 0));
+        public const float WallHeight = (float)2.92608;
+        public const float HalfWallHeight = (float)1.46304;
+        public static readonly Transform WallTransform = new Transform(Basis.Identity, new Vector3(HalfWallWidth, HalfWallHeight, 0));
         public static readonly Transform WallTransformFlipped = new Transform(Basis.Identity.Rotated(Godot.Vector3.Up, Mathf.Pi), WallTransform.origin);
-        public static readonly Transform BillboardTransform = new Transform(Basis.Identity, new Vector3(0f, (float)HalfWallHeight, 0f));
+        public static readonly BoxShape WallShape = new BoxShape()
+        {
+            Extents = new Vector3(HalfWallWidth, HalfWallHeight, PixelWidth),
+        };
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
         // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
@@ -56,16 +59,11 @@ namespace WOLF3DGame.Model
 
         public static readonly QuadMesh WallMesh = new QuadMesh()
         {
-            Size = new Vector2(WallWidth, (float)WallHeight),
+            Size = new Vector2(WallWidth, WallHeight),
         };
-        public static readonly BoxShape WallShape = new BoxShape()
-        {
-            Extents = new Vector3(HalfWallWidth, (float)HalfWallHeight, PixelWidth),
-        };
-
         public static readonly BoxShape BoxShape = new BoxShape()
         {
-            Extents = new Vector3(WallWidth, (float)WallHeight, WallWidth),
+            Extents = new Vector3(WallWidth, WallHeight, WallWidth),
         };
 
         public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);

@@ -68,7 +68,7 @@ namespace WOLF3DGame
                     new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
                     new Vector3(
                         Map.Width * Assets.HalfWallWidth,
-                        (float)Assets.WallHeight,
+                        Assets.WallHeight,
                         Map.Depth * Assets.HalfWallWidth
                     )
                 ),

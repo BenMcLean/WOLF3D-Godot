@@ -1,7 +1,6 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
 using OPL;
-using System.Text;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
