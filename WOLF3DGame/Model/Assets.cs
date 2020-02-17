@@ -249,6 +249,22 @@ namespace WOLF3DGame.Model
         public Dictionary<string, uint[][]> Animations;
         public ImageTexture[] Pics;
         public AudioStreamSample[] DigiSounds;
+
+        public Imf[] Song(string name) => uint.TryParse((
+            from e in XML.Element("Audio").Elements("Imf")
+            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            select e.Attribute("Number").Value).FirstOrDefault(),
+            out uint result) && result < AudioT.Songs.Length ?
+            AudioT.Songs[result]
+            : throw new InvalidDataException("Song not found: \"" + name + "\"");
+
+        public Adl Sound(string name) => uint.TryParse((
+            from e in XML.Element("Audio").Elements("Sound")
+            where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            select e.Attribute("Number").Value).FirstOrDefault(),
+            out uint result) && result < AudioT.Sounds.Length ?
+            AudioT.Sounds[result]
+            : throw new InvalidDataException("Sound not found: \"" + name + "\"");
         #endregion Game assets
     }
 }

@@ -70,6 +70,7 @@ namespace WOLF3DGame
                 },
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
+            Color = Game.Assets.Palette[(uint)Game.Assets.XML.Element("Menus").Attribute("BkgdColor")];
         }
     }
 }
