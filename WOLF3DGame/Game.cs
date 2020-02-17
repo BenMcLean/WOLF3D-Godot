@@ -93,6 +93,8 @@ namespace WOLF3DGame
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
+            if (@event.IsActionPressed("toggle_fullscreen"))
+                OS.WindowFullscreen = !OS.WindowFullscreen;
             if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
                 switch (inputEventKey.Scancode)
                 {
