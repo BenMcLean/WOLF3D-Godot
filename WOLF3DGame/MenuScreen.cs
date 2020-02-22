@@ -74,11 +74,11 @@ namespace WOLF3DGame
             Color = Assets.Palette[(uint)Assets.XML.Element("VgaGraph").Element("Menus").Attribute("BkgdColor")];
             Viewport.AddChild(Sprite = new Sprite()
             {
-                Transform = new Transform2D(0f, new Vector2(80f, 80f)),
+                Transform = new Transform2D(0f, new Vector2(160f, 100f)),
             });
             Viewport.AddChild(Words = new Sprite()
             {
-                Transform = new Transform2D(0f, new Vector2(170f, 180f)),
+                Transform = new Transform2D(0f, new Vector2(160f, 180f)),
             });
             ShowSprite = 0;
         }
