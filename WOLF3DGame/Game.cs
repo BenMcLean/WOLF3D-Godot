@@ -7,7 +7,6 @@ namespace WOLF3DGame
 {
     public class Game : Spatial
     {
-        public static Assets Assets { get; set; }
         public static string Folder { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVRPlayer ARVRPlayer { get; set; }

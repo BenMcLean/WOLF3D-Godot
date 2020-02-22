@@ -66,7 +66,7 @@ namespace WOLF3DGame
 
         public static Billboard[] Billboards(GameMap map)
         {
-            XElement objects = Game.Assets?.XML?.Element("VSwap")?.Element("Objects");
+            XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects");
             if (objects == null)
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();
@@ -78,7 +78,7 @@ namespace WOLF3DGame
                      select e.Attribute("Page")).FirstOrDefault()?.Value,
                     out uint page
                     ))
-                    billboards.Add(new Billboard(Game.Assets.VSwapMaterials[page])
+                    billboards.Add(new Billboard(Assets.VSwapMaterials[page])
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                     });

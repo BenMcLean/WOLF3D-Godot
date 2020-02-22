@@ -48,7 +48,7 @@ namespace WOLF3DGame
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Game.Assets.Palette[Map.Floor],
+                    AlbedoColor = Assets.Palette[Map.Floor],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -82,7 +82,7 @@ namespace WOLF3DGame
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Game.Assets.Palette[Map.Ceiling],
+                    AlbedoColor = Assets.Palette[Map.Ceiling],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -92,7 +92,7 @@ namespace WOLF3DGame
                 },
             });
 
-            XElement doorFrameX = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
+            XElement doorFrameX = (from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>()
                                    where e.Attribute("Name").Value.Equals("Door Frame")
                                    select e).FirstOrDefault();
             if (doorFrameX == null)
@@ -102,23 +102,23 @@ namespace WOLF3DGame
             void HorizontalCheck(ushort x, ushort z)
             {
                 ushort wall;
-                if (x < map.Width - 1 && Game.Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x + 1), z)))
+                if (x < map.Width - 1 && Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x + 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
-                if (x > 0 && Game.Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x - 1), z)))
+                if (x > 0 && Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x - 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
             }
             void VerticalCheck(ushort x, ushort z)
             {
                 ushort wall;
-                if (z > 0 && Game.Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z - 1))))
+                if (z > 0 && Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z - 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
-                if (z < map.Depth - 1 && Game.Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z + 1))))
+                if (z < map.Depth - 1 && Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z + 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
             }
             for (ushort i = 0; i < Map.MapData.Length; i++)
             {
                 ushort x = map.X(i), z = map.Z(i), here = Map.GetMapData(x, z);
-                if (Game.Assets.Doors.Contains(here))
+                if (Assets.Doors.Contains(here))
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
                     {
@@ -135,7 +135,7 @@ namespace WOLF3DGame
                         //AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
                     }
                 }
-                else if (!Game.Assets.Walls.Contains(here))
+                else if (!Assets.Walls.Contains(here))
                 {
                     HorizontalCheck(x, z);
                     VerticalCheck(x, z);
@@ -173,7 +173,7 @@ namespace WOLF3DGame
             result.AddChild(new MeshInstance()
             {
                 Name = (westernWall ? "West" : "South") + " wall mesh instance at [" + x + ", " + z + "]",
-                MaterialOverride = Game.Assets.VSwapMaterials[wall],
+                MaterialOverride = Assets.VSwapMaterials[wall],
                 Mesh = Assets.WallMesh,
             });
             return result;

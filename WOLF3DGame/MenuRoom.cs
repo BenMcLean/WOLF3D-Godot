@@ -30,7 +30,7 @@ namespace WOLF3DGame
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -3f)),
             });
-            Assets.OplPlayer.ImfPlayer.Song = Game.Assets.Song(Game.Assets.XML.Element("Menus").Attribute("MenuSong").Value);
+            Assets.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("Menus").Attribute("MenuSong").Value);
         }
     }
 }

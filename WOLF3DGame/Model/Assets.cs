@@ -10,7 +10,7 @@ namespace WOLF3DGame.Model
     /// <summary>
     /// Assets takes the bytes extracted from the Wolfenstein 3-D files and creates the corresponding Godot objects for them to be used throughout the game.
     /// </summary>
-    public class Assets
+    public static class Assets
     {
         #region Math
         //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3-D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
@@ -93,10 +93,9 @@ namespace WOLF3DGame.Model
         #endregion Math
 
         #region Game assets
-        public Assets(string folder, string file = "game.xml") : this(folder, LoadXML(folder, file))
-        { }
+        public static void LoadAssets(string folder, string file = "game.xml") => LoadAssets(folder, LoadXML(folder, file));
 
-        public Assets(string folder, XElement xml)
+        public static void LoadAssets(string folder, XElement xml)
         {
             XML = xml;
             if (XML.Element("VSwap") != null)
@@ -144,8 +143,8 @@ namespace WOLF3DGame.Model
             Doors = doors.ToArray();
         }
 
-        public ushort[] Walls { get; set; }
-        public ushort[] Doors { get; set; }
+        public static ushort[] Walls { get; set; }
+        public static ushort[] Doors { get; set; }
 
         public static bool IsTrue(XElement xElement, string attribute) =>
             bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
@@ -156,12 +155,12 @@ namespace WOLF3DGame.Model
                 return XElement.Load(xmlStream);
         }
 
-        public XElement XML { get; set; }
-        public GameMap[] Maps { get; set; }
+        public static XElement XML { get; set; }
+        public static GameMap[] Maps { get; set; }
         public static OplPlayer OplPlayer { get; set; }
-        public AudioT AudioT { get; set; }
+        public static AudioT AudioT { get; set; }
 
-        public VSwap VSwap
+        public static VSwap VSwap
         {
             get => vswap;
             set
@@ -223,9 +222,9 @@ namespace WOLF3DGame.Model
                     Door.ClosingSound = DigiSounds[closeDoor];
             }
         }
-        private VSwap vswap;
+        private static VSwap vswap;
 
-        public VgaGraph VgaGraph
+        public static VgaGraph VgaGraph
         {
             get => vgaGraph;
             set
@@ -242,15 +241,15 @@ namespace WOLF3DGame.Model
                     }
             }
         }
-        private VgaGraph vgaGraph;
-        public Color[] Palette;
-        public ImageTexture[] VSwapTextures;
-        public Material[] VSwapMaterials;
-        public Dictionary<string, uint[][]> Animations;
-        public ImageTexture[] Pics;
-        public AudioStreamSample[] DigiSounds;
+        private static VgaGraph vgaGraph;
+        public static Color[] Palette;
+        public static ImageTexture[] VSwapTextures;
+        public static Material[] VSwapMaterials;
+        public static Dictionary<string, uint[][]> Animations;
+        public static ImageTexture[] Pics;
+        public static AudioStreamSample[] DigiSounds;
 
-        public Imf[] Song(string name) => uint.TryParse((
+        public static Imf[] Song(string name) => uint.TryParse((
             from e in XML.Element("Audio").Elements("Imf")
             where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
@@ -258,7 +257,7 @@ namespace WOLF3DGame.Model
             AudioT.Songs[result]
             : throw new InvalidDataException("Song not found: \"" + name + "\"");
 
-        public Adl Sound(string name) => uint.TryParse((
+        public static Adl Sound(string name) => uint.TryParse((
             from e in XML.Element("Audio").Elements("Sound")
             where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),

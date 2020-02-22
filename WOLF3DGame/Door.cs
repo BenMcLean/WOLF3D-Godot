@@ -146,18 +146,18 @@ namespace WOLF3DGame
             {
                 doors[x] = new Door[map.Depth];
                 for (ushort z = 0; z < map.Depth; z++)
-                    if ((door = (from e in Game.Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
+                    if ((door = (from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
                                  where ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == map.GetMapData(x, z)
                                  select e).FirstOrDefault()) != null)
                         doors[x][z] = level == null ?
                             new Door(
-                                Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+                                Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                                 x,
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST
                             )
                             : new Door(
-                                Game.Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+                                Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                                 x,
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST,

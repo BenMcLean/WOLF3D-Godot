@@ -79,7 +79,7 @@ namespace WOLF3DGame
             {
                 Environment = new Godot.Environment()
                 {
-                    BackgroundColor = Game.Assets.Palette[Map.Border],
+                    BackgroundColor = Assets.Palette[Map.Border],
                     BackgroundMode = Godot.Environment.BGMode.Color,
                 },
             });
@@ -100,13 +100,13 @@ namespace WOLF3DGame
                 AddChild(billboard);
         }
 
-        public bool IsWall(ushort x, ushort z) => Game.Assets.Walls.Contains(Map.GetMapData(x, z));
+        public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
 
         public bool IsNavigable(ushort x, ushort z) => IsNavigable(Map.GetObjectData(x, z));
 
         public static bool IsNavigable(uint cell)
         {
-            XElement mapObject = (from e in Game.Assets?.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
+            XElement mapObject = (from e in Assets.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
                                   where (uint)e.Attribute("Number") == cell
                                   select e).FirstOrDefault();
             return mapObject == null || Assets.IsTrue(mapObject, "Walk");
@@ -159,12 +159,12 @@ namespace WOLF3DGame
             ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallTexture(cell);
 
         public static IEnumerable<XElement> XWall(ushort cell) =>
-            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>()
+            from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>()
             where (uint)e.Attribute("Number") == cell
             select e;
 
         public static IEnumerable<XElement> XDoor(ushort cell) =>
-            from e in Game.Assets?.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
+            from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
             where (uint)e.Attribute("Number") == cell
             select e;
 
@@ -178,7 +178,7 @@ namespace WOLF3DGame
 
         public bool Start(out ushort index, out Direction8 direction)
         {
-            foreach (XElement start in Game.Assets?.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
+            foreach (XElement start in Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
             {
                 if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
                     continue;

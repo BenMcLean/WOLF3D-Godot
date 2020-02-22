@@ -14,7 +14,7 @@ namespace WOLF3DGame
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (MeshInstance.Visible && Game.Assets.Animations.TryGetValue(ActorName + "/" + Animation, out uint[][] frame))
+            if (MeshInstance.Visible && Assets.Animations.TryGetValue(ActorName + "/" + Animation, out uint[][] frame))
             {
                 uint newFrame = frame[Frame][Direction8.Modulus(
                     Direction8.AngleToPoint(
@@ -27,7 +27,7 @@ namespace WOLF3DGame
                     )];
                 if (newFrame != LastFrame)
                 {
-                    MeshInstance.MaterialOverride = Game.Assets.VSwapMaterials[newFrame];
+                    MeshInstance.MaterialOverride = Assets.VSwapMaterials[newFrame];
                     LastFrame = newFrame;
                 }
             }
