@@ -158,7 +158,7 @@ namespace WOLF3DGame.Model
 
         public XElement XML { get; set; }
         public GameMap[] Maps { get; set; }
-        public OplPlayer OplPlayer { get; set; }
+        public static OplPlayer OplPlayer { get; set; }
         public AudioT AudioT { get; set; }
 
         public VSwap VSwap

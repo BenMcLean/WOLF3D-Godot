@@ -3,7 +3,7 @@ using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
-    class MenuScreen : StaticBody
+    public class MenuScreen : StaticBody
     {
         public const uint ScreenWidth = 320;
         public const uint ScreenHeight = 200;

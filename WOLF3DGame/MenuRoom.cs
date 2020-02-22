@@ -1,8 +1,9 @@
 ﻿using Godot;
+using WOLF3DGame.Model;
 
 namespace WOLF3DGame
 {
-    class MenuRoom : Spatial
+    public class MenuRoom : Spatial
     {
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
@@ -29,7 +30,7 @@ namespace WOLF3DGame
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -3f)),
             });
-            Game.Assets.OplPlayer.ImfPlayer.Song = Game.Assets.Song(Game.Assets.XML.Element("Menus").Attribute("MenuSong").Value);
+            Assets.OplPlayer.ImfPlayer.Song = Game.Assets.Song(Game.Assets.XML.Element("Menus").Attribute("MenuSong").Value);
         }
     }
 }

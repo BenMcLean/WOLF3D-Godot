@@ -1,4 +1,6 @@
 using Godot;
+using NScumm.Audio.OPL.Woody;
+using OPL;
 using System;
 using System.Linq;
 using WOLF3DGame;
@@ -44,8 +46,14 @@ public class Main : Spatial
 					{
 						DosScreen.Screen.WriteLine(ex.GetType().Name + ": " + ex.Message);
 					}
+					Game.Assets = new Assets(Game.Folder);
+					AddChild(Assets.OplPlayer = new OplPlayer()
+					{
+						Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
+					});
 					PackedScene game = new PackedScene();
-					game.Pack(new Game());
+					//game.Pack(new Game());
+					game.Pack(new MenuRoom());
 					GetTree().ChangeSceneTo(game);
 					break;
 			}

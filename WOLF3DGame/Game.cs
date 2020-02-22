@@ -43,7 +43,7 @@ namespace WOLF3DGame
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(ARVRPlayer = new ARVRPlayer()
             {
-                //Roomscale = false,
+                Roomscale = false,
             }
             );
             Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
@@ -52,13 +52,6 @@ namespace WOLF3DGame
             controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
             controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
             ARVRPlayer.RightController.AddChild(controller);
-
-            Assets = new Assets(Folder);
-
-            AddChild(Assets.OplPlayer = new OplPlayer()
-            {
-                Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
-            });
 
             MapNumber = 0;
 
