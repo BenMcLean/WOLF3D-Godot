@@ -203,11 +203,11 @@ namespace WOLF3DGame
 
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
-        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow((float)Assets.WallHeight, 2));
+        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow(Assets.WallHeight, 2));
 
         public float Height => Roomscale ?
             0f
-            : (float)Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
+            : Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
 
         public Vector2 ARVROriginPosition => Assets.Vector2(ARVROrigin.GlobalTransform.origin);
         public Vector2 ARVRCameraPosition => Assets.Vector2(ARVRCamera.GlobalTransform.origin);

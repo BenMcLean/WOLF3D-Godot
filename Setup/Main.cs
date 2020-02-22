@@ -46,14 +46,14 @@ public class Main : Spatial
 					{
 						DosScreen.Screen.WriteLine(ex.GetType().Name + ": " + ex.Message);
 					}
-					Assets.LoadAssets(Game.Folder);
+					Assets.Load(Game.Folder);
 					AddChild(Assets.OplPlayer = new OplPlayer()
 					{
 						Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
 					});
 					PackedScene game = new PackedScene();
-					game.Pack(new Game());
-					//game.Pack(new MenuRoom());
+					//game.Pack(new Game());
+					game.Pack(new MenuRoom());
 					GetTree().ChangeSceneTo(game);
 					break;
 			}

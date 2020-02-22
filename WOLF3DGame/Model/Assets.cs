@@ -36,7 +36,6 @@ namespace WOLF3DGame.Model
         public static float FloatCoordinate(ushort x) => FloatCoordinate((int)x);
         public static float FloatCoordinate(short x) => FloatCoordinate((int)x);
 
-
         // However, Wolfenstein 3D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
         public static readonly Vector3 Scale = new Vector3(1f, 1.2f, 1f);
@@ -93,9 +92,9 @@ namespace WOLF3DGame.Model
         #endregion Math
 
         #region Game assets
-        public static void LoadAssets(string folder, string file = "game.xml") => LoadAssets(folder, LoadXML(folder, file));
+        public static void Load(string folder, string file = "game.xml") => Load(folder, LoadXML(folder, file));
 
-        public static void LoadAssets(string folder, XElement xml)
+        public static void Load(string folder, XElement xml)
         {
             XML = xml;
             if (XML.Element("VSwap") != null)
@@ -175,7 +174,7 @@ namespace WOLF3DGame.Model
                             VSwap.A(VSwap.Palette[i])
                         );
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
-                VSwapMaterials = new Material[VSwapTextures.Length];
+                VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
                 for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
@@ -230,26 +229,51 @@ namespace WOLF3DGame.Model
             set
             {
                 vgaGraph = value;
-                Pics = new ImageTexture[VgaGraph.Pics.Length];
-                for (uint i = 0; i < Pics.Length; i++)
+                PicTextures = new ImageTexture[VgaGraph.Pics.Length];
+                for (uint i = 0; i < PicTextures.Length; i++)
                     if (VgaGraph.Pics[i] != null)
                     {
                         Godot.Image image = new Image();
                         image.CreateFromData(VgaGraph.Sizes[i][0], VgaGraph.Sizes[i][1], false, Image.Format.Rgba8, VgaGraph.Pics[i]);
-                        Pics[i] = new ImageTexture();
-                        Pics[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
+                        PicTextures[i] = new ImageTexture();
+                        PicTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
                     }
             }
         }
         private static VgaGraph vgaGraph;
         public static Color[] Palette;
         public static ImageTexture[] VSwapTextures;
-        public static Material[] VSwapMaterials;
+        public static SpatialMaterial[] VSwapMaterials;
         public static Dictionary<string, uint[][]> Animations;
-        public static ImageTexture[] Pics;
+        public static ImageTexture[] PicTextures;
         public static AudioStreamSample[] DigiSounds;
 
-        public static Imf[] Song(string name) => uint.TryParse((
+        public static AudioStreamSample DigiSound(string name) =>
+            uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
+            DigiSounds[index]
+            : uint.TryParse((
+            from e in XML.Element("VSwap").Elements("DigiSound")
+            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            select e.Attribute("Number").Value).FirstOrDefault(),
+            out uint result) && result < DigiSounds.Length ?
+            DigiSounds[result]
+            : throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
+
+        public static ImageTexture PicTexture(string name) =>
+            uint.TryParse(name, out uint index) && index < PicTextures.Length ?
+            PicTextures[index]
+            : uint.TryParse((
+            from e in XML.Element("VgaGraph").Elements("Pic")
+            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            select e.Attribute("Number").Value).FirstOrDefault(),
+            out uint result) && result < PicTextures.Length ?
+            PicTextures[result]
+            : throw new InvalidDataException("Pic not found: \"" + name + "\"");
+
+        public static Imf[] Song(string name) =>
+            uint.TryParse(name, out uint index) && index < AudioT.Songs.Length ?
+            AudioT.Songs[index]
+            : uint.TryParse((
             from e in XML.Element("Audio").Elements("Imf")
             where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
@@ -257,7 +281,10 @@ namespace WOLF3DGame.Model
             AudioT.Songs[result]
             : throw new InvalidDataException("Song not found: \"" + name + "\"");
 
-        public static Adl Sound(string name) => uint.TryParse((
+        public static Adl Sound(string name) =>
+            uint.TryParse(name, out uint index) && index < AudioT.Sounds.Length ?
+            AudioT.Sounds[index]
+            : uint.TryParse((
             from e in XML.Element("Audio").Elements("Sound")
             where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),

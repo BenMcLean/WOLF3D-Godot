@@ -28,9 +28,23 @@ namespace WOLF3DGame
             });
             AddChild(MenuScreen = new MenuScreen()
             {
-                Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -3f)),
+                Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -1.5f)),
             });
-            Assets.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("Menus").Attribute("MenuSong").Value);
+            if (Assets.OplPlayer != null && Assets.OplPlayer.ImfPlayer != null)
+                Assets.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            base._PhysicsProcess(delta);
+            ARVROrigin.Transform = new Transform(
+                Basis.Identity,
+                new Vector3(
+                    -ARVRCamera.Transform.origin.x,
+                    Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
+                    -ARVRCamera.Transform.origin.z
+                )
+            );
         }
     }
 }

@@ -145,20 +145,20 @@
     <Pic Number="138" Chunk="141" Name="GETPSYCHEDPIC" />
     <Pic Number="139" Chunk="557" Name="ORDERSCREEN" />
     <Pic Number="140" Chunk="558" Name="ENUMEND" />
+    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" BordColor="41" Bord2Color="35" Deactive="43" BkgdColor="45" Stripe="44">
+      <Menu Name="Main">
+        <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
+        <Options X="60" Y="52" W="178" H="84">
+          <Option Name="New Game" />
+          <Option Name="Sound" />
+          <Option Name="Control" />
+          <Option Name="Load Game" />
+          <Option Name="Save Game" />
+          <Option Name="Quit" />
+        </Options>
+      </Menu>
+    </Menus>
   </VgaGraph>
-  <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" BordColor="41" Bord2Color="35" Deactive="43" BkgdColor="45" Stripe="44">
-    <Menu Name="Main">
-      <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
-      <Options X="60" Y="52" W="178" H="84">
-        <Option Name="New Game" />
-        <Option Name="Sound" />
-        <Option Name="Control" />
-        <Option Name="Load Game" />
-        <Option Name="Save Game" />
-        <Option Name="Quit" />
-      </Options>
-    </Menu>
-  </Menus>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
     <Map Number="0" Floor="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
     <Map Number="1" Floor="25" Ceiling="29" Border="127" Par="02:00" Song="SEARCHN_MUS" />

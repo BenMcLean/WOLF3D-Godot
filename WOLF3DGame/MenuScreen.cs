@@ -8,7 +8,7 @@ namespace WOLF3DGame
         public const uint ScreenWidth = 320;
         public const uint ScreenHeight = 200;
         public const float Width = Assets.WallWidth;
-        public const float Height = Width / 3f * 4f;
+        public const float Height = Width / 4f * 3f;
         public static readonly BoxShape MenuScreenShape = new BoxShape()
         {
             Extents = new Vector3(Width / 2f, Height / 2f, Assets.PixelWidth / 2f),
@@ -21,8 +21,8 @@ namespace WOLF3DGame
 
         public Color Color
         {
-            get => WorldEnvironment.Environment.BackgroundColor;
-            set => WorldEnvironment.Environment.BackgroundColor = Background.Color = value;
+            get => Background.Color;
+            set => /*WorldEnvironment.Environment.BackgroundColor = */Background.Color = value;
         }
 
         public MenuScreen()
@@ -70,8 +70,21 @@ namespace WOLF3DGame
                 },
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
-            Color = Assets.Palette[(uint)Assets.XML.Element("Menus").Attribute("BkgdColor")];
+            Color = Assets.Palette[(uint)Assets.XML.Element("VgaGraph").Element("Menus").Attribute("BkgdColor")];
+            Sprite sprite = new Sprite()
+            {
+                Texture = Assets.PicTexture("H_FGODMOMPIC"),
+                Transform = new Transform2D(0f, new Vector2(80f, 80f)),
+            };
 
+            Viewport.AddChild(sprite);
+        }
+
+        public override void _Input(InputEvent @event)
+        {
+            base._Input(@event);
+            if (@event.IsActionPressed("ui_down"))
+                WorldEnvironment.Environment.BackgroundColor = Color.Color8(255, 255, 255, 255);
         }
     }
 }
