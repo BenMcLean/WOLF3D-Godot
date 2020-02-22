@@ -291,6 +291,16 @@ namespace WOLF3DGame.Model
             out uint result) && result < AudioT.Sounds.Length ?
             AudioT.Sounds[result]
             : throw new InvalidDataException("Sound not found: \"" + name + "\"");
+
+        public static ImageTexture Text(string @string, uint font = 0) => Text(@string, VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)]);
+        public static ImageTexture Text(string @string, VgaGraph.Font font)
+        {
+            Image image = new Image();
+            image.CreateFromData(font.CalcWidth(@string), font.Height, false, Image.Format.Rgba8, font.Line(@string));
+            ImageTexture imageTexture = new ImageTexture();
+            imageTexture.CreateFromImage(image, 0);
+            return imageTexture;
+        }
         #endregion Game assets
     }
 }

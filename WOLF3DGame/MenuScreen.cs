@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Linq;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
@@ -71,20 +72,42 @@ namespace WOLF3DGame
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
             Color = Assets.Palette[(uint)Assets.XML.Element("VgaGraph").Element("Menus").Attribute("BkgdColor")];
-            Sprite sprite = new Sprite()
+            Viewport.AddChild(Sprite = new Sprite()
             {
-                Texture = Assets.PicTexture("H_FGODMOMPIC"),
                 Transform = new Transform2D(0f, new Vector2(80f, 80f)),
-            };
-
-            Viewport.AddChild(sprite);
+            });
+            Viewport.AddChild(Words = new Sprite()
+            {
+                Transform = new Transform2D(0f, new Vector2(170f, 180f)),
+            });
+            ShowSprite = 0;
         }
+
+        private Sprite Sprite;
+        private Sprite Words;
+        private int ShowSprite
+        {
+            get => showSprite;
+            set
+            {
+                showSprite = Direction8.Modulus(value, Assets.PicTextures.Length);
+                Sprite.Texture = Assets.PicTextures[showSprite];
+                Words.Texture = Assets.Text("Pic " + showSprite + ": \"" +
+                    (from e in Assets.XML.Element("VgaGraph").Elements("Pic")
+                     where (uint)e.Attribute("Number") == showSprite
+                     select e.Attribute("Name").Value).FirstOrDefault()
+                    + "\"", 1);
+            }
+        }
+        private int showSprite = 0;
 
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
+            if (@event.IsActionPressed("ui_up"))
+                ShowSprite--;
             if (@event.IsActionPressed("ui_down"))
-                WorldEnvironment.Environment.BackgroundColor = Color.Color8(255, 255, 255, 255);
+                ShowSprite++;
         }
     }
 }
