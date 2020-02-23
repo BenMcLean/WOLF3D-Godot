@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Linq;
+using System.Xml.Linq;
 using WOLF3DGame.Model;
 
 namespace WOLF3DGame
@@ -92,11 +93,14 @@ namespace WOLF3DGame
             {
                 showSprite = Direction8.Modulus(value, Assets.PicTextures.Length);
                 Sprite.Texture = Assets.PicTextures[showSprite];
-                Words.Texture = Assets.Text("Pic " + showSprite + ": \"" +
-                    (from e in Assets.XML.Element("VgaGraph").Elements("Pic")
-                     where (uint)e.Attribute("Number") == showSprite
-                     select e.Attribute("Name").Value).FirstOrDefault()
-                    + "\"", 1);
+                XElement pic = (from e in Assets.XML.Element("VgaGraph").Elements("Pic")
+                                where (uint)e.Attribute("Number") == showSprite
+                                select e).FirstOrDefault();
+                Words.Texture = Assets.Text("Chunk " +
+                    pic?.Attribute("Chunk")?.Value +
+                    ", Pic " + showSprite + ": \"" +
+                    pic?.Attribute("Name")?.Value +
+                    "\"");
             }
         }
         private int showSprite = 0;
@@ -104,9 +108,11 @@ namespace WOLF3DGame
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
-            if (@event.IsActionPressed("ui_up"))
+            if (@event.IsActionPressed("toggle_fullscreen"))
+                OS.WindowFullscreen = !OS.WindowFullscreen;
+            if (@event.IsActionPressed("ui_up") || @event.IsActionPressed("ui_left"))
                 ShowSprite--;
-            if (@event.IsActionPressed("ui_down"))
+            if (@event.IsActionPressed("ui_down") || @event.IsActionPressed("ui_right"))
                 ShowSprite++;
         }
     }
