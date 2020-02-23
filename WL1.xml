@@ -22,7 +22,7 @@
     <Pic Number="15" Chunk="18" Name="H_LEFTWINDOWPIC" />
     <Pic Number="16" Chunk="19" Name="H_RIGHTWINDOWPIC" />
     <Pic Number="17" Chunk="20" Name="H_BOTTOMINFOPIC" />
-    <Pic Number="18" Chunk="21" Name="" />
+    <Pic Number="18" Chunk="21" Name="H_SPEARADPIC" />
     <Pic Number="19" Chunk="22" Name="C_OPTIONSPIC" />
     <Pic Number="20" Chunk="23" Name="C_CURSOR1PIC" />
     <Pic Number="21" Chunk="24" Name="C_CURSOR2PIC" />
@@ -50,12 +50,12 @@
     <Pic Number="43" Chunk="46" Name="C_EPISODE5PIC" />
     <Pic Number="44" Chunk="47" Name="C_EPISODE6PIC" />
     <Pic Number="45" Chunk="48" Name="C_CODEPIC" />
-    <Pic Number="46" Chunk="49" Name="" />
-    <Pic Number="47" Chunk="50" Name="" />
-    <Pic Number="48" Chunk="51" Name="" />
-    <Pic Number="49" Chunk="52" Name="" />
-    <Pic Number="50" Chunk="53" Name="" />
-    <Pic Number="51" Chunk="54" Name="" />
+    <Pic Number="46" Chunk="49" Name="C_TIMECODEPIC" />
+    <Pic Number="47" Chunk="50" Name="C_LEVELPIC" />
+    <Pic Number="48" Chunk="51" Name="C_NAMEPIC" />
+    <Pic Number="49" Chunk="52" Name="C_SCOREPIC" />
+    <Pic Number="50" Chunk="53" Name="C_JOY1PIC" />
+    <Pic Number="51" Chunk="54" Name="C_JOY2PIC" />
     <Pic Number="52" Chunk="55" Name="L_GUYPIC" />
     <Pic Number="53" Chunk="56" Name="L_COLONPIC" />
     <Pic Number="54" Chunk="57" Name="L_NUM0PIC" />
@@ -96,7 +96,7 @@
     <Pic Number="89" Chunk="92" Name="L_YPIC" />
     <Pic Number="90" Chunk="93" Name="L_ZPIC" />
     <Pic Number="91" Chunk="94" Name="L_EXPOINTPIC" />
-    <Pic Number="92" Chunk="95" Name="" />
+    <Pic Number="92" Chunk="95" Name="L_APOSTROPHEPIC" />
     <Pic Number="93" Chunk="96" Name="L_GUY2PIC" />
     <Pic Number="94" Chunk="97" Name="L_BJWINSPIC" />
     <Pic Number="95" Chunk="98" Name="STATUSBARPIC" />
