@@ -81,6 +81,17 @@ namespace WOLF3DGame
             {
                 Transform = new Transform2D(0f, new Vector2(160f, 180f)),
             });
+
+            ImageTexture bannerTexture = Assets.PicTexture("C_OPTIONSPIC");
+            Viewport.AddChild(new Sprite()
+            {
+                Texture = bannerTexture,
+                RegionEnabled = true,
+                RegionRect = new Rect2(Vector2.Zero, new Vector2(1, bannerTexture.GetSize().y)),
+                Transform = new Transform2D(0f, new Vector2(Viewport.Size.x / 2f, bannerTexture.GetSize().y / 2f)),
+                Scale = new Vector2(Viewport.Size.x, 1f),
+            });
+
             ShowSprite = 0;
         }
 
