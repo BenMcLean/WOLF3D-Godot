@@ -73,6 +73,9 @@ namespace WOLF3DGame
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
             Color = Assets.Palette[(uint)Assets.XML.Element("VgaGraph").Element("Menus").Attribute("BkgdColor")];
+
+            Viewport.AddChild(XBanner(Assets.PicTexture("C_OPTIONSPIC")));
+
             Viewport.AddChild(Sprite = new Sprite()
             {
                 Transform = new Transform2D(0f, new Vector2(160f, 100f)),
@@ -80,16 +83,6 @@ namespace WOLF3DGame
             Viewport.AddChild(Words = new Sprite()
             {
                 Transform = new Transform2D(0f, new Vector2(160f, 180f)),
-            });
-
-            ImageTexture bannerTexture = Assets.PicTexture("C_OPTIONSPIC");
-            Viewport.AddChild(new Sprite()
-            {
-                Texture = bannerTexture,
-                RegionEnabled = true,
-                RegionRect = new Rect2(Vector2.Zero, new Vector2(1, bannerTexture.GetSize().y)),
-                Transform = new Transform2D(0f, new Vector2(Viewport.Size.x / 2f, bannerTexture.GetSize().y / 2f)),
-                Scale = new Vector2(Viewport.Size.x, 1f),
             });
 
             ShowSprite = 0;
@@ -126,5 +119,14 @@ namespace WOLF3DGame
             if (@event.IsActionPressed("ui_down") || @event.IsActionPressed("ui_right"))
                 ShowSprite++;
         }
+
+        public Sprite XBanner(Texture texture, uint x = 0, uint y = 0) => new Sprite()
+        {
+            Texture = texture,
+            RegionEnabled = true,
+            RegionRect = new Rect2(new Vector2(x, 0f), new Vector2(1, texture.GetSize().y)),
+            Transform = new Transform2D(0f, new Vector2(Viewport.Size.x / 2f, texture.GetSize().y / 2f + y)),
+            Scale = new Vector2(Viewport.Size.x, 1f),
+        };
     }
 }
