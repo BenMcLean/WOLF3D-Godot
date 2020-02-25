@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Menu
 {
     public class MenuScreen : StaticBody
     {
@@ -83,6 +83,15 @@ namespace WOLF3DGame
             Viewport.AddChild(Words = new Sprite()
             {
                 Transform = new Transform2D(0f, new Vector2(160f, 180f)),
+            });
+
+            Viewport.AddChild(new PixelRect()
+            {
+                Position = new Vector2(160, 100),
+                Size = new Vector2(5, 5),
+                NWColor = Color.Color8(255, 0, 0, 255),
+                SEColor = Color.Color8(0, 255, 0, 255),
+                Color = Color.Color8(0, 0, 255, 255),
             });
 
             ShowSprite = 0;
