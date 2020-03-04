@@ -48,6 +48,8 @@ namespace WOLF3DGame.Menu
                     Position = new Vector2((float)image.Attribute("X") + texture.GetSize().x / 2f, (float)image.Attribute("Y") + texture.GetSize().y / 2f),
                 });
             }
+            foreach (XElement pixelRect in menu.Elements("PixelRect"))
+                AddChild(new PixelRect(pixelRect));
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()

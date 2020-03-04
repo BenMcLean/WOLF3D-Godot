@@ -151,7 +151,7 @@
     <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" >
       <Menu Name="Main" BkgdColor="41">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
-        <PixelRect X="68" Y="52" Width="178" Height="84" Color="45" BordColor="41" Bord2Color="35" />
+        <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
         <Options>
           <Option Name="New Game" />
           <Option Name="Sound" />
