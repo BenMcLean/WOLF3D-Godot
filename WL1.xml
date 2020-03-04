@@ -148,10 +148,11 @@
     <Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
     <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
     <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" BordColor="41" Bord2Color="35" Deactive="43" BkgdColor="45" Stripe="44">
-      <Menu Name="Main">
+    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" >
+      <Menu Name="Main" BkgdColor="41">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
-        <Options X="60" Y="52" W="178" H="84">
+        <PixelRect X="68" Y="52" Width="178" Height="84" Color="45" BordColor="41" Bord2Color="35" />
+        <Options>
           <Option Name="New Game" />
           <Option Name="Sound" />
           <Option Name="Control" />

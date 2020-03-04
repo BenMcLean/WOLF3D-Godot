@@ -9,10 +9,12 @@ namespace WOLF3DGame.Menu
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
-        public MenuScreen MenuScreen { get; set; }
-        public override void _Ready()
+        public MenuBody MenuBody { get; set; }
+
+        public MenuRoom() : this(Assets.Menu("Main")) { }
+
+        public MenuRoom(MenuScreen menuScreen)
         {
-            VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {
@@ -26,12 +28,18 @@ namespace WOLF3DGame.Menu
             {
                 ControllerId = 2,
             });
-            AddChild(MenuScreen = new MenuScreen()
+            AddChild(MenuBody = new MenuBody(menuScreen)
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -1.5f)),
             });
             if (Assets.OplPlayer != null && Assets.OplPlayer.ImfPlayer != null)
                 Assets.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
+        }
+
+        public override void _Ready()
+        {
+            base._Ready();
+            VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
         }
 
         public override void _PhysicsProcess(float delta)

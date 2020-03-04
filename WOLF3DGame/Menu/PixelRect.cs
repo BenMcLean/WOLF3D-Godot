@@ -1,4 +1,6 @@
 ﻿using Godot;
+using System.Xml.Linq;
+using WOLF3DGame.Model;
 
 namespace WOLF3DGame.Menu
 {
@@ -40,6 +42,14 @@ namespace WOLF3DGame.Menu
             {
                 RectPosition = new Vector2(1, 1),
             });
+        }
+        public PixelRect(XElement xElement) : this()
+        {
+            NWBorder.Color = Assets.Palette[(uint)xElement.Attribute("BordColor")];
+            SEBorder.Color = Assets.Palette[(uint)xElement.Attribute("Bord2Color")];
+            Color = Assets.Palette[(uint)xElement.Attribute("Color")];
+            Position = new Vector2((float)xElement.Attribute("X"), (float)xElement.Attribute("Y"));
+            Size = new Vector2((float)xElement.Attribute("Width"), (float)xElement.Attribute("Height"));
         }
     }
 }

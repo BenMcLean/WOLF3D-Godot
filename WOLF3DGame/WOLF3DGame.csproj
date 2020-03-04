@@ -51,6 +51,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Line3D.cs" />
     <Compile Include="Menu\MenuRoom.cs" />
+    <Compile Include="Menu\MenuBody.cs" />
     <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="Menu\PixelRect.cs" />
     <Compile Include="Model\Direction8.cs" />

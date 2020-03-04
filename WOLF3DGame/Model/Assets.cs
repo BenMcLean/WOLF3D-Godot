@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3DGame.Menu;
 
 namespace WOLF3DGame.Model
 {
@@ -301,6 +302,11 @@ namespace WOLF3DGame.Model
             imageTexture.CreateFromImage(image, 0);
             return imageTexture;
         }
+
+        public static MenuScreen Menu(string name) =>
+            new MenuScreen((from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
+                            where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)
+                            select e).FirstOrDefault());
         #endregion Game assets
     }
 }
