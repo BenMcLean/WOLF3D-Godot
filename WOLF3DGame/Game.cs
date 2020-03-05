@@ -40,6 +40,10 @@ namespace WOLF3DGame
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
+            AddChild(Assets.OplPlayer = new OplPlayer()
+            {
+                Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
+            });
             AddChild(ARVRPlayer = new ARVRPlayer()
             {
                 Roomscale = false,

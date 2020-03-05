@@ -18,11 +18,12 @@ public class Main : Spatial
 
 	public enum LoadingState
 	{
+		READY,
 		ASK_PERMISSION,
 		GET_SHAREWARE
 	};
 
-	private LoadingState state;
+	private LoadingState state = LoadingState.READY;
 	public LoadingState State
 	{
 		get => state;
@@ -48,14 +49,13 @@ public class Main : Spatial
 						DosScreen.Screen.WriteLine(ex.GetType().Name + ": " + ex.Message);
 					}
 					Assets.Load(Game.Folder);
-					AddChild(Assets.OplPlayer = new OplPlayer()
-					{
-						Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
-					});
-					PackedScene game = new PackedScene();
-					//game.Pack(new Game());
-					game.Pack(new MenuRoom());
-					GetTree().ChangeSceneTo(game);
+
+					Viewport root = GetTree().Root;
+					foreach (Node child in root.GetChildren())
+						root.RemoveChild(child);
+					//root.AddChild(new MenuRoom());
+					root.AddChild(new Game());
+
 					break;
 			}
 		}
@@ -65,6 +65,7 @@ public class Main : Spatial
 
 	public override void _Ready()
 	{
+		Name = "Setup scene";
 		VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 		AddChild(new WorldEnvironment()
 		{
@@ -94,25 +95,30 @@ public class Main : Spatial
 
 		DosScreen.Screen.WriteLine("Platform detected: " + OS.GetName());
 
-		switch (OS.GetName())
-		{
-			case "Android":
-				Path = "/storage/emulated/0/";
-				ARVRInterface = ARVRServer.FindInterface("OVRMobile");
-				State = PermissionsGranted ? LoadingState.GET_SHAREWARE : LoadingState.ASK_PERMISSION;
-				break;
-			default:
-				Path = System.IO.Directory.GetCurrentDirectory();
-				ARVRInterface = ARVRServer.FindInterface("OpenVR");
-				State = LoadingState.GET_SHAREWARE;
-				break;
-		}
-
 		if (ARVRInterface != null && ARVRInterface.Initialize())
 			GetViewport().Arvr = true;
 
 		LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
 		RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+	}
+
+	public override void _PhysicsProcess(float delta)
+	{
+		base._PhysicsProcess(delta);
+		if (State == LoadingState.READY)
+			switch (OS.GetName())
+			{
+				case "Android":
+					Path = "/storage/emulated/0/";
+					ARVRInterface = ARVRServer.FindInterface("OVRMobile");
+					State = PermissionsGranted ? LoadingState.GET_SHAREWARE : LoadingState.ASK_PERMISSION;
+					break;
+				default:
+					Path = System.IO.Directory.GetCurrentDirectory();
+					ARVRInterface = ARVRServer.FindInterface("OpenVR");
+					State = LoadingState.GET_SHAREWARE;
+					break;
+			}
 	}
 
 	public static bool IsVRButton(int buttonIndex)
