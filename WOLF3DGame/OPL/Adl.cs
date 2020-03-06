@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace WOLF3DGame.OPL
 {
@@ -43,14 +45,14 @@ namespace WOLF3DGame.OPL
             get => (byte)((Octave & 7) << 2);
         }
 
-        public static readonly byte KeyFlag = 0x20;
+        public const byte KeyFlag = 0x20;
 
-        public static readonly float Hz = 1f / 140f; // These sound effects play back at 140 Hz.
+        public const float Hz = 1f / 140f; // These sound effects play back at 140 Hz.
 
-        public static readonly byte NotePort = 0xA0;
-        public static readonly byte OctavePort = 0xB0;
+        public const byte NotePort = 0xA0;
+        public const byte OctavePort = 0xB0;
 
-        public static readonly byte[] InstrumentPorts = new byte[]
+        public static readonly ReadOnlyCollection<byte> InstrumentPorts = Array.AsReadOnly(new byte[]
         {
             0x20, // mChar 	0x20 	Modulator characteristics
             0x23, // cChar 	0x23 	Carrier characteristics
@@ -66,6 +68,6 @@ namespace WOLF3DGame.OPL
                   // voice 	- 	unknown (Muse-only)
                   // mode 	- 	unknown (Muse-only)
                   //UINT8[3] 	padding 	- 	Pad instrument definition up to 16 bytes
-        };
+        });
     }
 }

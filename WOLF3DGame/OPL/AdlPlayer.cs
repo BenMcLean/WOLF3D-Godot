@@ -73,9 +73,9 @@ namespace WOLF3DGame.OPL
 
         public AdlPlayer SetInstrument()
         {
-            for (uint i = 0; i < Adl.InstrumentPorts.Length; i++)
+            for (int i = 0; i < Adl.InstrumentPorts.Count; i++)
                 Opl.WriteReg(Adl.InstrumentPorts[i], Adl.Instrument[i]);
-            Opl.WriteReg(0xC0, 0); // Wolf3D's code ignores this value in its sound data, always setting it to zero instead.
+            Opl.WriteReg(0xC0, 0); // WOLF3D's code ignores this value in its sound data, always setting it to zero instead.
             return this;
         }
 

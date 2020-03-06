@@ -1,6 +1,7 @@
 using Godot;
 using WOLF3DGame.Action;
 using WOLF3DGame.Menu;
+using WOLF3DGame.Model;
 using WOLF3DGame.Setup;
 
 namespace WOLF3DGame
@@ -9,6 +10,7 @@ namespace WOLF3DGame
 	{
 		public Main() => I = this;
 		public static Main I { get; private set; }
+		public static string Folder { get; set; }
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
 		public static Node Scene
@@ -27,6 +29,14 @@ namespace WOLF3DGame
 		{
 			base._Ready();
 			Scene = new SetupRoom();
+		}
+
+		public static void Load()
+		{
+			Assets.Load(Folder);
+			ActionRoom = new ActionRoom();
+			MenuRoom = new MenuRoom();
+			Scene = ActionRoom;
 		}
 	}
 }

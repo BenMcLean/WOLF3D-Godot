@@ -7,7 +7,6 @@ namespace WOLF3DGame.Action
 {
     public class ActionRoom : Spatial
     {
-        public static string Folder { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
         public ARVRPlayer ARVRPlayer { get; set; }
         public Level Level { get; set; } = null;

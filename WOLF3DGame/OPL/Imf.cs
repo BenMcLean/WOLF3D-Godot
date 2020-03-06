@@ -31,7 +31,7 @@ namespace WOLF3DGame.OPL
         }
 
         /// <summary>
-        /// Wolf3D song notes happen at 700 hz.
+        /// WOLF3D song notes happen at 700 hz.
         /// </summary>
         /// <param name="time">Delay value read from IMF</param>
         public static float CalcDelay(ushort time)
