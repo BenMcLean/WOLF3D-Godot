@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Action
 {
     /// <summary>
     /// This StaticBody contains the ceiling, floor and all the non-moving walls for a level.

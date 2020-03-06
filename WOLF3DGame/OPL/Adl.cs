@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace OPL
+namespace WOLF3DGame.OPL
 {
     /// <summary>
     /// Parses and stores the Adlib sound effect format. http://www.shikadi.net/moddingwiki/Adlib_sound_effect

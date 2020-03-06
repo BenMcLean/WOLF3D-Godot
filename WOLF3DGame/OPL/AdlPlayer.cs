@@ -1,7 +1,7 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
 
-namespace OPL
+namespace WOLF3DGame.OPL
 {
     /// <summary>
     /// Plays Adlib sound effects in Godot.

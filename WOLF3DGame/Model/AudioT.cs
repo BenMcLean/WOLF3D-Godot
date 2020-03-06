@@ -1,8 +1,7 @@
-﻿using OPL;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using static OPL.Imf;
+using WOLF3DGame.OPL;
 
 namespace WOLF3DGame.Model
 {
@@ -62,7 +61,7 @@ namespace WOLF3DGame.Model
             for (uint i = 0; i < Songs.Length; i++)
                 if (file[startMusic + i] != null)
                     using (MemoryStream song = new MemoryStream(file[startMusic + i]))
-                        Songs[i] = ReadImf(song);
+                        Songs[i] = Imf.ReadImf(song);
         }
     }
 }

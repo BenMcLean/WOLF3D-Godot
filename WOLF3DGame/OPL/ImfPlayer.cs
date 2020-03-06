@@ -1,8 +1,7 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
-using static OPL.Imf;
 
-namespace OPL
+namespace WOLF3DGame.OPL
 {
     /// <summary>
     /// Plays IMF songs in Godot.
@@ -50,7 +49,7 @@ namespace OPL
                 }
                 while (CurrentPacket < Song.Length && Song[CurrentPacket].Delay == 0);
                 CurrentPacketDelay = CurrentPacket < Song.Length ?
-                    CalcDelay(Song[CurrentPacket].Delay)
+                    Imf.CalcDelay(Song[CurrentPacket].Delay)
                     : 0;
             }
             if (CurrentPacket >= Song.Length)

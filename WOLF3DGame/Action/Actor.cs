@@ -1,7 +1,7 @@
 ﻿using Godot;
 using WOLF3DGame.Model;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Action
 {
     public class Actor : Billboard
     {

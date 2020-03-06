@@ -1,11 +1,11 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
-using OPL;
 using WOLF3DGame.Model;
+using WOLF3DGame.OPL;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Action
 {
-    public class Game : Spatial
+    public class ActionRoom : Spatial
     {
         public static string Folder { get; set; }
         public ARVRInterface ARVRInterface { get; set; }
@@ -91,6 +91,8 @@ namespace WOLF3DGame
             base._Input(@event);
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
+            if (@event.IsActionPressed("ui_cancel"))
+                Main.Scene = Main.MenuRoom;
             if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
                 switch (inputEventKey.Scancode)
                 {
@@ -124,7 +126,7 @@ namespace WOLF3DGame
             //GD.Print(stringBuilder.Append("}").ToString());
         }
 
-        public Game PlayASound()
+        public ActionRoom PlayASound()
         {
             AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
             {

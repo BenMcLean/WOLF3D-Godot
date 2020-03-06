@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using WOLF3DGame.Model;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Action
 {
     public class Billboard : StaticBody
     {
@@ -61,7 +61,7 @@ namespace WOLF3DGame
         {
             base._Process(delta);
             if (Visible)
-                Rotation = Game.BillboardRotation;
+                Rotation = ActionRoom.BillboardRotation;
         }
 
         public static Billboard[] Billboards(GameMap map)

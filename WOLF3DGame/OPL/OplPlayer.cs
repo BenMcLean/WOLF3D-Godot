@@ -1,7 +1,7 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
 
-namespace OPL
+namespace WOLF3DGame.OPL
 {
     public class OplPlayer : Node
     {
@@ -51,7 +51,7 @@ namespace OPL
 
         public AudioStreamGenerator AudioStreamGenerator
         {
-            get => (AudioStreamGenerator)AudioStreamPlayer?.GetStream();
+            get => (AudioStreamGenerator)AudioStreamPlayer?.Stream;
         }
 
         public override void _Ready()
@@ -76,7 +76,7 @@ namespace OPL
             for (uint i = 0; i < toFill; i++)
             {
                 float soundbite = Buffer[i] / 32767f; // Convert from 16 bit signed integer audio to 32 bit signed float audio
-                Vector2.Set(soundbite, soundbite);
+                Vector2 = new Vector2(soundbite, soundbite);
                 AudioStreamGeneratorPlayback.PushFrame(Vector2);
             }
             return this;

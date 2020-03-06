@@ -45,8 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adl.cs" />
-    <Compile Include="AdlPlayer.cs" />
     <Compile Include="DosBox\DosBoxOPL.cs" />
     <Compile Include="DosBox\DosBoxOPL_Channel.cs" />
     <Compile Include="DosBox\DosBoxOPL_Chip.cs" />
@@ -54,10 +52,7 @@
     <Compile Include="DosBox\DosBoxOPL_Shared.cs" />
     <Compile Include="DosBox\OplChip.cs" />
     <Compile Include="DosBox\OplTimer.cs" />
-    <Compile Include="Imf.cs" />
-    <Compile Include="ImfPlayer.cs" />
     <Compile Include="IOpl.cs" />
-    <Compile Include="OplPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Woody\Operator.cs" />
     <Compile Include="Woody\OPLChipClass.cs" />

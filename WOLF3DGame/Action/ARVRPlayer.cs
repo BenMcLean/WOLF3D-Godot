@@ -2,7 +2,7 @@
 using System;
 using WOLF3DGame.Model;
 
-namespace WOLF3DGame
+namespace WOLF3DGame.Action
 {
     public class ARVRPlayer : Spatial
     {
@@ -145,13 +145,13 @@ namespace WOLF3DGame
             {
                 if (!Shooting)
                 {
-                    Game.Line3D.Vertices = new Vector3[] {
+                    ActionRoom.Line3D.Vertices = new Vector3[] {
                         RightController.GlobalTransform.origin,
                         RightController.GlobalTransform.origin + RightControllerDirection * ShotRange
                     };
                     Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
-                        Game.Line3D.Vertices[0],
-                        Game.Line3D.Vertices[1]
+                        ActionRoom.Line3D.Vertices[0],
+                        ActionRoom.Line3D.Vertices[1]
                         );
 
                     GD.Print("Shooting! Range: " + ShotRange + " Time: " + DateTime.Now);
