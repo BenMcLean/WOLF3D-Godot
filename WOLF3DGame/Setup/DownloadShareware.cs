@@ -1,9 +1,7 @@
 ﻿using Godot;
 using System.IO.Compression;
-using System.Net;
-using System.Net.Security;
 
-namespace WOLF3DGame.Model
+namespace WOLF3DGame.Setup
 {
     public class DownloadShareware
     {

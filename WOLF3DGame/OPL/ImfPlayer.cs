@@ -1,5 +1,6 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
+using WOLF3DModel;
 
 namespace WOLF3DGame.OPL
 {

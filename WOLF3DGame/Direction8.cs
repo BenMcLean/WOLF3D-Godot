@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace WOLF3DGame.Model
+namespace WOLF3DGame
 {
     /// <summary>
     /// +x is south, +y is up, +z is west
@@ -192,8 +192,8 @@ namespace WOLF3DGame.Model
             int.TryParse(@string, out int result) ?
                 From(result)
                 : (from v in Values
-                   where string.Equals(v.ShortName, @string, StringComparison.CurrentCultureIgnoreCase)
-                   || string.Equals(v.Name, @string, StringComparison.CurrentCultureIgnoreCase)
+                   where string.Equals(v.ShortName, @string, StringComparison.InvariantCultureIgnoreCase)
+                   || string.Equals(v.Name, @string, StringComparison.InvariantCultureIgnoreCase)
                    select v).FirstOrDefault();
     }
 }

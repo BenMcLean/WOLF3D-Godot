@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WOLF3DGame\Direction8.cs" />
     <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
+    <Compile Include="WOLF3DGame\Setup\DownloadShareware.cs" />
     <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Actor.cs" />
     <Compile Include="WOLF3DGame\Action\ARVRPlayer.cs" />
@@ -72,16 +74,8 @@
     <Compile Include="WOLF3DGame\Menu\MenuRoom.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
     <Compile Include="WOLF3DGame\Menu\PixelRect.cs" />
-    <Compile Include="WOLF3DGame\Model\Assets.cs" />
-    <Compile Include="WOLF3DGame\Model\AudioT.cs" />
-    <Compile Include="WOLF3DGame\Model\Direction8.cs" />
-    <Compile Include="WOLF3DGame\Model\DownloadShareware.cs" />
-    <Compile Include="WOLF3DGame\Model\GameMap.cs" />
-    <Compile Include="WOLF3DGame\Model\VgaGraph.cs" />
-    <Compile Include="WOLF3DGame\Model\VSwap.cs" />
-    <Compile Include="WOLF3DGame\OPL\Adl.cs" />
+    <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
-    <Compile Include="WOLF3DGame\OPL\Imf.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
   </ItemGroup>
@@ -89,6 +83,10 @@
     <ProjectReference Include="OPL\OPL.csproj">
       <Project>{cc078116-75e0-49ac-a92a-58f7e505b9c2}</Project>
       <Name>OPL</Name>
+    </ProjectReference>
+    <ProjectReference Include="WOLF3DModel\WOLF3DModel.csproj">
+      <Project>{bfc78344-d90c-4243-b8db-0bbddad9dfd1}</Project>
+      <Name>WOLF3DModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

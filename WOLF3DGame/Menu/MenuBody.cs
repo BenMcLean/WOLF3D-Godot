@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System.Linq;
 using System.Xml.Linq;
-using WOLF3DGame.Model;
+using WOLF3DModel;
 
 namespace WOLF3DGame.Menu
 {

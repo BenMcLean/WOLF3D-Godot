@@ -1,6 +1,6 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
-using WOLF3DGame.Model;
+using WOLF3DModel;
 using WOLF3DGame.OPL;
 
 namespace WOLF3DGame.Action

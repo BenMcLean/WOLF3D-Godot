@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC078116-75E0-49AC-A92A-58F7E505B9C2}</ProjectGuid>
+    <ProjectGuid>{BFC78344-D90C-4243-B8DB-0BBDDAD9DFD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OPL</RootNamespace>
-    <AssemblyName>OPL</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>WOLF3DModel</RootNamespace>
+    <AssemblyName>WOLF3DModel</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,20 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DosBox\DosBoxOPL.cs" />
-    <Compile Include="DosBox\DosBoxOPL_Channel.cs" />
-    <Compile Include="DosBox\DosBoxOPL_Chip.cs" />
-    <Compile Include="DosBox\DosBoxOPL_Operator.cs" />
-    <Compile Include="DosBox\DosBoxOPL_Shared.cs" />
-    <Compile Include="DosBox\OplChip.cs" />
-    <Compile Include="DosBox\OplTimer.cs" />
-    <Compile Include="IOpl.cs" />
+    <Compile Include="Adl.cs" />
+    <Compile Include="AudioT.cs" />
+    <Compile Include="GameMap.cs" />
+    <Compile Include="Imf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Woody\Operator.cs" />
-    <Compile Include="Woody\OPLChipClass.cs" />
-    <Compile Include="Woody\WoodyConstants.cs" />
-    <Compile Include="Woody\WoodyEmulatorOpl.cs" />
+    <Compile Include="VgaGraph.cs" />
+    <Compile Include="VSwap.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

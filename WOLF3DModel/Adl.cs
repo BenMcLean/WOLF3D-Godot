@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace WOLF3DGame.OPL
+namespace WOLF3DModel
 {
     /// <summary>
     /// Parses and stores the Adlib sound effect format. http://www.shikadi.net/moddingwiki/Adlib_sound_effect
@@ -26,10 +26,8 @@ namespace WOLF3DGame.OPL
         /// </summary>
         public byte[] Notes;
         public ushort Priority;
-
         public Adl(Stream stream) : this(new BinaryReader(stream))
         { }
-
         public Adl(BinaryReader binaryReader)
         {
             uint length = binaryReader.ReadUInt32();
@@ -39,19 +37,11 @@ namespace WOLF3DGame.OPL
             Notes = new byte[length];
             binaryReader.Read(Notes, 0, Notes.Length);
         }
-
-        public byte Block
-        {
-            get => (byte)((Octave & 7) << 2);
-        }
-
+        public byte Block => (byte)((Octave & 7) << 2);
         public const byte KeyFlag = 0x20;
-
         public const float Hz = 1f / 140f; // These sound effects play back at 140 Hz.
-
         public const byte NotePort = 0xA0;
         public const byte OctavePort = 0xB0;
-
         public static readonly ReadOnlyCollection<byte> InstrumentPorts = Array.AsReadOnly(new byte[]
         {
             0x20, // mChar 	0x20 	Modulator characteristics

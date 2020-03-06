@@ -1,7 +1,6 @@
 using Godot;
 using WOLF3DGame.Action;
 using WOLF3DGame.Menu;
-using WOLF3DGame.Model;
 using WOLF3DGame.Setup;
 
 namespace WOLF3DGame

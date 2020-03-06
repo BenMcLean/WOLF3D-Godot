@@ -62,13 +62,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OPL\OPL.csproj">
-      <Project>{CC078116-75E0-49AC-A92A-58F7E505B9C2}</Project>
-      <Name>OPL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WOLF3D.csproj">
-      <Project>{CA957CE5-7C6B-4089-B7F6-6F9C08B78F52}</Project>
+      <Project>{ca957ce5-7c6b-4089-b7f6-6f9c08b78f52}</Project>
       <Name>WOLF3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WOLF3DModel\WOLF3DModel.csproj">
+      <Project>{bfc78344-d90c-4243-b8db-0bbddad9dfd1}</Project>
+      <Name>WOLF3DModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

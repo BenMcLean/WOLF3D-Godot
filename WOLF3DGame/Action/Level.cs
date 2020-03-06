@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using WOLF3DGame.Model;
+using WOLF3DModel;
 
 namespace WOLF3DGame.Action
 {

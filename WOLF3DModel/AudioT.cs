@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using WOLF3DGame.OPL;
 
-namespace WOLF3DGame.Model
+namespace WOLF3DModel
 {
     public struct AudioT
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace WOLF3DGame.OPL
+namespace WOLF3DModel
 {
     /// <summary>
     /// Parses and stores IMF format music data. http://www.shikadi.net/moddingwiki/IMF_Format
