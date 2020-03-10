@@ -73,15 +73,15 @@ namespace WOLF3DGame.OPL
             if (Buffer.Length < toFill)
                 Buffer = new short[toFill];
             Opl.ReadBuffer(Buffer, 0, toFill);
+            Vector2[] buffer = new Vector2[toFill];
             for (uint i = 0; i < toFill; i++)
             {
                 float soundbite = Buffer[i] / 32767f; // Convert from 16 bit signed integer audio to 32 bit signed float audio
-                Vector2 = new Vector2(soundbite, soundbite);
-                AudioStreamGeneratorPlayback.PushFrame(Vector2);
+                buffer[i] = new Vector2(soundbite, soundbite);
             }
+            AudioStreamGeneratorPlayback.PushBuffer(buffer);
             return this;
         }
-        private Vector2 Vector2 = new Vector2(0f, 0f);
         private short[] Buffer = new short[70000];
     }
 }
