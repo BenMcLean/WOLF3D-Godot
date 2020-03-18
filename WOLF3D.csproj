@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WOLF3DGame\Direction8.cs" />
+    <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
     <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
     <Compile Include="WOLF3DGame\Setup\DownloadShareware.cs" />
     <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />

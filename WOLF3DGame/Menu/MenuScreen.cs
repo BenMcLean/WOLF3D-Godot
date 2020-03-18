@@ -50,6 +50,11 @@ namespace WOLF3DGame.Menu
             }
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 AddChild(new PixelRect(pixelRect));
+
+            AddChild(new Crosshairs()
+            {
+                Position = new Vector2(ScreenWidth / 2, ScreenHeight / 2),
+            });
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
