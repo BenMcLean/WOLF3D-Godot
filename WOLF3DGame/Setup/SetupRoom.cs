@@ -1,9 +1,8 @@
 using Godot;
 using System;
 using System.Linq;
-using WOLF3DModel;
 
-namespace WOLF3DGame.Setup
+namespace WOLF3D.WOLF3DGame.Setup
 {
     public class SetupRoom : Spatial
     {

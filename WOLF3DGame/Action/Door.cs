@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using WOLF3DModel;
 
-namespace WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame.Action
 {
     public class Door : StaticBody
     {

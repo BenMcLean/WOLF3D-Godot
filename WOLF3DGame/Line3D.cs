@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WOLF3DGame
+namespace WOLF3D.WOLF3DGame
 {
     /// <summary>
     /// Draws a 3D line in space, used for debugging.

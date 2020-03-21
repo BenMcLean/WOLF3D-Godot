@@ -2,7 +2,7 @@
 using NScumm.Core.Audio.OPL;
 using WOLF3DModel;
 
-namespace WOLF3DGame.OPL
+namespace WOLF3D.WOLF3DGame.OPL
 {
     /// <summary>
     /// Plays Adlib sound effects in Godot.
@@ -45,9 +45,9 @@ namespace WOLF3DGame.OPL
         }
         private Adl adl;
 
-        public override void _PhysicsProcess(float delta)
+        public override void _Process(float delta)
         {
-            base._PhysicsProcess(delta);
+            base._Process(delta);
             if (Opl != null && Adl != null)
             {
                 SinceLastNote += delta;

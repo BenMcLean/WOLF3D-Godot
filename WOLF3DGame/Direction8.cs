@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace WOLF3DGame
+namespace WOLF3D.WOLF3DGame
 {
     /// <summary>
     /// +x is south, +y is up, +z is west

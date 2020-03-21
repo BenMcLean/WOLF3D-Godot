@@ -2,7 +2,7 @@
 using NScumm.Core.Audio.OPL;
 using WOLF3DModel;
 
-namespace WOLF3DGame.OPL
+namespace WOLF3D.WOLF3DGame.OPL
 {
     /// <summary>
     /// Plays IMF songs in Godot.
@@ -29,9 +29,9 @@ namespace WOLF3DGame.OPL
         }
         private Imf[] song;
 
-        public override void _PhysicsProcess(float delta)
+        public override void _Process(float delta)
         {
-            base._PhysicsProcess(delta);
+            base._Process(delta);
             if (!Mute && Opl != null && Song != null)
                 PlayNotes(delta);
         }

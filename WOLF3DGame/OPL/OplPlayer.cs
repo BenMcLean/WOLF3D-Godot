@@ -1,7 +1,7 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
 
-namespace WOLF3DGame.OPL
+namespace WOLF3D.WOLF3DGame.OPL
 {
     public class OplPlayer : Node
     {

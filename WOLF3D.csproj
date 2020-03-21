@@ -79,6 +79,7 @@
     <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
+    <Compile Include="WOLF3DGame\OPL\SoundBlaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="OPL\OPL.csproj">

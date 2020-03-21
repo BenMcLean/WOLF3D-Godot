@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using WOLF3DGame.Action;
-using WOLF3DGame.Menu;
-using WOLF3DGame.OPL;
+using WOLF3D.WOLF3DGame.Action;
+using WOLF3D.WOLF3DGame.Menu;
 using WOLF3DModel;
 
-namespace WOLF3DGame
+namespace WOLF3D.WOLF3DGame
 {
     /// <summary>
     /// Assets takes the bytes extracted from the Wolfenstein 3-D files and creates the corresponding Godot objects for them to be used throughout the game.
@@ -159,7 +158,6 @@ namespace WOLF3DGame
 
         public static XElement XML { get; set; }
         public static GameMap[] Maps { get; set; }
-        public static OplPlayer OplPlayer { get; set; }
         public static AudioT AudioT { get; set; }
 
         public static VSwap VSwap

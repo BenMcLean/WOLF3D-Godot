@@ -1,13 +1,7 @@
 ﻿using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using WOLF3DModel;
 
-namespace WOLF3DGame.Menu
+namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuScreen : Viewport
     {

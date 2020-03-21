@@ -1,7 +1,7 @@
 ﻿using Godot;
-using WOLF3DModel;
+using WOLF3D.WOLF3DGame.OPL;
 
-namespace WOLF3DGame.Menu
+namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuRoom : Spatial
     {
@@ -32,8 +32,8 @@ namespace WOLF3DGame.Menu
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -1.5f)),
             });
-            if (Assets.OplPlayer != null && Assets.OplPlayer.ImfPlayer != null)
-                Assets.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
+            if (SoundBlaster.OplPlayer != null && SoundBlaster.OplPlayer.ImfPlayer != null)
+                SoundBlaster.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
         }
 
         public override void _Ready()

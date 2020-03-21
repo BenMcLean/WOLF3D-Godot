@@ -1,9 +1,9 @@
 using Godot;
 using NScumm.Audio.OPL.Woody;
 using WOLF3DModel;
-using WOLF3DGame.OPL;
+using WOLF3D.WOLF3DGame.OPL;
 
-namespace WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame.Action
 {
     public class ActionRoom : Spatial
     {
@@ -31,7 +31,7 @@ namespace WOLF3DGame.Action
                 ARVRPlayer.Walk = Level.Walk;
                 ARVRPlayer.Push = Level.Push;
 
-                Assets.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[Map.Song];
+                SoundBlaster.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[Map.Song];
             }
         }
         private ushort mapNumber = 0;
@@ -39,7 +39,7 @@ namespace WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(Assets.OplPlayer = new OplPlayer()
+            AddChild(SoundBlaster.OplPlayer = new OplPlayer()
             {
                 Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
             });
@@ -57,7 +57,7 @@ namespace WOLF3DGame.Action
 
             MapNumber = 0;
 
-            //Assets.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
+            //SoundBlaster.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 

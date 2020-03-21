@@ -1,8 +1,7 @@
 ﻿using Godot;
 using System;
-using WOLF3DModel;
 
-namespace WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame.Action
 {
     public class ARVRPlayer : Spatial
     {

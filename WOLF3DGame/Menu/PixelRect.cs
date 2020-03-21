@@ -1,8 +1,7 @@
 ﻿using Godot;
 using System.Xml.Linq;
-using WOLF3DModel;
 
-namespace WOLF3DGame.Menu
+namespace WOLF3D.WOLF3DGame.Menu
 {
     public class PixelRect : Node2D
     {

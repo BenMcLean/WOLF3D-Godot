@@ -1,9 +1,6 @@
 ﻿using Godot;
-using System.Linq;
-using System.Xml.Linq;
-using WOLF3DModel;
 
-namespace WOLF3DGame.Menu
+namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuBody : StaticBody
     {

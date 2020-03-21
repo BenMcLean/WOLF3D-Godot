@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Linq;
 using Godot;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WOLF3DGame;
+using WOLF3D.WOLF3DGame;
 using WOLF3DModel;
 
 namespace WOLF3DTest
