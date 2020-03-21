@@ -54,14 +54,7 @@ namespace WOLF3D.WOLF3DGame.Setup
         {
             Name = "Setup scene";
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Color.Color8(0, 0, 0, 255),
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
+            Main.WorldEnvironment.Environment.BackgroundColor = Color.Color8(0, 0, 0, 255);
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {

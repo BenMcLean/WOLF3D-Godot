@@ -10,7 +10,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             Extents = new Vector3(Width / 2f, Height / 2f, Assets.PixelWidth / 2f),
         };
-        public WorldEnvironment WorldEnvironment { get; private set; }
         public MenuScreen MenuScreen
         {
             get => menuScreen;
@@ -26,21 +25,13 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public Color Color
         {
-            get => WorldEnvironment.Environment.BackgroundColor;
-            set => WorldEnvironment.Environment.BackgroundColor = value;
+            get => Main.WorldEnvironment.Environment.BackgroundColor;
+            set => Main.WorldEnvironment.Environment.BackgroundColor = value;
         }
 
         public MenuBody(MenuScreen menuScreen)
         {
-            AddChild(WorldEnvironment = new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Color.Color8(0, 0, 0, 255),
-                    //BackgroundColor = menuScreen.Color,
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
+            Color = Color.Color8(0, 0, 0, 255);
             AddChild(Shape = new CollisionShape()
             {
                 Shape = MenuScreenShape,

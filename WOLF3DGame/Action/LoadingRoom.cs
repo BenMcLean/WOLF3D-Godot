@@ -11,18 +11,11 @@ namespace WOLF3D.WOLF3DGame.Action
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
 
-        public LoadingRoom(uint mapNumber = 0)
+        public LoadingRoom(ushort mapNumber = 0)
         {
             Name = "LoadingRoom for map " + mapNumber;
             MapNumber = mapNumber;
-            AddChild(new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Assets.Palette[Assets.Maps[MapNumber].Border],
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
+            Main.WorldEnvironment.Environment.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {
@@ -64,13 +57,13 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
 
-        public uint MapNumber { get; set; }
+        public ushort MapNumber { get; set; }
 
         public void ThreadProc()
         {
             Main.Scene = Main.ActionRoom = new ActionRoom()
             {
-                MapNumber = 0,
+                MapNumber = MapNumber,
             };
         }
     }

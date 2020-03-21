@@ -11,7 +11,6 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Level : Spatial
     {
         public GameMap Map { get; private set; }
-        public WorldEnvironment WorldEnvironment { get; private set; }
         public bool[][] Open { get; private set; }
         public MapWalls MapWalls { get; private set; }
         public Door[][] Doors { get; private set; }
@@ -75,14 +74,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public Level(GameMap map)
         {
             Map = map;
-            AddChild(WorldEnvironment = new WorldEnvironment()
-            {
-                Environment = new Godot.Environment()
-                {
-                    BackgroundColor = Assets.Palette[Map.Border],
-                    BackgroundMode = Godot.Environment.BGMode.Color,
-                },
-            });
             Open = new bool[Map.Width][];
             for (ushort x = 0; x < Map.Width; x++)
             {
