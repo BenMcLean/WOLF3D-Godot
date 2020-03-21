@@ -32,6 +32,20 @@ namespace WOLF3D.WOLF3DGame.Action
         }
         private ushort mapNumber = 0;
 
+        public ActionRoom()
+        {
+            AddChild(ARVRPlayer = new ARVRPlayer()
+            {
+                Roomscale = false,
+            });
+            Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
+            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+            ARVRPlayer.LeftController.AddChild(controller);
+            controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
+            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+            ARVRPlayer.RightController.AddChild(controller);
+        }
+
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
@@ -43,18 +57,6 @@ namespace WOLF3D.WOLF3DGame.Action
                     BackgroundMode = Godot.Environment.BGMode.Color,
                 },
             });
-
-            AddChild(ARVRPlayer = new ARVRPlayer()
-            {
-                Roomscale = false,
-            }
-            );
-            Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            ARVRPlayer.LeftController.AddChild(controller);
-            controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            ARVRPlayer.RightController.AddChild(controller);
 
             //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();

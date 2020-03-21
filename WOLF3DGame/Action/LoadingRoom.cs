@@ -59,6 +59,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 SoundBlaster.Song = Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
 
                 System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
+                thread.IsBackground = true;
                 thread.Start();
             }
         }

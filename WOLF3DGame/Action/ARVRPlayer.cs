@@ -11,7 +11,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
 
-        public override void _Ready()
+        public ARVRPlayer()
         {
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
