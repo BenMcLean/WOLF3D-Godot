@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Tools</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA957CE5-7C6B-4089-B7F6-6F9C08B78F52}</ProjectGuid>
+    <ProjectGuid>{369FBEF6-01AF-445F-BC4D-F9AA0E9F9A10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <OutputPath>.mono\temp\bin\$(Configuration)</OutputPath>
     <RootNamespace>WOLF3D</RootNamespace>
     <AssemblyName>WOLF3D</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
-    <GodotProjectGeneratorVersion>1.0.7333.3918</GodotProjectGeneratorVersion>
+    <GodotProjectGeneratorVersion>1.0.7374.16792</GodotProjectGeneratorVersion>
     <BaseIntermediateOutputPath>.mono\temp\obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
     <ApiConfiguration Condition=" '$(Configuration)' != 'Release' ">Debug</ApiConfiguration>
@@ -57,29 +57,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WOLF3DGame\Direction8.cs" />
-    <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
-    <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
-    <Compile Include="WOLF3DGame\Setup\DownloadShareware.cs" />
-    <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />
+    <Compile Include="WOLF3DGame\Action\ActionRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Actor.cs" />
     <Compile Include="WOLF3DGame\Action\ARVRPlayer.cs" />
     <Compile Include="WOLF3DGame\Action\Billboard.cs" />
     <Compile Include="WOLF3DGame\Action\Door.cs" />
-    <Compile Include="WOLF3DGame\Action\ActionRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\MapWalls.cs" />
-    <Compile Include="WOLF3DGame\Main.cs" />
+    <Compile Include="WOLF3DGame\Assets.cs" />
+    <Compile Include="WOLF3DGame\Direction8.cs" />
     <Compile Include="WOLF3DGame\Line3D.cs" />
+    <Compile Include="WOLF3DGame\Main.cs" />
+    <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuBody.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuRoom.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
     <Compile Include="WOLF3DGame\Menu\PixelRect.cs" />
-    <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\SoundBlaster.cs" />
+    <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
+    <Compile Include="WOLF3DGame\Setup\DownloadShareware.cs" />
+    <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="OPL\OPL.csproj">
@@ -91,6 +91,5 @@
       <Name>WOLF3DModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

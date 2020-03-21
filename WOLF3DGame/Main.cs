@@ -10,7 +10,10 @@ namespace WOLF3D.WOLF3DGame
 	{
 		public Main() => I = this;
 		public static Main I { get; private set; }
+		public static string Path { get; set; }
 		public static string Folder { get; set; }
+		public static ARVRInterface ARVRInterface { get; set; }
+
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
 		public static Node Scene
@@ -27,7 +30,16 @@ namespace WOLF3D.WOLF3DGame
 
 		public override void _Ready()
 		{
-			base._Ready();
+			Path = OS.GetName().Equals("Android") ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory();
+			ARVRInterface = ARVRServer.FindInterface(OS.GetName().Equals("Android") ? "OVRMobile" : "OpenVR");
+			if (ARVRInterface != null && ARVRInterface.Initialize())
+			{
+				GetViewport().Arvr = true;
+				OS.VsyncEnabled = false;
+				Engine.TargetFps = 90;
+			}
+			else
+				GD.Print("ARVRInterface failed to initialize!");
 			AddChild(SoundBlaster.OplPlayer);
 			Scene = new SetupRoom();
 		}
@@ -38,7 +50,7 @@ namespace WOLF3D.WOLF3DGame
 			ActionRoom = new ActionRoom();
 			MenuRoom = new MenuRoom();
 			Scene = ActionRoom;
-			SoundBlaster.Start();
+			//SoundBlaster.Start();
 		}
 	}
 }
