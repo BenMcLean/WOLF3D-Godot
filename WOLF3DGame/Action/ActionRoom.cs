@@ -19,12 +19,11 @@ namespace WOLF3D.WOLF3DGame.Action
                 mapNumber = value;
                 if (Level != null)
                     RemoveChild(Level);
-
+                Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
                 AddChild(Level = new Level(Map)
                 {
                     ARVRPlayer = ARVRPlayer,
                 });
-
                 ARVRPlayer.GlobalTransform = Level.StartTransform;
                 ARVRPlayer.Walk = Level.Walk;
                 ARVRPlayer.Push = Level.Push;
@@ -49,7 +48,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
 
             //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();

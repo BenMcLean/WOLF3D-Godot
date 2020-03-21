@@ -44,8 +44,15 @@ namespace WOLF3D.WOLF3DGame.Action
             Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
             : Assets.CenterSquare(here);
 
+        public static bool Clipping { get; set; } = true;
+
         public bool CanWalk(Vector2 there, out Vector2 cant)
         {
+            if (!Clipping)
+            {
+                cant = Vector2.Zero;
+                return true;
+            }
             foreach (Direction8 direction in Direction8.Diagonals)
                 if (!CanWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
                     return false;

@@ -58,13 +58,20 @@ namespace WOLF3D.WOLF3DGame.Action
         }
 
         public ushort MapNumber { get; set; }
+        public ActionRoom ActionRoom { get; set; }
 
         public void ThreadProc()
         {
-            Main.Scene = Main.ActionRoom = new ActionRoom()
+            ActionRoom = new ActionRoom()
             {
                 MapNumber = MapNumber,
             };
+        }
+
+        public override void _Process(float delta)
+        {
+            if (ActionRoom != null)
+                Main.Scene = Main.ActionRoom = ActionRoom;
         }
     }
 }
