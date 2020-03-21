@@ -1,6 +1,7 @@
 ﻿using NScumm.Audio.OPL.Woody;
 using NScumm.Core.Audio.OPL;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading;
 using WOLF3DModel;
 
@@ -44,23 +45,54 @@ namespace WOLF3D.WOLF3DGame.OPL
             STOP_MUSIC, STOP_SFX, QUIT
         }
 
+        public static Thread Thread { get; set; }
+
+        public static void Start()
+        {
+            Thread = new Thread(new ThreadStart(ThreadProc));
+            Thread.Start();
+        }
+
+        public static void Stop()
+        {
+            SoundMessages.Enqueue(SoundMessage.QUIT);
+        }
+
+        private static void ThreadProc()
+        {
+            bool quit = false;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (!quit)
+            {
+                while (SoundMessages.TryDequeue(out object soundMessage))
+                    if (soundMessage is Imf[] imf)
+                        OplPlayer.ImfPlayer.Song = imf;
+                    else if (soundMessage is Adl adl)
+                        OplPlayer.AdlPlayer.Adl = adl;
+                    else if (soundMessage is SoundMessage message)
+                        switch (message)
+                        {
+                            case SoundMessage.STOP_MUSIC:
+                                OplPlayer.ImfPlayer.Song = null;
+                                break;
+                            case SoundMessage.STOP_SFX:
+                                OplPlayer.AdlPlayer.Adl = null;
+                                break;
+                            case SoundMessage.QUIT:
+                                quit = true;
+                                break;
+                        }
+                Thread.Sleep(1);
+                stopwatch.Stop();
+                PlayNotes(stopwatch.ElapsedMilliseconds / 700f);
+                stopwatch.Restart();
+            }
+            stopwatch.Stop();
+        }
+
         public static void PlayNotes(float delta)
         {
-            while (SoundMessages.TryDequeue(out object soundMessage))
-                if (soundMessage is Imf[] imf)
-                    OplPlayer.ImfPlayer.Song = imf;
-                else if (soundMessage is Adl adl)
-                    OplPlayer.AdlPlayer.Adl = adl;
-                else if (soundMessage is SoundMessage message)
-                    switch (message)
-                    {
-                        case SoundMessage.STOP_MUSIC:
-                            OplPlayer.ImfPlayer.Song = null;
-                            break;
-                        case SoundMessage.STOP_SFX:
-                            OplPlayer.AdlPlayer.Adl = null;
-                            break;
-                    }
             OplPlayer.ImfPlayer.PlayNotes(delta);
             OplPlayer.AdlPlayer.PlayNotes(delta);
         }

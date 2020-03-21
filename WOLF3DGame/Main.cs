@@ -38,6 +38,7 @@ namespace WOLF3D.WOLF3DGame
 			ActionRoom = new ActionRoom();
 			MenuRoom = new MenuRoom();
 			Scene = ActionRoom;
+			SoundBlaster.Start();
 		}
 	}
 }

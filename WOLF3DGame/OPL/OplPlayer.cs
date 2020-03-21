@@ -44,7 +44,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             base._Process(delta);
             FillBuffer();
-            SoundBlaster.PlayNotes(delta);
+            //SoundBlaster.PlayNotes(delta);
         }
 
         public OplPlayer FillBuffer()
