@@ -48,15 +48,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (Opl != null && Adl != null)
-            {
-                SinceLastNote += delta;
-                while (Adl != null && SinceLastNote >= Adl.Hz)
-                {
-                    SinceLastNote -= Adl.Hz;
-                    PlayNote();
-                }
-            }
+            PlayNotes(delta);
         }
 
         public bool Note
@@ -77,6 +69,20 @@ namespace WOLF3D.WOLF3DGame.OPL
             for (int i = 0; i < Adl.InstrumentPorts.Count; i++)
                 Opl.WriteReg(Adl.InstrumentPorts[i], Adl.Instrument[i]);
             Opl.WriteReg(0xC0, 0); // WOLF3D's code ignores this value in its sound data, always setting it to zero instead.
+            return this;
+        }
+
+        public AdlPlayer PlayNotes(float delta)
+        {
+            if (Opl != null && Adl != null)
+            {
+                SinceLastNote += delta;
+                while (Adl != null && SinceLastNote >= Adl.Hz)
+                {
+                    SinceLastNote -= Adl.Hz;
+                    PlayNote();
+                }
+            }
             return this;
         }
 
