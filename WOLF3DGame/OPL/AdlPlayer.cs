@@ -74,14 +74,13 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public AdlPlayer PlayNotes(float delta)
         {
-            if (Opl != null && Adl != null)
+            if (Opl == null || Adl == null)
+                return this;
+            SinceLastNote += delta;
+            while (Adl != null && SinceLastNote >= Adl.Hz)
             {
-                SinceLastNote += delta;
-                while (Adl != null && SinceLastNote >= Adl.Hz)
-                {
-                    SinceLastNote -= Adl.Hz;
-                    PlayNote();
-                }
+                SinceLastNote -= Adl.Hz;
+                PlayNote();
             }
             return this;
         }

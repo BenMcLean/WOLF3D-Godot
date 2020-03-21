@@ -48,7 +48,7 @@ namespace WOLF3D.WOLF3DGame
 		{
 			Assets.Load(Folder);
 			MenuRoom = new MenuRoom();
-			Scene = ActionRoom = new ActionRoom();
+			Scene = new LoadingRoom(0);
 			SoundBlaster.Start();
 		}
 	}

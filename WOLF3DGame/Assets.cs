@@ -271,6 +271,8 @@ namespace WOLF3D.WOLF3DGame
             PicTextures[result]
             : throw new InvalidDataException("Pic not found: \"" + name + "\"");
 
+        public static ImageTexture LoadingPic => PicTexture(XML.Element("VgaGraph").Attribute("LoadingPic")?.Value?.Trim());
+
         public static Imf[] Song(string name) =>
             uint.TryParse(name, out uint index) && index < AudioT.Songs.Length ?
             AudioT.Songs[index]

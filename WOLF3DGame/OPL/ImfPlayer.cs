@@ -38,6 +38,8 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public ImfPlayer PlayNotes(float delta)
         {
+            if (Opl == null || Song == null)
+                return this;
             TimeSinceLastPacket += delta;
             while (CurrentPacket < Song.Length && TimeSinceLastPacket >= CurrentPacketDelay)
             {

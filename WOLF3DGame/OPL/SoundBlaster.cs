@@ -45,13 +45,13 @@ namespace WOLF3D.WOLF3DGame.OPL
             STOP_MUSIC, STOP_SFX, QUIT
         }
 
-        public static Thread Thread { get; set; } = null;
+        public static System.Threading.Thread Thread { get; set; } = null;
 
         public static void Start()
         {
             if (Thread == null)
             {
-                Thread = new Thread(new ThreadStart(ThreadProc));
+                Thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
                 Thread.Start();
             }
         }

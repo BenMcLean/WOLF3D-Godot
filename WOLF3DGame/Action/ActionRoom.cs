@@ -6,7 +6,6 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class ActionRoom : Spatial
     {
-        public ARVRInterface ARVRInterface { get; set; }
         public ARVRPlayer ARVRPlayer { get; set; }
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
@@ -29,8 +28,6 @@ namespace WOLF3D.WOLF3DGame.Action
                 ARVRPlayer.GlobalTransform = Level.StartTransform;
                 ARVRPlayer.Walk = Level.Walk;
                 ARVRPlayer.Push = Level.Push;
-
-                SoundBlaster.Song = Assets.AudioT.Songs[Map.Song];
             }
         }
         private ushort mapNumber = 0;
@@ -38,6 +35,15 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
+            AddChild(new WorldEnvironment()
+            {
+                Environment = new Godot.Environment()
+                {
+                    BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border],
+                    BackgroundMode = Godot.Environment.BGMode.Color,
+                },
+            });
+
             AddChild(ARVRPlayer = new ARVRPlayer()
             {
                 Roomscale = false,
@@ -49,8 +55,6 @@ namespace WOLF3D.WOLF3DGame.Action
             controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
             controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
             ARVRPlayer.RightController.AddChild(controller);
-
-            MapNumber = 0;
 
             //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
@@ -94,7 +98,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         print();
                         break;
                     case (uint)KeyList.Z:
-                        MapNumber = NextMap;
+                        Main.Scene = new LoadingRoom(NextMap);
                         break;
                 }
         }
@@ -104,7 +108,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (buttonIndex == (int)JoystickList.OculusAx)
                 print();
             if (buttonIndex == (int)JoystickList.OculusBy)
-                MapNumber = NextMap;
+                Main.Scene = new LoadingRoom(NextMap);
         }
 
         public void print()
