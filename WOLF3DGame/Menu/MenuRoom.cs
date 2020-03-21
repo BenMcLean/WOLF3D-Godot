@@ -32,14 +32,13 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -1.5f)),
             });
-            if (SoundBlaster.OplPlayer != null && SoundBlaster.OplPlayer.ImfPlayer != null)
-                SoundBlaster.OplPlayer.ImfPlayer.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
         }
 
         public override void _Ready()
         {
             base._Ready();
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
+            SoundBlaster.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
         }
 
         public override void _PhysicsProcess(float delta)

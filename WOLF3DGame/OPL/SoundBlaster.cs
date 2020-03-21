@@ -18,13 +18,25 @@ namespace WOLF3D.WOLF3DGame.OPL
         public static Imf[] Song
         {
             get => OplPlayer.ImfPlayer.Song;
-            set => SoundMessages.Enqueue(value);
+            set
+            {
+                if (value == null)
+                    SoundMessages.Enqueue(SoundMessage.STOP_MUSIC);
+                else
+                    SoundMessages.Enqueue(value);
+            }
         }
 
         public static Adl Adl
         {
             get => OplPlayer.AdlPlayer.Adl;
-            set => SoundMessages.Enqueue(value);
+            set
+            {
+                if (value == null)
+                    SoundMessages.Enqueue(SoundMessage.STOP_SFX);
+                else
+                    SoundMessages.Enqueue(value);
+            }
         }
 
         private enum SoundMessage

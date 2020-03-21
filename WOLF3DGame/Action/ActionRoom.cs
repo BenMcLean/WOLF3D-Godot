@@ -1,5 +1,4 @@
 using Godot;
-using NScumm.Audio.OPL.Woody;
 using WOLF3DModel;
 using WOLF3D.WOLF3DGame.OPL;
 
