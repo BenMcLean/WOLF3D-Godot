@@ -164,7 +164,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         : flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
                     new Vector3(
                             westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
-                            (float)Assets.HalfWallHeight,
+                            Assets.HalfWallHeight,
                             westernWall ? Assets.FloatCoordinate(z + 1) : Assets.CenterSquare(z)
                         )
                     ),
