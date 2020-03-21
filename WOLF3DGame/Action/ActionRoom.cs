@@ -49,7 +49,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            Main.WorldEnvironment.Environment.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
+            Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
 
             //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();

@@ -13,7 +13,20 @@ namespace WOLF3D.WOLF3DGame
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
 		public static ARVRInterface ARVRInterface { get; set; }
-		public static WorldEnvironment WorldEnvironment { get; set; }
+		public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
+		{
+			Name = "WorldEnvironment",
+			Environment = new Godot.Environment()
+			{
+				BackgroundColor = Color.Color8(0, 0, 0, 255),
+				BackgroundMode = Godot.Environment.BGMode.Color,
+			},
+		};
+		public static Color BackgroundColor
+		{
+			get => WorldEnvironment.Environment.BackgroundColor;
+			set => WorldEnvironment.Environment.BackgroundColor = value;
+		}
 
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
@@ -34,15 +47,7 @@ namespace WOLF3D.WOLF3DGame
 			Path = OS.GetName().Equals("Android") ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory();
 			ARVRInterface = ARVRServer.FindInterface(OS.GetName().Equals("Android") ? "OVRMobile" : "OpenVR");
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-			AddChild(WorldEnvironment = new WorldEnvironment()
-			{
-				Name = "WorldEnvironment",
-				Environment = new Godot.Environment()
-				{
-					BackgroundColor = Color.Color8(0, 0, 0, 255),
-					BackgroundMode = Godot.Environment.BGMode.Color,
-				},
-			});
+			AddChild(WorldEnvironment);
 
 			if (ARVRInterface != null && ARVRInterface.Initialize())
 			{

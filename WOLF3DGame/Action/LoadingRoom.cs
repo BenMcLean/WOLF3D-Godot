@@ -15,7 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             Name = "LoadingRoom for map " + mapNumber;
             MapNumber = mapNumber;
-            Main.WorldEnvironment.Environment.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
+            Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {

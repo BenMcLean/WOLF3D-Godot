@@ -23,15 +23,9 @@ namespace WOLF3D.WOLF3DGame.Menu
         public CollisionShape Shape { get; private set; }
         public MeshInstance MeshInstance { get; private set; }
 
-        public Color Color
-        {
-            get => Main.WorldEnvironment.Environment.BackgroundColor;
-            set => Main.WorldEnvironment.Environment.BackgroundColor = value;
-        }
-
         public MenuBody(MenuScreen menuScreen)
         {
-            Color = Color.Color8(0, 0, 0, 255);
+            Main.BackgroundColor = Color.Color8(0, 0, 0, 255);
             AddChild(Shape = new CollisionShape()
             {
                 Shape = MenuScreenShape,
