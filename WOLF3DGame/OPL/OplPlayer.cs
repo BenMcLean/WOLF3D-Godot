@@ -3,13 +3,18 @@ using NScumm.Core.Audio.OPL;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
-    public class OplPlayer : Node
+    public class OplPlayer : AudioStreamPlayer
     {
         public OplPlayer()
         {
-            AddChild(AudioStreamPlayer = new AudioStreamPlayer());
-            AddChild(ImfPlayer = new ImfPlayer());
-            AddChild(AdlPlayer = new AdlPlayer());
+            Name = "OplPlayer";
+            Stream = new AudioStreamGenerator()
+            {
+                MixRate = 48000,
+                BufferLength = 0.05f, // Keep this as short as possible to minimize latency
+            };
+            ImfPlayer = new ImfPlayer();
+            AdlPlayer = new AdlPlayer();
         }
 
         public IOpl Opl
@@ -18,7 +23,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 opl = value;
-                if (value != null) Opl.Init((int)AudioStreamGenerator.MixRate);
+                if (value != null) Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
                 if (ImfPlayer != null) ImfPlayer.Opl = value;
                 if (AdlPlayer != null) AdlPlayer.Opl = value;
             }
@@ -28,48 +33,23 @@ namespace WOLF3D.WOLF3DGame.OPL
         public ImfPlayer ImfPlayer { get; set; }
         public AdlPlayer AdlPlayer { get; set; }
 
-        private AudioStreamPlayer audioStreamPlayer;
-
-        public AudioStreamPlayer AudioStreamPlayer
-        {
-            get => audioStreamPlayer;
-            private set
-            {
-                audioStreamPlayer = value;
-                value.Stream = new AudioStreamGenerator()
-                {
-                    MixRate = 48000,
-                    BufferLength = 0.05f, // Keep this as short as possible to minimize latency
-                };
-            }
-        }
-
-        public AudioStreamGeneratorPlayback AudioStreamGeneratorPlayback
-        {
-            get => (AudioStreamGeneratorPlayback)AudioStreamPlayer?.GetStreamPlayback();
-        }
-
-        public AudioStreamGenerator AudioStreamGenerator
-        {
-            get => (AudioStreamGenerator)AudioStreamPlayer?.Stream;
-        }
-
         public override void _Ready()
         {
             base._Ready();
-            AudioStreamPlayer.Play();
+            Play();
             FillBuffer();
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _Process(float delta)
         {
             base._Process(delta);
             FillBuffer();
+            SoundBlaster.PlayNotes(delta);
         }
 
         public OplPlayer FillBuffer()
         {
-            int toFill = AudioStreamGeneratorPlayback.GetFramesAvailable() * (Opl.IsStereo ? 2 : 1);
+            int toFill = ((AudioStreamGeneratorPlayback)GetStreamPlayback()).GetFramesAvailable() * (Opl.IsStereo ? 2 : 1);
             if (Buffer.Length < toFill)
                 Buffer = new short[toFill];
             Opl.ReadBuffer(Buffer, 0, toFill);
@@ -79,7 +59,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                 float soundbite = Buffer[i] / 32767f; // Convert from 16 bit signed integer audio to 32 bit signed float audio
                 buffer[i] = new Vector2(soundbite, soundbite);
             }
-            AudioStreamGeneratorPlayback.PushBuffer(buffer);
+            ((AudioStreamGeneratorPlayback)GetStreamPlayback()).PushBuffer(buffer);
             return this;
         }
         private short[] Buffer = new short[70000];

@@ -31,7 +31,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 ARVRPlayer.Walk = Level.Walk;
                 ARVRPlayer.Push = Level.Push;
 
-                SoundBlaster.OplPlayer.ImfPlayer.Song = Assets.AudioT.Songs[Map.Song];
+                SoundBlaster.Song = Assets.AudioT.Songs[Map.Song];
             }
         }
         private ushort mapNumber = 0;
@@ -39,10 +39,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            AddChild(SoundBlaster.OplPlayer = new OplPlayer()
-            {
-                Opl = new WoodyEmulatorOpl(NScumm.Core.Audio.OPL.OplType.Opl3)
-            });
             AddChild(ARVRPlayer = new ARVRPlayer()
             {
                 Roomscale = false,
@@ -57,7 +53,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
             MapNumber = 0;
 
-            //SoundBlaster.OplPlayer.AdlPlayer.Adl = Assets.AudioT.Sounds[31];
+            //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
             //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 
