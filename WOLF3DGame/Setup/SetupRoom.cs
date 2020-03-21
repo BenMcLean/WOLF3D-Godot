@@ -6,7 +6,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 {
     public class SetupRoom : Spatial
     {
-        public string Path { get; set; } = "";
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
@@ -37,8 +36,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                         DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
                         try
                         {
-                            Main.Folder = System.IO.Path.Combine(Path, "WOLF3D", "WL1");
-                            DownloadShareware.Main(new string[] { Main.Folder });
+                            DownloadShareware.Main(new string[] { Main.Folder = System.IO.Path.Combine(Main.Path, "WOLF3D", "WL1") });
                         }
                         catch (Exception ex)
                         {
