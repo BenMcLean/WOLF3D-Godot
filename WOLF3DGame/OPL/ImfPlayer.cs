@@ -18,13 +18,15 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 currentPacket = value;
-                Delay = CurrentPacket < Song.Length ?
-                    Song[CurrentPacket].Delay / 700d
-                    : 0d;
+                CalcDelay = Delay / 700d;
             }
         }
         private uint currentPacket = 0;
-        public double Delay { get; private set; } = 0d;
+        public double CalcDelay { get; private set; } = 0d;
+        public Imf? Packet => Song != null && CurrentPacket < Song.Length ? Song[CurrentPacket] : (Imf?)null;
+        public byte Register => Packet?.Register ?? 0;
+        public byte Data => Packet?.Data ?? 0;
+        public ushort Delay => Packet?.Delay ?? 0;
         public double TimeSinceLastPacket { get; private set; } = 0d;
 
         public Imf[] Song
@@ -45,15 +47,15 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (Mute || Opl == null || Song == null)
                 return this;
             TimeSinceLastPacket += seconds;
-            while (CurrentPacket < Song.Length && TimeSinceLastPacket >= Delay)
+            while (CurrentPacket < Song.Length && TimeSinceLastPacket >= CalcDelay)
             {
-                TimeSinceLastPacket -= Delay;
+                TimeSinceLastPacket -= CalcDelay;
                 do
                 {
-                    Opl.WriteReg(Song[CurrentPacket].Register, Song[CurrentPacket].Data);
+                    Opl.WriteReg(Register, Data);
                     CurrentPacket++;
                 }
-                while (CurrentPacket < Song.Length && Song[CurrentPacket].Delay == 0);
+                while (CurrentPacket < Song.Length && Delay == 0);
             }
             if (CurrentPacket >= Song.Length)
                 Song = Loop ? Song : null;
