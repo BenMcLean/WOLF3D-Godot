@@ -33,7 +33,6 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public override void _Ready()
         {
-            base._Ready();
             Play();
             //FillBuffer();
         }
@@ -41,7 +40,6 @@ namespace WOLF3D.WOLF3DGame.OPL
         /*
         public override void _Process(float delta)
         {
-            base._Process(delta);
             FillBuffer();
             //SoundBlaster.PlayNotes(delta);
         }

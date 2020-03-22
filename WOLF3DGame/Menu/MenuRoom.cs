@@ -36,14 +36,12 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Ready()
         {
-            base._Ready();
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             SoundBlaster.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
         }
 
         public override void _PhysicsProcess(float delta)
         {
-            base._PhysicsProcess(delta);
             ARVROrigin.Transform = new Transform(
                 Basis.Identity,
                 new Vector3(
@@ -56,7 +54,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Input(InputEvent @event)
         {
-            base._Input(@event);
             if (@event.IsActionPressed("ui_cancel"))
                 Main.Scene = Main.ActionRoom;
         }

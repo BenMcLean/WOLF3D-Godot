@@ -45,11 +45,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         }
         private Adl adl;
 
-        public override void _Process(float delta)
-        {
-            base._Process(delta);
-            PlayNotes(delta);
-        }
+        public override void _Process(float delta) => PlayNotes(delta);
 
         public bool Note
         {

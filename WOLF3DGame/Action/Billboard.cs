@@ -59,7 +59,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
             if (Visible)
                 Rotation = ActionRoom.BillboardRotation;
         }

@@ -73,13 +73,11 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
-            base._PhysicsProcess(delta);
             BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
         }
 
         public override void _Input(InputEvent @event)
         {
-            base._Input(@event);
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
             if (@event.IsActionPressed("ui_cancel"))

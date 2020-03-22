@@ -29,7 +29,6 @@ namespace WOLF3D.WOLF3DGame
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
             Clear();
             Begin(Mesh.PrimitiveType.Lines);
             if (Vertices != null)

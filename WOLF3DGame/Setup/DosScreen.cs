@@ -190,10 +190,6 @@ namespace WOLF3D.WOLF3DGame.Setup
             Screen.Cursor = cursor;
         }
 
-        public override void _Process(float delta)
-        {
-            base._Process(delta);
-            Screen.UpdateCursor(delta);
-        }
+        public override void _Process(float delta) => Screen.UpdateCursor(delta);
     }
 }

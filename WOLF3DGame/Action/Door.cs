@@ -169,13 +169,11 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _Ready()
         {
-            base._Ready();
             State = TryClose() ? DoorEnum.CLOSED : DoorEnum.OPEN;
         }
 
         public override void _PhysicsProcess(float delta)
         {
-            base._PhysicsProcess(delta);
             switch (State)
             {
                 case DoorEnum.OPENING:

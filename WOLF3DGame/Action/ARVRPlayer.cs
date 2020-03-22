@@ -71,7 +71,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
-            base._PhysicsProcess(delta);
             Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.

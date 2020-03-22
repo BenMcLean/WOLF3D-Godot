@@ -90,7 +90,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Input(InputEvent @event)
         {
-            base._Input(@event);
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
             //if (@event.IsActionPressed("ui_up") || @event.IsActionPressed("ui_left"))
