@@ -12,6 +12,11 @@ namespace WOLF3DModel
     public class Adl
     {
         /// <summary>
+        /// These sound effects play back at 140 Hz.
+        /// </summary>
+        public const float Hz = 1f / 140f;
+
+        /// <summary>
         /// The OPL register settings for the instrument
         /// </summary>
         public byte[] Instrument = new byte[16];
@@ -39,7 +44,6 @@ namespace WOLF3DModel
         }
         public byte Block => (byte)((Octave & 7) << 2);
         public const byte KeyFlag = 0x20;
-        public const float Hz = 1f / 140f; // These sound effects play back at 140 Hz.
         public const byte NotePort = 0xA0;
         public const byte OctavePort = 0xB0;
         public static readonly ReadOnlyCollection<byte> InstrumentPorts = Array.AsReadOnly(new byte[]

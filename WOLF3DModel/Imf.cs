@@ -9,6 +9,11 @@ namespace WOLF3DModel
     public struct Imf
     {
         /// <summary>
+        /// These songs play back at 700 Hz.
+        /// </summary>
+        public const float Hz = 1f / 700f;
+
+        /// <summary>
         /// Sent to register port.
         /// </summary>
         public byte Register { get; set; }

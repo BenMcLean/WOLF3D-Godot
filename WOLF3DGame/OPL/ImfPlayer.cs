@@ -17,7 +17,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 currentPacket = value;
-                CalcDelay = Delay / 700d;
+                CalcDelay = Delay * Imf.Hz;
             }
         }
         private uint currentPacket = 0;
