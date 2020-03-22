@@ -13,8 +13,6 @@ namespace WOLF3D.WOLF3DGame.OPL
                 MixRate = 48000,
                 BufferLength = 0.05f, // Keep this as short as possible to minimize latency
             };
-            ImfPlayer = new ImfPlayer();
-            AdlPlayer = new AdlPlayer();
         }
 
         public IOpl Opl
@@ -30,22 +28,24 @@ namespace WOLF3D.WOLF3DGame.OPL
         }
         private IOpl opl;
 
-        public ImfPlayer ImfPlayer { get; set; }
-        public AdlPlayer AdlPlayer { get; set; }
+        public ImfPlayer ImfPlayer { get; private set; } = new ImfPlayer();
+        public AdlPlayer AdlPlayer { get; private set; } = new AdlPlayer();
 
         public override void _Ready()
         {
             base._Ready();
             Play();
-            FillBuffer();
+            //FillBuffer();
         }
 
+        /*
         public override void _Process(float delta)
         {
             base._Process(delta);
             FillBuffer();
             //SoundBlaster.PlayNotes(delta);
         }
+        */
 
         public OplPlayer FillBuffer()
         {

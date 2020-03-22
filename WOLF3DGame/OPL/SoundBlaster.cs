@@ -11,7 +11,7 @@ namespace WOLF3D.WOLF3DGame.OPL
     {
         public static OplPlayer OplPlayer { get; set; } = new OplPlayer()
         {
-            Opl = new WoodyEmulatorOpl(OplType.Opl3),
+            Opl = new WoodyEmulatorOpl(OplType.Opl2),
         };
 
         private static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
@@ -90,15 +90,17 @@ namespace WOLF3D.WOLF3DGame.OPL
                         }
                 Thread.Sleep(1);
                 stopwatch.Stop();
-                PlayNotes(stopwatch.ElapsedMilliseconds / 700f);
+                OplPlayer.ImfPlayer.PlayMilliseconds(stopwatch.ElapsedMilliseconds);
+                //PlayNotes(stopwatch.ElapsedMilliseconds / 700f);
                 stopwatch.Restart();
+                OplPlayer.FillBuffer();
             }
             stopwatch.Stop();
         }
 
         public static void PlayNotes(float delta)
         {
-            OplPlayer.ImfPlayer.PlayNotes(delta);
+            //OplPlayer.ImfPlayer.PlayNotes(delta);
             OplPlayer.AdlPlayer.PlayNotes(delta);
         }
     }

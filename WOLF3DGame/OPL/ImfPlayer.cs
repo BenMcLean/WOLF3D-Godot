@@ -12,9 +12,20 @@ namespace WOLF3D.WOLF3DGame.OPL
         public IOpl Opl { get; set; }
         public bool Mute { get; set; } = false;
         public bool Loop { get; set; } = true;
-        private float CurrentPacketDelay = 0f;
-        public int CurrentPacket { get; set; } = 0;
-        public float TimeSinceLastPacket { get; set; } = 0f;
+        public uint CurrentPacket
+        {
+            get => currentPacket;
+            set
+            {
+                currentPacket = value;
+                Delay = CurrentPacket < Song.Length ?
+                    Song[CurrentPacket].Delay / 700d
+                    : 0d;
+            }
+        }
+        private uint currentPacket = 0;
+        public double Delay { get; private set; } = 0d;
+        public double TimeSinceLastPacket { get; private set; } = 0d;
 
         public Imf[] Song
         {
@@ -22,38 +33,27 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if (song != value) song = value;
-                CurrentPacket = -1;
-                CurrentPacketDelay = 0f;
-                TimeSinceLastPacket = 0f;
+                CurrentPacket = 0;
             }
         }
-        private Imf[] song;
+        private Imf[] song = null;
 
-        public override void _Process(float delta)
-        {
-            base._Process(delta);
-            if (!Mute && Opl != null && Song != null)
-                PlayNotes(delta);
-        }
+        public ImfPlayer PlayMilliseconds(long milliseconds) => PlaySeconds(milliseconds / 1000d);
 
-        public ImfPlayer PlayNotes(float delta)
+        public ImfPlayer PlaySeconds(double seconds)
         {
-            if (Opl == null || Song == null)
+            if (Mute || Opl == null || Song == null)
                 return this;
-            TimeSinceLastPacket += delta;
-            while (CurrentPacket < Song.Length && TimeSinceLastPacket >= CurrentPacketDelay)
+            TimeSinceLastPacket += seconds;
+            while (CurrentPacket < Song.Length && TimeSinceLastPacket >= Delay)
             {
-                TimeSinceLastPacket -= CurrentPacketDelay;
+                TimeSinceLastPacket -= Delay;
                 do
                 {
+                    Opl.WriteReg(Song[CurrentPacket].Register, Song[CurrentPacket].Data);
                     CurrentPacket++;
-                    if (CurrentPacket < Song.Length)
-                        Opl.WriteReg(Song[CurrentPacket].Register, Song[CurrentPacket].Data);
                 }
                 while (CurrentPacket < Song.Length && Song[CurrentPacket].Delay == 0);
-                CurrentPacketDelay = CurrentPacket < Song.Length ?
-                    Imf.CalcDelay(Song[CurrentPacket].Delay)
-                    : 0;
             }
             if (CurrentPacket >= Song.Length)
                 Song = Loop ? Song : null;
