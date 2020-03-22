@@ -1,5 +1,4 @@
-﻿using Godot;
-using NScumm.Core.Audio.OPL;
+﻿using NScumm.Core.Audio.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -7,7 +6,7 @@ namespace WOLF3D.WOLF3DGame.OPL
     /// <summary>
     /// Plays Adlib sound effects in Godot.
     /// </summary>
-    public class AdlPlayer : Node
+    public class AdlPlayer
     {
         public IOpl Opl
         {
@@ -44,8 +43,6 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
         private Adl adl;
-
-        public override void _Process(float delta) => PlayNotes(delta);
 
         public bool Note
         {

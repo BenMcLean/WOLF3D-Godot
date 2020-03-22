@@ -41,6 +41,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         public override void _Process(float delta)
         {
             FillBuffer();
+            ImfPlayer.PlaySeconds(delta);
             //SoundBlaster.PlayNotes(delta);
         }
         */

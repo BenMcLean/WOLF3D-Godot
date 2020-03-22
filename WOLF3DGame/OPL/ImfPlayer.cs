@@ -1,5 +1,4 @@
-﻿using Godot;
-using NScumm.Core.Audio.OPL;
+﻿using NScumm.Core.Audio.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -7,7 +6,7 @@ namespace WOLF3D.WOLF3DGame.OPL
     /// <summary>
     /// Plays IMF songs in Godot.
     /// </summary>
-    public class ImfPlayer : Node
+    public class ImfPlayer
     {
         public IOpl Opl { get; set; }
         public bool Mute { get; set; } = false;
@@ -42,18 +41,19 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public ImfPlayer PlayMilliseconds(long milliseconds) => PlaySeconds(milliseconds / 1000d);
 
-        public ImfPlayer PlaySeconds(double seconds)
+        public ImfPlayer PlaySeconds(double delta)
         {
-            if (Mute || Opl == null || Song == null)
+            if (Opl == null || Song == null)
                 return this;
-            TimeSinceLastPacket += seconds;
+            TimeSinceLastPacket += delta;
             while (CurrentPacket < Song.Length && TimeSinceLastPacket >= CalcDelay)
             {
                 TimeSinceLastPacket -= CalcDelay;
                 do
                 {
-                    Opl.WriteReg(Register, Data);
                     CurrentPacket++;
+                    if (CurrentPacket < Song.Length)
+                        Opl.WriteReg(Register, Data);
                 }
                 while (CurrentPacket < Song.Length && Delay == 0);
             }

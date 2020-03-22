@@ -90,8 +90,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                         }
                 Thread.Sleep(1);
                 stopwatch.Stop();
-                OplPlayer.ImfPlayer.PlayMilliseconds(stopwatch.ElapsedMilliseconds);
-                //PlayNotes(stopwatch.ElapsedMilliseconds / 700f);
+                OplPlayer.ImfPlayer.PlaySeconds(stopwatch.ElapsedMilliseconds / 700f);
                 stopwatch.Restart();
                 OplPlayer.FillBuffer();
             }
