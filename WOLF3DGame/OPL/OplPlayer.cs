@@ -1,5 +1,7 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
+using WOLF3DModel;
+using static WOLF3D.WOLF3DGame.OPL.SoundBlaster;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
@@ -37,14 +39,30 @@ namespace WOLF3D.WOLF3DGame.OPL
             //FillBuffer();
         }
 
-        /*
         public override void _Process(float delta)
         {
             FillBuffer();
+            while (SoundMessages.TryDequeue(out object soundMessage))
+                if (soundMessage is Imf[] imf)
+                    ImfPlayer.Song = imf;
+                else if (soundMessage is Adl adl)
+                    AdlPlayer.Adl = adl;
+                else if (soundMessage is SoundMessage message)
+                    switch (message)
+                    {
+                        case SoundMessage.STOP_MUSIC:
+                            ImfPlayer.Song = null;
+                            break;
+                        case SoundMessage.STOP_SFX:
+                            AdlPlayer.Adl = null;
+                            break;
+                            //case SoundMessage.QUIT:
+                            //    quit = true;
+                            //    break;
+                    }
             ImfPlayer.PlaySeconds(delta);
             //SoundBlaster.PlayNotes(delta);
         }
-        */
 
         public OplPlayer FillBuffer()
         {

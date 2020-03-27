@@ -14,7 +14,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
         };
 
-        private static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
+        public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
 
         public static Imf[] Song
         {
@@ -40,7 +40,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
 
-        private enum SoundMessage
+        public enum SoundMessage
         {
             STOP_MUSIC, STOP_SFX, QUIT
         }
@@ -49,11 +49,13 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public static void Start()
         {
+            /*
             if (Thread == null)
             {
                 Thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
                 Thread.Start();
             }
+            */
         }
 
         public static void Stop()
