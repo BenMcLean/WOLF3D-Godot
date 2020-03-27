@@ -56,7 +56,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             Texture = texture,
             RegionEnabled = true,
             RegionRect = new Rect2(new Vector2(x, 0f), new Vector2(1, texture.GetSize().y)),
-            Position = new Vector2(ScreenWidth / 2f, texture.GetSize().y / 2f + y),
+            Position = new Vector2(ScreenWidth, texture.GetSize().y / 2f + y),
             Scale = new Vector2(ScreenWidth, 1f),
         };
     }
