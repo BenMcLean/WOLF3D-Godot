@@ -5,9 +5,14 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuScreen : Viewport
     {
-        public const uint ScreenWidth = 320;
-        public const uint ScreenHeight = 200;
+        public const uint Width = 320;
+        public const uint Height = 200;
         public ColorRect Background { get; private set; }
+        public static readonly Vector2 OffScreen = new Vector2(-2, -2);
+        public Crosshairs Crosshairs { get; private set; } = new Crosshairs()
+        {
+            Position = OffScreen,
+        };
 
         public Color Color
         {
@@ -17,7 +22,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen()
         {
-            Size = new Vector2(ScreenWidth, ScreenHeight);
+            Size = new Vector2(Width, Height);
             Disable3d = true;
             RenderTargetClearMode = ClearMode.OnlyNextFrame;
             RenderTargetVFlip = true;
@@ -45,10 +50,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 AddChild(new PixelRect(pixelRect));
 
-            AddChild(new Crosshairs()
-            {
-                Position = new Vector2(ScreenWidth / 2, ScreenHeight / 2),
-            });
+            AddChild(Crosshairs);
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
@@ -56,8 +58,8 @@ namespace WOLF3D.WOLF3DGame.Menu
             Texture = texture,
             RegionEnabled = true,
             RegionRect = new Rect2(new Vector2(x, 0f), new Vector2(1, texture.GetSize().y)),
-            Position = new Vector2(ScreenWidth, texture.GetSize().y / 2f + y),
-            Scale = new Vector2(ScreenWidth, 1f),
+            Position = new Vector2(Width, texture.GetSize().y / 2f + y),
+            Scale = new Vector2(Width, 1f),
         };
     }
 }

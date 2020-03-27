@@ -67,10 +67,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                 result.Count > 0 &&
                 result["position"] is Vector3 position &&
                 position != null)
-            {
-                MenuBody.TargetLocal(MenuBody.ToLocal(position));
-                GD.Print("Targeting " + position);
-            }
+                MenuBody.Target(position);
+            else
+                MenuBody.Target();
         }
 
         public override void _Input(InputEvent @event)
