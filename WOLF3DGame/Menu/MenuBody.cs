@@ -98,7 +98,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             //    ShowSprite++;
         }
 
-        public MenuBody Target(Vector3? position = null) => position == null ? TargetLocal() : TargetLocal(ToLocal((Vector3)position));
+        public MenuBody Target(Vector3? position = null) => position is Vector3 vector3 ? TargetLocal(ToLocal(vector3)) : TargetLocal();
 
         public MenuBody TargetLocal(Vector3? localPosition = null)
         {
