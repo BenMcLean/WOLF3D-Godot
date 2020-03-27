@@ -75,6 +75,8 @@ namespace WOLF3D.WOLF3DGame
         public const float HeadXZ = PixelWidth * 3f;
         public static readonly float HeadDiagonal = Mathf.Sqrt(Mathf.Pow(HeadXZ, 2) * 2f); // Pythagorean theorem
 
+        public static readonly float ShotRange = Mathf.Sqrt(Mathf.Pow(64 * WallWidth, 2) * 2f + Mathf.Pow(WallHeight, 2));
+
         public static Vector2 Vector2(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
         public static Vector3 Vector3(Vector2 vector2) => new Vector3(vector2.x, 0f, vector2.y);
 

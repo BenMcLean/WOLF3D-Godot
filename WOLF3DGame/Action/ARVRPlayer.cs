@@ -145,14 +145,14 @@ namespace WOLF3D.WOLF3DGame.Action
                 {
                     ActionRoom.Line3D.Vertices = new Vector3[] {
                         RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + RightControllerDirection * ShotRange
+                        RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange
                     };
                     Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
                         ActionRoom.Line3D.Vertices[0],
                         ActionRoom.Line3D.Vertices[1]
                         );
 
-                    GD.Print("Shooting! Range: " + ShotRange + " Time: " + DateTime.Now);
+                    GD.Print("Shooting! Range: " + Assets.ShotRange + " Time: " + DateTime.Now);
                     if (result.Count > 0)
                     {
                         CollisionObject collider = (CollisionObject)result["collider"];
@@ -201,7 +201,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
-        public float ShotRange { get; set; } = Mathf.Sqrt(Mathf.Pow(64 * Assets.WallWidth, 2) * 2f + Mathf.Pow(Assets.WallHeight, 2));
 
         public float Height => Roomscale ?
             0f

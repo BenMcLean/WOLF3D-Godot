@@ -49,6 +49,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
             AddChild(MenuScreen = menuScreen);
+            AddChild(Cube);
         }
 
         /*
@@ -97,5 +98,28 @@ namespace WOLF3D.WOLF3DGame.Menu
             //if (@event.IsActionPressed("ui_down") || @event.IsActionPressed("ui_right"))
             //    ShowSprite++;
         }
+        public MenuBody TargetLocal(Vector3 localPosition)
+        {
+            Cube.Transform = new Transform(Cube.Transform.basis, localPosition);
+            return this;
+        }
+
+        public MeshInstance Cube = new MeshInstance()
+        {
+            Mesh = new CubeMesh()
+            {
+                Size = new Vector3(Assets.PixelWidth, Assets.PixelWidth, Assets.PixelWidth),
+            },
+            MaterialOverride = new SpatialMaterial()
+            {
+                AlbedoColor = Color.Color8(255, 0, 255, 255), // Purple
+                FlagsUnshaded = true,
+                FlagsDoNotReceiveShadows = true,
+                FlagsDisableAmbientLight = true,
+                FlagsTransparent = false,
+                ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            },
+        };
     }
 }
