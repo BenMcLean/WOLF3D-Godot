@@ -149,7 +149,7 @@
     <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
     <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
     <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" >
-      <Menu Name="Main" BkgdColor="41" StartX="72" StartY="53" Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Font="1">
+      <Menu Name="Main" BkgdColor="41" StartX="72" StartY="53" Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Font="1" XPadding="28" YPadding="3">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
