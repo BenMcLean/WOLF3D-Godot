@@ -52,7 +52,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
 
         /*
-
         Viewport.AddChild(Sprite = new Sprite()
         {
             Transform = new Transform2D(0f, new Vector2(160f, 100f)),
@@ -64,7 +63,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         ShowSprite = 0;
     }
-
 
     private Sprite Sprite;
     private Sprite Words;

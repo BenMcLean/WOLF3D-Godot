@@ -49,9 +49,12 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 AddChild(new PixelRect(pixelRect));
-
+            foreach (MenuItem item in MenuItems = MenuItem.MenuItems(menu))
+                AddChild(item);
             AddChild(Crosshairs);
         }
+
+        public MenuItem[] MenuItems { get; set; }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
         {
