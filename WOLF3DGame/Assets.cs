@@ -93,6 +93,7 @@ namespace WOLF3D.WOLF3DGame
                     return Godot.Vector3.Zero;
             }
         }
+        public static readonly Color White = Color.Color8(255, 255, 255, 255);
         #endregion Math
 
         #region Game assets
@@ -297,8 +298,9 @@ namespace WOLF3D.WOLF3DGame
             AudioT.Sounds[result]
             : throw new InvalidDataException("Sound not found: \"" + name + "\"");
 
-        public static ImageTexture Text(string @string, uint font = 0) => Text(@string, VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)]);
-        public static ImageTexture Text(string @string, VgaGraph.Font font)
+        public static VgaGraph.Font Font(uint font) => VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)];
+        public static ImageTexture Text(string @string, uint font = 0) => Text(Font(font), @string);
+        public static ImageTexture Text(VgaGraph.Font font, string @string = "")
         {
             Image image = new Image();
             image.CreateFromData(font.CalcWidth(@string), font.Height, false, Image.Format.Rgba8, font.Line(@string));

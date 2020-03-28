@@ -17,7 +17,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         public Color Color
         {
             get => Background.Color;
-            set => Background.Color = value;
+            set => Main.BackgroundColor = Background.Color = value;
         }
 
         public MenuScreen()

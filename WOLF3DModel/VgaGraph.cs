@@ -48,6 +48,8 @@ namespace WOLF3DModel
 
             public byte[] Line(string input)
             {
+                if (input == null)
+                    return null;
                 int width = CalcWidth(input) * 4;
                 byte[] bytes = new byte[width * Height];
                 int rowStart = 0;
@@ -63,6 +65,8 @@ namespace WOLF3DModel
 
             public int CalcWidth(string input)
             {
+                if (input == null)
+                    return 0;
                 int result = 0;
                 foreach (char c in input)
                     result += Width[c];
