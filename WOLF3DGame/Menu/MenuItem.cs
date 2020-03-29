@@ -26,17 +26,20 @@ namespace WOLF3D.WOLF3DGame.Menu
         public static MenuItem[] MenuItems(XElement menu)
         {
             VgaGraph.Font font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
-            uint xPadding = uint.TryParse(menu.Attribute("XPadding")?.Value, out result) ? result : 0;
-            uint yPadding = uint.TryParse(menu.Attribute("YPadding")?.Value, out result) ? result : 0;
+            Color color = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte index) ? Assets.Palette[index] : Assets.White;
+            uint startX = uint.TryParse(menu.Attribute("StartX")?.Value, out result) ? result : 0,
+                startY = uint.TryParse(menu.Attribute("StartY")?.Value, out result) ? result : 0,
+                paddingX = uint.TryParse(menu.Attribute("PaddingX")?.Value, out result) ? result : 0,
+                paddingY = uint.TryParse(menu.Attribute("PaddingY")?.Value, out result) ? result : 0;
             List<MenuItem> items = new List<MenuItem>();
             foreach (XElement option in menu.Elements("Option"))
-                items.Add(new MenuItem(font, option.Attribute("Name").Value, xPadding)
+                items.Add(new MenuItem(font, option.Attribute("Name").Value, paddingX)
                 {
                     Position = new Vector2(
-                        (uint)menu.Attribute("StartX"),
-                        (uint)menu.Attribute("StartY") + items.Count() * font.Height + yPadding
+                        startX,
+                        startY + items.Count() * font.Height + paddingY
                         ),
-                    Color = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte index) ? Assets.Palette[index] : Assets.White,
+                    Color = color,
                 });
             return items.ToArray();
         }

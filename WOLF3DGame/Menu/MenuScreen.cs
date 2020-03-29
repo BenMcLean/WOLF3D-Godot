@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Menu
@@ -19,6 +20,15 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => Background.Color;
             set => Main.BackgroundColor = Background.Color = value;
         }
+        public Color TextColor { get; set; }
+        public Color SelectedColor { get; set; }
+        public Color DisabledColor { get; set; }
+        public uint StartX { get; set; }
+        public uint StartY { get; set; }
+        public uint PaddingX { get; set; }
+        public uint PaddingY { get; set; }
+        public ImageTexture[] Cursors { get; set; }
+        public Sprite Cursor { get; set; }
 
         public MenuScreen()
         {
@@ -36,6 +46,16 @@ namespace WOLF3D.WOLF3DGame.Menu
         public MenuScreen(XElement menu) : this()
         {
             Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];
+            if (menu.Attribute("TextColor") != null)
+                TextColor = Assets.Palette[(uint)menu.Attribute("TextColor")];
+            if (menu.Attribute("SelectedColor") != null)
+                SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
+            if (menu.Attribute("DisabledColor") != null)
+                DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
+            StartX = uint.TryParse(menu.Attribute("StartX")?.Value, out uint result) ? result : 0;
+            StartY = uint.TryParse(menu.Attribute("StartY")?.Value, out result) ? result : 0;
+            PaddingX = uint.TryParse(menu.Attribute("XPadding")?.Value, out result) ? result : 0;
+            PaddingY = uint.TryParse(menu.Attribute("YPadding")?.Value, out result) ? result : 0;
             foreach (XElement image in menu.Elements("Image"))
             {
                 ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
@@ -51,6 +71,20 @@ namespace WOLF3D.WOLF3DGame.Menu
                 AddChild(new PixelRect(pixelRect));
             foreach (MenuItem item in MenuItems = MenuItem.MenuItems(menu))
                 AddChild(item);
+            if (menu.Element("Cursor") is XElement cursor && cursor != null)
+            {
+                List<ImageTexture> cursors = new List<ImageTexture>();
+                if (cursor.Attribute("Cursor1") != null)
+                    cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor1")?.Value));
+                if (cursor.Attribute("Cursor2") != null)
+                    cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor2")?.Value));
+                Cursors = cursors.ToArray();
+                AddChild(Cursor = new Sprite()
+                {
+                    Texture = Cursors[0],
+                    Position = new Vector2(StartX + Cursors[0].GetWidth() / 2, StartY + Cursors[0].GetHeight() / 2),
+                });
+            }
             AddChild(Crosshairs);
         }
 
