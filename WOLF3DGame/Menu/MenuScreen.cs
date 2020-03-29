@@ -79,16 +79,41 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (cursor.Attribute("Cursor2") != null)
                     cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor2")?.Value));
                 Cursors = cursors.ToArray();
-                AddChild(Cursor = new Sprite()
-                {
-                    Texture = Cursors[0],
-                    Position = new Vector2(StartX + Cursors[0].GetWidth() / 2, StartY + Cursors[0].GetHeight() / 2),
-                });
+                if (Cursors.Length > 0)
+                    AddChild(Cursor = new Sprite()
+                    {
+                        Texture = Cursors[0],
+                        Position = new Vector2(StartX + Cursors[0].GetWidth() / 2, StartY + Cursors[0].GetHeight() / 2),
+                    });
             }
             AddChild(Crosshairs);
         }
 
         public MenuItem[] MenuItems { get; set; }
+
+        public const float BlinkRate = 0.5f;
+        public float Blink = 0f;
+        public int CursorSprite
+        {
+            get => cursorSprite;
+            set
+            {
+                cursorSprite = Direction8.Modulus(value, Cursors?.Length ?? 0);
+                if (Cursor != null)
+                    Cursor.Texture = Cursors[cursorSprite];
+            }
+        }
+        private int cursorSprite = 0;
+
+        public override void _Process(float delta)
+        {
+            Blink += delta;
+            while (Blink > BlinkRate)
+            {
+                Blink -= BlinkRate;
+                CursorSprite++;
+            }
+        }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
         {
