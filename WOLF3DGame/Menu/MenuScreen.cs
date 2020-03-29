@@ -137,6 +137,14 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
+        public override void _Input(InputEvent @event)
+        {
+            if (@event.IsActionPressed("ui_down"))
+                Selection++;
+            else if (@event.IsActionPressed("ui_up"))
+                Selection--;
+        }
+
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
         {
             Texture = texture,

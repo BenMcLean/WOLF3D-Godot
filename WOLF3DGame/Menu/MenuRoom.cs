@@ -88,6 +88,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             if (@event.IsActionPressed("ui_cancel"))
                 Main.Scene = Main.ActionRoom;
+            else
+                MenuBody?.MenuScreen?._Input(@event);
         }
     }
 }
