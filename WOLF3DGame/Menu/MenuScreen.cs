@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -15,6 +16,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             Position = OffScreen,
         };
 
+        public VgaGraph.Font Font { get; set; }
         public Color Color
         {
             get => Background.Color;
@@ -23,10 +25,10 @@ namespace WOLF3D.WOLF3DGame.Menu
         public Color TextColor { get; set; }
         public Color SelectedColor { get; set; }
         public Color DisabledColor { get; set; }
-        public uint StartX { get; set; }
-        public uint StartY { get; set; }
-        public uint PaddingX { get; set; }
-        public uint PaddingY { get; set; }
+        public uint StartX { get; set; } = 0;
+        public uint StartY { get; set; } = 0;
+        public uint PaddingX { get; set; } = 0;
+        public uint PaddingY { get; set; } = 0;
         public ImageTexture[] Cursors { get; set; }
         public Sprite Cursor { get; set; }
 
@@ -45,6 +47,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen(XElement menu) : this()
         {
+            Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
             Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];
             if (menu.Attribute("TextColor") != null)
                 TextColor = Assets.Palette[(uint)menu.Attribute("TextColor")];
@@ -52,7 +55,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
             if (menu.Attribute("DisabledColor") != null)
                 DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
-            StartX = uint.TryParse(menu.Attribute("StartX")?.Value, out uint result) ? result : 0;
+            StartX = uint.TryParse(menu.Attribute("StartX")?.Value, out result) ? result : 0;
             StartY = uint.TryParse(menu.Attribute("StartY")?.Value, out result) ? result : 0;
             PaddingX = uint.TryParse(menu.Attribute("XPadding")?.Value, out result) ? result : 0;
             PaddingY = uint.TryParse(menu.Attribute("YPadding")?.Value, out result) ? result : 0;
@@ -86,6 +89,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         Position = new Vector2(StartX + Cursors[0].GetWidth() / 2, StartY + Cursors[0].GetHeight() / 2),
                     });
             }
+            Selection = 0;
             AddChild(Crosshairs);
         }
 
@@ -98,12 +102,30 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => cursorSprite;
             set
             {
-                cursorSprite = Direction8.Modulus(value, Cursors?.Length ?? 0);
+                cursorSprite = Direction8.Modulus(value, Cursors?.Length ?? 1);
                 if (Cursor != null)
                     Cursor.Texture = Cursors[cursorSprite];
             }
         }
         private int cursorSprite = 0;
+
+        public int Selection
+        {
+            get => selection;
+            set
+            {
+                if (MenuItems != null)
+                    MenuItems[selection].Color = TextColor;
+                selection = Direction8.Modulus(value, MenuItems?.Length ?? 1);
+                if (MenuItems != null)
+                    MenuItems[selection].Color = SelectedColor;
+                if (Cursor != null)
+                    Cursor.Position = new Vector2(
+                        StartX + Cursor.Texture.GetWidth() / 2,
+                        StartY + Cursor.Texture.GetHeight() / 2 + selection * (Font.Height + PaddingY));
+            }
+        }
+        private int selection = 0;
 
         public override void _Process(float delta)
         {
