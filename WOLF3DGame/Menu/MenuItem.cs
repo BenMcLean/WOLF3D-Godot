@@ -9,6 +9,12 @@ namespace WOLF3D.WOLF3DGame.Menu
     public class MenuItem : Node2D
     {
         public Sprite Text { get; set; }
+        public float Width { get; set; } = 0;
+        public float Height { get; set; } = 0;
+        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
+        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
+        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
+
         public Color Color
         {
             get => Text.Modulate;
@@ -22,6 +28,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Texture = texture,
                 Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
             });
+            Width = xPadding + texture.GetWidth();
+            Height = texture.GetHeight();
         }
         public static MenuItem[] MenuItems(XElement menu)
         {

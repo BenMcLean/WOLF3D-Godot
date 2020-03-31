@@ -96,17 +96,14 @@ namespace WOLF3D.WOLF3DGame.Menu
             //    ShowSprite++;
         }
 
-        public MenuBody Target(Vector3? position = null) => position is Vector3 vector3 ? TargetLocal(ToLocal(vector3)) : TargetLocal();
+        public bool Target(Vector3? position = null) => position is Vector3 vector3 ? TargetLocal(ToLocal(vector3)) : TargetLocal();
 
-        public MenuBody TargetLocal(Vector3? localPosition = null)
-        {
-            MenuScreen.Crosshairs.Position = localPosition == null ?
-                MenuScreen.OffScreen
-                : MenuScreen.Crosshairs.Position = new Vector2(
+        public bool TargetLocal(Vector3? localPosition = null) =>
+            MenuScreen == null ? false
+            : MenuScreen.Target(localPosition == null ? MenuScreen.OffScreen
+                : new Vector2(
                     (((Vector3)localPosition).x + (Width / 2f)) / Width * MenuScreen.Width,
-                    MenuScreen.Height - (((Vector3)localPosition).y - Assets.HalfWallHeight + Height / 2f) / Height * MenuScreen.Height
-                );
-            return this;
-        }
+                     MenuScreen.Height - (((Vector3)localPosition).y - Assets.HalfWallHeight + Height / 2f) / Height * MenuScreen.Height
+                  ));
     }
 }

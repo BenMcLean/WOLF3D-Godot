@@ -127,6 +127,33 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         private int selection = 0;
 
+        public MenuItem SelectedItem
+        {
+            get => MenuItems[Selection];
+            set
+            {
+                if (MenuItems != null)
+                    for (int x = 0; x < MenuItems.Length; x++)
+                        if (value == MenuItems[x])
+                        {
+                            Selection = x;
+                            return;
+                        }
+            }
+        }
+
+        public bool Target(Vector2 vector2)
+        {
+            Crosshairs.Position = vector2;
+            for (int x = 0; x < MenuItems.Length; x++)
+                if (Selection != x && MenuItems[x].Target(vector2))
+                {
+                    Selection = x;
+                    return true;
+                }
+            return false;
+        }
+
         public override void _Process(float delta)
         {
             Blink += delta;
