@@ -164,7 +164,7 @@
       <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Text String="Which episode to play?" X="60" Y="3" Color="71" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
-        <PixelRect X="6" Y="19" Width="308" Height="162" Color="45" BordColor="44" Bord2Color="35" />
+        <PixelRect X="6" Y="19" Width="309" Height="162" Color="45" BordColor="44" Bord2Color="35" />
       </Menu>
     </Menus>
   </VgaGraph>

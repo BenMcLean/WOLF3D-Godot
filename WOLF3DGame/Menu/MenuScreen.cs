@@ -72,6 +72,22 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 AddChild(new PixelRect(pixelRect));
+            foreach (XElement text in menu.Elements("Text"))
+            {
+                ImageTexture texture = Assets.Text(
+                    uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
+                    text.Attribute("String").Value
+                    );
+                AddChild(new Sprite()
+                {
+                    Texture = texture,
+                    Position = new Vector2(
+                        (uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
+                        (uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+                        ),
+                    Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
+                });
+            }
             if ((MenuItems = MenuItem.MenuItems(menu)) != null)
                 foreach (MenuItem item in MenuItems)
                     AddChild(item);
