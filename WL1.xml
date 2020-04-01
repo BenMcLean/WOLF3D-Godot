@@ -153,13 +153,18 @@
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
-        <Option Name="New Game" />
+        <Option Name="New Game" Action="Menu" Argument="Episodes" />
         <Option Name="Sound" />
         <Option Name="Control" />
         <Option Name="Load Game" />
         <Option Name="Save Game" />
-        <Option Name="Quit" />
+        <Option Name="Quit" Action="Quit" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" />
+      </Menu>
+      <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+        <Text String="Which episode to play?" X="60" Y="3" Color="71" />
+        <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
+        <PixelRect X="6" Y="19" Width="308" Height="162" Color="45" BordColor="44" Bord2Color="35" />
       </Menu>
     </Menus>
   </VgaGraph>

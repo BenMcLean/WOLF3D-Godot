@@ -49,7 +49,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         ),
                     Color = color,
                 });
-            return items.ToArray();
+            return items.Count > 0 ? items.ToArray() : null;
         }
     }
 }

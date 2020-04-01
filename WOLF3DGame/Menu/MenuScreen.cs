@@ -72,8 +72,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 AddChild(new PixelRect(pixelRect));
-            foreach (MenuItem item in MenuItems = MenuItem.MenuItems(menu))
-                AddChild(item);
+            if ((MenuItems = MenuItem.MenuItems(menu)) != null)
+                foreach (MenuItem item in MenuItems)
+                    AddChild(item);
             if (menu.Element("Cursor") is XElement cursor && cursor != null)
             {
                 List<ImageTexture> cursors = new List<ImageTexture>();
@@ -145,12 +146,13 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool Target(Vector2 vector2)
         {
             Crosshairs.Position = vector2;
-            for (int x = 0; x < MenuItems.Length; x++)
-                if (Selection != x && MenuItems[x].Target(vector2))
-                {
-                    Selection = x;
-                    return true;
-                }
+            if (MenuItems != null)
+                for (int x = 0; x < MenuItems.Length; x++)
+                    if (Selection != x && MenuItems[x].Target(vector2))
+                    {
+                        Selection = x;
+                        return true;
+                    }
             return false;
         }
 
@@ -166,10 +168,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Input(InputEvent @event)
         {
-            if (@event.IsActionPressed("ui_down"))
-                Selection++;
-            else if (@event.IsActionPressed("ui_up"))
-                Selection--;
+            if (MenuItems != null)
+                if (@event.IsActionPressed("ui_down"))
+                    Selection++;
+                else if (@event.IsActionPressed("ui_up"))
+                    Selection--;
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
