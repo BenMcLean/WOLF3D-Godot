@@ -299,11 +299,11 @@ namespace WOLF3D.WOLF3DGame
             : throw new InvalidDataException("Sound not found: \"" + name + "\"");
 
         public static VgaGraph.Font Font(uint font) => VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)];
-        public static ImageTexture Text(string @string, uint font = 0) => Text(Font(font), @string);
-        public static ImageTexture Text(VgaGraph.Font font, string @string = "")
+        public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(Font(font), @string, padding);
+        public static ImageTexture Text(VgaGraph.Font font, string @string = "", ushort padding = 0)
         {
             Image image = new Image();
-            image.CreateFromData(font.CalcWidth(@string), font.Height, false, Image.Format.Rgba8, font.Line(@string));
+            image.CreateFromData(font.CalcWidth(@string), font.CalcHeight(@string, padding), false, Image.Format.Rgba8, font.Text(@string, padding));
             ImageTexture imageTexture = new ImageTexture();
             imageTexture.CreateFromImage(image, 0);
             return imageTexture;

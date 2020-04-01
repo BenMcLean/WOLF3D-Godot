@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
@@ -46,6 +47,35 @@ namespace WOLF3DModel
                 }
             }
 
+            public byte[] Text(string input, ushort padding = 0)
+            {
+                if (input == null)
+                    return null;
+                int width = CalcWidth(input);
+                string[] lines = input.Split('\n');
+                byte[] bytes = new byte[width * 4 * (Height + padding) * lines.Length];
+                for (int line = 0; line < lines.Length; line++)
+                {
+                    int lineWidth = CalcWidthLine(lines[line]),
+                        lineStart = line * (Height + padding);
+                    byte[] lineBytes = Line(lines[line]);
+                    for (int y = 0; y < Height; y++)
+                        Array.Copy(
+                            //sourceArray
+                            lineBytes,
+                            //sourceIndex
+                            y * lineWidth * 4,
+                            //destinationArray
+                            bytes,
+                            //destinationIndex
+                            (lineStart + y) * width * 4,
+                            //length
+                            lineWidth * 4
+                            );
+                }
+                return bytes;
+            }
+
             public byte[] Line(string input)
             {
                 if (input == null)
@@ -63,7 +93,19 @@ namespace WOLF3DModel
                 return bytes;
             }
 
+            public int CalcHeight(string input, ushort padding = 0) => (Height + padding) * (input == null ? 0 : input.Split('\n').Length);
+
             public int CalcWidth(string input)
+            {
+                if (input == null)
+                    return 0;
+                int longest = 0;
+                foreach (string line in input.Split('\n'))
+                    longest = Math.Max(longest, CalcWidthLine(line));
+                return longest;
+            }
+
+            public int CalcWidthLine(string input)
             {
                 if (input == null)
                     return 0;
