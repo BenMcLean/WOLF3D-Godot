@@ -85,9 +85,22 @@ namespace WOLF3DModel
                 int rowStart = 0;
                 foreach (char c in input)
                 {
-                    for (int x = 0; x < Width[c] * 4; x++)
-                        for (int y = 0; y < Height; y++)
-                            bytes[y * width + rowStart + x] = Character[c][y * Width[c] * 4 + x];
+                    //for (int x = 0; x < Width[c] * 4; x++)
+                    //    for (int y = 0; y < Height; y++)
+                    //        bytes[y * width + rowStart + x] = Character[c][y * Width[c] * 4 + x];
+                    for (int y = 0; y < Height; y++)
+                        Array.Copy(
+                            //sourceArray
+                            Character[c],
+                            //sourceIndex
+                            y * Width[c] * 4,
+                            //destinationArray
+                            bytes,
+                            //destinationIndex
+                            y * width + rowStart,
+                            //length
+                            Width[c] * 4
+                            );
                     rowStart += Width[c] * 4;
                 }
                 return bytes;
