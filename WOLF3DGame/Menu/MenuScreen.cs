@@ -76,7 +76,8 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 ImageTexture texture = Assets.Text(
                     uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
-                    text.Attribute("String").Value
+                    text.Attribute("String").Value,
+                    ushort.TryParse(text.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
                     );
                 AddChild(new Sprite()
                 {
