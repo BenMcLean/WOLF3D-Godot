@@ -35,14 +35,16 @@ namespace WOLF3DModel
                     for (uint i = 0; i < Width.Length; i++)
                         Width[i] = binaryReader.ReadByte();
                     Character = new byte[Width.Length][];
+                    byte[] whitePixel = new byte[] { 255, 255, 255, 255 };
                     for (uint i = 0; i < Character.Length; i++)
                     {
                         Character[i] = new byte[Width[i] * Height * 4];
                         stream.Seek(location[i], 0);
                         for (uint j = 0; j < Character[i].Length / 4; j++)
                             if (binaryReader.ReadByte() != 0)
-                                for (uint k = 0; k < 4; k++)
-                                    Character[i][j * 4 + k] = 255;
+                                //for (uint k = 0; k < 4; k++)
+                                //    Character[i][j * 4 + k] = 255;
+                                Array.Copy(whitePixel, 0, Character[i], j * 4, 4);
                     }
                 }
             }
