@@ -139,8 +139,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                     MenuItems[selection].Color = SelectedColor;
                 if (Cursor != null)
                     Cursor.Position = new Vector2(
-                        StartX + Cursor.Texture.GetWidth() / 2,
-                        StartY + Cursor.Texture.GetHeight() / 2 + selection * (Font.Height + PaddingY));
+                        MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 - 1,
+                        MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 - 3
+                        );
             }
         }
         private int selection = 0;

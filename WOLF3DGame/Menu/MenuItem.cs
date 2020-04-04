@@ -8,6 +8,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuItem : Node2D
     {
+        public XElement XML { get; set; }
         public Sprite Text { get; set; }
         public float Width { get; set; } = 0;
         public float Height { get; set; } = 0;
@@ -22,6 +23,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0)
         {
+            Name = text;
             ImageTexture texture = Assets.Text(font, Name = text);
             AddChild(Text = new Sprite()
             {
@@ -43,6 +45,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             foreach (XElement option in menu.Elements("Option"))
                 items.Add(new MenuItem(font, option.Attribute("Name").Value, paddingX)
                 {
+                    XML = option,
                     Position = new Vector2(
                         startX,
                         startY + items.Count() * font.Height + paddingY
