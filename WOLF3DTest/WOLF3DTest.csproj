@@ -39,10 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
-      <HintPath>..\.mono\assemblies\GodotSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="GodotSharpEditor">
-      <HintPath>..\.mono\assemblies\GodotSharpEditor.dll</HintPath>
+      <HintPath>..\.mono\assemblies\Debug\GodotSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
