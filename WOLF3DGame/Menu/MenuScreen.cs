@@ -191,6 +191,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Selection++;
                 else if (@event.IsActionPressed("ui_up"))
                     Selection--;
+                else if (@event.IsActionPressed("ui_accept"))
+                    Main.MenuRoom.Action(SelectedItem.XML);
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()

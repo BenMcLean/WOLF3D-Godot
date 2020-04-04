@@ -15,7 +15,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => menuScreen;
             set
             {
-                menuScreen = value;
+                if (menuScreen != null)
+                    RemoveChild(menuScreen);
+                AddChild(menuScreen = value);
                 ((SpatialMaterial)(MeshInstance.MaterialOverride)).AlbedoTexture = menuScreen.GetTexture();
             }
         }
@@ -48,7 +50,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 },
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
-            AddChild(MenuScreen = menuScreen);
+            MenuScreen = menuScreen;
         }
 
         /*

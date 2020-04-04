@@ -1,4 +1,6 @@
 ﻿using Godot;
+using System;
+using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.OPL;
 
@@ -90,6 +92,16 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Main.Scene = Main.ActionRoom;
             else
                 MenuBody?.MenuScreen?._Input(@event);
+        }
+
+        public MenuRoom Action(XElement xml)
+        {
+            if (xml == null)
+                return this;
+            if (xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                if (Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen && menuScreen != null)
+                    MenuBody.MenuScreen = menuScreen;
+            return this;
         }
     }
 }
