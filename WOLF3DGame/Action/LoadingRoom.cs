@@ -4,18 +4,12 @@ using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class LoadingRoom : Spatial
+    public class LoadingRoom : Room
     {
-        public ARVROrigin ARVROrigin { get; set; }
-        public ARVRCamera ARVRCamera { get; set; }
-        public ARVRController LeftController { get; set; }
-        public ARVRController RightController { get; set; }
-
         public LoadingRoom(ushort mapNumber = 0)
         {
             Name = "LoadingRoom for map " + mapNumber;
             MapNumber = mapNumber;
-            Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {
@@ -49,7 +43,6 @@ namespace WOLF3D.WOLF3DGame.Action
                     },
                     Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
                 });
-                SoundBlaster.Song = Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
 
                 System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
                 thread.IsBackground = true;
@@ -68,10 +61,17 @@ namespace WOLF3D.WOLF3DGame.Action
             };
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            Main.BackgroundColor = Assets.Palette[Assets.Maps[MapNumber].Border];
+            SoundBlaster.Song = Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
+        }
+
         public override void _Process(float delta)
         {
             if (ActionRoom != null)
-                Main.Scene = Main.ActionRoom = ActionRoom;
+                Main.Room = Main.ActionRoom = ActionRoom;
         }
     }
 }

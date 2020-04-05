@@ -6,12 +6,8 @@ using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class MenuRoom : Spatial
+    public class MenuRoom : Room
     {
-        public ARVROrigin ARVROrigin { get; set; }
-        public ARVRCamera ARVRCamera { get; set; }
-        public ARVRController LeftController { get; set; }
-        public ARVRController RightController { get; set; }
         public ARVRController ActiveController { get; set; }
         public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
 
@@ -47,10 +43,13 @@ namespace WOLF3D.WOLF3DGame.Menu
             });
         }
 
-        public override void _Ready()
+        public override void Enter()
         {
-            VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            SoundBlaster.Song = Assets.Song(Assets.XML.Element("VgaGraph").Element("Menus").Attribute("MenuSong").Value);
+            base.Enter();
+            if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("MenuSong") is XAttribute menuSong && menuSong != null)
+                SoundBlaster.Song = Assets.Song(menuSong.Value);
+            if (MenuBody != null && MenuBody.MenuScreen != null && MenuBody.MenuScreen.Color != null)
+                Main.BackgroundColor = MenuBody.MenuScreen.Color;
         }
 
         public override void _PhysicsProcess(float delta)
@@ -89,7 +88,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         public override void _Input(InputEvent @event)
         {
             if (@event.IsActionPressed("ui_cancel"))
-                Main.Scene = Main.ActionRoom;
+                Main.Room = Main.ActionRoom;
             else
                 MenuBody?.MenuScreen?._Input(@event);
         }

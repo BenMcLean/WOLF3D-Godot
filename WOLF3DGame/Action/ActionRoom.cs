@@ -4,8 +4,28 @@ using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class ActionRoom : Spatial
+    public class ActionRoom : Room
     {
+        public override ARVROrigin ARVROrigin
+        {
+            get => ARVRPlayer.ARVROrigin;
+            set => ARVRPlayer.ARVROrigin = value;
+        }
+        public override ARVRCamera ARVRCamera
+        {
+            get => ARVRPlayer.ARVRCamera;
+            set => ARVRPlayer.ARVRCamera = value;
+        }
+        public override ARVRController LeftController
+        {
+            get => ARVRPlayer.LeftController;
+            set => ARVRPlayer.LeftController = value;
+        }
+        public override ARVRController RightController
+        {
+            get => ARVRPlayer.RightController;
+            set => ARVRPlayer.RightController = value;
+        }
         public ARVRPlayer ARVRPlayer { get; set; }
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
@@ -19,7 +39,6 @@ namespace WOLF3D.WOLF3DGame.Action
                 mapNumber = value;
                 if (Level != null)
                     RemoveChild(Level);
-                Main.BackgroundColor = Assets.Palette[Assets.Maps[mapNumber].Border];
                 AddChild(Level = new Level(Map)
                 {
                     ARVRPlayer = ARVRPlayer,
@@ -81,7 +100,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
             if (@event.IsActionPressed("ui_cancel"))
-                Main.Scene = Main.MenuRoom;
+                Main.Room = Main.MenuRoom;
             if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
                 switch (inputEventKey.Scancode)
                 {
@@ -89,7 +108,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         print();
                         break;
                     case (uint)KeyList.Z:
-                        Main.Scene = new LoadingRoom(NextMap);
+                        Main.Room = new LoadingRoom(NextMap);
                         break;
                 }
         }
@@ -99,7 +118,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (buttonIndex == (int)JoystickList.OculusAx)
                 print();
             if (buttonIndex == (int)JoystickList.OculusBy)
-                Main.Scene = new LoadingRoom(NextMap);
+                Main.Room = new LoadingRoom(NextMap);
         }
 
         public void print()
@@ -125,6 +144,16 @@ namespace WOLF3D.WOLF3DGame.Action
             AddChild(audioStreamPlayer);
             audioStreamPlayer.Play();
             return this;
+        }
+
+        Imf[] Song => Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
+
+        public override void Enter()
+        {
+            base.Enter();
+            Main.BackgroundColor = Assets.Palette[Assets.Maps[MapNumber].Border];
+            if (SoundBlaster.Song != Song)
+                SoundBlaster.Song = Song;
         }
     }
 }

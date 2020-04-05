@@ -4,13 +4,8 @@ using System.Linq;
 
 namespace WOLF3D.WOLF3DGame.Setup
 {
-    public class SetupRoom : Spatial
+    public class SetupRoom : Room
     {
-        public ARVROrigin ARVROrigin { get; set; }
-        public ARVRCamera ARVRCamera { get; set; }
-        public ARVRController LeftController { get; set; }
-        public ARVRController RightController { get; set; }
-
         public enum LoadingState
         {
             READY,

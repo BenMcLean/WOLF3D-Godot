@@ -30,17 +30,21 @@ namespace WOLF3D.WOLF3DGame
 
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
-		public static Node Scene
+		public static Room Room
 		{
-			get => I.scene;
+			get => I.room;
 			set
 			{
-				if (I.scene != null)
-					I.RemoveChild(I.scene);
-				I.AddChild(I.scene = value);
+				if (I.room != null)
+				{
+					I.room.Exit();
+					I.RemoveChild(I.room);
+				}
+				I.AddChild(I.room = value);
+				I.room.Enter();
 			}
 		}
-		private Node scene = null;
+		private Room room = null;
 
 		public override void _Ready()
 		{
@@ -58,7 +62,7 @@ namespace WOLF3D.WOLF3DGame
 			else
 				GD.Print("ARVRInterface failed to initialize!");
 			AddChild(SoundBlaster.OplPlayer);
-			Scene = new SetupRoom();
+			Room = new SetupRoom();
 		}
 
 		public static void Load()
@@ -66,8 +70,8 @@ namespace WOLF3D.WOLF3DGame
 			Assets.Load(Folder);
 			SoundBlaster.Start();
 			ActionRoom = new ActionRoom();
-			//Scene = new LoadingRoom(0);
-			Scene = MenuRoom = new MenuRoom();
+			MenuRoom = new MenuRoom();
+			Room = new LoadingRoom(0);
 		}
 	}
 }
