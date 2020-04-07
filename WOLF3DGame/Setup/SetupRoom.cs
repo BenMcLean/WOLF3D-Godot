@@ -25,7 +25,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                     case LoadingState.ASK_PERMISSION:
                         DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's")
                             .WriteLine("external storage.")
-                            .WriteLine("Press any button to open permission request.");
+                            .WriteLine("Press any button to continue.");
                         break;
                     case LoadingState.GET_SHAREWARE:
                         DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
@@ -48,8 +48,6 @@ namespace WOLF3D.WOLF3DGame.Setup
         public override void _Ready()
         {
             Name = "Setup scene";
-            VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-            Main.BackgroundColor = Color.Color8(0, 0, 0, 255);
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {
@@ -75,6 +73,12 @@ namespace WOLF3D.WOLF3DGame.Setup
 
             LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
             RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Main.BackgroundColor = Color.Color8(0, 0, 0, 255);
         }
 
         public override void _PhysicsProcess(float delta)
@@ -108,14 +112,11 @@ namespace WOLF3D.WOLF3DGame.Setup
             }
         }
 
-        public bool PermissionsGranted
-        {
-            get
-            {
-                string[] permissions = OS.GetGrantedPermissions();
-                return permissions.Contains("android.permission.READ_EXTERNAL_STORAGE") && permissions.Contains("android.permission.WRITE_EXTERNAL_STORAGE");
-            }
-        }
+        public static bool PermissionsGranted =>
+            OS.GetGrantedPermissions() is string[] permissions &&
+            permissions != null &&
+            permissions.Contains("android.permission.READ_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase) &&
+            permissions.Contains("android.permission.WRITE_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase);
 
         public void ButtonPressed(int buttonIndex)
         {
