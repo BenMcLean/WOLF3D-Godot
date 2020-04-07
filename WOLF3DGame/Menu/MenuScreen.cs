@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using WOLF3DModel;
 
@@ -20,15 +21,11 @@ namespace WOLF3D.WOLF3DGame.Menu
         public Color Color
         {
             get => Background.Color;
-            set => Main.BackgroundColor = Background.Color = value;
+            set => Main.Color = Background.Color = value;
         }
         public Color TextColor { get; set; }
         public Color SelectedColor { get; set; }
         public Color DisabledColor { get; set; }
-        public uint StartX { get; set; } = 0;
-        public uint StartY { get; set; } = 0;
-        public uint PaddingX { get; set; } = 0;
-        public uint PaddingY { get; set; } = 0;
         public ImageTexture[] Cursors { get; set; }
         public Sprite Cursor { get; set; }
 
@@ -55,10 +52,6 @@ namespace WOLF3D.WOLF3DGame.Menu
                 SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
             if (menu.Attribute("DisabledColor") != null)
                 DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
-            StartX = uint.TryParse(menu.Attribute("StartX")?.Value, out result) ? result : 0;
-            StartY = uint.TryParse(menu.Attribute("StartY")?.Value, out result) ? result : 0;
-            PaddingX = uint.TryParse(menu.Attribute("XPadding")?.Value, out result) ? result : 0;
-            PaddingY = uint.TryParse(menu.Attribute("YPadding")?.Value, out result) ? result : 0;
             foreach (XElement image in menu.Elements("Image"))
             {
                 ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
@@ -89,9 +82,12 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
                 });
             }
-            if ((MenuItems = MenuItem.MenuItems(menu)) != null)
-                foreach (MenuItem item in MenuItems)
+            foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
+                foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor))
+                {
+                    MenuItems.Add(item);
                     AddChild(item);
+                }
             if (menu.Element("Cursor") is XElement cursor && cursor != null)
             {
                 List<ImageTexture> cursors = new List<ImageTexture>();
@@ -104,14 +100,14 @@ namespace WOLF3D.WOLF3DGame.Menu
                     AddChild(Cursor = new Sprite()
                     {
                         Texture = Cursors[0],
-                        Position = new Vector2(StartX + Cursors[0].GetWidth() / 2, StartY + Cursors[0].GetHeight() / 2),
+                        Position = new Vector2(MenuItems[0].Position.x + Cursors[0].GetWidth() / 2, MenuItems[0].Position.y + Cursors[0].GetHeight() / 2),
                     });
             }
             Selection = 0;
             AddChild(Crosshairs);
         }
 
-        public MenuItem[] MenuItems { get; set; }
+        public List<MenuItem> MenuItems { get; private set; } = new List<MenuItem>();
 
         public const float BlinkRate = 0.5f;
         public float Blink = 0f;
@@ -132,11 +128,14 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => selection;
             set
             {
-                if (MenuItems != null)
-                    MenuItems[selection].Color = TextColor;
-                selection = Direction8.Modulus(value, MenuItems?.Length ?? 1);
-                if (MenuItems != null)
-                    MenuItems[selection].Color = SelectedColor;
+                if (MenuItems == null || MenuItems.Count <= 0)
+                {
+                    selection = 0;
+                    return;
+                }
+                MenuItems[selection].Color = TextColor;
+                selection = Direction8.Modulus(value, MenuItems.Count);
+                MenuItems[selection].Color = SelectedColor;
                 if (Cursor != null)
                     Cursor.Position = new Vector2(
                         MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 - 1,
@@ -148,16 +147,16 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuItem SelectedItem
         {
-            get => MenuItems[Selection];
+            get => MenuItems == null || MenuItems.Count <= Selection ? null : MenuItems[Selection];
             set
             {
-                if (MenuItems != null)
-                    for (int x = 0; x < MenuItems.Length; x++)
-                        if (value == MenuItems[x])
-                        {
-                            Selection = x;
-                            return;
-                        }
+                if (MenuItems == null) return;
+                for (int x = 0; x < MenuItems.Count; x++)
+                    if (value == MenuItems[x])
+                    {
+                        Selection = x;
+                        return;
+                    }
             }
         }
 
@@ -165,7 +164,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             Crosshairs.Position = vector2;
             if (MenuItems != null)
-                for (int x = 0; x < MenuItems.Length; x++)
+                for (int x = 0; x < MenuItems.Count; x++)
                     if (Selection != x && MenuItems[x].Target(vector2))
                     {
                         Selection = x;
@@ -191,8 +190,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Selection++;
                 else if (@event.IsActionPressed("ui_up"))
                     Selection--;
-                else if (@event.IsActionPressed("ui_accept"))
-                    Main.MenuRoom.Action(SelectedItem.XML);
+                else if (@event.IsActionPressed("ui_accept") &&
+                    SelectedItem is MenuItem selected &&
+                    selected != null)
+                    Main.MenuRoom.Action(selected.XML);
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()

@@ -49,7 +49,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("MenuSong") is XAttribute menuSong && menuSong != null)
                 SoundBlaster.Song = Assets.Song(menuSong.Value);
             if (MenuBody != null && MenuBody.MenuScreen != null && MenuBody.MenuScreen.Color != null)
-                Main.BackgroundColor = MenuBody.MenuScreen.Color;
+                Main.Color = MenuBody.MenuScreen.Color;
         }
 
         public override void _PhysicsProcess(float delta)

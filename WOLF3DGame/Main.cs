@@ -22,7 +22,7 @@ namespace WOLF3D.WOLF3DGame
 				BackgroundMode = Godot.Environment.BGMode.Color,
 			},
 		};
-		public static Color BackgroundColor
+		public static Color Color
 		{
 			get => WorldEnvironment.Environment.BackgroundColor;
 			set => WorldEnvironment.Environment.BackgroundColor = value;

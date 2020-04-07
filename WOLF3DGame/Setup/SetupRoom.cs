@@ -78,7 +78,7 @@ namespace WOLF3D.WOLF3DGame.Setup
         public override void Enter()
         {
             base.Enter();
-            Main.BackgroundColor = Color.Color8(0, 0, 0, 255);
+            Main.Color = Color.Color8(0, 0, 0, 255);
         }
 
         public override void _PhysicsProcess(float delta)

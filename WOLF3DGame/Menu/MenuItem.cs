@@ -33,26 +33,32 @@ namespace WOLF3D.WOLF3DGame.Menu
             Width = xPadding + texture.GetWidth();
             Height = texture.GetHeight();
         }
-        public static MenuItem[] MenuItems(XElement menu)
+
+        public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color color)
         {
-            VgaGraph.Font font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
-            Color color = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte index) ? Assets.Palette[index] : Assets.White;
-            uint startX = uint.TryParse(menu.Attribute("StartX")?.Value, out result) ? result : 0,
-                startY = uint.TryParse(menu.Attribute("StartY")?.Value, out result) ? result : 0,
-                paddingX = uint.TryParse(menu.Attribute("PaddingX")?.Value, out result) ? result : 0,
-                paddingY = uint.TryParse(menu.Attribute("PaddingY")?.Value, out result) ? result : 0;
-            List<MenuItem> items = new List<MenuItem>();
-            foreach (XElement option in menu.Elements("Option"))
-                items.Add(new MenuItem(font, option.Attribute("Name").Value, paddingX)
+            if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
+                font = Assets.Font(result);
+            if (byte.TryParse(menuItems.Attribute("Color")?.Value, out byte index))
+                color = Assets.Palette[index];
+            else if (color == null)
+                color = Assets.White;
+            uint startX = uint.TryParse(menuItems.Attribute("StartX")?.Value, out result) ? result : 0,
+                startY = uint.TryParse(menuItems.Attribute("StartY")?.Value, out result) ? result : 0,
+                paddingX = uint.TryParse(menuItems.Attribute("PaddingX")?.Value, out result) ? result : 0,
+                paddingY = uint.TryParse(menuItems.Attribute("PaddingY")?.Value, out result) ? result : 0,
+                count = 0;
+            foreach (XElement menuItem in menuItems.Elements("MenuItem"))
+                yield return new MenuItem(
+                    uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
+                    menuItem.Attribute("Name").Value, paddingX)
                 {
-                    XML = option,
+                    XML = menuItem,
                     Position = new Vector2(
                         startX,
-                        startY + items.Count() * font.Height + paddingY
+                        startY + count++ * (font.Height + paddingY)
                         ),
-                    Color = color,
-                });
-            return items.Count > 0 ? items.ToArray() : null;
+                    Color = byte.TryParse(menuItem.Attribute("Color")?.Value, out index) ? Assets.Palette[index] : color,
+                };
         }
     }
 }
