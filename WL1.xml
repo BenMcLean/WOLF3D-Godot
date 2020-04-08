@@ -153,7 +153,7 @@
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="72" StartY="53" PaddingX="28" PaddingY="3">
+        <MenuItems StartX="72" StartY="56" PaddingX="28">
           <MenuItem Name="New Game" Action="Menu" Argument="Episodes" />
           <MenuItem Name="Sound" />
           <MenuItem Name="Control" />
