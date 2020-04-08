@@ -161,7 +161,7 @@
           <MenuItem Name="Save Game" Action="Save" />
           <MenuItem Name="Quit" Action="Quit" />
         </MenuItems>
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" />
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
       <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Text String="Which episode to play?" X="60" Y="3" Color="71" />

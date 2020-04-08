@@ -27,6 +27,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         public Color SelectedColor { get; set; }
         public Color DisabledColor { get; set; }
         public ImageTexture[] Cursors { get; set; }
+        public int CursorX { get; set; } = 0;
+        public int CursorY { get; set; } = 0;
         public Sprite Cursor { get; set; }
 
         public MenuScreen()
@@ -95,6 +97,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                     cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor1")?.Value));
                 if (cursor.Attribute("Cursor2") != null)
                     cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor2")?.Value));
+                if (int.TryParse(cursor.Attribute("X")?.Value, out int cursorX))
+                    CursorX = cursorX;
+                if (int.TryParse(cursor.Attribute("Y")?.Value, out int cursorY))
+                    CursorY = cursorY;
                 Cursors = cursors.ToArray();
                 if (Cursors.Length > 0)
                     AddChild(Cursor = new Sprite()
@@ -138,8 +144,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuItems[selection].Color = SelectedColor;
                 if (Cursor != null)
                     Cursor.Position = new Vector2(
-                        MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 - 1,
-                        MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 - 3
+                        MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
+                        MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 + CursorY
                         );
             }
         }
