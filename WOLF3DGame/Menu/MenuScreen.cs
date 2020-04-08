@@ -54,6 +54,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
             if (menu.Attribute("DisabledColor") != null)
                 DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
+            foreach (XElement pixelRect in menu.Elements("PixelRect"))
+                AddChild(new PixelRect(pixelRect));
             foreach (XElement image in menu.Elements("Image"))
             {
                 ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
@@ -65,8 +67,6 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Position = new Vector2((float)image.Attribute("X") + texture.GetSize().x / 2f, (float)image.Attribute("Y") + texture.GetSize().y / 2f),
                 });
             }
-            foreach (XElement pixelRect in menu.Elements("PixelRect"))
-                AddChild(new PixelRect(pixelRect));
             foreach (XElement text in menu.Elements("Text"))
             {
                 ImageTexture texture = Assets.Text(
