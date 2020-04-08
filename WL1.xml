@@ -155,10 +155,10 @@
         <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="72" StartY="56" PaddingX="28">
           <MenuItem Name="New Game" Action="Menu" Argument="Episodes" />
-          <MenuItem Name="Sound" />
-          <MenuItem Name="Control" />
-          <MenuItem Name="Load Game" />
-          <MenuItem Name="Save Game" />
+          <MenuItem Name="Sound" Action="Menu" Argument="Sound" />
+          <MenuItem Name="Control" Action="Menu" Argument="Control" />
+          <MenuItem Name="Load Game" Action="Load" />
+          <MenuItem Name="Save Game" Action="Save" />
           <MenuItem Name="Quit" Action="Quit" />
         </MenuItems>
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" />
@@ -167,6 +167,15 @@
         <Text String="Which episode to play?" X="60" Y="3" Color="71" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <PixelRect X="6" Y="19" Width="309" Height="162" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="8" StartY="20" PaddingX="90" PaddingY="14">
+          <MenuItem Name="Episode 1&#10;Escape from Wolfenstein" />
+          <MenuItem Name="Episode 2&#10;Operation: Eisenfaust" />
+          <MenuItem Name="Episode 3&#10;Die, Furher, Die" />
+          <MenuItem Name="Episode 4&#10;A Dark Secret" />
+          <MenuItem Name="Episode 5&#10;Trail of the Madman" />
+          <MenuItem Name="Episode 6&#10;Confrontation" />
+        </MenuItems>
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" />
       </Menu>
     </Menus>
   </VgaGraph>
