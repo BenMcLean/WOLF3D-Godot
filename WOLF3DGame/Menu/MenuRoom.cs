@@ -97,6 +97,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             if (xml == null)
                 return this;
+            if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
+                Main.Episode = episode;
             if (xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 if (Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen && menuScreen != null)
                     MenuBody.MenuScreen = menuScreen;

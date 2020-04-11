@@ -50,7 +50,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             foreach (XElement menuItem in menuItems.Elements("MenuItem"))
                 yield return new MenuItem(
                     uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-                    menuItem.Attribute("Name").Value, paddingX)
+                    menuItem.Attribute("Text").Value, paddingX)
                 {
                     XML = menuItem,
                     Position = new Vector2(

@@ -12,6 +12,7 @@ namespace WOLF3D.WOLF3DGame
 		public static Main I { get; private set; }
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
+		public static byte Episode { get; set; } = 0;
 		public static ARVRInterface ARVRInterface { get; set; }
 		public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
 		{

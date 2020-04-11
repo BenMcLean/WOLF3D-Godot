@@ -154,12 +154,12 @@
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <PixelRect X="68" Y="52" Width="179" Height="137" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="72" StartY="56" PaddingX="28">
-          <MenuItem Name="New Game" Action="Menu" Argument="Episodes" />
-          <MenuItem Name="Sound" Action="Menu" Argument="Sound" />
-          <MenuItem Name="Control" Action="Menu" Argument="Control" />
-          <MenuItem Name="Load Game" Action="Load" />
-          <MenuItem Name="Save Game" Action="Save" />
-          <MenuItem Name="Quit" Action="Quit" />
+          <MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
+          <MenuItem Text="Sound" Action="Menu" Argument="Sound" />
+          <MenuItem Text="Control" Action="Menu" Argument="Control" />
+          <MenuItem Text="Load Game" Action="Load" />
+          <MenuItem Text="Save Game" Action="Save" />
+          <MenuItem Text="Quit" Action="Quit" />
         </MenuItems>
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
@@ -174,14 +174,26 @@
         <Image Name="C_EPISODE6PIC" X="40" Y="157" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
-          <MenuItem Name="Episode 1&#10;Escape from Wolfenstein" />
-          <MenuItem Name="Episode 2&#10;Operation: Eisenfaust" />
-          <MenuItem Name="Episode 3&#10;Die, Furher, Die" />
-          <MenuItem Name="Episode 4&#10;A Dark Secret" />
-          <MenuItem Name="Episode 5&#10;Trail of the Madman" />
-          <MenuItem Name="Episode 6&#10;Confrontation" />
+          <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="0" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" />
+          <MenuItem Text="Episode 3&#10;Die, Furher, Die" />
+          <MenuItem Text="Episode 4&#10;A Dark Secret" />
+          <MenuItem Text="Episode 5&#10;Trail of the Madman" />
+          <MenuItem Text="Episode 6&#10;Confrontation" />
         </MenuItems>
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+      </Menu>
+      <Menu Name="Difficulty" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+        <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
+        <Text String="How tough are you?" X="70" Y="69" Color="71" />
+        <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
+        <Difficulty X="233" Y="108" Difficulty0="C_BABYMODEPIC" Difficulty1="C_EASYPIC" Difficulty2="C_NORMALPIC" Difficulty3="C_HARDPIC" />
+        <MenuItems StartX="51" StartY="101" PaddingX="28">
+          <MenuItem Text="Can I play, Daddy?" Difficulty="0" />
+          <MenuItem Text="Don't hurt me" Difficulty="1" />
+          <MenuItem Text="Bring 'em on!" Difficulty="2" />
+          <MenuItem Text="I am Death incarnate!" Difficulty="3" />
+        </MenuItems>
       </Menu>
     </Menus>
   </VgaGraph>

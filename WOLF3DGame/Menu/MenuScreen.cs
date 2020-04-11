@@ -17,6 +17,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             Position = OffScreen,
         };
 
+        public XElement XML { get; set; }
         public VgaGraph.Font Font { get; set; }
         public Color Color
         {
@@ -30,6 +31,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         public int CursorX { get; set; } = 0;
         public int CursorY { get; set; } = 0;
         public Sprite Cursor { get; set; }
+        public ImageTexture[] Difficulties { get; set; }
+        public Sprite Difficulty { get; set; }
 
         public MenuScreen()
         {
@@ -46,6 +49,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen(XElement menu) : this()
         {
+            XML = menu;
             Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
             Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];
             if (menu.Attribute("TextColor") != null)
@@ -109,6 +113,17 @@ namespace WOLF3D.WOLF3DGame.Menu
                         Position = new Vector2(MenuItems[0].Position.x + Cursors[0].GetWidth() / 2, MenuItems[0].Position.y + Cursors[0].GetHeight() / 2),
                     });
             }
+            if (menu.Element("Difficulty") is XElement difficulty && difficulty != null)
+            {
+                ImageTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty0").Value);
+                AddChild(Difficulty = new Sprite()
+                {
+                    Position = new Vector2(
+                        (uint.TryParse(difficulty.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
+                        (uint.TryParse(difficulty.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+                        ),
+                });
+            }
             Selection = 0;
             AddChild(Crosshairs);
         }
@@ -147,6 +162,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                         MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
                         MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 + CursorY
                         );
+                if (Difficulty != null && XML.Element("Difficulty") is XElement difficulty && difficulty != null)
+                    Difficulty.Texture = Assets.PicTexture(difficulty.Attribute("Difficulty" + (SelectedItem.XML.Attribute("Difficulty")?.Value ?? ""))?.Value);
             }
         }
         private int selection = 0;
