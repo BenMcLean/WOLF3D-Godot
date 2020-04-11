@@ -187,7 +187,7 @@
         <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="How tough are you?" X="70" Y="69" Color="71" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
-        <Difficulty X="233" Y="108" Difficulty0="C_BABYMODEPIC" Difficulty1="C_EASYPIC" Difficulty2="C_NORMALPIC" Difficulty3="C_HARDPIC" />
+        <Difficulty X="233" Y="107" Difficulty0="C_BABYMODEPIC" Difficulty1="C_EASYPIC" Difficulty2="C_NORMALPIC" Difficulty3="C_HARDPIC" />
         <MenuItems StartX="51" StartY="101" PaddingX="28">
           <MenuItem Text="Can I play, Daddy?" Difficulty="0" />
           <MenuItem Text="Don't hurt me" Difficulty="1" />
