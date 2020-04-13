@@ -3,6 +3,7 @@ using System;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.OPL;
+using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -10,6 +11,7 @@ namespace WOLF3D.WOLF3DGame.Menu
     {
         public static byte Episode { get; set; } = 0;
         public static byte Difficulty { get; set; } = 0;
+
         public ARVRController ActiveController { get; set; }
         public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
 

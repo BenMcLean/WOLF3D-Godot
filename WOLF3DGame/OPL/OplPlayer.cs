@@ -61,6 +61,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                             //    break;
                     }
             ImfPlayer.PlaySeconds(delta);
+            AdlPlayer.PlayNotes(delta);
             //SoundBlaster.PlayNotes(delta);
         }
 

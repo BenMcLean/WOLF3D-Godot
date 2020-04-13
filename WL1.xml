@@ -148,7 +148,7 @@
     <Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
     <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
     <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" >
+    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" >
       <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />

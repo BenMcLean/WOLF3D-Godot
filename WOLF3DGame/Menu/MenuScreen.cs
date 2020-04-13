@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
@@ -210,13 +211,27 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             if (MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
+                {
+                    if (Assets.ScrollSound != null)
+                        SoundBlaster.Adl = Assets.ScrollSound;
                     Selection++;
+                }
                 else if (@event.IsActionPressed("ui_up"))
+                {
+                    if (Assets.ScrollSound != null)
+                        SoundBlaster.Adl = Assets.ScrollSound;
                     Selection--;
+                }
                 else if (@event.IsActionPressed("ui_accept") &&
                     SelectedItem is MenuItem selected &&
                     selected != null)
+                {
+                    if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
+                        SoundBlaster.Adl = Assets.Sound(selectSound.Value);
+                    else if (Assets.SelectSound != null)
+                        SoundBlaster.Adl = Assets.SelectSound;
                     Main.MenuRoom.Action(selected.XML);
+                }
         }
 
         public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()

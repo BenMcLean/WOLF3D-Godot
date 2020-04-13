@@ -27,7 +27,7 @@ namespace WOLF3D.WOLF3DGame
         public static int IntCoordinate(float x) => Mathf.FloorToInt(x / WallWidth);
         /// <param name="x">A map coordinate</param>
         /// <returns>Center of the map square in meters</returns>
-        public static float CenterSquare(int x) => x * WallWidth + HalfWallWidth;
+        public static float CenterSquare(int x) => FloatCoordinate(x) + HalfWallWidth;
         public static float CenterSquare(uint x) => CenterSquare((int)x);
         public static float CenterSquare(ushort x) => CenterSquare((int)x);
         public static float CenterSquare(short x) => CenterSquare((int)x);
@@ -112,7 +112,7 @@ namespace WOLF3D.WOLF3DGame
                 VgaGraph = VgaGraph.Load(folder, XML);
             Animations = new Dictionary<string, uint[][]>();
             foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actor") ?? Enumerable.Empty<XElement>())
-                foreach (XElement animation in actor.Elements("Animation"))
+                foreach (XElement animation in actor.Elements("Animation") ?? Enumerable.Empty<XElement>())
                 {
                     bool directional = IsTrue(animation, "Directional");
                     IEnumerable<XElement> framesX = animation.Elements("Frame");
@@ -161,7 +161,26 @@ namespace WOLF3D.WOLF3DGame
 
         public static XElement XML { get; set; }
         public static GameMap[] Maps { get; set; }
-        public static AudioT AudioT { get; set; }
+        public static AudioT AudioT
+        {
+            get => audioT;
+            set
+            {
+                audioT = value;
+                if (XML.Element("VgaGraph")?.Element("Menus") is XElement menus && menus != null)
+                {
+                    if (menus.Attribute("SelectSound")?.Value is string selectSound && !string.IsNullOrWhiteSpace(selectSound))
+                        SelectSound = Sound(selectSound);
+                    if (menus.Attribute("ScrollSound")?.Value is string scrollSound && !string.IsNullOrWhiteSpace(scrollSound))
+                        ScrollSound = Sound(scrollSound);
+                }
+            }
+        }
+        private static AudioT audioT;
+
+        public static Adl SelectSound { get; set; }
+        public static Adl ScrollSound { get; set; }
+
 
         public static VSwap VSwap
         {
