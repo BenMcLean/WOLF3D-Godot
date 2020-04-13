@@ -63,13 +63,12 @@ namespace WOLF3D.WOLF3DGame.Action
                 Rotation = ActionRoom.BillboardRotation;
         }
 
-        public static Billboard[] Billboards(GameMap map)
+        public static Billboard[] Billboards(GameMap map, byte difficulty = 4)
         {
             XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects");
             if (objects == null)
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();
-            XElement spawn;
             for (uint i = 0; i < map.ObjectData.Length; i++)
                 if (uint.TryParse(
                     (from e in objects.Elements("Billboard")
@@ -81,9 +80,13 @@ namespace WOLF3D.WOLF3DGame.Action
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                     });
-                else if ((spawn = (from e in objects.Elements("Spawn")
-                                   where (uint)e.Attribute("Number") == map.ObjectData[i]
-                                   select e).FirstOrDefault()) != null)
+                else if (
+                    (from e in objects.Elements("Spawn")
+                     where ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
+                     select e).FirstOrDefault() is XElement spawn &&
+                     spawn != null &&
+                     (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
+                     )
                     billboards.Add(new Actor()
                     {
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),

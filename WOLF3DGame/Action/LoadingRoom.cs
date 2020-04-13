@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Threading;
+using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -7,8 +8,13 @@ namespace WOLF3D.WOLF3DGame.Action
     public class LoadingRoom : Room
     {
         public LoadingRoom(ushort mapNumber = 0)
+            : this(mapNumber, Main.ActionRoom?.Episode ?? MenuRoom.Episode, Main.ActionRoom?.Difficulty ?? MenuRoom.Difficulty) { }
+
+        public LoadingRoom(ushort mapNumber, byte episode, byte difficulty)
         {
             Name = "LoadingRoom for map " + mapNumber;
+            Episode = episode;
+            Difficulty = difficulty;
             MapNumber = mapNumber;
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
@@ -49,7 +55,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 thread.Start();
             }
         }
-
+        public byte Difficulty { get; set; }
+        public byte Episode { get; set; }
         public ushort MapNumber { get; set; }
         public ActionRoom ActionRoom { get; set; }
 
@@ -57,6 +64,8 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             ActionRoom = new ActionRoom()
             {
+                Difficulty = Difficulty,
+                Episode = Episode,
                 MapNumber = MapNumber,
             };
         }

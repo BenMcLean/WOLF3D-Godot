@@ -30,6 +30,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
         public ushort NextMap => (ushort)(MapNumber + 1 >= Assets.Maps.Length ? 0 : MapNumber + 1);
+        public byte Difficulty { get; set; }
+        public byte Episode { get; set; }
         public GameMap Map => Assets.Maps[MapNumber];
         public ushort MapNumber
         {
@@ -100,7 +102,10 @@ namespace WOLF3D.WOLF3DGame.Action
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
             if (@event.IsActionPressed("ui_cancel"))
+            {
+                Main.MenuRoom.Menu = Assets.Menu("Main");
                 Main.Room = Main.MenuRoom;
+            }
             if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
                 switch (inputEventKey.Scancode)
                 {

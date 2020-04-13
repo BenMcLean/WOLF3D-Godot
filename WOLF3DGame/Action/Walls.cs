@@ -9,18 +9,17 @@ namespace WOLF3D.WOLF3DGame.Action
     /// <summary>
     /// This StaticBody contains the ceiling, floor and all the non-moving walls for a level.
     /// <para />
-    /// The idea here is to "set it and forget it" since nothing in here ever changes during gameplay. Save games also don't have to get any information from any children of MapWalls, since MapWalls does not change no matter what the state of gameplay is.
+    /// The idea here is to "set it and forget it" since nothing in here ever changes during gameplay. Save games also don't have to get any information from any children of this, since this does not change no matter what the state of gameplay is.
     /// </summary>
-    public class MapWalls : StaticBody
+    public class Walls : StaticBody
     {
         public GameMap Map { get; set; }
         public CollisionShape Floor { get; private set; }
         public MeshInstance FloorMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }
         public MeshInstance CeilingMesh { get; private set; }
-        public float DiagonalLength { get; private set; }
 
-        public MapWalls(GameMap map)
+        public Walls(GameMap map)
         {
             Map = map;
             AddChild(Floor = new CollisionShape()
@@ -141,14 +140,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     VerticalCheck(x, z);
                 }
             }
-
-            DiagonalLength = Mathf.Sqrt(Mathf.Pow(Map.Width * Assets.WallWidth, 2) + Mathf.Pow((float)Assets.WallHeight, 2) + Mathf.Pow(Map.Depth * Assets.WallWidth, 2));
         }
-
-        //public static Spatial HorizontalDoor(uint x, uint z, uint wall, bool flipH = false) =>
-        //    BuildWall(wall, Vector3.Axis.Z, new Vector3(Assets.FloatCoordinate(x), 0, Assets.CenterSquare((int)z)), flipH);
-        //public static Spatial VerticalDoor(uint x, uint z, uint wall, bool flipH = false) =>
-        //    BuildWall(wall, Vector3.Axis.X, new Vector3(Assets.CenterSquare(x), 0, Assets.FloatCoordinate(z + 1)), flipH);
 
         /// <summary>
         /// "Of course Momma's gonna help build the wall." - Pink Floyd

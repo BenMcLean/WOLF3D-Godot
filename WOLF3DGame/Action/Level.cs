@@ -12,7 +12,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public GameMap Map { get; private set; }
         public bool[][] Open { get; private set; }
-        public MapWalls MapWalls { get; private set; }
+        public Walls MapWalls { get; private set; }
         public Door[][] Doors { get; private set; }
         public IEnumerable<Door> GetDoors()
         {
@@ -78,7 +78,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth ? Open[x][z] = true : TryClose(x, z);
         public bool IsOpen(ushort x, ushort z) => Open[x][z];
 
-        public Level(GameMap map)
+        public Level(GameMap map, byte difficulty = 4)
         {
             Map = map;
             Open = new bool[Map.Width][];
@@ -88,13 +88,13 @@ namespace WOLF3D.WOLF3DGame.Action
                 for (ushort z = 0; z < Map.Depth; z++)
                     Open[x][z] = !(IsWall(x, z) || !IsNavigable(x, z));
             }
-            AddChild(MapWalls = new MapWalls(Map));
+            AddChild(MapWalls = new Walls(Map));
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
                 AddChild(door);
 
-            foreach (Billboard billboard in Billboard.Billboards(Map))
+            foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
                 AddChild(billboard);
         }
 
@@ -151,7 +151,7 @@ namespace WOLF3D.WOLF3DGame.Action
             ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
 
         /// <summary>
-        /// If you only knew the power of the Dark Side
+        /// "If you only knew the power of the Dark Side." - Darth Vader
         /// </summary>
         public static ushort DarkSide(ushort cell) =>
             ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallTexture(cell);

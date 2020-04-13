@@ -12,7 +12,6 @@ namespace WOLF3D.WOLF3DGame
 		public static Main I { get; private set; }
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
-		public static byte Episode { get; set; } = 0;
 		public static ARVRInterface ARVRInterface { get; set; }
 		public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
 		{
@@ -71,8 +70,7 @@ namespace WOLF3D.WOLF3DGame
 			Assets.Load(Folder);
 			SoundBlaster.Start();
 			ActionRoom = new ActionRoom();
-			MenuRoom = new MenuRoom();
-			Room = new LoadingRoom(0);
+			Room = MenuRoom = new MenuRoom();
 		}
 	}
 }

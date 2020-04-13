@@ -8,10 +8,21 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuRoom : Room
     {
+        public static byte Episode { get; set; } = 0;
+        public static byte Difficulty { get; set; } = 0;
         public ARVRController ActiveController { get; set; }
         public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
 
         public MenuBody MenuBody { get; set; }
+        public MenuScreen Menu
+        {
+            get => MenuBody?.MenuScreen;
+            set
+            {
+                if (MenuBody != null)
+                    MenuBody.MenuScreen = value;
+            }
+        }
 
         public MenuRoom() : this(Assets.Menu("Main")) { }
 
@@ -98,10 +109,15 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (xml == null)
                 return this;
             if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
-                Main.Episode = episode;
-            if (xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                if (Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen && menuScreen != null)
-                    MenuBody.MenuScreen = menuScreen;
+                Episode = episode;
+            if (byte.TryParse(xml.Attribute("Difficulty")?.Value, out byte difficulty))
+                Difficulty = difficulty;
+            if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
+                menuScreen != null)
+                MenuBody.MenuScreen = menuScreen;
+            if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                Main.Room = new LoadingRoom(0, Episode, Difficulty);
             return this;
         }
     }

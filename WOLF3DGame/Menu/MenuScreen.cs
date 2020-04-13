@@ -115,7 +115,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             if (menu.Element("Difficulty") is XElement difficulty && difficulty != null)
             {
-                ImageTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty0").Value);
+                ImageTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty1").Value);
                 AddChild(Difficulty = new Sprite()
                 {
                     Position = new Vector2(
