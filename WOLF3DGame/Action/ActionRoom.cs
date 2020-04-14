@@ -41,7 +41,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 mapNumber = value;
                 if (Level != null)
                     RemoveChild(Level);
-                AddChild(Level = new Level(Map)
+                AddChild(Level = new Level(Map, Difficulty)
                 {
                     ARVRPlayer = ARVRPlayer,
                 });
