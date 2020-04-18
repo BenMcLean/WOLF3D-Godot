@@ -148,7 +148,16 @@
     <Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
     <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
     <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" >
+    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1">
+      <EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
+      <EndString>Chickening out...&#10;already?</EndString>
+      <EndString>Press N for more carnage.&#10;Press Y to be a weenie.</EndString>
+      <EndString>So, you think you can&#10;quit this easily, huh?</EndString>
+      <EndString>Press N to save the world.&#10;Press Y to abandon it in&#10;its hour of need.</EndString>
+      <EndString>Press N if you are brave.&#10;Press Y to cower in shame.</EndString>
+      <EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
+      <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;></EndString>
+      <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
       <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
@@ -175,11 +184,11 @@
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
           <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="0" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" />
-          <MenuItem Text="Episode 3&#10;Die, Furher, Die" />
-          <MenuItem Text="Episode 4&#10;A Dark Secret" />
-          <MenuItem Text="Episode 5&#10;Trail of the Madman" />
-          <MenuItem Text="Episode 6&#10;Confrontation" />
+          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
         </MenuItems>
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>

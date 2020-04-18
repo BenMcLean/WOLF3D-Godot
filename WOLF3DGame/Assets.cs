@@ -328,6 +328,14 @@ namespace WOLF3D.WOLF3DGame
             return imageTexture;
         }
 
+        public static string EndString => EndStrings().Random();
+
+        public static IEnumerable<string> EndStrings()
+        {
+            foreach (XElement e in XML?.Element("Menus")?.Elements("EndString") ?? Enumerable.Empty<XElement>())
+                yield return e.ToString();
+        }
+
         public static MenuScreen Menu(string name) =>
             new MenuScreen((from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
                             where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)

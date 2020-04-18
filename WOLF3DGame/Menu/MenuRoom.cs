@@ -118,6 +118,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)
                 MenuBody.MenuScreen = menuScreen;
+            if (xml.Attribute("Action")?.Value.Equals("Modal", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                MenuBody.MenuScreen.AddModal(xml.Attribute("Argument").Value);
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.Room = new LoadingRoom(0, Episode, Difficulty);
             return this;

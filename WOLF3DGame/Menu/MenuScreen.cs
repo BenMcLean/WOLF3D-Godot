@@ -20,6 +20,19 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public XElement XML { get; set; }
         public VgaGraph.Font Font { get; set; }
+        public Modal Modal
+        {
+            get => modal;
+            set
+            {
+                if (modal != null)
+                    RemoveChild(modal);
+                modal = value;
+                if (modal != null)
+                    AddChild(modal);
+            }
+        }
+        private Modal modal = null;
         public Color Color
         {
             get => Background.Color;
@@ -187,7 +200,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool Target(Vector2 vector2)
         {
             Crosshairs.Position = vector2;
-            if (MenuItems != null)
+            if (Modal == null && MenuItems != null)
                 for (int x = 0; x < MenuItems.Count; x++)
                     if (Selection != x && MenuItems[x].Target(vector2))
                     {
@@ -209,7 +222,12 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Input(InputEvent @event)
         {
-            if (MenuItems != null)
+            if (Modal != null)
+            {
+                if (@event.IsActionPressed("ui_accept"))
+                    Modal = null;
+            }
+            else if (MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
                 {
                     if (Assets.ScrollSound != null)
@@ -242,5 +260,19 @@ namespace WOLF3D.WOLF3DGame.Menu
             Position = new Vector2(Width, texture.GetSize().y / 2f + y),
             Scale = new Vector2(Width, 1f),
         };
+
+        public MenuScreen AddModal(string @string = "", ushort padding = 0)
+        {
+            Modal = new Modal(new Sprite()
+            {
+                Texture = Assets.Text(Assets.Font(
+                        uint.TryParse(Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0
+                    ), @string, padding),
+            })
+            {
+                Position = new Vector2(Width / 2, Height / 2),
+            }.SetColors(Assets.XML?.Element("VgaGraph")?.Element("Menus"));
+            return this;
+        }
     }
 }
