@@ -23,7 +23,6 @@ namespace WOLF3DTest
         [TestMethod]
         public void VSwapTest()
         {
-            //DownloadShareware.Main(new string[] { Folder });
             VSwap vSwap = VSwap.Load(Folder, XML);
             Console.WriteLine("Number of graphics pages: " + vSwap.Pages.Length.ToString());
             Console.WriteLine("Number of DigiSounds: " + vSwap.DigiSounds.Length.ToString());
@@ -40,7 +39,6 @@ namespace WOLF3DTest
         [TestMethod]
         public void GameMapsTest()
         {
-            //DownloadShareware.Main(new string[] { Folder });
             GameMap[] maps = GameMap.Load(Folder, XML);
 
             Console.WriteLine("Number of maps: " + maps.Length);
@@ -68,7 +66,6 @@ namespace WOLF3DTest
         [TestMethod]
         public void VgaGraphTest()
         {
-            //DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
 
             if (vgaGraph.Sizes != null)
@@ -90,7 +87,6 @@ namespace WOLF3DTest
         [TestMethod]
         public void LengthsTest()
         {
-            //DownloadShareware.Main(new string[] { Folder });
             uint[] head;
             using (FileStream vgaHead = new FileStream(System.IO.Path.Combine(Folder, XML.Element("VgaGraph").Attribute("VgaHead").Value), FileMode.Open))
                 head = VgaGraph.ParseHead(vgaHead);
@@ -124,7 +120,6 @@ namespace WOLF3DTest
         [TestMethod]
         public void FontTest()
         {
-            //DownloadShareware.Main(new string[] { Folder });
             VgaGraph vgaGraph = VgaGraph.Load(Folder, XML);
             uint font = 0;
             char letter = 'A';

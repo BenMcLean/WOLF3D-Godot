@@ -8,14 +8,7 @@ namespace WOLF3D.WOLF3DGame
 {
     public static class ExtensionMethods
     {
-        public static T Random<T>(this IEnumerable<T> list)
-        {
-            return list.ToArray().Random();
-        }
-
-        public static T Random<T>(this T[] array)
-        {
-            return array[Main.Random.Next(0, array.Length - 1)];
-        }
+        public static T Random<T>(this IEnumerable<T> list) => list.ToArray().Random();
+        public static T Random<T>(this T[] array) => array[Main.Random.Next(0, array.Length - 1)];
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class Modal : Node2D
+    public class Modal : Node2D, ITarget
     {
+        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
+        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
+        public bool TargetLocal(float x, float y) => PixelRect?.Target(x, y) ?? false;
+
         public Modal(Sprite text)
         {
             AddChild(PixelRect = new PixelRect()
@@ -19,7 +19,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             });
             AddChild(Text = text);
         }
-        public Modal SetColors(XElement xElement)
+        public Modal Set(XElement xElement)
         {
             if (xElement == null)
                 return this;

@@ -1,25 +1,25 @@
 ﻿using Godot;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class MenuItem : Node2D
+    public class MenuItem : Node2D, ITarget
     {
+        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
+        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
+        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
         public XElement XML { get; set; }
         public Sprite Text { get; set; }
         public float Width { get; set; } = 0;
         public float Height { get; set; } = 0;
-        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
-        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
 
-        public Color Color
+        public Color? Color
         {
-            get => Text.Modulate;
-            set => Text.Modulate = value;
+            get => Text?.Modulate;
+            set => Text.Modulate = value == null ? Assets.White : (Color)value;
         }
         public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0)
         {
@@ -34,7 +34,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             Height = texture.GetHeight();
         }
 
-        public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color color)
+        public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? color = null)
         {
             if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
                 font = Assets.Font(result);

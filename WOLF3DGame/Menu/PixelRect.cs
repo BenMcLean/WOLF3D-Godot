@@ -3,8 +3,13 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class PixelRect : Node2D
+    public class PixelRect : Node2D, ITarget
     {
+        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
+        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
+        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Size.x && y < Size.y;
+
         public Vector2 Size
         {
             get => SEBorder.RectSize;
@@ -42,7 +47,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                 RectPosition = new Vector2(1, 1),
             });
         }
-        public PixelRect(XElement xElement) : this()
+        public PixelRect(XElement xElement) : this() => Set(xElement);
+
+        public PixelRect Set(XElement xElement)
         {
             if (uint.TryParse(xElement.Attribute("BordColor")?.Value, out uint bordColor))
                 NWColor = Assets.Palette[bordColor];
@@ -54,6 +61,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Position = new Vector2(x, y);
             if (float.TryParse(xElement.Attribute("Width")?.Value, out float width) && float.TryParse(xElement.Attribute("Height")?.Value, out float height))
                 Size = new Vector2(width, height);
+            return this;
         }
     }
 }

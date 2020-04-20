@@ -271,7 +271,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             })
             {
                 Position = new Vector2(Width / 2, Height / 2),
-            }.SetColors(Assets.XML?.Element("VgaGraph")?.Element("Menus"));
+            }.Set(Assets.XML?.Element("VgaGraph")?.Element("Menus"));
             return this;
         }
     }
