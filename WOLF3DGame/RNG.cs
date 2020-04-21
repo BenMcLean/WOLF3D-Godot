@@ -526,27 +526,19 @@ namespace WOLF3D.WOLF3DGame
         /// maybe looking up a value with that key) or using the RandomValue() method is what you want.
         /// </summary>
         /// <typeparam name="T">The generic type of enumerable</typeparam>
-        /// <param name="enumerable">An IEnumerable that must be non-null and non-empty.</param>
+        /// <param name="collection">An IEnumerable that must be non-null and non-empty.</param>
         /// <returns>A random T element from enumerable</returns>
-        public T RandomElement<T>(IEnumerable<T> enumerable)
+        public T RandomElement<T>(ICollection<T> collection)
         {
-            switch (enumerable)
+            if (collection is IList<T> list && list.Count > 0)
+                return list[NextSignedInt(list.Count)];
+            if (collection != null && collection.Count > 0 && collection.GetEnumerator() is IEnumerator<T> e)
             {
-                case T[] array when array.Length > 0:
-                    return array[NextSignedInt(array.Length)];
-                case IList<T> list when list.Count > 0:
-                    return list[NextSignedInt(list.Count)];
-                case ICollection<T> coll when coll.Count > 0:
-                    var e = coll.GetEnumerator();
-                    for (int target = NextSignedInt(coll.Count); target > 0; target--)
-                    {
-                        e.MoveNext();
-                    }
-                    return e.Current;
-                case null:
-                default:
-                    return default;
+                for (int target = NextSignedInt(collection.Count); target > 0; target--)
+                    e.MoveNext();
+                return e.Current;
             }
+            return default;
         }
 
         private static void Swap<T>(ref T a, ref T b)

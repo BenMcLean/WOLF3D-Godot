@@ -1,9 +1,9 @@
 ﻿using Godot;
 using System;
+using System.Text;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.OPL;
-using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -122,6 +122,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuBody.MenuScreen.AddModal(xml.Attribute("Argument").Value);
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.Room = new LoadingRoom(0, Episode, Difficulty);
+            if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                MenuBody.MenuScreen.AddModal(Main.RNG.RandomElement(Assets.EndStrings));
             return this;
         }
     }

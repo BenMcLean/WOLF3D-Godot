@@ -156,7 +156,7 @@
       <EndString>Press N to save the world.&#10;Press Y to abandon it in&#10;its hour of need.</EndString>
       <EndString>Press N if you are brave.&#10;Press Y to cower in shame.</EndString>
       <EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
-      <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;></EndString>
+      <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;&gt;</EndString>
       <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
       <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Image Name="C_OPTIONSPIC" X="80" Y="0" XBanner="0" />

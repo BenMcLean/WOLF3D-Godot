@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using Godot;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -165,6 +167,18 @@ namespace WOLF3DTest
                 Assert.AreEqual(direction8, Direction8.FromAngle(angle));
                 Assert.AreEqual(Direction8.FromAngle(angle), Direction8.AngleToPoint(direction8.Vector2.x, direction8.Vector2.y));
             }
+        }
+
+        [TestMethod]
+        public void EndStringTest()
+        {
+            ICollection<string> it = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToList();
+
+            foreach (string s in it)
+                Console.WriteLine("\"" + s + "\"");
+
+            RNG rng = new RNG();
+            Console.WriteLine("Random element: \"" + rng.RandomElement(it) + "\"");
         }
     }
 }

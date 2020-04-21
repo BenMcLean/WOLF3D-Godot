@@ -145,6 +145,8 @@ namespace WOLF3D.WOLF3DGame
             foreach (XElement door in XML.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>())
                 doors.Add((ushort)(int)door.Attribute("Number"));
             Doors = doors.ToArray();
+
+            EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
         }
 
         public static ushort[] Walls { get; set; }
@@ -328,13 +330,7 @@ namespace WOLF3D.WOLF3DGame
             return imageTexture;
         }
 
-        public static string EndString => EndStrings().Random();
-
-        public static IEnumerable<string> EndStrings()
-        {
-            foreach (XElement e in XML?.Element("Menus")?.Elements("EndString") ?? Enumerable.Empty<XElement>())
-                yield return e.ToString();
-        }
+        public static string[] EndStrings;
 
         public static MenuScreen Menu(string name) =>
             new MenuScreen((from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")

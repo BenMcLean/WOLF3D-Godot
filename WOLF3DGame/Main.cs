@@ -11,7 +11,7 @@ namespace WOLF3D.WOLF3DGame
 	{
 		public Main() => I = this;
 		public static Main I { get; private set; }
-		public static Random Random = new Random();
+		public static RNG RNG = new RNG();
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
 		public static ARVRInterface ARVRInterface { get; set; }
