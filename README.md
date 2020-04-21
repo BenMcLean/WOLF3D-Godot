@@ -37,4 +37,6 @@ Third, [Adam Biser](https://adambiser.itch.io/wdc), [Fabien Sanglard](http://fab
 
 [kalbert312](https://github.com/kalbert312) helped me figure the sprite graphics format out by sending me some of his Java and TypeScript code to translate into C#.
 
+[Tommy Ettinger](https://github.com/tommyettinger) contributed the random number generator.
+
 Finally, gotta thank the original id Software team from back in the day for making such awesome games!

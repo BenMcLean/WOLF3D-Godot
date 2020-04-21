@@ -82,6 +82,7 @@
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\SoundBlaster.cs" />
+    <Compile Include="WOLF3DGame\RNG.cs" />
     <Compile Include="WOLF3DGame\Room.cs" />
     <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
     <Compile Include="WOLF3DGame\Setup\DownloadShareware.cs" />
