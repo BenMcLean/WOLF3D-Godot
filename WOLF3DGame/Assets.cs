@@ -330,6 +330,9 @@ namespace WOLF3D.WOLF3DGame
             return imageTexture;
         }
 
+        public static VgaGraph.Font ModalFont =>
+            Font(uint.TryParse(XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0);
+
         public static string[] EndStrings;
 
         public static MenuScreen Menu(string name) =>

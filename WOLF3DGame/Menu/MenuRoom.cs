@@ -123,7 +123,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.Room = new LoadingRoom(0, Episode, Difficulty);
             if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
+            {
                 MenuBody.MenuScreen.AddModal(Main.RNG.RandomElement(Assets.EndStrings));
+                MenuBody.MenuScreen.Modal.YesNo = true;
+            }
             return this;
         }
     }

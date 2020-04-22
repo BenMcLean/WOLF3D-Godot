@@ -10,6 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF3DModel", "WOLF3DModel\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2509C389-2F41-4FFF-91DA-3A8401032795}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		README.md = README.md
 		WL1.xml = WL1.xml
 	EndProjectSection

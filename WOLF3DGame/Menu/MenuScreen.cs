@@ -265,9 +265,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             Modal = new Modal(new Sprite()
             {
-                Texture = Assets.Text(Assets.Font(
-                        uint.TryParse(Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0
-                    ), @string, padding),
+                Texture = Assets.Text(Assets.ModalFont, @string, padding),
             })
             {
                 Position = new Vector2(Width / 2, Height / 2),

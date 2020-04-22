@@ -8,7 +8,10 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
         public bool Target(float x, float y) => TargetLocal(x, y);
         public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y) => PixelRect?.Target(x, y) ?? false;
+        public bool TargetLocal(float x, float y) =>
+            (PixelRect?.Target(x, y) ?? false) ||
+            (Yes?.Target(x, y) ?? false) ||
+            (No?.Target(x, y) ?? false);
 
         public Modal(Sprite text)
         {
@@ -19,6 +22,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             });
             AddChild(Text = text);
         }
+        public Modal(Sprite text, XElement xElement) : this(text) => Set(xElement);
         public Modal Set(XElement xElement)
         {
             if (xElement == null)
@@ -35,6 +39,67 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public PixelRect PixelRect { get; set; }
         public Sprite Text { get; set; }
+        public bool YesNo
+        {
+            get => Yes != null;
+            set
+            {
+                if (value)
+                {
+                    Yes = new Modal(new Sprite()
+                    {
+                        Texture = Assets.Text(Assets.ModalFont, "Yes"),
+                    })
+                    {
+                        SEColor = SEColor,
+                        NWColor = NWColor,
+                        Color = Color,
+                        TextColor = TextColor,
+                    };
+                    Yes.Position = new Vector2(Size.x / -2 + Yes.Size.x / 2, Size.y / 2 + Yes.Size.y / 2);
+                    No = new Modal(new Sprite()
+                    {
+                        Texture = Assets.Text(Assets.ModalFont, "No"),
+                    })
+                    {
+                        SEColor = SEColor,
+                        NWColor = NWColor,
+                        Color = Color,
+                        TextColor = TextColor,
+                    };
+                    No.Position = new Vector2(Size.x / 2 - No.Size.x / 2, Size.y / 2 + No.Size.y / 2);
+                }
+                else
+                    Yes = No = null;
+            }
+        }
+        public Modal Yes
+        {
+            get => yes;
+            set
+            {
+                if (yes != null)
+                    RemoveChild(yes);
+                yes = value;
+                if (yes != null)
+                    AddChild(yes);
+            }
+        }
+        private Modal yes = null;
+        public Modal No
+        {
+            get => no;
+            set
+            {
+                if (no != null)
+                    RemoveChild(no);
+                no = value;
+                if (no != null)
+                    AddChild(no);
+            }
+        }
+        private Modal no = null;
+
         public Color SEColor
         {
             get => PixelRect.SEColor;
@@ -55,5 +120,6 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => Text.Modulate;
             set => Text.Modulate = value;
         }
+        public Vector2 Size => PixelRect.Size;
     }
 }
