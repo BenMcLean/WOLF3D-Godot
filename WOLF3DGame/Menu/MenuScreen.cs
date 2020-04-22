@@ -7,7 +7,7 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class MenuScreen : Viewport
+    public class MenuScreen : Viewport, ITarget
     {
         public const uint Width = 320;
         public const uint Height = 200;
@@ -199,7 +199,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
-        public bool Target(Vector2 vector2)
+        public bool Target(Vector2 vector2) => TargetLocal(vector2);
+        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool TargetLocal(float x, float y) => TargetLocal(new Vector2(x, y));
+        public bool TargetLocal(Vector2 vector2)
         {
             Crosshairs.Position = vector2;
             if (Modal == null && MenuItems != null)
@@ -209,6 +212,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         Selection = x;
                         return true;
                     }
+            Modal?.Target(vector2);
             return false;
         }
 
@@ -257,6 +261,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen AddModal(string @string = "", ushort padding = 0)
         {
+            RemoveChild(Crosshairs);
             Modal = new Modal(new Sprite()
             {
                 Texture = Assets.Text(Assets.ModalFont, @string, padding),
@@ -264,6 +269,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 Position = new Vector2(Width / 2, Height / 2),
             }.Set(Assets.XML?.Element("VgaGraph")?.Element("Menus"));
+            AddChild(Crosshairs);
             return this;
         }
     }

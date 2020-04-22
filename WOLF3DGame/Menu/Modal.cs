@@ -1,12 +1,13 @@
 ﻿using Godot;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
     public class Modal : Node2D, ITarget
     {
-        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
-        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool Target(Vector2 vector2) => TargetLocal(vector2 - Position);
+        public bool Target(float x, float y) => TargetLocal(x - Position.x, y - Position.y);
         public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
         public bool TargetLocal(float x, float y)
         {
@@ -15,7 +16,20 @@ namespace WOLF3D.WOLF3DGame.Menu
             Answer = false;
             return (PixelRect?.Target(x, y) ?? false) || (No?.Target(x, y) ?? false);
         }
-        public bool Answer { get; set; } = false;
+        public bool Answer
+        {
+            get => answer;
+            set
+            {
+                if (answer != value)
+                {
+                    if (Assets.ScrollSound != null)
+                        SoundBlaster.Adl = Assets.ScrollSound;
+                    answer = value;
+                }
+            }
+        }
+        private bool answer = false;
 
         public Modal(Sprite text)
         {

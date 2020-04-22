@@ -5,8 +5,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class PixelRect : Node2D, ITarget
     {
-        public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
-        public bool Target(float x, float y) => TargetLocal(x, y);
+        public bool Target(Vector2 vector2) => TargetLocal(vector2 - Position);
+        public bool Target(float x, float y) => TargetLocal(x - Position.x, y - Position.y);
         public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
         public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Size.x && y < Size.y;
 
