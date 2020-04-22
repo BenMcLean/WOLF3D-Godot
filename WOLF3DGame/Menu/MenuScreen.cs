@@ -163,6 +163,8 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => selection;
             set
             {
+                if (selection != value && Assets.ScrollSound != null)
+                    SoundBlaster.Adl = Assets.ScrollSound;
                 if (MenuItems == null || MenuItems.Count <= 0)
                 {
                     selection = 0;
@@ -229,17 +231,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             else if (MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
-                {
-                    if (Assets.ScrollSound != null)
-                        SoundBlaster.Adl = Assets.ScrollSound;
                     Selection++;
-                }
                 else if (@event.IsActionPressed("ui_up"))
-                {
-                    if (Assets.ScrollSound != null)
-                        SoundBlaster.Adl = Assets.ScrollSound;
                     Selection--;
-                }
                 else if (@event.IsActionPressed("ui_accept") &&
                     SelectedItem is MenuItem selected &&
                     selected != null)

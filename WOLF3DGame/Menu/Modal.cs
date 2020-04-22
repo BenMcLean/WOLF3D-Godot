@@ -8,10 +8,14 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool Target(Vector2 vector2) => TargetLocal(ToLocal(vector2));
         public bool Target(float x, float y) => TargetLocal(x, y);
         public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y) =>
-            (PixelRect?.Target(x, y) ?? false) ||
-            (Yes?.Target(x, y) ?? false) ||
-            (No?.Target(x, y) ?? false);
+        public bool TargetLocal(float x, float y)
+        {
+            if (Yes?.Target(x, y) ?? false)
+                return Answer = true;
+            Answer = false;
+            return (PixelRect?.Target(x, y) ?? false) || (No?.Target(x, y) ?? false);
+        }
+        public bool Answer { get; set; } = false;
 
         public Modal(Sprite text)
         {
