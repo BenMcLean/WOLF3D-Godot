@@ -9,8 +9,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuScreen : Viewport, ITarget
     {
-        public const uint Width = 320;
-        public const uint Height = 200;
+        public const ushort Width = 320;
+        public const ushort Height = 200;
         public ColorRect Background { get; private set; }
         public static readonly Vector2 OffScreen = new Vector2(-2, -2);
         public Crosshairs Crosshairs { get; private set; } = new Crosshairs()

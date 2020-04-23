@@ -45,7 +45,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 
         private DosScreen DosScreen;
 
-        public override void _Ready()
+        public SetupRoom()
         {
             Name = "Setup scene";
             AddChild(ARVROrigin = new ARVROrigin());
@@ -67,18 +67,29 @@ namespace WOLF3D.WOLF3DGame.Setup
             });
 
             DosScreen.Screen.WriteLine("Platform detected: " + OS.GetName());
+        }
 
+        public override void _Ready()
+        {
             if (Main.ARVRInterface != null && Main.ARVRInterface.Initialize())
                 GetViewport().Arvr = true;
-
-            LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
-            RightController.Connect("button_pressed", this, nameof(ButtonPressed));
         }
 
         public override void Enter()
         {
             base.Enter();
             Main.Color = Color.Color8(0, 0, 0, 255);
+            LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
+            RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (LeftController.IsConnected("button_pressed", this, nameof(ButtonPressed)))
+                LeftController.Disconnect("button_pressed", this, nameof(ButtonPressed));
+            if (RightController.IsConnected("button_pressed", this, nameof(ButtonPressed)))
+                RightController.Disconnect("button_pressed", this, nameof(ButtonPressed));
         }
 
         public override void _PhysicsProcess(float delta)

@@ -66,8 +66,8 @@ namespace WOLF3D.WOLF3DGame.Setup
                 return this;
             }
 
-            public const uint Height = 25;
-            public const uint Width = 80;
+            public const ushort Height = 25;
+            public const ushort Width = 80;
             public const float BlinkRate = 0.25f;
             private float Blink { get; set; } = 0f;
             public bool ShowCursor
