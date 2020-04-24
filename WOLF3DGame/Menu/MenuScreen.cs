@@ -277,12 +277,14 @@ namespace WOLF3D.WOLF3DGame.Menu
         public MenuScreen Cancel()
         {
             if (Modal != null)
-            {
-                Modal = null;
-                return this;
-            }
-            if (XML.Element("Cancel") is XElement cancel && cancel != null)
-                Main.MenuRoom.Action(cancel);
+                Accept();
+            else
+                foreach (XElement cancel in XML.Elements("Cancel") ?? Enumerable.Empty<XElement>())
+                    if (Main.InGameMatch(cancel))
+                    {
+                        Main.MenuRoom.Action(cancel);
+                        break; // Only need one cancel action
+                    }
             return this;
         }
 

@@ -172,7 +172,8 @@
           <MenuItem Text="Back to Game" InGame="true" Action="Resume" />
           <MenuItem Text="Quit" Action="Quit" />
         </MenuItems>
-        <Cancel Action="Quit" />
+        <Cancel InGame="false" Action="Quit" />
+        <Cancel InGame="true" Action="Resume" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
       <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
