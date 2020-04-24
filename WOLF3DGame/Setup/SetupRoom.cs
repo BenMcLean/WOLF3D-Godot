@@ -106,23 +106,6 @@ namespace WOLF3D.WOLF3DGame.Setup
                 }
         }
 
-        public static bool IsVRButton(int buttonIndex)
-        {
-            switch (buttonIndex)
-            {
-                case (int)JoystickList.VrGrip:
-                case (int)JoystickList.VrPad:
-                case (int)JoystickList.VrAnalogGrip:
-                case (int)JoystickList.VrTrigger:
-                case (int)JoystickList.OculusAx:
-                case (int)JoystickList.OculusBy:
-                case (int)JoystickList.OculusMenu:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         public static bool PermissionsGranted =>
             OS.GetGrantedPermissions() is string[] permissions &&
             permissions != null &&

@@ -110,7 +110,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 switch (inputEventKey.Scancode)
                 {
                     case (uint)KeyList.X:
-                        print();
+                        Print();
                         break;
                     case (uint)KeyList.Z:
                         Main.Room = new LoadingRoom(NextMap);
@@ -121,12 +121,12 @@ namespace WOLF3D.WOLF3DGame.Action
         public void ButtonPressed(int buttonIndex)
         {
             if (buttonIndex == (int)JoystickList.OculusAx)
-                print();
+                Print();
             if (buttonIndex == (int)JoystickList.OculusBy)
                 Main.Room = new LoadingRoom(NextMap);
         }
 
-        public void print()
+        public void Print()
         {
             GD.Print("Left joystick: {" + ARVRPlayer.LeftController.GetJoystickAxis(0) + ", " + ARVRPlayer.LeftController.GetJoystickAxis(1) + "} Right joystick: " + ARVRPlayer.RightController.GetJoystickAxis(0) + ", " + ARVRPlayer.RightController.GetJoystickAxis(1) + "}");
             //StringBuilder stringBuilder = new StringBuilder().Append("Squares occupied: {");
@@ -156,6 +156,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void Enter()
         {
             base.Enter();
+            Main.InGame = true;
             Main.Color = Assets.Palette[Assets.Maps[MapNumber].Border];
             if (SoundBlaster.Song != Song)
                 SoundBlaster.Song = Song;

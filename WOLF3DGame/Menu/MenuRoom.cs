@@ -1,6 +1,5 @@
 ﻿using Godot;
 using System;
-using System.Text;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.OPL;
@@ -63,7 +62,21 @@ namespace WOLF3D.WOLF3DGame.Menu
                 SoundBlaster.Song = Assets.Song(menuSong.Value);
             if (MenuBody != null && MenuBody.MenuScreen != null && MenuBody.MenuScreen.Color != null)
                 Main.Color = MenuBody.MenuScreen.Color;
+            LeftController.Connect("button_pressed", this, nameof(ButtonPressedLeft));
+            RightController.Connect("button_pressed", this, nameof(ButtonPressedRight));
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (LeftController.IsConnected("button_pressed", this, nameof(ButtonPressedLeft)))
+                LeftController.Disconnect("button_pressed", this, nameof(ButtonPressedLeft));
+            if (RightController.IsConnected("button_pressed", this, nameof(ButtonPressedRight)))
+                RightController.Disconnect("button_pressed", this, nameof(ButtonPressedRight));
+        }
+
+        public void ButtonPressedRight(int buttonIndex) => MenuBody.MenuScreen.ButtonPressed(this, buttonIndex, true);
+        public void ButtonPressedLeft(int buttonIndex) => MenuBody.MenuScreen.ButtonPressed(this, buttonIndex, false);
 
         public override void _PhysicsProcess(float delta)
         {

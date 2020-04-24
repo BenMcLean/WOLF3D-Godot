@@ -9,11 +9,17 @@ namespace WOLF3D.WOLF3DGame
 {
 	public class Main : Node
 	{
-		public Main() => I = this;
-		public static Main I { get; private set; }
+		public Main()
+		{
+			if (I != null)
+				throw new InvalidOperationException("Only one instance of Main is allowed!");
+			I = this;
+		}
+		public static Main I { get; private set; } = null;
 		public static RNG RNG = new RNG();
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
+		public static bool InGame { get; set; } = false;
 		public static ARVRInterface ARVRInterface { get; set; }
 		public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
 		{

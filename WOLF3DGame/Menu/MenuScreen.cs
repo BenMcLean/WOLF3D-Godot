@@ -78,7 +78,22 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
                 if (image.Attribute("XBanner") != null)
-                    AddChild(XBanner(texture, (uint)image.Attribute("XBanner"), (float)image.Attribute("Y")));
+                    AddChild(new Sprite()
+                    {
+                        Texture = texture,
+                        RegionEnabled = true,
+                        RegionRect = new Rect2(
+                            new Vector2(
+                                uint.TryParse(image.Attribute("XBanner")?.Value, out uint x) ? x : 0,
+                                0f
+                                ),
+                            new Vector2(1, texture.GetSize().y)
+                            ),
+                        Position = new Vector2(Width, texture.GetSize().y / 2f +
+                            (float.TryParse(image.Attribute("Y")?.Value, out float y) ? y : 0)
+                        ),
+                        Scale = new Vector2(Width, 1f),
+                    });
                 AddChild(new Sprite()
                 {
                     Texture = texture,
@@ -228,36 +243,30 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _Input(InputEvent @event)
         {
-            if (Modal != null)
-            {
-                if (@event.IsActionPressed("ui_accept"))
-                    Modal = null;
-            }
-            else if (MenuItems != null)
+            if (Modal != null && MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
                     Selection++;
                 else if (@event.IsActionPressed("ui_up"))
                     Selection--;
-                else if (@event.IsActionPressed("ui_accept") &&
-                    SelectedItem is MenuItem selected &&
-                    selected != null)
-                {
-                    if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
-                        SoundBlaster.Adl = Assets.Sound(selectSound.Value);
-                    else if (Assets.SelectSound != null)
-                        SoundBlaster.Adl = Assets.SelectSound;
-                    Main.MenuRoom.Action(selected.XML);
-                }
+            if (@event.IsActionPressed("ui_accept"))
+                Accept();
         }
 
-        public static Sprite XBanner(Texture texture, float x = 0, float y = 0) => new Sprite()
+        public MenuScreen Accept()
         {
-            Texture = texture,
-            RegionEnabled = true,
-            RegionRect = new Rect2(new Vector2(x, 0f), new Vector2(1, texture.GetSize().y)),
-            Position = new Vector2(Width, texture.GetSize().y / 2f + y),
-            Scale = new Vector2(Width, 1f),
-        };
+            if (Modal == null && SelectedItem is MenuItem selected && selected != null)
+            {
+                if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
+                    SoundBlaster.Adl = Assets.Sound(selectSound.Value);
+                else if (Assets.SelectSound != null)
+                    SoundBlaster.Adl = Assets.SelectSound;
+                Main.MenuRoom.Action(selected.XML);
+                return this;
+            }
+            if (Modal != null)
+                Modal = null;
+            return this;
+        }
 
         public MenuScreen AddModal(string @string = "", ushort padding = 0)
         {
@@ -271,6 +280,20 @@ namespace WOLF3D.WOLF3DGame.Menu
             }.Set(Assets.XML?.Element("VgaGraph")?.Element("Menus"));
             AddChild(Crosshairs);
             return this;
+        }
+
+        public void ButtonPressed(MenuRoom menuRoom, int buttonIndex, bool right = false)
+        {
+            if (!Room.IsVRButton(buttonIndex))
+                return;
+            ARVRController controller = right ? menuRoom.RightController : menuRoom.LeftController;
+            if (controller != menuRoom.ActiveController)
+            {
+                menuRoom.ActiveController = controller;
+                return;
+            }
+            if (buttonIndex == (int)JoystickList.VrTrigger)
+                Accept();
         }
     }
 }

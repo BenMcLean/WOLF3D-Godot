@@ -18,5 +18,22 @@ namespace WOLF3D.WOLF3DGame
             ARVRCamera.Current = true;
         }
         public virtual void Exit() { }
+
+        public static bool IsVRButton(int buttonIndex)
+        {
+            switch (buttonIndex)
+            {
+                case (int)JoystickList.VrGrip:
+                case (int)JoystickList.VrPad:
+                case (int)JoystickList.VrAnalogGrip:
+                case (int)JoystickList.VrTrigger:
+                case (int)JoystickList.OculusAx:
+                case (int)JoystickList.OculusBy:
+                case (int)JoystickList.OculusMenu:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }
