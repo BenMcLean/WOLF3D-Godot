@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
@@ -20,6 +21,10 @@ namespace WOLF3D.WOLF3DGame
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
 		public static bool InGame { get; set; } = false;
+		public static bool InGameMatch(XElement xElement) =>
+			xElement?.Attribute("InGame") == null ||
+			(Assets.IsTrue(xElement, "InGame") == InGame);
+
 		public static ARVRInterface ARVRInterface { get; set; }
 		public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
 		{

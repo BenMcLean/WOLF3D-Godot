@@ -336,9 +336,11 @@ namespace WOLF3D.WOLF3DGame
         public static string[] EndStrings;
 
         public static MenuScreen Menu(string name) =>
-            new MenuScreen((from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
-                            where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)
-                            select e).FirstOrDefault());
+            (from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
+             where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)
+             select e).FirstOrDefault() is XElement screen && screen != null ?
+            new MenuScreen(screen)
+            : null;
         #endregion Game assets
     }
 }

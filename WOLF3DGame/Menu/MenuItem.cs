@@ -48,17 +48,18 @@ namespace WOLF3D.WOLF3DGame.Menu
                 paddingY = uint.TryParse(menuItems.Attribute("PaddingY")?.Value, out result) ? result : 0,
                 count = 0;
             foreach (XElement menuItem in menuItems.Elements("MenuItem"))
-                yield return new MenuItem(
-                    uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-                    menuItem.Attribute("Text").Value, paddingX)
-                {
-                    XML = menuItem,
-                    Position = new Vector2(
-                        startX,
-                        startY + count++ * (font.Height + paddingY)
-                        ),
-                    Color = byte.TryParse(menuItem.Attribute("Color")?.Value, out index) ? Assets.Palette[index] : color,
-                };
+                if (Main.InGameMatch(menuItem))
+                    yield return new MenuItem(
+                        uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
+                        menuItem.Attribute("Text").Value, paddingX)
+                    {
+                        XML = menuItem,
+                        Position = new Vector2(
+                            startX,
+                            startY + count++ * (font.Height + paddingY)
+                            ),
+                        Color = byte.TryParse(menuItem.Attribute("Color")?.Value, out index) ? Assets.Palette[index] : color,
+                    };
         }
     }
 }

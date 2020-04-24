@@ -73,57 +73,61 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (menu.Attribute("DisabledColor") != null)
                 DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
-                AddChild(new PixelRect(pixelRect));
+                if (Main.InGameMatch(pixelRect))
+                    AddChild(new PixelRect(pixelRect));
             foreach (XElement image in menu.Elements("Image"))
-            {
-                ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
-                if (image.Attribute("XBanner") != null)
+                if (Main.InGameMatch(image))
+                {
+                    ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
+                    if (image.Attribute("XBanner") != null)
+                        AddChild(new Sprite()
+                        {
+                            Texture = texture,
+                            RegionEnabled = true,
+                            RegionRect = new Rect2(
+                                new Vector2(
+                                    uint.TryParse(image.Attribute("XBanner")?.Value, out uint x) ? x : 0,
+                                    0f
+                                    ),
+                                new Vector2(1, texture.GetSize().y)
+                                ),
+                            Position = new Vector2(Width, texture.GetSize().y / 2f +
+                                (float.TryParse(image.Attribute("Y")?.Value, out float y) ? y : 0)
+                            ),
+                            Scale = new Vector2(Width, 1f),
+                        });
                     AddChild(new Sprite()
                     {
                         Texture = texture,
-                        RegionEnabled = true,
-                        RegionRect = new Rect2(
-                            new Vector2(
-                                uint.TryParse(image.Attribute("XBanner")?.Value, out uint x) ? x : 0,
-                                0f
-                                ),
-                            new Vector2(1, texture.GetSize().y)
-                            ),
-                        Position = new Vector2(Width, texture.GetSize().y / 2f +
-                            (float.TryParse(image.Attribute("Y")?.Value, out float y) ? y : 0)
-                        ),
-                        Scale = new Vector2(Width, 1f),
+                        Position = new Vector2((float)image.Attribute("X") + texture.GetSize().x / 2f, (float)image.Attribute("Y") + texture.GetSize().y / 2f),
                     });
-                AddChild(new Sprite()
-                {
-                    Texture = texture,
-                    Position = new Vector2((float)image.Attribute("X") + texture.GetSize().x / 2f, (float)image.Attribute("Y") + texture.GetSize().y / 2f),
-                });
-            }
-            foreach (XElement text in menu.Elements("Text"))
-            {
-                ImageTexture texture = Assets.Text(
-                    uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
-                    text.Attribute("String").Value,
-                    ushort.TryParse(text.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
-                    );
-                AddChild(new Sprite()
-                {
-                    Texture = texture,
-                    Position = new Vector2(
-                        (uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
-                        (uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
-                        ),
-                    Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
-                });
-            }
-            foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
-                foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor))
-                {
-                    MenuItems.Add(item);
-                    AddChild(item);
                 }
-            if (menu.Element("Cursor") is XElement cursor && cursor != null)
+            foreach (XElement text in menu.Elements("Text"))
+                if (Main.InGameMatch(text))
+                {
+                    ImageTexture texture = Assets.Text(
+                        uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
+                        text.Attribute("String").Value,
+                        ushort.TryParse(text.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
+                        );
+                    AddChild(new Sprite()
+                    {
+                        Texture = texture,
+                        Position = new Vector2(
+                            (uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
+                            (uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+                            ),
+                        Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
+                    });
+                }
+            foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
+                if (Main.InGameMatch(menuItems))
+                    foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor))
+                    {
+                        MenuItems.Add(item);
+                        AddChild(item);
+                    }
+            if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))
             {
                 List<ImageTexture> cursors = new List<ImageTexture>();
                 if (cursor.Attribute("Cursor1") != null)
@@ -142,7 +146,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         Position = new Vector2(MenuItems[0].Position.x + Cursors[0].GetWidth() / 2, MenuItems[0].Position.y + Cursors[0].GetHeight() / 2),
                     });
             }
-            if (menu.Element("Difficulty") is XElement difficulty && difficulty != null)
+            if (menu.Element("Difficulty") is XElement difficulty && difficulty != null && Main.InGameMatch(difficulty))
             {
                 ImageTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty1").Value);
                 AddChild(Difficulty = new Sprite()
@@ -241,7 +245,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
-        public override void _Input(InputEvent @event)
+        public void DoInput(InputEvent @event)
         {
             if (Modal != null && MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
@@ -250,6 +254,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Selection--;
             if (@event.IsActionPressed("ui_accept"))
                 Accept();
+            else if (@event.IsActionPressed("ui_cancel"))
+                Cancel();
         }
 
         public MenuScreen Accept()
@@ -265,6 +271,18 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             if (Modal != null)
                 Modal = null;
+            return this;
+        }
+
+        public MenuScreen Cancel()
+        {
+            if (Modal != null)
+            {
+                Modal = null;
+                return this;
+            }
+            if (XML.Element("Cancel") is XElement cancel && cancel != null)
+                Main.MenuRoom.Action(cancel);
             return this;
         }
 
@@ -292,8 +310,15 @@ namespace WOLF3D.WOLF3DGame.Menu
                 menuRoom.ActiveController = controller;
                 return;
             }
-            if (buttonIndex == (int)JoystickList.VrTrigger)
-                Accept();
+            switch (buttonIndex)
+            {
+                case (int)JoystickList.VrTrigger:
+                    Accept();
+                    break;
+                case (int)JoystickList.OculusBy:
+                    Cancel();
+                    break;
+            }
         }
     }
 }

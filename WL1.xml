@@ -167,9 +167,12 @@
           <MenuItem Text="Sound" Action="Menu" Argument="Sound" />
           <MenuItem Text="Control" Action="Menu" Argument="Control" />
           <MenuItem Text="Load Game" Action="Load" />
-          <MenuItem Text="Save Game" Action="Save" />
+          <MenuItem Text="Save Game" InGame="true" Action="Save" />
+          <MenuItem Text="End Game" InGame="true" Action="End" />
+          <MenuItem Text="Back to Game" InGame="true" Action="Resume" />
           <MenuItem Text="Quit" Action="Quit" />
         </MenuItems>
+        <Cancel Action="Quit" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
       <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
@@ -190,6 +193,7 @@
           <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
           <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
         </MenuItems>
+        <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
       <Menu Name="Difficulty" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
@@ -203,6 +207,7 @@
           <MenuItem Text="Bring 'em on!" Difficulty="3" Action="NewGame" />
           <MenuItem Text="I am Death incarnate!" Difficulty="4" Action="NewGame" />
         </MenuItems>
+        <Cancel Action="Menu" Argument="Episodes" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
     </Menus>

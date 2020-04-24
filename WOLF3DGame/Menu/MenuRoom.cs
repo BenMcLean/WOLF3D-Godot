@@ -111,13 +111,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuBody.Target();
         }
 
-        public override void _Input(InputEvent @event)
-        {
-            if (@event.IsActionPressed("ui_cancel"))
-                Main.Room = Main.ActionRoom;
-            else
-                MenuBody?.MenuScreen?._Input(@event);
-        }
+        public override void _Input(InputEvent @event) => MenuBody?.MenuScreen?.DoInput(@event);
 
         public MenuRoom Action(XElement xml)
         {
