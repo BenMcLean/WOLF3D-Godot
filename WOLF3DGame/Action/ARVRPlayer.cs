@@ -183,7 +183,11 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 if (!Pushing)
                 {
-                    Push(Assets.Vector2(RightController.GlobalTransform.origin));
+                    if (!Push(Assets.Vector2(RightController.GlobalTransform.origin)))
+                        Push(new Vector2(
+                            PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                            PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                            ));
                     Pushing = true;
                 }
             }
@@ -191,7 +195,11 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 if (!Pushing)
                 {
-                    Push(Assets.Vector2(LeftController.GlobalTransform.origin));
+                    if (!Push(Assets.Vector2(LeftController.GlobalTransform.origin)))
+                        Push(new Vector2(
+                            PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                            PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                            ));
                     Pushing = true;
                 }
             }
