@@ -247,7 +247,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public void DoInput(InputEvent @event)
         {
-            if (Modal != null && MenuItems != null)
+            if (Modal == null && MenuItems != null)
                 if (@event.IsActionPressed("ui_down"))
                     Selection++;
                 else if (@event.IsActionPressed("ui_up"))
