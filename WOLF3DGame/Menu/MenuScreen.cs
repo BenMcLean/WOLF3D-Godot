@@ -35,7 +35,8 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
         private Modal modal = null;
-        public Modal.Question? Question { get; set; } = null;
+
+        public Modal.QuestionEnum? Question { get; set; } = null;
         public Color Color
         {
             get => Background.Color;
@@ -314,8 +315,15 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen Yes()
         {
-            if (Question == Modal.Question.QUIT)
-                Main.Quit();
+            switch (Question)
+            {
+                case Modal.QuestionEnum.QUIT:
+                    Main.Quit();
+                    break;
+                case Modal.QuestionEnum.END:
+                    Main.End();
+                    break;
+            }
             Modal = null;
             return this;
         }

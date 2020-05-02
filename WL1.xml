@@ -168,7 +168,7 @@
           <MenuItem Text="Control" Action="Menu" Argument="Control" />
           <MenuItem Text="Load Game" Action="Load" />
           <MenuItem Text="Save Game" InGame="true" Action="Save" />
-          <MenuItem Text="End Game" InGame="true" Action="End" />
+          <MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
           <MenuItem Text="Back to Game" InGame="true" Action="Resume" />
           <MenuItem Text="Quit" Action="Quit" />
         </MenuItems>

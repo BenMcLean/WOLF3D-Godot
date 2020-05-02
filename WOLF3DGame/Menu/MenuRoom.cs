@@ -124,7 +124,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)
-                MenuBody.MenuScreen = menuScreen;
+                MenuScreen = menuScreen;
             if (xml.Attribute("Action")?.Value.Equals("Modal", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 MenuBody.MenuScreen.AddModal(xml.Attribute("Argument").Value);
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
@@ -133,17 +133,27 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Settings.Difficulty = Difficulty;
                 Main.Room = new LoadingRoom(0);
             }
+            if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
+            {
+                MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? "Are you sure you want\nto end the game you\nare currently playing?");
+                MenuScreen.Question = Modal.QuestionEnum.END;
+                MenuScreen.Modal.YesNo = true;
+            }
             if (xml.Attribute("Action")?.Value.Equals("Resume", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.Room = Main.ActionRoom;
             if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
-                MenuScreen.AddModal(Main.RNG.RandomElement(Assets.EndStrings));
-                MenuScreen.Question = Modal.Question.QUIT;
+                MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? Main.RNG.RandomElement(Assets.EndStrings));
+                MenuScreen.Question = Modal.QuestionEnum.QUIT;
                 MenuScreen.Modal.YesNo = true;
             }
             return this;
         }
 
-        MenuScreen MenuScreen => MenuBody.MenuScreen;
+        public MenuScreen MenuScreen
+        {
+            get => MenuBody.MenuScreen;
+            set => MenuBody.MenuScreen = value;
+        }
     }
 }

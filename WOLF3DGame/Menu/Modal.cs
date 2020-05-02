@@ -140,9 +140,9 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public Vector2 Size => PixelRect.Size;
 
-        public enum Question
+        public enum QuestionEnum
         {
-            QUIT, ENDGAME
+            QUIT, END
         }
     }
 }

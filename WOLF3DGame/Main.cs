@@ -94,5 +94,12 @@ namespace WOLF3D.WOLF3DGame
 			I.GetTree().Quit();
 			System.Environment.Exit(0);
 		}
+
+		public static void End()
+		{
+			ActionRoom = null;
+			MenuRoom.MenuScreen = Assets.Menu("Main");
+			Room = MenuRoom;
+		}
 	}
 }
