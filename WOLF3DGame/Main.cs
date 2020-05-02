@@ -89,6 +89,10 @@ namespace WOLF3D.WOLF3DGame
 		/// <summary>
 		/// Immediately quits, no questions asked
 		/// </summary>
-		public static void Quit() => System.Environment.Exit(0);
+		public static void Quit()
+		{
+			I.GetTree().Quit();
+			System.Environment.Exit(0);
+		}
 	}
 }
