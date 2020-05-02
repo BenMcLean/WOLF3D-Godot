@@ -115,7 +115,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuRoom Action(XElement xml)
         {
-            if (xml == null)
+            if (xml == null || !Main.InGameMatch(xml))
                 return this;
             if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
                 Episode = episode;

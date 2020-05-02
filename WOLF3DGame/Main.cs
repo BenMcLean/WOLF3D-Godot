@@ -20,7 +20,7 @@ namespace WOLF3D.WOLF3DGame
 		public static RNG RNG = new RNG();
 		public static string Path { get; set; }
 		public static string Folder { get; set; }
-		public static bool InGame { get; set; } = false;
+		public static bool InGame => ActionRoom != null;
 		public static bool InGameMatch(XElement xElement) =>
 			xElement?.Attribute("InGame") == null ||
 			(Assets.IsTrue(xElement, "InGame") == InGame);
@@ -83,7 +83,6 @@ namespace WOLF3D.WOLF3DGame
 		{
 			Assets.Load(Folder);
 			SoundBlaster.Start();
-			ActionRoom = new ActionRoom();
 			Room = MenuRoom = new MenuRoom();
 		}
 

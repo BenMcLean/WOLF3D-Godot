@@ -28,7 +28,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (modal != null)
                     RemoveChild(modal);
                 modal = value;
-                if (modal != null)
+                if (modal == null)
+                    Question = null;
+                else
                     AddChild(modal);
             }
         }
@@ -290,14 +292,9 @@ namespace WOLF3D.WOLF3DGame.Menu
         public MenuScreen Cancel()
         {
             if (Modal != null)
-                Accept();
-            else
-                foreach (XElement cancel in XML.Elements("Cancel") ?? Enumerable.Empty<XElement>())
-                    if (Main.InGameMatch(cancel))
-                    {
-                        Main.MenuRoom.Action(cancel);
-                        break; // Only need one cancel action
-                    }
+                return Accept();
+            if (XML.Elements("Cancel")?.Where(c => Main.InGameMatch(c)).FirstOrDefault() is XElement cancel && cancel != null)
+                Main.MenuRoom.Action(cancel);
             return this;
         }
 
