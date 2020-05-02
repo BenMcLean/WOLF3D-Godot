@@ -8,7 +8,7 @@ namespace WOLF3D.WOLF3DGame.Action
     public class LoadingRoom : Room
     {
         public LoadingRoom(ushort mapNumber = 0)
-            : this(mapNumber, Main.ActionRoom?.Episode ?? MenuRoom.Episode, Main.ActionRoom?.Difficulty ?? MenuRoom.Difficulty) { }
+            : this(mapNumber, Settings.Episode, Settings.Difficulty) { }
 
         public LoadingRoom(ushort mapNumber, byte episode, byte difficulty)
         {

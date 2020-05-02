@@ -8,11 +8,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class MenuRoom : Room
     {
-        public static byte Episode { get; set; } = 0;
-        public static byte Difficulty { get; set; } = 0;
-
         public ARVRController ActiveController { get; set; }
         public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
+
+        public static byte Episode { get; set; } = 0;
+        public static byte Difficulty { get; set; } = 0;
 
         public MenuBody MenuBody { get; set; }
         public MenuScreen Menu
@@ -128,7 +128,11 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (xml.Attribute("Action")?.Value.Equals("Modal", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 MenuBody.MenuScreen.AddModal(xml.Attribute("Argument").Value);
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                Main.Room = new LoadingRoom(0, Episode, Difficulty);
+            {
+                Settings.Episode = Episode;
+                Settings.Difficulty = Difficulty;
+                Main.Room = new LoadingRoom(0);
+            }
             if (xml.Attribute("Action")?.Value.Equals("Resume", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.Room = Main.ActionRoom;
             if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
