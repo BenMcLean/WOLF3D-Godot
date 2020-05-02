@@ -139,5 +139,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             set => Text.Modulate = value;
         }
         public Vector2 Size => PixelRect.Size;
+
+        public enum Question
+        {
+            QUIT, ENDGAME
+        }
     }
 }

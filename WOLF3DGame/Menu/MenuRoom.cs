@@ -133,10 +133,13 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Main.Room = Main.ActionRoom;
             if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
-                MenuBody.MenuScreen.AddModal(Main.RNG.RandomElement(Assets.EndStrings));
-                MenuBody.MenuScreen.Modal.YesNo = true;
+                MenuScreen.AddModal(Main.RNG.RandomElement(Assets.EndStrings));
+                MenuScreen.Question = Modal.Question.QUIT;
+                MenuScreen.Modal.YesNo = true;
             }
             return this;
         }
+
+        MenuScreen MenuScreen => MenuBody.MenuScreen;
     }
 }

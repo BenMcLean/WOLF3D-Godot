@@ -61,8 +61,9 @@ namespace WOLF3D.WOLF3DGame
 
 		public override void _Ready()
 		{
-			Path = OS.GetName().Equals("Android") ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory();
-			ARVRInterface = ARVRServer.FindInterface(OS.GetName().Equals("Android") ? "OVRMobile" : "OpenVR");
+			bool android = OS.GetName().Equals("Android", StringComparison.InvariantCultureIgnoreCase);
+			Path = android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory();
+			ARVRInterface = ARVRServer.FindInterface(android ? "OVRMobile" : "OpenVR");
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 			AddChild(WorldEnvironment);
 
@@ -85,5 +86,10 @@ namespace WOLF3D.WOLF3DGame
 			ActionRoom = new ActionRoom();
 			Room = MenuRoom = new MenuRoom();
 		}
+
+		/// <summary>
+		/// Immediately quits, no questions asked
+		/// </summary>
+		public static void Quit() => System.Environment.Exit(0);
 	}
 }

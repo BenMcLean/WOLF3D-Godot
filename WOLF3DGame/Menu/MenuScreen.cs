@@ -33,6 +33,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
         private Modal modal = null;
+        public Modal.Question? Question { get; set; } = null;
         public Color Color
         {
             get => Background.Color;
@@ -248,10 +249,19 @@ namespace WOLF3D.WOLF3DGame.Menu
         public void DoInput(InputEvent @event)
         {
             if (Modal == null && MenuItems != null)
+            {
                 if (@event.IsActionPressed("ui_down"))
                     Selection++;
                 else if (@event.IsActionPressed("ui_up"))
                     Selection--;
+            }
+            else if (Modal != null)
+            {
+                if (@event.IsActionPressed("ui_yes"))
+                    Yes();
+                else if (@event.IsActionPressed("ui_no"))
+                    Cancel();
+            }
             if (@event.IsActionPressed("ui_accept"))
                 Accept();
             else if (@event.IsActionPressed("ui_cancel"))
@@ -270,7 +280,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                 return this;
             }
             if (Modal != null)
-                Modal = null;
+                if (Modal.Answer)
+                    return Yes();
+                else
+                    Modal = null;
             return this;
         }
 
@@ -302,25 +315,32 @@ namespace WOLF3D.WOLF3DGame.Menu
             return this;
         }
 
-        public void ButtonPressed(MenuRoom menuRoom, int buttonIndex, bool right = false)
+        public MenuScreen Yes()
+        {
+            if (Question == Modal.Question.QUIT)
+                Main.Quit();
+            Modal = null;
+            return this;
+        }
+
+        public MenuScreen ButtonPressed(MenuRoom menuRoom, int buttonIndex, bool right = false)
         {
             if (!Room.IsVRButton(buttonIndex))
-                return;
+                return this;
             ARVRController controller = right ? menuRoom.RightController : menuRoom.LeftController;
             if (controller != menuRoom.ActiveController)
             {
                 menuRoom.ActiveController = controller;
-                return;
+                return this;
             }
             switch (buttonIndex)
             {
                 case (int)JoystickList.VrTrigger:
-                    Accept();
-                    break;
+                    return Accept();
                 case (int)JoystickList.OculusBy:
-                    Cancel();
-                    break;
+                    return Cancel();
             }
+            return this;
         }
     }
 }
