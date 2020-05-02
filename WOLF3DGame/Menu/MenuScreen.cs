@@ -17,7 +17,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             Position = OffScreen,
         };
-        public static byte Episode { get; set; } = 0;
 
         public XElement XML { get; set; }
         public VgaGraph.Font Font { get; set; }
