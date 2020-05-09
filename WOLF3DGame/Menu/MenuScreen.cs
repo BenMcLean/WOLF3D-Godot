@@ -342,7 +342,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 case (int)JoystickList.VrTrigger:
                     return Accept();
-                case (int)JoystickList.OculusBy:
+                case (int)JoystickList.VrGrip:
                     return Cancel();
             }
             return this;

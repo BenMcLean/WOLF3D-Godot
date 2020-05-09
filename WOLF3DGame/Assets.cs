@@ -157,8 +157,11 @@ namespace WOLF3D.WOLF3DGame
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {
-            using (FileStream xmlStream = new FileStream(System.IO.Path.Combine(folder, file), FileMode.Open))
-                return XElement.Load(xmlStream);
+            string path = System.IO.Path.Combine(folder, file);
+            if (!System.IO.File.Exists(path))
+                return null;
+            else using (FileStream xmlStream = new FileStream(path, FileMode.Open))
+                    return XElement.Load(xmlStream);
         }
 
         public static XElement XML { get; set; }

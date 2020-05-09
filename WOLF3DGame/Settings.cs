@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame
 {
@@ -19,5 +21,36 @@ namespace WOLF3D.WOLF3DGame
         public static VRModeEnum VRMode = VRModeEnum.ROOMSCALE;
         public static bool Roomscale => VRMode == VRModeEnum.ROOMSCALE;
         public static bool FiveDOF => VRMode == VRModeEnum.FIVEDOF;
+
+        public static void SetVrMode(string vrMode)
+        {
+            if (vrMode?.Equals("Roomscale", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                VRMode = VRModeEnum.ROOMSCALE;
+            else if (vrMode?.Equals("FiveDOF", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                VRMode = VRModeEnum.FIVEDOF;
+        }
+
+        public static string XML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<?xml version=\"1.0\" encoding=\"utf - 8\" ?>\n<Settings ");
+            sb.Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ");
+            sb.Append("/>");
+            return sb.ToString();
+        }
+
+        public static void XML(XElement xml)
+        {
+            if (xml == null)
+                return;
+            SetVrMode(xml?.Attribute("VRMode")?.Value);
+        }
+
+        public static void Load() => XML(Assets.LoadXML(Main.Folder, "settings.xml"));
+
+        public static void Save()
+        {
+            throw new NotImplementedException(); // TODO
+        }
     }
 }
