@@ -216,7 +216,7 @@
         <PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="72" StartY="56" PaddingX="28">
           <MenuItem Text="Roomscale" On="Roomscale" VRMode="Roomscale" Action="Menu" Argument="Control" />
-          <MenuItem Text="Five Degrees Of Freedom" On="FiveDOF" VRMode="5DOF" Action="Menu" Argument="Control" />
+          <MenuItem Text="Five Degrees Of Freedom" On="FiveDOF" VRMode="FiveDOF" Action="Menu" Argument="Control" />
         </MenuItems>
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />

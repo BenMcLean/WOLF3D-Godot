@@ -18,7 +18,17 @@ namespace WOLF3D.WOLF3DGame
             ROOMSCALE, FIVEDOF
         }
 
-        public static VRModeEnum VRMode = VRModeEnum.ROOMSCALE;
+        public static VRModeEnum VRMode
+        {
+            get => vrMode;
+            set
+            {
+                vrMode = value;
+                Save();
+            }
+        }
+        private static VRModeEnum vrMode = VRModeEnum.ROOMSCALE;
+
         public static bool Roomscale => VRMode == VRModeEnum.ROOMSCALE;
         public static bool FiveDOF => VRMode == VRModeEnum.FIVEDOF;
 
@@ -46,11 +56,10 @@ namespace WOLF3D.WOLF3DGame
             SetVrMode(xml?.Attribute("VRMode")?.Value);
         }
 
-        public static void Load() => XML(Assets.LoadXML(Main.Folder, "settings.xml"));
+        public const string Filename = "settings.xml";
 
-        public static void Save()
-        {
-            throw new NotImplementedException(); // TODO
-        }
+        public static void Load() => XML(Assets.LoadXML(Main.Folder, Filename));
+
+        public static void Save() => System.IO.File.WriteAllText(System.IO.Path.Combine(Main.Folder, Filename), XML());
     }
 }

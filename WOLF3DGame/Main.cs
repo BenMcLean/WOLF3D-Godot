@@ -97,6 +97,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public static void End()
 		{
+			Settings.Load();
 			ActionRoom = null;
 			MenuRoom.MenuScreen = Assets.Menu("Main");
 			Room = MenuRoom;
