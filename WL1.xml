@@ -214,9 +214,9 @@
       <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
         <Text String="Select VR Mode:" X="center" Y="3" Color="71" />
         <PixelRect X="3" Y="14" Width="317" Height="184" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="3" StartY="16" PaddingX="28" PaddingY="30">
-          <MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." Selected="Roomscale" VRMode="Roomscale" Action="Menu" Argument="Control" />
-          <MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" Selected="FiveDOF" VRMode="FiveDOF" Action="Menu" Argument="Control" />
+        <MenuItems StartX="3" StartY="16" PaddingX="52" PaddingY="30">
+          <MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." On="Roomscale" VRMode="Roomscale" Action="Update" />
+          <MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" On="FiveDOF" VRMode="FiveDOF" Action="Update" />
         </MenuItems>
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />

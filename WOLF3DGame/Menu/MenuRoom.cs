@@ -129,6 +129,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuScreen = menuScreen;
             if (xml.Attribute("Action")?.Value.Equals("Modal", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 MenuBody.MenuScreen.AddModal(xml.Attribute("Argument").Value);
+            if (xml.Attribute("Action")?.Value.Equals("Update", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                MenuScreen.Update();
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
                 Settings.Episode = Episode;

@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using WOLF3DModel;
@@ -13,6 +14,19 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
         public XElement XML { get; set; }
         public Sprite Text { get; set; }
+        public Sprite Selected
+        {
+            get => selected;
+            set
+            {
+                if (selected != null)
+                    RemoveChild(selected);
+                selected = value;
+                if (selected != null)
+                    AddChild(selected);
+            }
+        }
+        private Sprite selected = null;
         public float Width { get; set; } = 0;
         public float Height { get; set; } = 0;
 
@@ -21,9 +35,56 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => Text?.Modulate;
             set => Text.Modulate = value == null ? Assets.White : (Color)value;
         }
-        public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0)
+
+        public bool? IsSelected
+        {
+            get => isSelected;
+            set
+            {
+                if (isSelected == value)
+                    return;
+                isSelected = value;
+                if (isSelected == null)
+                    Selected = null;
+                else
+                {
+                    ImageTexture texture = Assets.PicTextureSafe(
+                            XML?.Attribute(PictureName)?.Value ??
+                            Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute(PictureName)?.Value
+                            );
+                    Selected = new Sprite()
+                    {
+                        Texture = texture,
+                        Position = new Vector2(
+                            (Text?.Position.x ?? 0) - (Text?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2,
+                            (Text?.Position.y ?? 0) - (Text?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 3
+                            ),
+                    };
+                }
+            }
+        }
+        private bool? isSelected = null;
+
+        public string PictureName => IsSelected == null ? null : (IsSelected ?? false) ? "Selected" : "NotSelected";
+
+        public string Condition { get; set; } = null;
+
+        public MenuItem UpdateSelected()
+        {
+            if (Condition == null)
+                return this;
+            if (Condition.Equals("Roomscale", StringComparison.InvariantCultureIgnoreCase))
+                IsSelected = Settings.Roomscale;
+            else if (Condition.Equals("FiveDOF", StringComparison.InvariantCultureIgnoreCase))
+                IsSelected = Settings.FiveDOF;
+            return this;
+        }
+
+        public MenuItem(VgaGraph.Font font, string text = "", string condition = null) : this(font, text, 0, condition) { }
+        public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0, string condition = null)
         {
             Name = text;
+            Condition = condition;
             ImageTexture texture = Assets.Text(font, Name = text);
             AddChild(Text = new Sprite()
             {
@@ -32,6 +93,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             });
             Width = xPadding + texture.GetWidth();
             Height = texture.GetHeight();
+            UpdateSelected();
         }
 
         public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? color = null)
@@ -51,7 +113,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (Main.InGameMatch(menuItem))
                     yield return new MenuItem(
                         uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-                        menuItem.Attribute("Text").Value, paddingX)
+                        menuItem.Attribute("Text")?.Value,
+                        paddingX,
+                        menuItem.Attribute("On")?.Value
+                        )
                     {
                         XML = menuItem,
                         Position = new Vector2(

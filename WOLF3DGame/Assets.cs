@@ -288,6 +288,9 @@ namespace WOLF3D.WOLF3DGame
             : throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
 
         public static ImageTexture PicTexture(string name) =>
+            PicTextureSafe(name) ?? throw new InvalidDataException("Pic not found: \"" + name + "\"");
+
+        public static ImageTexture PicTextureSafe(string name) =>
             uint.TryParse(name, out uint index) && index < PicTextures.Length ?
             PicTextures[index]
             : uint.TryParse((
@@ -296,7 +299,7 @@ namespace WOLF3D.WOLF3DGame
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < PicTextures.Length ?
             PicTextures[result]
-            : throw new InvalidDataException("Pic not found: \"" + name + "\"");
+            : null;
 
         public static ImageTexture LoadingPic => PicTexture(XML.Element("VgaGraph").Attribute("LoadingPic")?.Value?.Trim());
 

@@ -264,6 +264,14 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
+        public MenuScreen Update()
+        {
+            if (MenuItems != null)
+                foreach (MenuItem menuItem in MenuItems)
+                    menuItem.UpdateSelected();
+            return this;
+        }
+
         public void DoInput(InputEvent @event)
         {
             if (Modal == null && MenuItems != null)
