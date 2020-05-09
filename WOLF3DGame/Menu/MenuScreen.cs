@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -103,7 +104,13 @@ namespace WOLF3D.WOLF3DGame.Menu
                     AddChild(new Sprite()
                     {
                         Texture = texture,
-                        Position = new Vector2((float)image.Attribute("X") + texture.GetSize().x / 2f, (float)image.Attribute("Y") + texture.GetSize().y / 2f),
+                        Position = new Vector2(
+                            image.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                            Width / 2
+                            : (float)image.Attribute("X") + texture.GetSize().x / 2f,
+                            image.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                            Height / 2
+                            : (float)image.Attribute("Y") + texture.GetSize().y / 2f),
                     });
                 }
             foreach (XElement text in menu.Elements("Text"))
@@ -118,8 +125,16 @@ namespace WOLF3D.WOLF3DGame.Menu
                     {
                         Texture = texture,
                         Position = new Vector2(
-                            (uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
-                            (uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+                            text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                            Width / 2
+                            : ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
+                            x
+                            : 0) + texture.GetWidth() / 2),
+                            text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                            Height / 2
+                            : ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
+                            y
+                            : 0) + texture.GetHeight() / 2)
                             ),
                         Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
                     });
