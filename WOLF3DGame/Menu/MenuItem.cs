@@ -57,7 +57,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         Texture = texture,
                         Position = new Vector2(
                             (Text?.Position.x ?? 0) - (Text?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2,
-                            (Text?.Position.y ?? 0) - (Text?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 3
+                            (Text?.Position.y ?? 0) - (Text?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 2
                             ),
                     };
                 }
