@@ -5,7 +5,6 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class ARVRPlayer : Spatial
     {
-        public bool Roomscale { get; set; } = true;
         public ARVROrigin ARVROrigin { get; set; }
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
@@ -210,7 +209,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
 
-        public float Height => Roomscale ?
+        public float Height => Settings.Roomscale ?
             0f
             : Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
 

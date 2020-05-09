@@ -148,7 +148,7 @@
     <Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
     <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
     <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1">
+    <Menus MenuSong="WONDERIN_MUS" IntroSong="XTOWER2_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
       <EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
       <EndString>Chickening out...&#10;already?</EndString>
       <EndString>Press N for more carnage.&#10;Press Y to be a weenie.</EndString>
@@ -197,7 +197,7 @@
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
-      <Menu Name="Difficulty" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+      <Menu Name="Difficulty" BkgdColor="41" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="How tough are you?" X="70" Y="69" Color="71" />
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
@@ -210,6 +210,15 @@
         </MenuItems>
         <Cancel Action="Menu" Argument="Episodes" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+      </Menu>
+      <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
+        <Text String="Select VR Mode" X="60" Y="3" Color="71" />
+        <PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="72" StartY="56" PaddingX="28">
+          <MenuItem Text="Roomscale" On="Roomscale" VRMode="Roomscale" Action="Menu" Argument="Control" />
+          <MenuItem Text="5DOF" On="5DOF" VRMode="5DOF" Action="Menu" Argument="Control" />
+        </MenuItems>
+        <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
   </VgaGraph>

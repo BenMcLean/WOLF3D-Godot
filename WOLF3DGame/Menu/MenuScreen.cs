@@ -161,7 +161,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                         ),
                 });
             }
-            Selection = 0;
+            Selection = uint.TryParse(XML.Attribute("Default")?.Value, out uint selection) ? (int)selection : 0;
             AddChild(Crosshairs);
         }
 
