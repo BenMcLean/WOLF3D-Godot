@@ -68,6 +68,7 @@
     <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\Direction8.cs" />
     <Compile Include="WOLF3DGame\ExtensionMethods.cs" />
+    <Compile Include="WOLF3DGame\Fade.cs" />
     <Compile Include="WOLF3DGame\Line3D.cs" />
     <Compile Include="WOLF3DGame\Main.cs" />
     <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
