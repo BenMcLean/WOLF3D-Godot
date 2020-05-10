@@ -51,10 +51,10 @@ namespace WOLF3D.WOLF3DGame
 
         public static void XML(XElement xml)
         {
-            GD.Print(xml);
             if (xml == null)
                 return;
-            SetVrMode(xml?.Attribute("VRMode")?.Value);
+            if (xml?.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
+                SetVrMode(vrMode);
         }
 
         public const string Filename = "settings.xml";
