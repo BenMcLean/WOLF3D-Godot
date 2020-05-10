@@ -12,6 +12,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public ARVRPlayer()
         {
+            Name = "ARVRPlayer";
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {

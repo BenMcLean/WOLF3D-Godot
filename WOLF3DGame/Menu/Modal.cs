@@ -33,6 +33,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public Modal(Sprite text)
         {
+            Name = "Modal";
             AddChild(PixelRect = new PixelRect()
             {
                 Size = new Vector2(text.Texture.GetSize().x + 10, text.Texture.GetSize().y + 12),

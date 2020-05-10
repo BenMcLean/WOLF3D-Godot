@@ -55,6 +55,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen()
         {
+            Name = "MenuScreen";
             Size = new Vector2(Width, Height);
             Disable3d = true;
             RenderTargetClearMode = ClearMode.OnlyNextFrame;
@@ -68,6 +69,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen(XElement menu) : this()
         {
+            Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
             XML = menu;
             Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
             Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];

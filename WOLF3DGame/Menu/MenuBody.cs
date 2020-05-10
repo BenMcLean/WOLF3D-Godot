@@ -27,6 +27,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuBody(MenuScreen menuScreen)
         {
+            Name = "MenuBody";
             AddChild(Shape = new CollisionShape()
             {
                 Shape = MenuScreenShape,

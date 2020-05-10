@@ -97,6 +97,7 @@ namespace WOLF3D.WOLF3DGame
         #endregion Math
 
         #region Game assets
+        public static void Load() => Load(Main.Folder);
         public static void Load(string folder, string file = "game.xml") => Load(folder, LoadXML(folder, file));
 
         public static void Load(string folder, XElement xml)
@@ -347,6 +348,23 @@ namespace WOLF3D.WOLF3DGame
              select e).FirstOrDefault() is XElement screen && screen != null ?
             new MenuScreen(screen)
             : null;
+
+        /*
+        public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
+        {
+            Shader = new Shader()
+            {
+                Code = @"
+shader_type canvas_item;
+uniform vec4 base : hint_color;
+void fragment()
+{
+    COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb + dot(base.rgb * base.a);
+}
+",
+            },
+        };
+        */
         #endregion Game assets
     }
 }

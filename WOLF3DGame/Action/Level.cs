@@ -80,6 +80,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Level(GameMap map, byte difficulty = 4)
         {
+            Name = "Level \"" + map.Name + "\"";
             Map = map;
             Open = new bool[Map.Width][];
             for (ushort x = 0; x < Map.Width; x++)

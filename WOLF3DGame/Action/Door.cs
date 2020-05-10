@@ -91,6 +91,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Door(Material material, ushort x, ushort z, bool western)
         {
+            Name = "Door";
             X = x;
             Z = z;
             Western = western;

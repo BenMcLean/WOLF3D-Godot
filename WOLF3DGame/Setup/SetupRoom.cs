@@ -47,7 +47,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 
         public SetupRoom()
         {
-            Name = "Setup scene";
+            Name = "SetupRoom";
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {

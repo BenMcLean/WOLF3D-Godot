@@ -43,7 +43,7 @@ namespace WOLF3D.WOLF3DGame
         public static string XML()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<?xml version=\"1.0\" encoding=\"utf - 8\" ?>\n<Settings ");
+            sb.Append("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<Settings ");
             sb.Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ");
             sb.Append("/>");
             return sb.ToString();
@@ -51,6 +51,7 @@ namespace WOLF3D.WOLF3DGame
 
         public static void XML(XElement xml)
         {
+            GD.Print(xml);
             if (xml == null)
                 return;
             SetVrMode(xml?.Attribute("VRMode")?.Value);
@@ -58,7 +59,8 @@ namespace WOLF3D.WOLF3DGame
 
         public const string Filename = "settings.xml";
 
-        public static void Load() => XML(Assets.LoadXML(Main.Folder, Filename));
+        public static void Load() => Load(Main.Folder);
+        public static void Load(string folder) => XML(Assets.LoadXML(folder, Filename));
 
         public static void Save() => System.IO.File.WriteAllText(System.IO.Path.Combine(Main.Folder, Filename), XML());
     }

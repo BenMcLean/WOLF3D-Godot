@@ -18,6 +18,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Billboard()
         {
+            Name = "Billboard";
             AddChild(Shape = new CollisionShape()
             {
                 Shape = BillboardShape,

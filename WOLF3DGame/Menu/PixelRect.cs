@@ -40,6 +40,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public PixelRect()
         {
+            Name = "PixelRect";
             AddChild(SEBorder = new ColorRect());
             AddChild(NWBorder = new ColorRect());
             AddChild(ColorRect = new ColorRect()

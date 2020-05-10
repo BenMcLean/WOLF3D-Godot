@@ -31,6 +31,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         };
         public Crosshairs()
         {
+            Name = "Crosshairs";
             AddChild(West);
             AddChild(North);
             AddChild(East);

@@ -21,6 +21,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Walls(GameMap map)
         {
+            Name = "Walls for map \"" + map.Name + "\"";
             Map = map;
             AddChild(Floor = new CollisionShape()
             {

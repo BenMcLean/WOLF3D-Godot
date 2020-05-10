@@ -29,6 +29,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuRoom(MenuScreen menuScreen)
         {
+            Name = "MenuRoom";
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {

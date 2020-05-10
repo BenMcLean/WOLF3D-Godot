@@ -4,6 +4,10 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class Actor : Billboard
     {
+        public Actor()
+        {
+            Name = "Actor";
+        }
         public Direction8 Direction { get; set; } = Direction8.SOUTH;
         public string ActorName { get; set; } = "Guard";
         public string Animation { get; set; } = "Standing";
