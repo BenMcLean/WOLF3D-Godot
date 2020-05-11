@@ -41,19 +41,6 @@ namespace WOLF3D.WOLF3DGame
 			set => WorldEnvironment.Environment.BackgroundColor = value;
 		}
 
-		public static Fade Fade
-		{
-			get => fade;
-			set
-			{
-				fade?.GetParent()?.RemoveChild(fade);
-				fade = value;
-				if (fade != null)
-					I.GetViewport().CallDeferred("add_child", fade);
-			}
-		}
-		private static Fade fade = null;
-
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
 		public static Room Room
@@ -64,12 +51,9 @@ namespace WOLF3D.WOLF3DGame
 				if (I.room != null)
 				{
 					I.room.Exit();
-					Fade?.GetParent()?.RemoveChild(Fade);
 					I.RemoveChild(I.room);
 				}
 				I.AddChild(I.room = value);
-				if (Fade != null)
-					I.GetViewport().CallDeferred("add_child", Fade);
 				I.room.Enter();
 			}
 		}
@@ -92,7 +76,6 @@ namespace WOLF3D.WOLF3DGame
 			else
 				GD.Print("ARVRInterface failed to initialize!");
 
-			Fade = new Fade();
 			AddChild(SoundBlaster.OplPlayer);
 			Room = new SetupRoom();
 		}
