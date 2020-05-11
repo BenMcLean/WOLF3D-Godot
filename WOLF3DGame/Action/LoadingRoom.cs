@@ -17,7 +17,7 @@ namespace WOLF3D.WOLF3DGame.Action
             Difficulty = difficulty;
             MapNumber = mapNumber;
             AddChild(ARVROrigin = new ARVROrigin());
-            ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
+            ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
                 Current = true,
             });

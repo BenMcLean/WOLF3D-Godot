@@ -6,7 +6,7 @@ namespace WOLF3D.WOLF3DGame
     {
         public virtual bool IsPaused() => false;
         public virtual ARVROrigin ARVROrigin { get; set; }
-        public virtual ARVRCamera ARVRCamera { get; set; }
+        public virtual FadeCamera ARVRCamera { get; set; }
         public virtual ARVRController LeftController { get; set; }
         public virtual ARVRController RightController { get; set; }
         public virtual void Enter()

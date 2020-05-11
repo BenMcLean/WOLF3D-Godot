@@ -6,7 +6,7 @@ namespace WOLF3D.WOLF3DGame.Action
     public class ARVRPlayer : Spatial
     {
         public ARVROrigin ARVROrigin { get; set; }
-        public ARVRCamera ARVRCamera { get; set; }
+        public FadeCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
 
@@ -22,7 +22,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 ControllerId = 2,
             });
-            ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
+            ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
                 Current = true,
             });
