@@ -231,7 +231,12 @@
       <Number Name="Ammo" X="224" Y="16" Digits="3" />
       <Item Name="Gold Key" X="240" Y="4" Full="GOLDKEYPIC" Empty="NOKEYPIC" />
       <Item Name="Silver Key" X="240" Y="20" Full="SILVERKEYPIC" Empty="NOKEYPIC" />
-      <Weapon X="256" Y="8" Weapon0="KNIFEPIC" Weapon1="GUNPIC" Weapon2="MACHINEGUNPIC" Weapon3="GATLINGGUNPIC" />
+      <Weapons X="256" Y="8">
+        <Weapon Number="0" Pic="KNIFEPIC" />
+        <Weapon Number="1" Pic="GUNPIC" />
+        <Weapon Number="2" Pic="MACHINEGUNPIC" />
+        <Weapon Number="3" Pic="GATLINGGUNPIC" />
+      </Weapons>
     </StatusBar>
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
