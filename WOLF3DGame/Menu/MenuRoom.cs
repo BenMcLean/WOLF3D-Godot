@@ -192,6 +192,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Difficulty = difficulty;
             if (xml.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
                 Settings.SetVrMode(vrMode);
+            if (xml.Attribute("FX")?.Value is string fx && !string.IsNullOrWhiteSpace(fx))
+                Settings.SetFX(fx);
+            if (xml.Attribute("DigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
+                Settings.SetDigiSound(d);
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)

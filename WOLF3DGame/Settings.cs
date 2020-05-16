@@ -1,9 +1,5 @@
-﻿using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame
@@ -13,11 +9,11 @@ namespace WOLF3D.WOLF3DGame
         public static byte Episode { get; set; } = 0;
         public static byte Difficulty { get; set; } = 0;
 
+        #region VRMode
         public enum VRModeEnum
         {
             ROOMSCALE, FIVEDOF
         }
-
         public static VRModeEnum VRMode
         {
             get => vrMode;
@@ -28,24 +24,96 @@ namespace WOLF3D.WOLF3DGame
             }
         }
         private static VRModeEnum vrMode = VRModeEnum.ROOMSCALE;
-
         public static bool Roomscale => VRMode == VRModeEnum.ROOMSCALE;
         public static bool FiveDOF => VRMode == VRModeEnum.FIVEDOF;
-
         public static void SetVrMode(string vrMode)
         {
-            if (vrMode?.Equals("Roomscale", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                VRMode = VRModeEnum.ROOMSCALE;
-            else if (vrMode?.Equals("FiveDOF", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                VRMode = VRModeEnum.FIVEDOF;
+            if (Enum.TryParse(vrMode.ToUpperInvariant(), out VRModeEnum newVRMode))
+                VRMode = newVRMode;
         }
+        #endregion
+
+        #region FX
+        public enum FXEnum
+        {
+            NONE, ADLIB
+        }
+        public static FXEnum FX
+        {
+            get => fx;
+            set
+            {
+                fx = value;
+                Save();
+            }
+        }
+        private static FXEnum fx = FXEnum.ADLIB;
+        public static bool FXMuted => FX == FXEnum.NONE;
+        public static bool FXAdlib => FX == FXEnum.ADLIB;
+        public static void SetFX(string fx)
+        {
+            if (Enum.TryParse(fx.ToUpperInvariant(), out FXEnum newFX))
+                FX = newFX;
+        }
+        #endregion
+
+        #region DigiSound
+        public enum DigiSoundEnum
+        {
+            NONE, SOUNDBLASTER
+        }
+        public static DigiSoundEnum DigiSound
+        {
+            get => digiSound;
+            set
+            {
+                digiSound = value;
+                Save();
+            }
+        }
+        private static DigiSoundEnum digiSound = DigiSoundEnum.SOUNDBLASTER;
+        public static bool DigiSoundMuted => DigiSound == DigiSoundEnum.NONE;
+        public static bool DigiSoundBlaster => DigiSound == DigiSoundEnum.SOUNDBLASTER;
+        public static void SetDigiSound(string d)
+        {
+            if (Enum.TryParse(d.ToUpperInvariant(), out DigiSoundEnum newD))
+                DigiSound = newD;
+        }
+        #endregion
+
+        #region Music
+        public enum MusicEnum
+        {
+            NONE, ADLIB
+        }
+        public static MusicEnum Music
+        {
+            get => music;
+            set
+            {
+                music = value;
+                Save();
+            }
+        }
+        private static MusicEnum music = MusicEnum.ADLIB;
+        public static bool MusicMuted => Music == MusicEnum.NONE;
+        public static bool MusicAdlib => Music == MusicEnum.ADLIB;
+        public static void SetMusic(string m)
+        {
+            if (Enum.TryParse(m.ToUpperInvariant(), out MusicEnum newM))
+                Music = newM;
+        }
+        #endregion
 
         public static string XML()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<Settings ");
-            sb.Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ");
-            sb.Append("/>");
+            StringBuilder sb = new StringBuilder()
+                .Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Settings ")
+                .Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ")
+                .Append("FX=\"").Append(FX.ToString()).Append("\" ")
+                .Append("DigiSound=\"").Append(DigiSound.ToString()).Append("\" ")
+                .Append("Music=\"").Append(Music.ToString()).Append("\" ")
+                .Append("/>");
             return sb.ToString();
         }
 
@@ -55,6 +123,10 @@ namespace WOLF3D.WOLF3DGame
                 return;
             if (xml?.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
                 SetVrMode(vrMode);
+            if (xml?.Attribute("FX")?.Value is string fx && !string.IsNullOrWhiteSpace(fx))
+                SetFX(fx);
+            if (xml?.Attribute("DigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
+                SetDigiSound(d);
         }
 
         public const string Filename = "settings.xml";

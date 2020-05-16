@@ -1,6 +1,8 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Xml.Linq;
 using WOLF3DModel;
 
@@ -71,12 +73,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuItem UpdateSelected()
         {
-            if (Condition == null)
+            if (string.IsNullOrWhiteSpace(Condition))
                 return this;
-            if (Condition.Equals("Roomscale", StringComparison.InvariantCultureIgnoreCase))
-                IsSelected = Settings.Roomscale;
-            else if (Condition.Equals("FiveDOF", StringComparison.InvariantCultureIgnoreCase))
-                IsSelected = Settings.FiveDOF;
+            if (typeof(Settings).GetProperty(Condition, BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy) is PropertyInfo propertyInfo)
+                IsSelected = (bool)propertyInfo.GetValue(null, null);
             return this;
         }
 
