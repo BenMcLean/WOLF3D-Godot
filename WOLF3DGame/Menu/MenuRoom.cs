@@ -59,12 +59,18 @@ namespace WOLF3D.WOLF3DGame.Menu
         public override void Enter()
         {
             base.Enter();
-            if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("MenuSong") is XAttribute menuSong && menuSong != null)
-                SoundBlaster.Song = Assets.Song(menuSong.Value);
+            StartMusic();
             if (Body != null && Body.MenuScreen != null && Body.MenuScreen.Color != null)
                 Main.Color = Body.MenuScreen.Color;
             LeftController.Connect("button_pressed", this, nameof(ButtonPressedLeft));
             RightController.Connect("button_pressed", this, nameof(ButtonPressedRight));
+        }
+
+        public MenuRoom StartMusic()
+        {
+            if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("MenuSong") is XAttribute menuSong)
+                SoundBlaster.Song = Assets.Song(menuSong.Value);
+            return this;
         }
 
         public override void Exit()
@@ -196,6 +202,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Settings.SetFX(fx);
             if (xml.Attribute("DigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
                 Settings.SetDigiSound(d);
+            if (xml.Attribute("Music")?.Value is string m && !string.IsNullOrWhiteSpace(m))
+                Settings.SetMusic(m);
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)

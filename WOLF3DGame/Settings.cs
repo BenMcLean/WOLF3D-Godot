@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.Menu;
+using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame
 {
@@ -44,6 +46,9 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 fx = value;
+                SoundBlaster.NewOPL();
+                if (!MusicMuted && Main.Room is MenuRoom menuRoom)
+                    menuRoom.StartMusic();
                 Save();
             }
         }
@@ -92,6 +97,9 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 music = value;
+                SoundBlaster.NewOPL();
+                if (!MusicMuted && Main.Room is MenuRoom menuRoom)
+                    menuRoom.StartMusic();
                 Save();
             }
         }

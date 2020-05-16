@@ -214,16 +214,25 @@
       <Menu Name="Sound" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
         <Image Name="C_FXTITLEPIC" X="center" Y="0" />
         <PixelRect X="40" Y="17" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="3" StartY="16" PaddingX="52">
+        <MenuItems StartX="41" StartY="21" PaddingX="55">
           <MenuItem Text="None" On="FXMuted" FX="NONE" Action="Update" />
           <MenuItem Text="Adlib/Sound Blaster" On="FXAdlib" FX="ADLIB" Action="Update" />
         </MenuItems>
         <Image Name="C_DIGITITLEPIC" X="center" Y="65" />
         <PixelRect X="40" Y="82" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="41" StartY="86" PaddingX="55">
+          <MenuItem Text="None" On="DigiSoundMuted" DigiSound="NONE" Action="Update" />
+          <MenuItem Text="Sound Blaster" On="DigiSoundBlaster" DigiSound="SOUNDBLASTER" Action="Update" />
+        </MenuItems>
         <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
         <PixelRect X="40" Y="147" Width="250" Height="32" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="41" StartY="151" PaddingX="55">
+          <MenuItem Text="None" On="MusicMuted" Music="NONE" Action="Update" />
+          <MenuItem Text="Adlib/Sound Blaster" On="MusicAdlib" Music="ADLIB" Action="Update" />
+        </MenuItems>
         <Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
         <Cancel Action="Menu" Argument="Main" />
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
       <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
         <Text String="Select VR Mode:" X="center" Y="3" Color="71" />

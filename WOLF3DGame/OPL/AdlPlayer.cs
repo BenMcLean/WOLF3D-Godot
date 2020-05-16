@@ -18,8 +18,6 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
         private IOpl opl;
-
-        public bool Mute { get; set; } = false;
         public uint CurrentNote = 0;
         private float SinceLastNote = 0f;
 
@@ -28,7 +26,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => adl;
             set
             {
-                if (!Mute && (adl == null || value == null || value.Priority >= adl.Priority))
+                if (!Settings.FXMuted && (adl == null || value == null || value.Priority >= adl.Priority))
                 {
                     SinceLastNote = 0f;
                     CurrentNote = 0;

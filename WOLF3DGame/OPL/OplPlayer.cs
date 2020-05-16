@@ -23,7 +23,13 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 opl = value;
-                if (value != null) Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
+                if (value != null)
+                {
+                    Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
+                    Play();
+                }
+                else
+                    Stop();
                 if (ImfPlayer != null) ImfPlayer.Opl = value;
                 if (AdlPlayer != null) AdlPlayer.Opl = value;
             }
@@ -67,6 +73,8 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public OplPlayer FillBuffer()
         {
+            if (Opl == null)
+                return this;
             int toFill = ((AudioStreamGeneratorPlayback)GetStreamPlayback()).GetFramesAvailable() * (Opl.IsStereo ? 2 : 1);
             if (Buffer.Length < toFill)
                 Buffer = new short[toFill];

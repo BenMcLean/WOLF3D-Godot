@@ -211,7 +211,7 @@ namespace WOLF3D.WOLF3DGame.Action
             get => (AudioStreamSample)Doorknob.Stream;
             set
             {
-                Doorknob.Stream = value;
+                Doorknob.Stream = Settings.DigiSoundMuted ? null : value;
                 if (value != null)
                     Doorknob.Play();
             }

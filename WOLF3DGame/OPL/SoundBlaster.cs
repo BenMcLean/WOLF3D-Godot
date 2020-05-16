@@ -14,6 +14,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
         };
 
+        public static void NewOPL()
+        {
+            OplPlayer.Opl = new WoodyEmulatorOpl(OplType.Opl2);
+        }
+
         public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
 
         public static Imf[] Song

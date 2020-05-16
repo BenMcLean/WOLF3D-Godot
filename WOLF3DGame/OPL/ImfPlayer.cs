@@ -9,7 +9,6 @@ namespace WOLF3D.WOLF3DGame.OPL
     public class ImfPlayer
     {
         public IOpl Opl { get; set; }
-        public bool Mute { get; set; } = false;
         public bool Loop { get; set; } = true;
         public uint CurrentPacket
         {
