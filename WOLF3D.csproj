@@ -64,6 +64,7 @@
     <Compile Include="WOLF3DGame\Action\Door.cs" />
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\LoadingRoom.cs" />
+    <Compile Include="WOLF3DGame\Action\StatusBar.cs" />
     <Compile Include="WOLF3DGame\Action\Walls.cs" />
     <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\Direction8.cs" />

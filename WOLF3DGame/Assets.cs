@@ -267,6 +267,18 @@ namespace WOLF3D.WOLF3DGame
                         PicTextures[i] = new ImageTexture();
                         PicTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
                     }
+                if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
+                {
+                    if (statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank))
+                        StatusBarBlank = PicTextureSafe(numberBlank);
+                    StatusBarDigits = new ImageTexture[10];
+                    for (int x = 0; x < StatusBarDigits.Length; x++)
+                        StatusBarDigits[x] = PicTextureSafe(
+                            statusBar.Attribute("NumberPrefix")?.Value +
+                            x.ToString() +
+                            statusBar.Attribute("NumberSuffix")?.Value
+                            );
+                }
             }
         }
         private static VgaGraph vgaGraph;
@@ -276,8 +288,13 @@ namespace WOLF3D.WOLF3DGame
         public static Dictionary<string, uint[][]> Animations;
         public static ImageTexture[] PicTextures;
         public static AudioStreamSample[] DigiSounds;
+        public static ImageTexture StatusBarBlank;
+        public static ImageTexture[] StatusBarDigits;
 
         public static AudioStreamSample DigiSound(string name) =>
+            DigiSoundSafe(name) ?? throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
+
+        public static AudioStreamSample DigiSoundSafe(string name) =>
             uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
             DigiSounds[index]
             : uint.TryParse((
@@ -286,7 +303,7 @@ namespace WOLF3D.WOLF3DGame
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < DigiSounds.Length ?
             DigiSounds[result]
-            : throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
+            : null;
 
         public static ImageTexture PicTexture(string name) =>
             PicTextureSafe(name) ?? throw new InvalidDataException("Pic not found: \"" + name + "\"");
