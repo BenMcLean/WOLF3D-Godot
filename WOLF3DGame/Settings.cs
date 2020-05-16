@@ -135,6 +135,8 @@ namespace WOLF3D.WOLF3DGame
                 SetFX(fx);
             if (xml?.Attribute("DigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
                 SetDigiSound(d);
+            if (xml?.Attribute("Music")?.Value is string m && !string.IsNullOrWhiteSpace(m))
+                SetMusic(m);
         }
 
         public const string Filename = "settings.xml";

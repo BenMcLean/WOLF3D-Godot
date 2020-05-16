@@ -6,6 +6,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public StatusNumber(uint digits = 1)
         {
+            Name = "StatusNumber";
             Digits = new Sprite[digits];
             for (uint i = 0; i < digits; i++)
                 AddChild(Digits[i] = new Sprite()
@@ -33,7 +34,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 val = value;
                 string s = value.ToString();
                 for (int i = 0; i < Digits.Length; i++)
-                    Digits[i].Texture = i > s.Length ?
+                    Digits[i].Texture = i >= s.Length ?
                         Assets.StatusBarBlank
                         : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
             }
