@@ -32,6 +32,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => song;
             set
             {
+                if (Settings.MusicMuted)
+                {
+                    song = null;
+                    return;
+                }
                 if (song != value) song = value;
                 CurrentPacket = 0;
             }

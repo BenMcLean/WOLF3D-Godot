@@ -26,10 +26,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                 if (value != null)
                 {
                     Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
-                    Play();
                 }
-                else
-                    Stop();
                 if (ImfPlayer != null) ImfPlayer.Opl = value;
                 if (AdlPlayer != null) AdlPlayer.Opl = value;
             }
