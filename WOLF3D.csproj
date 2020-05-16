@@ -72,7 +72,6 @@
     <Compile Include="WOLF3DGame\Main.cs" />
     <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
     <Compile Include="WOLF3DGame\Menu\ITarget.cs" />
-    <Compile Include="WOLF3DGame\Menu\MenuBody.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuItem.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuRoom.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
