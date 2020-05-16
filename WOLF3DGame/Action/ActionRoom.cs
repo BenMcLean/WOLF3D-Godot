@@ -27,6 +27,19 @@ namespace WOLF3D.WOLF3DGame.Action
             set => ARVRPlayer.RightController = value;
         }
         public ARVRPlayer ARVRPlayer { get; set; }
+        public StatusBar StatusBar
+        {
+            get => statusBar;
+            set
+            {
+                if (statusBar != null)
+                    RemoveChild(statusBar);
+                statusBar = value;
+                if (statusBar != null)
+                    AddChild(statusBar);
+            }
+        }
+        private StatusBar statusBar;
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
         public ushort NextMap => (ushort)(MapNumber + 1 >= Assets.Maps.Length ? 0 : MapNumber + 1);
@@ -62,6 +75,26 @@ namespace WOLF3D.WOLF3DGame.Action
             controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
             controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
             ARVRPlayer.RightController.AddChild(controller);
+            StatusBar = new StatusBar();
+            ARVRCamera.AddChild(new MeshInstance()
+            {
+                Name = "StatusBarTest",
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(Assets.Foot, Assets.Foot / StatusBar.Size.x * StatusBar.Size.y * 1.2f),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoTexture = StatusBar.GetTexture(),
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Back,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+                Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
+            });
         }
 
         public override void _Ready()

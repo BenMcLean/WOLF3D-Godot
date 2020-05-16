@@ -17,6 +17,8 @@ namespace WOLF3D.WOLF3DGame
         #region Math
         //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3-D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
         //However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
+        public const float Foot = 0.3048f;
+        public const float Inch = Foot / 12;
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
         public const float PixelWidth = 0.0381f;
         public const float WallWidth = 2.4384f;
