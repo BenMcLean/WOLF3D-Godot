@@ -222,6 +222,17 @@
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
     </Menus>
+    <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+      <Number Name="Floor" X="24" Y="16" Digits="2" />
+      <Number Name="Score" X="88" Y="16" Digits="6" />
+      <Number Name="Lives" X="112" Y="16" Digits="2" />
+      <Face X="134" Y="5" />
+      <Number Name="Health" X="184" Y="16" Digits="3" />
+      <Number Name="Ammo" X="224" Y="16" Digits="3" />
+      <Item Name="Gold Key" X="240" Y="4" Full="GOLDKEYPIC" Empty="NOKEYPIC" />
+      <Item Name="Silver Key" X="240" Y="20" Full="SILVERKEYPIC" Empty="NOKEYPIC" />
+      <Weapon X="256" Y="8" Weapon0="KNIFEPIC" Weapon1="GUNPIC" Weapon2="MACHINEGUNPIC" Weapon3="GATLINGGUNPIC" />
+    </StatusBar>
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
     <Map Number="0" Floor="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
