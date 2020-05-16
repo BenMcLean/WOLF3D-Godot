@@ -271,8 +271,6 @@ namespace WOLF3D.WOLF3DGame
                     }
                 if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
                 {
-                    if (statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank))
-                        StatusBarBlank = PicTextureSafe(numberBlank);
                     StatusBarDigits = new ImageTexture[10];
                     for (int x = 0; x < StatusBarDigits.Length; x++)
                         StatusBarDigits[x] = PicTextureSafe(
@@ -280,6 +278,9 @@ namespace WOLF3D.WOLF3DGame
                             x.ToString() +
                             statusBar.Attribute("NumberSuffix")?.Value
                             );
+                    StatusBarBlank = statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank) ?
+                        PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
+                        : StatusBarDigits[0];
                 }
             }
         }
