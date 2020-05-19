@@ -118,13 +118,16 @@ namespace WOLF3D.WOLF3DGame
         public static string XML()
         {
             StringBuilder sb = new StringBuilder()
-                .Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Settings ")
-                .Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ")
-                .Append("FX=\"").Append(FX.ToString()).Append("\" ")
-                .Append("DigiSound=\"").Append(DigiSound.ToString()).Append("\" ")
-                .Append("Music=\"").Append(Music.ToString()).Append("\" ")
-                .Append("/>");
-            return sb.ToString();
+                .Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Settings ");
+            if (VRMode != VRModeEnum.ROOMSCALE)
+                sb.Append("VRMode=\"").Append(VRMode.ToString()).Append("\" ");
+            if (FX != FXEnum.ADLIB)
+                sb.Append("FX=\"").Append(FX.ToString()).Append("\" ");
+            if (DigiSound != DigiSoundEnum.SOUNDBLASTER)
+                sb.Append("DigiSound=\"").Append(DigiSound.ToString()).Append("\" ");
+            if (Music != MusicEnum.ADLIB)
+                sb.Append("Music=\"").Append(Music.ToString()).Append("\" ");
+            return sb.Append("/>").ToString();
         }
 
         public static void XML(XElement xml)
