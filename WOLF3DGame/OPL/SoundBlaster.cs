@@ -109,5 +109,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             //OplPlayer.ImfPlayer.PlayNotes(delta);
             OplPlayer.AdlPlayer.PlayNotes(delta);
         }
+
+        public static void MusicOff() => OplPlayer?.ImfPlayer?.MusicOff();
     }
 }

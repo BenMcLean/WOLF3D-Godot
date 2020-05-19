@@ -46,9 +46,6 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 fx = value;
-                SoundBlaster.NewOPL();
-                if (!MusicMuted && Main.Room is MenuRoom menuRoom)
-                    menuRoom.StartMusic();
                 Save();
             }
         }
@@ -96,9 +93,14 @@ namespace WOLF3D.WOLF3DGame
             get => music;
             set
             {
+                MusicEnum old = music;
                 music = value;
-                SoundBlaster.NewOPL();
-                if (!MusicMuted && Main.Room is MenuRoom menuRoom)
+                if (MusicMuted)
+                {
+                    SoundBlaster.Song = null;
+                    SoundBlaster.MusicOff();
+                }
+                else if (old == MusicEnum.NONE && Main.Room is MenuRoom menuRoom)
                     menuRoom.StartMusic();
                 Save();
             }

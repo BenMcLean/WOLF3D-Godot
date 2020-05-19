@@ -65,5 +65,13 @@ namespace WOLF3D.WOLF3DGame.OPL
                 Song = Loop ? Song : null;
             return this;
         }
+
+        public ImfPlayer MusicOff()
+        {
+            Opl?.WriteReg(189, 0);
+            for (int i = 0; i < 10; i++)
+                Opl?.WriteReg(177 + i, 0);
+            return this;
+        }
     }
 }
