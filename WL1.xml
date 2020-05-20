@@ -176,7 +176,7 @@
         <Cancel InGame="true" Action="Resume" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
-      <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+      <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23">
         <PixelRect X="6" Y="19" Width="309" Height="165" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="Which episode to play?" X="center" Y="3" Color="71" />
         <Image Name="C_EPISODE1PIC" X="40" Y="22" />
@@ -188,11 +188,11 @@
         <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
         <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
           <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="0" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
         </MenuItems>
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />

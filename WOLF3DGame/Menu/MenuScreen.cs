@@ -45,7 +45,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public Color TextColor { get; set; }
         public Color SelectedColor { get; set; }
-        public Color DisabledColor { get; set; }
         public ImageTexture[] Cursors { get; set; }
         public int CursorX { get; set; } = 0;
         public int CursorY { get; set; } = 0;
@@ -72,13 +71,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
             XML = menu;
             Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
-            Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];
-            if (menu.Attribute("TextColor") != null)
-                TextColor = Assets.Palette[(uint)menu.Attribute("TextColor")];
-            if (menu.Attribute("SelectedColor") != null)
-                SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
-            if (menu.Attribute("DisabledColor") != null)
-                DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
+            if (byte.TryParse(menu.Attribute("BkgdColor")?.Value, out byte bkgdColor))
+                Color = Assets.Palette[bkgdColor];
+            TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : Assets.White;
+            SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : Assets.White;
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 if (Main.InGameMatch(pixelRect))
                     AddChild(new PixelRect(pixelRect));
@@ -143,7 +139,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 }
             foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
                 if (Main.InGameMatch(menuItems))
-                    foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor))
+                    foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor, SelectedColor))
                     {
                         MenuItems.Add(item);
                         AddChild(item);
@@ -210,9 +206,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                     selection = 0;
                     return;
                 }
-                MenuItems[selection].Color = TextColor;
+                MenuItems[selection].Color = MenuItems[selection].TextColor;
                 selection = Direction8.Modulus(value, MenuItems.Count);
-                MenuItems[selection].Color = SelectedColor;
+                MenuItems[selection].Color = MenuItems[selection].SelectedColor;
                 if (Cursor != null)
                     Cursor.Position = new Vector2(
                         MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
