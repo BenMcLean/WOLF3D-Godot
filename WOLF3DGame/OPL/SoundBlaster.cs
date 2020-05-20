@@ -27,7 +27,10 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if (value == null)
+                {
                     SoundMessages.Enqueue(SoundMessage.STOP_MUSIC);
+                    MusicOff();
+                }
                 else
                     SoundMessages.Enqueue(value);
             }

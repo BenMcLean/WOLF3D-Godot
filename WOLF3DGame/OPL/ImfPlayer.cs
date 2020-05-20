@@ -38,6 +38,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                     return;
                 }
                 if (song != value) song = value;
+                if (song == null) MusicOff();
                 CurrentPacket = 0;
             }
         }
