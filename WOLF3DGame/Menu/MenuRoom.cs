@@ -204,6 +204,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Settings.SetDigiSound(d);
             if (xml.Attribute("Music")?.Value is string m && !string.IsNullOrWhiteSpace(m))
                 Settings.SetMusic(m);
+            if (xml.Attribute("Action")?.Value.Equals("Cancel", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                MenuScreen.Cancel();
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)

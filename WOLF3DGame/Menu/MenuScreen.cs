@@ -312,22 +312,33 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Cancel();
         }
 
+        public Target2D GetExtraItem()
+        {
+            foreach (Target2D target in ExtraItems)
+                if (target.Target(Crosshairs.GlobalPosition))
+                    return target;
+            return null;
+        }
+
         public MenuScreen Accept()
         {
-            if (Modal == null && SelectedItem is MenuItem selected && selected != null)
+            if (Modal == null)
             {
-                if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
-                    SoundBlaster.Adl = Assets.Sound(selectSound.Value);
-                else if (Assets.SelectSound != null)
-                    SoundBlaster.Adl = Assets.SelectSound;
-                Main.MenuRoom.Action(selected.XML);
-                return this;
+                if (GetExtraItem() is Target2D target && target != null)
+                    Main.MenuRoom.Action(target.XML);
+                else if (SelectedItem is MenuItem selected && selected != null)
+                {
+                    if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
+                        SoundBlaster.Adl = Assets.Sound(selectSound.Value);
+                    else if (Assets.SelectSound != null)
+                        SoundBlaster.Adl = Assets.SelectSound;
+                    Main.MenuRoom.Action(selected.XML);
+                }
             }
-            if (Modal != null)
-                if (Modal.Answer)
-                    return Yes();
-                else
-                    Modal = null;
+            else if (Modal.Answer)
+                return Yes();
+            else
+                Modal = null;
             return this;
         }
 
