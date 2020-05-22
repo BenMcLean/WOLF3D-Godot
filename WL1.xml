@@ -160,7 +160,7 @@
       <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
       <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Image Name="C_OPTIONSPIC" X="center" Y="0" XBanner="0" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="72" StartY="56" PaddingX="28">
           <MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
@@ -185,7 +185,7 @@
         <Image Name="C_EPISODE4PIC" X="40" Y="103" />
         <Image Name="C_EPISODE5PIC" X="40" Y="130" />
         <Image Name="C_EPISODE6PIC" X="40" Y="157" />
-        <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
           <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="0" Action="Menu" Argument="Difficulty" />
           <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
@@ -200,7 +200,7 @@
       <Menu Name="Difficulty" BkgdColor="41" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="How tough are you?" X="center" Y="69" Color="71" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
         <MenuItems StartX="51" StartY="101" PaddingX="28">
           <MenuItem Text="Can I play, Daddy?" Difficulty="1" Action="NewGame" />
@@ -219,25 +219,27 @@
           <MenuItem Text="Adlib/Sound Blaster" On="FXAdlib" FX="ADLIB" Action="Update" />
         </MenuItems>
         <Image Name="C_DIGITITLEPIC" X="center" Y="65" />
+        <Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
         <PixelRect X="40" Y="82" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="41" StartY="86" PaddingX="55">
           <MenuItem Text="None" On="DigiSoundMuted" DigiSound="NONE" Action="Update" />
           <MenuItem Text="Sound Blaster" On="DigiSoundBlaster" DigiSound="SOUNDBLASTER" Action="Update" />
         </MenuItems>
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <PixelRect X="40" Y="147" Width="250" Height="32" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="41" StartY="151" PaddingX="55">
           <MenuItem Text="None" On="MusicMuted" Music="NONE" Action="Update" />
           <MenuItem Text="Adlib/Sound Blaster" On="MusicAdlib" Music="ADLIB" Action="Update" />
         </MenuItems>
-        <Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
       <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
-        <Text String="Select VR Mode:" X="center" Y="3" Color="71" />
-        <PixelRect X="3" Y="14" Width="317" Height="184" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="3" StartY="16" PaddingX="52" PaddingY="30">
+        <Image Name="C_CONTROLPIC" X="center" Y="0" XBanner="0" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+        <Text String="Select VR Mode:" X="center" Y="50" Color="71" />
+        <PixelRect X="3" Y="62" Width="317" Height="120" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="3" StartY="64" PaddingX="52" PaddingY="14">
           <MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." On="Roomscale" VRMode="Roomscale" Action="Update" />
           <MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" On="FiveDOF" VRMode="FiveDOF" Action="Update" />
         </MenuItems>
