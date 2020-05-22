@@ -79,6 +79,7 @@
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
     <Compile Include="WOLF3DGame\Menu\Modal.cs" />
     <Compile Include="WOLF3DGame\Menu\PixelRect.cs" />
+    <Compile Include="WOLF3DGame\Menu\Target2D.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />

@@ -99,17 +99,36 @@ namespace WOLF3D.WOLF3DGame.Menu
                             ),
                             Scale = new Vector2(Width, 1f),
                         });
-                    AddChild(new Sprite()
-                    {
-                        Texture = texture,
-                        Position = new Vector2(
+                    Vector2 position = new Vector2(
                             image.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
                             Width / 2
-                            : (float)image.Attribute("X") + texture.GetSize().x / 2f,
+                            : (float)image.Attribute("X") + texture.GetWidth() / 2f,
                             image.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
                             Height / 2
-                            : (float)image.Attribute("Y") + texture.GetSize().y / 2f),
+                            : (float)image.Attribute("Y") + texture.GetHeight() / 2f
+                            );
+                    AddChild(new Sprite()
+                    {
+                        Name = "Image " + image.Attribute("Name").Value,
+                        Texture = texture,
+                        Position = position,
                     });
+                    if (image.Attribute("Action")?.Value is string action && !string.IsNullOrWhiteSpace(action))
+                    {
+                        Target2D target = new Target2D()
+                        {
+                            Name = "Target " + image.Attribute("Name").Value,
+                            XML = image,
+                            Position = new Vector2(
+                                position.x - texture.GetWidth() / 2f,
+                                position.y - texture.GetHeight() / 2f
+                                ),
+                            Width = texture.GetWidth(),
+                            Height = texture.GetHeight(),
+                        };
+                        ExtraItems.Add(target);
+                        AddChild(target);
+                    }
                 }
             foreach (XElement text in menu.Elements("Text"))
                 if (Main.InGameMatch(text))
@@ -123,17 +142,17 @@ namespace WOLF3D.WOLF3DGame.Menu
                     {
                         Texture = texture,
                         Position = new Vector2(
-                            text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-                            Width / 2
-                            : ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
-                            x
-                            : 0) + texture.GetWidth() / 2),
-                            text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-                            Height / 2
-                            : ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
-                            y
-                            : 0) + texture.GetHeight() / 2)
-                            ),
+                                        text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                                        Width / 2
+                                        : ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
+                                        x
+                                        : 0) + texture.GetWidth() / 2),
+                                        text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                                        Height / 2
+                                        : ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
+                                        y
+                                        : 0) + texture.GetHeight() / 2)
+                                        ),
                         Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
                     });
                 }
@@ -179,6 +198,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
 
         public List<MenuItem> MenuItems { get; private set; } = new List<MenuItem>();
+        public List<Target2D> ExtraItems { get; private set; } = new List<Target2D>();
 
         public const float BlinkRate = 0.5f;
         public float Blink = 0f;
