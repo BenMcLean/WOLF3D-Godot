@@ -11,6 +11,15 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
         public float Width { get; set; } = 0;
         public float Height { get; set; } = 0;
+        public Vector2 Size
+        {
+            get => new Vector2(Width, Height);
+            set
+            {
+                Width = value.x;
+                Height = value.y;
+            }
+        }
         public XElement XML { get; set; } = null;
     }
 }
