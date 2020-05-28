@@ -510,10 +510,10 @@
       <Billboard Number="49" Page="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
       <Billboard Number="50" Page="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
       <Billboard Number="51" Page="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
-      <Billboard Number="52" Page="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
-      <Billboard Number="53" Page="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
-      <Billboard Number="54" Page="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
-      <Billboard Number="55" Page="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
+      <Billboard Number="52" Page="137" Walk="true" Pickup="true" Treasure="true" Points="100" Name="Cross" />
+      <Billboard Number="53" Page="138" Walk="true" Pickup="true" Treasure="true" Points="500" Name="Chalice" />
+      <Billboard Number="54" Page="139" Walk="true" Pickup="true" Treasure="true" Points="1000" Name="Chest of Jewels" />
+      <Billboard Number="55" Page="140" Walk="true" Pickup="true" Treasure="true" Points="5000" Name="Crown" />
       <Billboard Number="56" Page="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
       <Billboard Number="57" Page="142" Walk="true" Name="Bones with Blood" />
       <Billboard Number="58" Page="143" Name="Barrel" />

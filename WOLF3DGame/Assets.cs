@@ -369,6 +369,23 @@ namespace WOLF3D.WOLF3DGame
             new MenuScreen(screen)
             : null;
 
+        public static string WallName(ushort wall) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")
+            ?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort w) && w == wall)
+            ?.FirstOrDefault()?.Attribute("Name")?.Value;
+
+        public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
+
+        public static uint Treasure(ushort[] ObjectData)
+        {
+            uint treasure = 0;
+            foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                if (XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
+                    ?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort a) && a == square)?.FirstOrDefault()
+                    is XElement billboard && IsTrue(billboard, "Treasure"))
+                    treasure++;
+            return treasure;
+        }
+
         /*
         public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
         {

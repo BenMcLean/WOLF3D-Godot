@@ -150,7 +150,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             CollisionShape result = new CollisionShape()
             {
-                Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]",
+                Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]: " + Assets.WallName(wall),
                 Transform = new Transform(
                     westernWall ?
                         flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
