@@ -373,17 +373,19 @@ namespace WOLF3D.WOLF3DGame
             ?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort w) && w == wall)
             ?.FirstOrDefault()?.Attribute("Name")?.Value;
 
+        public static IEnumerable<XElement> Treasures =>
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")?.Where(e => IsTrue(e, "Treasure"));
+
         public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
 
         public static uint Treasure(ushort[] ObjectData)
         {
-            uint treasure = 0;
-            foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
-                if (XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
-                    ?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort a) && a == square)?.FirstOrDefault()
-                    is XElement billboard && IsTrue(billboard, "Treasure"))
-                    treasure++;
-            return treasure;
+            uint found = 0;
+            foreach (XElement treasure in Treasures ?? Enumerable.Empty<XElement>())
+                foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                    if (ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number) && number == square)
+                        found++;
+            return found;
         }
 
         /*
