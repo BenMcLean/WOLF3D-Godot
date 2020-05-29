@@ -382,9 +382,10 @@ namespace WOLF3D.WOLF3DGame
         {
             uint found = 0;
             foreach (XElement treasure in Treasures ?? Enumerable.Empty<XElement>())
-                foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
-                    if (ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number) && number == square)
-                        found++;
+                if (ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
             return found;
         }
 
