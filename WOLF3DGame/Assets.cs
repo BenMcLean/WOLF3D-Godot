@@ -389,6 +389,38 @@ namespace WOLF3D.WOLF3DGame
             return found;
         }
 
+        public static IEnumerable<XElement> Spawn =>
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
+
+        public static uint Spawns(GameMap map) => Spawns(map.ObjectData);
+
+        public static uint Spawns(ushort[] ObjectData)
+        {
+            uint found = 0;
+            foreach (XElement spawn in Spawn ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
+            return found;
+        }
+
+        public static IEnumerable<XElement> Pushwall =>
+    XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
+
+        public static uint Pushwalls(GameMap map) => Pushwalls(map.ObjectData);
+
+        public static uint Pushwalls(ushort[] ObjectData)
+        {
+            uint found = 0;
+            foreach (XElement pushwall in Pushwall ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(pushwall.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
+            return found;
+        }
+
         /*
         public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
         {
