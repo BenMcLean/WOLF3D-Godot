@@ -9,7 +9,6 @@ namespace WOLF3D.WOLF3DGame.Action
             Name = "Actor";
         }
         public Direction8 Direction { get; set; } = Direction8.SOUTH;
-        public string ActorName { get; set; } = "Guard";
         public string Animation { get; set; } = "Standing";
         public uint Frame { get; set; } = 0;
         private uint LastFrame { get; set; } = 0;
@@ -17,7 +16,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (MeshInstance.Visible && Assets.Animations.TryGetValue(ActorName + "/" + Animation, out uint[][] frame))
+            if (MeshInstance.Visible && Assets.Animations.TryGetValue(XML?.Attribute("Actor")?.Value + "/" + Animation, out uint[][] frame))
             {
                 uint newFrame = frame[Frame][Direction8.Modulus(
                     Direction8.AngleToPoint(

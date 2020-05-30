@@ -14,6 +14,7 @@ namespace WOLF3D.WOLF3DGame.Action
             Extents = new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.PixelWidth / 2f),
         };
 
+        public XElement XML { get; set; }
         public CollisionShape Shape { get; private set; }
 
         public Billboard()
@@ -33,7 +34,8 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Billboard(Material material) : this()
         {
-            MeshInstance.MaterialOverride = material;
+            if (material != null)
+                MeshInstance.MaterialOverride = material;
             /*
             // Cube for debugging purposes
             AddChild(new MeshInstance()
@@ -71,28 +73,33 @@ namespace WOLF3D.WOLF3DGame.Action
                 throw new NullReferenceException("objects was null!");
             List<Billboard> billboards = new List<Billboard>();
             for (uint i = 0; i < map.ObjectData.Length; i++)
-                if (uint.TryParse(
-                    (from e in objects.Elements("Billboard")
-                     where (uint)e.Attribute("Number") == map.ObjectData[i]
-                     select e.Attribute("Page")).FirstOrDefault()?.Value,
-                    out uint page
-                    ))
-                    billboards.Add(new Billboard(Assets.VSwapMaterials[page])
+                if (objects?.Elements("Billboard")
+                    ?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
+                    ?.FirstOrDefault() is XElement bx && bx != null)
+                {
+                    billboards.Add(new Billboard(
+                        ushort.TryParse(bx?.Attribute("Page")?.Value, out ushort page) && page < Assets.VSwapMaterials.Length ?
+                        Assets.VSwapMaterials[page]
+                        : null
+                        )
                     {
+                        Name = bx?.Attribute("Name")?.Value,
+                        XML = bx,
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                     });
-                else if (
-                    (from e in objects.Elements("Spawn")
-                     where ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
-                     select e).FirstOrDefault() is XElement spawn &&
-                     spawn != null &&
-                     (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
-                     )
+                }
+                else if (Assets.Spawn.Where(
+                    e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
+                    ).FirstOrDefault() is XElement spawn
+                    && spawn != null
+                    && (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
+                            )
                     billboards.Add(new Actor()
                     {
+                        Name = spawn?.Attribute("Actor")?.Value,
+                        XML = spawn,
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
-                        Direction = Direction8.From(spawn.Attribute("Direction").Value),
-                        ActorName = spawn.Attribute("Actor").Value,
+                        Direction = Direction8.From(spawn?.Attribute("Direction")?.Value),
                     });
             return billboards.ToArray();
         }
