@@ -248,12 +248,12 @@
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-      <Number Name="Floor" X="24" Y="16" Digits="2" />
-      <Number Name="Score" X="88" Y="16" Digits="6" />
-      <Number Name="Lives" X="112" Y="16" Digits="2" />
+      <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
+      <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
+      <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
       <Face X="134" Y="5" />
-      <Number Name="Health" X="184" Y="16" Digits="3" />
-      <Number Name="Ammo" X="224" Y="16" Digits="3" />
+      <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
+      <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
       <Item Name="Gold Key" X="240" Y="4" Full="GOLDKEYPIC" Empty="NOKEYPIC" />
       <Item Name="Silver Key" X="240" Y="20" Full="SILVERKEYPIC" Empty="NOKEYPIC" />
       <Weapons X="256" Y="8">
@@ -429,10 +429,10 @@
       <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
       <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" />
       <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" />
-      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" Lock="Gold Key" />
-      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" Lock="Gold Key" />
-      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" Lock="Silver Key" />
-      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" Lock="Silver Key" />
+      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" OnlyIf="Gold Key" GreaterThan="0" />
+      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" OnlyIf="Gold Key" GreaterThan="0" />
+      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" OnlyIf="Silver Key" GreaterThan="0" />
+      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" OnlyIf="Silver Key" GreaterThan="0" />
       <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" />
       <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" />
       <Special Number="106" Walk="true" Name="Deaf Guard" />
@@ -487,7 +487,7 @@
       <Billboard Number="26" Page="111" Name="Floor Lamp" />
       <Billboard Number="27" Page="112" Walk="true" Name="Chandalier" />
       <Billboard Number="28" Page="113" Name="Hanging Skeleton" />
-      <Billboard Number="29" Page="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
+      <Pickup Number="29" Page="114" Walk="true" OnlyIf="Health" LessThan="100" AddTo="Health" Add="4" Name="Dog Food" />
       <Billboard Number="30" Page="115" Name="White Column" />
       <Billboard Number="31" Page="116" Name="Green Plant" />
       <Billboard Number="32" Page="117" Walk="true" Name="Skeleton" />
@@ -501,25 +501,32 @@
       <Billboard Number="40" Page="125" Name="Empty Cage" />
       <Billboard Number="41" Page="126" Name="Cage with Skeleton" />
       <Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
-      <Billboard Number="43" Page="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
-      <Billboard Number="44" Page="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
+      <Pickup Number="43" Page="128" Walk="true" AddTo="Gold Key" Add="1" Name="Gold Key" />
+      <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
       <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
-      <Billboard Number="47" Page="132" Walk="true" Pickup="true" Health="10" Name="Food" />
-      <Billboard Number="48" Page="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
-      <Billboard Number="49" Page="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
-      <Billboard Number="50" Page="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
-      <Billboard Number="51" Page="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
-      <Billboard Number="52" Page="137" Walk="true" Pickup="true" Treasure="true" Points="100" Name="Cross" />
-      <Billboard Number="53" Page="138" Walk="true" Pickup="true" Treasure="true" Points="500" Name="Chalice" />
-      <Billboard Number="54" Page="139" Walk="true" Pickup="true" Treasure="true" Points="1000" Name="Chest of Jewels" />
-      <Billboard Number="55" Page="140" Walk="true" Pickup="true" Treasure="true" Points="5000" Name="Crown" />
-      <Billboard Number="56" Page="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
-      <Billboard Number="57" Page="142" Walk="true" Name="Bones with Blood" />
+      <Pickup Number="47" Page="132" Walk="true" OnlyIf="Health" LassThan="100" AddTo="Health" Add="10" Name="Food" />
+      <Pickup Number="48" Page="133" Walk="true" OnlyIf="Health" LessThan="100" AddTo="Health" Add="25" Name="First Aid Kit" />
+      <Pickup Number="49" Page="134" Walk="true" OnlyIf="Ammo" LessThan="99" AddTo="Ammo" Add="8" Name="Ammo" />
+      <Pickup Number="50" Page="135" Walk="true" AddTo="Weapon2" Add="1" Name="Machine Gun">
+        <And AddTo="Ammo" Add="6" />
+      </Pickup>
+      <Pickup Number="51" Page="136" Walk="true" AddTo="Weapon3" Add="1" Name="Gatling Gun">
+        <And AddTo="Ammo" Add="6" />
+      </Pickup>
+      <Pickup Number="52" Page="137" Walk="true" Treasure="true" AddTo="Score" Add="100" Name="Cross" />
+      <Pickup Number="53" Page="138" Walk="true" Treasure="true" AddTo="Score" Add="500" Name="Chalice" />
+      <Pickup Number="54" Page="139" Walk="true" Treasure="true" AddTo="Score" Add="1000" Name="Chest of Jewels" />
+      <Pickup Number="55" Page="140" Walk="true" Treasure="true" AddTo="Score" Add="5000" Name="Crown" />
+      <Pickup Number="56" Page="141" Walk="true" AddTo="Lives" Add="1" Name="Extra Life">
+        <And AddTo="Ammo" Add="25" />
+        <And AddTo="Health" Add="100" />
+      </Pickup>
+      <Pickup Number="57" Page="142" Walk="true" OnlyIf="Health" LessThan="12" AddTo="Health" Add="1" Name="Bones with Blood" />
       <Billboard Number="58" Page="143" Name="Barrel" />
       <Billboard Number="59" Page="144" Name="Well with Water" />
       <Billboard Number="60" Page="145" Name="Well" />
-      <Billboard Number="61" Page="146" Walk="true" Name="Pool of Blood" />
+      <Pickup Number="61" Page="146" Walk="true" OnlyIf="Health" LessThan="12" AddTo="Health" Add="1" Name="Pool of Blood" />
       <Billboard Number="62" Page="147" Name="Flag" />
       <Billboard Number="63" Page="148" Name="Aardwolf" />
       <Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
