@@ -31,6 +31,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 for (uint i = 0; i < digits; i++)
                     AddChild(Digits[i] = new Sprite()
                     {
+                        Name = "Digit " + i,
                         Texture = Assets.StatusBarBlank,
                         Position = new Vector2(
                             Assets.StatusBarBlank.GetSize().x * (0.5f - i),
@@ -52,14 +53,18 @@ namespace WOLF3D.WOLF3DGame.Action
             get => val;
             set
             {
+                uint old = val;
                 val = uint.TryParse(XML?.Attribute("Max")?.Value, out uint max) && value > max ?
                     max
                     : value;
-                string s = value.ToString();
-                for (int i = 0; i < (Digits?.Length ?? 0); i++)
-                    Digits[i].Texture = i >= s.Length ?
-                        Assets.StatusBarBlank
-                        : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
+                if (val != old)
+                {
+                    string s = value.ToString();
+                    for (int i = 0; i < (Digits?.Length ?? 0); i++)
+                        Digits[i].Texture = i >= s.Length ?
+                            Assets.StatusBarBlank
+                            : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
+                }
             }
         }
         private uint val = 0;
