@@ -25,17 +25,29 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Empty != null || Have != null)
             {
                 ImageTexture size = Empty ?? Have;
-                AddChild(Item = new Sprite()
+                Item = new Sprite()
                 {
                     Name = "Item",
                     Position = new Vector2(size.GetWidth() / 2, size.GetHeight() / 2),
-                });
+                };
             }
             if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
                 Value = init;
         }
 
-        public Sprite Item { get; set; } = null;
+        public Sprite Item
+        {
+            get => item;
+            set
+            {
+                if (item != null)
+                    RemoveChild(item);
+                item = value;
+                if (item != null)
+                    AddChild(item);
+            }
+        }
+        private Sprite item = null;
         public ImageTexture Have { get; set; } = null;
         public ImageTexture Empty { get; set; } = null;
 

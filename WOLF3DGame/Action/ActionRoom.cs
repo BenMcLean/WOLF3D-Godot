@@ -1,6 +1,8 @@
 using Godot;
 using WOLF3DModel;
 using WOLF3D.WOLF3DGame.OPL;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -190,6 +192,52 @@ namespace WOLF3D.WOLF3DGame.Action
             Main.Color = Assets.Palette[Assets.Maps[MapNumber].Border];
             if (SoundBlaster.Song != Song)
                 SoundBlaster.Song = Song;
+        }
+
+        public bool Pickup(Pickup pickup)
+        {
+            if (pickup.IsClose(ARVRPlayer.PlayerPosition) && Conditional(pickup.XML))
+            {
+                Effect(pickup.XML);
+                Level.RemoveChild(pickup);
+                return true;
+            }
+            return false;
+        }
+
+        public bool Conditional(XElement xml)
+        {
+            if (!ConditionalOne(xml))
+                return false;
+            foreach (XElement conditional in xml?.Elements("Conditional") ?? Enumerable.Empty<XElement>())
+                if (!ConditionalOne(conditional))
+                    return false;
+            return true;
+        }
+
+        public bool ConditionalOne(XElement xml) =>
+            xml?.Attribute("If")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber) ? (
+            (
+            uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
+                    ? statusNumber.Value == equals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
+                    ? statusNumber.Value < less : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
+                    ? statusNumber.Value > greater : true
+            )
+            ) : true;
+
+        public bool Effect(XElement xml)
+        {
+            return true;
         }
     }
 }

@@ -58,6 +58,17 @@ namespace WOLF3D.WOLF3DGame.Action
             */
         }
 
+        public Billboard(XElement xml) : this(
+            ushort.TryParse(xml?.Attribute("Page")?.Value, out ushort page) && page < Assets.VSwapMaterials.Length ?
+                Assets.VSwapMaterials[page]
+                : null
+            )
+        {
+            XML = xml;
+            if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
+                Name = name;
+        }
+
         public MeshInstance MeshInstance { get; set; }
 
         public override void _Process(float delta)
@@ -76,18 +87,17 @@ namespace WOLF3D.WOLF3DGame.Action
                 if (objects?.Elements("Billboard")
                     ?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
                     ?.FirstOrDefault() is XElement bx && bx != null)
-                {
-                    billboards.Add(new Billboard(
-                        ushort.TryParse(bx?.Attribute("Page")?.Value, out ushort page) && page < Assets.VSwapMaterials.Length ?
-                        Assets.VSwapMaterials[page]
-                        : null
-                        )
+                    billboards.Add(new Billboard(bx)
                     {
-                        Name = bx?.Attribute("Name")?.Value,
-                        XML = bx,
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                     });
-                }
+                else if (objects?.Elements("Pickup")
+                        ?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
+                        ?.FirstOrDefault() is XElement px && px != null)
+                    billboards.Add(new Pickup(px)
+                    {
+                        GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
+                    });
                 else if (Assets.Spawn.Where(
                     e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
                     ).FirstOrDefault() is XElement spawn
@@ -103,11 +113,5 @@ namespace WOLF3D.WOLF3DGame.Action
                     });
             return billboards.ToArray();
         }
-
-        public bool IsClose(Vector3 vector3) => IsClose(vector3.x, vector3.z);
-        public bool IsClose(Vector2 vector2) => IsClose(vector2.x, vector2.y);
-        public bool IsClose(float x, float y) =>
-            Mathf.Abs(GlobalTransform.origin.x - x) < Assets.HalfWallWidth &&
-            Mathf.Abs(GlobalTransform.origin.z - y) < Assets.HalfWallWidth;
     }
 }
