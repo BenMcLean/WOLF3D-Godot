@@ -87,7 +87,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Open[x] = new bool[Map.Depth];
                 for (ushort z = 0; z < Map.Depth; z++)
-                    Open[x][z] = !(IsWall(x, z) || !IsNavigable(x, z));
+                    Open[x][z] = !IsWall(x, z) && IsNavigable(x, z);
             }
             AddChild(MapWalls = new Walls(Map));
 
