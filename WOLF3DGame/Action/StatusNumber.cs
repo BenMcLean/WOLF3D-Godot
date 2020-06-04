@@ -12,15 +12,32 @@ namespace WOLF3D.WOLF3DGame.Action
             )
         {
             XML = xml;
-            if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
-                Name = name;
-            if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
-                Value = init;
             Position = new Vector2(
                 float.TryParse(XML?.Attribute("X")?.Value, out float x) ? x : 0,
                 float.TryParse(XML?.Attribute("Y")?.Value, out float y) ? y : 0
                 );
+            if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
+                Name = name;
+            if (XML?.Attribute("Have")?.Value is string have && !string.IsNullOrWhiteSpace(have))
+                Have = Assets.PicTexture(have);
+            if (XML?.Attribute("Empty")?.Value is string empty && !string.IsNullOrWhiteSpace(empty))
+                Empty = Assets.PicTexture(empty);
+            if (Empty != null || Have != null)
+            {
+                ImageTexture size = Empty ?? Have;
+                AddChild(Item = new Sprite()
+                {
+                    Name = "Item",
+                    Position = new Vector2(size.GetWidth() / 2, size.GetHeight() / 2),
+                });
+            }
+            if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
+                Value = init;
         }
+
+        public Sprite Item { get; set; } = null;
+        public ImageTexture Have { get; set; } = null;
+        public ImageTexture Empty { get; set; } = null;
 
         public StatusNumber(uint digits = 0)
         {
@@ -50,10 +67,10 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public uint Value
         {
-            get => val;
+            get => val ?? 0;
             set
             {
-                uint old = val;
+                uint? old = val;
                 val = uint.TryParse(XML?.Attribute("Max")?.Value, out uint max) && value > max ?
                     max
                     : value;
@@ -64,10 +81,12 @@ namespace WOLF3D.WOLF3DGame.Action
                         Digits[i].Texture = i >= s.Length ?
                             Assets.StatusBarBlank
                             : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
+                    if (Item != null)
+                        Item.Texture = val > 0 ? Have : Empty;
                 }
             }
         }
-        private uint val = 0;
+        private uint? val = null;
 
         public Sprite[] Digits { get; set; }
     }
