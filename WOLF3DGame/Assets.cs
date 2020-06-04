@@ -117,7 +117,7 @@ namespace WOLF3D.WOLF3DGame
             foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actor") ?? Enumerable.Empty<XElement>())
                 foreach (XElement animation in actor.Elements("Animation") ?? Enumerable.Empty<XElement>())
                 {
-                    bool directional = IsTrue(animation, "Directional");
+                    bool directional = animation.IsTrue("Directional");
                     IEnumerable<XElement> framesX = animation.Elements("Frame");
                     uint[][] frames = new uint[framesX.Count()][];
                     for (uint frame = 0; frame < frames.Length; frame++)
@@ -154,9 +154,6 @@ namespace WOLF3D.WOLF3DGame
 
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
-
-        public static bool IsTrue(XElement xElement, string attribute) =>
-            bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {
@@ -374,7 +371,7 @@ namespace WOLF3D.WOLF3DGame
             ?.FirstOrDefault()?.Attribute("Name")?.Value;
 
         public static IEnumerable<XElement> Treasures =>
-            XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")?.Where(e => IsTrue(e, "Treasure"));
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")?.Where(e => e.IsTrue("Treasure"));
 
         public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
 

@@ -108,7 +108,7 @@ namespace WOLF3D.WOLF3DGame.Action
             XElement mapObject = (from e in Assets.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
                                   where (uint)e.Attribute("Number") == cell
                                   select e).FirstOrDefault();
-            return mapObject == null || Assets.IsTrue(mapObject, "Walk");
+            return mapObject == null || mapObject.IsTrue("Walk");
         }
 
         /// <returns>if the specified map coordinates are adjacent to a floor</returns>

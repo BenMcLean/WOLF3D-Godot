@@ -32,7 +32,7 @@ namespace WOLF3D.WOLF3DGame
         public static bool InGame => ActionRoom != null;
         public static bool InGameMatch(XElement xElement) =>
             xElement?.Attribute("InGame") == null ||
-            (Assets.IsTrue(xElement, "InGame") == InGame);
+            (xElement.IsTrue("InGame") == InGame);
 
         public static ARVRInterface ARVRInterface { get; set; }
         public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
