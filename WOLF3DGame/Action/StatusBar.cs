@@ -9,6 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class StatusBar : Viewport, IDictionary<string, StatusNumber>, ICollection<KeyValuePair<string, StatusNumber>>, IEnumerable<KeyValuePair<string, StatusNumber>>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<string, StatusNumber>, IReadOnlyCollection<KeyValuePair<string, StatusNumber>>
     {
+        public XElement XML { get; set; }
         public StatusBar() : this(Assets.XML.Element("VgaGraph").Element("StatusBar")) { }
         public StatusBar(XElement xml)
         {
@@ -29,10 +30,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 Add(new StatusNumber(number));
         }
 
-        private Dictionary<string, StatusNumber> StatusNumbers = new Dictionary<string, StatusNumber>();
+        private readonly Dictionary<string, StatusNumber> StatusNumbers = new Dictionary<string, StatusNumber>();
         public void Add(StatusNumber statusNumber) => Add(statusNumber.Name, statusNumber);
-
-        public bool Contains(string key) => StatusNumbers.ContainsKey(key);
 
         public void Add(string key, StatusNumber value)
         {
@@ -42,12 +41,10 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public void Clear()
         {
-            foreach (StatusNumber statusNumber in StatusNumbers.Values)
+            foreach (StatusNumber statusNumber in Values)
                 RemoveChild(statusNumber);
             StatusNumbers.Clear();
         }
-
-        public IDictionaryEnumerator GetEnumerator() => StatusNumbers.GetEnumerator();
 
         public void Remove(string key) => RemoveBool(key);
 
@@ -61,28 +58,11 @@ namespace WOLF3D.WOLF3DGame.Action
             return false;
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => StatusNumbers.GetEnumerator();
-
-        public bool ContainsKey(string key) => StatusNumbers.ContainsKey(key);
-
-        public bool TryGetValue(string key, out StatusNumber value) => StatusNumbers.TryGetValue(key, out value);
-
         bool IDictionary<string, StatusNumber>.Remove(string key) => RemoveBool(key);
 
         public void Add(KeyValuePair<string, StatusNumber> item) => Add(item.Key, item.Value);
 
-        public bool Contains(KeyValuePair<string, StatusNumber> item) => StatusNumbers.Contains(item);
-
         public bool Remove(KeyValuePair<string, StatusNumber> item) => RemoveBool(item.Key);
-
-        IEnumerator<KeyValuePair<string, StatusNumber>> IEnumerable<KeyValuePair<string, StatusNumber>>.GetEnumerator() => (IEnumerator<KeyValuePair<string, StatusNumber>>)StatusNumbers;
-
-        public void CopyTo(KeyValuePair<string, StatusNumber>[] array, int arrayIndex)
-        {
-            ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).CopyTo(array, arrayIndex);
-        }
-
-        public bool Contains(object key) => key is string @string && StatusNumbers.ContainsKey(@string);
 
         public void Add(object key, object value)
         {
@@ -96,27 +76,40 @@ namespace WOLF3D.WOLF3DGame.Action
                 RemoveBool(@string);
         }
 
+        public object this[object key]
+        {
+            get => ((IDictionary)StatusNumbers)[key];
+            set => Add(key, value);
+        }
+
+        public StatusNumber this[string key]
+        {
+            get => ((IDictionary<string, StatusNumber>)StatusNumbers)[key];
+            set => Add(key, value);
+        }
+
+        #region IDictionary boilerplate
+        public bool ContainsKey(string key) => ((IDictionary<string, StatusNumber>)StatusNumbers).ContainsKey(key);
+        public bool TryGetValue(string key, out StatusNumber value) => ((IDictionary<string, StatusNumber>)StatusNumbers).TryGetValue(key, out value);
+        public bool Contains(KeyValuePair<string, StatusNumber> item) => ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).Contains(item);
+        public void CopyTo(KeyValuePair<string, StatusNumber>[] array, int arrayIndex) => ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).CopyTo(array, arrayIndex);
+        public IEnumerator<KeyValuePair<string, StatusNumber>> GetEnumerator() => ((IEnumerable<KeyValuePair<string, StatusNumber>>)StatusNumbers).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)StatusNumbers).GetEnumerator();
+        public bool Contains(object key) => ((IDictionary)StatusNumbers).Contains(key);
+        IDictionaryEnumerator IDictionary.GetEnumerator() => ((IDictionary)StatusNumbers).GetEnumerator();
         public void CopyTo(Array array, int index) => ((ICollection)StatusNumbers).CopyTo(array, index);
 
-        public XElement XML { get; set; }
+        public ICollection<string> Keys => ((IDictionary<string, StatusNumber>)StatusNumbers).Keys;
 
-        public ICollection Keys => StatusNumbers.Keys;
+        public ICollection<StatusNumber> Values => ((IDictionary<string, StatusNumber>)StatusNumbers).Values;
 
-        public ICollection Values => StatusNumbers.Values;
+        public int Count => ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).Count;
 
-        public int Count => StatusNumbers.Count;
+        public bool IsReadOnly => ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).IsReadOnly;
 
-        ICollection<StatusNumber> IDictionary<string, StatusNumber>.Values => StatusNumbers.Values;
+        ICollection IDictionary.Keys => ((IDictionary)StatusNumbers).Keys;
 
-        IEnumerable<string> IReadOnlyDictionary<string, StatusNumber>.Keys => StatusNumbers.Keys;
-
-        IEnumerable<StatusNumber> IReadOnlyDictionary<string, StatusNumber>.Values => StatusNumbers.Values;
-
-        ICollection<string> IDictionary<string, StatusNumber>.Keys => StatusNumbers.Keys;
-
-        bool ICollection<KeyValuePair<string, StatusNumber>>.IsReadOnly => ((ICollection<KeyValuePair<string, StatusNumber>>)StatusNumbers).IsReadOnly;
-
-        public bool IsReadOnly => ((IDictionary)StatusNumbers).IsReadOnly;
+        ICollection IDictionary.Values => ((IDictionary)StatusNumbers).Values;
 
         public bool IsFixedSize => ((IDictionary)StatusNumbers).IsFixedSize;
 
@@ -124,11 +117,9 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool IsSynchronized => ((ICollection)StatusNumbers).IsSynchronized;
 
-        public object this[object key] { get => ((IDictionary)StatusNumbers)[key]; set => ((IDictionary)StatusNumbers)[key] = value; }
-        public StatusNumber this[string key]
-        {
-            get => StatusNumbers[key];
-            set => Add(key, value);
-        }
+        IEnumerable<string> IReadOnlyDictionary<string, StatusNumber>.Keys => ((IReadOnlyDictionary<string, StatusNumber>)StatusNumbers).Keys;
+
+        IEnumerable<StatusNumber> IReadOnlyDictionary<string, StatusNumber>.Values => ((IReadOnlyDictionary<string, StatusNumber>)StatusNumbers).Values;
+        #endregion IDictionary boilerplate
     }
 }
