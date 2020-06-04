@@ -62,6 +62,8 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             for (int i = 0; i < (Digits?.Length ?? 0); i++)
                 Digits[i].Texture = Assets.StatusBarBlank;
+            if (Item != null)
+                Item.Texture = Empty;
             return this;
         }
 
@@ -75,15 +77,15 @@ namespace WOLF3D.WOLF3DGame.Action
                     max
                     : value;
                 if (val != old)
-                {
-                    string s = value.ToString();
-                    for (int i = 0; i < (Digits?.Length ?? 0); i++)
-                        Digits[i].Texture = i >= s.Length ?
-                            Assets.StatusBarBlank
-                            : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
-                    if (Item != null)
-                        Item.Texture = val > 0 ? Have : Empty;
-                }
+                    if (Item == null)
+                    {
+                        string s = value.ToString();
+                        for (int i = 0; i < (Digits?.Length ?? 0); i++)
+                            Digits[i].Texture = i >= s.Length ?
+                                Assets.StatusBarBlank
+                                : Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
+                    }
+                    else Item.Texture = val > 0 ? Have : Empty;
             }
         }
         private uint? val = null;
