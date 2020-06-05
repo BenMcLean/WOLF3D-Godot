@@ -504,21 +504,21 @@
       <Pickup Number="43" Page="128" Walk="true" AddTo="Gold Key" Add="1" Name="Gold Key" />
       <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
-      <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
-      <Pickup Number="47" Page="132" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="10" Name="Food" />
-      <Pickup Number="48" Page="133" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="25" Name="First Aid Kit" />
-      <Pickup Number="49" Page="134" Walk="true" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Name="Ammo" />
-      <Pickup Number="50" Page="135" Walk="true" AddTo="Weapon2" Add="1" Name="Machine Gun">
+      <Billboard Number="46" Page="131" Name="Basket" />
+      <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Name="Food" />
+      <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Name="First Aid Kit" />
+      <Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
+      <Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Name="Machine Gun">
         <And AddTo="Ammo" Add="6" />
       </Pickup>
-      <Pickup Number="51" Page="136" Walk="true" AddTo="Weapon3" Add="1" Name="Gatling Gun">
+      <Pickup Number="51" Page="136" AddTo="Weapon3" Add="1" Name="Gatling Gun">
         <And AddTo="Ammo" Add="6" />
       </Pickup>
-      <Pickup Number="52" Page="137" Walk="true" Treasure="true" AddTo="Score" Add="100" Name="Cross" />
-      <Pickup Number="53" Page="138" Walk="true" Treasure="true" AddTo="Score" Add="500" Name="Chalice" />
-      <Pickup Number="54" Page="139" Walk="true" Treasure="true" AddTo="Score" Add="1000" Name="Chest of Jewels" />
-      <Pickup Number="55" Page="140" Walk="true" Treasure="true" AddTo="Score" Add="5000" Name="Crown" />
-      <Pickup Number="56" Page="141" Walk="true" AddTo="Lives" Add="1" Name="Extra Life">
+      <Pickup Number="52" Page="137" Treasure="true" AddTo="Score" Add="100" Name="Cross" />
+      <Pickup Number="53" Page="138" Treasure="true" AddTo="Score" Add="500" Name="Chalice" />
+      <Pickup Number="54" Page="139" Treasure="true" AddTo="Score" Add="1000" Name="Chest of Jewels" />
+      <Pickup Number="55" Page="140" Treasure="true" AddTo="Score" Add="5000" Name="Crown" />
+      <Pickup Number="56" Page="141" AddTo="Lives" Add="1" Name="Extra Life">
         <And AddTo="Ammo" Add="25" />
         <And AddTo="Health" Add="100" />
       </Pickup>

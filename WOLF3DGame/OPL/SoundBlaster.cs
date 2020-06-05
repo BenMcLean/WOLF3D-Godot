@@ -3,6 +3,7 @@ using NScumm.Core.Audio.OPL;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
+using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -114,5 +115,11 @@ namespace WOLF3D.WOLF3DGame.OPL
         }
 
         public static void MusicOff() => OplPlayer?.ImfPlayer?.MusicOff();
+
+        public static void Play(XElement xml)
+        {
+            if (xml?.Attribute("Sound")?.Value is string sound && !string.IsNullOrWhiteSpace(sound) && Assets.Sound(sound) is Adl adl && adl != null)
+                Adl = adl;
+        }
     }
 }

@@ -251,6 +251,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 && StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
                 && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
                 statusNumber.Value += add;
+            SoundBlaster.Play(xml);
             return this;
         }
     }
