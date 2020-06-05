@@ -505,7 +505,7 @@
       <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
       <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
-      <Pickup Number="47" Page="132" Walk="true" If="Health" LassThan="100" AddTo="Health" Add="10" Name="Food" />
+      <Pickup Number="47" Page="132" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="10" Name="Food" />
       <Pickup Number="48" Page="133" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="25" Name="First Aid Kit" />
       <Pickup Number="49" Page="134" Walk="true" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Name="Ammo" />
       <Pickup Number="50" Page="135" Walk="true" AddTo="Weapon2" Add="1" Name="Machine Gun">
