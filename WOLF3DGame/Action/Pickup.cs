@@ -9,6 +9,12 @@ namespace WOLF3D.WOLF3DGame.Action
         public Pickup(Material material) : base(material) { }
         public Pickup(XElement xml) : base(xml) { }
 
+        public override void _Process(float delta)
+        {
+            base._Process(delta); // Billboard
+            Main.ActionRoom.Pickup(this);
+        }
+
         public bool IsClose(Vector3 vector3) => IsClose(vector3.x, vector3.z);
         public bool IsClose(Vector2 vector2) => IsClose(vector2.x, vector2.y);
         public bool IsClose(float x, float y) =>
