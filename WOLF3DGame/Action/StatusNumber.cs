@@ -91,7 +91,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 if (val != old)
                     if (Item == null)
                     {
-                        string s = value.ToString();
+                        string s = val.ToString();
                         for (int i = 0; i < (Digits?.Length ?? 0); i++)
                             Digits[i].Texture = i >= s.Length ?
                                 Assets.StatusBarBlank

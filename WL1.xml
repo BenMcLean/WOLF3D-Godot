@@ -257,8 +257,8 @@
       <Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
       <Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
       <Weapons X="256" Y="8">
-        <Weapon Number="0" Pic="KNIFEPIC" />
-        <Weapon Number="1" Pic="GUNPIC" />
+        <Weapon Number="0" Pic="KNIFEPIC" Init="1" />
+        <Weapon Number="1" Pic="GUNPIC" Init="1" />
         <Weapon Number="2" Pic="MACHINEGUNPIC" />
         <Weapon Number="3" Pic="GATLINGGUNPIC" />
       </Weapons>
@@ -505,8 +505,8 @@
       <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
       <Billboard Number="46" Page="131" Name="Basket" />
-      <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Name="Food" />
-      <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Name="First Aid Kit" />
+      <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />
+      <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH2SND" Name="First Aid Kit" />
       <Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
       <Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Name="Machine Gun">
         <And AddTo="Ammo" Add="6" />
