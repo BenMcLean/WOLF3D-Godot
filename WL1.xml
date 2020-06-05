@@ -252,7 +252,7 @@
       <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
       <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
       <Face X="134" Y="5" />
-      <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
+      <Number Name="Health" X="184" Y="16" Digits="3" Init="0" Max="100" />
       <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
       <Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
       <Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />

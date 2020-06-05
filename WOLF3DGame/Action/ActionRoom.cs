@@ -218,7 +218,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool ConditionalOne(XElement xml) =>
             xml?.Attribute("If")?.Value is string stat
                 && !string.IsNullOrWhiteSpace(stat)
-                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber) ? (
+                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+            ? (
             (
             uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
                     ? statusNumber.Value == equals : true
@@ -235,9 +236,22 @@ namespace WOLF3D.WOLF3DGame.Action
             )
             ) : true;
 
-        public bool Effect(XElement xml)
+        public ActionRoom Effect(XElement xml)
         {
-            return true;
+            EffectOne(xml);
+            foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
+                EffectOne(xml);
+            return this;
+        }
+
+        public ActionRoom EffectOne(XElement xml)
+        {
+            if (xml?.Attribute("AddTo")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+                && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
+                statusNumber.Value += add;
+            return this;
         }
     }
 }
