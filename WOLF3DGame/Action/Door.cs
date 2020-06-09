@@ -9,6 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
+        public XElement XML { get; set; } = null;
         public float Progress { get; set; }
         public float Slide
         {
@@ -157,13 +158,19 @@ namespace WOLF3D.WOLF3DGame.Action
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST
                             )
+                            {
+                                XML = door,
+                            }
                             : new Door(
                                 Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                                 x,
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST,
                                 level
-                            );
+                            )
+                            {
+                                XML = door,
+                            };
             }
             return doors;
         }
@@ -202,8 +209,12 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Push()
         {
-            State = Pushed;
-            return true;
+            if (Main.ActionRoom.Conditional(XML))
+            {
+                State = Pushed;
+                return true;
+            }
+            return false;
         }
 
         public AudioStreamSample Play
