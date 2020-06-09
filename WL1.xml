@@ -512,7 +512,7 @@
         <Effect AddTo="Ammo" Add="6" />
       </Pickup>
       <Pickup Number="51" Page="136" AddTo="Weapon3" Add="1" Sound="GETGATLINGSND" Name="Gatling Gun">
-        <And AddTo="Ammo" Add="6" />
+        <Effect AddTo="Ammo" Add="6" />
       </Pickup>
       <Pickup Number="52" Page="137" Treasure="true" AddTo="Score" Add="100" Sound="BONUS1SND" Name="Cross" />
       <Pickup Number="53" Page="138" Treasure="true" AddTo="Score" Add="500" Sound="BONUS2SND" Name="Chalice" />
