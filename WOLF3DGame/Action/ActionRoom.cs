@@ -194,6 +194,12 @@ namespace WOLF3D.WOLF3DGame.Action
                 SoundBlaster.Song = Song;
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            Main.NextLevelStats = StatusBar.NextLevelStats();
+        }
+
         public bool Pickup(Pickup pickup)
         {
             if (pickup.IsClose(ARVRPlayer.PlayerPosition) && Conditional(pickup.XML))

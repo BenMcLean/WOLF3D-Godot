@@ -88,6 +88,26 @@ namespace WOLF3D.WOLF3DGame.Action
             set => Add(key, value);
         }
 
+        public IEnumerable<KeyValuePair<string, uint>> Stats()
+        {
+            foreach (KeyValuePair<string, StatusNumber> pair in this)
+                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.Value);
+        }
+
+        public IEnumerable<KeyValuePair<string, uint>> NextLevelStats()
+        {
+            foreach (KeyValuePair<string, StatusNumber> pair in this)
+                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.NextLevel);
+        }
+
+        public StatusBar Set(IEnumerable<KeyValuePair<string, uint>> stats)
+        {
+            foreach (KeyValuePair<string, uint> stat in stats)
+                if (this[stat.Key] is StatusNumber statusNumber)
+                    statusNumber.Value = stat.Value;
+            return this;
+        }
+
         #region IDictionary boilerplate
         public bool ContainsKey(string key) => ((IDictionary<string, StatusNumber>)StatusNumbers).ContainsKey(key);
         public bool TryGetValue(string key, out StatusNumber value) => ((IDictionary<string, StatusNumber>)StatusNumbers).TryGetValue(key, out value);

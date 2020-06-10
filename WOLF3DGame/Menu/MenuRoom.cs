@@ -218,6 +218,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 Settings.Episode = Episode;
                 Settings.Difficulty = Difficulty;
+                Main.NextLevelStats = null;
                 Main.Room = new LoadingRoom(0);
             }
             if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)

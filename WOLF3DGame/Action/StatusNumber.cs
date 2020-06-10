@@ -103,5 +103,8 @@ namespace WOLF3D.WOLF3DGame.Action
         private uint? val = null;
 
         public Sprite[] Digits { get; set; }
+
+        public uint NextLevel =>
+            uint.TryParse(XML?.Attribute("LevelReset")?.Value, out uint levelReset) ? levelReset : Value;
     }
 }

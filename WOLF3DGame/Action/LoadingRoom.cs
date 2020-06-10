@@ -68,6 +68,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 Episode = Episode,
                 MapNumber = MapNumber,
             };
+            if (Main.NextLevelStats != null)
+                ActionRoom.StatusBar.Set(Main.NextLevelStats);
         }
 
         public override void Enter()
