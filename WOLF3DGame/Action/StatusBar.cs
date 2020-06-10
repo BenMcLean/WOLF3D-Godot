@@ -46,9 +46,9 @@ namespace WOLF3D.WOLF3DGame.Action
             StatusNumbers.Clear();
         }
 
-        public void Remove(string key) => RemoveBool(key);
+        public void Remove(string key) => TryRemove(key);
 
-        public bool RemoveBool(string key)
+        public bool TryRemove(string key)
         {
             if (StatusNumbers.TryGetValue(key, out StatusNumber statusNumber))
             {
@@ -58,11 +58,11 @@ namespace WOLF3D.WOLF3DGame.Action
             return false;
         }
 
-        bool IDictionary<string, StatusNumber>.Remove(string key) => RemoveBool(key);
+        bool IDictionary<string, StatusNumber>.Remove(string key) => TryRemove(key);
 
         public void Add(KeyValuePair<string, StatusNumber> item) => Add(item.Key, item.Value);
 
-        public bool Remove(KeyValuePair<string, StatusNumber> item) => RemoveBool(item.Key);
+        public bool Remove(KeyValuePair<string, StatusNumber> item) => TryRemove(item.Key);
 
         public void Add(object key, object value)
         {
@@ -73,7 +73,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public void Remove(object key)
         {
             if (key is string @string)
-                RemoveBool(@string);
+                TryRemove(@string);
         }
 
         public object this[object key]
