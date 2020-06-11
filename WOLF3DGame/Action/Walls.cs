@@ -23,6 +23,17 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             Name = "Walls for map \"" + map.Name + "\"";
             Map = map;
+
+            // realWalls replaces pushwalls with 0.
+            ushort[] realWalls = new ushort[map.MapData.Length];
+            Array.Copy(map.MapData, realWalls, realWalls.Length);
+            foreach (XElement pushXML in Assets.Pushwall)
+                if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
+                    for (uint i = 0; i < realWalls.Length; i++)
+                        if (Map.ObjectData[i] == pushNumber)
+                            realWalls[i] = 0;
+            ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
+
             AddChild(Floor = new CollisionShape()
             {
                 Name = "Floor",
@@ -102,22 +113,22 @@ namespace WOLF3D.WOLF3DGame.Action
             void HorizontalCheck(ushort x, ushort z)
             {
                 ushort wall;
-                if (x < map.Width - 1 && Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x + 1), z)))
+                if (x < map.Width - 1 && Assets.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
-                if (x > 0 && Assets.Walls.Contains(wall = Map.GetMapData((ushort)(x - 1), z)))
+                if (x > 0 && Assets.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
                     AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
             }
             void VerticalCheck(ushort x, ushort z)
             {
                 ushort wall;
-                if (z > 0 && Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z - 1))))
+                if (z > 0 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
-                if (z < map.Depth - 1 && Assets.Walls.Contains(wall = Map.GetMapData(x, (ushort)(z + 1))))
+                if (z < map.Depth - 1 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
                     AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
             }
             for (ushort i = 0; i < Map.MapData.Length; i++)
             {
-                ushort x = map.X(i), z = map.Z(i), here = Map.GetMapData(x, z);
+                ushort x = map.X(i), z = map.Z(i), here = GetMapData(x, z);
                 if (Assets.Doors.Contains(here))
                 {
                     if (here % 2 == 0) // Even numbered doors are vertical
