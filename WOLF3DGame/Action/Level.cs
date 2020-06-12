@@ -25,8 +25,19 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public readonly List<PushWall> PushWalls = new List<PushWall>();
 
-        public bool Push(Vector2 where) =>
-            GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y))?.Push() ?? false;
+        public bool Push(Vector2 where)
+        {
+            if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
+                return door.Push();
+            foreach (PushWall pushWall in PushWalls)
+                if (!pushWall.Pushed && pushWall.Inside(where))
+                {
+                    GD.Print("Pushed \"" + pushWall.Name + "\"");
+                    pushWall.Push();
+                    return true;
+                }
+            return false;
+        }
 
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
@@ -106,6 +117,9 @@ namespace WOLF3D.WOLF3DGame.Action
                                 PushWall pushWall = new PushWall(Assets.Wall(Map.GetMapData(x, z)))
                                 {
                                     Name = "Pushwall starting at " + x + ", " + z,
+                                    Level = this,
+                                    X = x,
+                                    Z = z,
                                     GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
                                 };
                                 PushWalls.Add(pushWall);
