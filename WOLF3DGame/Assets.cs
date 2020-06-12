@@ -418,6 +418,8 @@ namespace WOLF3D.WOLF3DGame
             return found;
         }
 
+        public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
+
         /*
         public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
         {

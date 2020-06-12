@@ -23,6 +23,8 @@ namespace WOLF3D.WOLF3DGame.Action
         }
         public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
 
+        public readonly List<PushWall> PushWalls = new List<PushWall>();
+
         public bool Push(Vector2 where) =>
             GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y))?.Push() ?? false;
 
@@ -94,6 +96,21 @@ namespace WOLF3D.WOLF3DGame.Action
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
                 AddChild(door);
+
+            foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
+                    for (uint x = 0; x < Map.Width; x++)
+                        for (uint z = 0; z < Map.Depth; z++)
+                            if (Map.GetObjectData(x, z) == pushNumber)
+                            {
+                                PushWall pushWall = new PushWall(Assets.Wall(Map.GetMapData(x, z)))
+                                {
+                                    Name = "Pushwall starting at " + x + ", " + z,
+                                    GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
+                                };
+                                PushWalls.Add(pushWall);
+                                AddChild(pushWall);
+                            }
 
             foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
                 AddChild(billboard);
