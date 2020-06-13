@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -27,15 +28,19 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Push(Vector2 where)
         {
-            if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
-                return door.Push();
-            foreach (PushWall pushWall in PushWalls)
-                if (!pushWall.Pushed && pushWall.Inside(where))
-                {
-                    pushWall.Push();
-                    return true;
-                }
-            return false;
+            bool Pushy()
+            {
+                if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
+                    return door.Push();
+                foreach (PushWall pushWall in PushWalls)
+                    if (!pushWall.Pushed && pushWall.Inside(where))
+                        return pushWall.Push();
+                return false;
+            }
+            bool push = Pushy();
+            if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
+                SoundBlaster.Adl = sound;
+            return push;
         }
 
         public Vector2 Walk(Vector2 here, Vector2 there)
