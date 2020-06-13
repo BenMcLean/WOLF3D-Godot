@@ -32,7 +32,6 @@ namespace WOLF3D.WOLF3DGame.Action
             foreach (PushWall pushWall in PushWalls)
                 if (!pushWall.Pushed && pushWall.Inside(where))
                 {
-                    GD.Print("Pushed \"" + pushWall.Name + "\"");
                     pushWall.Push();
                     return true;
                 }
@@ -110,8 +109,8 @@ namespace WOLF3D.WOLF3DGame.Action
 
             foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
                 if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
-                    for (uint x = 0; x < Map.Width; x++)
-                        for (uint z = 0; z < Map.Depth; z++)
+                    for (ushort x = 0; x < Map.Width; x++)
+                        for (ushort z = 0; z < Map.Depth; z++)
                             if (Map.GetObjectData(x, z) == pushNumber)
                             {
                                 PushWall pushWall = new PushWall(Assets.Wall(Map.GetMapData(x, z)))
