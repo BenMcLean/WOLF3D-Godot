@@ -53,9 +53,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 if (Time >= Seconds)
                 {
                     GlobalTransform = new Transform(Basis.Identity, new Vector3(
-                        (X + Direction.X * 2) * Assets.WallWidth,
-                        0f,
-                        (Z + Direction.Z * 2) * Assets.WallWidth
+                            (X + Direction.X * 2) * Assets.WallWidth,
+                            0f,
+                            (Z + Direction.Z * 2) * Assets.WallWidth
                         ));
                     Level.TryOpen((ushort)(X + Direction.X), (ushort)(Z + Direction.Z));
                 }

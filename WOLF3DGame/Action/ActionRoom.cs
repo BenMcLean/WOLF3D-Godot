@@ -246,7 +246,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             EffectOne(xml);
             foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
-                EffectOne(xml);
+                EffectOne(effect);
             return this;
         }
 
