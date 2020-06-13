@@ -16,9 +16,9 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 xml = value;
                 if (Assets.DigiSoundSafe(xml?.Attribute("DigiSound")?.Value) is AudioStreamSample open)
-                    OpeningSound = open;
+                    OpenDigiSound = open;
                 if (Assets.DigiSoundSafe(xml?.Attribute("CloseDigiSound")?.Value) is AudioStreamSample close)
-                    ClosingSound = close;
+                    CloseDigiSound = close;
             }
         }
         private XElement xml = null;
@@ -53,7 +53,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         Slide = Progress = 0f;
                         break;
                     case DoorEnum.OPENING:
-                        Play = OpeningSound;
+                        Play = OpenDigiSound;
                         break;
                     case DoorEnum.OPEN:
                         Slide = OpeningSeconds;
@@ -61,7 +61,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         Open = true;
                         break;
                     case DoorEnum.CLOSING:
-                        Play = ClosingSound;
+                        Play = CloseDigiSound;
                         if (State == DoorEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
@@ -77,7 +77,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
         public MeshInstance DoorMesh { get; private set; }
-        public AudioStreamPlayer3D Doorknob { get; private set; }
+        public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
 
@@ -128,7 +128,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 MaterialOverride = material,
                 Mesh = Assets.WallMesh,
             });
-            DoorCollider.AddChild(Doorknob = new AudioStreamPlayer3D()
+            DoorCollider.AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
             });
@@ -231,16 +231,16 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public AudioStreamSample Play
         {
-            get => (AudioStreamSample)Doorknob.Stream;
+            get => (AudioStreamSample)Speaker.Stream;
             set
             {
-                Doorknob.Stream = Settings.DigiSoundMuted ? null : value;
+                Speaker.Stream = Settings.DigiSoundMuted ? null : value;
                 if (value != null)
-                    Doorknob.Play();
+                    Speaker.Play();
             }
         }
 
-        public AudioStreamSample OpeningSound { get; set; } = null;
-        public AudioStreamSample ClosingSound { get; set; } = null;
+        public AudioStreamSample OpenDigiSound { get; set; } = null;
+        public AudioStreamSample CloseDigiSound { get; set; } = null;
     }
 }

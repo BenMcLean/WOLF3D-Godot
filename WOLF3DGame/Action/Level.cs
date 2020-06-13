@@ -122,6 +122,8 @@ namespace WOLF3D.WOLF3DGame.Action
                                     Z = z,
                                     GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
                                 };
+                                if (Assets.DigiSoundSafe(pushXML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
+                                    pushWall.Sound = sound;
                                 PushWalls.Add(pushWall);
                                 AddChild(pushWall);
                             }
