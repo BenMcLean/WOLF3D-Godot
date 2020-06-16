@@ -76,12 +76,11 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool IsHit(Vector3 vector3) => IsHitLocal(ToLocal(vector3));
         public bool IsHitLocal(Vector3 vector3) =>
-            false && // TODO: remove this line
-            Image is Image image
-            && image.GetPixel(
-                (int)((vector3.x - Assets.HalfWallWidth) / Assets.WallWidth * image.GetWidth()),
-                image.GetHeight() - (int)(vector3.y / Assets.WallHeight * image.GetHeight())
-                ).a < 0.5f;
+            Assets.VSwap.IsTransparent(
+                Page ?? 0,
+                (ushort)((vector3.x + Assets.HalfWallWidth) / Assets.WallWidth * Assets.VSwap.TileSqrt),
+                (ushort)(Assets.VSwap.TileSqrt - (vector3.y / Assets.WallHeight * Assets.VSwap.TileSqrt))
+                );
 
         public override void _Process(float delta)
         {
