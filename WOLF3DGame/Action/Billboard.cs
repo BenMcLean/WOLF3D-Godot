@@ -66,10 +66,31 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             XML = xml;
             if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
+            {
                 Name = name;
+                Shape.Name = "Collision " + name;
+            }
         }
 
         public MeshInstance MeshInstance { get; set; }
+
+        public ImageTexture Image
+        {
+            get => MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial
+                && spatialMaterial?.AlbedoTexture is ImageTexture imageTexture ?
+                imageTexture
+                : null;
+            set
+            {
+                if (MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial)
+                    spatialMaterial.AlbedoTexture = value;
+            }
+        }
+
+        public bool IsHit(Vector3 vector3)
+        {
+            return false;
+        }
 
         public override void _Process(float delta)
         {

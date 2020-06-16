@@ -139,12 +139,29 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Mathf.Abs(axis0) > float.Epsilon)
                 Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
 
-            Godot.Collections.Dictionary rightRay = GetWorld().DirectSpaceState.IntersectRay(
-                    RightController.GlobalTransform.origin,
-                    RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange
-                );
-            if (rightRay.Count > 0)
-                Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, (Vector3)rightRay["position"]);
+            bool rightHit = false;
+            exclude.Clear();
+            while (!rightHit)
+            {
+                Godot.Collections.Dictionary rightRay = GetWorld().DirectSpaceState.IntersectRay(
+                        RightController.GlobalTransform.origin,
+                        RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange,
+                        exclude
+                    );
+                if (rightRay.Count > 0)
+                    if (rightRay["collider"] is CollisionObject rightCollider && rightCollider is Billboard)
+                        exclude.Add(rightRay["collider"]);
+                    else
+                    {
+                        Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, (Vector3)rightRay["position"]);
+                        rightHit = true;
+                    }
+                else
+                {
+                    Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange);
+                    rightHit = true;
+                }
+            }
 
             #region Shooting
             if (RightController.IsButtonPressed((int)Godot.JoystickList.VrTrigger) > 0)
@@ -215,6 +232,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 Pushing = false;
             #endregion Shooting
         }
+
+        private readonly Godot.Collections.Array exclude = new Godot.Collections.Array();
 
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
