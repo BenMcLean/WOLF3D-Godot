@@ -29,7 +29,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     )];
                 if (newFrame != LastFrame)
                 {
-                    MeshInstance.MaterialOverride = Assets.VSwapMaterials[newFrame];
+                    Page = (ushort)newFrame;
                     LastFrame = newFrame;
                 }
             }

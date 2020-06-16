@@ -149,7 +149,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         exclude
                     );
                 if (rightRay.Count > 0)
-                    if (rightRay["collider"] is CollisionObject rightCollider && rightCollider is Billboard)
+                    if (rightRay["collider"] is CollisionObject rightCollider && rightCollider is Billboard billboard && rightRay["position"] is Vector3 position && !billboard.IsHit(position))
                         exclude.Add(rightRay["collider"]);
                     else
                     {

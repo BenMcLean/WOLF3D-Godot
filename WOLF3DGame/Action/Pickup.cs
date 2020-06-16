@@ -6,7 +6,6 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Pickup : Billboard
     {
         public Pickup() : base() { }
-        public Pickup(Material material) : base(material) { }
         public Pickup(XElement xml) : base(xml) { }
 
         public override void _Process(float delta)

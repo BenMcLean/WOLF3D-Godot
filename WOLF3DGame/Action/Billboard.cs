@@ -32,37 +32,7 @@ namespace WOLF3D.WOLF3DGame.Action
             });
         }
 
-        public Billboard(Material material) : this()
-        {
-            if (material != null)
-                MeshInstance.MaterialOverride = material;
-            /*
-            // Cube for debugging purposes
-            AddChild(new MeshInstance()
-            {
-                Mesh = new CubeMesh()
-                {
-                    Size = new Vector3(Assets.PixelWidth, Assets.PixelHeight, Assets.PixelWidth),
-                    Material = new SpatialMaterial()
-                    {
-                        AlbedoColor = Color.Color8(0, 0, 255, 255),
-                        FlagsUnshaded = true,
-                        FlagsDoNotReceiveShadows = true,
-                        FlagsDisableAmbientLight = true,
-                        FlagsTransparent = false,
-                        ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                        ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                    },
-                }
-            });
-            */
-        }
-
-        public Billboard(XElement xml) : this(
-            ushort.TryParse(xml?.Attribute("Page")?.Value, out ushort page) && page < Assets.VSwapMaterials.Length ?
-                Assets.VSwapMaterials[page]
-                : null
-            )
+        public Billboard(XElement xml) : this()
         {
             XML = xml;
             if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
@@ -70,27 +40,48 @@ namespace WOLF3D.WOLF3DGame.Action
                 Name = name;
                 Shape.Name = "Collision " + name;
             }
+            if (ushort.TryParse(XML?.Attribute("Page")?.Value, out ushort page))
+                Page = page;
         }
 
-        public MeshInstance MeshInstance { get; set; }
+        public MeshInstance MeshInstance { get; set; } = null;
 
-        public ImageTexture Image
-        {
-            get => MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial
+        public ImageTexture ImageTexture => MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial
                 && spatialMaterial?.AlbedoTexture is ImageTexture imageTexture ?
                 imageTexture
                 : null;
+        public Image Image => ImageTexture is ImageTexture imageTexture
+            && imageTexture.GetData() is Image image ?
+            image
+            : null;
+
+        public ushort? Page
+        {
+            get => page;
             set
             {
-                if (MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial)
-                    spatialMaterial.AlbedoTexture = value;
+                if (value is ushort @ushort && Assets.VSwapMaterials != null && @ushort < Assets.VSwapMaterials.Length)
+                {
+                    page = @ushort;
+                    MeshInstance.MaterialOverride = Assets.VSwapMaterials[@ushort];
+                }
+                else
+                {
+                    page = null;
+                    MeshInstance.MaterialOverride = null;
+                }
             }
         }
+        private ushort? page = null;
 
-        public bool IsHit(Vector3 vector3)
-        {
-            return false;
-        }
+        public bool IsHit(Vector3 vector3) => IsHitLocal(ToLocal(vector3));
+        public bool IsHitLocal(Vector3 vector3) =>
+            false && // TODO: remove this line
+            Image is Image image
+            && image.GetPixel(
+                (int)((vector3.x - Assets.HalfWallWidth) / Assets.WallWidth * image.GetWidth()),
+                image.GetHeight() - (int)(vector3.y / Assets.WallHeight * image.GetHeight())
+                ).a < 0.5f;
 
         public override void _Process(float delta)
         {
