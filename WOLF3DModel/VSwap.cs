@@ -34,9 +34,9 @@ namespace WOLF3DModel
             page >= Pages.Length
             || Pages[page] == null
             || (page >= SpritePage // We know walls aren't transparent
-            && GetOffset(x, y, TileSqrt) + 3 is uint offset
+            && GetOffset(x, y) + 3 is uint offset
             && offset < Pages[page].Length
-            && Pages[page][offset] < 128);
+            && Pages[page][offset] > 128);
 
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
