@@ -112,15 +112,17 @@ namespace WOLF3D.WOLF3DGame.Action
                 Color = Color.Color8(255, 0, 0, 255),
             });
 
-            //StringBuilder stringBuilder = new StringBuilder();
-            //for (int sx = 0; sx < Level.Map.Width; sx++)
-            //{
-            //    for (int sz = Level.Map.Depth - 1; sz >= 0; sz--)
-            //        stringBuilder.Append(Level.CollisionShapes[sx][sz] == null ? " " :
-            //        Level.CollisionShapes[sx][sz].Disabled ? "_" : "X");
-            //    stringBuilder.Append("\n");
-            //}
-            //GD.Print(stringBuilder.ToString());
+            AddChild(LeftTarget = new MeshInstance()
+            {
+                Name = "LeftTarget",
+                Mesh = TargetMesh,
+            });
+
+            AddChild(RightTarget = new MeshInstance()
+            {
+                Name = "RightTarget",
+                Mesh = TargetMesh,
+            });
         }
 
         public static Vector3 BillboardRotation { get; set; }
@@ -260,5 +262,25 @@ namespace WOLF3D.WOLF3DGame.Action
             SoundBlaster.Play(xml);
             return this;
         }
+
+        public readonly static SphereMesh TargetMesh = new SphereMesh()
+        {
+            ResourceName = "Target",
+            Radius = Assets.PixelHeight / 2f,
+            Height = Assets.PixelHeight,
+            Material = new SpatialMaterial()
+            {
+                AlbedoColor = Color.Color8(255, 0, 0, 255),
+                FlagsUnshaded = true,
+                FlagsDoNotReceiveShadows = true,
+                FlagsDisableAmbientLight = true,
+                FlagsTransparent = false,
+                ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            },
+        };
+
+        public MeshInstance LeftTarget { get; set; }
+        public MeshInstance RightTarget { get; set; }
     }
 }

@@ -139,6 +139,14 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Mathf.Abs(axis0) > float.Epsilon)
                 Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
 
+            Godot.Collections.Dictionary rightRay = GetWorld().DirectSpaceState.IntersectRay(
+                    RightController.GlobalTransform.origin,
+                    RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange
+                );
+            if (rightRay.Count > 0)
+                Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, (Vector3)rightRay["position"]);
+
+            #region Shooting
             if (RightController.IsButtonPressed((int)Godot.JoystickList.VrTrigger) > 0)
             {
                 if (!Shooting)
@@ -205,6 +213,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             else
                 Pushing = false;
+            #endregion Shooting
         }
 
         public bool Shooting { get; set; } = false;
