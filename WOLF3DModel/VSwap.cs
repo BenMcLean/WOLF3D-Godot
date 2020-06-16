@@ -30,7 +30,13 @@ namespace WOLF3DModel
         public byte GetG(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 1];
         public byte GetB(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 2];
         public byte GetA(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 3];
-        public bool IsTransparent(ushort page, ushort x, ushort y) => GetA(page, x, y) < 128;
+        public bool IsTransparent(ushort page, ushort x, ushort y) =>
+            page >= Pages.Length
+            || Pages[page] == null
+            || (page >= SpritePage // We know walls aren't transparent
+            && GetOffset(x, y, TileSqrt) + 3 is uint offset
+            && offset < Pages[page].Length
+            && Pages[page][offset] < 128);
 
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
