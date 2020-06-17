@@ -1,5 +1,4 @@
 ﻿using Godot;
-using System;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -9,6 +8,9 @@ namespace WOLF3D.WOLF3DGame.Action
         public ARVRCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
+        public ARVRController Controller(bool left) => left ? LeftController : RightController;
+        public ARVRController Controller(int which) => Controller(which == 0);
+        public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 
         public ARVRPlayer()
         {
@@ -142,27 +144,32 @@ namespace WOLF3D.WOLF3DGame.Action
             #endregion Walking
 
             #region Shooting
-            bool rightHit = false;
-            exclude.Clear();
-            while (!rightHit)
+
+            for (int control = 0; control < 2; control++)
             {
-                Godot.Collections.Dictionary rightRay = GetWorld().DirectSpaceState.IntersectRay(
-                        RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange,
-                        exclude
-                    );
-                if (rightRay.Count > 0)
-                    if (rightRay["collider"] is CollisionObject rightCollider && rightCollider is Billboard billboard && rightRay["position"] is Vector3 position && !billboard.IsHit(position))
-                        exclude.Add(rightRay["collider"]);
+                ARVRController controller = Controller(control);
+                bool hit = false;
+                exclude.Clear();
+                while (!hit)
+                {
+                    Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
+                            controller.GlobalTransform.origin,
+                            controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
+                            exclude
+                        );
+                    if (ray.Count > 0)
+                        if (ray["collider"] is CollisionObject collider && collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
+                            exclude.Add(ray["collider"]);
+                        else
+                        {
+                            Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, (Vector3)ray["position"]);
+                            hit = true;
+                        }
                     else
                     {
-                        Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, (Vector3)rightRay["position"]);
-                        rightHit = true;
+                        Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
+                        hit = true;
                     }
-                else
-                {
-                    Main.ActionRoom.RightTarget.GlobalTransform = new Transform(Basis.Identity, RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange);
-                    rightHit = true;
                 }
             }
             #endregion Shooting

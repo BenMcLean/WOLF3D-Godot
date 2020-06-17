@@ -282,5 +282,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public MeshInstance LeftTarget { get; set; }
         public MeshInstance RightTarget { get; set; }
+        public MeshInstance Target(bool left) => left ? LeftTarget : RightTarget;
+        public MeshInstance Target(int which) => Target(which == 0);
     }
 }
