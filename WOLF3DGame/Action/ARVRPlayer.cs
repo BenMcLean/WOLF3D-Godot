@@ -71,6 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
+            #region Walking
             Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
@@ -138,7 +139,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 axis0 -= 1;
             if (Mathf.Abs(axis0) > float.Epsilon)
                 Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
+            #endregion Walking
 
+            #region Shooting
             bool rightHit = false;
             exclude.Clear();
             while (!rightHit)
@@ -162,37 +165,9 @@ namespace WOLF3D.WOLF3DGame.Action
                     rightHit = true;
                 }
             }
+            #endregion Shooting
 
-            #region Shooting
-            if (RightController.IsButtonPressed((int)Godot.JoystickList.VrTrigger) > 0)
-            {
-                if (!Shooting)
-                {
-                    ActionRoom.Line3D.Vertices = new Vector3[] {
-                        RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange
-                    };
-                    Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
-                        ActionRoom.Line3D.Vertices[0],
-                        ActionRoom.Line3D.Vertices[1]
-                        );
-
-                    GD.Print("Shooting! Range: " + Assets.ShotRange + " Time: " + DateTime.Now);
-                    if (result.Count > 0)
-                    {
-                        CollisionObject collider = (CollisionObject)result["collider"];
-                        GD.Print(
-                            ((CollisionShape)collider.ShapeOwnerGetOwner(collider.ShapeFindOwner((int)result["shape"]))).Name
-                            );
-                    }
-                    else
-                        GD.Print("Hit nothing! :(");
-                    Shooting = true;
-                }
-            }
-            else
-                Shooting = false;
-
+            #region Pushing
             if (Input.IsKeyPressed((int)KeyList.Space))
             {
                 if (!Pushing)
@@ -230,7 +205,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             else
                 Pushing = false;
-            #endregion Shooting
+            #endregion Pushing
         }
 
         private readonly Godot.Collections.Array exclude = new Godot.Collections.Array();
