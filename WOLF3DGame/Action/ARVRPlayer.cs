@@ -157,17 +157,22 @@ namespace WOLF3D.WOLF3DGame.Action
                             controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
                             exclude
                         );
-                    if (ray.Count > 0)
-                        if (ray["collider"] is CollisionObject collider && collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
+                    if (ray.Count > 0 && ray["collider"] is CollisionObject collider)
+                        if (collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
                             exclude.Add(ray["collider"]);
                         else
                         {
                             Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, (Vector3)ray["position"]);
+                            if (collider is Actor actor)
+                                SetTarget(control, actor);
+                            else
+                                SetTarget(control);
                             hit = true;
                         }
                     else
-                    {
+                    { // Nothing was hit
                         Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
+                        SetTarget(control);
                         hit = true;
                     }
                 }
@@ -232,6 +237,20 @@ namespace WOLF3D.WOLF3DGame.Action
         public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -Mathf.Pi * 3f / 16f).Normalized();
         public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
         public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
+
+        public Actor LeftTarget { get; set; } = null;
+        public Actor RightTarget { get; set; } = null;
+        public Actor Target(bool left) => left ? LeftTarget : RightTarget;
+        public Actor Target(int which) => Target(which == 0);
+        public ARVRPlayer SetTarget(bool left, Actor actor = null)
+        {
+            if (left)
+                LeftTarget = actor;
+            else
+                RightTarget = actor;
+            return this;
+        }
+        public ARVRPlayer SetTarget(int which, Actor billboard = null) => SetTarget(which == 0, billboard);
 
         public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
         public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;
