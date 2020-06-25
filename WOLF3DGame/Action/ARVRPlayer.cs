@@ -148,10 +148,9 @@ namespace WOLF3D.WOLF3DGame.Action
             for (int control = 0; control < 2; control++)
             {
                 ARVRController controller = Controller(control);
-                bool hit = false;
                 exclude.Clear();
-                while (!hit)
-                {
+                while (true)
+                { // Shooting while loop
                     Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
                             controller.GlobalTransform.origin,
                             controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
@@ -167,13 +166,13 @@ namespace WOLF3D.WOLF3DGame.Action
                                 SetTarget(control, actor);
                             else
                                 SetTarget(control);
-                            hit = true;
+                            break; // Shooting while loop
                         }
                     else
                     { // Nothing was hit
                         Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
                         SetTarget(control);
-                        hit = true;
+                        break; // Shooting while loop
                     }
                 }
             }
