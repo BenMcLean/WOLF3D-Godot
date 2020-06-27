@@ -608,6 +608,28 @@
       <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="Moving" />
       <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="Moving" />
       <Spawn Number="214" Actor="Hans" Direction="S" />
+      <State Name="s_grdstand" Rotate-="true" Shape="SPR_GRD_S_1" TicTime="0" Think="T_Stand" Next="s_grdstand" />
+      <State Name="s_grdpath1" Rotate="true" Shape="SPR_GRD_W1_1" TicTime="20" Think="T_Path" Next="s_grdpath1s" />
+      <State Name="s_grdpath1s" Rotate="true" Shape="SPR_GRD_W1_1" TicTime="5" Next="s_grdpath2" />
+      <State Name="s_grdpath2" Rotate="true" Shape="SPR_GRD_W2_1" TicTime="15" Think="T_Path" Next="s_grdpath3" />
+      <State Name="s_grdpath3" Rotate="true" Shape="SPR_GRD_W3_1" TicTime="20" Think="T_Path" Next="s_grdpath3s" />
+      <State Name="s_grdpath3s" Rotate="true" Shape="SPR_GRD_W3_1" TicTime="5" Next="s_grdpath4" />
+      <State Name="s_grdpath4" Rotate="true" Shape="SPR_GRD_W4_1" TicTime="15" Think="T_Path" Next="s_grdpath1" />
+      <State Name="s_grdpain" Rotate="false" Shape="SPR_GRD_PAIN_1" TicTime="10" Next="s_grdchase1" />
+      <State Name="s_grdpain1" Rotate="false" Shape="SPR_GRD_PAIN_2" TicTime="10" Next="s_grdchase1" />
+      <State Name="s_grdshoot1" Rotate="false" Shape="SPR_GRD_SHOOT1" Tictime="20" Next="s_grdshoot2" />
+      <State Name="s_grdshoot2" Rotate="false" Shape="SPR_GRD_SHOOT2" TicTime="20" Act="T_Shoot" Next="s_grdshoot3" />
+      <State Name="s_grdshoot3" Rotate="false" Shape="SPR_GRD_SHOOT3" TicTime="20" Next="s_grdchase1" />
+      <State Name="s_grdchase1" Rotate="true" Shape="SPR_GRD_W1_1" Tictime="10" Think="T_Chase" Next="s_grdchase1s" />
+      <State Name="s_grdchase1s" Rotate="true" Shape="SPR_GRD_W1_1" TicTime="3" Next="s_grdchase2" />
+      <State Name="s_grdchase2" Rotate="true" Shape="SPR_GRD_W2_1" TicTime="8" Think="T_Chase" Next="s_grdchase3" />
+      <State Name="s_grdchase3" Rotate="true" Shape="SPR_GRD_W3_1" TicTime="10" Think="T_Chase" Next="s_grdchase3s" />
+      <State Name="s_grdchase3s" Rotate="true" Shape="SPR_GRD_W3_1" TicTime="3" Next="s_grdchase4" />
+      <State Name="s_grdchase4" Rotate="true" Shape="SPR_GRD_W4_1" TicTime="8" Think="T_Chase" Next="s_grdchase1" />
+      <State Name="s_grddie1" Rotate="false" Shape="SPR_GRD_DIE_1" TicTime="15" Act="A_DeathScream" Next="s_grddie2" />
+      <State Name="s_grddie2" Rotate="false" Shape="SPR_GRD_DIE_2" TicTime="15" Next="s_grddie3" />
+      <State Name="s_grddie3" Rotate="false" Shape="SPR_GRD_DIE_3" TicTime="15" Next="s_grddie4" />
+      <State Name="s_grddie4" Rotate="false" Shape="SPR_GRD_DEAD" TicTime="0" Next="s_grddie4" />
       <Actor Name="Guard">
         <Animation Name="Standing" Directional="true">
           <Frame Number="0" Page="156" />
