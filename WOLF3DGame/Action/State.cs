@@ -1,9 +1,4 @@
-﻿using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -30,6 +25,14 @@ namespace WOLF3D.WOLF3DGame.Action
                 Shape = shape;
             if (ushort.TryParse(xml?.Attribute("TicTime")?.Value, out ushort ticTime))
                 TicTime = ticTime;
+            if (xml?.Attribute("Think")?.Value is string sThink
+                && typeof(Actor).GetMethod(sThink, BindingFlags.Public | BindingFlags.Static) is MethodInfo thinkMethod
+                && thinkMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate think)
+                Think = think;
+            if (xml?.Attribute("Act")?.Value is string sAct
+                && typeof(Actor).GetMethod(sAct, BindingFlags.Public | BindingFlags.Static) is MethodInfo actMethod
+                && actMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate act)
+                Act = act;
         }
     }
 }
