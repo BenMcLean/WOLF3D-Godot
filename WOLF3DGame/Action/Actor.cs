@@ -81,5 +81,28 @@ namespace WOLF3D.WOLF3DGame.Action
         //}
         //objtype;
         #endregion objstruct
+
+        #region StateDelegates
+        public static void T_Stand(Actor actor) => actor.T_Stand();
+        public Actor T_Stand()
+        {
+            return this;
+        }
+        public static void T_Path(Actor actor) => actor.T_Path();
+        public Actor T_Path()
+        {
+            return this;
+        }
+        public static void T_Chase(Actor actor) => actor.T_Chase();
+        public Actor T_Chase()
+        {
+            return this;
+        }
+        public static void T_Shoot(Actor actor) => actor.T_Shoot();
+        public Actor T_Shoot()
+        {
+            return this;
+        }
+        #endregion StateDelegates
     }
 }

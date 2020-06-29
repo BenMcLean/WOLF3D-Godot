@@ -149,6 +149,13 @@ namespace WOLF3D.WOLF3DGame
                 doors.Add((ushort)(int)door.Attribute("Number"));
             Doors = doors.ToArray();
 
+            States.Clear();
+            foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
+                States.Add(xState.Attribute("Name").Value, new State(xState));
+            foreach (State state in States.Values)
+                if (state.XML.Attribute("Next")?.Value is string next)
+                    state.Next = States[next];
+
             EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
         }
 
@@ -422,6 +429,8 @@ namespace WOLF3D.WOLF3DGame
         }
 
         public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
+
+        public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
 
         /*
         public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
