@@ -9,7 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public XElement XML { get; set; } = null;
         public bool Rotate { get; set; } = false;
         public short Shape { get; set; } = -1;
-        public short TicTime
+        public short Tics
         {
             get => SecondsToTics(Seconds);
             set => Seconds = TicsToSeconds(value);
@@ -28,8 +28,8 @@ namespace WOLF3D.WOLF3DGame.Action
             Rotate = xml.IsTrue("Rotate");
             if (short.TryParse(xml?.Attribute("Shape")?.Value, out short shape))
                 Shape = shape;
-            if (short.TryParse(xml?.Attribute("TicTime")?.Value, out short ticTime))
-                TicTime = ticTime;
+            if (short.TryParse(xml?.Attribute("Tics")?.Value, out short tics))
+                Tics = tics;
             if (xml?.Attribute("Think")?.Value is string sThink
                 && typeof(Actor).GetMethod(sThink, BindingFlags.Public | BindingFlags.Static) is MethodInfo thinkMethod
                 && thinkMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate think)
