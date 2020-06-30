@@ -5,19 +5,19 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class State
     {
-        public string Name { get; set; } = null;
-        public XElement XML { get; set; } = null;
-        public bool Rotate { get; set; } = false;
-        public short Shape { get; set; } = -1;
+        public string Name { get; private set; } = null;
+        public XElement XML { get; private set; } = null;
+        public bool Rotate { get; private set; } = false;
+        public short Shape { get; private set; } = -1;
         public short Tics
         {
             get => SecondsToTics(Seconds);
-            set => Seconds = TicsToSeconds(value);
+            private set => Seconds = TicsToSeconds(value);
         }
-        public float Seconds { get; set; } = 0f;
+        public float Seconds { get; private set; } = 0f;
         public delegate void StateDelegate(Actor actor);
-        public StateDelegate Think { get; set; } = null;
-        public StateDelegate Act { get; set; } = null;
+        public StateDelegate Think { get; private set; } = null;
+        public StateDelegate Act { get; private set; } = null;
         public State Next { get; set; }
 
         public State(XElement xml)

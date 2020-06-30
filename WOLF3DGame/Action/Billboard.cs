@@ -15,17 +15,17 @@ namespace WOLF3D.WOLF3DGame.Action
         };
 
         public XElement XML { get; set; }
-        public CollisionShape Shape { get; private set; }
+        public CollisionShape CollisionShape { get; private set; }
 
         public Billboard()
         {
             Name = "Billboard";
-            AddChild(Shape = new CollisionShape()
+            AddChild(CollisionShape = new CollisionShape()
             {
                 Shape = BillboardShape,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, -Assets.PixelWidth)),
             });
-            Shape.AddChild(MeshInstance = new MeshInstance()
+            CollisionShape.AddChild(MeshInstance = new MeshInstance()
             {
                 Mesh = Assets.WallMesh,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
@@ -38,7 +38,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (XML?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
             {
                 Name = name;
-                Shape.Name = "Collision " + name;
+                CollisionShape.Name = "Collision " + name;
             }
             if (ushort.TryParse(XML?.Attribute("Page")?.Value, out ushort page))
                 Page = page;
@@ -121,6 +121,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         XML = spawn,
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
                         Direction = Direction8.From(spawn?.Attribute("Direction")?.Value),
+                        State = Assets.States[spawn.Attribute("State").Value],
                     });
             return billboards.ToArray();
         }

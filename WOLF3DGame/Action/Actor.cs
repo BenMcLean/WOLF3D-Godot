@@ -6,22 +6,22 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Actor : Billboard
     {
         public Actor() : base() => Name = "Actor";
-        public string Animation { get; set; } = "Standing";
-        public ushort Frame { get; set; } = 0;
 
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (MeshInstance.Visible && Assets.Animations.TryGetValue(XML?.Attribute("Actor")?.Value + "/" + Animation, out uint[][] frame)
-                && (ushort)frame[Frame][Direction8.Modulus(
+            if (MeshInstance.Visible && State != null
+                && State.Shape is short shape
+                && (ushort)(shape + (State.Rotate ?
+                Direction8.Modulus(
                     Direction8.AngleToPoint(
-                                GlobalTransform.origin.x,
-                                GlobalTransform.origin.z,
-                                GetViewport().GetCamera().GlobalTransform.origin.x,
-                                GetViewport().GetCamera().GlobalTransform.origin.z
+                        GlobalTransform.origin.x,
+                        GlobalTransform.origin.z,
+                        GetViewport().GetCamera().GlobalTransform.origin.x,
+                        GetViewport().GetCamera().GlobalTransform.origin.z
                     ).MirrorZ + Direction,
-                    frame[Frame].Length
-                    )] is ushort newFrame
+                    8)
+                : 0)) is ushort newFrame
                 && newFrame != Page)
                 Page = newFrame;
         }
@@ -44,7 +44,7 @@ namespace WOLF3D.WOLF3DGame.Action
         //    classtype obclass;
         public string ObjClass;
         //    statetype* state;
-        public XElement State;
+        public State State { get; set; } = null;
         //    byte flags;                //    FL_SHOOTABLE, etc
         //#define FL_SHOOTABLE	1
         public bool Shootable = false;
