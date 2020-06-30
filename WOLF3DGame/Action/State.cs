@@ -18,7 +18,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public delegate void StateDelegate(Actor actor);
         public StateDelegate Think { get; set; } = null;
         public StateDelegate Act { get; set; } = null;
-        public State Next { get; set; } = null;
+        public State Next { get; set; }
 
         public State(XElement xml)
         {
@@ -38,6 +38,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 && typeof(Actor).GetMethod(sAct, BindingFlags.Public | BindingFlags.Static) is MethodInfo actMethod
                 && actMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate act)
                 Act = act;
+            Next = this;
         }
 
         public static float TicsToSeconds(int tics) => tics / 70f;

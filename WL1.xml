@@ -728,6 +728,34 @@
           <Frame Number="2" Page="292" />
         </Animation>
       </Actor>
+      <State Name="s_ssstand" Rotate="true" Shape="244" TicTime="0" Think="T_Stand" Next="s_ssstand" />
+      <State Name="s_sspath1" Rotate="true" Shape="252" TicTime="20" Think="T_Path" Next="s_sspath1s" />
+      <State Name="s_sspath1s" Rotate="true" Shape="252" TicTime="5" Next="s_sspath2" />
+      <State Name="s_sspath2" Rotate="true" Shape="260" TicTime="15" Think="T_Path" Next="s_sspath3" />
+      <State Name="s_sspath3" Rotate="true" Shape="268" TicTime="20" Think="T_Path" Next="s_sspath3s" />
+      <State Name="s_sspath3s" Rotate="true" Shape="268" TicTime="5" Next="s_sspath4" />
+      <State Name="s_sspath4" Rotate="true" Shape="276" TicTime="15" Think="T_Path" Next="s_sspath1" />
+      <State Name="s_sspain" Shape="284" TicTime="10" Next="s_sschase1" />
+      <State Name="s_sspain1" Shape="288" TicTime="10" Next="s_sschase1" />
+      <State Name="s_ssshoot1" Shape="290" TicTime="20" Next="s_ssshoot2" />
+      <State Name="s_ssshoot2" Shape="292" TicTime="20" Act="T_Shoot" Next="s_ssshoot3" />
+      <State Name="s_ssshoot3" Shape="291" TicTime="10" Next="s_ssshoot4" />
+      <State Name="s_ssshoot4" Shape="292" TicTime="10" Act="T_Shoot" Next="s_ssshoot5" />
+      <State Name="s_ssshoot5" Shape="291" TicTime="10" Next="s_ssshoot6" />
+      <State Name="s_ssshoot6" Shape="292" TicTime="10" Act="T_Shoot" Next="s_ssshoot7" />
+      <State Name="s_ssshoot7" Shape="291" TicTime="10" Next="s_ssshoot8" />
+      <State Name="s_ssshoot8" Shape="292" TicTime="10" Act="T_Shoot" Next="s_ssshoot9" />
+      <State Name="s_ssshoot9" Shape="291" TicTime="10" Next="s_sschase1" />
+      <State Name="s_sschase1" Rotate="true" Shape="252" TicTime="10" Think="T_Chase" Next="s_sschase1s" />
+      <State Name="s_sschase1s" Rotate="true" Shape="252" TicTime="3" Next="s_sschase2" />
+      <State Name="s_sschase2" Rotate="true" Shape="260" TicTime="8" Think="T_Chase" Next="s_sschase3" />
+      <State Name="s_sschase3" Rotate="true" Shape="268" TicTime="10" Think="T_Chase" Next="s_sschase3s" />
+      <State Name="s_sschase3s" Rotate="true" Shape="268" TicTime="3" Next="s_sschase4" />
+      <State Name="s_sschase4" Rotate="true" Shape="276" TicTime="8" Think="T_Chase" Next="s_sschase1" />
+      <State Name="s_ssdie1" Shape="285" TicTime="15" Act="A_DeathScream" Next="s_ssdie2" />
+      <State Name="s_ssdie2" Shape="286" TicTime="15" Next="s_ssdie3" />
+      <State Name="s_ssdie3" Shape="287" TicTime="15" Next="s_ssdie4" />
+      <State Name="s_ssdie4" Shape="289" TicTime="0" Next="s_ssdie4" />
       <Actor Name="Hans" HP="850,950,1050,1200">
         <Animation Name="Standing" >
           <Frame Number="0" Page="406" />
