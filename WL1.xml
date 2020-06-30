@@ -522,11 +522,11 @@
         <Effect AddTo="Ammo" Add="25" />
         <Effect AddTo="Health" Add="100" />
       </Pickup>
-      <Pickup Number="57" Page="142" If="Health" LessThan="12" AddTo="Health" Add="1" Name="Bones with Blood" />
+      <Pickup Number="57" Page="142" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Bones with Blood" />
       <Billboard Number="58" Page="143" Name="Barrel" />
       <Billboard Number="59" Page="144" Name="Well with Water" />
       <Billboard Number="60" Page="145" Name="Well" />
-      <Pickup Number="61" Page="146" If="Health" LessThan="12" AddTo="Health" Add="1" Name="Pool of Blood" />
+      <Pickup Number="61" Page="146" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Pool of Blood" />
       <Billboard Number="62" Page="147" Name="Flag" />
       <Billboard Number="63" Page="148" Name="Aardwolf" />
       <Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
@@ -546,14 +546,14 @@
       <Turn Number="97" Walk="true" Direction="SE" Name="Turn" />
       <Pushwall Number="98" Walk="true" DigiSound="PUSHWALLSND" Name="Secret Door" />
       <Trigger Number="99" Walk="true" Name="End Game Trigger" />
-      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="Standing" />
-      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="Standing" />
-      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="Standing" />
-      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="Standing" />
-      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="Moving" />
+      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="s_grdpath1" />
       <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
       <Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="Standing" />
       <Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="Standing" />
@@ -567,14 +567,14 @@
       <Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="Moving" />
       <Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="Moving" />
       <Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="Moving" />
-      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="Standing" />
-      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="Standing" />
-      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="Standing" />
-      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="Standing" />
-      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="Moving" />
+      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="s_grdpath1" />
       <Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="Standing" />
       <Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="Standing" />
       <Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="Standing" />
@@ -587,14 +587,14 @@
       <Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="Moving" />
       <Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="Moving" />
       <Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="Standing" />
-      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="Standing" />
-      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Moving" />
+      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdpath1" />
       <Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="Standing" />
       <Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="Standing" />
       <Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="Standing" />
