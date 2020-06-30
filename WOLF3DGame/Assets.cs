@@ -113,31 +113,6 @@ namespace WOLF3D.WOLF3DGame
                 AudioT = AudioT.Load(folder, XML);
             if (XML.Element("VgaGraph") != null)
                 VgaGraph = VgaGraph.Load(folder, XML);
-            Animations = new Dictionary<string, uint[][]>();
-            foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actor") ?? Enumerable.Empty<XElement>())
-                foreach (XElement animation in actor.Elements("Animation") ?? Enumerable.Empty<XElement>())
-                {
-                    bool directional = animation.IsTrue("Directional");
-                    IEnumerable<XElement> framesX = animation.Elements("Frame");
-                    uint[][] frames = new uint[framesX.Count()][];
-                    for (uint frame = 0; frame < frames.Length; frame++)
-                        if (directional)
-                        {
-                            frames[frame] = new uint[Direction8.Values.Count];
-                            uint east = (from e in framesX
-                                         where (uint)e.Attribute("Number") == frame
-                                         select (uint)e.Attribute("Page")).First();
-                            for (uint direction = 0; direction < frames[frame].Length; direction++)
-                                frames[frame][direction] = east + direction;
-                        }
-                        else
-                            frames[frame] = new uint[1] {
-                            (from e in animation.Elements("Frame")
-                            where (uint)e.Attribute("Number") == frame
-                            select (uint)e.Attribute("Page")).First()
-                            };
-                    Animations.Add(actor.Attribute("Name").Value + "/" + animation.Attribute("Name").Value, frames);
-                }
 
             List<ushort> walls = new List<ushort>();
             foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>())
@@ -292,7 +267,6 @@ namespace WOLF3D.WOLF3DGame
         public static Color[] Palette;
         public static ImageTexture[] VSwapTextures;
         public static SpatialMaterial[] VSwapMaterials;
-        public static Dictionary<string, uint[][]> Animations;
         public static ImageTexture[] PicTextures;
         public static AudioStreamSample[] DigiSounds;
         public static ImageTexture StatusBarBlank;

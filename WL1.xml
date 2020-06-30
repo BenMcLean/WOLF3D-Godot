@@ -608,32 +608,7 @@
       <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-      <Actor Name="Guard" HP="25,25,25,25">
-        <Animation Name="Standing" Directional="true">
-          <Frame Number="0" Page="156" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="164" />
-          <Frame Number="1" Page="172" />
-          <Frame Number="2" Page="180" />
-          <Frame Number="3" Page="188" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="196" />
-          <Frame Number="1" Page="197" />
-          <Frame Number="2" Page="198" />
-          <Frame Number="3" Page="199" />
-          <Frame Number="4" Page="201" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="201" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="202" />
-          <Frame Number="1" Page="203" />
-          <Frame Number="2" Page="204" />
-        </Animation>
-      </Actor>
+      <Actor Name="Guard" HP="25,25,25,25" />
       <State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Next="s_grdstand" />
       <State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Next="s_grdpath1s" />
       <State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Next="s_grdpath2" />
@@ -656,31 +631,7 @@
       <State Name="s_grddie2" Shape="198" Tics="15" Next="s_grddie3" />
       <State Name="s_grddie3" Shape="199" Tics="15" Next="s_grddie4" />
       <State Name="s_grddie4" Shape="201" Tics="0" Next="s_grddie4" />
-      <Actor Name="Dog" HP="1,1,1,1">
-        <Animation Name="Standing" Directional="true" >
-          <Frame Number="0" Page="205" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="205" />
-          <Frame Number="1" Page="213" />
-          <Frame Number="2" Page="221" />
-          <Frame Number="3" Page="229" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="237" />
-          <Frame Number="1" Page="238" />
-          <Frame Number="2" Page="239" />
-          <Frame Number="3" Page="240" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="240" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="241" />
-          <Frame Number="1" Page="242" />
-          <Frame Number="2" Page="243" />
-        </Animation>
-      </Actor>
+      <Actor Name="Dog" HP="1,1,1,1" />
       <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Next="s_dogpath1s" />
       <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Next="s_dogpath2" />
       <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Next="s_dogpath3" />
@@ -702,32 +653,7 @@
       <State Name="s_dogdie2" Shape="238" Tics="15" Next="s_dogdie3" />
       <State Name="s_dogdie3" Shape="239" Tics="15" Next="s_dogdead" />
       <State Name="s_dogdead" Shape="240" Tics="15" Next="s_dogdead" />
-      <Actor Name="SS" HP="100,100,100,100">
-        <Animation Name="Standing" Directional="true">
-          <Frame Number="0" Page="244" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="252" />
-          <Frame Number="1" Page="260" />
-          <Frame Number="2" Page="268" />
-          <Frame Number="3" Page="276" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="284" />
-          <Frame Number="1" Page="285" />
-          <Frame Number="2" Page="286" />
-          <Frame Number="3" Page="287" />
-          <Frame Number="4" Page="289" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="289" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="290" />
-          <Frame Number="1" Page="291" />
-          <Frame Number="2" Page="292" />
-        </Animation>
-      </Actor>
+      <Actor Name="SS" HP="100,100,100,100" />
       <State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Next="s_ssstand" />
       <State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Next="s_sspath1s" />
       <State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Next="s_sspath2" />
@@ -756,30 +682,7 @@
       <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" />
       <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" />
       <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" />
-      <Actor Name="Hans" HP="850,950,1050,1200">
-        <Animation Name="Standing" >
-          <Frame Number="0" Page="406" />
-        </Animation>
-        <Animation Name="Moving" Loop="true">
-          <Frame Number="0" Page="402" />
-          <Frame Number="1" Page="403" />
-          <Frame Number="2" Page="404" />
-          <Frame Number="3" Page="405" />
-        </Animation>
-        <Animation Name="Attack" Loop="true">
-          <Frame Number="0" Page="407" />
-          <Frame Number="1" Page="408" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="409" />
-        </Animation>
-        <Animation Name="Dying" Loop="true">
-          <Frame Number="0" Page="410" />
-          <Frame Number="1" Page="411" />
-          <Frame Number="2" Page="412" />
-          <Frame Number="3" Page="409" />
-        </Animation>
-      </Actor>
+      <Actor Name="Hans" HP="850,950,1050,1200" />
       <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Next="s_bossstand" />
       <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Next="s_bosschase1s" />
       <State Name="s_bosschase1s" Shape="402" Tics="3" Next="s_bosschase2" />
