@@ -682,6 +682,7 @@
         </Animation>
       </Actor>
       <State Name="s_dogpath1" Rotate="true" Shape="205" TicTime="20" Think="T_Path" Next="s_dogpath1s" />
+      <State Name="s_dogpath1s" Rotate="true" Shape="205" TicTime="5" Next="s_dogpath2" />
       <State Name="s_dogpath2" Rotate="true" Shape="213" TicTime="15" Think="T_Path" Next="s_dogpath3" />
       <State Name="s_dogpath3" Rotate="true" Shape="221" TicTime="20" Think="T_Path" Next="s_dogpath3s" />
       <State Name="s_dogpath3s" Rotate="true" Shape="221" TicTime="5" Next="s_dogpath4" />
