@@ -630,7 +630,7 @@
       <State Name="s_grddie2" Shape="198" TicTime="15" Next="s_grddie3" />
       <State Name="s_grddie3" Shape="199" TicTime="15" Next="s_grddie4" />
       <State Name="s_grddie4" Shape="201" TicTime="0" Next="s_grddie4" />
-      <Actor Name="Guard">
+      <Actor Name="Guard" HitPoints="25,25,25,25">
         <Animation Name="Standing" Directional="true">
           <Frame Number="0" Page="156" />
         </Animation>
@@ -656,7 +656,7 @@
           <Frame Number="2" Page="204" />
         </Animation>
       </Actor>
-      <Actor Name="Dog">
+      <Actor Name="Dog" HitPoints="1,1,1,1">
         <Animation Name="Standing" Directional="true" >
           <Frame Number="0" Page="205" />
         </Animation>
@@ -681,7 +681,7 @@
           <Frame Number="2" Page="243" />
         </Animation>
       </Actor>
-      <Actor Name="SS">
+      <Actor Name="SS" HitPoints="100,100,100,100">
         <Animation Name="Standing" Directional="true">
           <Frame Number="0" Page="244" />
         </Animation>
@@ -707,7 +707,7 @@
           <Frame Number="2" Page="292" />
         </Animation>
       </Actor>
-      <Actor Name="Hans">
+      <Actor Name="Hans" HitPoints="850,950,1050,1200">
         <Animation Name="Standing" >
           <Frame Number="0" Page="406" />
         </Animation>
