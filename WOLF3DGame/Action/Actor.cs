@@ -10,6 +10,13 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Process(float delta)
         {
             base._Process(delta);
+            Seconds += delta;
+            if (Seconds > State.Seconds)
+            {
+                Seconds -= State.Seconds;
+                State = State.Next;
+                State?.Act?.Invoke(this);
+            }
             if (MeshInstance.Visible && State != null
                 && State.Shape is short shape
                 && (ushort)(shape + (State.Rotate ?
@@ -40,7 +47,12 @@ namespace WOLF3D.WOLF3DGame.Action
         activetype;
         */
         //    int ticcount;
-        public ushort TicCount;
+        public short Tics
+        {
+            get => Assets.SecondsToTics(Seconds);
+            set => Seconds = Assets.TicsToSeconds(value);
+        }
+        public float Seconds { get; set; } = 0f;
         //    classtype obclass;
         public string ObjClass;
         //    statetype* state;

@@ -53,6 +53,10 @@ namespace WOLF3D.WOLF3DGame
             Extents = new Vector3(HalfWallWidth, HalfWallHeight, PixelWidth),
         };
 
+        public const float Tic = 1f / 70f;
+        public static float TicsToSeconds(int tics) => tics / 70f;
+        public static short SecondsToTics(float seconds) => (short)(seconds * 70f);
+
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
         // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
         // Walking speed is half of running speed.

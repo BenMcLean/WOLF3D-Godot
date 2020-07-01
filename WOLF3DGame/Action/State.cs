@@ -11,8 +11,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public short Shape { get; private set; } = -1;
         public short Tics
         {
-            get => SecondsToTics(Seconds);
-            private set => Seconds = TicsToSeconds(value);
+            get => Assets.SecondsToTics(Seconds);
+            private set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; private set; } = 0f;
         public delegate void StateDelegate(Actor actor);
@@ -40,8 +40,5 @@ namespace WOLF3D.WOLF3DGame.Action
                 Act = act;
             Next = this;
         }
-
-        public static float TicsToSeconds(int tics) => tics / 70f;
-        public static short SecondsToTics(float seconds) => (short)(seconds * 70f);
     }
 }
