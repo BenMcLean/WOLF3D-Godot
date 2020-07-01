@@ -279,8 +279,8 @@ namespace WOLF3D.WOLF3DGame
             uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
             DigiSounds[index]
             : uint.TryParse((
-            from e in XML.Element("VSwap").Elements("DigiSound")
-            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
+            where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < DigiSounds.Length ?
             DigiSounds[result]
@@ -293,14 +293,14 @@ namespace WOLF3D.WOLF3DGame
             uint.TryParse(name, out uint index) && index < PicTextures.Length ?
             PicTextures[index]
             : uint.TryParse((
-            from e in XML.Element("VgaGraph").Elements("Pic")
-            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            from e in XML?.Element("VgaGraph")?.Elements("Pic") ?? Enumerable.Empty<XElement>()
+            where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < PicTextures.Length ?
             PicTextures[result]
             : null;
 
-        public static ImageTexture LoadingPic => PicTexture(XML.Element("VgaGraph").Attribute("LoadingPic")?.Value?.Trim());
+        public static ImageTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
 
         public static Imf[] Song(string name) => SongSafe(name) ?? throw new InvalidDataException("Song not found: \"" + name + "\"");
 
@@ -344,7 +344,7 @@ namespace WOLF3D.WOLF3DGame
         public static string[] EndStrings;
 
         public static MenuScreen Menu(string name) =>
-            (from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
+            (from e in XML?.Element("VgaGraph")?.Element("Menus")?.Elements("Menu") ?? Enumerable.Empty<XElement>()
              where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)
              select e).FirstOrDefault() is XElement screen && screen != null ?
             new MenuScreen(screen)
