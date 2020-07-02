@@ -22,7 +22,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
         private XElement xml = null;
-        public float Progress { get; set; }
+        public float Progress { get; set; } = 0;
         public float Slide
         {
             get => DoorCollider.Transform.origin.x * OpeningSeconds / Assets.WallWidth;
@@ -83,31 +83,24 @@ namespace WOLF3D.WOLF3DGame.Action
         public CollisionShape MinusGate { get; private set; }
         public ushort FloorCodePlus { get; set; } = 0;
         public ushort FloorCodeMinus { get; set; } = 0;
-
-        public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
-        public TryOpenDeelgate TryOpen { get; set; }
-        public bool TryClose() => TryOpen?.Invoke(X, Z, false) ?? false;
-
-        public delegate bool IsOpenDelegate(ushort x, ushort z);
-        public IsOpenDelegate IsOpen { get; set; }
+        public Level Level { get; set; } = null;
+        public bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
+        public bool TryClose() => Level?.TryOpen(this, false) ?? false;
         public bool Open
         {
-            get => IsOpen(X, Z);
-            set => TryOpen?.Invoke(X, Z, value);
+            get => Level?.IsOpen(X, Z) ?? false;
+            set => TryOpen(value);
         }
-
-        public Door SetDelegates(Level level)
+        public bool Closed
         {
-            TryOpen = level.TryOpen;
-            IsOpen = level.IsOpen;
-            return this;
+            get => !Open;
+            set => Open = !value;
         }
 
-        public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => SetDelegates(level);
+        public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
 
         public Door(Material material, ushort x, ushort z, bool western)
         {
-            Name = "Door";
             X = x;
             Z = z;
             Western = western;
@@ -116,7 +109,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Western ? Direction8.NORTH.Basis : Direction8.EAST.Basis,
                     new Vector3(
                         Assets.CenterSquare(x),
-                        (float)Assets.HalfWallHeight,
+                        Assets.HalfWallHeight,
                         Assets.CenterSquare(z)
                     )
                 );
@@ -195,11 +188,6 @@ namespace WOLF3D.WOLF3DGame.Action
             FloorCodePlus = (ushort)(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
             FloorCodeMinus = (ushort)(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
             return this;
-        }
-
-        public override void _Ready()
-        {
-            State = TryClose() ? DoorEnum.CLOSED : DoorEnum.OPEN;
         }
 
         public override void _PhysicsProcess(float delta)

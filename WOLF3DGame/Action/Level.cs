@@ -93,6 +93,18 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             return false;
         }
+
+        public bool TryOpen(Door door, bool @bool = true)
+        {
+            bool attempt = TryOpen(door.X, door.Z, @bool);
+            if (attempt)
+                if (@bool)
+                    FloorCodes[door.FloorCodePlus, door.FloorCodeMinus]++;
+                else
+                    FloorCodes[door.FloorCodePlus, door.FloorCodeMinus]--;
+            return attempt;
+        }
+
         public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth ? Open[x][z] = true : TryClose(x, z);
         public bool IsOpen(ushort x, ushort z) => Open[x][z];
 
@@ -111,7 +123,10 @@ namespace WOLF3D.WOLF3DGame.Action
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
+            {
                 AddChild(door);
+                Open[door.X][door.Z] = false;
+            }
 
             foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
                 if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
