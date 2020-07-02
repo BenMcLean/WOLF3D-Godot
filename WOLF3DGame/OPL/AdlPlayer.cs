@@ -26,17 +26,15 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => adl;
             set
             {
-                if (!Settings.FXMuted && (adl == null || value == null || value.Priority >= adl.Priority))
+                if (!Settings.FXMuted && (adl == null || value == null || adl == value || value.Priority >= adl.Priority))
                 {
                     SinceLastNote = 0f;
                     CurrentNote = 0;
                     if (Opl != null)
-                    {
                         if ((adl = value) != null)
                             SetInstrument().PlayNote();
                         else
                             Note = false;
-                    }
                 }
             }
         }

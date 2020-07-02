@@ -46,7 +46,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 for (uint i = 0; i < row.Length; i++)
                     sb.Append(row[i] + " ");
-                sb.AppendLine("done");
+                sb.AppendLine();
             }
             return sb.ToString();
         }
