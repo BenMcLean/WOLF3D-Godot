@@ -73,6 +73,7 @@ namespace WOLF3D.WOLF3DGame.Action
         private DoorEnum state = DoorEnum.CLOSED;
         public bool Moving => State == DoorEnum.OPENING || State == DoorEnum.CLOSING;
         public bool Western { get; private set; } = true;
+        public Direction8 Direction => Western ? Direction8.WEST : Direction8.SOUTH;
         public ushort X { get; private set; } = 0;
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
@@ -80,8 +81,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
-        public ushort FloorCodeA { get; set; } = 0;
-        public ushort FloorCodeB { get; set; } = 0;
+        public ushort FloorCodePlus { get; set; } = 0;
+        public ushort FloorCodeMinus { get; set; } = 0;
 
         public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
         public TryOpenDeelgate TryOpen { get; set; }
@@ -174,7 +175,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             )
                             {
                                 XML = door,
-                            }
+                            }.SetFloorCodes(map)
                             : new Door(
                                 Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                                 x,
@@ -184,9 +185,16 @@ namespace WOLF3D.WOLF3DGame.Action
                             )
                             {
                                 XML = door,
-                            };
+                            }.SetFloorCodes(map);
             }
             return doors;
+        }
+
+        public Door SetFloorCodes(GameMap map)
+        {
+            FloorCodePlus = (ushort)(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
+            FloorCodeMinus = (ushort)(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
+            return this;
         }
 
         public override void _Ready()

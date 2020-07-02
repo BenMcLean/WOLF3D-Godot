@@ -15,6 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool[][] Open { get; private set; }
         public Walls MapWalls { get; private set; }
         public Door[][] Doors { get; private set; }
+        public TriangularMatrix<short> FloorCodes = new TriangularMatrix<short>(Assets.FloorCodes);
         public IEnumerable<Door> GetDoors()
         {
             for (uint x = 0; x < Doors.Length; x++)
