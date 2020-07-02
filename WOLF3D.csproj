@@ -69,6 +69,7 @@
     <Compile Include="WOLF3DGame\Action\State.cs" />
     <Compile Include="WOLF3DGame\Action\StatusBar.cs" />
     <Compile Include="WOLF3DGame\Action\StatusNumber.cs" />
+    <Compile Include="WOLF3DGame\Action\TriangularMatrix.cs" />
     <Compile Include="WOLF3DGame\Action\Walls.cs" />
     <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\Direction8.cs" />
