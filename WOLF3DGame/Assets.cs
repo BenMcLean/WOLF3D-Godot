@@ -136,10 +136,17 @@ namespace WOLF3D.WOLF3DGame
                     state.Next = States[next];
 
             EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
+
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeStart")?.Value, out ushort floorCodeStart))
+                FloorCodeStart = floorCodeStart;
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodes")?.Value, out ushort floorCodes))
+                FloorCodes = floorCodes;
         }
 
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
+        public static ushort FloorCodeStart = 107;
+        public static ushort FloorCodes = 37;
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {

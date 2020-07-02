@@ -80,6 +80,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
+        public ushort FloorCodeA { get; set; } = 0;
+        public ushort FloorCodeB { get; set; } = 0;
 
         public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
         public TryOpenDeelgate TryOpen { get; set; }
