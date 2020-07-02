@@ -70,6 +70,8 @@ namespace WOLF3D.WOLF3DGame.Action
             };
             if (Main.NextLevelStats != null)
                 ActionRoom.StatusBar.Set(Main.NextLevelStats);
+            if (ActionRoom.StatusBar["Floor"] is StatusNumber floorNumber)
+                floorNumber.Value = (uint)(MapNumber + 1);
         }
 
         public override void Enter()
