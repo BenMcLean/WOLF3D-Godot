@@ -84,14 +84,14 @@ namespace WOLF3D.WOLF3DGame.Action
         public ushort FloorCodePlus { get; set; } = 0;
         public ushort FloorCodeMinus { get; set; } = 0;
         public Level Level { get; set; } = null;
-        public bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
-        public bool TryClose() => Level?.TryOpen(this, false) ?? false;
-        public bool Open
+        private bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
+        private bool TryClose() => TryOpen(false);
+        private bool Open
         {
             get => Level?.IsOpen(X, Z) ?? false;
             set => TryOpen(value);
         }
-        public bool Closed
+        private bool Closed
         {
             get => !Open;
             set => Open = !value;
@@ -208,10 +208,11 @@ namespace WOLF3D.WOLF3DGame.Action
                 case DoorEnum.OPEN:
                     Progress += delta;
                     if (Progress > OpenSeconds)
-                        if (TryClose())
-                            State = DoorEnum.CLOSING;
-                        else
+                    {
+                        State = DoorEnum.CLOSING;
+                        if (State != DoorEnum.CLOSING)
                             Progress = 0;
+                    }
                     break;
             }
         }

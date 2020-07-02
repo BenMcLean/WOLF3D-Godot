@@ -1,4 +1,6 @@
-﻿namespace WOLF3D.WOLF3DGame.Action
+﻿using System.Text;
+
+namespace WOLF3D.WOLF3DGame.Action
 {
     public class TriangularMatrix<T>
     {
@@ -35,6 +37,18 @@
                 else
                     Data[x - 1][y] = value;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (T[] row in Data)
+            {
+                for (uint i = 0; i < row.Length; i++)
+                    sb.Append(row[i] + " ");
+                sb.AppendLine("done");
+            }
+            return sb.ToString();
         }
     }
 }
