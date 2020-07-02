@@ -97,7 +97,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool TryOpen(Door door, bool @bool = true)
         {
             bool attempt = TryOpen(door.X, door.Z, @bool);
-            if (attempt)
+            if (attempt && door.FloorCodePlus != door.FloorCodeMinus)
                 if (@bool)
                     FloorCodes[door.FloorCodePlus, door.FloorCodeMinus]++;
                 else

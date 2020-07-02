@@ -185,8 +185,9 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Door SetFloorCodes(GameMap map)
         {
-            FloorCodePlus = (ushort)(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
-            FloorCodeMinus = (ushort)(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
+            ushort FloorCode(int floorCode) => (ushort)(floorCode >= 0 ? floorCode : 0);
+            FloorCodePlus = FloorCode(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
+            FloorCodeMinus = FloorCode(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
             return this;
         }
 
