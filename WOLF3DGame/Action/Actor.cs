@@ -15,7 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Seconds -= State.Seconds;
                 State = State.Next;
-                State?.Act?.Invoke(this);
+                State?.Act?.Invoke(this, delta);
             }
             if (MeshInstance.Visible && State != null
                 && State.Shape is short shape
@@ -86,7 +86,7 @@ namespace WOLF3D.WOLF3DGame.Action
         //    int hitpoints;
         public ushort HitPoints = 0;
         //    long speed;
-        public uint Speed = 0;
+        public float Speed = 0;
 
         //    int temp1, temp2, temp3;
         //    struct objstruct    *next,*prev;
@@ -95,23 +95,23 @@ namespace WOLF3D.WOLF3DGame.Action
         #endregion objstruct
 
         #region StateDelegates
-        public static void T_Stand(Actor actor) => actor.T_Stand();
-        public Actor T_Stand()
+        public static void T_Stand(Actor actor, float delta = 0) => actor.T_Stand(delta);
+        public Actor T_Stand(float delta)
         {
             return this;
         }
-        public static void T_Path(Actor actor) => actor.T_Path();
-        public Actor T_Path()
+        public static void T_Path(Actor actor, float delta = 0) => actor.T_Path(delta);
+        public Actor T_Path(float delta = 0)
         {
             return this;
         }
-        public static void T_Chase(Actor actor) => actor.T_Chase();
-        public Actor T_Chase()
+        public static void T_Chase(Actor actor, float delta = 0) => actor.T_Chase(delta);
+        public Actor T_Chase(float delta = 0)
         {
             return this;
         }
-        public static void T_Shoot(Actor actor) => actor.T_Shoot();
-        public Actor T_Shoot()
+        public static void T_Shoot(Actor actor, float delta = 0) => actor.T_Shoot(delta);
+        public Actor T_Shoot(float delta = 0)
         {
             return this;
         }

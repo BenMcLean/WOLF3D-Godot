@@ -15,7 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
             private set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; private set; } = 0f;
-        public delegate void StateDelegate(Actor actor);
+        public delegate void StateDelegate(Actor actor, float delta = 0);
         public StateDelegate Think { get; private set; } = null;
         public StateDelegate Act { get; private set; } = null;
         public State Next { get; set; }
