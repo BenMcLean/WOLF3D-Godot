@@ -8,7 +8,7 @@ namespace WOLF3D.WOLF3DGame
         {
             Mesh = new CubeMesh()
             {
-                Size = new Vector3(0.1f, 0.1f, 0.1f),
+                Size = new Vector3(0.2f, 0.2f, 0.2f),
                 Material = new SpatialMaterial()
                 {
                     AlbedoColor = Color.Color8(0, 0, 255, 64),
@@ -18,6 +18,7 @@ namespace WOLF3D.WOLF3DGame
                     FlagsTransparent = true,
                     ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    RenderPriority = int.MaxValue,
                 },
             },
 
