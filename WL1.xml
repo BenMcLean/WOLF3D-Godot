@@ -160,7 +160,7 @@
       <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
       <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <Image Name="C_OPTIONSPIC" X="center" Y="0" XBanner="0" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
         <MenuItems StartX="72" StartY="56" PaddingX="28">
           <MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
@@ -176,7 +176,7 @@
         <Cancel InGame="true" Action="Resume" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
-      <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+      <Menu Name="Episodes" BkgdColor="41" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23">
         <PixelRect X="6" Y="19" Width="309" Height="165" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="Which episode to play?" X="center" Y="3" Color="71" />
         <Image Name="C_EPISODE1PIC" X="40" Y="22" />
@@ -185,14 +185,14 @@
         <Image Name="C_EPISODE4PIC" X="40" Y="103" />
         <Image Name="C_EPISODE5PIC" X="40" Y="130" />
         <Image Name="C_EPISODE6PIC" X="40" Y="157" />
-        <Image Name="C_MOUSELBACKPIC" X="112" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
           <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="0" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
-          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" />
+          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
         </MenuItems>
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
@@ -200,7 +200,7 @@
       <Menu Name="Difficulty" BkgdColor="41" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
         <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
         <Text String="How tough are you?" X="center" Y="69" Color="71" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
         <MenuItems StartX="51" StartY="101" PaddingX="28">
           <MenuItem Text="Can I play, Daddy?" Difficulty="1" Action="NewGame" />
@@ -211,10 +211,35 @@
         <Cancel Action="Menu" Argument="Episodes" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
+      <Menu Name="Sound" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
+        <Image Name="C_FXTITLEPIC" X="center" Y="0" />
+        <PixelRect X="40" Y="17" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="41" StartY="21" PaddingX="55">
+          <MenuItem Text="None" On="FXMuted" FX="NONE" Action="Update" />
+          <MenuItem Text="Adlib/Sound Blaster" On="FXAdlib" FX="ADLIB" Action="Update" />
+        </MenuItems>
+        <Image Name="C_DIGITITLEPIC" X="center" Y="65" />
+        <Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
+        <PixelRect X="40" Y="82" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="41" StartY="86" PaddingX="55">
+          <MenuItem Text="None" On="DigiSoundMuted" DigiSound="NONE" Action="Update" />
+          <MenuItem Text="Sound Blaster" On="DigiSoundBlaster" DigiSound="SOUNDBLASTER" Action="Update" />
+        </MenuItems>
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+        <PixelRect X="40" Y="147" Width="250" Height="32" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="41" StartY="151" PaddingX="55">
+          <MenuItem Text="None" On="MusicMuted" Music="NONE" Action="Update" />
+          <MenuItem Text="Adlib/Sound Blaster" On="MusicAdlib" Music="ADLIB" Action="Update" />
+        </MenuItems>
+        <Cancel Action="Menu" Argument="Main" />
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+      </Menu>
       <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
-        <Text String="Select VR Mode:" X="center" Y="3" Color="71" />
-        <PixelRect X="3" Y="14" Width="317" Height="184" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="3" StartY="16" PaddingX="52" PaddingY="30">
+        <Image Name="C_CONTROLPIC" X="center" Y="0" XBanner="0" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+        <Text String="Select VR Mode:" X="center" Y="50" Color="71" />
+        <PixelRect X="3" Y="62" Width="317" Height="120" Color="45" BordColor="44" Bord2Color="35" />
+        <MenuItems StartX="3" StartY="64" PaddingX="52" PaddingY="14">
           <MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." On="Roomscale" VRMode="Roomscale" Action="Update" />
           <MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" On="FiveDOF" VRMode="FiveDOF" Action="Update" />
         </MenuItems>
@@ -222,6 +247,22 @@
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
     </Menus>
+    <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+      <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
+      <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
+      <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
+      <Face X="134" Y="5" />
+      <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
+      <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
+      <Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+      <Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+      <Weapons X="256" Y="8">
+        <Weapon Number="0" Pic="KNIFEPIC" Init="1" />
+        <Weapon Number="1" Pic="GUNPIC" Init="1" />
+        <Weapon Number="2" Pic="MACHINEGUNPIC" />
+        <Weapon Number="3" Pic="GATLINGGUNPIC" />
+      </Weapons>
+    </StatusBar>
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
     <Map Number="0" Floor="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
@@ -352,7 +393,7 @@
     <Imf Number="26" Name="PACMAN_MUS" />
   </Audio>
   <VSwap Name="VSWAP.WL1">
-    <Walls>
+    <Walls FloorCodeStart="108" FloorCodes="35">
       <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
       <Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
       <Wall Number="3" Page="4" DarkSide="5" Name="Grey Brick with Flag" />
@@ -386,14 +427,14 @@
       <Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
       <Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
       <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
-      <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" />
-      <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" />
-      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" Lock="Gold Key" />
-      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" Lock="Gold Key" />
-      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" Lock="Silver Key" />
-      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" Lock="Silver Key" />
-      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" />
-      <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" />
+      <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" If="Gold Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" If="Gold Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" If="Silver Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Special Number="106" Walk="true" Name="Deaf Guard" />
       <Exit Number="107" Name="Elevator to Secret Floor" />
       <Exit Number="108" Name="Floor 6C" />
@@ -446,7 +487,7 @@
       <Billboard Number="26" Page="111" Name="Floor Lamp" />
       <Billboard Number="27" Page="112" Walk="true" Name="Chandalier" />
       <Billboard Number="28" Page="113" Name="Hanging Skeleton" />
-      <Billboard Number="29" Page="114" Walk="true" Pickup="true" Health="4" Name="Dog Food" />
+      <Pickup Number="29" Page="114" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="4" Sound="HEALTH1SND" Name="Dog Food" />
       <Billboard Number="30" Page="115" Name="White Column" />
       <Billboard Number="31" Page="116" Name="Green Plant" />
       <Billboard Number="32" Page="117" Walk="true" Name="Skeleton" />
@@ -460,25 +501,32 @@
       <Billboard Number="40" Page="125" Name="Empty Cage" />
       <Billboard Number="41" Page="126" Name="Cage with Skeleton" />
       <Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
-      <Billboard Number="43" Page="128" Walk="true" Pickup="true" Inventory="true" Name="Gold Key" />
-      <Billboard Number="44" Page="129" Walk="true" Pickup="true" Inventory="true" Name="Silver Key" />
+      <Pickup Number="43" Page="128" Walk="true" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
+      <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
-      <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
-      <Billboard Number="47" Page="132" Walk="true" Pickup="true" Health="10" Name="Food" />
-      <Billboard Number="48" Page="133" Walk="true" Pickup="true" Health="25" Name="First Aid Kit" />
-      <Billboard Number="49" Page="134" Walk="true" Pickup="true" Ammo="8" Name="Ammo" />
-      <Billboard Number="50" Page="135" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Machine Gun" />
-      <Billboard Number="51" Page="136" Walk="true" Pickup="true" Ammo="6" Inventory="true" Name="Gatling Gun" />
-      <Billboard Number="52" Page="137" Walk="true" Pickup="true" Points="100" Name="Cross" />
-      <Billboard Number="53" Page="138" Walk="true" Pickup="true" Points="500" Name="Chalice" />
-      <Billboard Number="54" Page="139" Walk="true" Pickup="true" Points="1000" Name="Chest of Jewels" />
-      <Billboard Number="55" Page="140" Walk="true" Pickup="true" Points="5000" Name="Crown" />
-      <Billboard Number="56" Page="141" Walk="true" Pickup="true" Ammo="25" Health="100" Lives="1" Name="Extra Life" />
-      <Billboard Number="57" Page="142" Walk="true" Name="Bones with Blood" />
+      <Billboard Number="46" Page="131" Name="Basket" />
+      <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />
+      <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH2SND" Name="First Aid Kit" />
+      <Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
+      <Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Sound="GETMACHINESND" Name="Machine Gun">
+        <Effect AddTo="Ammo" Add="6" />
+      </Pickup>
+      <Pickup Number="51" Page="136" AddTo="Weapon3" Add="1" Sound="GETGATLINGSND" Name="Gatling Gun">
+        <Effect AddTo="Ammo" Add="6" />
+      </Pickup>
+      <Pickup Number="52" Page="137" Treasure="true" AddTo="Score" Add="100" Sound="BONUS1SND" Name="Cross" />
+      <Pickup Number="53" Page="138" Treasure="true" AddTo="Score" Add="500" Sound="BONUS2SND" Name="Chalice" />
+      <Pickup Number="54" Page="139" Treasure="true" AddTo="Score" Add="1000" Sound="BONUS3SND" Name="Chest of Jewels" />
+      <Pickup Number="55" Page="140" Treasure="true" AddTo="Score" Add="5000" Sound="BONUS4SND" Name="Crown" />
+      <Pickup Number="56" Page="141" AddTo="Lives" Add="1" Sound="BONUS1UPSND" Name="Extra Life">
+        <Effect AddTo="Ammo" Add="25" />
+        <Effect AddTo="Health" Add="100" />
+      </Pickup>
+      <Pickup Number="57" Page="142" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Bones with Blood" />
       <Billboard Number="58" Page="143" Name="Barrel" />
       <Billboard Number="59" Page="144" Name="Well with Water" />
       <Billboard Number="60" Page="145" Name="Well" />
-      <Billboard Number="61" Page="146" Walk="true" Name="Pool of Blood" />
+      <Pickup Number="61" Page="146" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Pool of Blood" />
       <Billboard Number="62" Page="147" Name="Flag" />
       <Billboard Number="63" Page="148" Name="Aardwolf" />
       <Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
@@ -488,179 +536,172 @@
       <Billboard Number="68" Page="153" Name="Stove" />
       <Billboard Number="69" Page="154" Name="Rack" />
       <Billboard Number="70" Page="155" Name="Vines" />
-      <Turn Number="90" Walk="true" Name="Turn" />
-      <Turn Number="91" Walk="true" Name="Turn" />
-      <Turn Number="92" Walk="true" Name="Turn" />
-      <Turn Number="93" Walk="true" Name="Turn" />
-      <Turn Number="94" Walk="true" Name="Turn" />
-      <Turn Number="95" Walk="true" Name="Turn" />
-      <Turn Number="96" Walk="true" Name="Turn" />
-      <Turn Number="97" Walk="true" Name="Turn" />
-      <Pushwall Number="98" Walk="true" Name="Secret Door" />
+      <Turn Number="90" Direction="E" Name="Turn E" />
+      <Turn Number="91" Direction="NE" Name="Turn NE" />
+      <Turn Number="92" Direction="N" Name="Turn N" />
+      <Turn Number="93" Direction="NW" Name="Turn NW" />
+      <Turn Number="94" Direction="W" Name="Turn W" />
+      <Turn Number="95" Direction="SW" Name="Turn SW" />
+      <Turn Number="96" Direction="S" Name="Turn S" />
+      <Turn Number="97" Direction="SE" Name="Turn SE" />
+      <Pushwall Number="98" Walk="true" DigiSound="PUSHWALLSND" Name="Secret Door" />
       <Trigger Number="99" Walk="true" Name="End Game Trigger" />
-      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="Standing" />
-      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="Standing" />
-      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="Standing" />
-      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="Standing" />
-      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="Moving" />
+      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="s_grdstand" />
+      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="s_grdpath1" />
+      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="s_grdpath1" />
       <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
-      <Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="Standing" />
-      <Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="Standing" />
-      <Spawn Number="128" Actor="SS" Direction="W" Difficulty="1" State="Standing" />
-      <Spawn Number="129" Actor="SS" Direction="S" Difficulty="1" State="Standing" />
-      <Spawn Number="130" Actor="SS" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="131" Actor="SS" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="132" Actor="SS" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="133" Actor="SS" Direction="S" Difficulty="1" State="Moving" />
-      <Spawn Number="138" Actor="Dog" Direction="E" Difficulty="1" State="Moving" />
-      <Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="Moving" />
-      <Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="Moving" />
-      <Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="Moving" />
-      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="Standing" />
-      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="Standing" />
-      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="Standing" />
-      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="Standing" />
-      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="Standing" />
-      <Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="Standing" />
-      <Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="Standing" />
-      <Spawn Number="165" Actor="SS" Direction="S" Difficulty="3" State="Standing" />
-      <Spawn Number="166" Actor="SS" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="167" Actor="SS" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="168" Actor="SS" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="169" Actor="SS" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="174" Actor="Dog" Direction="E" Difficulty="3" State="Moving" />
-      <Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="Moving" />
-      <Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="Moving" />
-      <Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="Moving" />
-      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="Standing" />
-      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="Standing" />
-      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Standing" />
-      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="Standing" />
-      <Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="Standing" />
-      <Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="Standing" />
-      <Spawn Number="201" Actor="SS" Direction="S" Difficulty="4" State="Standing" />
-      <Spawn Number="202" Actor="SS" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="203" Actor="SS" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="204" Actor="SS" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="205" Actor="SS" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="210" Actor="Dog" Direction="E" Difficulty="4" State="Moving" />
-      <Spawn Number="211" Actor="Dog" Direction="N" Difficulty="4" State="Moving" />
-      <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="Moving" />
-      <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="Moving" />
-      <Spawn Number="214" Actor="Hans" Direction="S" />
-      <Actor Name="Guard">
-        <Animation Name="Standing" Directional="true">
-          <Frame Number="0" Page="156" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="164" />
-          <Frame Number="1" Page="172" />
-          <Frame Number="2" Page="180" />
-          <Frame Number="3" Page="188" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="196" />
-          <Frame Number="1" Page="197" />
-          <Frame Number="2" Page="198" />
-          <Frame Number="3" Page="199" />
-          <Frame Number="4" Page="201" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="201" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="202" />
-          <Frame Number="1" Page="203" />
-          <Frame Number="2" Page="204" />
-        </Animation>
-      </Actor>
-      <Actor Name="Dog">
-        <Animation Name="Standing" Directional="true" >
-          <Frame Number="0" Page="205" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="205" />
-          <Frame Number="1" Page="213" />
-          <Frame Number="2" Page="221" />
-          <Frame Number="3" Page="229" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="237" />
-          <Frame Number="1" Page="238" />
-          <Frame Number="2" Page="239" />
-          <Frame Number="3" Page="240" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="240" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="241" />
-          <Frame Number="1" Page="242" />
-          <Frame Number="2" Page="243" />
-        </Animation>
-      </Actor>
-      <Actor Name="SS">
-        <Animation Name="Standing" Directional="true">
-          <Frame Number="0" Page="244" />
-        </Animation>
-        <Animation Name="Moving" Directional="true" Loop="true">
-          <Frame Number="0" Page="252" />
-          <Frame Number="1" Page="260" />
-          <Frame Number="2" Page="268" />
-          <Frame Number="3" Page="276" />
-        </Animation>
-        <Animation Name="Dying" >
-          <Frame Number="0" Page="284" />
-          <Frame Number="1" Page="285" />
-          <Frame Number="2" Page="286" />
-          <Frame Number="3" Page="287" />
-          <Frame Number="4" Page="289" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="289" />
-        </Animation>
-        <Animation Name="Attack" >
-          <Frame Number="0" Page="290" />
-          <Frame Number="1" Page="291" />
-          <Frame Number="2" Page="292" />
-        </Animation>
-      </Actor>
-      <Actor Name="Hans">
-        <Animation Name="Standing" >
-          <Frame Number="0" Page="406" />
-        </Animation>
-        <Animation Name="Moving" Loop="true">
-          <Frame Number="0" Page="402" />
-          <Frame Number="1" Page="403" />
-          <Frame Number="2" Page="404" />
-          <Frame Number="3" Page="405" />
-        </Animation>
-        <Animation Name="Attack" Loop="true">
-          <Frame Number="0" Page="407" />
-          <Frame Number="1" Page="408" />
-        </Animation>
-        <Animation Name="Dead" >
-          <Frame Number="0" Page="409" />
-        </Animation>
-        <Animation Name="Dying" Loop="true">
-          <Frame Number="0" Page="410" />
-          <Frame Number="1" Page="411" />
-          <Frame Number="2" Page="412" />
-          <Frame Number="3" Page="409" />
-        </Animation>
-      </Actor>
+      <Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="s_ssstand" />
+      <Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="s_ssstand" />
+      <Spawn Number="128" Actor="SS" Direction="W" Difficulty="1" State="s_ssstand" />
+      <Spawn Number="129" Actor="SS" Direction="S" Difficulty="1" State="s_ssstand" />
+      <Spawn Number="130" Actor="SS" Direction="E" Difficulty="1" State="s_sspath1" />
+      <Spawn Number="131" Actor="SS" Direction="N" Difficulty="1" State="s_sspath1" />
+      <Spawn Number="132" Actor="SS" Direction="W" Difficulty="1" State="s_sspath1" />
+      <Spawn Number="133" Actor="SS" Direction="S" Difficulty="1" State="s_sspath1" />
+      <Spawn Number="138" Actor="Dog" Direction="E" Difficulty="1" State="s_dogpath1" />
+      <Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="s_dogpath1" />
+      <Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="s_dogpath1" />
+      <Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="s_dogpath1" />
+      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="s_grdstand" />
+      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="s_grdpath1" />
+      <Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="s_ssstand" />
+      <Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="s_ssstand" />
+      <Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="s_ssstand" />
+      <Spawn Number="165" Actor="SS" Direction="S" Difficulty="3" State="s_ssstand" />
+      <Spawn Number="166" Actor="SS" Direction="E" Difficulty="3" State="s_sspath1" />
+      <Spawn Number="167" Actor="SS" Direction="N" Difficulty="3" State="s_sspath1" />
+      <Spawn Number="168" Actor="SS" Direction="W" Difficulty="3" State="s_sspath1" />
+      <Spawn Number="169" Actor="SS" Direction="S" Difficulty="3" State="s_sspath1" />
+      <Spawn Number="174" Actor="Dog" Direction="E" Difficulty="3" State="s_dogpath1" />
+      <Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="s_dogpath1" />
+      <Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="s_dogpath1" />
+      <Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="s_dogpath1" />
+      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdstand" />
+      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdpath1" />
+      <Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="s_ssstand" />
+      <Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="s_ssstand" />
+      <Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="s_ssstand" />
+      <Spawn Number="201" Actor="SS" Direction="S" Difficulty="4" State="s_ssstand" />
+      <Spawn Number="202" Actor="SS" Direction="E" Difficulty="4" State="s_sspath1" />
+      <Spawn Number="203" Actor="SS" Direction="N" Difficulty="4" State="s_sspath1" />
+      <Spawn Number="204" Actor="SS" Direction="W" Difficulty="4" State="s_sspath1" />
+      <Spawn Number="205" Actor="SS" Direction="S" Difficulty="4" State="s_sspath1" />
+      <Spawn Number="210" Actor="Dog" Direction="E" Difficulty="4" State="s_dogpath1" />
+      <Spawn Number="211" Actor="Dog" Direction="N" Difficulty="4" State="s_dogpath1" />
+      <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
+      <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
+      <Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
+      <Actor Name="Guard" HP="25,25,25,25" />
+      <State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Next="s_grdstand" />
+      <State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Next="s_grdpath1s" />
+      <State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Next="s_grdpath2" />
+      <State Name="s_grdpath2" Rotate="true" Shape="172" Tics="15" Think="T_Path" Next="s_grdpath3" />
+      <State Name="s_grdpath3" Rotate="true" Shape="180" Tics="20" Think="T_Path" Next="s_grdpath3s" />
+      <State Name="s_grdpath3s" Rotate="true" Shape="180" Tics="5" Next="s_grdpath4" />
+      <State Name="s_grdpath4" Rotate="true" Shape="188" Tics="15" Think="T_Path" Next="s_grdpath1" />
+      <State Name="s_grdpain" Shape="196" Tics="10" Next="s_grdchase1" />
+      <State Name="s_grdpain1" Shape="200" Tics="10" Next="s_grdchase1" />
+      <State Name="s_grdshoot1" Shape="241" Tics="20" Next="s_grdshoot2" />
+      <State Name="s_grdshoot2" Shape="242" Tics="20" Act="T_Shoot" Next="s_grdshoot3" />
+      <State Name="s_grdshoot3" Shape="243" Tics="20" Next="s_grdchase1" />
+      <State Name="s_grdchase1" Rotate="true" Shape="164" Tics="10" Think="T_Chase" Next="s_grdchase1s" />
+      <State Name="s_grdchase1s" Rotate="true" Shape="164" Tics="3" Next="s_grdchase2" />
+      <State Name="s_grdchase2" Rotate="true" Shape="172" Tics="8" Think="T_Chase" Next="s_grdchase3" />
+      <State Name="s_grdchase3" Rotate="true" Shape="180" Tics="10" Think="T_Chase" Next="s_grdchase3s" />
+      <State Name="s_grdchase3s" Rotate="true" Shape="180" Tics="3" Next="s_grdchase4" />
+      <State Name="s_grdchase4" Rotate="true" Shape="188" Tics="8" Think="T_Chase" Next="s_grdchase1" />
+      <State Name="s_grddie1" Shape="197" Tics="15" Act="A_DeathScream" Next="s_grddie2" />
+      <State Name="s_grddie2" Shape="198" Tics="15" Next="s_grddie3" />
+      <State Name="s_grddie3" Shape="199" Tics="15" Next="s_grddie4" />
+      <State Name="s_grddie4" Shape="201" Tics="0" Next="s_grddie4" />
+      <Actor Name="Dog" HP="1,1,1,1" />
+      <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Next="s_dogpath1s" />
+      <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Next="s_dogpath2" />
+      <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Next="s_dogpath3" />
+      <State Name="s_dogpath3" Rotate="true" Shape="221" Tics="20" Think="T_Path" Next="s_dogpath3s" />
+      <State Name="s_dogpath3s" Rotate="true" Shape="221" Tics="5" Next="s_dogpath4" />
+      <State Name="s_dogpath4" Rotate="true" Shape="229" Tics="15" Think="T_Path" Next="s_dogpath1" />
+      <State Name="s_dogjump1" Shape="241" Tics="10" Next="s_dogjump2" />
+      <State Name="s_dogjump2" Shape="242" Tics="10" Act="T_Bite" Next="s_dogjump3" />
+      <State Name="s_dogjump3" Shape="243" Tics="10" Next="s_dogjump4" />
+      <State Name="s_dogjump4" Shape="241" Tics="10" Next="s_dogjump5" />
+      <State Name="s_dogjump5" Shape="205" Tics="10" Next="s_dogchase1" />
+      <State Name="s_dogchase1" Rotate="true" Shape="205" Tics="10" Think="T_DogChase" Next="s_dogchase1s" />
+      <State Name="s_dogchase1s" Rotate="true" Shape="205" Tics="3" Next="s_dogchase2" />
+      <State Name="s_dogchase2" Rotate="true" Shape="213" Tics="8" Think="T_DogChase" Next="s_dogchase3" />
+      <State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Next="s_dogchase3s" />
+      <State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Next="s_dogchase4" />
+      <State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Next="s_dogchase1" />
+      <State Name="s_dogdie1" Shape="237" Tics="15" Act="A_DeathScream" Next="s_dogdie2" />
+      <State Name="s_dogdie2" Shape="238" Tics="15" Next="s_dogdie3" />
+      <State Name="s_dogdie3" Shape="239" Tics="15" Next="s_dogdead" />
+      <State Name="s_dogdead" Shape="240" Tics="15" Next="s_dogdead" />
+      <Actor Name="SS" HP="100,100,100,100" />
+      <State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Next="s_ssstand" />
+      <State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Next="s_sspath1s" />
+      <State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Next="s_sspath2" />
+      <State Name="s_sspath2" Rotate="true" Shape="260" Tics="15" Think="T_Path" Next="s_sspath3" />
+      <State Name="s_sspath3" Rotate="true" Shape="268" Tics="20" Think="T_Path" Next="s_sspath3s" />
+      <State Name="s_sspath3s" Rotate="true" Shape="268" Tics="5" Next="s_sspath4" />
+      <State Name="s_sspath4" Rotate="true" Shape="276" Tics="15" Think="T_Path" Next="s_sspath1" />
+      <State Name="s_sspain" Shape="284" Tics="10" Next="s_sschase1" />
+      <State Name="s_sspain1" Shape="288" Tics="10" Next="s_sschase1" />
+      <State Name="s_ssshoot1" Shape="290" Tics="20" Next="s_ssshoot2" />
+      <State Name="s_ssshoot2" Shape="292" Tics="20" Act="T_Shoot" Next="s_ssshoot3" />
+      <State Name="s_ssshoot3" Shape="291" Tics="10" Next="s_ssshoot4" />
+      <State Name="s_ssshoot4" Shape="292" Tics="10" Act="T_Shoot" Next="s_ssshoot5" />
+      <State Name="s_ssshoot5" Shape="291" Tics="10" Next="s_ssshoot6" />
+      <State Name="s_ssshoot6" Shape="292" Tics="10" Act="T_Shoot" Next="s_ssshoot7" />
+      <State Name="s_ssshoot7" Shape="291" Tics="10" Next="s_ssshoot8" />
+      <State Name="s_ssshoot8" Shape="292" Tics="10" Act="T_Shoot" Next="s_ssshoot9" />
+      <State Name="s_ssshoot9" Shape="291" Tics="10" Next="s_sschase1" />
+      <State Name="s_sschase1" Rotate="true" Shape="252" Tics="10" Think="T_Chase" Next="s_sschase1s" />
+      <State Name="s_sschase1s" Rotate="true" Shape="252" Tics="3" Next="s_sschase2" />
+      <State Name="s_sschase2" Rotate="true" Shape="260" Tics="8" Think="T_Chase" Next="s_sschase3" />
+      <State Name="s_sschase3" Rotate="true" Shape="268" Tics="10" Think="T_Chase" Next="s_sschase3s" />
+      <State Name="s_sschase3s" Rotate="true" Shape="268" Tics="3" Next="s_sschase4" />
+      <State Name="s_sschase4" Rotate="true" Shape="276" Tics="8" Think="T_Chase" Next="s_sschase1" />
+      <State Name="s_ssdie1" Shape="285" Tics="15" Act="A_DeathScream" Next="s_ssdie2" />
+      <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" />
+      <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" />
+      <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" />
+      <Actor Name="Hans" HP="850,950,1050,1200" />
+      <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Next="s_bossstand" />
+      <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Next="s_bosschase1s" />
+      <State Name="s_bosschase1s" Shape="402" Tics="3" Next="s_bosschase2" />
+      <State Name="s_bosschase2" Shape="403" Tics="8" Think="T_Chase" Next="s_bosschase3" />
+      <State Name="s_bosschase3" Shape="404" Tics="10" Think="T_Chase" Next="s_bosschase3s" />
+      <State Name="s_bosschase3s" Shape="404" Tics="3" Next="s_bosschase4" />
+      <State Name="s_bosschase4" Shape="405" Tics="8" Think="T_Chase" Next="s_bosschase1" />
+      <State Name="s_bossdie1" Shape="410" Tics="15" Act="A_DeathScream" Next="s_bossdie2" />
+      <State Name="s_bossdie2" Shape="411" Tics="15" Next="s_bossdie3" />
+      <State Name="s_bossdie3" Shape="412" Tics="15" Next="s_bossdie4" />
+      <State Name="s_bossdie4" Shape="409" Tics="0" Next="s_bossdie4" />
+      <State Name="s_bossshoot1" Shape="406" Tics="30" Next="s_bossshoot2" />
+      <State Name="s_bossshoot2" Shape="407" Tics="10" Act="T_Shoot" Next="s_bossshoot3" />
+      <State Name="s_bossshoot3" Shape="408" Tics="10" Act="T_Shoot" Next="s_bossshoot4" />
+      <State Name="s_bossshoot4" Shape="407" Tics="10" Act="T_Shoot" Next="s_bossshoot5" />
+      <State Name="s_bossshoot5" Shape="408" Tics="10" Act="T_Shoot" Next="s_bossshoot6" />
+      <State Name="s_bossshoot6" Shape="407" Tics="10" Act="T_Shoot" Next="s_bossshoot7" />
+      <State Name="s_bossshoot7" Shape="408" Tics="10" Act="T_Shoot" Next="s_bossshoot8" />
+      <State Name="s_bossshoot8" Shape="406" Tics="10" Next="s_bosschase1" />
       <Actor Name="BJ" Human="true">
         <Animation Name="Standing" >
           <Frame Number="0" Page="514" />

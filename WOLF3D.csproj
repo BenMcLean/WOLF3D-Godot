@@ -64,6 +64,12 @@
     <Compile Include="WOLF3DGame\Action\Door.cs" />
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\LoadingRoom.cs" />
+    <Compile Include="WOLF3DGame\Action\Pickup.cs" />
+    <Compile Include="WOLF3DGame\Action\PushWall.cs" />
+    <Compile Include="WOLF3DGame\Action\State.cs" />
+    <Compile Include="WOLF3DGame\Action\StatusBar.cs" />
+    <Compile Include="WOLF3DGame\Action\StatusNumber.cs" />
+    <Compile Include="WOLF3DGame\Action\TriangularMatrix.cs" />
     <Compile Include="WOLF3DGame\Action\Walls.cs" />
     <Compile Include="WOLF3DGame\Assets.cs" />
     <Compile Include="WOLF3DGame\Direction8.cs" />
@@ -73,12 +79,12 @@
     <Compile Include="WOLF3DGame\Main.cs" />
     <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
     <Compile Include="WOLF3DGame\Menu\ITarget.cs" />
-    <Compile Include="WOLF3DGame\Menu\MenuBody.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuItem.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuRoom.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
     <Compile Include="WOLF3DGame\Menu\Modal.cs" />
     <Compile Include="WOLF3DGame\Menu\PixelRect.cs" />
+    <Compile Include="WOLF3DGame\Menu\Target2D.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />

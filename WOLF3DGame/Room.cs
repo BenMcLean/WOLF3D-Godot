@@ -9,6 +9,9 @@ namespace WOLF3D.WOLF3DGame
         public virtual FadeCamera ARVRCamera { get; set; }
         public virtual ARVRController LeftController { get; set; }
         public virtual ARVRController RightController { get; set; }
+        public virtual ARVRController Controller(bool left) => left ? LeftController : RightController;
+        public virtual ARVRController Controller(int which) => Controller(which == 0);
+        public virtual ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
         public virtual void Enter()
         {
             ARVRCamera.Current = true;

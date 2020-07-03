@@ -17,6 +17,8 @@ namespace WOLF3D.WOLF3DGame
         #region Math
         //Tom Hall's Doom Bible and also tweets from John Carmack state that the walls in Wolfenstein 3-D were always eight feet thick. The wall textures are 64x64 pixels, which means that the ratio is 8 pixels per foot.
         //However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
+        public const float Foot = 0.3048f;
+        public const float Inch = Foot / 12f;
         //Now unless I am a complete failure at basic math (quite possible) this means that to scale Wolfenstein 3D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3D wall must be 2.4384 game units thick.
         public const float PixelWidth = 0.0381f;
         public const float WallWidth = 2.4384f;
@@ -50,6 +52,10 @@ namespace WOLF3D.WOLF3DGame
         {
             Extents = new Vector3(HalfWallWidth, HalfWallHeight, PixelWidth),
         };
+
+        public const float Tic = 1f / 70f;
+        public static float TicsToSeconds(int tics) => tics / 70f;
+        public static short SecondsToTics(float seconds) => (short)(seconds * 70f);
 
         // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
         // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
@@ -111,31 +117,6 @@ namespace WOLF3D.WOLF3DGame
                 AudioT = AudioT.Load(folder, XML);
             if (XML.Element("VgaGraph") != null)
                 VgaGraph = VgaGraph.Load(folder, XML);
-            Animations = new Dictionary<string, uint[][]>();
-            foreach (XElement actor in XML.Element("VSwap")?.Element("Objects")?.Elements("Actor") ?? Enumerable.Empty<XElement>())
-                foreach (XElement animation in actor.Elements("Animation") ?? Enumerable.Empty<XElement>())
-                {
-                    bool directional = IsTrue(animation, "Directional");
-                    IEnumerable<XElement> framesX = animation.Elements("Frame");
-                    uint[][] frames = new uint[framesX.Count()][];
-                    for (uint frame = 0; frame < frames.Length; frame++)
-                        if (directional)
-                        {
-                            frames[frame] = new uint[Direction8.Values.Count];
-                            uint east = (from e in framesX
-                                         where (uint)e.Attribute("Number") == frame
-                                         select (uint)e.Attribute("Page")).First();
-                            for (uint direction = 0; direction < frames[frame].Length; direction++)
-                                frames[frame][direction] = east + direction;
-                        }
-                        else
-                            frames[frame] = new uint[1] {
-                            (from e in animation.Elements("Frame")
-                            where (uint)e.Attribute("Number") == frame
-                            select (uint)e.Attribute("Page")).First()
-                            };
-                    Animations.Add(actor.Attribute("Name").Value + "/" + animation.Attribute("Name").Value, frames);
-                }
 
             List<ushort> walls = new List<ushort>();
             foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>())
@@ -147,14 +128,30 @@ namespace WOLF3D.WOLF3DGame
                 doors.Add((ushort)(int)door.Attribute("Number"));
             Doors = doors.ToArray();
 
+            States.Clear();
+            foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
+                States.Add(xState.Attribute("Name").Value, new State(xState));
+            foreach (State state in States.Values)
+                if (state.XML.Attribute("Next")?.Value is string next)
+                    state.Next = States[next];
+
+            Turns.Clear();
+            foreach (XElement xTurn in XML?.Element("VSwap")?.Element("Objects")?.Elements("Turn") ?? Enumerable.Empty<XElement>())
+                Turns.Add((ushort)(int)xTurn.Attribute("Number"), Direction8.From(xTurn.Attribute("Direction")));
+
             EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
+
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeStart")?.Value, out ushort floorCodeStart))
+                FloorCodeStart = floorCodeStart;
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodes")?.Value, out ushort floorCodes))
+                FloorCodes = floorCodes;
         }
 
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
-
-        public static bool IsTrue(XElement xElement, string attribute) =>
-            bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
+        public static ushort FloorCodeStart = 107;
+        public static ushort FloorCodes = 37;
+        public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {
@@ -234,20 +231,20 @@ namespace WOLF3D.WOLF3DGame
                             Format = AudioStreamSample.FormatEnum.Format8Bits,
                             MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
                         };
-                if (ushort.TryParse(
-                    (from e in XML.Element("VSwap").Elements("DigiSound")
-                     where e.Attribute("Name")?.Value.Trim().Equals("OPENDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                    out ushort openDoor
-                    ) && openDoor < DigiSounds.Length)
-                    Door.OpeningSound = DigiSounds[openDoor];
-                if (ushort.TryParse(
-                    (from e in XML.Element("VSwap").Elements("DigiSound")
-                     where e.Attribute("Name")?.Value.Trim().Equals("CLOSEDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                    out ushort closeDoor
-                    ) && closeDoor < DigiSounds.Length)
-                    Door.ClosingSound = DigiSounds[closeDoor];
+                //if (ushort.TryParse(
+                //    (from e in XML.Element("VSwap").Elements("DigiSound")
+                //     where e.Attribute("Name")?.Value.Trim().Equals("OPENDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
+                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
+                //    out ushort openDoor
+                //    ) && openDoor < DigiSounds.Length)
+                //    Door.OpeningSound = DigiSounds[openDoor];
+                //if (ushort.TryParse(
+                //    (from e in XML.Element("VSwap").Elements("DigiSound")
+                //     where e.Attribute("Name")?.Value.Trim().Equals("CLOSEDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
+                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
+                //    out ushort closeDoor
+                //    ) && closeDoor < DigiSounds.Length)
+                //    Door.ClosingSound = DigiSounds[closeDoor];
             }
         }
         private static VSwap vswap;
@@ -267,26 +264,43 @@ namespace WOLF3D.WOLF3DGame
                         PicTextures[i] = new ImageTexture();
                         PicTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
                     }
+                if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
+                {
+                    StatusBarDigits = new ImageTexture[10];
+                    for (int x = 0; x < StatusBarDigits.Length; x++)
+                        StatusBarDigits[x] = PicTextureSafe(
+                            statusBar.Attribute("NumberPrefix")?.Value +
+                            x.ToString() +
+                            statusBar.Attribute("NumberSuffix")?.Value
+                            );
+                    StatusBarBlank = statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank) ?
+                        PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
+                        : StatusBarDigits[0];
+                }
             }
         }
         private static VgaGraph vgaGraph;
         public static Color[] Palette;
         public static ImageTexture[] VSwapTextures;
         public static SpatialMaterial[] VSwapMaterials;
-        public static Dictionary<string, uint[][]> Animations;
         public static ImageTexture[] PicTextures;
         public static AudioStreamSample[] DigiSounds;
+        public static ImageTexture StatusBarBlank;
+        public static ImageTexture[] StatusBarDigits;
 
         public static AudioStreamSample DigiSound(string name) =>
+            DigiSoundSafe(name) ?? throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
+
+        public static AudioStreamSample DigiSoundSafe(string name) =>
             uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
             DigiSounds[index]
             : uint.TryParse((
-            from e in XML.Element("VSwap").Elements("DigiSound")
-            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
+            where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < DigiSounds.Length ?
             DigiSounds[result]
-            : throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
+            : null;
 
         public static ImageTexture PicTexture(string name) =>
             PicTextureSafe(name) ?? throw new InvalidDataException("Pic not found: \"" + name + "\"");
@@ -295,36 +309,39 @@ namespace WOLF3D.WOLF3DGame
             uint.TryParse(name, out uint index) && index < PicTextures.Length ?
             PicTextures[index]
             : uint.TryParse((
-            from e in XML.Element("VgaGraph").Elements("Pic")
-            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
+            from e in XML?.Element("VgaGraph")?.Elements("Pic") ?? Enumerable.Empty<XElement>()
+            where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < PicTextures.Length ?
             PicTextures[result]
             : null;
 
-        public static ImageTexture LoadingPic => PicTexture(XML.Element("VgaGraph").Attribute("LoadingPic")?.Value?.Trim());
+        public static ImageTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
 
-        public static Imf[] Song(string name) =>
+        public static Imf[] Song(string name) => SongSafe(name) ?? throw new InvalidDataException("Song not found: \"" + name + "\"");
+
+        public static Imf[] SongSafe(string name) =>
             uint.TryParse(name, out uint index) && index < AudioT.Songs.Length ?
             AudioT.Songs[index]
             : uint.TryParse((
-            from e in XML.Element("Audio").Elements("Imf")
+            from e in XML?.Element("Audio")?.Elements("Imf") ?? Enumerable.Empty<XElement>()
             where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
             select e.Attribute("Number").Value).FirstOrDefault(),
             out uint result) && result < AudioT.Songs.Length ?
             AudioT.Songs[result]
-            : throw new InvalidDataException("Song not found: \"" + name + "\"");
+            : null;
 
-        public static Adl Sound(string name) =>
+        public static Adl Sound(string name) => SoundSafe(name) ?? throw new InvalidDataException("Sound not found: \"" + name + "\"");
+        public static Adl SoundSafe(string name) =>
             uint.TryParse(name, out uint index) && index < AudioT.Sounds.Length ?
             AudioT.Sounds[index]
             : uint.TryParse((
-            from e in XML.Element("Audio").Elements("Sound")
+            from e in XML?.Element("Audio")?.Elements("Sound") ?? Enumerable.Empty<XElement>()
             where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
-            select e.Attribute("Number").Value).FirstOrDefault(),
+            select e.Attribute("Number")?.Value).FirstOrDefault(),
             out uint result) && result < AudioT.Sounds.Length ?
             AudioT.Sounds[result]
-            : throw new InvalidDataException("Sound not found: \"" + name + "\"");
+            : null;
 
         public static VgaGraph.Font Font(uint font) => VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)];
         public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(Font(font), @string, padding);
@@ -343,11 +360,67 @@ namespace WOLF3D.WOLF3DGame
         public static string[] EndStrings;
 
         public static MenuScreen Menu(string name) =>
-            (from e in XML.Element("VgaGraph").Element("Menus").Elements("Menu")
+            (from e in XML?.Element("VgaGraph")?.Element("Menus")?.Elements("Menu") ?? Enumerable.Empty<XElement>()
              where e.Attribute("Name").Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase)
              select e).FirstOrDefault() is XElement screen && screen != null ?
             new MenuScreen(screen)
             : null;
+
+        public static string WallName(ushort wall) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")
+            ?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort w) && w == wall)
+            ?.FirstOrDefault()?.Attribute("Name")?.Value;
+
+        public static IEnumerable<XElement> Treasures =>
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")?.Where(e => e.IsTrue("Treasure"));
+
+        public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
+
+        public static uint Treasure(ushort[] ObjectData)
+        {
+            uint found = 0;
+            foreach (XElement treasure in Treasures ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
+            return found;
+        }
+
+        public static IEnumerable<XElement> Spawn =>
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
+
+        public static uint Spawns(GameMap map) => Spawns(map.ObjectData);
+
+        public static uint Spawns(ushort[] ObjectData)
+        {
+            uint found = 0;
+            foreach (XElement spawn in Spawn ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
+            return found;
+        }
+
+        public static IEnumerable<XElement> Pushwall =>
+    XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
+
+        public static uint Pushwalls(GameMap map) => Pushwalls(map.ObjectData);
+
+        public static uint Pushwalls(ushort[] ObjectData)
+        {
+            uint found = 0;
+            foreach (XElement pushwall in Pushwall ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(pushwall.Attribute("Number")?.Value, out ushort number))
+                    foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
+                        if (number == square)
+                            found++;
+            return found;
+        }
+
+        public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
+
+        public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
 
         /*
         public static ShaderMaterial ShaderMaterial = new ShaderMaterial()

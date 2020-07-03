@@ -145,9 +145,14 @@ namespace WOLF3D.WOLF3DGame
         public static Direction8 CardinalFrom(Vector3 vector3) => CardinalFrom(Assets.Vector2(vector3));
         public static Direction8 CardinalFrom(Vector2 vector2) => CardinalFromAngle(vector2.Angle());
         public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
+        public static Direction8 CardinalToPoint(Vector3 vector3) => CardinalToPoint(Vector3.Zero, vector3);
         public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
+        public static Direction8 CardinalToPoint(Vector3 a, Vector3 b) => CardinalToPoint(a.x, a.z, b.x, b.z);
         public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
+        public static Direction8 CardinalToPoint(float x, float y) => CardinalToPoint(0f, 0f, x, y);
+
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
+        public static Direction8 CardinalToPoint(float x1, float y1, float x2, float y2) => CardinalFromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
         public float Angle => Mathf.Atan2(-Z, -X);
         public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
 

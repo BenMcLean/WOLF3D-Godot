@@ -1,5 +1,4 @@
 ﻿using Godot;
-using System;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -9,6 +8,9 @@ namespace WOLF3D.WOLF3DGame.Action
         public FadeCamera ARVRCamera { get; set; }
         public ARVRController LeftController { get; set; }
         public ARVRController RightController { get; set; }
+        public ARVRController Controller(bool left) => left ? LeftController : RightController;
+        public ARVRController Controller(int which) => Controller(which == 0);
+        public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 
         public ARVRPlayer()
         {
@@ -71,6 +73,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
+            #region Walking
             Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
@@ -138,36 +141,44 @@ namespace WOLF3D.WOLF3DGame.Action
                 axis0 -= 1;
             if (Mathf.Abs(axis0) > float.Epsilon)
                 Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
+            #endregion Walking
 
-            if (RightController.IsButtonPressed((int)Godot.JoystickList.VrTrigger) > 0)
+            #region Shooting
+
+            for (int control = 0; control < 2; control++)
             {
-                if (!Shooting)
-                {
-                    ActionRoom.Line3D.Vertices = new Vector3[] {
-                        RightController.GlobalTransform.origin,
-                        RightController.GlobalTransform.origin + RightControllerDirection * Assets.ShotRange
-                    };
-                    Godot.Collections.Dictionary result = GetWorld().DirectSpaceState.IntersectRay(
-                        ActionRoom.Line3D.Vertices[0],
-                        ActionRoom.Line3D.Vertices[1]
+                ARVRController controller = Controller(control);
+                exclude.Clear();
+                while (true)
+                { // Shooting while loop
+                    Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
+                            controller.GlobalTransform.origin,
+                            controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
+                            exclude
                         );
-
-                    GD.Print("Shooting! Range: " + Assets.ShotRange + " Time: " + DateTime.Now);
-                    if (result.Count > 0)
-                    {
-                        CollisionObject collider = (CollisionObject)result["collider"];
-                        GD.Print(
-                            ((CollisionShape)collider.ShapeOwnerGetOwner(collider.ShapeFindOwner((int)result["shape"]))).Name
-                            );
-                    }
+                    if (ray.Count > 0 && ray["collider"] is CollisionObject collider)
+                        if (collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
+                            exclude.Add(ray["collider"]);
+                        else
+                        {
+                            Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, (Vector3)ray["position"]);
+                            if (collider is Actor actor)
+                                SetTarget(control, actor);
+                            else
+                                SetTarget(control);
+                            break; // Shooting while loop
+                        }
                     else
-                        GD.Print("Hit nothing! :(");
-                    Shooting = true;
+                    { // Nothing was hit
+                        Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
+                        SetTarget(control);
+                        break; // Shooting while loop
+                    }
                 }
             }
-            else
-                Shooting = false;
+            #endregion Shooting
 
+            #region Pushing
             if (Input.IsKeyPressed((int)KeyList.Space))
             {
                 if (!Pushing)
@@ -205,7 +216,10 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             else
                 Pushing = false;
+            #endregion Pushing
         }
+
+        private readonly Godot.Collections.Array exclude = new Godot.Collections.Array();
 
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
@@ -222,6 +236,20 @@ namespace WOLF3D.WOLF3DGame.Action
         public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -Mathf.Pi * 3f / 16f).Normalized();
         public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
         public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
+
+        public Actor LeftTarget { get; set; } = null;
+        public Actor RightTarget { get; set; } = null;
+        public Actor Target(bool left) => left ? LeftTarget : RightTarget;
+        public Actor Target(int which) => Target(which == 0);
+        public ARVRPlayer SetTarget(bool left, Actor actor = null)
+        {
+            if (left)
+                LeftTarget = actor;
+            else
+                RightTarget = actor;
+            return this;
+        }
+        public ARVRPlayer SetTarget(int which, Actor billboard = null) => SetTarget(which == 0, billboard);
 
         public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
         public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;

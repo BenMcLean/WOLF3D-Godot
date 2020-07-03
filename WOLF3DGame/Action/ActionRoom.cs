@@ -1,6 +1,8 @@
 using Godot;
 using WOLF3DModel;
 using WOLF3D.WOLF3DGame.OPL;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -27,6 +29,19 @@ namespace WOLF3D.WOLF3DGame.Action
             set => ARVRPlayer.RightController = value;
         }
         public ARVRPlayer ARVRPlayer { get; set; }
+        public StatusBar StatusBar
+        {
+            get => statusBar;
+            set
+            {
+                if (statusBar != null)
+                    RemoveChild(statusBar);
+                statusBar = value;
+                if (statusBar != null)
+                    AddChild(statusBar);
+            }
+        }
+        private StatusBar statusBar;
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
         public ushort NextMap => (ushort)(MapNumber + 1 >= Assets.Maps.Length ? 0 : MapNumber + 1);
@@ -62,6 +77,26 @@ namespace WOLF3D.WOLF3DGame.Action
             controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
             controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
             ARVRPlayer.RightController.AddChild(controller);
+            StatusBar = new StatusBar();
+            ARVRCamera.AddChild(new MeshInstance()
+            {
+                Name = "StatusBarTest",
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(Assets.Foot, Assets.Foot / StatusBar.Size.x * StatusBar.Size.y * 1.2f),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoTexture = StatusBar.GetTexture(),
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Back,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                },
+                Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
+            });
         }
 
         public override void _Ready()
@@ -77,15 +112,17 @@ namespace WOLF3D.WOLF3DGame.Action
                 Color = Color.Color8(255, 0, 0, 255),
             });
 
-            //StringBuilder stringBuilder = new StringBuilder();
-            //for (int sx = 0; sx < Level.Map.Width; sx++)
-            //{
-            //    for (int sz = Level.Map.Depth - 1; sz >= 0; sz--)
-            //        stringBuilder.Append(Level.CollisionShapes[sx][sz] == null ? " " :
-            //        Level.CollisionShapes[sx][sz].Disabled ? "_" : "X");
-            //    stringBuilder.Append("\n");
-            //}
-            //GD.Print(stringBuilder.ToString());
+            AddChild(LeftTarget = new MeshInstance()
+            {
+                Name = "LeftTarget",
+                Mesh = TargetMesh,
+            });
+
+            AddChild(RightTarget = new MeshInstance()
+            {
+                Name = "RightTarget",
+                Mesh = TargetMesh,
+            });
         }
 
         public static Vector3 BillboardRotation { get; set; }
@@ -158,5 +195,94 @@ namespace WOLF3D.WOLF3DGame.Action
             if (SoundBlaster.Song != Song)
                 SoundBlaster.Song = Song;
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            Main.NextLevelStats = StatusBar.NextLevelStats();
+        }
+
+        public bool Pickup(Pickup pickup)
+        {
+            if (pickup.IsClose(ARVRPlayer.PlayerPosition) && Conditional(pickup.XML))
+            {
+                Effect(pickup.XML);
+                Level.RemoveChild(pickup);
+                return true;
+            }
+            return false;
+        }
+
+        public bool Conditional(XElement xml)
+        {
+            if (!ConditionalOne(xml))
+                return false;
+            foreach (XElement conditional in xml?.Elements("Conditional") ?? Enumerable.Empty<XElement>())
+                if (!ConditionalOne(conditional))
+                    return false;
+            return true;
+        }
+
+        public bool ConditionalOne(XElement xml) =>
+            xml?.Attribute("If")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+            ? (
+            (
+            uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
+                    ? statusNumber.Value == equals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
+                    ? statusNumber.Value < less : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
+                    ? statusNumber.Value > greater : true
+            )
+            ) : true;
+
+        public ActionRoom Effect(XElement xml)
+        {
+            EffectOne(xml);
+            foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
+                EffectOne(effect);
+            return this;
+        }
+
+        public ActionRoom EffectOne(XElement xml)
+        {
+            if (xml?.Attribute("AddTo")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+                && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
+                statusNumber.Value += add;
+            SoundBlaster.Play(xml);
+            return this;
+        }
+
+        public readonly static SphereMesh TargetMesh = new SphereMesh()
+        {
+            ResourceName = "Target",
+            Radius = Assets.PixelHeight / 2f,
+            Height = Assets.PixelHeight,
+            Material = new SpatialMaterial()
+            {
+                AlbedoColor = Color.Color8(255, 0, 0, 255),
+                FlagsUnshaded = true,
+                FlagsDoNotReceiveShadows = true,
+                FlagsDisableAmbientLight = true,
+                FlagsTransparent = false,
+                ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+            },
+        };
+
+        public MeshInstance LeftTarget { get; set; }
+        public MeshInstance RightTarget { get; set; }
+        public MeshInstance Target(bool left) => left ? LeftTarget : RightTarget;
+        public MeshInstance Target(int which) => Target(which == 0);
     }
 }

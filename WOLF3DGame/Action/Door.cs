@@ -9,7 +9,20 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
-        public float Progress { get; set; }
+        public XElement XML
+        {
+            get => xml;
+            set
+            {
+                xml = value;
+                if (Assets.DigiSoundSafe(xml?.Attribute("DigiSound")?.Value) is AudioStreamSample open)
+                    OpenDigiSound = open;
+                if (Assets.DigiSoundSafe(xml?.Attribute("CloseDigiSound")?.Value) is AudioStreamSample close)
+                    CloseDigiSound = close;
+            }
+        }
+        private XElement xml = null;
+        public float Progress { get; set; } = 0;
         public float Slide
         {
             get => DoorCollider.Transform.origin.x * OpeningSeconds / Assets.WallWidth;
@@ -40,7 +53,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         Slide = Progress = 0f;
                         break;
                     case DoorEnum.OPENING:
-                        Play = OpeningSound;
+                        Play = OpenDigiSound;
                         break;
                     case DoorEnum.OPEN:
                         Slide = OpeningSeconds;
@@ -48,50 +61,52 @@ namespace WOLF3D.WOLF3DGame.Action
                         Open = true;
                         break;
                     case DoorEnum.CLOSING:
-                        Play = ClosingSound;
+                        Play = CloseDigiSound;
                         if (State == DoorEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
                 }
+                DoorEnum old = state;
                 state = value;
+                if (FloorCodePlus != FloorCodeMinus && Level != null)
+                    if (old == DoorEnum.CLOSED && state == DoorEnum.OPENING)
+                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]++;
+                    else if (old == DoorEnum.CLOSING && state == DoorEnum.CLOSED)
+                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]--;
                 GatesEnabled = state == DoorEnum.CLOSED;
             }
         }
         private DoorEnum state = DoorEnum.CLOSED;
         public bool Moving => State == DoorEnum.OPENING || State == DoorEnum.CLOSING;
         public bool Western { get; private set; } = true;
+        public Direction8 Direction => Western ? Direction8.WEST : Direction8.SOUTH;
         public ushort X { get; private set; } = 0;
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
         public MeshInstance DoorMesh { get; private set; }
-        public AudioStreamPlayer3D Doorknob { get; private set; }
+        public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
-
-        public delegate bool TryOpenDeelgate(ushort x, ushort z, bool @bool);
-        public TryOpenDeelgate TryOpen { get; set; }
-        public bool TryClose() => TryOpen?.Invoke(X, Z, false) ?? false;
-
-        public delegate bool IsOpenDelegate(ushort x, ushort z);
-        public IsOpenDelegate IsOpen { get; set; }
-        public bool Open
+        public ushort FloorCodePlus { get; set; } = 0;
+        public ushort FloorCodeMinus { get; set; } = 0;
+        public Level Level { get; set; } = null;
+        private bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
+        private bool TryClose() => TryOpen(false);
+        private bool Open
         {
-            get => IsOpen(X, Z);
-            set => TryOpen?.Invoke(X, Z, value);
+            get => Level?.IsOpen(X, Z) ?? false;
+            set => TryOpen(value);
+        }
+        private bool Closed
+        {
+            get => !Open;
+            set => Open = !value;
         }
 
-        public Door SetDelegates(Level level)
-        {
-            TryOpen = level.TryOpen;
-            IsOpen = level.IsOpen;
-            return this;
-        }
-
-        public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => SetDelegates(level);
+        public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
 
         public Door(Material material, ushort x, ushort z, bool western)
         {
-            Name = "Door";
             X = x;
             Z = z;
             Western = western;
@@ -100,7 +115,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Western ? Direction8.NORTH.Basis : Direction8.EAST.Basis,
                     new Vector3(
                         Assets.CenterSquare(x),
-                        (float)Assets.HalfWallHeight,
+                        Assets.HalfWallHeight,
                         Assets.CenterSquare(z)
                     )
                 );
@@ -115,7 +130,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 MaterialOverride = material,
                 Mesh = Assets.WallMesh,
             });
-            DoorCollider.AddChild(Doorknob = new AudioStreamPlayer3D()
+            DoorCollider.AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
             });
@@ -157,20 +172,29 @@ namespace WOLF3D.WOLF3DGame.Action
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST
                             )
+                            {
+                                XML = door,
+                            }.SetFloorCodes(map)
                             : new Door(
                                 Assets.VSwapMaterials[(uint)door.Attribute("Page")],
                                 x,
                                 z,
                                 Direction8.From(door.Attribute("Direction")) == Direction8.WEST,
                                 level
-                            );
+                            )
+                            {
+                                XML = door,
+                            }.SetFloorCodes(map);
             }
             return doors;
         }
 
-        public override void _Ready()
+        public Door SetFloorCodes(GameMap map)
         {
-            State = TryClose() ? DoorEnum.CLOSED : DoorEnum.OPEN;
+            ushort FloorCode(int floorCode) => (ushort)(floorCode >= 0 ? floorCode : 0);
+            FloorCodePlus = FloorCode(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
+            FloorCodeMinus = FloorCode(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
+            return this;
         }
 
         public override void _PhysicsProcess(float delta)
@@ -190,10 +214,11 @@ namespace WOLF3D.WOLF3DGame.Action
                 case DoorEnum.OPEN:
                     Progress += delta;
                     if (Progress > OpenSeconds)
-                        if (TryClose())
-                            State = DoorEnum.CLOSING;
-                        else
+                    {
+                        State = DoorEnum.CLOSING;
+                        if (State != DoorEnum.CLOSING)
                             Progress = 0;
+                    }
                     break;
             }
         }
@@ -202,22 +227,26 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Push()
         {
-            State = Pushed;
-            return true;
+            if (Main.ActionRoom.Conditional(XML))
+            {
+                State = Pushed;
+                return true;
+            }
+            return false;
         }
 
         public AudioStreamSample Play
         {
-            get => (AudioStreamSample)Doorknob.Stream;
+            get => (AudioStreamSample)Speaker.Stream;
             set
             {
-                Doorknob.Stream = value;
+                Speaker.Stream = Settings.DigiSoundMuted ? null : value;
                 if (value != null)
-                    Doorknob.Play();
+                    Speaker.Play();
             }
         }
 
-        public static AudioStreamSample OpeningSound { get; set; } = null;
-        public static AudioStreamSample ClosingSound { get; set; } = null;
+        public AudioStreamSample OpenDigiSound { get; set; } = null;
+        public AudioStreamSample CloseDigiSound { get; set; } = null;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -14,6 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool[][] Open { get; private set; }
         public Walls MapWalls { get; private set; }
         public Door[][] Doors { get; private set; }
+        public TriangularMatrix<short> FloorCodes = new TriangularMatrix<short>(Assets.FloorCodes);
         public IEnumerable<Door> GetDoors()
         {
             for (uint x = 0; x < Doors.Length; x++)
@@ -23,8 +25,24 @@ namespace WOLF3D.WOLF3DGame.Action
         }
         public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
 
-        public bool Push(Vector2 where) =>
-            GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y))?.Push() ?? false;
+        public readonly List<PushWall> PushWalls = new List<PushWall>();
+
+        public bool Push(Vector2 where)
+        {
+            bool Pushy()
+            {
+                if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
+                    return door.Push();
+                foreach (PushWall pushWall in PushWalls)
+                    if (!pushWall.Pushed && pushWall.Inside(where))
+                        return pushWall.Push();
+                return false;
+            }
+            bool push = Pushy();
+            if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
+                SoundBlaster.Adl = sound;
+            return push;
+        }
 
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
@@ -75,6 +93,8 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             return false;
         }
+
+        public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
         public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth ? Open[x][z] = true : TryClose(x, z);
         public bool IsOpen(ushort x, ushort z) => Open[x][z];
 
@@ -87,13 +107,36 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Open[x] = new bool[Map.Depth];
                 for (ushort z = 0; z < Map.Depth; z++)
-                    Open[x][z] = !(IsWall(x, z) || !IsNavigable(x, z));
+                    Open[x][z] = !IsWall(x, z) && IsNavigable(x, z);
             }
             AddChild(MapWalls = new Walls(Map));
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
+            {
                 AddChild(door);
+                Open[door.X][door.Z] = false;
+            }
+
+            foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
+                    for (ushort x = 0; x < Map.Width; x++)
+                        for (ushort z = 0; z < Map.Depth; z++)
+                            if (Map.GetObjectData(x, z) == pushNumber)
+                            {
+                                PushWall pushWall = new PushWall(Assets.Wall(Map.GetMapData(x, z)))
+                                {
+                                    Name = "Pushwall starting at " + x + ", " + z,
+                                    Level = this,
+                                    X = x,
+                                    Z = z,
+                                    GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
+                                };
+                                if (Assets.DigiSoundSafe(pushXML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
+                                    pushWall.Sound = sound;
+                                PushWalls.Add(pushWall);
+                                AddChild(pushWall);
+                            }
 
             foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
                 AddChild(billboard);
@@ -108,7 +151,7 @@ namespace WOLF3D.WOLF3DGame.Action
             XElement mapObject = (from e in Assets.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
                                   where (uint)e.Attribute("Number") == cell
                                   select e).FirstOrDefault();
-            return mapObject == null || Assets.IsTrue(mapObject, "Walk");
+            return mapObject == null || mapObject.IsTrue("Walk");
         }
 
         /// <returns>if the specified map coordinates are adjacent to a floor</returns>

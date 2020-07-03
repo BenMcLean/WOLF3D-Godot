@@ -1,18 +1,15 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class MenuItem : Node2D, ITarget
+    public class MenuItem : Target2D
     {
-        public bool Target(Vector2 vector2) => TargetLocal(vector2 - Position);
-        public bool Target(float x, float y) => TargetLocal(x - Position.x, y - Position.y);
-        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Width && y < Height;
-        public XElement XML { get; set; }
         public Sprite Text { get; set; }
         public Sprite Selected
         {
@@ -27,14 +24,15 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
         private Sprite selected = null;
-        public float Width { get; set; } = 0;
-        public float Height { get; set; } = 0;
 
         public Color? Color
         {
             get => Text?.Modulate;
             set => Text.Modulate = value == null ? Assets.White : (Color)value;
         }
+
+        public Color TextColor { get; set; } = Assets.White;
+        public Color SelectedColor { get; set; } = Assets.White;
 
         public bool? IsSelected
         {
@@ -71,20 +69,20 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuItem UpdateSelected()
         {
-            if (Condition == null)
+            if (string.IsNullOrWhiteSpace(Condition))
                 return this;
-            if (Condition.Equals("Roomscale", StringComparison.InvariantCultureIgnoreCase))
-                IsSelected = Settings.Roomscale;
-            else if (Condition.Equals("FiveDOF", StringComparison.InvariantCultureIgnoreCase))
-                IsSelected = Settings.FiveDOF;
+            if (typeof(Settings).GetProperty(Condition, BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy) is PropertyInfo propertyInfo)
+                IsSelected = (bool)propertyInfo.GetValue(null, null);
             return this;
         }
 
-        public MenuItem(VgaGraph.Font font, string text = "", string condition = null) : this(font, text, 0, condition) { }
-        public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0, string condition = null)
+        public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0, string condition = null, Color? textColor = null, Color? selectedColor = null, XElement xml = null)
         {
             Name = text;
             Condition = condition;
+            XML = xml;
+            TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : textColor ?? Assets.White;
+            SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : selectedColor ?? Assets.White;
             ImageTexture texture = Assets.Text(font, Name = text);
             AddChild(Text = new Sprite()
             {
@@ -93,17 +91,18 @@ namespace WOLF3D.WOLF3DGame.Menu
             });
             Width = xPadding + texture.GetWidth();
             Height = texture.GetHeight();
+            Color = TextColor;
             UpdateSelected();
         }
 
-        public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? color = null)
+        public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? TextColor = null, Color? SelectedColor = null)
         {
             if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
                 font = Assets.Font(result);
-            if (byte.TryParse(menuItems.Attribute("Color")?.Value, out byte index))
-                color = Assets.Palette[index];
-            else if (color == null)
-                color = Assets.White;
+            if (byte.TryParse(menuItems.Attribute("TextColor")?.Value, out byte textColor))
+                TextColor = Assets.Palette[textColor];
+            if (byte.TryParse(menuItems.Attribute("SelectedColor")?.Value, out byte selectedColor))
+                SelectedColor = Assets.Palette[selectedColor];
             uint startX = uint.TryParse(menuItems.Attribute("StartX")?.Value, out result) ? result : 0,
                 startY = uint.TryParse(menuItems.Attribute("StartY")?.Value, out result) ? result : 0,
                 paddingX = uint.TryParse(menuItems.Attribute("PaddingX")?.Value, out result) ? result : 0,
@@ -115,15 +114,16 @@ namespace WOLF3D.WOLF3DGame.Menu
                         uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
                         menuItem.Attribute("Text")?.Value,
                         paddingX,
-                        menuItem.Attribute("On")?.Value
+                        menuItem.Attribute("On")?.Value,
+                        TextColor,
+                        SelectedColor,
+                        menuItem
                         )
                     {
-                        XML = menuItem,
                         Position = new Vector2(
                             startX,
                             startY + count++ * (font.Height + paddingY)
                             ),
-                        Color = byte.TryParse(menuItem.Attribute("Color")?.Value, out index) ? Assets.Palette[index] : color,
                     };
         }
     }

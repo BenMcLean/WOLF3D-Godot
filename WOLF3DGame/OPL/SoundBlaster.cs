@@ -3,6 +3,7 @@ using NScumm.Core.Audio.OPL;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
+using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -14,6 +15,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
         };
 
+        public static void NewOPL()
+        {
+            OplPlayer.Opl = new WoodyEmulatorOpl(OplType.Opl2);
+        }
+
         public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
 
         public static Imf[] Song
@@ -22,7 +28,10 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if (value == null)
+                {
                     SoundMessages.Enqueue(SoundMessage.STOP_MUSIC);
+                    MusicOff();
+                }
                 else
                     SoundMessages.Enqueue(value);
             }
@@ -103,6 +112,14 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             //OplPlayer.ImfPlayer.PlayNotes(delta);
             OplPlayer.AdlPlayer.PlayNotes(delta);
+        }
+
+        public static void MusicOff() => OplPlayer?.ImfPlayer?.MusicOff();
+
+        public static void Play(XElement xml)
+        {
+            if (xml?.Attribute("Sound")?.Value is string sound && !string.IsNullOrWhiteSpace(sound) && Assets.Sound(sound) is Adl adl && adl != null)
+                Adl = adl;
         }
     }
 }

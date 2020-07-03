@@ -14,15 +14,29 @@ namespace WOLF3DModel
                 return new VSwap(LoadPalette(xml), vSwap);
         }
 
-        private static readonly ushort COLORS = 256;
-
         public uint[] Palette { get; set; }
         public byte[][] Pages { get; set; }
         public byte[][] DigiSounds { get; set; }
         public ushort SpritePage { get; set; }
         public ushort NumPages { get; set; }
+        public int SoundPage => Pages.Length;
+        public ushort TileSqrt { get; set; }
 
         public byte[] Sprite(ushort number) => Pages[SpritePage + number];
+
+        public static uint GetOffset(ushort x, ushort y, ushort tileSqrt = 64) => (uint)((tileSqrt * y + x) * 4);
+        public uint GetOffset(ushort x, ushort y) => GetOffset(x, y, TileSqrt);
+        public byte GetR(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y)];
+        public byte GetG(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 1];
+        public byte GetB(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 2];
+        public byte GetA(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y) + 3];
+        public bool IsTransparent(ushort page, ushort x, ushort y) =>
+            page >= Pages.Length
+            || Pages[page] == null
+            || (page >= SpritePage // We know walls aren't transparent
+            && GetOffset(x, y) + 3 is uint offset
+            && offset < Pages[page].Length
+            && Pages[page][offset] > 128);
 
         public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
         { }
@@ -30,6 +44,7 @@ namespace WOLF3DModel
         public VSwap(uint[] palette, Stream stream, ushort tileSqrt = 64)
         {
             Palette = palette;
+            TileSqrt = tileSqrt;
             if (Palette == null)
                 throw new InvalidDataException("Must load a palette before loading a VSWAP!");
             using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -59,10 +74,10 @@ namespace WOLF3DModel
                     if (pageOffsets[page] > 0)
                     {
                         stream.Seek(pageOffsets[page], 0);
-                        byte[] wall = new byte[tileSqrt * tileSqrt];
-                        for (ushort col = 0; col < tileSqrt; col++)
-                            for (ushort row = 0; row < tileSqrt; row++)
-                                wall[tileSqrt * row + col] = (byte)stream.ReadByte();
+                        byte[] wall = new byte[TileSqrt * TileSqrt];
+                        for (ushort col = 0; col < TileSqrt; col++)
+                            for (ushort row = 0; row < TileSqrt; row++)
+                                wall[TileSqrt * row + col] = (byte)stream.ReadByte();
                         Pages[page] = Index2ByteArray(wall, palette);
                     }
 
@@ -74,7 +89,7 @@ namespace WOLF3DModel
                         ushort leftExtent = binaryReader.ReadUInt16(),
                             rightExtent = binaryReader.ReadUInt16(),
                             startY, endY;
-                        byte[] sprite = new byte[tileSqrt * tileSqrt];
+                        byte[] sprite = new byte[TileSqrt * TileSqrt];
                         for (ushort i = 0; i < sprite.Length; i++)
                             sprite[i] = 255; // set transparent
                         long[] columnDataOffsets = new long[rightExtent - leftExtent + 1];
@@ -94,7 +109,7 @@ namespace WOLF3DModel
                                 commands = stream.Position;
                                 stream.Seek(trexels, 0);
                                 for (ushort row = startY; row < endY; row++)
-                                    sprite[(row * tileSqrt - 1) + column + leftExtent - 1] = binaryReader.ReadByte();
+                                    sprite[(row * TileSqrt - 1) + column + leftExtent - 1] = binaryReader.ReadByte();
                                 trexels = stream.Position;
                                 stream.Seek(commands, 0);
                             }
@@ -144,8 +159,8 @@ namespace WOLF3DModel
                 if (!line.Equals("JASC-PAL") || !streamReader.ReadLine().Trim().Equals("0100"))
                     throw new InvalidDataException("Palette stream is an incorrectly formatted JASC palette.");
                 if (!uint.TryParse(streamReader.ReadLine()?.Trim(), out uint numColors)
-                 || numColors != COLORS)
-                    throw new InvalidDataException("Palette stream does not contain exactly " + COLORS + " colors.");
+                 || numColors != 256)
+                    throw new InvalidDataException("Palette stream does not contain exactly 256 colors.");
                 result = new uint[numColors];
                 for (uint x = 0; x < numColors; x++)
                 {
@@ -197,7 +212,7 @@ namespace WOLF3DModel
             return repeated;
         }
 
-        public static uint[] Tile(uint[] squareTexture, uint tileSqrt)
+        public static uint[] Tile(uint[] squareTexture, uint tileSqrt = 64)
         {
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
             uint newSide = side * tileSqrt;
@@ -236,7 +251,7 @@ namespace WOLF3DModel
 
         public static T[] ConcatArrays<T>(params T[][] list)
         {
-            var result = new T[list.Sum(a => a.Length)];
+            T[] result = new T[list.Sum(a => a.Length)];
             int offset = 0;
             for (int x = 0; x < list.Length; x++)
             {

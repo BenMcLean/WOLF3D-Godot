@@ -14,6 +14,10 @@ There has already been [an admirable effort at recreating Wolfenstein 3D in VR](
 
 At this time, I do NOT plan to work on support for Blake Stone, Corridor 7 or Rise of the Triad.
 
+Oh, and also, my project is going to go out of its way to intentionally not change the name of its master branch from continuing to be called "master" because changing things that we all know are already not racist in the name of "stopping racism" is fundamentally dishonest and contemptible.
+
+Not to mention that I, of course, will not be censoring any of the swatztikas in the game, nor the pictures of Hitler, nor the German eagles, nor the SS uniforms, nor the Nazi music, nor any other World War II related content from the original game. Nazis are bad and we should have genuinely bad Nazis in our World War II games, not fake ones.
+
 # Building
 
 Currently works with Godot Mono 3.2 Stable.

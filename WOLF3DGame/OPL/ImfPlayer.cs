@@ -9,7 +9,6 @@ namespace WOLF3D.WOLF3DGame.OPL
     public class ImfPlayer
     {
         public IOpl Opl { get; set; }
-        public bool Mute { get; set; } = false;
         public bool Loop { get; set; } = true;
         public uint CurrentPacket
         {
@@ -33,7 +32,13 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => song;
             set
             {
+                if (Settings.MusicMuted)
+                {
+                    song = null;
+                    return;
+                }
                 if (song != value) song = value;
+                if (song == null) MusicOff();
                 CurrentPacket = 0;
             }
         }
@@ -59,6 +64,14 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
             if (CurrentPacket >= Song.Length)
                 Song = Loop ? Song : null;
+            return this;
+        }
+
+        public ImfPlayer MusicOff()
+        {
+            Opl?.WriteReg(189, 0);
+            for (int i = 0; i < 10; i++)
+                Opl?.WriteReg(177 + i, 0);
             return this;
         }
     }

@@ -45,7 +45,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
         public Color TextColor { get; set; }
         public Color SelectedColor { get; set; }
-        public Color DisabledColor { get; set; }
         public ImageTexture[] Cursors { get; set; }
         public int CursorX { get; set; } = 0;
         public int CursorY { get; set; } = 0;
@@ -72,13 +71,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
             XML = menu;
             Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
-            Color = Assets.Palette[(uint)menu.Attribute("BkgdColor")];
-            if (menu.Attribute("TextColor") != null)
-                TextColor = Assets.Palette[(uint)menu.Attribute("TextColor")];
-            if (menu.Attribute("SelectedColor") != null)
-                SelectedColor = Assets.Palette[(uint)menu.Attribute("SelectedColor")];
-            if (menu.Attribute("DisabledColor") != null)
-                DisabledColor = Assets.Palette[(uint)menu.Attribute("DisabledColor")];
+            if (byte.TryParse(menu.Attribute("BkgdColor")?.Value, out byte bkgdColor))
+                Color = Assets.Palette[bkgdColor];
+            TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : Assets.White;
+            SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : Assets.White;
             foreach (XElement pixelRect in menu.Elements("PixelRect"))
                 if (Main.InGameMatch(pixelRect))
                     AddChild(new PixelRect(pixelRect));
@@ -103,17 +99,36 @@ namespace WOLF3D.WOLF3DGame.Menu
                             ),
                             Scale = new Vector2(Width, 1f),
                         });
-                    AddChild(new Sprite()
-                    {
-                        Texture = texture,
-                        Position = new Vector2(
+                    Vector2 position = new Vector2(
                             image.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
                             Width / 2
-                            : (float)image.Attribute("X") + texture.GetSize().x / 2f,
+                            : (float)image.Attribute("X") + texture.GetWidth() / 2f,
                             image.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
                             Height / 2
-                            : (float)image.Attribute("Y") + texture.GetSize().y / 2f),
+                            : (float)image.Attribute("Y") + texture.GetHeight() / 2f
+                            );
+                    AddChild(new Sprite()
+                    {
+                        Name = "Image " + image.Attribute("Name").Value,
+                        Texture = texture,
+                        Position = position,
                     });
+                    if (image.Attribute("Action")?.Value is string action && !string.IsNullOrWhiteSpace(action))
+                    {
+                        Target2D target = new Target2D()
+                        {
+                            Name = "Target " + image.Attribute("Name").Value,
+                            XML = image,
+                            Position = new Vector2(
+                                position.x - texture.GetWidth() / 2f,
+                                position.y - texture.GetHeight() / 2f
+                                ),
+                            Width = texture.GetWidth(),
+                            Height = texture.GetHeight(),
+                        };
+                        ExtraItems.Add(target);
+                        AddChild(target);
+                    }
                 }
             foreach (XElement text in menu.Elements("Text"))
                 if (Main.InGameMatch(text))
@@ -127,23 +142,23 @@ namespace WOLF3D.WOLF3DGame.Menu
                     {
                         Texture = texture,
                         Position = new Vector2(
-                            text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-                            Width / 2
-                            : ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
-                            x
-                            : 0) + texture.GetWidth() / 2),
-                            text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-                            Height / 2
-                            : ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
-                            y
-                            : 0) + texture.GetHeight() / 2)
-                            ),
+                                        text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                                        Width / 2
+                                        : ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
+                                        x
+                                        : 0) + texture.GetWidth() / 2),
+                                        text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+                                        Height / 2
+                                        : ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
+                                        y
+                                        : 0) + texture.GetHeight() / 2)
+                                        ),
                         Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
                     });
                 }
             foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
                 if (Main.InGameMatch(menuItems))
-                    foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor))
+                    foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor, SelectedColor))
                     {
                         MenuItems.Add(item);
                         AddChild(item);
@@ -183,6 +198,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         }
 
         public List<MenuItem> MenuItems { get; private set; } = new List<MenuItem>();
+        public List<Target2D> ExtraItems { get; private set; } = new List<Target2D>();
 
         public const float BlinkRate = 0.5f;
         public float Blink = 0f;
@@ -210,9 +226,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                     selection = 0;
                     return;
                 }
-                MenuItems[selection].Color = TextColor;
+                MenuItems[selection].Color = MenuItems[selection].TextColor;
                 selection = Direction8.Modulus(value, MenuItems.Count);
-                MenuItems[selection].Color = SelectedColor;
+                MenuItems[selection].Color = MenuItems[selection].SelectedColor;
                 if (Cursor != null)
                     Cursor.Position = new Vector2(
                         MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
@@ -296,22 +312,33 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Cancel();
         }
 
+        public Target2D GetExtraItem()
+        {
+            foreach (Target2D target in ExtraItems)
+                if (target.Target(Crosshairs.GlobalPosition))
+                    return target;
+            return null;
+        }
+
         public MenuScreen Accept()
         {
-            if (Modal == null && SelectedItem is MenuItem selected && selected != null)
+            if (Modal == null)
             {
-                if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
-                    SoundBlaster.Adl = Assets.Sound(selectSound.Value);
-                else if (Assets.SelectSound != null)
-                    SoundBlaster.Adl = Assets.SelectSound;
-                Main.MenuRoom.Action(selected.XML);
-                return this;
+                if (GetExtraItem() is Target2D target && target != null)
+                    Main.MenuRoom.Action(target.XML);
+                else if (SelectedItem is MenuItem selected && selected != null)
+                {
+                    if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
+                        SoundBlaster.Adl = Assets.Sound(selectSound.Value);
+                    else if (Assets.SelectSound != null)
+                        SoundBlaster.Adl = Assets.SelectSound;
+                    Main.MenuRoom.Action(selected.XML);
+                }
             }
-            if (Modal != null)
-                if (Modal.Answer)
-                    return Yes();
-                else
-                    Modal = null;
+            else if (Modal.Answer)
+                return Yes();
+            else
+                Modal = null;
             return this;
         }
 
