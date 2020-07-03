@@ -66,7 +66,13 @@ namespace WOLF3D.WOLF3DGame.Action
                             Slide = Progress = OpeningSeconds;
                         break;
                 }
+                DoorEnum old = state;
                 state = value;
+                if (FloorCodePlus != FloorCodeMinus && Level != null)
+                    if (old == DoorEnum.CLOSED && state == DoorEnum.OPENING)
+                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]++;
+                    else if (old == DoorEnum.CLOSING && state == DoorEnum.CLOSED)
+                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]--;
                 GatesEnabled = state == DoorEnum.CLOSED;
             }
         }
