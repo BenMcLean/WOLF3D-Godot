@@ -135,6 +135,10 @@ namespace WOLF3D.WOLF3DGame
                 if (state.XML.Attribute("Next")?.Value is string next)
                     state.Next = States[next];
 
+            Turns.Clear();
+            foreach (XElement xTurn in XML?.Element("VSwap")?.Element("Objects")?.Elements("Turn") ?? Enumerable.Empty<XElement>())
+                Turns.Add((ushort)(int)xTurn.Attribute("Number"), Direction8.From(xTurn.Attribute("Direction")));
+
             EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
 
             if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeStart")?.Value, out ushort floorCodeStart))
@@ -147,6 +151,7 @@ namespace WOLF3D.WOLF3DGame
         public static ushort[] Doors { get; set; }
         public static ushort FloorCodeStart = 107;
         public static ushort FloorCodes = 37;
+        public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {

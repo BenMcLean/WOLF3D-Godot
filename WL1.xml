@@ -536,14 +536,14 @@
       <Billboard Number="68" Page="153" Name="Stove" />
       <Billboard Number="69" Page="154" Name="Rack" />
       <Billboard Number="70" Page="155" Name="Vines" />
-      <Turn Number="90" Walk="true" Direction="E" Name="Turn" />
-      <Turn Number="91" Walk="true" Direction="NE" Name="Turn" />
-      <Turn Number="92" Walk="true" Direction="N" Name="Turn" />
-      <Turn Number="93" Walk="true" Direction="NW" Name="Turn" />
-      <Turn Number="94" Walk="true" Direction="W" Name="Turn" />
-      <Turn Number="95" Walk="true" Direction="SW" Name="Turn" />
-      <Turn Number="96" Walk="true" Direction="S" Name="Turn" />
-      <Turn Number="97" Walk="true" Direction="SE" Name="Turn" />
+      <Turn Number="90" Direction="E" Name="Turn E" />
+      <Turn Number="91" Direction="NE" Name="Turn NE" />
+      <Turn Number="92" Direction="N" Name="Turn N" />
+      <Turn Number="93" Direction="NW" Name="Turn NW" />
+      <Turn Number="94" Direction="W" Name="Turn W" />
+      <Turn Number="95" Direction="SW" Name="Turn SW" />
+      <Turn Number="96" Direction="S" Name="Turn S" />
+      <Turn Number="97" Direction="SE" Name="Turn SE" />
       <Pushwall Number="98" Walk="true" DigiSound="PUSHWALLSND" Name="Secret Door" />
       <Trigger Number="99" Walk="true" Name="End Game Trigger" />
       <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
