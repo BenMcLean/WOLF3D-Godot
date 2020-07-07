@@ -45,8 +45,15 @@ namespace WOLF3D.WOLF3DGame
             {
                 BackgroundColor = Color.Color8(0, 0, 0, 255),
                 BackgroundMode = Godot.Environment.BGMode.Color,
+                AdjustmentEnabled = true,
+                AdjustmentBrightness = 1f,
             },
         };
+        public static float Brightness
+        {
+            get => WorldEnvironment.Environment.AdjustmentBrightness;
+            set => WorldEnvironment.Environment.AdjustmentBrightness = value;
+        }
         public static Color Color
         {
             get => WorldEnvironment.Environment.BackgroundColor;
