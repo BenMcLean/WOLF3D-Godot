@@ -227,6 +227,7 @@ namespace WOLF3DModel
 
         public static uint[] Scale(uint[] squareTexture, int factor)
         {
+            if (factor == 1) return squareTexture;
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
             int newSide = (int)side * factor;
             uint[] scaled = new uint[squareTexture.Length * factor * factor];
