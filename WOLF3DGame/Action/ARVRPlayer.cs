@@ -77,51 +77,56 @@ namespace WOLF3D.WOLF3DGame.Action
             Vector2 forward = ARVRCameraDirection, // which way we're facing
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
-            if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
-            { // Don't want to move this way if both keys are pressed at once.
-                if (Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
-                {
-                    movement += forward;
-                    keyPressed = true;
-                }
-                if (Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S))
-                {
-                    movement += forward.Rotated(Mathf.Pi);
-                    keyPressed = true;
-                }
-            }
-            if (!Input.IsKeyPressed((int)KeyList.A) || !Input.IsKeyPressed((int)KeyList.D))
-            { // Don't want to move this way if both keys are pressed at once.
-                if (Input.IsKeyPressed((int)KeyList.A))
-                {
-                    movement += forward.Rotated(Mathf.Pi / -2f);
-                    keyPressed = true;
-                }
-                if (Input.IsKeyPressed((int)KeyList.D))
-                {
-                    movement += forward.Rotated(Mathf.Pi / 2f);
-                    keyPressed = true;
-                }
-            }
-            if (keyPressed)
-                movement = movement.Normalized();
-            else
+
+            if (!Main.Room.IsPaused())
             {
-                Vector2 joystick = new Vector2(LeftController.GetJoystickAxis(1) + RightController.GetJoystickAxis(1), LeftController.GetJoystickAxis(0));
-                float strength = Strength(joystick.Length());
-                if (Mathf.Abs(strength) > 1)
-                    strength = Mathf.Sign(strength);
-                if (Mathf.Abs(strength) > float.Epsilon)
-                    movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
+                if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
+                { // Don't want to move this way if both keys are pressed at once.
+                    if (Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W))
+                    {
+                        movement += forward;
+                        keyPressed = true;
+                    }
+                    if (Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S))
+                    {
+                        movement += forward.Rotated(Mathf.Pi);
+                        keyPressed = true;
+                    }
+                }
+                if (!Input.IsKeyPressed((int)KeyList.A) || !Input.IsKeyPressed((int)KeyList.D))
+                { // Don't want to move this way if both keys are pressed at once.
+                    if (Input.IsKeyPressed((int)KeyList.A))
+                    {
+                        movement += forward.Rotated(Mathf.Pi / -2f);
+                        keyPressed = true;
+                    }
+                    if (Input.IsKeyPressed((int)KeyList.D))
+                    {
+                        movement += forward.Rotated(Mathf.Pi / 2f);
+                        keyPressed = true;
+                    }
+                }
+
+                if (keyPressed)
+                    movement = movement.Normalized();
+                else
+                {
+                    Vector2 joystick = new Vector2(LeftController.GetJoystickAxis(1) + RightController.GetJoystickAxis(1), LeftController.GetJoystickAxis(0));
+                    float strength = Strength(joystick.Length());
+                    if (Mathf.Abs(strength) > 1)
+                        strength = Mathf.Sign(strength);
+                    if (Mathf.Abs(strength) > float.Epsilon)
+                        movement += (joystick.Normalized() * strength).Rotated(forward.Angle());
+                }
+
+                if (movement.Length() > 1f)
+                    movement = movement.Normalized();
+
+                PlayerPosition = Walk(PlayerPosition, Walk(
+                        PlayerPosition,
+                        PlayerPosition + ARVRCameraMovement + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
+                        ));
             }
-
-            if (movement.Length() > 1f)
-                movement = movement.Normalized();
-
-            PlayerPosition = Walk(PlayerPosition, Walk(
-                    PlayerPosition,
-                    PlayerPosition + ARVRCameraMovement + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
-                    ));
 
             // Move ARVROrigin so that camera global position matches player global position
             ARVROrigin.Transform = new Transform(
@@ -144,78 +149,81 @@ namespace WOLF3D.WOLF3DGame.Action
             #endregion Walking
 
             #region Shooting
-
-            for (int control = 0; control < 2; control++)
-            {
-                ARVRController controller = Controller(control);
-                exclude.Clear();
-                while (true)
-                { // Shooting while loop
-                    Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
-                            controller.GlobalTransform.origin,
-                            controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
-                            exclude
-                        );
-                    if (ray.Count > 0 && ray["collider"] is CollisionObject collider)
-                        if (collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
-                            exclude.Add(ray["collider"]);
-                        else
-                        {
-                            Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, (Vector3)ray["position"]);
-                            if (collider is Actor actor)
-                                SetTarget(control, actor);
+            if (!Main.Room.IsPaused())
+                for (int control = 0; control < 2; control++)
+                {
+                    ARVRController controller = Controller(control);
+                    exclude.Clear();
+                    while (true)
+                    { // Shooting while loop
+                        Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
+                                controller.GlobalTransform.origin,
+                                controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
+                                exclude
+                            );
+                        if (ray.Count > 0 && ray["collider"] is CollisionObject collider)
+                            if (collider is Billboard billboard && ray["position"] is Vector3 position && !billboard.IsHit(position))
+                                exclude.Add(ray["collider"]);
                             else
-                                SetTarget(control);
+                            {
+                                Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, (Vector3)ray["position"]);
+                                if (collider is Actor actor)
+                                    SetTarget(control, actor);
+                                else
+                                    SetTarget(control);
+                                break; // Shooting while loop
+                            }
+                        else
+                        { // Nothing was hit
+                            Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
+                            SetTarget(control);
                             break; // Shooting while loop
                         }
-                    else
-                    { // Nothing was hit
-                        Main.ActionRoom.Target(control).GlobalTransform = new Transform(Basis.Identity, controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange);
-                        SetTarget(control);
-                        break; // Shooting while loop
                     }
                 }
-            }
             #endregion Shooting
 
             #region Pushing
-            if (Input.IsKeyPressed((int)KeyList.Space))
+            if (!Main.Room.IsPaused())
             {
-                if (!Pushing)
+                if (Input.IsKeyPressed((int)KeyList.Space))
                 {
-                    Push(new Vector2(
-                        PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-                        PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-                        ));
-                    Pushing = true;
-                }
-            }
-            else if (RightController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
-            {
-                if (!Pushing)
-                {
-                    if (!Push(Assets.Vector2(RightController.GlobalTransform.origin)))
+                    if (!Pushing)
+                    {
                         Push(new Vector2(
                             PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
                             PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
                             ));
-                    Pushing = true;
+                        Pushing = true;
+                    }
                 }
-            }
-            else if (LeftController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
-            {
-                if (!Pushing)
+                else if (RightController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
                 {
-                    if (!Push(Assets.Vector2(LeftController.GlobalTransform.origin)))
-                        Push(new Vector2(
-                            PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-                            PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-                            ));
-                    Pushing = true;
+                    if (!Pushing)
+                    {
+                        if (!Push(Assets.Vector2(RightController.GlobalTransform.origin)))
+                            Push(new Vector2(
+                                PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                                PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                                ));
+                        Pushing = true;
+                    }
                 }
+                else if (LeftController.IsButtonPressed((int)Godot.JoystickList.VrGrip) > 0)
+                {
+                    if (!Pushing)
+                    {
+                        if (!Push(Assets.Vector2(LeftController.GlobalTransform.origin)))
+                            Push(new Vector2(
+                                PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                                PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                                ));
+                        Pushing = true;
+                    }
+                }
+                else
+                    Pushing = false;
             }
-            else
-                Pushing = false;
             #endregion Pushing
         }
 

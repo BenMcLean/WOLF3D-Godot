@@ -199,27 +199,30 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
-            switch (State)
+            if (!Main.Room.IsPaused())
             {
-                case DoorEnum.OPENING:
-                    Slide = Progress += delta;
-                    if (Progress > OpeningSeconds)
-                        State = DoorEnum.OPEN;
-                    break;
-                case DoorEnum.CLOSING:
-                    Slide = Progress -= delta;
-                    if (Progress < 0)
-                        State = DoorEnum.CLOSED;
-                    break;
-                case DoorEnum.OPEN:
-                    Progress += delta;
-                    if (Progress > OpenSeconds)
-                    {
-                        State = DoorEnum.CLOSING;
-                        if (State != DoorEnum.CLOSING)
-                            Progress = 0;
-                    }
-                    break;
+                switch (State)
+                {
+                    case DoorEnum.OPENING:
+                        Slide = Progress += delta;
+                        if (Progress > OpeningSeconds)
+                            State = DoorEnum.OPEN;
+                        break;
+                    case DoorEnum.CLOSING:
+                        Slide = Progress -= delta;
+                        if (Progress < 0)
+                            State = DoorEnum.CLOSED;
+                        break;
+                    case DoorEnum.OPEN:
+                        Progress += delta;
+                        if (Progress > OpenSeconds)
+                        {
+                            State = DoorEnum.CLOSING;
+                            if (State != DoorEnum.CLOSING)
+                                Progress = 0;
+                        }
+                        break;
+                }
             }
         }
 
