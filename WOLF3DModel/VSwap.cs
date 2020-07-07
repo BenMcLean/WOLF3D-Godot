@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -183,6 +184,56 @@ namespace WOLF3DModel
         public static byte G(uint color) => (byte)(color >> 16);
         public static byte B(uint color) => (byte)(color >> 8);
         public static byte A(uint color) => (byte)color;
+        public static uint Color(byte r, byte g, byte b, byte a)
+            => (uint)(r << 24 | g << 16 | b << 8) | a;
+
+        public static uint[] TransparentBorder(uint[] squareTexture)
+            => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length));
+        public static uint[] TransparentBorderSquare(uint[] squareTexture, uint threshold)
+            => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length), threshold);
+
+        public static uint[] TransparentBorder(uint[] texture, uint width, uint threshold = 0)
+        {
+            uint[] result = new uint[texture.Length];
+            Array.Copy(texture, result, result.Length);
+            uint height = (uint)(texture.Length / width);
+            int Index(int x, int y) => x * (int)width + y;
+            List<uint> neighbors = new List<uint>();
+            void Add(int x, int y)
+            {
+                if (x >= 0 && y >= 0 && x < width && y < height
+                    && texture[Index(x, y)] is uint pixel
+                    && A(pixel) == 255)
+                    neighbors.Add(pixel);
+            }
+            uint Average()
+            {
+                int count = neighbors.Count();
+                if (count == 1)
+                    return neighbors.First();
+                uint r = 0, b = 0, g = 0;
+                foreach (uint color in neighbors)
+                {
+                    r += R(color);
+                    b += B(color);
+                    g += G(color);
+                }
+                return Color((byte)(r / count), (byte)(b / count), (byte)(g / count), 0);
+            }
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    if (A(texture[Index(x, y)]) < 255)
+                    {
+                        neighbors.Clear();
+                        Add(x - 1, y);
+                        Add(x + 1, y);
+                        Add(x, y - 1);
+                        Add(x, y + 1);
+                        if (neighbors.Count > threshold)
+                            result[Index(x, y)] = Average();
+                    }
+            return result;
+        }
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
