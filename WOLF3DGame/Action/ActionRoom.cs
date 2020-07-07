@@ -136,21 +136,24 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
-            if (@event.IsActionPressed("ui_cancel"))
+            if (!Main.Room.IsPaused())
             {
-                Main.MenuRoom.Menu = Assets.Menu("Main");
-                Main.Room = Main.MenuRoom;
-            }
-            if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
-                switch (inputEventKey.Scancode)
+                if (@event.IsActionPressed("ui_cancel"))
                 {
-                    case (uint)KeyList.X:
-                        Print();
-                        break;
-                    case (uint)KeyList.Z:
-                        Main.Room = new LoadingRoom(NextMap);
-                        break;
+                    Main.MenuRoom.Menu = Assets.Menu("Main");
+                    Main.Room = Main.MenuRoom;
                 }
+                if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
+                    switch (inputEventKey.Scancode)
+                    {
+                        case (uint)KeyList.X:
+                            Print();
+                            break;
+                        case (uint)KeyList.Z:
+                            Main.Room = new LoadingRoom(NextMap);
+                            break;
+                    }
+            }
         }
 
         public void ButtonPressed(int buttonIndex)

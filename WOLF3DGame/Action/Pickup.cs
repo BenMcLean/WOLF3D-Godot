@@ -11,7 +11,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Process(float delta)
         {
             base._Process(delta); // Billboard
-            Main.ActionRoom.Pickup(this);
+            if (!Main.Room.IsPaused())
+                Main.ActionRoom.Pickup(this);
         }
 
         public bool IsClose(Vector3 vector3) => IsClose(vector3.x, vector3.z);

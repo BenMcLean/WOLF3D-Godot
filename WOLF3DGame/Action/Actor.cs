@@ -10,27 +10,30 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Process(float delta)
         {
             base._Process(delta);
-            Seconds += delta;
-            if (Seconds > State.Seconds)
+            if (!Main.Room.IsPaused())
             {
-                Seconds -= State.Seconds;
-                State = State.Next;
-                State?.Act?.Invoke(this, delta);
+                Seconds += delta;
+                if (Seconds > State.Seconds)
+                {
+                    Seconds -= State.Seconds;
+                    State = State.Next;
+                    State?.Act?.Invoke(this, delta);
+                }
+                if (MeshInstance.Visible && State != null
+                    && State.Shape is short shape
+                    && (ushort)(shape + (State.Rotate ?
+                    Direction8.Modulus(
+                        Direction8.AngleToPoint(
+                            GlobalTransform.origin.x,
+                            GlobalTransform.origin.z,
+                            GetViewport().GetCamera().GlobalTransform.origin.x,
+                            GetViewport().GetCamera().GlobalTransform.origin.z
+                        ).MirrorZ + Direction,
+                        8)
+                    : 0)) is ushort newFrame
+                    && newFrame != Page)
+                    Page = newFrame;
             }
-            if (MeshInstance.Visible && State != null
-                && State.Shape is short shape
-                && (ushort)(shape + (State.Rotate ?
-                Direction8.Modulus(
-                    Direction8.AngleToPoint(
-                        GlobalTransform.origin.x,
-                        GlobalTransform.origin.z,
-                        GetViewport().GetCamera().GlobalTransform.origin.x,
-                        GetViewport().GetCamera().GlobalTransform.origin.z
-                    ).MirrorZ + Direction,
-                    8)
-                : 0)) is ushort newFrame
-                && newFrame != Page)
-                Page = newFrame;
         }
 
         #region objstruct
