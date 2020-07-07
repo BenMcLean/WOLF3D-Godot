@@ -223,6 +223,8 @@ namespace WOLF3DModel
             return tiled;
         }
 
+        public static byte[] Scale(byte[] squareTexture, int factor) => Int2ByteArray(Scale(Byte2IntArray(squareTexture), factor));
+
         public static uint[] Scale(uint[] squareTexture, int factor)
         {
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
@@ -247,6 +249,19 @@ namespace WOLF3DModel
                 bytes[i * 4 + 3] = (byte)ints[i];
             }
             return bytes;
+        }
+
+        /// <param name="bytes">rgba8888 color values (four bytes per pixel)</param>
+        /// <returns>rgba8888 texture (one int per pixel)</returns>
+        public static uint[] Byte2IntArray(byte[] bytes)
+        {
+            uint[] ints = new uint[bytes.Length / 4];
+            for (uint i = 0; i < bytes.Length; i += 4)
+                ints[i / 4] = (uint)(bytes[i] << 24) |
+                    (uint)(bytes[i + 1] << 16) |
+                    (uint)(bytes[i + 2] << 8) |
+                    bytes[i + 3];
+            return ints;
         }
 
         public static T[] ConcatArrays<T>(params T[][] list)

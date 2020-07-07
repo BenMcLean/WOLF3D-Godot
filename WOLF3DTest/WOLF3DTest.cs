@@ -36,6 +36,10 @@ namespace WOLF3DTest
                     VSwap.B(vSwap.Palette[color]) + ", " +
                     VSwap.A(vSwap.Palette[color])
                     );
+
+            uint[] newPalette = VSwap.Byte2IntArray(VSwap.Int2ByteArray(vSwap.Palette));
+            for (int color = 0; color < vSwap.Palette.Length; color++)
+                Assert.IsTrue(vSwap.Palette[color] == newPalette[color]);
         }
 
         [TestMethod]
