@@ -206,8 +206,9 @@ namespace WOLF3D.WOLF3DGame
                     {
                         Godot.Image image = new Image();
                         image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
+                        image.GenerateMipmaps();
                         VSwapTextures[i] = new ImageTexture();
-                        VSwapTextures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                        VSwapTextures[i].CreateFromImage(image, (int)(Texture.FlagsEnum.Mipmaps | Texture.FlagsEnum.ConvertToLinear));
                         VSwapMaterials[i] = new SpatialMaterial()
                         {
                             AlbedoTexture = VSwapTextures[i],
