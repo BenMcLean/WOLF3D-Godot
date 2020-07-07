@@ -115,7 +115,7 @@ namespace WOLF3DModel
                                 stream.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = Index2ByteArray(sprite, palette);
+                        Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
                     }
 
                 // read in digisounds
@@ -185,11 +185,11 @@ namespace WOLF3DModel
         public static byte B(uint color) => (byte)(color >> 8);
         public static byte A(uint color) => (byte)color;
         public static uint Color(byte r, byte g, byte b, byte a)
-            => (uint)(r << 24 | g << 16 | b << 8) | a;
+            => (uint)(r << 24 | g << 16 | b << 8 | a);
 
         public static uint[] TransparentBorder(uint[] squareTexture)
             => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length));
-        public static uint[] TransparentBorderSquare(uint[] squareTexture, uint threshold)
+        public static uint[] TransparentBorderSquare(uint[] squareTexture, uint threshold = 0)
             => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length), threshold);
 
         public static uint[] TransparentBorder(uint[] texture, uint width, uint threshold = 0)
@@ -203,7 +203,7 @@ namespace WOLF3DModel
             {
                 if (x >= 0 && y >= 0 && x < width && y < height
                     && texture[Index(x, y)] is uint pixel
-                    && A(pixel) == 255)
+                    && A(pixel) > 128)
                     neighbors.Add(pixel);
             }
             uint Average()
@@ -211,18 +211,18 @@ namespace WOLF3DModel
                 int count = neighbors.Count();
                 if (count == 1)
                     return neighbors.First();
-                uint r = 0, b = 0, g = 0;
+                uint r = 0, g = 0, b = 0;
                 foreach (uint color in neighbors)
                 {
                     r += R(color);
-                    b += B(color);
                     g += G(color);
+                    b += B(color);
                 }
-                return Color((byte)(r / count), (byte)(b / count), (byte)(g / count), 0);
+                return Color((byte)(r / count), (byte)(g / count), (byte)(b / count), 0);
             }
             for (int x = 0; x < width; x++)
                 for (int y = 0; y < height; y++)
-                    if (A(texture[Index(x, y)]) < 255)
+                    if (A(texture[Index(x, y)]) < 128)
                     {
                         neighbors.Clear();
                         Add(x - 1, y);
@@ -230,6 +230,7 @@ namespace WOLF3DModel
                         Add(x, y - 1);
                         Add(x, y + 1);
                         if (neighbors.Count > threshold)
+                            //result[Index(x, y)] = Color(255, 255, 255, 0);
                             result[Index(x, y)] = Average();
                     }
             return result;
@@ -253,6 +254,21 @@ namespace WOLF3DModel
                 bytes[i * 4 + 3] = (byte)palette[index[i]];
             }
             return bytes;
+        }
+
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <returns>rgba8888 texture (one int per pixel) using current palette</returns>
+        public uint[] Index2IntArray(byte[] index) => Index2IntArray(index, Palette);
+
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <param name="palette">256 rgba8888 color values</param>
+        /// <returns>rgba8888 texture (one int per pixel)</returns>
+        public static uint[] Index2IntArray(byte[] index, uint[] palette)
+        {
+            uint[] ints = new uint[index.Length];
+            for (uint i = 0; i < index.Length; i++)
+                ints[i] = palette[index[i]];
+            return ints;
         }
 
         public static uint[] Repeat256(uint[] pixels256)

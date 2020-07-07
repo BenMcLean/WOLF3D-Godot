@@ -212,7 +212,7 @@ namespace WOLF3D.WOLF3DGame
                         image.CreateFromData((int)side, (int)side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
                         image.GenerateMipmaps();
                         VSwapTextures[i] = new ImageTexture();
-                        VSwapTextures[i].CreateFromImage(image, (int)(Texture.FlagsEnum.Mipmaps | Texture.FlagsEnum.ConvertToLinear));
+                        VSwapTextures[i].CreateFromImage(image, (int)(Texture.FlagsEnum.Mipmaps | Texture.FlagsEnum.ConvertToLinear | Texture.FlagsEnum.AnisotropicFilter));
                         VSwapMaterials[i] = new SpatialMaterial()
                         {
                             AlbedoTexture = VSwapTextures[i],
