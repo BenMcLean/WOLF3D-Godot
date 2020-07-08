@@ -58,20 +58,20 @@ namespace WOLF3D.WOLF3DGame.Action
         public byte Difficulty { get; set; }
         public byte Episode { get; set; }
         public ushort MapNumber { get; set; }
-        public ActionRoom ActionRoom { get; set; }
 
         public void ThreadProc()
         {
-            ActionRoom = new ActionRoom()
+            Main.ActionRoom = new ActionRoom()
             {
                 Difficulty = Difficulty,
                 Episode = Episode,
                 MapNumber = MapNumber,
             };
             if (Main.NextLevelStats != null)
-                ActionRoom.StatusBar.Set(Main.NextLevelStats);
-            if (ActionRoom.StatusBar["Floor"] is StatusNumber floorNumber)
+                Main.ActionRoom.StatusBar.Set(Main.NextLevelStats);
+            if (Main.ActionRoom.StatusBar["Floor"] is StatusNumber floorNumber)
                 floorNumber.Value = (uint)(MapNumber + 1);
+            ChangeRoom(Main.ActionRoom);
         }
 
         public override void Enter()
@@ -83,8 +83,8 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _Process(float delta)
         {
-            if (ActionRoom != null)
-                Main.Room = Main.ActionRoom = ActionRoom;
+            if (Paused)
+                PausedProcess(delta);
         }
     }
 }

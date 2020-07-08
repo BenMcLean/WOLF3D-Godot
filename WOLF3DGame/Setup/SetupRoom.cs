@@ -48,6 +48,7 @@ namespace WOLF3D.WOLF3DGame.Setup
         public SetupRoom()
         {
             Name = "SetupRoom";
+            Paused = false;
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new ARVRCamera()
             {
@@ -81,6 +82,8 @@ namespace WOLF3D.WOLF3DGame.Setup
             Main.Color = Color.Color8(0, 0, 0, 255);
             LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
             RightController.Connect("button_pressed", this, nameof(ButtonPressed));
+            Paused = false;
+            Main.Brightness = 1f;
         }
 
         public override void Exit()

@@ -199,7 +199,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
             {
                 switch (State)
                 {

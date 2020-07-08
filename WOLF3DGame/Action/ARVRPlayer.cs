@@ -78,7 +78,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 movement = Vector2.Zero; // movement vector from joystick and keyboard input
             bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
 
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
             {
                 if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
                 { // Don't want to move this way if both keys are pressed at once.
@@ -149,7 +149,7 @@ namespace WOLF3D.WOLF3DGame.Action
             #endregion Walking
 
             #region Shooting
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
                 for (int control = 0; control < 2; control++)
                 {
                     ARVRController controller = Controller(control);
@@ -184,7 +184,7 @@ namespace WOLF3D.WOLF3DGame.Action
             #endregion Shooting
 
             #region Pushing
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
             {
                 if (Input.IsKeyPressed((int)KeyList.Space))
                 {
