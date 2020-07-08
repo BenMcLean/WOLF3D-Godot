@@ -115,8 +115,8 @@ namespace WOLF3DModel
                                 stream.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = Index2ByteArray(sprite, palette);
-                        //Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
+                        //Pages[page] = Index2ByteArray(sprite, palette);
+                        Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
                     }
 
                 // read in digisounds
@@ -211,7 +211,7 @@ namespace WOLF3DModel
             {
                 int count = neighbors.Count();
                 if (count == 1)
-                    return neighbors.First();
+                    return neighbors.First() & 0xFFFFFF00u;
                 uint r = 0, g = 0, b = 0;
                 foreach (uint color in neighbors)
                 {
