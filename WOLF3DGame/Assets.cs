@@ -220,6 +220,7 @@ namespace WOLF3D.WOLF3DGame
                             FlagsDoNotReceiveShadows = true,
                             FlagsDisableAmbientLight = true,
                             FlagsTransparent = i >= VSwap.SpritePage,
+                            //FlagsTransparent = false,
                             ParamsCullMode = i >= VSwap.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                         };

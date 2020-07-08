@@ -115,7 +115,8 @@ namespace WOLF3DModel
                                 stream.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
+                        Pages[page] = Index2ByteArray(sprite, palette);
+                        //Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
                     }
 
                 // read in digisounds
