@@ -116,7 +116,7 @@ namespace WOLF3DModel
                             }
                         }
                         //Pages[page] = Index2ByteArray(sprite, palette);
-                        Pages[page] = Int2ByteArray(TransparentBorderSquare(Index2IntArray(sprite, palette)));
+                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palette)));
                     }
 
                 // read in digisounds
@@ -190,10 +190,8 @@ namespace WOLF3DModel
 
         public static uint[] TransparentBorder(uint[] squareTexture)
             => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length));
-        public static uint[] TransparentBorderSquare(uint[] squareTexture, uint threshold = 0)
-            => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length), threshold);
 
-        public static uint[] TransparentBorder(uint[] texture, uint width, uint threshold = 0)
+        public static uint[] TransparentBorder(uint[] texture, uint width)
         {
             uint[] result = new uint[texture.Length];
             Array.Copy(texture, result, result.Length);
@@ -230,9 +228,16 @@ namespace WOLF3DModel
                         Add(x + 1, y);
                         Add(x, y - 1);
                         Add(x, y + 1);
-                        if (neighbors.Count > threshold)
-                            //result[Index(x, y)] = Color(255, 255, 255, 0);
+                        if (neighbors.Count > 0)
                             result[Index(x, y)] = Average();
+                        else
+                        {
+                            Add(x - 1, y - 1);
+                            Add(x + 1, y - 1);
+                            Add(x - 1, y + 1);
+                            Add(x + 1, y + 1);
+                            result[Index(x, y)] = neighbors.Count > 0 ? Average() : 0u;
+                        }
                     }
             return result;
         }

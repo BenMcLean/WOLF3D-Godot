@@ -201,7 +201,7 @@ namespace WOLF3D.WOLF3DGame
                         );
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
-                int scale = 1;
+                int scale = 8;
                 int? side = null;
                 for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
