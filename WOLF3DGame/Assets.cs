@@ -221,6 +221,7 @@ namespace WOLF3D.WOLF3DGame
                             //FlagsTransparent = false,
                             ParamsCullMode = i >= VSwap.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                            AnisotropyEnabled = true,
                         };
                     }
                 DigiSounds = new AudioStreamSample[VSwap.DigiSounds.Length];
