@@ -201,15 +201,13 @@ namespace WOLF3D.WOLF3DGame
                         );
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
-                int scale = 8;
-                int? side = null;
+                int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
+                int side = (ushort.TryParse(XML?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : 64) * scale;
                 for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
-                        if (side == null)
-                            side = (int)System.Math.Sqrt(VSwap.Pages[i].Length / 4) * scale;
                         Godot.Image image = new Image();
-                        image.CreateFromData((int)side, (int)side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
+                        image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
                         image.GenerateMipmaps();
                         VSwapTextures[i] = new ImageTexture();
                         VSwapTextures[i].CreateFromImage(image, (int)(Texture.FlagsEnum.Mipmaps | Texture.FlagsEnum.ConvertToLinear | Texture.FlagsEnum.AnisotropicFilter));

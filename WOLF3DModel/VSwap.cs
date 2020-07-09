@@ -12,7 +12,9 @@ namespace WOLF3DModel
         public static VSwap Load(string folder, XElement xml)
         {
             using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                return new VSwap(LoadPalette(xml), vSwap);
+                return new VSwap(LoadPalette(xml), vSwap,
+                    ushort.TryParse(xml?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : (ushort)64
+                    );
         }
 
         public uint[] Palette { get; set; }
@@ -38,9 +40,6 @@ namespace WOLF3DModel
             && GetOffset(x, y) + 3 is uint offset
             && offset < Pages[page].Length
             && Pages[page][offset] > 128);
-
-        public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
-        { }
 
         public VSwap(uint[] palette, Stream stream, ushort tileSqrt = 64)
         {
@@ -236,7 +235,10 @@ namespace WOLF3DModel
                             Add(x + 1, y - 1);
                             Add(x - 1, y + 1);
                             Add(x + 1, y + 1);
-                            result[Index(x, y)] = neighbors.Count > 0 ? Average() : 0u;
+                            if (neighbors.Count > 0)
+                                result[Index(x, y)] = Average();
+                            else // Make non-border transparent pixels transparent black
+                                result[Index(x, y)] = 0u;
                         }
                     }
             return result;
