@@ -203,17 +203,19 @@ namespace WOLF3D.WOLF3DGame
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
                 int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
                 int side = (ushort.TryParse(XML?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : 64) * scale;
+                uint textureFlags = (uint)(
+                        Texture.FlagsEnum.ConvertToLinear |
+                        Texture.FlagsEnum.AnisotropicFilter
+                    );
+                if (XML?.Element("VSwap")?.IsFalse("MipMaps") ?? true)
+                    textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
                 for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
                         Godot.Image image = new Image();
                         image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
                         VSwapTextures[i] = new ImageTexture();
-                        VSwapTextures[i].CreateFromImage(image, (int)(
-                            Texture.FlagsEnum.Mipmaps |
-                            Texture.FlagsEnum.ConvertToLinear |
-                            Texture.FlagsEnum.AnisotropicFilter
-                            ));
+                        VSwapTextures[i].CreateFromImage(image, textureFlags);
                         VSwapMaterials[i] = new SpatialMaterial()
                         {
                             AlbedoTexture = VSwapTextures[i],

@@ -392,7 +392,7 @@
     <Imf Number="25" Name="VICMARCH_MUS" />
     <Imf Number="26" Name="PACMAN_MUS" />
   </Audio>
-  <VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8">
+  <VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8" MipMaps="true">
     <Walls FloorCodeStart="108" FloorCodes="35">
       <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
       <Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
