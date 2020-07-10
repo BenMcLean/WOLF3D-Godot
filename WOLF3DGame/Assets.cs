@@ -208,9 +208,12 @@ namespace WOLF3D.WOLF3DGame
                     {
                         Godot.Image image = new Image();
                         image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
-                        image.GenerateMipmaps();
                         VSwapTextures[i] = new ImageTexture();
-                        VSwapTextures[i].CreateFromImage(image, (int)(Texture.FlagsEnum.Mipmaps | Texture.FlagsEnum.ConvertToLinear | Texture.FlagsEnum.AnisotropicFilter));
+                        VSwapTextures[i].CreateFromImage(image, (int)(
+                            Texture.FlagsEnum.Mipmaps |
+                            Texture.FlagsEnum.ConvertToLinear |
+                            Texture.FlagsEnum.AnisotropicFilter
+                            ));
                         VSwapMaterials[i] = new SpatialMaterial()
                         {
                             AlbedoTexture = VSwapTextures[i],
@@ -236,20 +239,6 @@ namespace WOLF3D.WOLF3DGame
                             Format = AudioStreamSample.FormatEnum.Format8Bits,
                             MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
                         };
-                //if (ushort.TryParse(
-                //    (from e in XML.Element("VSwap").Elements("DigiSound")
-                //     where e.Attribute("Name")?.Value.Trim().Equals("OPENDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                //    out ushort openDoor
-                //    ) && openDoor < DigiSounds.Length)
-                //    Door.OpeningSound = DigiSounds[openDoor];
-                //if (ushort.TryParse(
-                //    (from e in XML.Element("VSwap").Elements("DigiSound")
-                //     where e.Attribute("Name")?.Value.Trim().Equals("CLOSEDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                //    out ushort closeDoor
-                //    ) && closeDoor < DigiSounds.Length)
-                //    Door.ClosingSound = DigiSounds[closeDoor];
             }
         }
         private static VSwap vswap;
