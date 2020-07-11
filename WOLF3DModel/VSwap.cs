@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace WOLF3DModel
         public static VSwap Load(string folder, XElement xml)
         {
             using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                return new VSwap(LoadPalette(xml), vSwap);
+                return new VSwap(LoadPalette(xml), vSwap,
+                    ushort.TryParse(xml?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : (ushort)64
+                    );
         }
 
         public uint[] Palette { get; set; }
@@ -37,9 +40,6 @@ namespace WOLF3DModel
             && GetOffset(x, y) + 3 is uint offset
             && offset < Pages[page].Length
             && Pages[page][offset] > 128);
-
-        public VSwap(Stream palette, Stream vswap) : this(LoadPalette(palette), vswap)
-        { }
 
         public VSwap(uint[] palette, Stream stream, ushort tileSqrt = 64)
         {
@@ -114,7 +114,8 @@ namespace WOLF3DModel
                                 stream.Seek(commands, 0);
                             }
                         }
-                        Pages[page] = Index2ByteArray(sprite, palette);
+                        //Pages[page] = Index2ByteArray(sprite, palette);
+                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palette)));
                     }
 
                 // read in digisounds
@@ -183,6 +184,65 @@ namespace WOLF3DModel
         public static byte G(uint color) => (byte)(color >> 16);
         public static byte B(uint color) => (byte)(color >> 8);
         public static byte A(uint color) => (byte)color;
+        public static uint Color(byte r, byte g, byte b, byte a)
+            => (uint)(r << 24 | g << 16 | b << 8 | a);
+
+        public static uint[] TransparentBorder(uint[] squareTexture)
+            => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length));
+
+        public static uint[] TransparentBorder(uint[] texture, uint width)
+        {
+            uint[] result = new uint[texture.Length];
+            Array.Copy(texture, result, result.Length);
+            uint height = (uint)(texture.Length / width);
+            int Index(int x, int y) => x * (int)width + y;
+            List<uint> neighbors = new List<uint>();
+            void Add(int x, int y)
+            {
+                if (x >= 0 && y >= 0 && x < width && y < height
+                    && texture[Index(x, y)] is uint pixel
+                    && A(pixel) > 128)
+                    neighbors.Add(pixel);
+            }
+            uint Average()
+            {
+                int count = neighbors.Count();
+                if (count == 1)
+                    return neighbors.First() & 0xFFFFFF00u;
+                uint r = 0, g = 0, b = 0;
+                foreach (uint color in neighbors)
+                {
+                    r += R(color);
+                    g += G(color);
+                    b += B(color);
+                }
+                return Color((byte)(r / count), (byte)(g / count), (byte)(b / count), 0);
+            }
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    if (A(texture[Index(x, y)]) < 128)
+                    {
+                        neighbors.Clear();
+                        Add(x - 1, y);
+                        Add(x + 1, y);
+                        Add(x, y - 1);
+                        Add(x, y + 1);
+                        if (neighbors.Count > 0)
+                            result[Index(x, y)] = Average();
+                        else
+                        {
+                            Add(x - 1, y - 1);
+                            Add(x + 1, y - 1);
+                            Add(x - 1, y + 1);
+                            Add(x + 1, y + 1);
+                            if (neighbors.Count > 0)
+                                result[Index(x, y)] = Average();
+                            else // Make non-border transparent pixels transparent black
+                                result[Index(x, y)] = 0u;
+                        }
+                    }
+            return result;
+        }
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
@@ -204,6 +264,21 @@ namespace WOLF3DModel
             return bytes;
         }
 
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <returns>rgba8888 texture (one int per pixel) using current palette</returns>
+        public uint[] Index2IntArray(byte[] index) => Index2IntArray(index, Palette);
+
+        /// <param name="index">Palette indexes (one byte per pixel)</param>
+        /// <param name="palette">256 rgba8888 color values</param>
+        /// <returns>rgba8888 texture (one int per pixel)</returns>
+        public static uint[] Index2IntArray(byte[] index, uint[] palette)
+        {
+            uint[] ints = new uint[index.Length];
+            for (uint i = 0; i < index.Length; i++)
+                ints[i] = palette[index[i]];
+            return ints;
+        }
+
         public static uint[] Repeat256(uint[] pixels256)
         {
             uint[] repeated = new uint[4096];
@@ -223,8 +298,11 @@ namespace WOLF3DModel
             return tiled;
         }
 
+        public static byte[] Scale(byte[] squareTexture, int factor) => Int2ByteArray(Scale(Byte2IntArray(squareTexture), factor));
+
         public static uint[] Scale(uint[] squareTexture, int factor)
         {
+            if (factor == 1) return squareTexture;
             uint side = (uint)System.Math.Sqrt(squareTexture.Length);
             int newSide = (int)side * factor;
             uint[] scaled = new uint[squareTexture.Length * factor * factor];
@@ -247,6 +325,19 @@ namespace WOLF3DModel
                 bytes[i * 4 + 3] = (byte)ints[i];
             }
             return bytes;
+        }
+
+        /// <param name="bytes">rgba8888 color values (four bytes per pixel)</param>
+        /// <returns>rgba8888 texture (one int per pixel)</returns>
+        public static uint[] Byte2IntArray(byte[] bytes)
+        {
+            uint[] ints = new uint[bytes.Length / 4];
+            for (uint i = 0; i < bytes.Length; i += 4)
+                ints[i / 4] = (uint)(bytes[i] << 24) |
+                    (uint)(bytes[i + 1] << 16) |
+                    (uint)(bytes[i + 2] << 8) |
+                    bytes[i + 3];
+            return ints;
         }
 
         public static T[] ConcatArrays<T>(params T[][] list)

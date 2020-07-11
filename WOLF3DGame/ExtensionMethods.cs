@@ -15,5 +15,7 @@ namespace WOLF3D.WOLF3DGame
             array[Main.RNG.Next(0, array.Length - 1)];
         public static bool IsTrue(this XElement xElement, string attribute) =>
             bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
+        public static bool IsFalse(this XElement xElement, string attribute) =>
+            !(bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && !@bool);
     }
 }

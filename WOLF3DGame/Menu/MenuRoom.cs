@@ -87,35 +87,40 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public override void _PhysicsProcess(float delta)
         {
-            ARVROrigin.Transform = new Transform(
-                Basis.Identity,
-                new Vector3(
-                    -ARVRCamera.Transform.origin.x,
-                    Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
-                    -ARVRCamera.Transform.origin.z
-                )
-            );
-
-            Godot.Collections.Dictionary CastRay(ARVRController controller) => GetWorld()
-                .DirectSpaceState.IntersectRay(
-                    controller.GlobalTransform.origin,
-                    controller.GlobalTransform.origin + ARVRPlayer.ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange
-                );
-            if (CastRay(ActiveController) is Godot.Collections.Dictionary result &&
-                result.Count > 0 &&
-                result["position"] is Vector3 position &&
-                position != null)
-                Body.Target(position);
-            else if ((CastRay(InactiveController) is Godot.Collections.Dictionary result2 &&
-                result2.Count > 0 &&
-                result2["position"] is Vector3 position2 &&
-                position2 != null))
-            {
-                ActiveController = InactiveController;
-                Body.Target(position2);
-            }
+            if (Paused)
+                PausedProcess(delta);
             else
-                Body.Target();
+            {
+                ARVROrigin.Transform = new Transform(
+                    Basis.Identity,
+                    new Vector3(
+                        -ARVRCamera.Transform.origin.x,
+                        Assets.HalfWallHeight - ARVRCamera.Transform.origin.y,
+                        -ARVRCamera.Transform.origin.z
+                    )
+                );
+
+                Godot.Collections.Dictionary CastRay(ARVRController controller) => GetWorld()
+                    .DirectSpaceState.IntersectRay(
+                        controller.GlobalTransform.origin,
+                        controller.GlobalTransform.origin + ARVRPlayer.ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange
+                    );
+                if (CastRay(ActiveController) is Godot.Collections.Dictionary result &&
+                    result.Count > 0 &&
+                    result["position"] is Vector3 position &&
+                    position != null)
+                    Body.Target(position);
+                else if ((CastRay(InactiveController) is Godot.Collections.Dictionary result2 &&
+                    result2.Count > 0 &&
+                    result2["position"] is Vector3 position2 &&
+                    position2 != null))
+                {
+                    ActiveController = InactiveController;
+                    Body.Target(position2);
+                }
+                else
+                    Body.Target();
+            }
         }
 
         public override void _Input(InputEvent @event) => Body?.MenuScreen?.DoInput(@event);
@@ -219,7 +224,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Settings.Episode = Episode;
                 Settings.Difficulty = Difficulty;
                 Main.NextLevelStats = null;
-                Main.Room = new LoadingRoom(0);
+                ChangeRoom(new LoadingRoom(0));
             }
             if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
@@ -228,7 +233,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuScreen.Modal.YesNo = true;
             }
             if (xml.Attribute("Action")?.Value.Equals("Resume", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                Main.Room = Main.ActionRoom;
+                ChangeRoom(Main.ActionRoom);
             if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
                 MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? Main.RNG.RandomElement(Assets.EndStrings));

@@ -201,13 +201,21 @@ namespace WOLF3D.WOLF3DGame
                         );
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
+                int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
+                int side = (ushort.TryParse(XML?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : 64) * scale;
+                uint textureFlags = (uint)(
+                        Texture.FlagsEnum.ConvertToLinear |
+                        Texture.FlagsEnum.AnisotropicFilter
+                    );
+                if (XML?.Element("VSwap")?.IsFalse("MipMaps") ?? true)
+                    textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
                 for (uint i = 0; i < VSwapTextures.Length; i++)
                     if (VSwap.Pages[i] != null)
                     {
                         Godot.Image image = new Image();
-                        image.CreateFromData(64, 64, false, Image.Format.Rgba8, VSwap.Pages[i]);
+                        image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
                         VSwapTextures[i] = new ImageTexture();
-                        VSwapTextures[i].CreateFromImage(image, (int)Texture.FlagsEnum.ConvertToLinear);
+                        VSwapTextures[i].CreateFromImage(image, textureFlags);
                         VSwapMaterials[i] = new SpatialMaterial()
                         {
                             AlbedoTexture = VSwapTextures[i],
@@ -215,8 +223,10 @@ namespace WOLF3D.WOLF3DGame
                             FlagsDoNotReceiveShadows = true,
                             FlagsDisableAmbientLight = true,
                             FlagsTransparent = i >= VSwap.SpritePage,
+                            //FlagsTransparent = false,
                             ParamsCullMode = i >= VSwap.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                            AnisotropyEnabled = true,
                         };
                     }
                 DigiSounds = new AudioStreamSample[VSwap.DigiSounds.Length];
@@ -231,20 +241,6 @@ namespace WOLF3D.WOLF3DGame
                             Format = AudioStreamSample.FormatEnum.Format8Bits,
                             MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
                         };
-                //if (ushort.TryParse(
-                //    (from e in XML.Element("VSwap").Elements("DigiSound")
-                //     where e.Attribute("Name")?.Value.Trim().Equals("OPENDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                //    out ushort openDoor
-                //    ) && openDoor < DigiSounds.Length)
-                //    Door.OpeningSound = DigiSounds[openDoor];
-                //if (ushort.TryParse(
-                //    (from e in XML.Element("VSwap").Elements("DigiSound")
-                //     where e.Attribute("Name")?.Value.Trim().Equals("CLOSEDOORSND", System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                //     select e.Attribute("Number")?.Value).FirstOrDefault(),
-                //    out ushort closeDoor
-                //    ) && closeDoor < DigiSounds.Length)
-                //    Door.ClosingSound = DigiSounds[closeDoor];
             }
         }
         private static VSwap vswap;

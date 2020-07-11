@@ -10,7 +10,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Process(float delta)
         {
             base._Process(delta);
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
             {
                 Seconds += delta;
                 if (Seconds > State.Seconds)

@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
@@ -123,7 +122,7 @@ namespace WOLF3D.WOLF3DGame
             Settings.Load();
             ActionRoom = null;
             MenuRoom.MenuScreen = Assets.Menu("Main");
-            Room = MenuRoom;
+            Room.ChangeRoom(MenuRoom);
         }
     }
 }

@@ -129,19 +129,24 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override void _PhysicsProcess(float delta)
         {
-            BillboardRotation = new Vector3(0f, GetViewport().GetCamera().GlobalTransform.basis.GetEuler().y, 0f);
+            if (Paused)
+                PausedProcess(delta);
+            if (GetViewport() is Viewport viewport
+                && viewport.GetCamera() is Camera camera
+                && camera.GlobalTransform is Transform globalTransform)
+                BillboardRotation = new Vector3(0f, globalTransform.basis.GetEuler().y, 0f);
         }
 
         public override void _Input(InputEvent @event)
         {
             if (@event.IsActionPressed("toggle_fullscreen"))
                 OS.WindowFullscreen = !OS.WindowFullscreen;
-            if (!Main.Room.IsPaused())
+            if (!Main.Room.Paused)
             {
                 if (@event.IsActionPressed("ui_cancel"))
                 {
                     Main.MenuRoom.Menu = Assets.Menu("Main");
-                    Main.Room = Main.MenuRoom;
+                    ChangeRoom(Main.MenuRoom);
                 }
                 if (@event is InputEventKey inputEventKey && inputEventKey.Pressed && !inputEventKey.Echo)
                     switch (inputEventKey.Scancode)
@@ -150,7 +155,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             Print();
                             break;
                         case (uint)KeyList.Z:
-                            Main.Room = new LoadingRoom(NextMap);
+                            ChangeRoom(new LoadingRoom(NextMap));
                             break;
                     }
             }
