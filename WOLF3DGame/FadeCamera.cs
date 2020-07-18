@@ -4,44 +4,59 @@ namespace WOLF3D.WOLF3DGame
 {
     public class FadeCamera : ARVRCamera
     {
-        public FadeCamera() => Cube = new MeshInstance()
+        public readonly static Shader Shader = new Shader()
         {
-            Mesh = new CubeMesh()
-            {
-                Size = new Vector3(0.2f, 0.2f, 0.2f),
-                Material = new SpatialMaterial()
-                {
-                    AlbedoColor = Color.Color8(0, 0, 255, 64),
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = true,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                    RenderPriority = int.MaxValue,
-                },
-            },
+            Code = @"
+shader_type spatial;
+render_mode blend_mix, skip_vertex_transform, cull_disabled, unshaded, depth_draw_never, depth_test_disable;
 
+uniform vec4 color : hint_color;
+
+void vertex() {
+    POSITION = vec4(2.*UV - 1., 0., 1.);
+}
+void fragment() {
+    ALBEDO = color.rgb;
+    ALPHA = color.a;
+}
+",
         };
 
-        public MeshInstance Cube
+        public FadeCamera()
         {
-            get => cube;
-            set
+            Veil = new MeshInstance()
             {
-                if (cube != null)
-                    RemoveChild(cube);
-                cube = value;
-                if (cube != null)
-                    AddChild(cube);
-            }
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(1f, 1f),
+                    Material = new ShaderMaterial()
+                    {
+                        Shader = Shader,
+                        RenderPriority = 2,
+                    },
+                },
+                Transform = new Transform(Basis.Identity, Vector3.Forward),
+            };
         }
-        private MeshInstance cube;
 
         public Color Color
         {
-            get => ((SpatialMaterial)((CubeMesh)Cube.Mesh).Material).AlbedoColor;
-            set => ((SpatialMaterial)((CubeMesh)Cube.Mesh).Material).AlbedoColor = value;
+            get => (Color)((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).GetShaderParam("color");
+            set => ((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).SetShaderParam("color", value);
         }
+
+        public MeshInstance Veil
+        {
+            get => veil;
+            set
+            {
+                if (veil != null)
+                    RemoveChild(veil);
+                veil = value;
+                if (veil != null)
+                    AddChild(veil);
+            }
+        }
+        private MeshInstance veil;
     }
 }
