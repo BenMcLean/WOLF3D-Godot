@@ -70,12 +70,10 @@ ui_no={
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 quality/intended_usage/framebuffer_allocation=3
 quality/2d/use_pixel_snap=true
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 quality/shadow_atlas/quadrant_0_subdiv=0
 quality/shadow_atlas/quadrant_1_subdiv=0
 quality/shadow_atlas/quadrant_2_subdiv=0
