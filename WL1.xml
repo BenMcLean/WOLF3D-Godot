@@ -435,44 +435,44 @@
       <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Special Number="106" Walk="true" Name="Deaf Guard" />
-      <Exit Number="107" Name="Elevator to Secret Floor" />
-      <Exit Number="108" Name="Floor 6C" />
-      <Exit Number="109" Name="Floor 6D" />
-      <Exit Number="110" Name="Floor 6E" />
-      <Exit Number="111" Name="Floor 6F" />
-      <Exit Number="112" Name="Floor 70" />
-      <Exit Number="113" Name="Floor 71" />
-      <Exit Number="114" Name="Floor 72" />
-      <Exit Number="115" Name="Floor 73" />
-      <Exit Number="116" Name="Floor 74" />
-      <Exit Number="117" Name="Floor 75" />
-      <Exit Number="118" Name="Floor 76" />
-      <Exit Number="119" Name="Floor 77" />
-      <Exit Number="120" Name="Floor 78" />
-      <Exit Number="121" Name="Floor 79" />
-      <Exit Number="122" Name="Floor 7A" />
-      <Exit Number="123" Name="Floor 7B" />
-      <Exit Number="124" Name="Floor 7C" />
-      <Exit Number="125" Name="Floor 7D" />
-      <Exit Number="126" Name="Floor 7E" />
-      <Exit Number="127" Name="Floor 7F" />
-      <Exit Number="128" Name="Floor 80" />
-      <Exit Number="129" Name="Floor 81" />
-      <Exit Number="130" Name="Floor 82" />
-      <Exit Number="131" Name="Floor 83" />
-      <Exit Number="132" Name="Floor 84" />
-      <Exit Number="133" Name="Floor 85" />
-      <Exit Number="134" Name="Floor 86" />
-      <Exit Number="135" Name="Floor 87" />
-      <Exit Number="136" Name="Floor 88" />
-      <Exit Number="137" Name="Floor 89" />
-      <Exit Number="138" Name="Floor 8A" />
-      <Exit Number="139" Name="Floor 8B" />
-      <Exit Number="140" Name="Floor 8C" />
-      <Exit Number="141" Name="Floor 8D" />
-      <Exit Number="142" Name="Floor 8E" />
-      <Exit Number="143" Name="Floor 8F" />
+      <Ambush Number="106" Walk="true" Name="Deaf Guard" />
+      <Override Number="107" Level="9" Name="Elevator to Secret Floor" />
+      <FloorCode Number="108" Name="Floor 6C" />
+      <FloorCode Number="109" Name="Floor 6D" />
+      <FloorCode Number="110" Name="Floor 6E" />
+      <FloorCode Number="111" Name="Floor 6F" />
+      <FloorCode Number="112" Name="Floor 70" />
+      <FloorCode Number="113" Name="Floor 71" />
+      <FloorCode Number="114" Name="Floor 72" />
+      <FloorCode Number="115" Name="Floor 73" />
+      <FloorCode Number="116" Name="Floor 74" />
+      <FloorCode Number="117" Name="Floor 75" />
+      <FloorCode Number="118" Name="Floor 76" />
+      <FloorCode Number="119" Name="Floor 77" />
+      <FloorCode Number="120" Name="Floor 78" />
+      <FloorCode Number="121" Name="Floor 79" />
+      <FloorCode Number="122" Name="Floor 7A" />
+      <FloorCode Number="123" Name="Floor 7B" />
+      <FloorCode Number="124" Name="Floor 7C" />
+      <FloorCode Number="125" Name="Floor 7D" />
+      <FloorCode Number="126" Name="Floor 7E" />
+      <FloorCode Number="127" Name="Floor 7F" />
+      <FloorCode Number="128" Name="Floor 80" />
+      <FloorCode Number="129" Name="Floor 81" />
+      <FloorCode Number="130" Name="Floor 82" />
+      <FloorCode Number="131" Name="Floor 83" />
+      <FloorCode Number="132" Name="Floor 84" />
+      <FloorCode Number="133" Name="Floor 85" />
+      <FloorCode Number="134" Name="Floor 86" />
+      <FloorCode Number="135" Name="Floor 87" />
+      <FloorCode Number="136" Name="Floor 88" />
+      <FloorCode Number="137" Name="Floor 89" />
+      <FloorCode Number="138" Name="Floor 8A" />
+      <FloorCode Number="139" Name="Floor 8B" />
+      <FloorCode Number="140" Name="Floor 8C" />
+      <FloorCode Number="141" Name="Floor 8D" />
+      <FloorCode Number="142" Name="Floor 8E" />
+      <FloorCode Number="143" Name="Floor 8F" />
     </Walls>
     <Sprite Page="106" Name="Demo" />
     <Sprite Page="107" Name="DeathCam" />
