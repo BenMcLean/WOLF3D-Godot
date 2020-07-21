@@ -62,6 +62,7 @@
     <Compile Include="WOLF3DGame\Action\ARVRPlayer.cs" />
     <Compile Include="WOLF3DGame\Action\Billboard.cs" />
     <Compile Include="WOLF3DGame\Action\Door.cs" />
+    <Compile Include="WOLF3DGame\Action\Elevator.cs" />
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\LoadingRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Pickup.cs" />

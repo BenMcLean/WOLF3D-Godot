@@ -18,10 +18,10 @@ namespace WOLF3D.WOLF3DGame.Action
         public PushWall(ushort wall, ushort darkSide)
         {
             Name = "Pushwall";
-            AddChild(Walls.BuildWall(wall, false, 0, 0, true));
-            AddChild(Walls.BuildWall(wall, false, 1, 0));
-            AddChild(Walls.BuildWall(darkSide, true, 0, 0));
-            AddChild(Walls.BuildWall(darkSide, true, 0, -1, true));
+            AddChild(Walls.BuildWall(darkSide, true, 0, 0)); // West
+            AddChild(Walls.BuildWall(wall, false, 0, 0, true)); // North
+            AddChild(Walls.BuildWall(darkSide, true, 0, -1, true)); // East
+            AddChild(Walls.BuildWall(wall, false, 1, 0)); // South
             AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.HalfWallWidth)),
