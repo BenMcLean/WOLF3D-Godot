@@ -110,6 +110,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     Open[x][z] = !IsWall(x, z) && IsNavigable(x, z);
             }
             AddChild(MapWalls = new Walls(Map));
+            foreach (Elevator elevator in MapWalls.Elevators)
+                Open[elevator.X][elevator.Z] = false;
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
@@ -143,6 +145,7 @@ namespace WOLF3D.WOLF3DGame.Action
         }
 
         public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
+        public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
 
         public bool IsNavigable(ushort x, ushort z) => IsNavigable(Map.GetObjectData(x, z));
 

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3DModel;
@@ -18,6 +19,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public MeshInstance FloorMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }
         public MeshInstance CeilingMesh { get; private set; }
+        public List<Elevator> Elevators = new List<Elevator>();
 
         public Walls(GameMap map)
         {
@@ -145,6 +147,17 @@ namespace WOLF3D.WOLF3DGame.Action
                         HorizontalCheck(x, z);
                         //AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
                     }
+                }
+                else if (Assets.Elevators.Contains(here))
+                {
+                    Elevator elevator = new Elevator(Assets.Elevator(here))
+                    {
+                        X = x,
+                        Z = z,
+                        Transform = new Transform(Basis.Identity, new Vector3(Assets.FloatCoordinate(x), 0, Assets.FloatCoordinate(z))),
+                    };
+                    Elevators.Add(elevator);
+                    AddChild(elevator);
                 }
                 else if (!Assets.Walls.Contains(here))
                 {

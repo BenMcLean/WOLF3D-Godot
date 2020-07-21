@@ -128,6 +128,11 @@ namespace WOLF3D.WOLF3DGame
                 doors.Add((ushort)(int)door.Attribute("Number"));
             Doors = doors.ToArray();
 
+            List<ushort> elevators = new List<ushort>();
+            foreach (XElement elevator in XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator") ?? Enumerable.Empty<XElement>())
+                elevators.Add((ushort)(int)elevator.Attribute("Number"));
+            Elevators = elevators.ToArray();
+
             States.Clear();
             foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
                 States.Add(xState.Attribute("Name").Value, new State(xState));
@@ -149,6 +154,7 @@ namespace WOLF3D.WOLF3DGame
 
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
+        public static ushort[] Elevators { get; set; }
         public static ushort FloorCodeStart = 107;
         public static ushort FloorCodes = 37;
         public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
@@ -416,6 +422,8 @@ namespace WOLF3D.WOLF3DGame
         }
 
         public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
+
+        public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 
         public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
 

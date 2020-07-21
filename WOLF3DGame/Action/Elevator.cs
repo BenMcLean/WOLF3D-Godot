@@ -1,10 +1,14 @@
 ﻿using Godot;
+using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
     public class Elevator : StaticBody
     {
+        public XElement XML;
+        public ushort X { get; set; } = 0;
+        public ushort Z { get; set; } = 0;
         public MeshInstance[] Sides = new MeshInstance[4];
 
         /// <param name="direction">Cardinal direction</param>
@@ -14,6 +18,16 @@ namespace WOLF3D.WOLF3DGame.Action
         /// <param name="side">Array index from Sides</param>
         /// <returns>Cardinal direction that side is facing</returns>
         public static Direction8 Direction(uint side) => Direction8.From(side << 1);
+
+        public Elevator(XElement xml) : this(
+            (ushort)(uint)xml.Attribute("Page"),
+            ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
+            )
+        {
+            XML = xml;
+            if (xml?.Attribute("Name")?.Value is string name)
+                Name = name;
+        }
 
         public Elevator(ushort wall, ushort darkSide)
         {
