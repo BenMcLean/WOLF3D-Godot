@@ -66,6 +66,7 @@
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\LoadingRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Pickup.cs" />
+    <Compile Include="WOLF3DGame\Action\Pushable.cs" />
     <Compile Include="WOLF3DGame\Action\PushWall.cs" />
     <Compile Include="WOLF3DGame\Action\State.cs" />
     <Compile Include="WOLF3DGame\Action\StatusBar.cs" />

@@ -36,6 +36,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 foreach (PushWall pushWall in PushWalls)
                     if (!pushWall.Pushed && pushWall.Inside(where))
                         return pushWall.Push();
+                foreach (Elevator elevator in MapWalls.Elevators)
+                    if (elevator.Inside(where))
+                        return elevator.Push();
                 return false;
             }
             bool push = Pushy();

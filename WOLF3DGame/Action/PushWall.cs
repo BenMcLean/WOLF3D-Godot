@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class PushWall : StaticBody
+    public class PushWall : Pushable
     {
         public const float Seconds = 128f / 70f; // It takes 128 tics for a pushwall to fully open in Wolfenstein 3-D.
         public const float HalfSeconds = Seconds / 2f;
@@ -28,7 +28,7 @@ namespace WOLF3D.WOLF3DGame.Action
             });
         }
 
-        public bool Push() => Push(Direction8.CardinalToPoint(
+        public override bool Push() => Push(Direction8.CardinalToPoint(
             Main.ActionRoom.ARVRPlayer.GlobalTransform.origin,
             GlobalTransform.origin + new Vector3(Assets.HalfWallWidth, 0, Assets.HalfWallWidth)
             ));
@@ -104,11 +104,5 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
         public AudioStreamSample Sound { get; set; } = null;
-
-        public bool Inside(Vector3 vector3) => Inside(vector3.x, vector3.z);
-        public bool Inside(Vector2 vector2) => Inside(vector2.x, vector2.y);
-        public bool Inside(float x, float y) =>
-            Mathf.Abs(GlobalTransform.origin.x + Assets.HalfWallWidth - x) < Assets.HalfWallWidth &&
-            Mathf.Abs(GlobalTransform.origin.z + Assets.HalfWallWidth - y) < Assets.HalfWallWidth;
     }
 }
