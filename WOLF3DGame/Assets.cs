@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
@@ -280,6 +281,31 @@ namespace WOLF3D.WOLF3DGame
                         PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
                         : StatusBarDigits[0];
                 }
+                if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("Bitmaps")?.Value, out ushort bitmaps))
+                {
+                    BitmapFonts = new BitmapFont[bitmaps];
+                    ushort letters = 0;
+                    for (ushort i = 0; i < bitmaps; i++)
+                    {
+                        BitmapFonts[i] = new BitmapFont();
+                        foreach (XElement letter in XML?.Element("VgaGraph")?.Elements("Pic").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort number) && number == i) ?? Enumerable.Empty<XElement>())
+                        {
+                            ImageTexture texture = PicTextures[(uint)letter.Attribute("Number")];
+                            BitmapFonts[i].AddTexture(texture);
+                            BitmapFonts[i].AddChar(
+                                Encoding.Convert(
+                                    Encoding.Default,
+                                    Encoding.UTF8,
+                                    Encoding.Default.GetBytes(letter.Attribute("Character").Value)
+                                    )[0],
+                                letters++,
+                                new Rect2()
+                                {
+                                    Size = texture.GetSize(),
+                                });
+                        }
+                    }
+                }
             }
         }
         private static VgaGraph vgaGraph;
@@ -290,6 +316,7 @@ namespace WOLF3D.WOLF3DGame
         public static AudioStreamSample[] DigiSounds;
         public static ImageTexture StatusBarBlank;
         public static ImageTexture[] StatusBarDigits;
+        public static BitmapFont[] BitmapFonts;
 
         public static AudioStreamSample DigiSound(string name) =>
             DigiSoundSafe(name) ?? throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
