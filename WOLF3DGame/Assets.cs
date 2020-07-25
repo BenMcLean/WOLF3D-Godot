@@ -281,7 +281,7 @@ namespace WOLF3D.WOLF3DGame
                         PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
                         : StatusBarDigits[0];
                 }
-                if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("Bitmaps")?.Value, out ushort bitmaps))
+                if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("BitmapFonts")?.Value, out ushort bitmaps))
                 {
                     BitmapFonts = new BitmapFont[bitmaps];
                     ushort letters = 0;
@@ -293,16 +293,12 @@ namespace WOLF3D.WOLF3DGame
                             ImageTexture texture = PicTextures[(uint)letter.Attribute("Number")];
                             BitmapFonts[i].AddTexture(texture);
                             BitmapFonts[i].AddChar(
-                                Encoding.Convert(
-                                    Encoding.Default,
-                                    Encoding.UTF8,
-                                    Encoding.Default.GetBytes(letter.Attribute("Character").Value)
-                                    )[0],
-                                letters++,
-                                new Rect2()
-                                {
-                                    Size = texture.GetSize(),
-                                });
+                            letter.Attribute("Character").Value[0],
+                            letters++,
+                            new Rect2()
+                            {
+                                Size = texture.GetSize(),
+                            });
                         }
                     }
                 }

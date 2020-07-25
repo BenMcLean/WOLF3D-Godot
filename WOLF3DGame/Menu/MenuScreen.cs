@@ -130,8 +130,21 @@ namespace WOLF3D.WOLF3DGame.Menu
                         AddChild(target);
                     }
                 }
-            foreach (XElement text in menu.Elements("Text"))
-                if (Main.InGameMatch(text))
+            foreach (XElement text in menu.Elements("Text").Where(e => Main.InGameMatch(e)) ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(text.Attribute("BitmapFont")?.Value, out ushort fontNumber))
+                {
+                    Label label = new Label()
+                    {
+                        Text = text.Attribute("String").Value,
+                        RectPosition = new Vector2(
+                            uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0,
+                            uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0
+                            ),
+                    };
+                    label.AddFontOverride("font", Assets.BitmapFonts[fontNumber]);
+                    AddChild(label);
+                }
+                else
                 {
                     ImageTexture texture = Assets.Text(
                         uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,

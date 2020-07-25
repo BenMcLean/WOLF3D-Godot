@@ -57,6 +57,7 @@
     <Pic Number="50" Chunk="53" Name="C_JOY1PIC" />
     <Pic Number="51" Chunk="54" Name="C_JOY2PIC" />
     <Pic Number="52" Chunk="55" Name="L_GUYPIC" />
+    <Space BitmapFont="0" Width="16" Height="16" Color="127" />
     <Pic Number="53" Chunk="56" BitmapFont="0" Character=":" Name="L_COLONPIC" />
     <Pic Number="54" Chunk="57" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
     <Pic Number="55" Chunk="58" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
