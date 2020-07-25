@@ -55,6 +55,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (Direction == null || Direction == direction || Direction.Opposite == direction)
             {
+                Pushed = true;
                 if (ushort.TryParse(XML?.Attribute("Activated")?.Value, out ushort activated)
                     && activated < Assets.VSwapMaterials.Length)
                     if (Direction == null)
@@ -65,6 +66,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         Sides[Index(Direction)].MaterialOverride = Assets.VSwapMaterials[activated];
                         Sides[Index(Direction.Opposite)].MaterialOverride = Assets.VSwapMaterials[activated];
                     }
+                Main.MenuRoom.Action(XML);
                 return true;
             }
             return false;

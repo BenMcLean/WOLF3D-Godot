@@ -214,7 +214,11 @@ namespace WOLF3D.WOLF3DGame.Menu
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
                 Assets.Menu(xml.Attribute("Argument").Value) is MenuScreen menuScreen &&
                 menuScreen != null)
+            {
                 MenuScreen = menuScreen;
+                if (Main.Room != Main.MenuRoom)
+                    Main.Room.ChangeRoom(Main.MenuRoom);
+            }
             if (xml.Attribute("Action")?.Value.Equals("Modal", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Body.MenuScreen.AddModal(xml.Attribute("Argument").Value);
             if (xml.Attribute("Action")?.Value.Equals("Update", StringComparison.InvariantCultureIgnoreCase) ?? false)

@@ -246,6 +246,9 @@
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
+      <Menu Name="FloorComplete" BkgdColor="127">
+
+      </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
       <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
@@ -414,7 +417,7 @@
       <Wall Number="18" Page="34" DarkSide="35" Name="Red Brick with Swastika" />
       <Wall Number="19" Page="36" DarkSide="37" Name="Purple" />
       <Wall Number="20" Page="38" DarkSide="39" Name="Red Brick with Flag" />
-      <Elevator Number="21" Page="40" DarkSide="41" Activated="43" Direction="W" />
+      <Elevator Number="21" Page="40" DarkSide="41" Activated="43" Direction="W" Action="Menu" Argument="FloorComplete" />
       <Wall Number="22" Page="42" DarkSide="43" Name="Fake Elevator" />
       <Wall Number="23" Page="44" DarkSide="45" Name="Wood with Iron Cross" />
       <Wall Number="24" Page="46" DarkSide="47" Name="Dirty Brick 1" />
