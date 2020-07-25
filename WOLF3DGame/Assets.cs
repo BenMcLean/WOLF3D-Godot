@@ -1,7 +1,9 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
@@ -284,21 +286,52 @@ namespace WOLF3D.WOLF3DGame
                 if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("BitmapFonts")?.Value, out ushort bitmaps))
                 {
                     BitmapFonts = new BitmapFont[bitmaps];
-                    ushort letters = 0;
                     for (ushort i = 0; i < bitmaps; i++)
                     {
                         BitmapFonts[i] = new BitmapFont();
+                        ushort letters = 0;
                         foreach (XElement letter in XML?.Element("VgaGraph")?.Elements("Pic").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort number) && number == i) ?? Enumerable.Empty<XElement>())
                         {
                             ImageTexture texture = PicTextures[(uint)letter.Attribute("Number")];
                             BitmapFonts[i].AddTexture(texture);
                             BitmapFonts[i].AddChar(
-                            letter.Attribute("Character").Value[0],
-                            letters++,
-                            new Rect2()
+                                letter.Attribute("Character").Value[0],
+                                letters++,
+                                new Rect2()
+                                {
+                                    Size = texture.GetSize(),
+                                }
+                            );
+                        }
+                        if (XML?.Element("VgaGraph")?.Elements("Space").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort spaceFont) && spaceFont == i).FirstOrDefault() is XElement space)
+                        {
+                            uint width = (uint)space.Attribute("Width"),
+                                height = (uint)space.Attribute("Height");
+                            byte[] bytes = new byte[width * height * 4];
+                            if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palette.Length)
                             {
-                                Size = texture.GetSize(),
-                            });
+                                byte[] color = new byte[] {
+                                    (byte)(VgaGraph.Palette[index] >> 24),
+                                    (byte)(VgaGraph.Palette[index] >> 16),
+                                    (byte)(VgaGraph.Palette[index] >> 8),
+                                    (byte)VgaGraph.Palette[index]
+                                };
+                                for (uint x = 0; x < bytes.Length; x += 4)
+                                    System.Array.Copy(color, 0, bytes, x, 4);
+                            }
+                            Godot.Image spaceImage = new Image();
+                            spaceImage.CreateFromData((int)width, (int)height, false, Image.Format.Rgba8, bytes);
+                            ImageTexture spaceTexture = new ImageTexture();
+                            spaceTexture.CreateFromImage(spaceImage, 0);
+                            BitmapFonts[i].AddTexture(spaceTexture);
+                            BitmapFonts[i].AddChar(
+                                ' ',
+                                letters++,
+                                new Rect2()
+                                {
+                                    Size = spaceTexture.GetSize(),
+                                }
+                            );
                         }
                     }
                 }
@@ -449,23 +482,6 @@ namespace WOLF3D.WOLF3DGame
         public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 
         public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
-
-        /*
-        public static ShaderMaterial ShaderMaterial = new ShaderMaterial()
-        {
-            Shader = new Shader()
-            {
-                Code = @"
-shader_type canvas_item;
-uniform vec4 base : hint_color;
-void fragment()
-{
-    COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb + dot(base.rgb * base.a);
-}
-",
-            },
-        };
-        */
         #endregion Game assets
     }
 }
