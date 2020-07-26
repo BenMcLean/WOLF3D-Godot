@@ -254,9 +254,13 @@
         <Text String="BONUS" BitmapFont="0" X="112" Y="56" />
         <Text String=" TIME" BitmapFont="0" X="112" Y="80" />
         <Text String="  PAR" BitmapFont="0" X="112" Y="96" />
-        <Text String="    KILL RATIO    %" BitmapFont="0" X="16" Y="112" />
-        <Text String="  SECRET RATIO    %" BitmapFont="0" X="16" Y="128" />
-        <Text String="TREASURE RATIO    %" BitmapFont="0" X="16" Y="144" />
+        <Text String="    KILL RATIO" BitmapFont="0" X="16" Y="112" />
+        <Text String="  SECRET RATIO" BitmapFont="0" X="16" Y="128" />
+        <Text String="TREASURE RATIO" BitmapFont="0" X="16" Y="144" />
+        <StatusBar X="0" Y="160" />
+        <MenuItems>
+          <MenuItem Action="NextFloor" />
+        </MenuItems>
         <Cancel Action="NextFloor" />
       </Menu>
     </Menus>

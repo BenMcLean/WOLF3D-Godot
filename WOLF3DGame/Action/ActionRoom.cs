@@ -155,7 +155,8 @@ namespace WOLF3D.WOLF3DGame.Action
                             Print();
                             break;
                         case (uint)KeyList.Z:
-                            ChangeRoom(new LoadingRoom(NextMap));
+                            Main.MenuRoom.Menu = Assets.Menu("FloorComplete");
+                            ChangeRoom(Main.MenuRoom);
                             break;
                     }
             }

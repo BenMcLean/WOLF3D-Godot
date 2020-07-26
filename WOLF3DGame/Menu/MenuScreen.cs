@@ -75,10 +75,10 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Color = Assets.Palette[bkgdColor];
             TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : Assets.White;
             SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : Assets.White;
-            foreach (XElement pixelRect in menu.Elements("PixelRect"))
+            foreach (XElement pixelRect in menu.Elements("PixelRect") ?? Enumerable.Empty<XElement>())
                 if (Main.InGameMatch(pixelRect))
                     AddChild(new PixelRect(pixelRect));
-            foreach (XElement image in menu.Elements("Image"))
+            foreach (XElement image in menu.Elements("Image") ?? Enumerable.Empty<XElement>())
                 if (Main.InGameMatch(image))
                 {
                     ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
@@ -203,6 +203,18 @@ namespace WOLF3D.WOLF3DGame.Menu
                     Position = new Vector2(
                         (uint.TryParse(difficulty.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
                         (uint.TryParse(difficulty.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+                        ),
+                });
+            }
+            if (Main.InGame && menu.Element("StatusBar") is XElement statusBar)
+            {
+                ViewportTexture texture = Main.ActionRoom.StatusBar.GetTexture();
+                AddChild(new Sprite()
+                {
+                    Texture = texture,
+                    Position = new Vector2(
+                        (uint.TryParse(statusBar.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
+                        (uint.TryParse(statusBar.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
                         ),
                 });
             }
