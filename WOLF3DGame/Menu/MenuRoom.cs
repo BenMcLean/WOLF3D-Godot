@@ -230,6 +230,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Main.NextLevelStats = null;
                 ChangeRoom(new LoadingRoom(0));
             }
+            if (xml.Attribute("Action")?.Value.Equals("NextFloor", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                ChangeRoom(new LoadingRoom(Main.ActionRoom.NextMap));
             if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
                 MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? "Are you sure you want\nto end the game you\nare currently playing?");
