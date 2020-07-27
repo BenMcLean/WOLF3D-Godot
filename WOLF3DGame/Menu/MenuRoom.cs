@@ -123,7 +123,10 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
-        public override void _Input(InputEvent @event) => Body?.MenuScreen?.DoInput(@event);
+        public override void _Input(InputEvent @event)
+        {
+            if (!Paused) Body?.MenuScreen?.DoInput(@event);
+        }
 
         public MenuScreen MenuScreen
         {
