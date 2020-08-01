@@ -208,7 +208,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             if (Main.InGame && menu.Element("StatusBar") is XElement statusBar)
             {
-                ViewportTexture texture = Main.ActionRoom.StatusBar.GetTexture();
+                ViewportTexture texture = Main.StatusBar.GetTexture();
                 AddChild(new Sprite()
                 {
                     Texture = texture,

@@ -30,6 +30,20 @@ namespace WOLF3D.WOLF3DGame
 
         public static string Path { get; set; }
         public static string Folder { get; set; }
+        public static StatusBar StatusBar
+        {
+            get => I.statusBar;
+            set
+            {
+                if (I.statusBar != null)
+                    I.RemoveChild(I.statusBar);
+                I.statusBar = value;
+                if (I.statusBar != null)
+                    I.AddChild(I.statusBar);
+            }
+        }
+        private StatusBar statusBar;
+
         public static bool InGame => ActionRoom != null;
         public static bool InGameMatch(XElement xElement) =>
             xElement?.Attribute("InGame") == null ||
@@ -105,6 +119,7 @@ namespace WOLF3D.WOLF3DGame
             Assets.Load();
             Settings.Load();
             SoundBlaster.Start();
+            StatusBar = new StatusBar();
             Room = MenuRoom = new MenuRoom();
         }
 

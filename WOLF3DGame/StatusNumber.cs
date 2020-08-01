@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System.Xml.Linq;
 
-namespace WOLF3D.WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame
 {
     public class StatusNumber : Node2D
     {

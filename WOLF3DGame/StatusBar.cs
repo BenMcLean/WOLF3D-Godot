@@ -4,8 +4,9 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Collections;
 using System;
+using WOLF3D.WOLF3DGame.OPL;
 
-namespace WOLF3D.WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame
 {
     public class StatusBar : Viewport, IDictionary<string, StatusNumber>, ICollection<KeyValuePair<string, StatusNumber>>, IEnumerable<KeyValuePair<string, StatusNumber>>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<string, StatusNumber>, IReadOnlyCollection<KeyValuePair<string, StatusNumber>>
     {
@@ -105,6 +106,56 @@ namespace WOLF3D.WOLF3DGame.Action
             foreach (KeyValuePair<string, uint> stat in stats)
                 if (this[stat.Key] is StatusNumber statusNumber)
                     statusNumber.Value = stat.Value;
+            return this;
+        }
+
+        public bool Conditional(XElement xml)
+        {
+            if (!ConditionalOne(xml))
+                return false;
+            foreach (XElement conditional in xml?.Elements("Conditional") ?? Enumerable.Empty<XElement>())
+                if (!ConditionalOne(conditional))
+                    return false;
+            return true;
+        }
+
+        public bool ConditionalOne(XElement xml) =>
+            xml?.Attribute("If")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && TryGetValue(stat, out StatusNumber statusNumber)
+            ? (
+            (
+            uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
+                    ? statusNumber.Value == equals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
+                    ? statusNumber.Value < less : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
+                    ? statusNumber.Value > greater : true
+            )
+            ) : true;
+
+        public StatusBar Effect(XElement xml)
+        {
+            EffectOne(xml);
+            foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
+                EffectOne(effect);
+            return this;
+        }
+
+        public StatusBar EffectOne(XElement xml)
+        {
+            if (xml?.Attribute("AddTo")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && TryGetValue(stat, out StatusNumber statusNumber)
+                && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
+                statusNumber.Value += add;
+            SoundBlaster.Play(xml);
             return this;
         }
 
