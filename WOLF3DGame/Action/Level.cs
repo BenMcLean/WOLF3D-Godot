@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
 
@@ -44,6 +45,10 @@ namespace WOLF3D.WOLF3DGame.Action
             bool push = Pushy();
             if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
                 SoundBlaster.Adl = sound;
+            MenuRoom.LastPushedTile = Main.ActionRoom.Map.GetMapData(
+                (uint)Assets.IntCoordinate(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.x),
+                (uint)Assets.IntCoordinate(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.z)
+                ); // This is used to find override tiles to change the elevator destination
             return push;
         }
 
