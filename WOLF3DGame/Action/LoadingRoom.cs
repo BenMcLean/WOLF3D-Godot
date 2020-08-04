@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Threading;
+using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -70,6 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 Main.StatusBar.Set(Main.NextLevelStats);
             if (Main.StatusBar["Floor"] is StatusNumber floorNumber)
                 floorNumber.Value = (uint)(MapNumber + 1);
+            MenuRoom.LastPushedTile = 0;
             ChangeRoom(Main.ActionRoom);
         }
 
