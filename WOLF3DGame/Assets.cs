@@ -1,10 +1,7 @@
 ﻿using Godot;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
@@ -22,7 +19,7 @@ namespace WOLF3D.WOLF3DGame
         // However, VR uses the metric system, where 1 game unit is 1 meter in real space. One foot equals 0.3048 meters.
         public const float Foot = 0.3048f;
         public const float Inch = Foot / 12f;
-        // Now, unless I am a complete failure at basic math, (quite possible) this means that to scale Wolfenstein 3-D correctly in VR, one pixel must equal 0.0381 in game units, and a Wolfenstein 3-D wall must be 2.4384 game units thick.
+        // Now, unless I am a complete failure at basic math, (quite possible) this means that to scale Wolfenstein 3-D correctly in VR, one pixel must equal 0.0381 in meters, and a Wolfenstein 3-D wall must be 2.4384 meters thick.
         public const float PixelWidth = 0.0381f;
         public const float WallWidth = 2.4384f;
         public const float HalfWallWidth = 1.2192f;
@@ -43,7 +40,7 @@ namespace WOLF3D.WOLF3DGame
         public static float FloatCoordinate(ushort x) => FloatCoordinate((int)x);
         public static float FloatCoordinate(short x) => FloatCoordinate((int)x);
 
-        // However, Wolfenstein 3-D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
+        // Wolfenstein 3-D ran in SVGA screen mode 13h, which has a 320x200 resolution in a 4:3 aspect ratio.
         // This means that the pixels are not square! They have a 1.2:1 aspect ratio.
         public static readonly Vector3 Scale = new Vector3(1f, 1.2f, 1f);
         public const float PixelHeight = 0.04572f;
