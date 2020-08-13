@@ -129,6 +129,24 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Path(Actor actor, float delta = 0) => actor.T_Path(delta);
         public Actor T_Path(float delta = 0)
         {
+            // TODO: Check if player is sighted.
+            if (Direction == null)
+            {
+                SelectPathDir();
+                if (Direction == null)
+                    return this; // All movement is blocked
+            }
+            float move = Speed * delta;
+            // TODO: Wait for a door to open.
+            GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin + Assets.Vector3(Direction + move));
+            Distance -= move;
+            if (Distance < 0)
+            {
+                Recenter();
+                SelectPathDir();
+                if (Direction == null)
+                    return this; // All movement is blocked
+            }
             return this;
         }
         public static void T_Chase(Actor actor, float delta = 0) => actor.T_Chase(delta);
@@ -151,9 +169,20 @@ namespace WOLF3D.WOLF3DGame.Action
                 && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)x, (ushort)z), out Direction8 direction))
                 Direction = direction;
             Distance = Assets.WallWidth;
-            if (!Main.ActionRoom.Map.WithinMap(x + Direction.X, z + Direction.Z)
-                || !Main.ActionRoom.Level.IsOpen((ushort)(x + Direction.X), (ushort)(z + Direction.Z)))
+            if (Direction != null &&
+                (!Main.ActionRoom.Map.WithinMap(x + Direction.X, z + Direction.Z)
+                || !Main.ActionRoom.Level.IsOpen((ushort)(x + Direction.X), (ushort)(z + Direction.Z))))
                 Direction = null;
+            return this;
+        }
+
+        public Actor Recenter()
+        {
+            GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(
+                Assets.CenterSquare(Assets.IntCoordinate(GlobalTransform.origin.x)),
+                0,
+                Assets.CenterSquare(Assets.IntCoordinate(GlobalTransform.origin.z))
+                ));
             return this;
         }
     }
