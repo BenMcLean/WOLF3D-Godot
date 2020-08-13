@@ -115,13 +115,9 @@ namespace WOLF3D.WOLF3DGame.Action
                     && spawn != null
                     && (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
                             )
-                    billboards.Add(new Actor()
+                    billboards.Add(new Actor(spawn)
                     {
-                        Name = spawn?.Attribute("Actor")?.Value,
-                        XML = spawn,
                         GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
-                        Direction = Direction8.From(spawn?.Attribute("Direction")?.Value),
-                        State = Assets.States[spawn.Attribute("State").Value],
                     });
             return billboards.ToArray();
         }

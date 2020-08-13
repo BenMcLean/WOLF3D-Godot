@@ -59,6 +59,7 @@ namespace WOLF3DModel
         public ushort GetObjectData(ushort x, ushort z) => ObjectData[GetIndex(x, z)];
         public ushort GetOtherData(uint x, uint z) => GetOtherData((ushort)x, (ushort)z);
         public ushort GetOtherData(ushort x, ushort z) => OtherData[GetIndex(x, z)];
+        public bool WithinMap(int x, int z) => x >= 0 && z >= 0 && x < Width && z < Depth;
 
         public static long[] ParseMapHead(Stream stream)
         {

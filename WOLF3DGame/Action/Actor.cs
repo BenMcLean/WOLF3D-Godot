@@ -1,11 +1,26 @@
 ﻿using Godot;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
     public class Actor : Billboard
     {
-        public Actor() : base() => Name = "Actor";
+        public XElement ActorXML;
+        public Actor(XElement spawn) : base()
+        {
+            XML = spawn;
+            Name = XML?.Attribute("Actor")?.Value;
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                CollisionShape.Name = "Collision " + Name;
+                ActorXML = Assets.XML.Element("VSwap")?.Element("Objects").Elements("Actor").Where(e => e.Attribute("Name")?.Value?.Equals(Name, System.StringComparison.InvariantCultureIgnoreCase) ?? false).FirstOrDefault();
+                if (ushort.TryParse(ActorXML?.Attribute("Speed")?.Value, out ushort speed))
+                    ActorSpeed = speed;
+            }
+            Direction = Direction8.From(XML?.Attribute("Direction")?.Value);
+            State = Assets.States[XML?.Attribute("State")?.Value];
+        }
 
         public override void _Process(float delta)
         {
@@ -19,6 +34,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     State = State.Next;
                     State?.Act?.Invoke(this, delta);
                 }
+
+                State?.Think?.Invoke(this, delta);
                 if (MeshInstance.Visible && State != null
                     && State.Shape is short shape
                     && (ushort)(shape + (State.Rotate ?
@@ -28,7 +45,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             GlobalTransform.origin.z,
                             GetViewport().GetCamera().GlobalTransform.origin.x,
                             GetViewport().GetCamera().GlobalTransform.origin.z
-                        ).MirrorZ + Direction,
+                        ).MirrorZ + (Direction ?? 0),
                         8)
                     : 0)) is ushort newFrame
                     && newFrame != Page)
@@ -76,6 +93,7 @@ namespace WOLF3D.WOLF3DGame.Action
         //#define FL_NONMARK		128
         public bool NoMark = false;
         //    long distance;            // if negative, wait for that door to open
+        public float Distance { get; set; } = Assets.WallWidth;
         //    dirtype dir;
         public Direction8 Direction { get; set; } = Direction8.SOUTH;
         //    fixed x, y;
@@ -89,7 +107,12 @@ namespace WOLF3D.WOLF3DGame.Action
         //    int hitpoints;
         public ushort HitPoints = 0;
         //    long speed;
-        public float Speed = 0;
+        public uint ActorSpeed
+        {
+            get => (uint)(Speed / Assets.ActorSpeedConversion);
+            set => Speed = value * Assets.ActorSpeedConversion;
+        }
+        public float Speed = 0f;
 
         //    int temp1, temp2, temp3;
         //    struct objstruct    *next,*prev;
@@ -119,5 +142,19 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
         #endregion StateDelegates
+
+        public Actor SelectPathDir()
+        {
+            int x = Assets.IntCoordinate(GlobalTransform.origin.x),
+                z = Assets.IntCoordinate(GlobalTransform.origin.z);
+            if (Main.ActionRoom.Map.WithinMap(x, z)
+                && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)x, (ushort)z), out Direction8 direction))
+                Direction = direction;
+            Distance = Assets.WallWidth;
+            if (!Main.ActionRoom.Map.WithinMap(x + Direction.X, z + Direction.Z)
+                || !Main.ActionRoom.Level.IsOpen((ushort)(x + Direction.X), (ushort)(z + Direction.Z)))
+                Direction = null;
+            return this;
+        }
     }
 }
