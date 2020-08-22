@@ -121,5 +121,9 @@ namespace WOLF3D.WOLF3DGame.Action
                     });
             return billboards.ToArray();
         }
+
+        public int X => Assets.IntCoordinate(GlobalTransform.origin.x);
+        public const int Y = 0;
+        public int Z => Assets.IntCoordinate(GlobalTransform.origin.z);
     }
 }

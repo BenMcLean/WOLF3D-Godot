@@ -482,8 +482,8 @@
       <Billboard Number="40" Page="125" Name="Empty Cage" />
       <Billboard Number="41" Page="126" Name="Cage with Skeleton" />
       <Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
-      <Pickup Number="43" Page="128" Walk="true" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
-      <Pickup Number="44" Page="129" Walk="true" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
+      <Pickup Number="43" Page="128" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
+      <Pickup Number="44" Page="129" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
       <Billboard Number="46" Page="131" Name="Basket" />
       <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />

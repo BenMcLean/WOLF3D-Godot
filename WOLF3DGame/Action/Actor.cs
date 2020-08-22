@@ -143,6 +143,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Distance < 0)
             {
                 Recenter();
+                Main.ActionRoom.Level.TryOpen((ushort)(X - Direction.X), (ushort)(Z - Direction.Z));
                 SelectPathDir();
                 if (Direction == null)
                     return this; // All movement is blocked
@@ -163,26 +164,20 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Actor SelectPathDir()
         {
-            int x = Assets.IntCoordinate(GlobalTransform.origin.x),
-                z = Assets.IntCoordinate(GlobalTransform.origin.z);
-            if (Main.ActionRoom.Map.WithinMap(x, z)
-                && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)x, (ushort)z), out Direction8 direction))
+            if (Main.ActionRoom.Map.WithinMap(X, Z)
+                && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
                 Direction = direction;
             Distance = Assets.WallWidth;
             if (Direction != null &&
-                (!Main.ActionRoom.Map.WithinMap(x + Direction.X, z + Direction.Z)
-                || !Main.ActionRoom.Level.IsOpen((ushort)(x + Direction.X), (ushort)(z + Direction.Z))))
+                (!Main.ActionRoom.Map.WithinMap(X + Direction.X, Z + Direction.Z)
+                || !Main.ActionRoom.Level.IsOpen((ushort)(X + Direction.X), (ushort)(Z + Direction.Z))))
                 Direction = null;
             return this;
         }
 
         public Actor Recenter()
         {
-            GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(
-                Assets.CenterSquare(Assets.IntCoordinate(GlobalTransform.origin.x)),
-                0,
-                Assets.CenterSquare(Assets.IntCoordinate(GlobalTransform.origin.z))
-                ));
+            GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0, Assets.CenterSquare(Z)));
             return this;
         }
     }
