@@ -7,7 +7,7 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class Billboard : StaticBody
+    public class Billboard : Target3D
     {
         public static readonly BoxShape BillboardShape = new BoxShape()
         {
@@ -30,6 +30,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 Mesh = Assets.WallMesh,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
             });
+            Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
+            Offset = new Vector2(-Assets.HalfWallWidth, -Assets.HalfWallWidth);
         }
 
         public Billboard(XElement xml) : this()
@@ -123,7 +125,6 @@ namespace WOLF3D.WOLF3DGame.Action
         }
 
         public int X => Assets.IntCoordinate(GlobalTransform.origin.x);
-        public const int Y = 0;
         public int Z => Assets.IntCoordinate(GlobalTransform.origin.z);
     }
 }

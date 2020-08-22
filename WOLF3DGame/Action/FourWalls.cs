@@ -28,6 +28,7 @@ namespace WOLF3D.WOLF3DGame.Action
             Sides[Index(Direction8.EAST)] = (MeshInstance)shape.GetChild(0);
             AddChild(shape = Walls.BuildWall(wall, false, 1, 0)); // South
             Sides[Index(Direction8.SOUTH)] = (MeshInstance)shape.GetChild(0);
+            Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
         }
     }
 }

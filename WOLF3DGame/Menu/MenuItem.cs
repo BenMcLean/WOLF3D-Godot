@@ -89,8 +89,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Texture = texture,
                 Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
             });
-            Width = xPadding + texture.GetWidth();
-            Height = texture.GetHeight();
+            Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
             Color = TextColor;
             UpdateSelected();
         }

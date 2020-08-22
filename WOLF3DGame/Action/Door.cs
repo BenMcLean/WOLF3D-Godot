@@ -146,6 +146,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 Shape = Assets.WallShape,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -Assets.HalfWallWidth)),
             });
+            Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
         }
 
         public bool GatesEnabled

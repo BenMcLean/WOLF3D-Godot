@@ -190,7 +190,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
             public bool TargetLocal(Vector3? localPosition = null) =>
                 MenuScreen == null ? false
-                : MenuScreen.Target(localPosition == null ? MenuScreen.OffScreen
+                : MenuScreen.IsIn(localPosition == null ? MenuScreen.OffScreen
                     : new Vector2(
                         (((Vector3)localPosition).x + (Width / 2f)) / Width * MenuScreen.Width,
                          MenuScreen.Height - (((Vector3)localPosition).y - Assets.HalfWallHeight + Height / 2f) / Height * MenuScreen.Height

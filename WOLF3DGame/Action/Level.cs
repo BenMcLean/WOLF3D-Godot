@@ -35,10 +35,10 @@ namespace WOLF3D.WOLF3DGame.Action
                 if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
                     return door.Push();
                 foreach (PushWall pushWall in PushWalls)
-                    if (!pushWall.Pushed && pushWall.Inside(where))
+                    if (!pushWall.Pushed && pushWall.IsIn(where))
                         return pushWall.Push();
                 foreach (Elevator elevator in MapWalls.Elevators)
-                    if (elevator.Inside(where))
+                    if (elevator.IsIn(where))
                         return elevator.Push();
                 return false;
             }

@@ -123,8 +123,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                                 position.x - texture.GetWidth() / 2f,
                                 position.y - texture.GetHeight() / 2f
                                 ),
-                            Width = texture.GetWidth(),
-                            Height = texture.GetHeight(),
+                            Size = texture.GetSize(),
                         };
                         ExtraItems.Add(target);
                         AddChild(target);
@@ -280,22 +279,30 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
-        public bool Target(Vector2 vector2) => TargetLocal(vector2);
-        public bool Target(float x, float y) => TargetLocal(x, y);
-        public bool TargetLocal(float x, float y) => TargetLocal(new Vector2(x, y));
-        public bool TargetLocal(Vector2 vector2)
+        public Vector2 Position { get; set; } = Vector2.Zero;
+        public Vector2 GlobalPosition { get; set; } = Vector2.Zero;
+        public Vector2 Offset { get; set; } = Vector2.Zero;
+        public bool IsIn(Vector2 vector2) => IsInLocal(vector2);
+        public bool IsIn(float x, float y) => IsInLocal(x, y);
+        public bool IsInLocal(float x, float y) => IsInLocal(new Vector2(x, y));
+        public bool IsInLocal(Vector2 vector2)
         {
             Crosshairs.Position = vector2;
             if (Modal == null && MenuItems != null)
                 for (int x = 0; x < MenuItems.Count; x++)
-                    if (Selection != x && MenuItems[x].Target(vector2))
+                    if (Selection != x && MenuItems[x].IsIn(vector2))
                     {
                         Selection = x;
                         return true;
                     }
-            Modal?.Target(vector2);
+            Modal?.IsIn(vector2);
             return false;
         }
+        public bool IsIn(Vector3 vector3) => IsIn(Assets.Vector2(vector3));
+        public bool IsIn(float x, float y, float z) => IsIn(x, z);
+        public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
+        public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
+
 
         public override void _Process(float delta)
         {
@@ -340,7 +347,7 @@ namespace WOLF3D.WOLF3DGame.Menu
         public Target2D GetExtraItem()
         {
             foreach (Target2D target in ExtraItems)
-                if (target.Target(Crosshairs.GlobalPosition))
+                if (target.IsIn(Crosshairs.GlobalPosition))
                     return target;
             return null;
         }

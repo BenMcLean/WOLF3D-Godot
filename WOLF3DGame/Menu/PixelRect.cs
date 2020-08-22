@@ -3,14 +3,9 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
-    public class PixelRect : Node2D, ITarget
+    public class PixelRect : Target2D
     {
-        public bool Target(Vector2 vector2) => TargetLocal(vector2 - Position);
-        public bool Target(float x, float y) => TargetLocal(x - Position.x, y - Position.y);
-        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y) => x >= 0 && y >= 0 && x < Size.x && y < Size.y;
-
-        public Vector2 Size
+        public override Vector2 Size
         {
             get => SEBorder.RectSize;
             set

@@ -6,16 +6,20 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
     public class Modal : Node2D, ITarget
     {
-        public bool Target(Vector2 vector2) => TargetLocal(vector2 - Position);
-        public bool Target(float x, float y) => TargetLocal(x - Position.x, y - Position.y);
-        public bool TargetLocal(Vector2 vector2) => TargetLocal(vector2.x, vector2.y);
-        public bool TargetLocal(float x, float y)
+        public bool IsIn(Vector2 vector2) => IsInLocal(vector2 - Position);
+        public bool IsIn(float x, float y) => IsInLocal(x - Position.x, y - Position.y);
+        public bool IsInLocal(Vector2 vector2) => IsInLocal(vector2.x, vector2.y);
+        public bool IsInLocal(float x, float y)
         {
-            if (Yes?.Target(x, y) ?? false)
+            if (Yes?.IsIn(x, y) ?? false)
                 return Answer = true;
             Answer = false;
-            return (PixelRect?.Target(x, y) ?? false) || (No?.Target(x, y) ?? false);
+            return (PixelRect?.IsIn(x, y) ?? false) || (No?.IsIn(x, y) ?? false);
         }
+        public bool IsIn(Vector3 vector3) => IsIn(Assets.Vector2(vector3));
+        public bool IsIn(float x, float y, float z) => IsIn(x, z);
+        public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
+        public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
         public bool Answer
         {
             get => answer;
@@ -30,7 +34,6 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
         private bool answer = false;
-
         public Modal(Sprite text)
         {
             Name = "Modal";
@@ -139,8 +142,12 @@ namespace WOLF3D.WOLF3DGame.Menu
             get => Text.Modulate;
             set => Text.Modulate = value;
         }
-        public Vector2 Size => PixelRect.Size;
-
+        public Vector2 Size
+        {
+            get => PixelRect.Size;
+            set => PixelRect.Size = value;
+        }
+        public Vector2 Offset { get; set; } = Vector2.Zero;
         public enum QuestionEnum
         {
             QUIT, END

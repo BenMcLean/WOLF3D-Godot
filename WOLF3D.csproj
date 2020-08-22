@@ -70,6 +70,7 @@
     <Compile Include="WOLF3DGame\Action\Pushable.cs" />
     <Compile Include="WOLF3DGame\Action\PushWall.cs" />
     <Compile Include="WOLF3DGame\Action\State.cs" />
+    <Compile Include="WOLF3DGame\Action\Target3D.cs" />
     <Compile Include="WOLF3DGame\StatusBar.cs" />
     <Compile Include="WOLF3DGame\StatusNumber.cs" />
     <Compile Include="WOLF3DGame\Action\TriangularMatrix.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="WOLF3DGame\Line3D.cs" />
     <Compile Include="WOLF3DGame\Main.cs" />
     <Compile Include="WOLF3DGame\Menu\Crosshairs.cs" />
-    <Compile Include="WOLF3DGame\Menu\ITarget.cs" />
+    <Compile Include="WOLF3DGame\ITarget.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuItem.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuRoom.cs" />
     <Compile Include="WOLF3DGame\Menu\MenuScreen.cs" />
