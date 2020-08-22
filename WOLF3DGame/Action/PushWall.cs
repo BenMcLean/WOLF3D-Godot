@@ -3,37 +3,25 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class PushWall : Pushable
+    public class PushWall : FourWalls
     {
         public const float Seconds = 128f / 70f; // It takes 128 tics for a pushwall to fully open in Wolfenstein 3-D.
         public const float HalfSeconds = Seconds / 2f;
 
         public XElement XML { get; set; } = null;
-        public PushWall(XElement xml) : this(
+        public PushWall(XElement xml) : base(
             (ushort)(uint)xml.Attribute("Page"),
             ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
             )
-            => XML = xml;
-
-        public PushWall(ushort wall, ushort darkSide)
         {
-            Name = "Pushwall";
-            AddChild(Walls.BuildWall(darkSide, true, 0, 0)); // West
-            AddChild(Walls.BuildWall(wall, false, 0, 0, true)); // North
-            AddChild(Walls.BuildWall(darkSide, true, 0, -1, true)); // East
-            AddChild(Walls.BuildWall(wall, false, 1, 0)); // South
+            XML = xml;
             AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.HalfWallWidth)),
             });
         }
 
-        public override bool Push() => Push(Direction8.CardinalToPoint(
-            Main.ActionRoom.ARVRPlayer.GlobalTransform.origin,
-            GlobalTransform.origin + new Vector3(Assets.HalfWallWidth, 0, Assets.HalfWallWidth)
-            ));
-
-        public bool Push(Direction8 direction)
+        public override bool Push(Direction8 direction)
         {
             if (Pushed
                 || !Level.IsOpen((ushort)(X + direction.X), (ushort)(Z + direction.Z))
@@ -75,8 +63,6 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
 
-        public ushort X { get; set; } = 0;
-        public ushort Z { get; set; } = 0;
         public float Time = 0f;
         public bool Halfway = false;
         public bool Pushed

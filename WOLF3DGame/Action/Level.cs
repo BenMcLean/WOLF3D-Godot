@@ -151,8 +151,8 @@ namespace WOLF3D.WOLF3DGame.Action
             foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
             {
                 AddChild(billboard);
-                if (billboard is Actor actor)
-                    Open[Assets.IntCoordinate(actor.GlobalTransform.origin.x)][Assets.IntCoordinate(actor.GlobalTransform.origin.z)] = false;
+                //if (billboard is Actor actor)
+                //    Open[Assets.IntCoordinate(actor.GlobalTransform.origin.x)][Assets.IntCoordinate(actor.GlobalTransform.origin.z)] = false;
             }
         }
 

@@ -228,7 +228,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public DoorEnum Pushed => PushedState(State);
 
-        public override bool Push()
+        public override bool Push(Direction8 direction)
         {
             if (Main.StatusBar.Conditional(XML))
             {
