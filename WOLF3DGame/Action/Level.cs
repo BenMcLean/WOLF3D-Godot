@@ -185,7 +185,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public ARVRPlayer ARVRPlayer { get; set; }
 
-        public List<ushort> Occupied => SquaresOccupied(ARVRPlayer.PlayerPosition);
+        public List<ushort> Occupied => SquaresOccupied(ARVRPlayer.Position);
         public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
         public List<ushort> SquaresOccupied(Vector2 vector2)
         {

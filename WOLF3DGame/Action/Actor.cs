@@ -98,6 +98,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public Direction8 Direction { get; set; } = Direction8.SOUTH;
         //    fixed x, y;
         //    unsigned tilex, tiley;
+        ushort TileX { get; set; } = 0;
+        ushort TileY { get; set; } = 0;
         //    byte areanumber;
         //    int viewx;
         //    unsigned viewheight;

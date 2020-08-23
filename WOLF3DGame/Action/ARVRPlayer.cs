@@ -2,7 +2,7 @@
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class ARVRPlayer : Spatial
+    public class ARVRPlayer : Spatial, ITarget
     {
         public ARVROrigin ARVROrigin { get; set; }
         public FadeCamera ARVRCamera { get; set; }
@@ -122,9 +122,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 if (movement.Length() > 1f)
                     movement = movement.Normalized();
 
-                PlayerPosition = Walk(PlayerPosition, Walk(
-                        PlayerPosition,
-                        PlayerPosition + ARVRCameraMovement + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
+                Position = Walk(Position, Walk(
+                        Position,
+                        Position + ARVRCameraMovement + movement * delta * (Input.IsKeyPressed((int)KeyList.Shift) ? Assets.WalkSpeed : Assets.RunSpeed)
                         ));
             }
 
@@ -191,8 +191,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     if (!Pushing)
                     {
                         Push(new Vector2(
-                            PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-                            PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                            Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                            Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
                             ));
                         Pushing = true;
                     }
@@ -203,8 +203,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     {
                         if (!Push(Assets.Vector2(RightController.GlobalTransform.origin)))
                             Push(new Vector2(
-                                PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-                                PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                                Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                                Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
                                 ));
                         Pushing = true;
                     }
@@ -215,8 +215,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     {
                         if (!Push(Assets.Vector2(LeftController.GlobalTransform.origin)))
                             Push(new Vector2(
-                                PlayerPosition.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-                                PlayerPosition.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                                Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                                Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
                                 ));
                         Pushing = true;
                     }
@@ -259,18 +259,32 @@ namespace WOLF3D.WOLF3DGame.Action
         }
         public ARVRPlayer SetTarget(int which, Actor billboard = null) => SetTarget(which == 0, billboard);
 
+        public bool IsIn(Vector2 vector2) => IsInLocal(vector2 - Position);
+        public bool IsIn(float x, float y) => IsInLocal(x - Position.x, y - Position.y);
+        public bool IsInLocal(Vector2 vector2) => IsInLocal(vector2.x, vector2.y);
+        public bool IsInLocal(float x, float y) =>
+            x - Offset.x >= 0 && y - Offset.y >= 0 && x - Offset.x <= Size.x && y - Offset.y <= Size.y;
+        public bool IsIn(Vector3 vector3) => IsIn(Assets.Vector2(vector3));
+        public bool IsIn(float x, float y, float z) => IsIn(x, z);
+        public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
+        public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
+        public Vector2 Size { get; set; } = new Vector2(Assets.WallWidth, Assets.WallWidth);
+        public Vector2 Offset { get; set; } = new Vector2(-Assets.HalfWallWidth, -Assets.HalfWallWidth);
+
         public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
         public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;
         public delegate bool PushDelegate(Vector2 where);
         public PushDelegate Push { get; set; }
 
-        public Vector2 PlayerPosition
+        public Vector2 GlobalPosition
         {
             get => Assets.Vector2(GlobalTransform.origin);
-            set => GlobalTransform = new Transform(
-                    GlobalTransform.basis,
-                    Assets.Vector3(value)
-                );
+            set => GlobalTransform = new Transform(GlobalTransform.basis, Assets.Vector3(value));
+        }
+        public Vector2 Position
+        {
+            get => Assets.Vector2(Transform.origin);
+            set => Transform = new Transform(Transform.basis, Assets.Vector3(value));
         }
     }
 }
