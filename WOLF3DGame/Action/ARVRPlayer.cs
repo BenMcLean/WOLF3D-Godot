@@ -270,11 +270,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
         public Vector2 Size { get; set; } = new Vector2(Assets.WallWidth, Assets.WallWidth);
         public Vector2 Offset { get; set; } = new Vector2(-Assets.HalfWallWidth, -Assets.HalfWallWidth);
-
-        public delegate Vector2 WalkDelegate(Vector2 here, Vector2 there);
-        public WalkDelegate Walk { get; set; } = (Vector2 here, Vector2 there) => here;
-        public delegate bool PushDelegate(Vector2 where);
-        public PushDelegate Push { get; set; }
+        public Vector2 Walk(Vector2 here, Vector2 there) => Main.ActionRoom.Level.Walk(here, there);
+        public bool Push(Vector2 where) => Main.ActionRoom.Level.Push(where);
 
         public Vector2 GlobalPosition
         {
@@ -286,5 +283,7 @@ namespace WOLF3D.WOLF3DGame.Action
             get => Assets.Vector2(Transform.origin);
             set => Transform = new Transform(Transform.basis, Assets.Vector3(value));
         }
+        public int X => Assets.IntCoordinate(GlobalTransform.origin.x);
+        public int Z => Assets.IntCoordinate(GlobalTransform.origin.z);
     }
 }

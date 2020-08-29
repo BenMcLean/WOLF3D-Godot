@@ -46,8 +46,6 @@ namespace WOLF3D.WOLF3DGame.Action
                     ARVRPlayer = ARVRPlayer,
                 });
                 ARVRPlayer.GlobalTransform = Level.StartTransform;
-                ARVRPlayer.Walk = Level.Walk;
-                ARVRPlayer.Push = Level.Push;
             }
         }
         private ushort mapNumber = 0;

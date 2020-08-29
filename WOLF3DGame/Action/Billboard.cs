@@ -48,15 +48,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public MeshInstance MeshInstance { get; set; } = null;
 
-        public ImageTexture ImageTexture => MeshInstance?.MaterialOverride is SpatialMaterial spatialMaterial
-                && spatialMaterial?.AlbedoTexture is ImageTexture imageTexture ?
-                imageTexture
-                : null;
-        public Image Image => ImageTexture is ImageTexture imageTexture
-            && imageTexture.GetData() is Image image ?
-            image
-            : null;
-
         public ushort? Page
         {
             get => page;
