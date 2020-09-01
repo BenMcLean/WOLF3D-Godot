@@ -29,28 +29,12 @@ namespace WOLF3D.WOLF3DGame.Action
         public ARVRPlayer ARVRPlayer { get; set; }
         public Level Level { get; set; } = null;
         public static Line3D Line3D { get; set; }
-        public ushort NextMap => (ushort)(MapNumber + 1 >= Assets.Maps.Length ? 0 : MapNumber + 1);
+        public ushort NextMap => (ushort)(Map.Number + 1 >= Assets.Maps.Length ? 0 : Map.Number + 1);
         public byte Difficulty { get; set; }
         public byte Episode { get; set; }
-        public GameMap Map => Assets.Maps[MapNumber];
-        public ushort MapNumber
-        {
-            get => mapNumber;
-            set
-            {
-                mapNumber = value;
-                if (Level != null)
-                    RemoveChild(Level);
-                AddChild(Level = new Level(Map, Difficulty)
-                {
-                    ARVRPlayer = ARVRPlayer,
-                });
-                ARVRPlayer.GlobalTransform = Level.StartTransform;
-            }
-        }
-        private ushort mapNumber = 0;
+        public GameMap Map => Level.Map;
 
-        public ActionRoom()
+        public ActionRoom(ushort episode, ushort mapNumber, byte difficulty = 4)
         {
             Name = "ActionRoom";
             AddChild(ARVRPlayer = new ARVRPlayer());
@@ -79,6 +63,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 },
                 Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
             });
+
+            Level = new Level(Assets.Maps[mapNumber], difficulty); // TODO: Support multiple episodes!
+            ARVRPlayer.GlobalTransform = Level.StartTransform;
         }
 
         public override void _Ready()
@@ -177,12 +164,12 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
-        Imf[] Song => Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
+        Imf[] Song => Assets.AudioT.Songs[Map.Song];
 
         public override void Enter()
         {
             base.Enter();
-            Main.Color = Assets.Palette[Assets.Maps[MapNumber].Border];
+            Main.Color = Assets.Palette[Map.Border];
             if (SoundBlaster.Song != Song)
                 SoundBlaster.Song = Song;
         }

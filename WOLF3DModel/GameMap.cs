@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace WOLF3DModel
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
                 maps = Maps(mapHead, gameMaps);
             foreach (XElement xMap in xml.Element("Maps").Elements("Map"))
-                if (uint.TryParse(xMap.Attribute("Number")?.Value, out uint map) && map < maps.Length)
+                if (ushort.TryParse(xMap.Attribute("Number")?.Value, out ushort map) && map < maps.Length)
                 {
                     if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
                         maps[map].Floor = floor;
@@ -36,6 +37,7 @@ namespace WOLF3DModel
         }
 
         public string Name { get; set; }
+        public ushort Number { get; set; }
         public ushort Width { get; set; }
         public ushort Depth { get; set; }
         public ushort[] MapData { get; set; }
@@ -80,7 +82,7 @@ namespace WOLF3DModel
 
         public static GameMap[] Maps(long[] offsets, Stream gameMaps)
         {
-            List<GameMap> maps = new List<GameMap>();
+            ArrayList maps = new ArrayList();
             using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
                 foreach (long offset in offsets)
                 {
@@ -148,10 +150,9 @@ namespace WOLF3DModel
                             otherData[i] = gameMapsReader.ReadUInt16();
                     }
                     map.OtherData = RlewExpand(otherData, (ushort)(map.Depth * map.Width), 0xABCD);
-
-                    maps.Add(map);
+                    map.Number = (ushort)maps.Add(map);
                 }
-            return maps.ToArray();
+            return (GameMap[])maps.ToArray(typeof(GameMap));
         }
 
         #region Decompression algorithms

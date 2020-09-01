@@ -33,8 +33,8 @@ namespace WOLF3D.WOLF3DGame.Action
                             side.MaterialOverride = Assets.VSwapMaterials[activated];
                     else
                     {
-                        Sides[Index(Direction)].MaterialOverride = Assets.VSwapMaterials[activated];
-                        Sides[Index(Direction.Opposite)].MaterialOverride = Assets.VSwapMaterials[activated];
+                        Sides[DirectionIndex(Direction)].MaterialOverride = Assets.VSwapMaterials[activated];
+                        Sides[DirectionIndex(Direction.Opposite)].MaterialOverride = Assets.VSwapMaterials[activated];
                     }
                 Main.MenuRoom.Action(XML);
                 return true;

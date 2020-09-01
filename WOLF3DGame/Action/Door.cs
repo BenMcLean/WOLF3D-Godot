@@ -58,7 +58,6 @@ namespace WOLF3D.WOLF3DGame.Action
                     case DoorEnum.OPEN:
                         Slide = OpeningSeconds;
                         Progress = 0;
-                        Open = true;
                         break;
                     case DoorEnum.CLOSING:
                         Play = CloseDigiSound;

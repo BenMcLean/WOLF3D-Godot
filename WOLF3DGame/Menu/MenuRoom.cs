@@ -243,7 +243,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                     (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == LastPushedTile)?.FirstOrDefault() is XElement over
                     && ushort.TryParse(over.Attribute("Floor")?.Value, out ushort floor)) ?
                     floor
-                    : (Assets.XML?.Element("Maps")?.Elements("Map")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == Main.ActionRoom.MapNumber).FirstOrDefault() is XElement map
+                    : (Assets.XML?.Element("Maps")?.Elements("Map")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == Main.ActionRoom.Map.Number).FirstOrDefault() is XElement map
                     && ushort.TryParse(map.Attribute("ElevatorBackTo")?.Value, out ushort elevatorBackTo)) ?
                     elevatorBackTo
                     : Main.ActionRoom.NextMap

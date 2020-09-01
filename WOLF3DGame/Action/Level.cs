@@ -15,6 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         #region Data Members
         public GameMap Map => Walls.Map;
+        public bool[][] Navigable => Walls.Navigable;
         public Walls Walls { get; private set; }
 
         public Door[][] Doors { get; private set; }
@@ -226,7 +227,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
         public bool CanWalk(int x, int z) =>
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth
-            && Walls.Navigable[x][z]
+            && Navigable[x][z]
             && (!(Doors[x][z] is Door door) || door.IsOpen)
             && ActorAt[x][z] < 0
             && PushWallAt[x][z] < 0;

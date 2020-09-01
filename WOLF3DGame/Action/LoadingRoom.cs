@@ -61,12 +61,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public void ThreadProc()
         {
-            Main.ActionRoom = new ActionRoom()
-            {
-                Difficulty = Difficulty,
-                Episode = Episode,
-                MapNumber = MapNumber,
-            };
+            Main.ActionRoom = new ActionRoom(Episode, (ushort)(Main.StatusBar["Floor"].Value - 1), Difficulty);
             if (Main.NextLevelStats != null)
                 Main.StatusBar.Set(Main.NextLevelStats);
             if (Main.StatusBar["Floor"] is StatusNumber floorNumber)
