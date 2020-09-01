@@ -92,16 +92,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public Level Level { get; set; } = null;
         private bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
         private bool TryClose() => TryOpen(false);
-        private bool Open
-        {
-            get => Level?.IsOpen(X, Z) ?? false;
-            set => TryOpen(value);
-        }
-        private bool Closed
-        {
-            get => !Open;
-            set => Open = !value;
-        }
+        public bool IsOpen => State == DoorEnum.OPEN;
 
         public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
 

@@ -9,6 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public const float HalfSeconds = Seconds / 2f;
 
         public XElement XML { get; set; } = null;
+        public int ArrayIndex { get; set; }
         public PushWall(XElement xml) : base(
             (ushort)(uint)xml.Attribute("Page"),
             ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")

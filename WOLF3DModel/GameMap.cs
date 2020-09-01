@@ -14,23 +14,23 @@ namespace WOLF3DModel
             using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
             using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
                 maps = Maps(mapHead, gameMaps);
-            foreach (XElement map in xml.Element("Maps").Elements("Map"))
-                if (uint.TryParse(map.Attribute("Number")?.Value, out uint mapNumber) && mapNumber < maps.Length)
+            foreach (XElement xMap in xml.Element("Maps").Elements("Map"))
+                if (uint.TryParse(xMap.Attribute("Number")?.Value, out uint map) && map < maps.Length)
                 {
-                    if (byte.TryParse(map.Attribute("Floor")?.Value, out byte floor))
-                        maps[mapNumber].Floor = floor;
-                    if (byte.TryParse(map.Attribute("Ceiling")?.Value, out byte ceiling))
-                        maps[mapNumber].Ceiling = ceiling;
-                    if (byte.TryParse(map.Attribute("Border")?.Value, out byte border))
-                        maps[mapNumber].Border = border;
-                    if (TimeSpan.TryParse(map.Attribute("Par")?.Value, out TimeSpan par))
-                        maps[mapNumber].Par = par;
+                    if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
+                        maps[map].Floor = floor;
+                    if (byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling))
+                        maps[map].Ceiling = ceiling;
+                    if (byte.TryParse(xMap.Attribute("Border")?.Value, out byte border))
+                        maps[map].Border = border;
+                    if (TimeSpan.TryParse(xMap.Attribute("Par")?.Value, out TimeSpan par))
+                        maps[map].Par = par;
                     if (ushort.TryParse(
                         (from e in xml.Element("Audio")?.Elements("Imf") ?? Enumerable.Empty<XElement>()
-                         where e.Attribute("Name")?.Value.Trim().Equals(map.Attribute("Song")?.Value.Trim(), System.StringComparison.InvariantCultureIgnoreCase) ?? false
+                         where e.Attribute("Name")?.Value.Trim().Equals(xMap.Attribute("Song")?.Value.Trim(), System.StringComparison.InvariantCultureIgnoreCase) ?? false
                          select e.Attribute("Number")?.Value).FirstOrDefault(),
                         out ushort song))
-                        maps[mapNumber].Song = song;
+                        maps[map].Song = song;
                 }
             return maps;
         }
@@ -155,8 +155,8 @@ namespace WOLF3DModel
         }
 
         #region Decompression algorithms
-        private static readonly ushort CARMACK_NEAR = 0xA7;
-        private static readonly ushort CARMACK_FAR = 0xA8;
+        public const ushort CARMACK_NEAR = 0xA7;
+        public const ushort CARMACK_FAR = 0xA8;
 
         public static ushort[] RlewExpand(ushort[] carmackExpanded, ushort length, ushort tag)
         {

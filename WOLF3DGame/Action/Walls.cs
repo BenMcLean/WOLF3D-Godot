@@ -15,6 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Walls : StaticBody
     {
         public GameMap Map { get; set; }
+        public bool[][] Navigable { get; private set; }
         public CollisionShape Floor { get; private set; }
         public MeshInstance FloorMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }
@@ -25,6 +26,14 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             Name = "Walls for map \"" + map.Name + "\"";
             Map = map;
+
+            Navigable = new bool[Map.Width][];
+            for (ushort x = 0; x < Map.Width; x++)
+            {
+                Navigable[x] = new bool[Map.Depth];
+                for (ushort z = 0; z < Map.Depth; z++)
+                    Navigable[x][z] = Assets.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+            }
 
             // realWalls replaces pushwalls with 0.
             ushort[] realWalls = new ushort[map.MapData.Length];

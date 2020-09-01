@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -43,11 +44,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             StringBuilder sb = new StringBuilder();
             foreach (T[] row in Data)
-            {
-                for (uint i = 0; i < row.Length; i++)
-                    sb.Append(row[i] + " ");
-                sb.AppendLine();
-            }
+                sb.AppendLine(string.Join(" ", row));
             return sb.ToString();
         }
     }

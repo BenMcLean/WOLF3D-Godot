@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,121 +13,64 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class Level : Spatial
     {
-        public GameMap Map { get; private set; }
-        public bool[][] Open { get; private set; }
-        public Walls MapWalls { get; private set; }
+        #region Data Members
+        public GameMap Map => Walls.Map;
+        public Walls Walls { get; private set; }
+
         public Door[][] Doors { get; private set; }
+        public readonly ArrayList PushWalls = new ArrayList();
+        private readonly int[][] PushWallAt;
+        public PushWall GetPushWallAt(ushort x, ushort z) =>
+            x < PushWallAt.Length
+            && z < PushWallAt[x].Length
+            && PushWallAt[x][z] - 1 is int index
+            && index >= 0 && index < PushWalls.Count
+            && PushWalls[index] is PushWall pushWall ?
+            pushWall
+            : null;
+        public Level SetPushWallAt(ushort x, ushort z, PushWall pushWall)
+        {
+            PushWallAt[x][z] = pushWall.ArrayIndex + 1;
+            return this;
+        }
+
+        public readonly ArrayList Actors = new ArrayList();
+        private readonly int[][] ActorAt;
+        public Actor GetActorAt(ushort x, ushort z) =>
+            x < ActorAt.Length
+            && z < ActorAt[x].Length
+            && ActorAt[x][z] - 1 is int index
+            && index >= 0 && index < Actors.Count
+            && Actors[index] is Actor actor ?
+            actor
+            : null;
+        public Level SetActorAt(ushort x, ushort z, Actor actor)
+        {
+            ActorAt[x][z] = actor.ArrayIndex + 1;
+            return this;
+        }
+
         public TriangularMatrix<short> FloorCodes = new TriangularMatrix<short>(Assets.FloorCodes);
-        public IEnumerable<Door> GetDoors()
-        {
-            for (uint x = 0; x < Doors.Length; x++)
-                for (uint z = 0; z < Doors[x].Length; z++)
-                    if (Doors[x][z] != null)
-                        yield return Doors[x][z];
-        }
-        public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
-
-        public readonly List<PushWall> PushWalls = new List<PushWall>();
-
-        public bool Push(Vector2 where)
-        {
-            bool Pushy()
-            {
-                if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
-                    return door.Push();
-                foreach (PushWall pushWall in PushWalls)
-                    if (!pushWall.Pushed && pushWall.IsIn(where))
-                        return pushWall.Push();
-                foreach (Elevator elevator in MapWalls.Elevators)
-                    if (elevator.IsIn(where))
-                        return elevator.Push();
-                return false;
-            }
-            bool push = Pushy();
-            if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
-                SoundBlaster.Adl = sound;
-            if (push)
-                MenuRoom.LastPushedTile = Main.ActionRoom.Map.GetMapData(
-                    (uint)Main.ActionRoom.ARVRPlayer.X,
-                    (uint)Main.ActionRoom.ARVRPlayer.Z
-                    ); // This is used to find override tiles to change the elevator destination
-            return push;
-        }
-
-        public Vector2 Walk(Vector2 here, Vector2 there)
-        {
-            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
-            return new Vector2(x, CanWalk(new Vector2(x, there.y)) ? there.y : here.y);
-        }
-
-        public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
-
-        /// <summary>
-        /// "Close to the edge, down by a river" - Yes
-        /// </summary>
-        public static float ToTheEdge(int here, int move) =>
-            move > 0 ?
-            Assets.FloatCoordinate(here + 1) - Assets.HeadXZ - float.Epsilon
-            : move < 0 ?
-            Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
-            : Assets.CenterSquare(here);
-
         public static bool Clipping { get; set; } = true;
 
-        public bool CanWalk(Vector2 there, out Vector2 cant)
-        {
-            if (!Clipping)
-            {
-                cant = Vector2.Zero;
-                return true;
-            }
-            foreach (Direction8 direction in Direction8.Diagonals)
-                if (!CanWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
-                    return false;
-            return CanWalkPoint(cant = there);
-        }
+        #endregion Data Members
 
-        public bool CanWalk(Vector2 there) => CanWalk(there, out _);
-
-        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
-        public bool CanWalk(int x, int z) =>
-            x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth &&
-            Open[x][z];
-
-        public bool TryClose(ushort x, ushort z)
-        {
-            if (x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z)))
-            {
-                Open[x][z] = false;
-                return true;
-            }
-            return false;
-        }
-
-        public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
-        public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth ? Open[x][z] = true : TryClose(x, z);
-        public bool IsOpen(ushort x, ushort z) => Open[x][z];
-
+        #region Loading
         public Level(GameMap map, byte difficulty = 4)
         {
             Name = "Level \"" + map.Name + "\"";
-            Map = map;
-            Open = new bool[Map.Width][];
-            for (ushort x = 0; x < Map.Width; x++)
-            {
-                Open[x] = new bool[Map.Depth];
-                for (ushort z = 0; z < Map.Depth; z++)
-                    Open[x][z] = !IsWall(x, z) && IsNavigable(x, z);
-            }
-            AddChild(MapWalls = new Walls(Map));
-            foreach (Elevator elevator in MapWalls.Elevators)
-                Open[elevator.X][elevator.Z] = false;
+            AddChild(Walls = new Walls(Map));
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
-            {
                 AddChild(door);
-                Open[door.X][door.Z] = false;
+
+            PushWallAt = new int[Map.Width][];
+            ActorAt = new int[Map.Width][];
+            for (ushort x = 0; x < Map.Width; x++)
+            {
+                PushWallAt[x] = new int[Map.Depth];
+                ActorAt[x] = new int[Map.Depth];
             }
 
             foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
@@ -145,30 +89,139 @@ namespace WOLF3D.WOLF3DGame.Action
                                 };
                                 if (Assets.DigiSoundSafe(pushXML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
                                     pushWall.Sound = sound;
-                                PushWalls.Add(pushWall);
+                                pushWall.ArrayIndex = PushWalls.Add(pushWall);
+                                SetPushWallAt(x, z, pushWall);
                                 AddChild(pushWall);
                             }
 
             foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
             {
                 AddChild(billboard);
-                //if (billboard is Actor actor)
-                //    Open[Assets.IntCoordinate(actor.GlobalTransform.origin.x)][Assets.IntCoordinate(actor.GlobalTransform.origin.z)] = false;
+                if (billboard is Actor actor)
+                    actor.ArrayIndex = Actors.Add(actor);
             }
         }
+
+        public bool Start(out ushort index, out Direction8 direction)
+        {
+            foreach (XElement start in Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
+            {
+                if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
+                    continue;
+                int found = Array.FindIndex(Map.ObjectData, o => o == find);
+                if (found > -1)
+                {
+                    index = (ushort)found;
+                    direction = Direction8.From(start.Attribute("Direction"));
+                    return true;
+                }
+            }
+            index = 0;
+            direction = null;
+            return false;
+        }
+
+        public Transform StartTransform =>
+            Start(out ushort index, out Direction8 direction) ?
+            new Transform(direction.Basis, new Vector3(Assets.CenterSquare(Map.X(index)), 0f, Assets.CenterSquare(Map.Z(index))))
+            : throw new InvalidDataException("Could not find start of level!");
+        #endregion Loading
+
+        #region Doors
+
+        public IEnumerable<Door> GetDoors()
+        {
+            for (uint x = 0; x < Doors.Length; x++)
+                for (uint z = 0; z < Doors[x].Length; z++)
+                    if (Doors[x][z] != null)
+                        yield return Doors[x][z];
+        }
+        public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
+        #endregion Doors
+
+        #region Pushing
+        public bool Push(Vector2 where)
+        {
+            bool Pushy()
+            {
+                if (GetDoor(Assets.IntCoordinate(where.x), Assets.IntCoordinate(where.y)) is Door door)
+                    return door.Push();
+                foreach (PushWall pushWall in PushWalls)
+                    if (!pushWall.Pushed && pushWall.IsIn(where))
+                        return pushWall.Push();
+                foreach (Elevator elevator in Walls.Elevators)
+                    if (elevator.IsIn(where))
+                        return elevator.Push();
+                return false;
+            }
+            bool push = Pushy();
+            if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
+                SoundBlaster.Adl = sound;
+            if (push)
+                MenuRoom.LastPushedTile = Main.ActionRoom.Map.GetMapData(
+                    (uint)Main.ActionRoom.ARVRPlayer.X,
+                    (uint)Main.ActionRoom.ARVRPlayer.Z
+                    ); // This is used to find override tiles to change the elevator destination
+            return push;
+        }
+        #endregion Pushing
+
+        #region Collision Detection
+        public Vector2 Walk(Vector2 here, Vector2 there)
+        {
+            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
+            return new Vector2(x, CanWalk(new Vector2(x, there.y)) ? there.y : here.y);
+        }
+
+        public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
+
+        /// <summary>
+        /// "Close to the edge, down by a river" - Yes
+        /// </summary>
+        public static float ToTheEdge(int here, int move) =>
+            move > 0 ?
+            Assets.FloatCoordinate(here + 1) - Assets.HeadXZ - float.Epsilon
+            : move < 0 ?
+            Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
+            : Assets.CenterSquare(here);
+
+
+        public bool CanWalk(Vector2 there, out Vector2 cant)
+        {
+            if (!Clipping)
+            {
+                cant = Vector2.Zero;
+                return true;
+            }
+            foreach (Direction8 direction in Direction8.Diagonals)
+                if (!CanWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
+                    return false;
+            return CanWalkPoint(cant = there);
+        }
+
+        public bool CanWalk(Vector2 there) => CanWalk(there, out _);
+
+        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
+        public bool CanWalk(int x, int z) =>
+            x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth
+            && Walls.Navigable[x][z]
+            && (!(Doors[x][z] is Door door) || door.IsOpen)
+            && ActorAt[x][z] < 0
+            && PushWallAt[x][z] < 0;
+
+        public bool IsOpen(ushort x, ushort z) => CanWalk(x, z);
+
+        public bool TryClose(ushort x, ushort z) =>
+            x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
+
+        public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
+        public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth || TryClose(x, z);
+        #endregion Collision Detection
 
         public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
         public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
 
-        public bool IsNavigable(ushort x, ushort z) => IsNavigable(Map.GetObjectData(x, z));
 
-        public static bool IsNavigable(uint cell)
-        {
-            XElement mapObject = (from e in Assets.XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
-                                  where (uint)e.Attribute("Number") == cell
-                                  select e).FirstOrDefault();
-            return mapObject == null || mapObject.IsTrue("Walk");
-        }
 
         /// <returns>if the specified map coordinates are adjacent to a floor</returns>
         public bool IsByFloor(ushort x, ushort z)
@@ -184,9 +237,7 @@ namespace WOLF3D.WOLF3DGame.Action
             return false;
         }
 
-        public ARVRPlayer ARVRPlayer { get; set; }
-
-        public List<ushort> Occupied => SquaresOccupied(ARVRPlayer.Position);
+        public List<ushort> Occupied => SquaresOccupied(Main.ActionRoom.ARVRPlayer.Position);
         public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
         public List<ushort> SquaresOccupied(Vector2 vector2)
         {
@@ -228,29 +279,5 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public static ushort DoorTexture(ushort cell) =>
             (ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
-
-        public Transform StartTransform =>
-            Start(out ushort index, out Direction8 direction) ?
-            new Transform(direction.Basis, new Vector3(Assets.CenterSquare(Map.X(index)), 0f, Assets.CenterSquare(Map.Z(index))))
-            : throw new InvalidDataException("Could not find start of level!");
-
-        public bool Start(out ushort index, out Direction8 direction)
-        {
-            foreach (XElement start in Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
-            {
-                if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
-                    continue;
-                int found = Array.FindIndex(Map.ObjectData, o => o == find);
-                if (found > -1)
-                {
-                    index = (ushort)found;
-                    direction = Direction8.From(start.Attribute("Direction"));
-                    return true;
-                }
-            }
-            index = 0;
-            direction = null;
-            return false;
-        }
     }
 }

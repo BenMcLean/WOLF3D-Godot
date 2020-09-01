@@ -7,6 +7,8 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Actor : Billboard
     {
         public XElement ActorXML;
+        public int ArrayIndex { get; set; }
+
         public Actor(XElement spawn) : base()
         {
             XML = spawn;

@@ -490,6 +490,15 @@ namespace WOLF3D.WOLF3DGame
         public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 
         public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
+
+        public static bool IsNavigable(ushort mapData, ushort objectData) =>
+            !Walls.Contains(mapData)
+            && !Elevators.Contains(mapData)
+            && (
+                !(XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
+                    .Where(e => (uint)e.Attribute("Number") == objectData).FirstOrDefault() is XElement mapObject)
+                || mapObject.IsTrue("Walk")
+            );
         #endregion Game assets
     }
 }
