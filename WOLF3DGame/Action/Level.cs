@@ -18,8 +18,10 @@ namespace WOLF3D.WOLF3DGame.Action
         public Walls Walls { get; private set; }
 
         public Door[][] Doors { get; private set; }
+
         public readonly ArrayList PushWalls = new ArrayList();
         private readonly int[][] PushWallAt;
+        public bool IsPushWallAt(ushort x, ushort z) => x < PushWallAt.Length && z < PushWallAt[x].Length && PushWallAt[x][z] != 0;
         public PushWall GetPushWallAt(ushort x, ushort z) =>
             x < PushWallAt.Length
             && z < PushWallAt[x].Length
@@ -33,9 +35,20 @@ namespace WOLF3D.WOLF3DGame.Action
             PushWallAt[x][z] = pushWall.ArrayIndex + 1;
             return this;
         }
+        public Level ErasePushWall(PushWall pushWall) => EraseActor(pushWall.ArrayIndex);
+        public Level ErasePushWall(int index)
+        {
+            for (ushort x = 0; x < PushWallAt.Length; x++)
+                for (ushort z = 0; z < PushWallAt[x].Length; z++)
+                    if (PushWallAt[x][z] == index + 1)
+                        PushWallAt[x][z] = 0;
+            return this;
+        }
+
 
         public readonly ArrayList Actors = new ArrayList();
         private readonly int[][] ActorAt;
+        public bool IsActorAt(ushort x, ushort z) => x < ActorAt.Length && z < ActorAt[x].Length && ActorAt[x][z] != 0;
         public Actor GetActorAt(ushort x, ushort z) =>
             x < ActorAt.Length
             && z < ActorAt[x].Length
@@ -47,6 +60,15 @@ namespace WOLF3D.WOLF3DGame.Action
         public Level SetActorAt(ushort x, ushort z, Actor actor)
         {
             ActorAt[x][z] = actor.ArrayIndex + 1;
+            return this;
+        }
+        public Level EraseActor(Actor actor) => EraseActor(actor.ArrayIndex);
+        public Level EraseActor(int index)
+        {
+            for (ushort x = 0; x < ActorAt.Length; x++)
+                for (ushort z = 0; z < ActorAt[x].Length; z++)
+                    if (ActorAt[x][z] == index + 1)
+                        ActorAt[x][z] = 0;
             return this;
         }
 
