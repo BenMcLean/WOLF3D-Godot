@@ -38,13 +38,12 @@ namespace WOLF3D.WOLF3DGame.Action
                     Navigable[x][z] = Assets.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
             }
 
-            // realWalls replaces pushwalls with 0.
+            // realWalls replaces pushwalls with floors.
             ushort[] realWalls = new ushort[map.MapData.Length];
             Array.Copy(map.MapData, realWalls, realWalls.Length);
-            foreach (ushort pushWall in Assets.PushWalls)
-                for (uint i = 0; i < realWalls.Length; i++)
-                    if (Map.ObjectData[i] == pushWall)
-                        realWalls[i] = 0;
+            for (uint i = 0; i < realWalls.Length; i++)
+                if (Assets.PushWalls.Contains(Map.ObjectData[i]))
+                    realWalls[i] = Assets.FloorCodeStart;
             ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
 
             AddChild(Floor = new CollisionShape()
