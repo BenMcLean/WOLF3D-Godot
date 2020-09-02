@@ -41,7 +41,7 @@ namespace WOLF3D.WOLF3DGame.Action
             // realWalls replaces pushwalls with 0.
             ushort[] realWalls = new ushort[map.MapData.Length];
             Array.Copy(map.MapData, realWalls, realWalls.Length);
-            foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
+            foreach (XElement pushXML in Assets.PushWall ?? Enumerable.Empty<XElement>())
                 if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
                     for (uint i = 0; i < realWalls.Length; i++)
                         if (Map.ObjectData[i] == pushNumber)

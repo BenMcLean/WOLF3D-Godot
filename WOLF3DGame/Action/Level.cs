@@ -95,7 +95,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 ActorAt[x] = new int[Map.Depth];
             }
 
-            foreach (XElement pushXML in Assets.Pushwall ?? Enumerable.Empty<XElement>())
+            foreach (XElement pushXML in Assets.PushWall ?? Enumerable.Empty<XElement>())
                 if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
                     for (ushort x = 0; x < Map.Width; x++)
                         for (ushort z = 0; z < Map.Depth; z++)

@@ -129,20 +129,10 @@ namespace WOLF3D.WOLF3DGame
             if (XML.Element("VgaGraph") != null)
                 VgaGraph = VgaGraph.Load(folder, XML);
 
-            List<ushort> walls = new List<ushort>();
-            foreach (XElement wall in XML.Element("VSwap")?.Element("Walls")?.Elements("Wall") ?? Enumerable.Empty<XElement>())
-                walls.Add((ushort)(int)wall.Attribute("Number"));
-            Walls = walls.ToArray();
-
-            List<ushort> doors = new List<ushort>();
-            foreach (XElement door in XML.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>())
-                doors.Add((ushort)(int)door.Attribute("Number"));
-            Doors = doors.ToArray();
-
-            List<ushort> elevators = new List<ushort>();
-            foreach (XElement elevator in XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator") ?? Enumerable.Empty<XElement>())
-                elevators.Add((ushort)(int)elevator.Attribute("Number"));
-            Elevators = elevators.ToArray();
+            Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
+            Doors = XML.Element("VSwap")?.Element("Walls")?.Elements("Door")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+            Elevators = XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+            PushWalls = PushWall?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
 
             States.Clear();
             foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
@@ -166,6 +156,7 @@ namespace WOLF3D.WOLF3DGame
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
         public static ushort[] Elevators { get; set; }
+        public static ushort[] PushWalls { get; set; }
         public static ushort FloorCodeStart = 107;
         public static ushort FloorCodes = 37;
         public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
@@ -469,15 +460,15 @@ namespace WOLF3D.WOLF3DGame
             return found;
         }
 
-        public static IEnumerable<XElement> Pushwall =>
+        public static IEnumerable<XElement> PushWall =>
     XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
 
-        public static uint Pushwalls(GameMap map) => Pushwalls(map.ObjectData);
+        public static uint CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
 
-        public static uint Pushwalls(ushort[] ObjectData)
+        public static uint CountPushWalls(ushort[] ObjectData)
         {
             uint found = 0;
-            foreach (XElement pushwall in Pushwall ?? Enumerable.Empty<XElement>())
+            foreach (XElement pushwall in PushWall ?? Enumerable.Empty<XElement>())
                 if (ushort.TryParse(pushwall.Attribute("Number")?.Value, out ushort number))
                     foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
                         if (number == square)
@@ -492,7 +483,7 @@ namespace WOLF3D.WOLF3DGame
         public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
 
         public static bool IsNavigable(ushort mapData, ushort objectData) =>
-            !Walls.Contains(mapData)
+            (!Walls.Contains(mapData) || PushWalls.Contains(objectData))
             && !Elevators.Contains(mapData)
             && (
                 !(XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
