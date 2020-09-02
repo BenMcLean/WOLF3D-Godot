@@ -225,8 +225,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
         public bool CanWalk(int x, int z) =>
-            x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth
-            && Walls.IsNavigable(x, z)
+            Walls.IsNavigable(x, z)
             && (!(Doors[x][z] is Door door) || door.IsOpen)
             && !IsActorAt((ushort)x, (ushort)z)
             && !IsPushWallAt((ushort)x, (ushort)z);
