@@ -34,7 +34,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public byte Episode { get; set; }
         public GameMap Map => Level.Map;
 
-        public ActionRoom(ushort episode, ushort mapNumber, byte difficulty = 4)
+        public ActionRoom(ushort mapNumber, ushort episode = 0, byte difficulty = 4)
         {
             Name = "ActionRoom";
             AddChild(ARVRPlayer = new ARVRPlayer());
@@ -64,7 +64,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
             });
 
-            Level = new Level(Assets.Maps[mapNumber], difficulty); // TODO: Support multiple episodes!
+            AddChild(Level = new Level(Assets.Maps[mapNumber], difficulty)); // TODO: Support multiple episodes!
             ARVRPlayer.GlobalTransform = Level.StartTransform;
         }
 

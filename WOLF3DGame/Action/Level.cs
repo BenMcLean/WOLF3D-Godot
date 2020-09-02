@@ -82,7 +82,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public Level(GameMap map, byte difficulty = 4)
         {
             Name = "Level \"" + map.Name + "\"";
-            AddChild(Walls = new Walls(Map));
+            AddChild(Walls = new Walls(map));
 
             Doors = Door.Doors(Map, this);
             foreach (Door door in GetDoors())
