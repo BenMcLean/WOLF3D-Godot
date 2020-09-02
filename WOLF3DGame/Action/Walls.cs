@@ -15,7 +15,10 @@ namespace WOLF3D.WOLF3DGame.Action
     public class Walls : StaticBody
     {
         public GameMap Map { get; set; }
-        public bool[][] Navigable { get; private set; }
+        protected readonly bool[][] Navigable;
+        public bool IsNavigable(int x, int z) =>
+            x >= 0 && z >= 0 && x < Navigable.Length && z < Navigable[x].Length
+            && Navigable[x][z];
         public CollisionShape Floor { get; private set; }
         public MeshInstance FloorMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }

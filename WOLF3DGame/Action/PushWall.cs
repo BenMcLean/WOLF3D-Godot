@@ -25,14 +25,16 @@ namespace WOLF3D.WOLF3DGame.Action
         public override bool Push(Direction8 direction)
         {
             if (Pushed
-                || !Level.IsOpen((ushort)(X + direction.X), (ushort)(Z + direction.Z))
-                || !Level.IsOpen((ushort)(X + direction.X * 2), (ushort)(Z + direction.Z * 2)))
+                || !PushWallOpen(X + direction.X, Z + direction.Z)
+                || !PushWallOpen(X + direction.X * 2, Z + direction.Z * 2))
                 return false;
             Direction = direction;
-            Level.TryClose((ushort)(X + direction.X), (ushort)(Z + direction.Z));
-            Level.TryClose((ushort)(X + direction.X * 2), (ushort)(Z + direction.Z * 2));
+            Level.SetPushWallAt((ushort)(X + direction.X), (ushort)(Z + direction.Z), this);
+            Level.SetPushWallAt((ushort)(X + direction.X * 2), (ushort)(Z + direction.Z * 2), this);
             return Pushed = true;
         }
+
+        public bool PushWallOpen(int x, int z) => Level.Walls.IsNavigable(x, z) && !Level.IsPushWallAt((ushort)x, (ushort)z);
 
         public override void _Process(float delta)
         {
@@ -46,7 +48,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             0f,
                             (Z + Direction.Z * 2) * Assets.WallWidth
                         ));
-                    Level.TryOpen((ushort)(X + Direction.X), (ushort)(Z + Direction.Z));
+                    Level.SetPushWallAt((ushort)(X + Direction.X), (ushort)(Z + Direction.Z));
                 }
                 else
                 {
@@ -57,7 +59,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         ));
                     if (!Halfway && Time > HalfSeconds)
                     {
-                        Level.TryOpen(X, Z);
+                        Level.SetPushWallAt(X, Z);
                         Halfway = true;
                     }
                 }

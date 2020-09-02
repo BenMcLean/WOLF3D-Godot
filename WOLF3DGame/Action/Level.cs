@@ -15,7 +15,6 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         #region Data Members
         public GameMap Map => Walls.Map;
-        public bool[][] Navigable => Walls.Navigable;
         public Walls Walls { get; private set; }
 
         public Door[][] Doors { get; private set; }
@@ -31,9 +30,9 @@ namespace WOLF3D.WOLF3DGame.Action
             && PushWalls[index] is PushWall pushWall ?
             pushWall
             : null;
-        public Level SetPushWallAt(ushort x, ushort z, PushWall pushWall)
+        public Level SetPushWallAt(ushort x, ushort z, PushWall pushWall = null)
         {
-            PushWallAt[x][z] = pushWall.ArrayIndex + 1;
+            PushWallAt[x][z] = pushWall == null ? 0 : pushWall.ArrayIndex + 1;
             return this;
         }
         public Level ErasePushWall(PushWall pushWall) => EraseActor(pushWall.ArrayIndex);
@@ -58,9 +57,9 @@ namespace WOLF3D.WOLF3DGame.Action
             && Actors[index] is Actor actor ?
             actor
             : null;
-        public Level SetActorAt(ushort x, ushort z, Actor actor)
+        public Level SetActorAt(ushort x, ushort z, Actor actor = null)
         {
-            ActorAt[x][z] = actor.ArrayIndex + 1;
+            ActorAt[x][z] = actor == null ? 0 : actor.ArrayIndex + 1;
             return this;
         }
         public Level EraseActor(Actor actor) => EraseActor(actor.ArrayIndex);
@@ -227,7 +226,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y));
         public bool CanWalk(int x, int z) =>
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth
-            && Navigable[x][z]
+            && Walls.IsNavigable(x, z)
             && (!(Doors[x][z] is Door door) || door.IsOpen)
             && !IsActorAt((ushort)x, (ushort)z)
             && !IsPushWallAt((ushort)x, (ushort)z);
