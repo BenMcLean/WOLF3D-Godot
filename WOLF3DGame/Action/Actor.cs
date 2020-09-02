@@ -29,6 +29,9 @@ namespace WOLF3D.WOLF3DGame.Action
             base._Process(delta);
             if (!Main.Room.Paused)
             {
+                if (Main.ActionRoom.Level.GetActorAt(TileX, TileY) == this)
+                    Main.ActionRoom.Level.SetActorAt(TileX, TileY);
+
                 Seconds += delta;
                 if (Seconds > State.Seconds)
                 {
@@ -52,6 +55,9 @@ namespace WOLF3D.WOLF3DGame.Action
                     : 0)) is ushort newFrame
                     && newFrame != Page)
                     Page = newFrame;
+
+                if (Mark)
+                    Main.ActionRoom.Level.SetActorAt(TileX, TileY, this);
             }
         }
 
@@ -93,7 +99,7 @@ namespace WOLF3D.WOLF3DGame.Action
         //#define FL_AMBUSH		64
         public bool Ambush = false;
         //#define FL_NONMARK		128
-        public bool NoMark = false;
+        public bool Mark = true;
         //    long distance;            // if negative, wait for that door to open
         public float Distance { get; set; } = Assets.WallWidth;
         //    dirtype dir;
