@@ -229,8 +229,8 @@ namespace WOLF3D.WOLF3DGame.Action
             x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth
             && Navigable[x][z]
             && (!(Doors[x][z] is Door door) || door.IsOpen)
-            && ActorAt[x][z] < 0
-            && PushWallAt[x][z] < 0;
+            && !IsActorAt((ushort)x, (ushort)z)
+            && !IsPushWallAt((ushort)x, (ushort)z);
 
         public bool IsOpen(ushort x, ushort z) => CanWalk(x, z);
 
