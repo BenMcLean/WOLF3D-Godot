@@ -272,6 +272,18 @@
         <Text String="QUICK COMMAND REFERENCE" X="16" Y="16" Color="126" />
         <Text String="Arrows move. Ctrl shoots. Alt strafes.&#10;&#10;F1			Help&#10;F2			Save game (F8 for Quick save)&#10;F3			Load game (F9 for Quick load)&#10;F4			Sound menu&#10;F5			Resize view window&#10;F6			Controls menu&#10;F7			End Game&#10;F10		Exit to DOS&#10;&#10;Read on for more information." X="16" Y="36" />
         <Text String="pg 1 of 41" X="212" Y="183" Color="79" />
+        <Bottom Action="Menu" Argument="Page2" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page2" BkgdColor="16" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="										TABLE OF CONTENTS" X="16" Y="16" Color="126" />
+        <Text String="								STORY	.	.	.	.	.	.	.	.	.	.	.	.	.	3&#10;								CONTROLS	.	.	.	.	.	.	.	.	.	.	6&#10;								ABOUT Id 	.	.	.	.	.	.	.	.	.	.	12&#10;								ORDERING	.	.	.	.	.	.	.	.	.	.	.	16&#10;								MORE WOLFENSTEIN!	.	.	.	19&#10;								SOFTWARE CREATIONS 		24&#10;								FOREIGN ORDERS	.	.	.	.	.	28" X="16" Y="36" />
+        <Text String="pg 2 of 41" X="212" Y="183" Color="79" />
+        <Top Action="Menu" Argument="Page1" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
