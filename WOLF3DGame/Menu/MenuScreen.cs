@@ -302,7 +302,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool IsIn(float x, float y, float z) => IsIn(x, z);
         public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
         public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
-
+        public virtual bool IsWithin(float x, float y, float distance) =>
+            Math.Abs(Width / 2 - x) < distance && Math.Abs(Height / 2 - y) < distance;
 
         public override void _Process(float delta)
         {

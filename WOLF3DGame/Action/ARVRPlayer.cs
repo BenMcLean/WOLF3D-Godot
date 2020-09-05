@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -268,8 +269,10 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool IsIn(float x, float y, float z) => IsIn(x, z);
         public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
         public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
+        public bool IsWithin(float x, float z, float distance) =>
+            Math.Abs(GlobalTransform.origin.x - x) < distance && Math.Abs(GlobalTransform.origin.z - z) < distance;
         public Vector2 Size { get; set; } = new Vector2(Assets.WallWidth, Assets.WallWidth);
-        public Vector2 Offset { get; set; } = new Vector2(-Assets.HalfWallWidth, -Assets.HalfWallWidth);
+        public Vector2 Offset { get; set; } = new Vector2(Assets.HalfWallWidth, Assets.HalfWallWidth);
         public Vector2 Walk(Vector2 here, Vector2 there) => Main.ActionRoom.Level.Walk(here, there);
         public bool Push(Vector2 where) => Main.ActionRoom.Level.Push(where);
 

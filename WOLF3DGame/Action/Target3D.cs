@@ -19,6 +19,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public virtual bool IsIn(float x, float y, float z) => IsIn(x, z);
         public virtual bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
         public virtual bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
+        public virtual bool IsWithin(float x, float z, float distance) =>
+            Math.Abs(GlobalTransform.origin.x - x) < distance && Math.Abs(GlobalTransform.origin.z - z) < distance;
         public virtual Vector2 Position
         {
             get => Assets.Vector2(Transform.origin);

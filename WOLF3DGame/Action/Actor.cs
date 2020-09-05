@@ -148,8 +148,12 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             float move = Speed * delta;
             // TODO: Wait for a door to open.
-            GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin + Assets.Vector3(Direction + move));
-            Distance -= move;
+            Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
+            if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+            {
+                GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+                Distance -= move;
+            }
             if (Distance < 0)
             {
                 Recenter();
@@ -178,10 +182,12 @@ namespace WOLF3D.WOLF3DGame.Action
                 && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
                 Direction = direction;
             Distance = Assets.WallWidth;
-            if (Direction != null &&
-                (!Main.ActionRoom.Map.WithinMap(X + Direction.X, Z + Direction.Z)
-                || !Main.ActionRoom.Level.IsOpen((ushort)(X + Direction.X), (ushort)(Z + Direction.Z))))
+            if (Direction != null
+                && !Main.ActionRoom.Level.CanWalk(X + Direction.X, Z + Direction.Z))
+                //&& !Main.ActionRoom.ARVRPlayer.IsIn(Assets.CenterSquare(X + Direction.X), Assets.CenterSquare(Z + Direction.Z)))
                 Direction = null;
+            TileX = (ushort)(X + Direction?.X ?? 0);
+            TileY = (ushort)(Z + Direction?.Z ?? 0);
             return this;
         }
 

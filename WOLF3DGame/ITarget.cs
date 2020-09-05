@@ -12,6 +12,7 @@ namespace WOLF3D.WOLF3DGame
         bool IsIn(float x, float y);
         bool IsInLocal(Vector2 vector2);
         bool IsInLocal(float x, float y);
+        bool IsWithin(float x, float y, float distance);
         Vector2 Position { get; set; }
         Vector2 GlobalPosition { get; set; }
         Vector2 Size { get; set; }

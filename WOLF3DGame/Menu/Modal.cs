@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.OPL;
 
@@ -20,6 +21,9 @@ namespace WOLF3D.WOLF3DGame.Menu
         public bool IsIn(float x, float y, float z) => IsIn(x, z);
         public bool IsInLocal(Vector3 vector3) => IsInLocal(Assets.Vector2(vector3));
         public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
+        public bool IsWithin(float x, float y, float distance) =>
+            Math.Abs(GlobalTransform.origin.x - x) < distance && Math.Abs(GlobalTransform.origin.y - y) < distance;
+
         public bool Answer
         {
             get => answer;

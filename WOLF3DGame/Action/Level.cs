@@ -230,8 +230,6 @@ namespace WOLF3D.WOLF3DGame.Action
             && !IsActorAt((ushort)x, (ushort)z)
             && !IsPushWallAt((ushort)x, (ushort)z);
 
-        public bool IsOpen(ushort x, ushort z) => CanWalk(x, z);
-
         public bool TryClose(ushort x, ushort z) =>
             x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
 
