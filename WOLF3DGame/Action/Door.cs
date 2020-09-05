@@ -30,22 +30,30 @@ namespace WOLF3D.WOLF3DGame.Action
         }
 
         public enum DoorEnum { CLOSED, OPENING, OPEN, CLOSING }
+        public DoorEnum NextState() => NextState(State);
+
         public static DoorEnum NextState(DoorEnum s) =>
             s == DoorEnum.CLOSED ? DoorEnum.OPENING
             : s == DoorEnum.OPENING ? DoorEnum.OPEN
             : s == DoorEnum.OPEN ? DoorEnum.CLOSING
             : DoorEnum.CLOSED;
+        public DoorEnum PushedState() => PushedState(State);
         public static DoorEnum PushedState(DoorEnum s) =>
             s == DoorEnum.CLOSED ? DoorEnum.OPENING
             : s == DoorEnum.OPENING ? DoorEnum.CLOSING
             : s == DoorEnum.OPEN ? DoorEnum.CLOSING
             : DoorEnum.OPENING;
+        public DoorEnum ActorPushed() => ActorPushed(State);
+        public static DoorEnum ActorPushed(DoorEnum s) =>
+            s == DoorEnum.CLOSED ? DoorEnum.OPENING
+            : s == DoorEnum.CLOSING ? DoorEnum.OPENING
+            : s;
         public DoorEnum State
         {
             get => state;
             set
             {
-                if (State == DoorEnum.OPEN && value != DoorEnum.OPEN && !TryClose())
+                if (State == DoorEnum.OPEN && value != DoorEnum.OPEN && !Level.CanCloseDoor(X, Z))
                     return;
                 switch (value)
                 {
@@ -89,8 +97,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public ushort FloorCodePlus { get; set; } = 0;
         public ushort FloorCodeMinus { get; set; } = 0;
         public Level Level { get; set; } = null;
-        private bool TryOpen(bool @bool = true) => Level?.TryOpen(this, @bool) ?? false;
-        private bool TryClose() => TryOpen(false);
         public bool IsOpen => State == DoorEnum.OPEN;
 
         public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
@@ -227,6 +233,13 @@ namespace WOLF3D.WOLF3DGame.Action
                 return true;
             }
             return false;
+        }
+
+        public bool ActorPush()
+        {
+            if (State != ActorPushed())
+                State = ActorPushed();
+            return true;
         }
 
         public AudioStreamSample Play

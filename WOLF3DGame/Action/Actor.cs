@@ -29,8 +29,8 @@ namespace WOLF3D.WOLF3DGame.Action
             base._Process(delta);
             if (!Main.Room.Paused)
             {
-                if (Main.ActionRoom.Level.GetActorAt(TileX, TileY) == this)
-                    Main.ActionRoom.Level.SetActorAt(TileX, TileY);
+                if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
+                    Main.ActionRoom.Level.SetActorAt(TileX, TileZ);
 
                 Seconds += delta;
                 if (Seconds > State.Seconds)
@@ -57,7 +57,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Page = newFrame;
 
                 if (Mark)
-                    Main.ActionRoom.Level.SetActorAt(TileX, TileY, this);
+                    Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
             }
         }
 
@@ -107,7 +107,7 @@ namespace WOLF3D.WOLF3DGame.Action
         //    fixed x, y;
         //    unsigned tilex, tiley;
         ushort TileX { get; set; } = 0;
-        ushort TileY { get; set; } = 0;
+        ushort TileZ { get; set; } = 0;
         //    byte areanumber;
         //    int viewx;
         //    unsigned viewheight;
@@ -154,13 +154,14 @@ namespace WOLF3D.WOLF3DGame.Action
                 GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                 Distance -= move;
             }
-            if (Distance < 0)
+            if (Distance <= 0)
             {
                 Recenter();
-                Main.ActionRoom.Level.TryOpen((ushort)(X - Direction.X), (ushort)(Z - Direction.Z));
                 SelectPathDir();
                 if (Direction == null)
                     return this; // All movement is blocked
+                else if (Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door)
+                    door.ActorPush();
             }
             return this;
         }
@@ -186,12 +187,12 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Distance = Assets.WallWidth;
                 TileX = (ushort)(X + Direction.X);
-                TileY = (ushort)(Z + Direction.Z);
+                TileZ = (ushort)(Z + Direction.Z);
             }
             else
             {
                 TileX = (ushort)X;
-                TileY = (ushort)Z;
+                TileZ = (ushort)Z;
             }
             return this;
         }

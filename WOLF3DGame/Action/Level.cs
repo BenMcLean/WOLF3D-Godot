@@ -230,6 +230,13 @@ namespace WOLF3D.WOLF3DGame.Action
             && !IsActorAt((ushort)x, (ushort)z)
             && !IsPushWallAt((ushort)x, (ushort)z);
 
+        public bool CanCloseDoor(int x, int z) =>
+            Walls.IsNavigable(x, z)
+            && !IsActorAt((ushort)x, (ushort)z)
+            && !IsPushWallAt((ushort)x, (ushort)z)
+            && !(Main.ActionRoom.ARVRPlayer.X == x && Main.ActionRoom.ARVRPlayer.Z == z)
+            && !IsInsideActor(Assets.CenterSquare(x), Assets.CenterSquare(z));
+
         public bool TryClose(ushort x, ushort z) =>
             x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
 
