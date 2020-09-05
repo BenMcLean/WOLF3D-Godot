@@ -181,13 +181,18 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Main.ActionRoom.Map.WithinMap(X, Z)
                 && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
                 Direction = direction;
-            Distance = Assets.WallWidth;
-            if (Direction != null
-                && !Main.ActionRoom.Level.CanWalk(X + Direction.X, Z + Direction.Z))
-                //&& !Main.ActionRoom.ARVRPlayer.IsIn(Assets.CenterSquare(X + Direction.X), Assets.CenterSquare(Z + Direction.Z)))
-                Direction = null;
-            TileX = (ushort)(X + Direction?.X ?? 0);
-            TileY = (ushort)(Z + Direction?.Z ?? 0);
+            if (Direction != null && Main.ActionRoom.Level.CanWalk(X + Direction.X, Z + Direction.Z)
+                && !(Main.ActionRoom.ARVRPlayer.X == X + Direction.X && Main.ActionRoom.ARVRPlayer.Z == Z + Direction.Z))
+            {
+                Distance = Assets.WallWidth;
+                TileX = (ushort)(X + Direction.X);
+                TileY = (ushort)(Z + Direction.Z);
+            }
+            else
+            {
+                TileX = (ushort)X;
+                TileY = (ushort)Z;
+            }
             return this;
         }
 
