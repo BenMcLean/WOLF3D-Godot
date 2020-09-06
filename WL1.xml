@@ -264,8 +264,11 @@
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="										TABLE OF CONTENTS" X="16" Y="16" Color="126" />
-        <Text String="								STORY	.	.	.	.	.	.	.	.	.	.	.	.	.	3&#10;								CONTROLS .	.	.	.	.	.	.	.	.	.	6&#10;								ABOUT Id 	.	.	.	.	.	.	.	.	.	.	12&#10;								ORDERING.	.	.	.	.	.	.	.	.	.	.	16&#10;								MORE WOLFENSTEIN!	.	.	.	19&#10;								SOFTWARE CREATIONS 		 24&#10;								FOREIGN ORDERS	 .	.	.	.	.	28" X="16" Y="36" />
+        <Text String="TABLE OF CONTENTS" X="96" Y="36" Color="126" />
+        <Text String="STORY . . . . . . . . . . . . . 3&#10;CONTROLS . . . . . . . . . . 6&#10;ABOUT Id  . . . . . . . . . . 12&#10;ORDERING. . . . . . . . . . . 16&#10;MORE WOLFENSTEIN! . . . 19&#10;SOFTWARE CREATIONS    24&#10;FOREIGN ORDERS . . . . . 28" X="80" Y="66" />
+        <Text String="Id" X="119" Y="86" Color="124" />
+        <Text String="ORDERING" X="80" Y="96" Color="40" />
+        <Text String="SOFTWARE CREATIONS" X="79" Y="116" Color="109" />
         <Text String="pg 2 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page1" />
         <Down Action="Menu" Argument="Page3" />
@@ -319,6 +322,8 @@
         <Text String="CONTROLS" X="88" Y="16" Color="126" />
         <Text String="In Wolfenstein 3-D, you can use&#10;the keyboard, mouse, joystick,&#10;or Gravis PC Gamepad." X="88" Y="32" />
         <Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
+        <Text String="Enter" X="57" Y="96" Color="110" />
+        <Text String="Esc" X="228" Y="96" Color="110" />
         <Text String="pg 6 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page5" />
         <Down Action="Menu" Argument="Page7" />
@@ -332,6 +337,10 @@
         <Image Name="H_KEYBOARDPIC" X="16" Y="20" />
         <Text String="Once you are in the&#10;game, use the arrow&#10;keys to move. Hold&#10;down Shift to run fast." X="144" Y="16" />
         <Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
+        <Text String="Shift" X="181" Y="46" Color="110" />
+        <Text String="Ctrl" X="55" Y="66" Color="110" />
+        <Text String="Alt" X="42" Y="86" Color="110" />
+        <Text String="Space" X="56" Y="126" Color="110" />
         <Text String="pg 7 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page6" />
         <Down Action="Menu" Argument="Page8" />
@@ -359,6 +368,51 @@
         <Text String="Once you have more than one weapon, the&#10;keys 1-4 choose the weapons:&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Holding down the fire button is fun, but&#10;short bursts save bullets." X="16" Y="16" />
         <Text String="pg 9 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page8" />
+        <Down Action="Menu" Argument="Page10" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page10" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_KEYPIC" X="16" Y="76" />
+        <Image Name="H_HEALPIC" X="8" Y="124" />
+        <Text String="Some walls in the prison can be pushed&#10;back to reveal hidden rooms. Hold down&#10;Space to push the wall in front of you.&#10;Just think of Space as the Use key. It will&#10;use doors, use elevators, and so on." X="16" Y="16" />
+        <Text String="There are locked doors in the castle&#10;that require either a gold or silver" X="56" Y="76" />
+        <Text String="key.  It will be somewhere on the floor&#10;you're on." X="16" Y="96" />
+        <Text String="If you find your health&#10;dropping, pick up some food" X="104" Y="126" />
+        <Text String="or first aid.  You'll find you're damaged&#10;more when shot at close range." X="16" Y="146" />
+        <Text String="pg 10 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page9" />
+        <Down Action="Menu" Argument="Page11" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page11" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_GUNPIC" X="16" Y="16" />
+        <Text String="Pick up the ammo left&#10;behind when you toast&#10;someone.  For instance,&#10;perforate an SS--free&#10;machine gun!" X="128" Y="16" />
+        <Text String="You get a free guy every 40,000 points,&#10;so collect those treasures! (You can have a&#10;maximum of nine lives.)&#10;&#10;When you get killed, you lose everything but&#10;your gun and start at the beginning of the&#10;floor you were on." X="16" Y="86" />
+        <Text String="pg 11 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page10" />
+        <Down Action="Menu" Argument="Page12" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page12" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
+        <Text String="ABOUT Id SOFTWARE" X="16" Y="16" Color="126" />
+        <Text String="Yes, that's Id, as in the id, ego, and&#10;superego in the psyche.  We think&#10;shareware is a fine alternative to the high&#10;prices of commercial vendors.  For under&#10;twelve dollars a game, you can get the&#10;hottest, fastest texture-mapped game&#10;available.  How can you beat that?" X="16" Y="36" />
+        <Text String="We'll answer that question in a&#10;few months. . . ." X="16" Y="116" Color="44" />
+        <Text String="Id" X="56" Y="16" Color="110" />
+        <Text String="pg 12 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page11" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
