@@ -334,6 +334,19 @@
         <Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
         <Text String="pg 7 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page6" />
+        <Down Action="Menu" Argument="Page8" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page8" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_JOYPIC" X="16" Y="16" />
+        <Text String="When using the mouse or&#10;joystick, use button 1 to shoot,&#10;button 2 to strafe." X="88" Y="16" />
+        <Text String="With a three-button mouse, use the third&#10;button to open doors.&#10;&#10;Gravis PC Gamepads have a fourth button,&#10;useful as a run button." X="16" Y="76" />
+        <Text String="pg 8 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page7" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
