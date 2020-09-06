@@ -307,6 +307,20 @@
         <Text String="Hey, if you make it, you'll have something&#10;to tell your grandkids about . . . .&#10;&#10;If you don't, at least you'll go out in a&#10;blaze of glory!" X="16" Y="106" />
         <Text String="pg 5 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page4" />
+        <Down Action="Menu" Argument="Page6" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page6" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_JOYPIC" X="16" Y="16" />
+        <Text String="CONTROLS" X="88" Y="16" Color="126" />
+        <Text String="In Wolfenstein 3-D, you can use&#10;the keyboard, mouse, joystick,&#10;or Gravis PC Gamepad." X="88" Y="32" />
+        <Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
+        <Text String="pg 6 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page5" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
