@@ -321,6 +321,19 @@
         <Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
         <Text String="pg 6 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page5" />
+        <Down Action="Menu" Argument="Page7" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page7" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_KEYBOARDPIC" X="16" Y="20" />
+        <Text String="Once you are in the&#10;game, use the arrow&#10;keys to move. Hold&#10;down Shift to run fast." X="144" Y="16" />
+        <Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
+        <Text String="pg 7 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page6" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
