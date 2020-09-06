@@ -427,6 +427,20 @@
         <Text String="&#10;&#10;&#10;John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="16" />
         <Text String="pg 13 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page12" />
+        <Down Action="Menu" Argument="Page14" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page14" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
+        <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="16" Color="110" />
+        <Text String="&#10;&#10;&#10;Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="16" />
+        <Text String="pg 14 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page13" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
