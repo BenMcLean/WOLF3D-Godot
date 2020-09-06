@@ -347,6 +347,18 @@
         <Text String="With a three-button mouse, use the third&#10;button to open doors.&#10;&#10;Gravis PC Gamepads have a fourth button,&#10;useful as a run button." X="16" Y="76" />
         <Text String="pg 8 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page7" />
+        <Down Action="Menu" Argument="Page9" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page9" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_WEAPON1234PIC" X="104" Y="50" />
+        <Text String="Once you have more than one weapon, the&#10;keys 1-4 choose the weapons:&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Holding down the fire button is fun, but&#10;short bursts save bullets." X="16" Y="16" />
+        <Text String="pg 9 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page8" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
