@@ -294,6 +294,19 @@
         <Text String="find the plans for Operation Eisenfaust.&#10;Captured in your attempt, you were taken&#10;to their prison, and awaited your&#10;execution.  Only you know where the plans&#10;are kept, and the Allies will face a great&#10;defeat if you don't escape!  You must face&#10;the horrors of the prison keep known as&#10;Wolfenstein." X="16" Y="76" />
         <Text String="pg 4 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page3" />
+        <Down Action="Menu" Argument="Page5" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page5" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_BLAZEPIC" X="16" Y="16" />
+        <Text String="Captain William J. &quot;B.J.&quot;&#10;Blazkowicz, you've got a&#10;gun and eight floors of&#10;hell to get through.&#10;Good luck!" X="144" Y="16" />
+        <Text String="Hey, if you make it, you'll have something&#10;to tell your grandkids about . . . .&#10;&#10;If you don't, at least you'll go out in a&#10;blaze of glory!" X="16" Y="106" />
+        <Text String="pg 5 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page4" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
