@@ -281,6 +281,19 @@
         <Text String="You stand over the guard's&#10;body, grabbing frantically&#10;for his gun. You're not&#10;sure if the other guards&#10;heard his muffled scream.&#10;Deep in the belly of a Nazi&#10;dungeon, you've only a&#10;knife, a gun, and your wits&#10;to aid your escape." X="118" Y="66" />
         <Text String="pg 3 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page2" />
+        <Down Action="Menu" Argument="Page4" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page4" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_CASTLEPIC" X="16" Y="16" />
+        <Text String="Just a few weeks ago&#10;you were on a&#10;reconnaissance mission of&#10;extreme importance.&#10;You were to infiltrate&#10;the Nazi fortress and" X="136" Y="16" />
+        <Text String="find the plans for Operation Eisenfaust.&#10;Captured in your attempt, you were taken&#10;to their prison, and awaited your&#10;execution.  Only you know where the plans&#10;are kept, and the Allies will face a great&#10;defeat if you don't escape!  You must face&#10;the horrors of the prison keep known as&#10;Wolfenstein." X="16" Y="76" />
+        <Text String="pg 4 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page3" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
