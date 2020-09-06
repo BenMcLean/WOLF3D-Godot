@@ -248,21 +248,21 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (MenuItems == null || MenuItems.Count <= 0)
                 {
                     selection = 0;
-                    if (value == 1 && XML.Element("Bottom") is XElement b)
-                        Main.MenuRoom.Action(b);
-                    else if (value == -1 && XML.Element("Top") is XElement top)
-                        Main.MenuRoom.Action(top);
+                    if (value > 0 && XML.Element("Down") is XElement d)
+                        Main.MenuRoom.Action(d);
+                    else if (value < 0 && XML.Element("Up") is XElement up)
+                        Main.MenuRoom.Action(up);
                     return;
                 }
                 MenuItems[selection].Color = MenuItems[selection].TextColor;
-                if (value >= MenuItems.Count && XML.Element("Bottom") is XElement bottom)
+                if (value >= MenuItems.Count && XML.Element("Down") is XElement down)
                 {
-                    Main.MenuRoom.Action(bottom);
+                    Main.MenuRoom.Action(down);
                     return;
                 }
-                else if (value < 0 && XML.Element("Top") is XElement top)
+                else if (value < 0 && XML.Element("Up") is XElement up)
                 {
-                    Main.MenuRoom.Action(top);
+                    Main.MenuRoom.Action(up);
                     return;
                 }
                 selection = Direction8.Modulus(value, MenuItems.Count);
