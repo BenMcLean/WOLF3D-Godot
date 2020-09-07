@@ -669,8 +669,20 @@
         <Text String="	Distant Markets&#10;	Box 1149&#10;	194 - 3803 Calgary Trail S.&#10;	Edmonton, Alb.  T6J 5M8&#10;	CANADA&#10;&#10;TRILOGY PRICE:	$47 Canadian.&#10;   					ALL SIX:	$70 Canadian.&#10;&#10;	Orders:			1-800-661-7383&#10;	Inquiries:	(403) 436-3009&#10;	Fax:					1-800-661-9756&#10;Use MasterCard, Visa or money orders." X="16" Y="36" />
         <Text String="pg 32 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page31" />
-        <!--
         <Down Action="Menu" Argument="Page33" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page33" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="UNITED KINGDOM CUSTOMERS" X="16" Y="16" Color="126" />
+        <Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
+        <Text String="pg 33 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page32" />
+        <!--
+        <Down Action="Menu" Argument="Page34" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
