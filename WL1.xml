@@ -608,8 +608,20 @@
         <Text String="Apogee now has their own official section&#10;on Exec-PC, the world's largest bulletin&#10;board. All the hottest new shareware&#10;games are there!&#10;&#10;Look in the section named &quot;Apogee Games&#10;Collection.&quot;  (Currently in file collection &quot;R&quot;.)&#10;&#10;Call (414) 789-4210 with your modem to&#10;join the fun on Exec-PC!" X="16" Y="36" />
         <Text String="pg 27 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page26" />
-        <!--
         <Down Action="Menu" Argument="Page28" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page28" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="FOREIGN CUSTOMERS" X="16" Y="16" Color="126" />
+        <Text String="The following screens list our dealers&#10;outside the United States: Australia, Canada&#10;and the United Kingdom.  These are official&#10;Apogee dealers with the latest games and&#10;updates.&#10;&#10;If your country is not listed, you may&#10;order directly from Apogee by phone:&#10;&#10;											(214) 278-5655" X="16" Y="36" />
+        <Text String="pg 28 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page27" />
+        <!--
+        <Down Action="Menu" Argument="Page29" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
