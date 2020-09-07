@@ -717,8 +717,20 @@
         <Text String="Episode One is shareware.  The other five&#10;episodes are not: they are only available&#10;from Apogee or authorized dealers.  Please&#10;do not distribute episodes two through six.&#10;It's easy to do, but the next game will&#10;just cost more if you do it.&#10;&#10;Please report any illegal selling and&#10;distribution of this game to Apogee by&#10;calling 1-800-GAME123.  Or call the SPA&#10;Piracy Hotline: 1-800-388-PIR8." X="16" Y="36" />
         <Text String="pg 36 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page35" />
-        <!--
         <Down Action="Menu" Argument="Page37" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page37" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="ABOUT APOGEE" X="16" Y="16" Color="126" />
+        <Text String="Our goal is to establish Apogee as the&#10;leading distributor of commercial quality&#10;shareware games. With enthusiasm and&#10;dedication, we think our goal can be&#10;achieved.&#10;&#10;However,  we need your support.&#10;Shareware is not free software.&#10;&#10;We thank you in advance for your&#10;contribution to the growing shareware&#10;community. Your honesty pays . . . ." X="16" Y="36" />
+        <Text String="pg 37 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page36" />
+        <!--
+        <Down Action="Menu" Argument="Page38" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
