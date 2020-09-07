@@ -510,6 +510,20 @@
         <Text String="Wolfenstein 3-D: the Nocturnal Missions!" X="16" Y="56" Color="110" />
         <Text String="pg 19 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page18" />
+        <Down Action="Menu" Argument="Page20" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page20" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="WOLFENSTEIN HINT BOOK!" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="16" />
+        <Text String="Wolfenstein" X="212" Y="46" Color="110" />
+        <Text String="3-D Hint Book" X="16" Y="56" Color="110" />
+        <Text String="pg 20 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page19" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
