@@ -678,11 +678,35 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="UNITED KINGDOM CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
+        <Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:  		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
         <Text String="pg 33 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page32" />
-        <!--
         <Down Action="Menu" Argument="Page34" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page34" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="NEW ZEALAND CUSTOMERS" X="16" Y="16" Color="126" />
+        <Text String="	PC-SIG New Zealand&#10;	P.O. Box 90088&#10;	Victoria Street West&#10;	Auckland, New Zealand&#10;&#10;TRILOGY PRICE:	$85 (including shipping, etc.)&#10;   					ALL SIX:	$120&#10;&#10;	Phone:		3600-500&#10;	Fax:	  	3600-800&#10;&#10;Use Visa, Mastercard, Amex, Diners." X="16" Y="36" />
+        <Text String="pg 34 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page33" />
+        <Down Action="Menu" Argument="Page35" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page35" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="DANISH CUSTOMERS" X="16" Y="16" Color="126" />
+        <Text String="	Prof. Shareware Danmark&#10;	Benlose Skel 4 G&#10;	DK-4100 Ringsted Denmark&#10;&#10;TRILOGY PRICE:	kr. 277,00 (includes shipping)&#10;   					ALL SIX:	kr. 390,00&#10;&#10;	Phone:		(+45) 53 51 90 42&#10;	Fax:  			(+45) 53 61 93 91&#10;Use Visa, Mastercard, cheques." X="16" Y="36" />
+        <Text String="pg 35 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page34" />
+        <!--
+        <Down Action="Menu" Argument="Page36" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
