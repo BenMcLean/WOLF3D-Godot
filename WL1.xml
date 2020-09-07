@@ -572,6 +572,18 @@
         <Text String="You can now use your FAX machine to&#10;order your favorite Apogee games quickly&#10;and easily.&#10;&#10;Simply print out the ORDER.FRM file, fill it&#10;out and FAX it to us for prompt&#10;processing.&#10;&#10;FAX Orders: (214) 278-4670" X="16" Y="36" />
         <Text String="pg 24 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page23" />
+        <Down Action="Menu" Argument="Page25" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page25" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="THE OFFICIAL APOGEE BBS" X="16" Y="16" Color="126" />
+        <Text String="The SOFTWARE CREATIONS BBS is the home&#10;BBS for the latest Apogee games. Check&#10;out our FREE 'Apogee' file section for new&#10;releases and updates.&#10;&#10;BBS phone lines:&#10;		(508) 365-2359			2400 baud&#10;		(508) 368-4137			2400-14.4K USR&#10;		(508) 368-7036		2400-14.4k V.32&#10;&#10;Home of the Apogee BBS Network!&#10;A Major Multi-Line BBS." X="16" Y="36" />
+        <Text String="pg 25 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page24" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
