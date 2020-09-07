@@ -584,6 +584,33 @@
         <Text String="The SOFTWARE CREATIONS BBS is the home&#10;BBS for the latest Apogee games. Check&#10;out our FREE 'Apogee' file section for new&#10;releases and updates.&#10;&#10;BBS phone lines:&#10;		(508) 365-2359			2400 baud&#10;		(508) 368-4137			2400-14.4K USR&#10;		(508) 368-7036		2400-14.4k V.32&#10;&#10;Home of the Apogee BBS Network!&#10;A Major Multi-Line BBS." X="16" Y="36" />
         <Text String="pg 25 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page24" />
+        <Down Action="Menu" Argument="Page26" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page26" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="APOGEE ON AMERICA ONLINE!" X="16" Y="16" Color="126" />
+        <Text String="America Online (AOL) is host of the Apogee&#10;Forum, where you can get new Apogee&#10;games. Use the Apogee message areas to&#10;talk and exchange ideas, comments and&#10;secrets with our designers and other&#10;players.  If you're already a member,&#10;after you log on, use the keyword&#10;&quot;Apogee&quot; (Ctrl-K) to go to the Apogee area.&#10;&#10;If you'd like to know how to join, please&#10;call toll free: 1-800-827-6364.  Please ask&#10;for extension 6131. You'll get the FREE&#10;startup kit." X="16" Y="36" />
+        <Text String="pg 26 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page25" />
+        <Down Action="Menu" Argument="Page27" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page27" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="WATCH OUT!" X="16" Y="16" Color="126" />
+        <Text String="Apogee now has their own official section&#10;on Exec-PC, the world's largest bulletin&#10;board. All the hottest new shareware&#10;games are there!&#10;&#10;Look in the section named &quot;Apogee Games&#10;Collection.&quot;  (Currently in file collection &quot;R&quot;.)&#10;&#10;Call (414) 789-4210 with your modem to&#10;join the fun on Exec-PC!" X="16" Y="36" />
+        <Text String="pg 27 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page26" />
+        <!--
+        <Down Action="Menu" Argument="Page28" />
+        -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
