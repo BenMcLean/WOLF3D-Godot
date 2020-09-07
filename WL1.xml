@@ -524,6 +524,19 @@
         <Text String="3-D Hint Book" X="16" Y="56" Color="110" />
         <Text String="pg 20 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page19" />
+        <Down Action="Menu" Argument="Page21" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page21" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="NOCTURNAL MISSIONS (Wolf 1-3 Required)" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;&#10;Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="16" />
+        <Text String="&#10;&#10;Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="16" Color="41" />
+        <Text String="pg 21 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page20" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
