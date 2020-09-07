@@ -705,8 +705,20 @@
         <Text String="	Prof. Shareware Danmark&#10;	Benlose Skel 4 G&#10;	DK-4100 Ringsted Denmark&#10;&#10;TRILOGY PRICE:	kr. 277,00 (includes shipping)&#10;   					ALL SIX:	kr. 390,00&#10;&#10;	Phone:		(+45) 53 51 90 42&#10;	Fax:  			(+45) 53 61 93 91&#10;Use Visa, Mastercard, cheques." X="16" Y="36" />
         <Text String="pg 35 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page34" />
-        <!--
         <Down Action="Menu" Argument="Page36" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page36" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="A FRIENDLY REMINDER" X="16" Y="16" Color="126" />
+        <Text String="Episode One is shareware.  The other five&#10;episodes are not: they are only available&#10;from Apogee or authorized dealers.  Please&#10;do not distribute episodes two through six.&#10;It's easy to do, but the next game will&#10;just cost more if you do it.&#10;&#10;Please report any illegal selling and&#10;distribution of this game to Apogee by&#10;calling 1-800-GAME123.  Or call the SPA&#10;Piracy Hotline: 1-800-388-PIR8." X="16" Y="36" />
+        <Text String="pg 36 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page35" />
+        <!--
+        <Down Action="Menu" Argument="Page37" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
