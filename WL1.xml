@@ -657,8 +657,20 @@
         <Text String="	Vision Shareware&#10;	4/146 Greenhill Rd.&#10;	Parkside SA 5063&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;   					ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:						(08) 373-4469&#10;	Toll free:		(008) 807 486&#10;	Fax:						(08) 373-4482&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
         <Text String="pg 31 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page30" />
-        <!--
         <Down Action="Menu" Argument="Page32" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page32" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="CANADIAN CUSTOMERS" X="16" Y="16" Color="126" />
+        <Text String="	Distant Markets&#10;	Box 1149&#10;	194 - 3803 Calgary Trail S.&#10;	Edmonton, Alb.  T6J 5M8&#10;	CANADA&#10;&#10;TRILOGY PRICE:	$47 Canadian.&#10;   					ALL SIX:	$70 Canadian.&#10;&#10;	Orders:			1-800-661-7383&#10;	Inquiries:	(403) 436-3009&#10;	Fax:					1-800-661-9756&#10;Use MasterCard, Visa or money orders." X="16" Y="36" />
+        <Text String="pg 32 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page31" />
+        <!--
+        <Down Action="Menu" Argument="Page33" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
