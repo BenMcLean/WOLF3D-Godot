@@ -645,8 +645,20 @@
         <Text String="	Manaccom&#10;	9 Camford Str.&#10;	Milton, QLD  4064&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;	Phone:		(07) 368-2366&#10;	Toll free:				(008) 022-064&#10;	Fax:						(07) 369-7589&#10;	CompuServe:	71520,1475&#10;Use MasterCard, Visa, Bankcard, AmEx,&#10;cheques." X="16" Y="36" />
         <Text String="pg 30 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page29" />
-        <!--
         <Down Action="Menu" Argument="Page31" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page31" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="AUSTRALIA (3 of 3)" X="16" Y="16" Color="126" />
+        <Text String="	Vision Shareware&#10;	4/146 Greenhill Rd.&#10;	Parkside SA 5063&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;   					ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:						(08) 373-4469&#10;	Toll free:		(008) 807 486&#10;	Fax:						(08) 373-4482&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
+        <Text String="pg 31 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page30" />
+        <!--
+        <Down Action="Menu" Argument="Page32" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
