@@ -423,8 +423,8 @@
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Image Name="H_IDLOGOPIC" X="240" Y="116" />
         <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;PROGRAMMERS&#10;&#10;&#10;&#10;ARTIST&#10;&#10;&#10;CREATIVE DIRECTOR" X="16" Y="16" Color="110" />
-        <Text String="&#10;&#10;&#10;John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="16" />
+        <Text String="PROGRAMMERS&#10;&#10;&#10;&#10;ARTIST&#10;&#10;&#10;CREATIVE DIRECTOR" X="16" Y="36" Color="110" />
+        <Text String="John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="46" />
         <Text String="pg 13 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page12" />
         <Down Action="Menu" Argument="Page14" />
@@ -437,8 +437,8 @@
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Image Name="H_IDLOGOPIC" X="240" Y="116" />
         <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="16" Color="110" />
-        <Text String="&#10;&#10;&#10;Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="16" />
+        <Text String="MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="36" Color="110" />
+        <Text String="Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="46" />
         <Text String="pg 14 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page13" />
         <Down Action="Menu" Argument="Page15" />
@@ -451,8 +451,8 @@
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Image Name="H_IDLOGOPIC" X="240" Y="116" />
         <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;COMPOSER&#10;&#10;&#10;ADDITIONAL PROGRAMMING" X="16" Y="16" Color="110" />
-        <Text String="&#10;&#10;&#10;Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="16" />
+        <Text String="COMPOSER&#10;&#10;&#10;ADDITIONAL PROGRAMMING" X="16" Y="36" Color="110" />
+        <Text String="Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="46" />
         <Text String="pg 15 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page14" />
         <Down Action="Menu" Argument="Page16" />
@@ -464,8 +464,8 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="16" />
-        <Text String="&#10;&#10;&#10;&#10;Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="16" Color="46" />
+        <Text String="Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="36" />
+        <Text String="Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="56" Color="46" />
         <Text String="pg 16 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page15" />
         <Down Action="Menu" Argument="Page17" />
@@ -479,7 +479,7 @@
         <Image Name="H_VISAPIC" X="224" Y="50" />
         <Image Name="H_MCPIC" X="224" Y="100" />
         <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="16" />
+        <Text String="Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="36" />
         <Text String="pg 17 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page16" />
         <Down Action="Menu" Argument="Page18" />
@@ -491,7 +491,7 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="ORDERING INFORMATION" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="16" />
+        <Text String="Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="36" />
         <Text String="pg 18 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page17" />
         <Down Action="Menu" Argument="Page19" />
@@ -503,7 +503,7 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="ALSO AVAILABLE" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="16" />
+        <Text String="Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="36" />
         <Text String="$20 + $4 S&amp;H" X="150" Y="106" />
         <Text String="$50 + $4 S&amp;H" X="150" Y="116" />
         <Text String="$10" X="150" Y="126" />
@@ -519,7 +519,7 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="WOLFENSTEIN HINT BOOK!" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="16" />
+        <Text String="If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="36" />
         <Text String="Wolfenstein" X="212" Y="46" Color="110" />
         <Text String="3-D Hint Book" X="16" Y="56" Color="110" />
         <Text String="pg 20 of 41" X="212" Y="183" Color="79" />
@@ -533,8 +533,8 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="NOCTURNAL MISSIONS (Wolf 1-3 Required)" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;&#10;Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="16" />
-        <Text String="&#10;&#10;Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="16" Color="41" />
+        <Text String="Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="46" />
+        <Text String="Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="36" Color="41" />
         <Text String="pg 21 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page20" />
         <Down Action="Menu" Argument="Page22" />
@@ -546,7 +546,7 @@
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
         <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
         <Text String="SPEAR OF DESTINY" X="16" Y="16" Color="126" />
-        <Text String="&#10;&#10;This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="16" />
+        <Text String="This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="36" />
         <Text String="pg 22 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page21" />
         <Down Action="Menu" Argument="Page23" />
@@ -560,6 +560,18 @@
         <Image Name="H_SPEARADPIC" X="16" Y="16" />
         <Text String="pg 23 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page22" />
+        <Down Action="Menu" Argument="Page24" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page24" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="USE YOUR FAX MACHINE TO ORDER!" X="16" Y="16" Color="126" />
+        <Text String="You can now use your FAX machine to&#10;order your favorite Apogee games quickly&#10;and easily.&#10;&#10;Simply print out the ORDER.FRM file, fill it&#10;out and FAX it to us for prompt&#10;processing.&#10;&#10;FAX Orders: (214) 278-4670" X="16" Y="36" />
+        <Text String="pg 24 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page23" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
