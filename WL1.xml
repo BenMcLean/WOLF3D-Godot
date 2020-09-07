@@ -537,6 +537,18 @@
         <Text String="&#10;&#10;Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="16" Color="41" />
         <Text String="pg 21 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page20" />
+        <Down Action="Menu" Argument="Page22" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page22" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="SPEAR OF DESTINY" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="16" />
+        <Text String="pg 22 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page21" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
