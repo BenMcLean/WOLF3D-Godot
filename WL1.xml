@@ -729,8 +729,20 @@
         <Text String="Our goal is to establish Apogee as the&#10;leading distributor of commercial quality&#10;shareware games. With enthusiasm and&#10;dedication, we think our goal can be&#10;achieved.&#10;&#10;However,  we need your support.&#10;Shareware is not free software.&#10;&#10;We thank you in advance for your&#10;contribution to the growing shareware&#10;community. Your honesty pays . . . ." X="16" Y="36" />
         <Text String="pg 37 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page36" />
-        <!--
         <Down Action="Menu" Argument="Page38" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page38" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
+        <Text String="Here's some quotes from the Id guys:&#10;&#10;Adrian Carmack, Master of the Pixel:&#10;&quot;Okay, now for the CGA version . . . NOT!&quot;&#10;&#10;&#10;John Carmack, Technical Director:&#10;&quot;I just mapped video memory into User&#10;Address Space on my Color NeXTStation!&quot;" X="16" Y="36" />
+        <Text String="pg 38 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page37" />
+        <!--
+        <Down Action="Menu" Argument="Page39" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
