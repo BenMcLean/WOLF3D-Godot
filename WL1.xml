@@ -455,6 +455,33 @@
         <Text String="&#10;&#10;&#10;Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="16" />
         <Text String="pg 15 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page14" />
+        <Down Action="Menu" Argument="Page16" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page16" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="16" />
+        <Text String="&#10;&#10;&#10;&#10;Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="16" Color="46" />
+        <Text String="pg 16 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page15" />
+        <Down Action="Menu" Argument="Page17" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page17" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_VISAPIC" X="224" Y="50" />
+        <Image Name="H_MCPIC" X="224" Y="100" />
+        <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="16" />
+        <Text String="pg 17 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page16" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
