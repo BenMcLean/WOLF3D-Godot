@@ -620,8 +620,21 @@
         <Text String="The following screens list our dealers&#10;outside the United States: Australia, Canada&#10;and the United Kingdom.  These are official&#10;Apogee dealers with the latest games and&#10;updates.&#10;&#10;If your country is not listed, you may&#10;order directly from Apogee by phone:&#10;&#10;											(214) 278-5655" X="16" Y="36" />
         <Text String="pg 28 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page27" />
-        <!--
         <Down Action="Menu" Argument="Page29" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page29" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="AUSTRALIAN CUSTOMERS (1 of 3)" X="16" Y="16" Color="126" />
+        <Text String="	BudgetWare&#10;	P.O. Box 496&#10;	Newtown, NSW  2042&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:&#10;	Toll free:&#10;	Fax:&#10;	CompuServe:	71520,1475&#10;&#10;  Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
+        <Text String="(02) 519-4233&#10;(008) 022-064&#10;(02) 516-4236" X="94" Y="106" />
+        <Text String="pg 29 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page28" />
+        <!--
+        <Down Action="Menu" Argument="Page30" />
         -->
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
