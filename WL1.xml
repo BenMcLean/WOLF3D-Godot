@@ -482,6 +482,18 @@
         <Text String="&#10;&#10;Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="16" />
         <Text String="pg 17 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page16" />
+        <Down Action="Menu" Argument="Page18" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page18" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="ORDERING INFORMATION" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="16" />
+        <Text String="pg 18 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page17" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
