@@ -494,6 +494,22 @@
         <Text String="&#10;&#10;Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="16" />
         <Text String="pg 18 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page17" />
+        <Down Action="Menu" Argument="Page19" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page19" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="ALSO AVAILABLE" X="16" Y="16" Color="126" />
+        <Text String="&#10;&#10;Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="16" />
+        <Text String="$20 + $4 S&amp;H" X="150" Y="106" />
+        <Text String="$50 + $4 S&amp;H" X="150" Y="116" />
+        <Text String="$10" X="150" Y="126" />
+        <Text String="Wolfenstein 3-D: the Nocturnal Missions!" X="16" Y="56" Color="110" />
+        <Text String="pg 19 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page18" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
