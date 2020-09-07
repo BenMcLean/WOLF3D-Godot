@@ -741,9 +741,46 @@
         <Text String="Here's some quotes from the Id guys:&#10;&#10;Adrian Carmack, Master of the Pixel:&#10;&quot;Okay, now for the CGA version . . . NOT!&quot;&#10;&#10;&#10;John Carmack, Technical Director:&#10;&quot;I just mapped video memory into User&#10;Address Space on my Color NeXTStation!&quot;" X="16" Y="36" />
         <Text String="pg 38 of 41" X="212" Y="183" Color="79" />
         <Up Action="Menu" Argument="Page37" />
-        <!--
         <Down Action="Menu" Argument="Page39" />
-        -->
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page39" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
+        <Text String="John Romero, Programming Director:&#10;&quot;I really need to work on my Total Time of&#10;5:20 for Episode One.  I was messing&#10;around too much in those rooms.&quot;&#10;&#10;&#10;Tom Hall, Creative Director:&#10;&quot;Ya don't bring a pistol to a machine gun&#10;fight.&quot;&#10;(Since I'm typing this, I'd like to plug John&#10;Blackwell's F.Godmom game. It's a great&#10;puzzle game.  Look for his new 4.0 version&#10;online!)" X="16" Y="36" />
+        <Text String="F.Godmom" X="86" Y="136" Color="41" />
+        <Text String="pg 39 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page38" />
+        <Down Action="Menu" Argument="Page40" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page40" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Text String="AUTO-BACKSCRATCHING" X="16" Y="16" Color="126" />
+        <Text String="Other Id games also available from Apogee:&#10;&#10;&#10;&quot;Invasion of the Vorticons&quot;: $30 for trilogy&#10;&#10;&quot;Goodbye, Galaxy!&quot;: $35 for two episodes&#10;&#10;&quot;Aliens Ate My BabySitter!&quot;: $35&#10;(That's our commercial game.)&#10;&#10;Super Keen Fun Pack: $90 (for all 6)&#10;&#10;Call 1-800-GAME123 for information." X="16" Y="36" />
+        <Text String="Commander Keen" X="16" Y="56" Color="41" />
+        <Text String="pg 40 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page39" />
+        <Down Action="Menu" Argument="Page41" />
+        <Cancel Action="Menu" Argument="Main" />
+      </Menu>
+      <Menu Name="Page41" BkgdColor="17" TextColor="0">
+        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+        <Image Name="H_BLAZEPIC" X="16" Y="80" />
+        <Text String="CONCLUSION" X="16" Y="16" Color="126" />
+        <Text String="Thanks for playing Wolfenstein 3-D.  Please&#10;support Id's efforts in making ground-&#10;breaking software available at shareware&#10;prices." X="16" Y="36" />
+        <Text String="Now, go get 'em!&#10;&#10;(ESC to return to&#10;menu.)" X="142" Y="106" />
+        <Text String="pg 41 of 41" X="212" Y="183" Color="79" />
+        <Up Action="Menu" Argument="Page40" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
     </Menus>
