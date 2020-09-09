@@ -54,12 +54,12 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override string ToString() => ToString(",");
 
-        public string ToString(string separator)
+        public string ToString(string separator, string rowSeparator = null)
         {
             List<string> rows = new List<string>();
             foreach (short[] row in Data)
                 rows.Add(string.Join(separator, row));
-            return string.Join(separator, rows);
+            return string.Join(rowSeparator ?? separator, rows);
         }
 
         public string ToXMLTag() => "<TriangularMatrix Contents=\"" + ToString() + "\" />";
