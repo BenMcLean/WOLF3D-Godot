@@ -74,6 +74,12 @@ namespace WOLF3D.WOLF3DGame.Action
                     Data[row][column] = short.Parse(queue.Dequeue());
         }
 
+        public SymetricMatrix(SymetricMatrix other) : this(other.Size)
+        {
+            for (uint row = 0; row < Size; row++)
+                Array.Copy(other.Data[row], Data[row], Data[row].Length);
+        }
+
         public uint[] FloorCodes(uint start)
         {
             List<uint> results = new List<uint>();

@@ -24,6 +24,7 @@ namespace WOLF3DTest
             Assert.AreEqual(test[2, 3], 6);
             Assert.IsTrue(test.ToString().Equals("1,2,3,4,5,6"));
             Assert.IsTrue(new SymetricMatrix(test.ToString()).ToString().Equals(test.ToString()));
+            Assert.IsTrue(new SymetricMatrix(test).ToString().Equals(test.ToString()));
         }
 
         [TestMethod]
