@@ -827,7 +827,7 @@
     <Map Number="6" Floor="25" Ceiling="29" Border="127" Par="02:30" Song="POW_MUS" />
     <Map Number="7" Floor="25" Ceiling="29" Border="127" Par="02:30" Song="SUSPENSE_MUS" />
     <Map Number="8" Floor="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
-    <Map Number="9" Floor="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorBackTo="1" />
+    <Map Number="9" Floor="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="1" />
   </Maps>
   <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />

@@ -238,17 +238,15 @@ namespace WOLF3D.WOLF3DGame.Menu
                 ChangeRoom(new LoadingRoom(0));
             }
             if (xml.Attribute("Action")?.Value.Equals("NextFloor", StringComparison.InvariantCultureIgnoreCase) ?? false)
-            {
-                ChangeRoom(new LoadingRoom(
-                    (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == LastPushedTile)?.FirstOrDefault() is XElement over
-                    && ushort.TryParse(over.Attribute("Floor")?.Value, out ushort floor)) ?
-                    floor
-                    : (Assets.XML?.Element("Maps")?.Elements("Map")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == Main.ActionRoom.Map.Number).FirstOrDefault() is XElement map
-                    && ushort.TryParse(map.Attribute("ElevatorBackTo")?.Value, out ushort elevatorBackTo)) ?
-                    elevatorBackTo
-                    : Main.ActionRoom.NextMap
-                    ));
-            }
+                ChangeRoom(new LoadingRoom((ushort)(
+                        Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == LastPushedTile)?.FirstOrDefault() is XElement over
+                            && ushort.TryParse(over.Attribute("Floor")?.Value, out ushort floor) ?
+                            floor
+                            : Assets.XML?.Element("Maps")?.Elements("Map")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == Main.ActionRoom.Map.Number).FirstOrDefault() is XElement map
+                            && ushort.TryParse(map.Attribute("ElevatorTo")?.Value, out ushort elevatorTo) ?
+                            elevatorTo
+                            : Main.StatusBar["Floor"].Value
+                        )));
             if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
                 MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? "Are you sure you want\nto end the game you\nare currently playing?");

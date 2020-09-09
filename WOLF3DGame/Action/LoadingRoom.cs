@@ -71,6 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void Enter()
         {
             base.Enter();
+            Main.StatusBar["Floor"].Value = MapNumber + 1u;
             Main.Color = Assets.Palette[Assets.Maps[MapNumber].Border];
             SoundBlaster.Song = Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
         }

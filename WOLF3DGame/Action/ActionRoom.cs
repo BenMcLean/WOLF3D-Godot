@@ -136,7 +136,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (buttonIndex == (int)JoystickList.OculusAx)
                 Print();
             if (buttonIndex == (int)JoystickList.OculusBy)
-                Main.Room = new LoadingRoom(NextMap);
+                ChangeRoom(new LoadingRoom(NextMap));
         }
 
         public void Print()
