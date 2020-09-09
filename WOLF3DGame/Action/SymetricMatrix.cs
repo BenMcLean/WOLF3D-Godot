@@ -73,5 +73,22 @@ namespace WOLF3D.WOLF3DGame.Action
                 for (uint column = 0; column < Data[row].Length; column++)
                     Data[row][column] = short.Parse(queue.Dequeue());
         }
+
+        public uint[] FloorCodes(uint start)
+        {
+            List<uint> results = new List<uint>();
+            void DoFloor(uint floor)
+            {
+                if (!results.Contains(floor))
+                {
+                    results.Add(floor);
+                    for (uint i = 0; i < Size; i++)
+                        if (this[floor, i] > 0)
+                            DoFloor(i);
+                }
+            }
+            DoFloor(start);
+            return results.ToArray();
+        }
     }
 }

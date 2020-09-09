@@ -16,8 +16,41 @@ namespace WOLF3DTest
             test[3, 0] = 4;
             test[3, 1] = 5;
             test[3, 2] = 6;
+            Assert.AreEqual(test[0, 1], 1);
+            Assert.AreEqual(test[0, 2], 2);
+            Assert.AreEqual(test[1, 2], 3);
+            Assert.AreEqual(test[0, 3], 4);
+            Assert.AreEqual(test[1, 3], 5);
+            Assert.AreEqual(test[2, 3], 6);
             Assert.IsTrue(test.ToString().Equals("1,2,3,4,5,6"));
             Assert.IsTrue(new SymetricMatrix(test.ToString()).ToString().Equals(test.ToString()));
+        }
+
+        [TestMethod]
+        public void FloorCodesTest()
+        {
+            SymetricMatrix test = new SymetricMatrix(10);
+            test[1, 3] = 1;
+            test[3, 5] = 1;
+            test[5, 7] = 1;
+            test[7, 9] = 1;
+            void InnerTest(uint start)
+            {
+                uint[] floorCodes = test.FloorCodes(start);
+                Assert.AreEqual(floorCodes.Length, 5);
+                foreach (uint floorCode in floorCodes)
+                    Assert.AreEqual(floorCode % 2u, 1u);
+            }
+            InnerTest(1);
+            InnerTest(3);
+            InnerTest(5);
+            InnerTest(7);
+            InnerTest(9);
+            Assert.AreEqual(test.FloorCodes(2).Length, 1);
+            Assert.AreEqual(test.FloorCodes(4).Length, 1);
+            Assert.AreEqual(test.FloorCodes(6).Length, 1);
+            Assert.AreEqual(test.FloorCodes(8).Length, 1);
+            Assert.AreEqual(test.FloorCodes(10).Length, 1);
         }
     }
 }
