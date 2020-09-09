@@ -47,7 +47,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WOLF3DTest.cs" />
+    <Compile Include="SymetricMatrixTest.cs" />
+    <Compile Include="WOLF3DModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ using WOLF3DModel;
 namespace WOLF3DTest
 {
     [TestClass]
-    public class WOLF3DTest
+    public class WOLF3DModelTest
     {
         public static readonly string Folder = @"..\..\..\WOLF3D\WL1\";
         public static readonly XElement XML = LoadXML(Folder);
