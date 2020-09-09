@@ -62,9 +62,9 @@ namespace WOLF3D.WOLF3DGame.Action
             return string.Join(rowSeparator ?? separator, rows);
         }
 
-        public string ToXMLTag() => "<TriangularMatrix Contents=\"" + ToString() + "\" />";
+        public string ToXMLTag() => "<" + GetType().Name + " Data=\"" + ToString() + "\" />";
 
-        public SymetricMatrix(XElement e, char separator = ',') : this(e.Attribute("Contents").Value, separator) { }
+        public SymetricMatrix(XElement e, char separator = ',') : this(e.Attribute("Data").Value, separator) { }
 
         public SymetricMatrix(string @string, char separator = ',') : this(CalcSizeReversed((uint)@string.Count(x => x == separator) + 1))
         {
