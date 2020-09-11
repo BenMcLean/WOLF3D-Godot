@@ -4,12 +4,12 @@ using WOLF3D.WOLF3DGame.Action;
 namespace WOLF3DTest
 {
     [TestClass]
-    public class SymetricMatrixTest
+    public class SymmetricMatrixTest
     {
         [TestMethod]
         public void Test()
         {
-            SymetricMatrix test = new SymetricMatrix(3);
+            SymmetricMatrix test = new SymmetricMatrix(3);
             test[1, 0] = 1;
             test[2, 0] = 2;
             test[2, 1] = 3;
@@ -23,14 +23,14 @@ namespace WOLF3DTest
             Assert.AreEqual(test[1, 3], 5);
             Assert.AreEqual(test[2, 3], 6);
             Assert.IsTrue(test.ToString().Equals("1,2,3,4,5,6"));
-            Assert.IsTrue(new SymetricMatrix(test.ToString()).ToString().Equals(test.ToString()));
-            Assert.IsTrue(new SymetricMatrix(test).ToString().Equals(test.ToString()));
+            Assert.IsTrue(new SymmetricMatrix(test.ToString()).ToString().Equals(test.ToString()));
+            Assert.IsTrue(new SymmetricMatrix(test).ToString().Equals(test.ToString()));
         }
 
         [TestMethod]
         public void FloorCodesTest()
         {
-            SymetricMatrix test = new SymetricMatrix(10);
+            SymmetricMatrix test = new SymmetricMatrix(10);
             test[1, 3] = 1;
             test[3, 5] = 1;
             test[5, 7] = 1;

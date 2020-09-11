@@ -6,15 +6,15 @@ using System.Xml.Linq;
 namespace WOLF3D.WOLF3DGame.Action
 {
     /// <summary>
-    /// A symetric matrix of shorts whose diagonal elements are all equal to zero.
-    /// Symetery is enforced by only storing the lower half of the matrix and ignoring any attempts to set the diagonal entries.
-    /// Wolfenstein 3-D uses this data structure to keep track of noise propagation between the different rooms (floor codes) of a level.
+    /// A symmetric matrix of shorts whose diagonal elements are all equal to zero.
+    /// This is enforced by only storing the lower half of the matrix and ignoring any attempts to set the diagonal entries.
+    /// Wolfenstein 3-D uses this data structure to keep track of gun shot noise propagation between the different rooms (floor codes) of a level.
     /// </summary>
-    public class SymetricMatrix
+    public class SymmetricMatrix
     {
         private short[][] Data;
 
-        public SymetricMatrix(uint size) => Size = size;
+        public SymmetricMatrix(uint size) => Size = size;
 
         public uint Size
         {
@@ -26,7 +26,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
 
-        public SymetricMatrix Clear()
+        public SymmetricMatrix Clear()
         {
             for (uint i = 0; i < Size; i++)
                 Data[i] = new short[i + 1];
@@ -64,9 +64,9 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public string ToXMLTag(string separator = ",") => "<" + GetType().Name + " Data=\"" + ToString(separator) + "\" />";
 
-        public SymetricMatrix(XElement e, char separator = ',') : this(e.Attribute("Data").Value, separator) { }
+        public SymmetricMatrix(XElement e, char separator = ',') : this(e.Attribute("Data").Value, separator) { }
 
-        public SymetricMatrix(string @string, char separator = ',') : this(CalcSizeReversed((uint)@string.Count(x => x == separator) + 1))
+        public SymmetricMatrix(string @string, char separator = ',') : this(CalcSizeReversed((uint)@string.Count(x => x == separator) + 1))
         {
             Queue<string> queue = new Queue<string>(@string.Split(separator));
             for (uint row = 0; row < Data.Length; row++)
@@ -74,7 +74,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Data[row][column] = short.Parse(queue.Dequeue());
         }
 
-        public SymetricMatrix(SymetricMatrix other) : this(other.Size)
+        public SymmetricMatrix(SymmetricMatrix other) : this(other.Size)
         {
             for (uint row = 0; row < Size; row++)
                 Array.Copy(other.Data[row], Data[row], Data[row].Length);

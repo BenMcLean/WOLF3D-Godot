@@ -72,7 +72,7 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
-        public SymetricMatrix FloorCodes = new SymetricMatrix(Assets.FloorCodes);
+        public SymmetricMatrix FloorCodes = new SymmetricMatrix(Assets.FloorCodes);
         public static bool Clipping { get; set; } = true;
 
         #endregion Data Members
