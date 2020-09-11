@@ -187,11 +187,10 @@ namespace WOLF3DModel
         public static uint Color(byte r, byte g, byte b, byte a)
             => (uint)(r << 24 | g << 16 | b << 8 | a);
 
-        public static uint[] TransparentBorder(uint[] squareTexture)
-            => TransparentBorder(squareTexture, (uint)System.Math.Sqrt(squareTexture.Length));
-
-        public static uint[] TransparentBorder(uint[] texture, uint width)
+        public static uint[] TransparentBorder(uint[] texture, uint width = 0)
         {
+            if (width == 0)
+                width = (uint)Math.Floor(Math.Sqrt(texture.Length));
             uint[] result = new uint[texture.Length];
             Array.Copy(texture, result, result.Length);
             uint height = (uint)(texture.Length / width);
