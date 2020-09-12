@@ -61,6 +61,13 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
 
+        public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
+            && Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
+            && floorCode >= Assets.FloorCodeFirst
+            && floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
+            (ushort)(floorCode - Assets.FloorCodeFirst)
+            : (ushort?)null;
+
         #region objstruct
         //typedef struct objstruct
         //{

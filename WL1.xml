@@ -946,7 +946,7 @@
     <Imf Number="26" Name="PACMAN_MUS" />
   </Audio>
   <VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8" MipMaps="true">
-    <Walls FloorCodeStart="108" FloorCodes="35">
+    <Walls FloorCodeFirst="108" FloorCodeLast="143">
       <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
       <Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
       <Wall Number="3" Page="4" DarkSide="5" Name="Grey Brick with Flag" />

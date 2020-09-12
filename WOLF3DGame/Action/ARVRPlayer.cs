@@ -275,6 +275,12 @@ namespace WOLF3D.WOLF3DGame.Action
         public Vector2 Offset { get; set; } = new Vector2(Assets.HalfWallWidth, Assets.HalfWallWidth);
         public Vector2 Walk(Vector2 here, Vector2 there) => Main.ActionRoom.Level.Walk(here, there);
         public bool Push(Vector2 where) => Main.ActionRoom.Level.Push(where);
+        public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
+            && Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
+            && floorCode >= Assets.FloorCodeFirst
+            && floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
+            (ushort)(floorCode - Assets.FloorCodeFirst)
+            : (ushort?)null;
 
         public Vector2 GlobalPosition
         {

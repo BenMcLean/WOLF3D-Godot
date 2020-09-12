@@ -75,11 +75,11 @@ namespace WOLF3D.WOLF3DGame.Action
                 }
                 DoorEnum old = state;
                 state = value;
-                if (FloorCodePlus != FloorCodeMinus && Level != null)
+                if (Level != null && FloorCodePlus is ushort plus && FloorCodeMinus is ushort minus && plus != minus)
                     if (old == DoorEnum.CLOSED && state == DoorEnum.OPENING)
-                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]++;
+                        Level.FloorCodes[plus, minus]++;
                     else if (old == DoorEnum.CLOSING && state == DoorEnum.CLOSED)
-                        Level.FloorCodes[FloorCodePlus, FloorCodeMinus]--;
+                        Level.FloorCodes[plus, minus]--;
                 GatesEnabled = state == DoorEnum.CLOSED;
             }
         }
@@ -94,8 +94,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
-        public ushort FloorCodePlus { get; set; } = 0;
-        public ushort FloorCodeMinus { get; set; } = 0;
+        public ushort? FloorCodePlus { get; set; } = 0;
+        public ushort? FloorCodeMinus { get; set; } = 0;
         public Level Level { get; set; } = null;
         public bool IsOpen => State == DoorEnum.OPEN;
 
@@ -188,9 +188,9 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Door SetFloorCodes(GameMap map)
         {
-            ushort FloorCode(int floorCode) => (ushort)(floorCode >= 0 ? floorCode : 0);
-            FloorCodePlus = FloorCode(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeStart);
-            FloorCodeMinus = FloorCode(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeStart);
+            ushort? FloorCode(int floorCode) => floorCode >= 0 && floorCode < Assets.FloorCodes ? (ushort?)floorCode : null;
+            FloorCodePlus = FloorCode(map.GetMapData((ushort)(X + Direction.X), (ushort)(Z + Direction.Z)) - Assets.FloorCodeFirst);
+            FloorCodeMinus = FloorCode(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeFirst);
             return this;
         }
 
@@ -247,7 +247,13 @@ namespace WOLF3D.WOLF3DGame.Action
             get => (AudioStreamSample)Speaker.Stream;
             set
             {
-                Speaker.Stream = Settings.DigiSoundMuted ? null : value;
+                Speaker.Stream = !Settings.DigiSoundMuted
+                    && (!(FloorCodePlus is ushort plus
+                    && FloorCodeMinus is ushort minus
+                    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode)
+                    || (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode))) ?
+                    value
+                    : null;
                 if (value != null)
                     Speaker.Play();
             }

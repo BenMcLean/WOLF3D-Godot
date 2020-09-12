@@ -147,18 +147,18 @@ namespace WOLF3D.WOLF3DGame
 
             EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
 
-            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeStart")?.Value, out ushort floorCodeStart))
-                FloorCodeStart = floorCodeStart;
-            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodes")?.Value, out ushort floorCodes))
-                FloorCodes = floorCodes;
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeFirst")?.Value, out ushort floorCodeFirst))
+                FloorCodeFirst = floorCodeFirst;
+            if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
+                FloorCodes = (ushort)(floorCodeLast - FloorCodeFirst);
         }
 
         public static ushort[] Walls { get; set; }
         public static ushort[] Doors { get; set; }
         public static ushort[] Elevators { get; set; }
         public static ushort[] PushWalls { get; set; }
-        public static ushort FloorCodeStart = 107;
-        public static ushort FloorCodes = 37;
+        public static ushort FloorCodeFirst = 107;
+        public static ushort FloorCodes = 36;
         public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
 
         public static XElement LoadXML(string folder, string file = "game.xml")

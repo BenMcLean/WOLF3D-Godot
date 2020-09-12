@@ -43,7 +43,7 @@ namespace WOLF3D.WOLF3DGame.Action
             Array.Copy(map.MapData, realWalls, realWalls.Length);
             for (uint i = 0; i < realWalls.Length; i++)
                 if (Assets.PushWalls.Contains(Map.ObjectData[i]))
-                    realWalls[i] = Assets.FloorCodeStart;
+                    realWalls[i] = Assets.FloorCodeFirst;
             ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
 
             AddChild(Floor = new CollisionShape()
