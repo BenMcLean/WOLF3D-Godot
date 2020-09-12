@@ -80,7 +80,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 Array.Copy(other.Data[row], Data[row], Data[row].Length);
         }
 
-        public uint[] FloorCodes(uint start)
+        public uint[] FloorCodes(params uint[] floorCodes)
         {
             List<uint> results = new List<uint>();
             void DoFloor(uint floor)
@@ -93,7 +93,8 @@ namespace WOLF3D.WOLF3DGame.Action
                             DoFloor(i);
                 }
             }
-            DoFloor(start);
+            foreach (uint floorCode in floorCodes)
+                DoFloor(floorCode);
             return results.ToArray();
         }
     }
