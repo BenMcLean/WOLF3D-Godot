@@ -81,16 +81,12 @@ namespace WOLF3D.WOLF3DGame.Action
         }
         activetype;
         */
-        //    int ticcount;
         public short Tics
         {
             get => Assets.SecondsToTics(Seconds);
             set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; set; } = 0f;
-        //    classtype obclass;
-        public string ObjClass;
-        //    statetype* state;
         public State State { get; set; } = null;
         //    byte flags;                //    FL_SHOOTABLE, etc
         //#define FL_SHOOTABLE	1
@@ -138,13 +134,13 @@ namespace WOLF3D.WOLF3DGame.Action
         #endregion objstruct
 
         #region StateDelegates
-        public static void T_Stand(Actor actor, float delta = 0) => actor.T_Stand(delta);
-        public Actor T_Stand(float delta)
+        public static void T_Stand(Actor actor, float delta = 0f) => actor.T_Stand(delta);
+        public Actor T_Stand(float delta = 0f)
         {
             return this;
         }
-        public static void T_Path(Actor actor, float delta = 0) => actor.T_Path(delta);
-        public Actor T_Path(float delta = 0)
+        public static void T_Path(Actor actor, float delta = 0f) => actor.T_Path(delta);
+        public Actor T_Path(float delta = 0f)
         {
             // TODO: Check if player is sighted.
             if (Direction == null)
@@ -154,14 +150,13 @@ namespace WOLF3D.WOLF3DGame.Action
                     return this; // All movement is blocked
             }
             float move = Speed * delta;
-            // TODO: Wait for a door to open.
             Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
             if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
             {
                 GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                 Distance -= move;
             }
-            if (Distance <= 0)
+            if (Distance <= 0f)
             {
                 Recenter();
                 SelectPathDir();
@@ -172,13 +167,13 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             return this;
         }
-        public static void T_Chase(Actor actor, float delta = 0) => actor.T_Chase(delta);
-        public Actor T_Chase(float delta = 0)
+        public static void T_Chase(Actor actor, float delta = 0f) => actor.T_Chase(delta);
+        public Actor T_Chase(float delta = 0f)
         {
             return this;
         }
-        public static void T_Shoot(Actor actor, float delta = 0) => actor.T_Shoot(delta);
-        public Actor T_Shoot(float delta = 0)
+        public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
+        public Actor T_Shoot(float delta = 0f)
         {
             return this;
         }
@@ -206,7 +201,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Actor Recenter()
         {
-            GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0, Assets.CenterSquare(Z)));
+            GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0f, Assets.CenterSquare(Z)));
             return this;
         }
     }
