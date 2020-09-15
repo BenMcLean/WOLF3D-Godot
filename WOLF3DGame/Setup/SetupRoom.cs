@@ -164,7 +164,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                     "game.xml"
                     );
                 res.Copy(System.IO.Path.Combine("res://", file), xml);
-                Godot.GD.Print("Copied \"" + xml + "\"");
+                Godot.GD.Print("Copied \"" + file + "\" to \"" + xml + "\".");
             }
 
             if (!System.IO.File.Exists(System.IO.Path.Combine(Main.Folder, "WL1", "WOLF3D.EXE")))
