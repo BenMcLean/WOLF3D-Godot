@@ -199,14 +199,18 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 vswap = value;
-                Palette = new Color[VSwap.Palette.Length];
-                for (uint i = 0; i < Palette.Length; i++)
-                    Palette[i] = Color.Color8(
-                            VSwap.R(VSwap.Palette[i]),
-                            VSwap.G(VSwap.Palette[i]),
-                            VSwap.B(VSwap.Palette[i]),
-                            VSwap.A(VSwap.Palette[i])
-                        );
+                Palettes = new Color[VSwap.Palettes.Length][];
+                for (uint x = 0; x < Palettes.Length; x++)
+                {
+                    Palettes[x] = new Color[VSwap.Palettes[x].Length];
+                    for (uint y = 0; y < Palettes[x].Length; y++)
+                        Palettes[x][y] = Color.Color8(
+                                VSwap.R(VSwap.Palettes[x][y]),
+                                VSwap.G(VSwap.Palettes[x][y]),
+                                VSwap.B(VSwap.Palettes[x][y]),
+                                VSwap.A(VSwap.Palettes[x][y])
+                            );
+                }
                 VSwapTextures = new ImageTexture[VSwap.Pages.Length];
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
                 int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
@@ -307,13 +311,13 @@ namespace WOLF3D.WOLF3DGame
                             uint width = (uint)space.Attribute("Width"),
                                 height = (uint)space.Attribute("Height");
                             byte[] bytes = new byte[width * height * 4];
-                            if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palette.Length)
+                            if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palettes[0].Length)
                             {
                                 byte[] color = new byte[] {
-                                    (byte)(VgaGraph.Palette[index] >> 24),
-                                    (byte)(VgaGraph.Palette[index] >> 16),
-                                    (byte)(VgaGraph.Palette[index] >> 8),
-                                    (byte)VgaGraph.Palette[index]
+                                    (byte)(VgaGraph.Palettes[0][index] >> 24),
+                                    (byte)(VgaGraph.Palettes[0][index] >> 16),
+                                    (byte)(VgaGraph.Palettes[0][index] >> 8),
+                                    (byte)VgaGraph.Palettes[0][index]
                                 };
                                 for (uint x = 0; x < bytes.Length; x += 4)
                                     System.Array.Copy(color, 0, bytes, x, 4);
@@ -337,7 +341,7 @@ namespace WOLF3D.WOLF3DGame
             }
         }
         private static VgaGraph vgaGraph;
-        public static Color[] Palette;
+        public static Color[][] Palettes;
         public static ImageTexture[] VSwapTextures;
         public static SpatialMaterial[] VSwapMaterials;
         public static ImageTexture[] PicTextures;

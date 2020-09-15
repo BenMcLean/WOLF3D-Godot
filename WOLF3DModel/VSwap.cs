@@ -12,12 +12,12 @@ namespace WOLF3DModel
         public static VSwap Load(string folder, XElement xml)
         {
             using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                return new VSwap(LoadPalette(xml), vSwap,
+                return new VSwap(LoadPalettes(xml).ToArray(), vSwap,
                     ushort.TryParse(xml?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : (ushort)64
                     );
         }
 
-        public uint[] Palette { get; set; }
+        public uint[][] Palettes { get; set; }
         public byte[][] Pages { get; set; }
         public byte[][] DigiSounds { get; set; }
         public ushort SpritePage { get; set; }
@@ -41,11 +41,11 @@ namespace WOLF3DModel
             && offset < Pages[page].Length
             && Pages[page][offset] > 128);
 
-        public VSwap(uint[] palette, Stream stream, ushort tileSqrt = 64)
+        public VSwap(uint[][] palettes, Stream stream, ushort tileSqrt = 64)
         {
-            Palette = palette;
+            Palettes = palettes;
             TileSqrt = tileSqrt;
-            if (Palette == null)
+            if (Palettes == null || Palettes.Length < 1)
                 throw new InvalidDataException("Must load a palette before loading a VSWAP!");
             using (BinaryReader binaryReader = new BinaryReader(stream))
             {
@@ -78,7 +78,7 @@ namespace WOLF3DModel
                         for (ushort col = 0; col < TileSqrt; col++)
                             for (ushort row = 0; row < TileSqrt; row++)
                                 wall[TileSqrt * row + col] = (byte)stream.ReadByte();
-                        Pages[page] = Index2ByteArray(wall, palette);
+                        Pages[page] = Index2ByteArray(wall, palettes[0]);
                     }
 
                 // read in sprites
@@ -115,7 +115,7 @@ namespace WOLF3DModel
                             }
                         }
                         //Pages[page] = Index2ByteArray(sprite, palette);
-                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palette)));
+                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palettes[0])));
                     }
 
                 // read in digisounds
@@ -144,10 +144,11 @@ namespace WOLF3DModel
             }
         }
 
-        public static uint[] LoadPalette(XElement xml)
+        public static IEnumerable<uint[]> LoadPalettes(XElement xml)
         {
-            using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xml.Element("Palette").Value)))
-                return LoadPalette(palette);
+            foreach (XElement xPalette in xml.Elements("Palette"))
+                using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xPalette.Value)))
+                    yield return LoadPalette(palette);
         }
 
         public static uint[] LoadPalette(Stream stream)
@@ -245,7 +246,7 @@ namespace WOLF3DModel
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (four bytes per pixel) using current palette</returns>
-        public byte[] Index2ByteArray(byte[] index) => Index2ByteArray(index, Palette);
+        public byte[] Index2ByteArray(byte[] index) => Index2ByteArray(index, Palettes[0]);
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <param name="palette">256 rgba8888 color values</param>
@@ -265,7 +266,7 @@ namespace WOLF3DModel
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <returns>rgba8888 texture (one int per pixel) using current palette</returns>
-        public uint[] Index2IntArray(byte[] index) => Index2IntArray(index, Palette);
+        public uint[] Index2IntArray(byte[] index) => Index2IntArray(index, Palettes[0]);
 
         /// <param name="index">Palette indexes (one byte per pixel)</param>
         /// <param name="palette">256 rgba8888 color values</param>

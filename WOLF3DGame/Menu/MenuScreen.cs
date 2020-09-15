@@ -72,9 +72,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             XML = menu;
             Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
             if (byte.TryParse(menu.Attribute("BkgdColor")?.Value, out byte bkgdColor))
-                Color = Assets.Palette[bkgdColor];
-            TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : Assets.White;
-            SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : Assets.White;
+                Color = Assets.Palettes[0][bkgdColor];
+            TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : Assets.White;
+            SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : Assets.White;
             foreach (XElement pixelRect in menu.Elements("PixelRect") ?? Enumerable.Empty<XElement>())
                 if (Main.InGameMatch(pixelRect))
                     AddChild(new PixelRect(pixelRect));
@@ -165,7 +165,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                                         y
                                         : 0) + texture.GetHeight() / 2)
                                         ),
-                        Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palette[color] : TextColor,
+                        Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
                     });
                 }
             foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())

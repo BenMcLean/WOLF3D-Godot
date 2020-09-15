@@ -48,11 +48,11 @@ namespace WOLF3D.WOLF3DGame.Menu
         public PixelRect Set(XElement xElement)
         {
             if (uint.TryParse(xElement.Attribute("BordColor")?.Value, out uint bordColor))
-                NWColor = Assets.Palette[bordColor];
+                NWColor = Assets.Palettes[0][bordColor];
             if (uint.TryParse(xElement.Attribute("Bord2Color")?.Value, out uint bord2Color))
-                SEColor = Assets.Palette[bord2Color];
+                SEColor = Assets.Palettes[0][bord2Color];
             if (uint.TryParse(xElement.Attribute("Color")?.Value, out uint color))
-                Color = Assets.Palette[color];
+                Color = Assets.Palettes[0][color];
             if (float.TryParse(xElement.Attribute("X")?.Value, out float x) && float.TryParse(xElement.Attribute("Y")?.Value, out float y))
                 Position = new Vector2(x, y);
             if (float.TryParse(xElement.Attribute("Width")?.Value, out float width) && float.TryParse(xElement.Attribute("Height")?.Value, out float height))

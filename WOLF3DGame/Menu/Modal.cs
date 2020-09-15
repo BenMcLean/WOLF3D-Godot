@@ -54,13 +54,13 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (xElement == null)
                 return this;
             if (uint.TryParse(xElement.Attribute("TextColor")?.Value, out uint textColor))
-                TextColor = Assets.Palette[textColor];
+                TextColor = Assets.Palettes[0][textColor];
             if (uint.TryParse(xElement.Attribute("BordColor")?.Value, out uint bordColor))
-                NWColor = Assets.Palette[bordColor];
+                NWColor = Assets.Palettes[0][bordColor];
             if (uint.TryParse(xElement.Attribute("Bord2Color")?.Value, out uint bord2Color))
-                SEColor = Assets.Palette[bord2Color];
+                SEColor = Assets.Palettes[0][bord2Color];
             if (uint.TryParse(xElement.Attribute("Color")?.Value, out uint color))
-                Color = Assets.Palette[color];
+                Color = Assets.Palettes[0][color];
             return this;
         }
         public PixelRect PixelRect { get; set; }

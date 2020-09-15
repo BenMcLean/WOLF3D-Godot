@@ -169,7 +169,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void Enter()
         {
             base.Enter();
-            Main.Color = Assets.Palette[Map.Border];
+            Main.Color = Assets.Palettes[0][Map.Border];
             if (SoundBlaster.Song != Song)
                 SoundBlaster.Song = Song;
         }

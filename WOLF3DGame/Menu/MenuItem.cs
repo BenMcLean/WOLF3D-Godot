@@ -81,8 +81,8 @@ namespace WOLF3D.WOLF3DGame.Menu
             Name = text;
             Condition = condition;
             XML = xml;
-            TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palette[tColor] : textColor ?? Assets.White;
-            SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palette[sColor] : selectedColor ?? Assets.White;
+            TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : textColor ?? Assets.White;
+            SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : selectedColor ?? Assets.White;
             ImageTexture texture = Assets.Text(font, Name = text);
             AddChild(Text = new Sprite()
             {
@@ -99,9 +99,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
                 font = Assets.Font(result);
             if (byte.TryParse(menuItems.Attribute("TextColor")?.Value, out byte textColor))
-                TextColor = Assets.Palette[textColor];
+                TextColor = Assets.Palettes[0][textColor];
             if (byte.TryParse(menuItems.Attribute("SelectedColor")?.Value, out byte selectedColor))
-                SelectedColor = Assets.Palette[selectedColor];
+                SelectedColor = Assets.Palettes[0][selectedColor];
             uint startX = uint.TryParse(menuItems.Attribute("StartX")?.Value, out result) ? result : 0,
                 startY = uint.TryParse(menuItems.Attribute("StartY")?.Value, out result) ? result : 0,
                 paddingX = uint.TryParse(menuItems.Attribute("PaddingX")?.Value, out result) ? result : 0,

@@ -71,7 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Assets.Palette[Map.Floor],
+                    AlbedoColor = Assets.Palettes[0][Map.Floor],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -105,7 +105,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 },
                 MaterialOverride = new SpatialMaterial()
                 {
-                    AlbedoColor = Assets.Palette[Map.Ceiling],
+                    AlbedoColor = Assets.Palettes[0][Map.Ceiling],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,

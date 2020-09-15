@@ -29,17 +29,17 @@ namespace WOLF3DTest
             Console.WriteLine("Number of graphics pages: " + vSwap.Pages.Length.ToString());
             Console.WriteLine("Number of DigiSounds: " + vSwap.DigiSounds.Length.ToString());
             Console.WriteLine();
-            for (int color = 0; color < vSwap.Palette.Length; color++)
+            for (int color = 0; color < vSwap.Palettes.Length; color++)
                 Console.WriteLine("Color " + color + ": " +
-                    VSwap.R(vSwap.Palette[color]) + ", " +
-                    VSwap.G(vSwap.Palette[color]) + ", " +
-                    VSwap.B(vSwap.Palette[color]) + ", " +
-                    VSwap.A(vSwap.Palette[color])
+                    VSwap.R(vSwap.Palettes[0][color]) + ", " +
+                    VSwap.G(vSwap.Palettes[0][color]) + ", " +
+                    VSwap.B(vSwap.Palettes[0][color]) + ", " +
+                    VSwap.A(vSwap.Palettes[0][color])
                     );
 
-            uint[] newPalette = VSwap.Byte2IntArray(VSwap.Int2ByteArray(vSwap.Palette));
-            for (int color = 0; color < vSwap.Palette.Length; color++)
-                Assert.IsTrue(vSwap.Palette[color] == newPalette[color]);
+            uint[] newPalette = VSwap.Byte2IntArray(VSwap.Int2ByteArray(vSwap.Palettes[0]));
+            for (int color = 0; color < vSwap.Palettes.Length; color++)
+                Assert.IsTrue(vSwap.Palettes[0][color] == newPalette[color]);
         }
 
         [TestMethod]
