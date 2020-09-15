@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
   <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d">
-    <Sizes Chunk="0" StartPics="3" NumPics="144" StartFont="1" NumFont="2" BitmapFonts="1" />
+    <Sizes Chunk="0" StartPics="3" NumPics="122" StartFont="1" NumFont="2" />
     <Font Number="0" Chunk="1" Name="Small" />
     <Font Number="1" Chunk="2" Name="Large" />
+    <Pic Number="77" Chunk="80" Name="TITLE" Palette="1" />
+    <Menus>
+      <Menu Name="Main" Font="1">
+        <Image Name="TITLE" X="center" Y="center" />
+      </Menu>
+    </Menus>
   </VgaGraph>
+  <!--
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
   </Maps>
   <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
   </Audio>
   <VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
   </VSwap>
+  -->
   <Palette>
     JASC-PAL
     0100

@@ -11,7 +11,7 @@ namespace WOLF3D.WOLF3DGame
     public class StatusBar : Viewport, IDictionary<string, StatusNumber>, ICollection<KeyValuePair<string, StatusNumber>>, IEnumerable<KeyValuePair<string, StatusNumber>>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<string, StatusNumber>, IReadOnlyCollection<KeyValuePair<string, StatusNumber>>
     {
         public XElement XML { get; set; }
-        public StatusBar() : this(Assets.XML.Element("VgaGraph").Element("StatusBar")) { }
+        public StatusBar() : this(Assets.XML?.Element("VgaGraph")?.Element("StatusBar")) { }
         public StatusBar(XElement xml)
         {
             Name = "StatusBar";
@@ -19,15 +19,16 @@ namespace WOLF3D.WOLF3DGame
             RenderTargetClearMode = ClearMode.OnlyNextFrame;
             RenderTargetVFlip = true;
             XML = xml;
-            ImageTexture pic = Assets.PicTextureSafe(XML.Attribute("Pic")?.Value);
-            Size = pic.GetSize();
-            AddChild(new Sprite()
-            {
-                Name = "StatusBarPic",
-                Texture = pic,
-                Position = Size / 2,
-            });
-            foreach (XElement number in XML.Elements("Number") ?? Enumerable.Empty<XElement>())
+            ImageTexture pic = Assets.PicTextureSafe(XML?.Attribute("Pic")?.Value);
+            Size = pic?.GetSize() ?? Vector2.Zero;
+            if (pic != null)
+                AddChild(new Sprite()
+                {
+                    Name = "StatusBarPic",
+                    Texture = pic,
+                    Position = Size / 2,
+                });
+            foreach (XElement number in XML?.Elements("Number") ?? Enumerable.Empty<XElement>())
                 Add(new StatusNumber(number));
         }
 
