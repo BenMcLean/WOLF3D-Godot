@@ -190,6 +190,12 @@ namespace WOLF3D.WOLF3DGame.Setup
             Screen.Cursor = cursor;
         }
 
+        public DosScreen WriteLine(string text)
+        {
+            Screen.WriteLine(text);
+            return this;
+        }
+
         public override void _Process(float delta) => Screen.UpdateCursor(delta);
     }
 }

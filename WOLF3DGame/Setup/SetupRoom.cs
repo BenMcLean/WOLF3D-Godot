@@ -6,6 +6,9 @@ namespace WOLF3D.WOLF3DGame.Setup
 {
     public class SetupRoom : Room
     {
+        #region Data members
+        private DosScreen DosScreen;
+
         public enum LoadingState
         {
             READY,
@@ -23,28 +26,28 @@ namespace WOLF3D.WOLF3DGame.Setup
                 switch (State)
                 {
                     case LoadingState.ASK_PERMISSION:
-                        DosScreen.Screen.WriteLine("This application requires permission to both read and write to your device's")
+                        WriteLine("This application requires permission to both read and write to your device's")
                             .WriteLine("external storage.")
                             .WriteLine("Press any button to continue.");
                         break;
                     case LoadingState.GET_SHAREWARE:
-                        DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
+                        WriteLine("Installing Wolfenstein 3-D Shareware!");
                         try
                         {
-                            Shareware.Main(Main.Folder = System.IO.Path.Combine(Main.Path, "WOLF3D"));
+                            Shareware();
                         }
                         catch (Exception ex)
                         {
-                            DosScreen.Screen.WriteLine(ex.GetType().Name + ": " + ex.Message);
+                            WriteLine(ex.GetType().Name + ": " + ex.Message);
                         }
                         Main.Load();
                         break;
                 }
             }
         }
+        #endregion Data members
 
-        private DosScreen DosScreen;
-
+        #region Godot
         public SetupRoom()
         {
             Name = "SetupRoom";
@@ -67,7 +70,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                 Transform = new Transform(Basis.Identity, Vector3.Forward * 3f),
             });
 
-            DosScreen.Screen.WriteLine("Platform detected: " + OS.GetName());
+            WriteLine("Platform detected: " + OS.GetName());
         }
 
         public override void _Ready()
@@ -76,6 +79,53 @@ namespace WOLF3D.WOLF3DGame.Setup
                 GetViewport().Arvr = true;
         }
 
+        public override void _PhysicsProcess(float delta)
+        {
+            if (State == LoadingState.READY)
+                switch (OS.GetName())
+                {
+                    case "Android":
+                        State = PermissionsGranted ? LoadingState.GET_SHAREWARE : LoadingState.ASK_PERMISSION;
+                        break;
+                    default:
+                        State = LoadingState.GET_SHAREWARE;
+                        break;
+                }
+        }
+        #endregion Godot
+
+        #region Android
+        public static bool PermissionsGranted =>
+            OS.GetGrantedPermissions() is string[] permissions &&
+            permissions != null &&
+            permissions.Contains("android.permission.READ_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase) &&
+            permissions.Contains("android.permission.WRITE_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase);
+        #endregion Android
+
+        #region VR
+        public void ButtonPressed(int buttonIndex)
+        {
+            if (IsVRButton(buttonIndex))
+                switch (State)
+                {
+                    case LoadingState.ASK_PERMISSION:
+                        if (PermissionsGranted)
+                            State = LoadingState.GET_SHAREWARE;
+                        else
+                            OS.RequestPermissions();
+                        break;
+                }
+        }
+
+        public SetupRoom WriteLine(string message)
+        {
+            GD.Print(message);
+            DosScreen.WriteLine(message);
+            return this;
+        }
+        #endregion VR
+
+        #region Room
         public override void Enter()
         {
             base.Enter();
@@ -94,39 +144,56 @@ namespace WOLF3D.WOLF3DGame.Setup
             if (RightController.IsConnected("button_pressed", this, nameof(ButtonPressed)))
                 RightController.Disconnect("button_pressed", this, nameof(ButtonPressed));
         }
+        #endregion Room
 
-        public override void _PhysicsProcess(float delta)
+        #region Shareware
+        public void Shareware()
         {
-            if (State == LoadingState.READY)
-                switch (OS.GetName())
-                {
-                    case "Android":
-                        State = PermissionsGranted ? LoadingState.GET_SHAREWARE : LoadingState.ASK_PERMISSION;
-                        break;
-                    default:
-                        State = LoadingState.GET_SHAREWARE;
-                        break;
-                }
+            Godot.Directory res = new Godot.Directory();
+            res.Open("res://");
+            System.IO.Directory.CreateDirectory(Main.Folder);
+            foreach (string file in ListFiles(null, "*.xml"))
+            {
+                string xml = System.IO.Path.Combine(
+                    System.IO.Directory.CreateDirectory(
+                        System.IO.Path.Combine(
+                            Main.Folder,
+                            System.IO.Path.GetFileNameWithoutExtension(file)
+                            )
+                        ).FullName,
+                    "game.xml"
+                    );
+                res.Copy("res://" + file, xml);
+                Godot.GD.Print("Copied \"" + xml + "\"");
+            }
+
+            if (!System.IO.File.Exists(System.IO.Path.Combine(Main.Folder, "WL1", "WOLF3D.EXE")))
+            {
+                // I'm including a complete and unmodified copy of Wolfenstein 3-D Shareware v1.4 retrieved from https://archive.org/download/Wolfenstein3d/Wolfenstein3dV14sw.ZIP in this game's resources which is used not only to play the shareware levels but also to render the game selection menu.
+                // I would very much prefer to use the official URL ftp://ftp.3drealms.com/share/1wolf14.zip
+                // However, that packs the shareware episode inside it's original installer, and extracting files from that is a pain.
+                // To avoid that, I'll probably just use a zip of a fully installed shareware version instead.
+                // In case I ever want to revisit the issue of extracting from the shareware installer, I found some C code to extract the shareware files here: https://github.com/rpmfusion/wolf3d-shareware
+                // That code seems to depend on this library here: https://github.com/twogood/dynamite
+                res.Copy("res://Wolfenstein3dV14sw.ZIP", System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"));
+                System.IO.Compression.ZipFile.ExtractToDirectory(System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"), Main.Folder);
+                System.IO.File.Delete(System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"));
+            }
         }
 
-        public static bool PermissionsGranted =>
-            OS.GetGrantedPermissions() is string[] permissions &&
-            permissions != null &&
-            permissions.Contains("android.permission.READ_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase) &&
-            permissions.Contains("android.permission.WRITE_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase);
-
-        public void ButtonPressed(int buttonIndex)
+        public static System.Collections.Generic.IEnumerable<string> ListFiles(string path = null, string filter = "*.*")
         {
-            if (IsVRButton(buttonIndex))
-                switch (State)
-                {
-                    case LoadingState.ASK_PERMISSION:
-                        if (PermissionsGranted)
-                            State = LoadingState.GET_SHAREWARE;
-                        else
-                            OS.RequestPermissions();
-                        break;
-                }
+            filter = WildCardToRegular(filter);
+            Godot.Directory dir = new Godot.Directory();
+            dir.Open(path ?? "res://");
+            dir.ListDirBegin();
+            while (dir.GetNext() is string file && !string.IsNullOrWhiteSpace(file))
+                if (file[0] != '.' && System.Text.RegularExpressions.Regex.IsMatch(file, filter))
+                    yield return file;
+            dir.ListDirEnd();
         }
+
+        public static string WildCardToRegular(string value) => "^" + System.Text.RegularExpressions.Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        #endregion Shareware
     }
 }

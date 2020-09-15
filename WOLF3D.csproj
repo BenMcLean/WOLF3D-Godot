@@ -97,7 +97,6 @@
     <Compile Include="WOLF3DGame\Room.cs" />
     <Compile Include="WOLF3DGame\Settings.cs" />
     <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
-    <Compile Include="WOLF3DGame\Setup\Shareware.cs" />
     <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />
   </ItemGroup>
   <ItemGroup>
