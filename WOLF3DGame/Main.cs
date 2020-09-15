@@ -116,7 +116,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public static void Load()
 		{
-			Assets.Load();
+			Assets.Load(System.IO.Path.Combine(Folder, "WL1"));
 			Settings.Load();
 			SoundBlaster.Start();
 			StatusBar = new StatusBar();
