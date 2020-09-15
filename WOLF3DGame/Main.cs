@@ -28,7 +28,14 @@ namespace WOLF3D.WOLF3DGame
 		public static bool Android => Platform == PlatformEnum.ANDROID;
 		public static bool PC => Platform == PlatformEnum.PC;
 
+		/// <summary>
+		/// The WOLF3D root folder
+		/// </summary>
 		public static string Path { get; set; }
+
+		/// <summary>
+		/// The folder of the currently loaded game
+		/// </summary>
 		public static string Folder { get; set; }
 		public static StatusBar StatusBar
 		{
@@ -96,7 +103,7 @@ namespace WOLF3D.WOLF3DGame
 			Platform = OS.GetName().Equals("Android", StringComparison.InvariantCultureIgnoreCase) ?
 				PlatformEnum.ANDROID
 				: PlatformEnum.PC;
-			Path = Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory();
+			Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
 			ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 			AddChild(WorldEnvironment);
@@ -116,7 +123,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public static void Load()
 		{
-			Assets.Load(System.IO.Path.Combine(Folder, "WL1"));
+			Assets.Load();
 			Settings.Load();
 			SoundBlaster.Start();
 			StatusBar = new StatusBar();

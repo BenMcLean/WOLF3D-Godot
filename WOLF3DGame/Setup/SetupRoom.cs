@@ -38,8 +38,10 @@ namespace WOLF3D.WOLF3DGame.Setup
                         }
                         catch (Exception ex)
                         {
-                            WriteLine(ex.GetType().Name + ": " + ex.Message);
+                            WriteLine(ex.GetType().Name + ": " + ex.Message + "\n" + ex.StackTrace);
+                            break;
                         }
+                        Main.Folder = System.IO.Path.Combine(Main.Path, "WL1");
                         Main.Load();
                         break;
                 }
@@ -151,13 +153,13 @@ namespace WOLF3D.WOLF3DGame.Setup
         {
             Godot.Directory res = new Godot.Directory();
             res.Open("res://");
-            System.IO.Directory.CreateDirectory(Main.Folder);
+            System.IO.Directory.CreateDirectory(Main.Path);
             foreach (string file in ListFiles(null, "*.xml"))
             {
                 string xml = System.IO.Path.Combine(
                     System.IO.Directory.CreateDirectory(
                         System.IO.Path.Combine(
-                            Main.Folder,
+                            Main.Path,
                             System.IO.Path.GetFileNameWithoutExtension(file)
                             )
                         ).FullName,
@@ -167,7 +169,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                 Godot.GD.Print("Copied \"" + file + "\" to \"" + xml + "\".");
             }
 
-            if (!System.IO.File.Exists(System.IO.Path.Combine(Main.Folder, "WL1", "WOLF3D.EXE")))
+            if (!System.IO.File.Exists(System.IO.Path.Combine(Main.Path, "WL1", "WOLF3D.EXE")))
             {
                 // I'm including a complete and unmodified copy of Wolfenstein 3-D Shareware v1.4 retrieved from https://archive.org/download/Wolfenstein3d/Wolfenstein3dV14sw.ZIP in this game's resources which is used not only to play the shareware levels but also to render the game selection menu.
                 // I would very much prefer to use the official URL ftp://ftp.3drealms.com/share/1wolf14.zip
@@ -175,9 +177,10 @@ namespace WOLF3D.WOLF3DGame.Setup
                 // To avoid that, I'll probably just use a zip of a fully installed shareware version instead.
                 // In case I ever want to revisit the issue of extracting from the shareware installer, I found some C code to extract the shareware files here: https://github.com/rpmfusion/wolf3d-shareware
                 // That code seems to depend on this library here: https://github.com/twogood/dynamite
-                res.Copy("res://Wolfenstein3dV14sw.ZIP", System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"));
-                System.IO.Compression.ZipFile.ExtractToDirectory(System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"), Main.Folder);
-                System.IO.File.Delete(System.IO.Path.Combine(Main.Folder, "WL1", "Wolfenstein3dV14sw.ZIP"));
+                string zip = System.IO.Path.Combine(Main.Path, "WL1", "Wolfenstein3dV14sw.ZIP");
+                res.Copy("res://Wolfenstein3dV14sw.ZIP", zip);
+                System.IO.Compression.ZipFile.ExtractToDirectory(zip, System.IO.Path.GetDirectoryName(zip));
+                System.IO.File.Delete(zip);
             }
         }
 
