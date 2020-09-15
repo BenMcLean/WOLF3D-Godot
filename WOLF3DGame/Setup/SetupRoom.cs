@@ -163,7 +163,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                         ).FullName,
                     "game.xml"
                     );
-                res.Copy("res://" + file, xml);
+                res.Copy(System.IO.Path.Combine("res://", file), xml);
                 Godot.GD.Print("Copied \"" + xml + "\"");
             }
 
