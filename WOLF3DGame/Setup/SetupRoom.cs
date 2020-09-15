@@ -31,7 +31,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                         DosScreen.Screen.WriteLine("Installing Wolfenstein 3-D Shareware!");
                         try
                         {
-                            DownloadShareware.Main(new string[] { Main.Folder = System.IO.Path.Combine(Main.Path, "WOLF3D", "WL1") });
+                            Shareware.Main(Main.Folder = System.IO.Path.Combine(Main.Path, "WOLF3D"));
                         }
                         catch (Exception ex)
                         {

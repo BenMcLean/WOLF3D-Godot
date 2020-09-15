@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using WOLF3D.WOLF3DGame.Action;
 
 namespace WOLF3DTest
@@ -37,8 +38,8 @@ namespace WOLF3DTest
             test[7, 9] = 1;
             void InnerTest(params uint[] input)
             {
-                uint[] floorCodes = test.FloorCodes(input);
-                Assert.AreEqual(floorCodes.Length, 5);
+                List<uint> floorCodes = test.FloorCodes(input);
+                Assert.AreEqual(floorCodes.Count, 5);
                 foreach (uint floorCode in floorCodes)
                     Assert.AreEqual(floorCode % 2u, 1u);
             }
@@ -48,12 +49,12 @@ namespace WOLF3DTest
             InnerTest(7);
             InnerTest(9);
             InnerTest(1, 3, 5, 7, 9);
-            Assert.AreEqual(test.FloorCodes(2).Length, 1);
-            Assert.AreEqual(test.FloorCodes(4).Length, 1);
-            Assert.AreEqual(test.FloorCodes(6).Length, 1);
-            Assert.AreEqual(test.FloorCodes(8).Length, 1);
-            Assert.AreEqual(test.FloorCodes(10).Length, 1);
-            Assert.AreEqual(test.FloorCodes(2, 4, 6, 8, 10).Length, 5);
+            Assert.AreEqual(test.FloorCodes(2).Count, 1);
+            Assert.AreEqual(test.FloorCodes(4).Count, 1);
+            Assert.AreEqual(test.FloorCodes(6).Count, 1);
+            Assert.AreEqual(test.FloorCodes(8).Count, 1);
+            Assert.AreEqual(test.FloorCodes(10).Count, 1);
+            Assert.AreEqual(test.FloorCodes(2, 4, 6, 8, 10).Count, 5);
         }
     }
 }

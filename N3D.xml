@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
   <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d">
+    <Sizes Chunk="0" StartPics="3" NumPics="144" StartFont="1" NumFont="2" BitmapFonts="1" />
+    <Font Number="0" Chunk="1" Name="Small" />
+    <Font Number="1" Chunk="2" Name="Large" />
   </VgaGraph>
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
   </Maps>
