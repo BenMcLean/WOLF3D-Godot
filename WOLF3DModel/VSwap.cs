@@ -12,7 +12,7 @@ namespace WOLF3DModel
         public static VSwap Load(string folder, XElement xml)
         {
             using (FileStream vSwap = new FileStream(System.IO.Path.Combine(folder, xml.Element("VSwap").Attribute("Name").Value), FileMode.Open))
-                return new VSwap(LoadPalettes(xml).ToArray(), vSwap,
+                return new VSwap(xml, LoadPalettes(xml).ToArray(), vSwap,
                     ushort.TryParse(xml?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : (ushort)64
                     );
         }
@@ -41,7 +41,7 @@ namespace WOLF3DModel
             && offset < Pages[page].Length
             && Pages[page][offset] > 128);
 
-        public VSwap(uint[][] palettes, Stream stream, ushort tileSqrt = 64)
+        public VSwap(XElement xml, uint[][] palettes, Stream stream, ushort tileSqrt = 64)
         {
             Palettes = palettes;
             TileSqrt = tileSqrt;
@@ -78,7 +78,7 @@ namespace WOLF3DModel
                         for (ushort col = 0; col < TileSqrt; col++)
                             for (ushort row = 0; row < TileSqrt; row++)
                                 wall[TileSqrt * row + col] = (byte)stream.ReadByte();
-                        Pages[page] = Index2ByteArray(wall, palettes[0]);
+                        Pages[page] = Index2ByteArray(wall, palettes[PaletteNumber(page, xml)]);
                     }
 
                 // read in sprites
@@ -114,8 +114,7 @@ namespace WOLF3DModel
                                 stream.Seek(commands, 0);
                             }
                         }
-                        //Pages[page] = Index2ByteArray(sprite, palette);
-                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palettes[0])));
+                        Pages[page] = Int2ByteArray(TransparentBorder(Index2IntArray(sprite, palettes[PaletteNumber(page, xml)])));
                     }
 
                 // read in digisounds
@@ -143,6 +142,12 @@ namespace WOLF3DModel
                     }
             }
         }
+
+        public static uint PaletteNumber(uint pageNumber, XElement xml) =>
+            xml?.Element("VSwap")?.Descendants()?.Where(
+                e => uint.TryParse(e.Attribute("Page")?.Value, out uint page) && page == pageNumber
+                )?.Select(e => uint.TryParse(e.Attribute("Palette")?.Value, out uint palette) ? palette : 0)
+            ?.FirstOrDefault() ?? 0;
 
         public static IEnumerable<uint[]> LoadPalettes(XElement xml)
         {
