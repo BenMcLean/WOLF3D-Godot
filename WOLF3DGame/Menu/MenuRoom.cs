@@ -26,7 +26,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
 
-        public MenuRoom() : this(Assets.Menu("Main")) { }
+        public MenuRoom() : this(Assets.Menu(Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Start")?.Value ?? "Main")) { }
 
         public MenuRoom(MenuScreen menuScreen)
         {
