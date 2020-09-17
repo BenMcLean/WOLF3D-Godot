@@ -188,6 +188,17 @@
     <Sound Number="41" Name="PERCENT100SND" />
     <Sound Number="42" Name="ENDBONUS1SND" />
     <Sound Number="43" Name="ENDBONUS2SND" />
+    <MIDI Number="0" Name="NOAH01_MUS" />
+    <MIDI Number="1" Name="NOAH02_MUS" />
+    <MIDI Number="2" Name="NOAH03_MUS" />
+    <MIDI Number="3" Name="NOAH04_MUS" />
+    <MIDI Number="4" Name="NOAH05_MUS" />
+    <MIDI Number="5" Name="NOAH06_MUS" />
+    <MIDI Number="6" Name="NOAH07_MUS" />
+    <MIDI Number="7" Name="NOAH08_MUS" />
+    <MIDI Number="8" Name="NOAH09_MUS" />
+    <MIDI Number="9" Name="NOAH10_MUS" />
+    <MIDI Number="10" Name="NOAH11_MUS" />
   </Audio>
   <!--
   <VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
