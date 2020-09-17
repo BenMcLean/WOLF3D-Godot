@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
   <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d">
-    <Sizes Chunk="0" StartPics="3" NumPics="122" StartFont="1" NumFont="2" />
+    <Sizes Chunk="0" StartPics="3" NumPics="122" StartFont="1" NumFont="2" BitmapFonts="1" />
     <Font Number="0" Chunk="1" Name="Small" />
     <Font Number="1" Chunk="2" Name="Large" />
     <Pic Number="0" Chunk="3" Name="H_TOPWINDOWPIC" />
@@ -43,21 +43,21 @@
     <Pic Number="36" Chunk="39" Name="L_GUYPIC" />
     <Pic Number="37" Chunk="40" Name="L_GUY2PIC" />
     <Pic Number="38" Chunk="41" Name="L_BJWINSPIC" />
-    <Pic Number="39" Chunk="42" Name="L_COLONPIC" />
-    <Pic Number="40" Chunk="43" Name="L_NUM0PIC" />
-    <Pic Number="41" Chunk="44" Name="L_NUM1PIC" />
-    <Pic Number="42" Chunk="45" Name="L_NUM2PIC" />
-    <Pic Number="43" Chunk="46" Name="L_NUM3PIC" />
-    <Pic Number="44" Chunk="47" Name="L_NUM4PIC" />
-    <Pic Number="45" Chunk="48" Name="L_NUM5PIC" />
-    <Pic Number="46" Chunk="49" Name="L_NUM6PIC" />
-    <Pic Number="47" Chunk="50" Name="L_NUM7PIC" />
-    <Pic Number="48" Chunk="51" Name="L_NUM8PIC" />
-    <Pic Number="49" Chunk="52" Name="L_NUM9PIC" />
-    <Pic Number="50" Chunk="53" Name="L_PERCENTPIC" />
-    <Pic Number="51" Chunk="54" Name="L_MINUSPIC" />
-    <Pic Number="52" Chunk="55" Name="L_EXPOINTPIC" />
-    <Pic Number="53" Chunk="56" Name="L_APOSTROPHEPIC" />
+    <Pic Number="39" Chunk="42" BitmapFont="0" Character=":" Name="L_COLONPIC" />
+    <Pic Number="40" Chunk="43" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
+    <Pic Number="41" Chunk="44" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
+    <Pic Number="42" Chunk="45" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
+    <Pic Number="43" Chunk="46" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
+    <Pic Number="44" Chunk="47" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
+    <Pic Number="45" Chunk="48" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
+    <Pic Number="46" Chunk="49" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
+    <Pic Number="47" Chunk="50" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
+    <Pic Number="48" Chunk="51" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
+    <Pic Number="49" Chunk="52" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
+    <Pic Number="50" Chunk="53" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
+    <Pic Number="51" Chunk="54" BitmapFont="0" Character="-" Name="L_MINUSPIC" />
+    <Pic Number="52" Chunk="55" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
+    <Pic Number="53" Chunk="56" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
     <Pic Number="54" Chunk="57" Name="Y_NUM0PIC" />
     <Pic Number="55" Chunk="58" Name="Y_NUM1PIC" />
     <Pic Number="56" Chunk="59" Name="Y_NUM2PIC" />
