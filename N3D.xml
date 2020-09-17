@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
   <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d">
-    <Sizes Chunk="0" StartPics="3" NumPics="122" StartFont="1" NumFont="2" BitmapFonts="1" />
+    <Sizes Chunk="0" StartPics="3" NumPics="123" StartFont="1" NumFont="2" BitmapFonts="1" />
     <Font Number="0" Chunk="1" Name="Small" />
     <Font Number="1" Chunk="2" Name="Large" />
     <Pic Number="0" Chunk="3" Name="H_TOPWINDOWPIC" />
@@ -142,8 +142,54 @@
   <!--
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
   </Maps>
-  <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
+  -->
+  <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
+    <Sound Number="0" Name="D_ANTLPESND" />
+    <Sound Number="1" Name="D_BEARSND" />
+    <Sound Number="2" Name="D_BONUSSND" />
+    <Sound Number="3" Name="D_CAMELSND" />
+    <Sound Number="4" Name="D_CLOSDRSND" />
+    <Sound Number="5" Name="D_COCHITSND" />
+    <Sound Number="6" Name="D_COCTHRSND" />
+    <Sound Number="7" Name="D_DBITESND" />
+    <Sound Number="8" Name="D_EATSND" />
+    <Sound Number="9" Name="D_EDIESND" />
+    <Sound Number="10" Name="D_ELPHNTSND" />
+    <Sound Number="11" Name="D_EXTRASND" />
+    <Sound Number="12" Name="D_GATLINSND" />
+    <Sound Number="13" Name="D_GIRAFESND" />
+    <Sound Number="14" Name="D_GOATSND" />
+    <Sound Number="15" Name="D_GUNSHTSND" />
+    <Sound Number="16" Name="D_INCSND" />
+    <Sound Number="17" Name="D_KANGROSND" />
+    <Sound Number="18" Name="D_KEYSND" />
+    <Sound Number="19" Name="D_KNIFESND" />
+    <Sound Number="20" Name="D_MONKEYSND" />
+    <Sound Number="21" Name="D_MSTEPSND" />
+    <Sound Number="22" Name="D_OPENDRSND" />
+    <Sound Number="23" Name="D_OSTRCHSND" />
+    <Sound Number="24" Name="D_OXSND" />
+    <Sound Number="25" Name="D_PAINSND" />
+    <Sound Number="26" Name="D_PDIESND" />
+    <Sound Number="27" Name="NOBONUSSND" />
+    <Sound Number="28" Name="D_PWALLSND" />
+    <Sound Number="29" Name="D_SHEEPSND" />
+    <Sound Number="30" Name="D_SLING2SND" />
+    <Sound Number="31" Name="D_SPITSND" />
+    <Sound Number="32" Name="D_WATHITSND" />
+    <Sound Number="33" Name="D_WATTHRSND" />
+    <Sound Number="34" Name="NOWAYSND" />
+    <Sound Number="35" Name="ESCPRESSEDSND" />
+    <Sound Number="36" Name="MOVEGUN1SND" />
+    <Sound Number="37" Name="MOVEGUN2SND" />
+    <Sound Number="38" Name="HITWALLSND" />
+    <Sound Number="39" Name="SHOOTSND" />
+    <Sound Number="40" Name="SHOOTDOORSND" />
+    <Sound Number="41" Name="PERCENT100SND" />
+    <Sound Number="42" Name="ENDBONUS1SND" />
+    <Sound Number="43" Name="ENDBONUS2SND" />
   </Audio>
+  <!--
   <VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
   </VSwap>
   -->
