@@ -790,7 +790,7 @@
         <Up Action="Menu" Argument="Page40" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="FloorComplete" BkgdColor="127">
+      <Menu Name="FloorComplete" Song="ENDLEVEL_MUS" BkgdColor="127">
         <Image Name="L_GUYPIC" X="0" Y="16" />
         <Text String="FLOOR" BitmapFont="0" X="112" Y="16" />
         <Text String="COMPLETE" BitmapFont="0" X="112" Y="32" />

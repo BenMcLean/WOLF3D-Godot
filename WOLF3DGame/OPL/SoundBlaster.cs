@@ -15,14 +15,9 @@ namespace WOLF3D.WOLF3DGame.OPL
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
         };
 
-        public static void NewOPL()
-        {
-            OplPlayer.Opl = new WoodyEmulatorOpl(OplType.Opl2);
-        }
-
         public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
 
-        public static Imf[] Song
+        public static AudioT.Song Song
         {
             get => OplPlayer.ImfPlayer.Song;
             set
@@ -82,8 +77,8 @@ namespace WOLF3D.WOLF3DGame.OPL
             while (!quit)
             {
                 while (SoundMessages.TryDequeue(out object soundMessage))
-                    if (soundMessage is Imf[] imf)
-                        OplPlayer.ImfPlayer.Song = imf;
+                    if (soundMessage is AudioT.Song song)
+                        OplPlayer.ImfPlayer.Song = song;
                     else if (soundMessage is Adl adl)
                         OplPlayer.AdlPlayer.Adl = adl;
                     else if (soundMessage is SoundMessage message)

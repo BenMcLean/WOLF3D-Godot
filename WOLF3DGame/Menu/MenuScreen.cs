@@ -451,12 +451,18 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             Main.Color = Color;
             if (!Settings.MusicMuted)
-                if (Assets.SongSafe(XML?.Attribute("Song")?.Value) is Imf[] song
-                    && SoundBlaster.Song != song)
-                    SoundBlaster.Song = song;
-                else if (Assets.SongSafe(Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Song")?.Value) is Imf[] defaultSong
-                    && SoundBlaster.Song != defaultSong)
-                    SoundBlaster.Song = defaultSong;
+                if (XML?.Attribute("Song")?.Value is string songName && !string.IsNullOrWhiteSpace(songName)
+                    && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song))
+                {
+                    if (SoundBlaster.Song != song)
+                        SoundBlaster.Song = song;
+                }
+                else if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Song")?.Value is string defaultSongName && !string.IsNullOrWhiteSpace(defaultSongName)
+                    && Assets.AudioT.Songs.TryGetValue(defaultSongName, out AudioT.Song defaultSong))
+                {
+                    if (SoundBlaster.Song != defaultSong)
+                        SoundBlaster.Song = defaultSong;
+                }
             return this;
         }
     }

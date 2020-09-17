@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3DModel
@@ -14,7 +15,7 @@ namespace WOLF3DModel
         }
 
         public Adl[] Sounds;
-        public Imf[][] Songs;
+        public readonly Dictionary<string, Song> Songs;
 
         public static uint[] ParseHead(Stream stream)
         {
@@ -44,23 +45,53 @@ namespace WOLF3DModel
             return split;
         }
 
-        public AudioT(Stream audioHedStream, Stream audioTStream, XElement audio) : this(SplitFile(audioHedStream, audioTStream), audio)
+        public AudioT(Stream audioHedStream, Stream audioTStream, XElement xml) : this(SplitFile(audioHedStream, audioTStream), xml)
         { }
 
-        public AudioT(byte[][] file, XElement audio)
+        public class Song
         {
-            uint startAdlibSounds = (uint)audio.Attribute("StartAdlibSounds");
-            Sounds = new Adl[(uint)audio.Attribute("NumSounds")];
+            public string Name { get; set; }
+            public Imf[] Imf { get; set; }
+            public bool IsImf => Imf != null;
+
+            public override bool Equals(object obj) => obj is Song song && (Name?.Equals(song.Name) ?? false);
+
+            public override int GetHashCode() => base.GetHashCode();
+
+            public override string ToString() => Name;
+        }
+
+        public AudioT(byte[][] file, XElement xml)
+        {
+            uint startAdlibSounds = (uint)xml.Attribute("StartAdlibSounds");
+            Sounds = new Adl[(uint)xml.Attribute("NumSounds")];
             for (uint i = 0; i < Sounds.Length; i++)
                 if (file[startAdlibSounds + i] != null)
                     using (MemoryStream sound = new MemoryStream(file[startAdlibSounds + i]))
                         Sounds[i] = new Adl(sound);
-            uint startMusic = (uint)audio.Attribute("StartMusic");
-            Songs = new Imf[file.Length - startMusic][];
-            for (uint i = 0; i < Songs.Length; i++)
+            uint startMusic = (uint)xml.Attribute("StartMusic"),
+                endMusic = (uint)file.Length - startMusic;
+            Songs = new Dictionary<string, Song>();
+            for (uint i = 0; i < endMusic; i++)
                 if (file[startMusic + i] != null)
                     using (MemoryStream song = new MemoryStream(file[startMusic + i]))
-                        Songs[i] = Imf.ReadImf(song);
+                        if (Imf.ReadImf(song) is Imf[] imf)
+                            if (xml.Elements("Imf").Where(
+                                e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == i
+                                )?.Select(e => e.Attribute("Name")?.Value)
+                                ?.FirstOrDefault() is string name
+                                && !string.IsNullOrWhiteSpace(name))
+                                Songs.Add(name, new Song()
+                                {
+                                    Name = name,
+                                    Imf = imf,
+                                });
+                            else
+                                Songs.Add(i.ToString(), new Song()
+                                {
+                                    Name = i.ToString(),
+                                    Imf = imf,
+                                });
         }
     }
 }

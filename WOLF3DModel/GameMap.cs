@@ -26,11 +26,7 @@ namespace WOLF3DModel
                         maps[map].Border = border;
                     if (TimeSpan.TryParse(xMap.Attribute("Par")?.Value, out TimeSpan par))
                         maps[map].Par = par;
-                    if (ushort.TryParse(
-                        (from e in xml.Element("Audio")?.Elements("Imf") ?? Enumerable.Empty<XElement>()
-                         where e.Attribute("Name")?.Value.Trim().Equals(xMap.Attribute("Song")?.Value.Trim(), System.StringComparison.InvariantCultureIgnoreCase) ?? false
-                         select e.Attribute("Number")?.Value).FirstOrDefault(),
-                        out ushort song))
+                    if (xMap.Attribute("Song")?.Value is string song)
                         maps[map].Song = song;
                 }
             return maps;
@@ -47,7 +43,7 @@ namespace WOLF3DModel
         public byte Floor { get; set; }
         public byte Border { get; set; }
         public TimeSpan Par { get; set; }
-        public ushort Song { get; set; }
+        public string Song { get; set; }
 
         public ushort X(uint i) => X((ushort)i);
         public ushort X(ushort i) => (ushort)(i / Width);

@@ -46,8 +46,8 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             FillBuffer();
             while (SoundMessages.TryDequeue(out object soundMessage))
-                if (soundMessage is Imf[] imf)
-                    ImfPlayer.Song = imf;
+                if (soundMessage is AudioT.Song song)
+                    ImfPlayer.Song = song;
                 else if (soundMessage is Adl adl)
                     AdlPlayer.Adl = adl;
                 else if (soundMessage is SoundMessage message)

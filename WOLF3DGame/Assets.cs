@@ -380,19 +380,6 @@ namespace WOLF3D.WOLF3DGame
 
         public static ImageTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
 
-        public static Imf[] Song(string name) => SongSafe(name) ?? throw new InvalidDataException("Song not found: \"" + name + "\"");
-
-        public static Imf[] SongSafe(string name) =>
-            uint.TryParse(name, out uint index) && index < AudioT.Songs.Length ?
-            AudioT.Songs[index]
-            : uint.TryParse((
-            from e in XML?.Element("Audio")?.Elements("Imf") ?? Enumerable.Empty<XElement>()
-            where e.Attribute("Name")?.Value.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
-            select e.Attribute("Number").Value).FirstOrDefault(),
-            out uint result) && result < AudioT.Songs.Length ?
-            AudioT.Songs[result]
-            : null;
-
         public static Adl Sound(string name) => SoundSafe(name) ?? throw new InvalidDataException("Sound not found: \"" + name + "\"");
         public static Adl SoundSafe(string name) =>
             uint.TryParse(name, out uint index) && index < AudioT.Sounds.Length ?

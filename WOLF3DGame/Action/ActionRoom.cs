@@ -164,14 +164,13 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
-        Imf[] Song => Assets.AudioT.Songs[Map.Song];
-
         public override void Enter()
         {
             base.Enter();
             Main.Color = Assets.Palettes[0][Map.Border];
-            if (SoundBlaster.Song != Song)
-                SoundBlaster.Song = Song;
+            if (Assets.AudioT.Songs[Map.Song] is AudioT.Song song
+                && SoundBlaster.Song != song)
+                SoundBlaster.Song = song;
         }
 
         public override void Exit()
