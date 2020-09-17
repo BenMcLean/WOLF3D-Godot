@@ -60,18 +60,9 @@ namespace WOLF3D.WOLF3DGame.Menu
         public override void Enter()
         {
             base.Enter();
-            StartMusic();
-            if (Body != null && Body.MenuScreen != null && Body.MenuScreen.Color != null)
-                Main.Color = Body.MenuScreen.Color;
+            MenuScreen?.OnSet();
             LeftController.Connect("button_pressed", this, nameof(ButtonPressedLeft));
             RightController.Connect("button_pressed", this, nameof(ButtonPressedRight));
-        }
-
-        public MenuRoom StartMusic()
-        {
-            if (Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("MenuSong") is XAttribute menuSong)
-                SoundBlaster.Song = Assets.Song(menuSong.Value);
-            return this;
         }
 
         public override void Exit()
@@ -131,8 +122,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public MenuScreen MenuScreen
         {
-            get => Body.MenuScreen;
-            set => Body.MenuScreen = value;
+            get => Body?.MenuScreen;
+            set => Body.MenuScreen = value.OnSet();
         }
 
         public class MenuBody : StaticBody

@@ -159,7 +159,7 @@
       <EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
       <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;&gt;</EndString>
       <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
-      <Menu Name="Intro" Song="XTOWER2_MUS">
+      <Menu Name="Intro" Song="NAZI_NOR_MUS">
         <Image Name="TITLEPIC" X="center" Y="center" />
         <MenuItems>
           <MenuItem Action="Menu" Argument="Main" />
@@ -255,7 +255,7 @@
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
-      <Menu Name="Page1" BkgdColor="17" TextColor="0">
+      <Menu Name="Page1" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -266,7 +266,7 @@
         <Down Action="Menu" Argument="Page2" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page2" BkgdColor="17" TextColor="0">
+      <Menu Name="Page2" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -281,7 +281,7 @@
         <Down Action="Menu" Argument="Page3" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page3" BkgdColor="17" TextColor="0">
+      <Menu Name="Page3" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -294,7 +294,7 @@
         <Down Action="Menu" Argument="Page4" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page4" BkgdColor="17" TextColor="0">
+      <Menu Name="Page4" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -307,7 +307,7 @@
         <Down Action="Menu" Argument="Page5" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page5" BkgdColor="17" TextColor="0">
+      <Menu Name="Page5" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -320,7 +320,7 @@
         <Down Action="Menu" Argument="Page6" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page6" BkgdColor="17" TextColor="0">
+      <Menu Name="Page6" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -336,7 +336,7 @@
         <Down Action="Menu" Argument="Page7" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page7" BkgdColor="17" TextColor="0">
+      <Menu Name="Page7" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -353,7 +353,7 @@
         <Down Action="Menu" Argument="Page8" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page8" BkgdColor="17" TextColor="0">
+      <Menu Name="Page8" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -366,7 +366,7 @@
         <Down Action="Menu" Argument="Page9" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page9" BkgdColor="17" TextColor="0">
+      <Menu Name="Page9" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -378,7 +378,7 @@
         <Down Action="Menu" Argument="Page10" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page10" BkgdColor="17" TextColor="0">
+      <Menu Name="Page10" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -395,7 +395,7 @@
         <Down Action="Menu" Argument="Page11" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page11" BkgdColor="17" TextColor="0">
+      <Menu Name="Page11" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -408,7 +408,7 @@
         <Down Action="Menu" Argument="Page12" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page12" BkgdColor="17" TextColor="0">
+      <Menu Name="Page12" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -423,7 +423,7 @@
         <Down Action="Menu" Argument="Page13" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page13" BkgdColor="17" TextColor="0">
+      <Menu Name="Page13" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -437,7 +437,7 @@
         <Down Action="Menu" Argument="Page14" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page14" BkgdColor="17" TextColor="0">
+      <Menu Name="Page14" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -451,7 +451,7 @@
         <Down Action="Menu" Argument="Page15" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page15" BkgdColor="17" TextColor="0">
+      <Menu Name="Page15" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -465,7 +465,7 @@
         <Down Action="Menu" Argument="Page16" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page16" BkgdColor="17" TextColor="0">
+      <Menu Name="Page16" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -478,7 +478,7 @@
         <Down Action="Menu" Argument="Page17" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page17" BkgdColor="17" TextColor="0">
+      <Menu Name="Page17" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -492,7 +492,7 @@
         <Down Action="Menu" Argument="Page18" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page18" BkgdColor="17" TextColor="0">
+      <Menu Name="Page18" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -504,7 +504,7 @@
         <Down Action="Menu" Argument="Page19" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page19" BkgdColor="17" TextColor="0">
+      <Menu Name="Page19" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -520,7 +520,7 @@
         <Down Action="Menu" Argument="Page20" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page20" BkgdColor="17" TextColor="0">
+      <Menu Name="Page20" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -534,7 +534,7 @@
         <Down Action="Menu" Argument="Page21" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page21" BkgdColor="17" TextColor="0">
+      <Menu Name="Page21" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -547,7 +547,7 @@
         <Down Action="Menu" Argument="Page22" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page22" BkgdColor="17" TextColor="0">
+      <Menu Name="Page22" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -559,7 +559,7 @@
         <Down Action="Menu" Argument="Page23" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page23" BkgdColor="17" TextColor="0">
+      <Menu Name="Page23" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -570,7 +570,7 @@
         <Down Action="Menu" Argument="Page24" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page24" BkgdColor="17" TextColor="0">
+      <Menu Name="Page24" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -582,7 +582,7 @@
         <Down Action="Menu" Argument="Page25" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page25" BkgdColor="17" TextColor="0">
+      <Menu Name="Page25" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -594,7 +594,7 @@
         <Down Action="Menu" Argument="Page26" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page26" BkgdColor="17" TextColor="0">
+      <Menu Name="Page26" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -606,7 +606,7 @@
         <Down Action="Menu" Argument="Page27" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page27" BkgdColor="17" TextColor="0">
+      <Menu Name="Page27" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -618,7 +618,7 @@
         <Down Action="Menu" Argument="Page28" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page28" BkgdColor="17" TextColor="0">
+      <Menu Name="Page28" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -630,7 +630,7 @@
         <Down Action="Menu" Argument="Page29" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page29" BkgdColor="17" TextColor="0">
+      <Menu Name="Page29" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -643,7 +643,7 @@
         <Down Action="Menu" Argument="Page30" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page30" BkgdColor="17" TextColor="0">
+      <Menu Name="Page30" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -655,7 +655,7 @@
         <Down Action="Menu" Argument="Page31" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page31" BkgdColor="17" TextColor="0">
+      <Menu Name="Page31" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -667,7 +667,7 @@
         <Down Action="Menu" Argument="Page32" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page32" BkgdColor="17" TextColor="0">
+      <Menu Name="Page32" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -679,7 +679,7 @@
         <Down Action="Menu" Argument="Page33" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page33" BkgdColor="17" TextColor="0">
+      <Menu Name="Page33" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -691,7 +691,7 @@
         <Down Action="Menu" Argument="Page34" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page34" BkgdColor="17" TextColor="0">
+      <Menu Name="Page34" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -703,7 +703,7 @@
         <Down Action="Menu" Argument="Page35" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page35" BkgdColor="17" TextColor="0">
+      <Menu Name="Page35" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -715,7 +715,7 @@
         <Down Action="Menu" Argument="Page36" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page36" BkgdColor="17" TextColor="0">
+      <Menu Name="Page36" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -727,7 +727,7 @@
         <Down Action="Menu" Argument="Page37" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page37" BkgdColor="17" TextColor="0">
+      <Menu Name="Page37" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -739,7 +739,7 @@
         <Down Action="Menu" Argument="Page38" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page38" BkgdColor="17" TextColor="0">
+      <Menu Name="Page38" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -751,7 +751,7 @@
         <Down Action="Menu" Argument="Page39" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page39" BkgdColor="17" TextColor="0">
+      <Menu Name="Page39" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -764,7 +764,7 @@
         <Down Action="Menu" Argument="Page40" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page40" BkgdColor="17" TextColor="0">
+      <Menu Name="Page40" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
@@ -777,7 +777,7 @@
         <Down Action="Menu" Argument="Page41" />
         <Cancel Action="Menu" Argument="Main" />
       </Menu>
-      <Menu Name="Page41" BkgdColor="17" TextColor="0">
+      <Menu Name="Page41" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
         <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
         <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
         <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />

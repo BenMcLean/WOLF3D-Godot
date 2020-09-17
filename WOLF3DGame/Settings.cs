@@ -101,7 +101,7 @@ namespace WOLF3D.WOLF3DGame
                     SoundBlaster.MusicOff();
                 }
                 else if (old == MusicEnum.NONE && Main.Room is MenuRoom menuRoom)
-                    menuRoom.StartMusic();
+                    menuRoom.MenuScreen.OnSet();
                 Save();
             }
         }

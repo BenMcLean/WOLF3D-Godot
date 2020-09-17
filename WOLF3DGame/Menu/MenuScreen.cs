@@ -446,5 +446,18 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
             return this;
         }
+
+        public MenuScreen OnSet()
+        {
+            Main.Color = Color;
+            if (!Settings.MusicMuted)
+                if (Assets.SongSafe(XML?.Attribute("Song")?.Value) is Imf[] song
+                    && SoundBlaster.Song != song)
+                    SoundBlaster.Song = song;
+                else if (Assets.SongSafe(Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Song")?.Value) is Imf[] defaultSong
+                    && SoundBlaster.Song != defaultSong)
+                    SoundBlaster.Song = defaultSong;
+            return this;
+        }
     }
 }
