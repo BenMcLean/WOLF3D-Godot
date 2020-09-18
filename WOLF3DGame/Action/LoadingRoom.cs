@@ -2,6 +2,7 @@
 using System.Threading;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
+using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -73,7 +74,10 @@ namespace WOLF3D.WOLF3DGame.Action
             base.Enter();
             Main.StatusBar["Floor"].Value = MapNumber + 1u;
             Main.Color = Assets.Palettes[0][Assets.Maps[MapNumber].Border];
-            SoundBlaster.Song = Assets.AudioT.Songs[Assets.Maps[MapNumber].Song];
+            if (Assets.Maps[MapNumber].Song is string songName
+                && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
+                && SoundBlaster.Song != song)
+                SoundBlaster.Song = song;
         }
 
         public override void _Process(float delta)

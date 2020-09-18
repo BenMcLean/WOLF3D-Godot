@@ -115,11 +115,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 },
             });
 
-            XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")
-                ?.Where(e => e.Attribute("Name").Value.Equals("Door Frame"))
-                ?.FirstOrDefault();
+            XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Element("DoorFrame");
             if (doorFrameX == null)
-                throw new NullReferenceException("Could not find \"Door Frame\" in walls!");
+                throw new NullReferenceException("Could not find \"DoorFrame\" tag in walls!");
             ushort doorFrame = (ushort)(uint)doorFrameX.Attribute("Page"),
                 darkFrame = (ushort)(uint)doorFrameX.Attribute("DarkSide");
             void HorizontalCheck(ushort x, ushort z)

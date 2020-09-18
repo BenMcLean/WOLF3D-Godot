@@ -168,7 +168,8 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             base.Enter();
             Main.Color = Assets.Palettes[0][Map.Border];
-            if (Assets.AudioT.Songs[Map.Song] is AudioT.Song song
+            if (Map.Song is string songName
+                && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
                 && SoundBlaster.Song != song)
                 SoundBlaster.Song = song;
         }

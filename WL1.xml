@@ -984,6 +984,7 @@
       <Wall Number="28" Page="54" DarkSide="55" Name="Grey Brick with Sign" />
       <Wall Number="50" Page="98" DarkSide="99" Name="Fake Door" />
       <Wall Number="51" Page="100" DarkSide="101" Name="Door Frame" />
+      <DoorFrame Page="100" DarkSide="101" />
       <Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
       <Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
       <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />

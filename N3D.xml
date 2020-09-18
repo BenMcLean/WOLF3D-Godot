@@ -133,18 +133,23 @@
     <Pic Number="126" Chunk="131" Name="T_DEMO0" />
     <Pic Number="127" Chunk="132" Name="T_DEMO1" />
     <Pic Number="128" Chunk="133" Name="T_DEMO2" />
-    <Menus>
+    <Menus BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1">
       <Menu Name="Main" Font="1">
         <Image Name="TITLEPIC" X="center" Y="center" />
+        <MenuItems>
+          <MenuItem Episode="0" Difficulty="4" Action="NewGame" />
+        </MenuItems>
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-      <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
+      <Number Name="Floor" X="24" Y="16" Init="1" />
+      <!--
       <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
       <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
       <Face X="134" Y="5" />
       <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
       <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
+      -->
     </StatusBar>
   </VgaGraph>
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
@@ -306,6 +311,7 @@
       <Wall Number="61" Page="56" DarkSide="57" Name="Purple wall" />
       <Wall Number="62" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
       <Wall Number="63" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
+      <DoorFrame Page="62" DarkSide="62" />
       <Wall Number="65" Page="0" DarkSide="1" Name="Wood wall 1" />
       <Wall Number="66" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
       <Wall Number="67" Page="4" DarkSide="5" Name="Yellow curtain" />
