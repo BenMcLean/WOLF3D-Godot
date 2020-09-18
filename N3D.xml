@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
-  <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d">
+  <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d" LoadingPic="GETPSYCHEDPIC">
     <Sizes Chunk="0" StartPics="3" NumPics="123" StartFont="1" NumFont="2" BitmapFonts="1" />
     <Font Number="0" Chunk="1" Name="Small" />
     <Font Number="1" Chunk="2" Name="Large" />
@@ -242,10 +242,115 @@
     <MIDI Number="9" Name="NOAH10_MUS" />
     <MIDI Number="10" Name="NOAH11_MUS" />
   </Audio>
-  <!--
   <VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
+    <Walls FloorCodeFirst="108" FloorCodeLast="143">
+      <Wall Number="1" Page="0" DarkSide="1" Name="Wood wall 1" />
+      <Wall Number="2" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+      <Wall Number="3" Page="4" DarkSide="5" Name="Yellow curtain" />
+      <Wall Number="4" Page="6" DarkSide="7" Name="Monkey portrait" />
+      <Wall Number="5" Page="8" DarkSide="9" Name="Log wall" />
+      <Wall Number="6" Page="10" DarkSide="11" Name="Noah portrait" />
+      <Wall Number="7" Page="12" DarkSide="13" Name="Red curtain" />
+      <Wall Number="8" Page="14" DarkSide="15" Name="Duck portrait" />
+      <Wall Number="9" Page="16" DarkSide="17" Name="Silvery with wood" />
+      <Wall Number="10" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+      <Wall Number="11" Page="20" DarkSide="21" Name="Silvery wall" />
+      <Wall Number="12" Page="22" DarkSide="23" Name="Broken kennel" />
+      <Wall Number="13" Page="24" DarkSide="25" Name="Wooden panel" />
+      <Wall Number="14" Page="26" DarkSide="27" Name="Large cabinet" />
+      <Elevator Number="15" Page="28" DarkSide="29" Direction="W" Action="Menu" Argument="FloorComplete" Name="EW=Stairs/NS=Brick" />
+      <Wall Number="16" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+      <Wall Number="17" Page="32" DarkSide="33" Name="Entry panel" />
+      <Wall Number="18" Page="34" DarkSide="35" Name="Naamah portrait" />
+      <Wall Number="19" Page="36" DarkSide="37" Name="Checkered wall 1" />
+      <Wall Number="20" Page="38" DarkSide="39" Name="Checkered w pennant" />
+      <Wall Number="21" Page="40" DarkSide="41" Name="Grey brick wall" />
+      <Wall Number="22" Page="42" DarkSide="43" Name="Blue curtain" />
+      <Wall Number="23" Page="44" DarkSide="45" Name="Light wood panel" />
+      <Wall Number="24" Page="46" DarkSide="47" Name="Chalkboard" />
+      <Wall Number="25" Page="48" DarkSide="49" Name="Yellow wall" />
+      <Wall Number="26" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
+      <Wall Number="27" Page="52" DarkSide="53" Name="Red wall" />
+      <Wall Number="28" Page="54" DarkSide="55" Name="Small cabinets" />
+      <Wall Number="29" Page="56" DarkSide="57" Name="Purple wall" />
+      <Wall Number="30" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
+      <Wall Number="31" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
+      <Wall Number="33" Page="0" DarkSide="1" Name="Wood wall 1" />
+      <Wall Number="34" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+      <Wall Number="35" Page="4" DarkSide="5" Name="Yellow curtain" />
+      <Wall Number="36" Page="6" DarkSide="7" Name="Monkey portrait" />
+      <Wall Number="37" Page="8" DarkSide="9" Name="Log wall" />
+      <Wall Number="38" Page="10" DarkSide="11" Name="Noah portrait" />
+      <Wall Number="39" Page="12" DarkSide="13" Name="Red curtain" />
+      <Wall Number="40" Page="14" DarkSide="15" Name="Duck portrait" />
+      <Wall Number="41" Page="16" DarkSide="17" Name="Silvery with wood" />
+      <Wall Number="42" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+      <Wall Number="43" Page="20" DarkSide="21" Name="Silvery wall" />
+      <Wall Number="44" Page="22" DarkSide="23" Name="Broken kennel" />
+      <Wall Number="45" Page="24" DarkSide="25" Name="Wooden panel" />
+      <Wall Number="46" Page="26" DarkSide="27" Name="Large cabinet" />
+      <Elevator Number="47" Page="28" DarkSide="29" Direction="W" Action="Menu" Argument="FloorComplete" Name="EW=Stairs/NS=Brick" />
+      <Wall Number="48" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+      <Wall Number="49" Page="32" DarkSide="33" Name="Entry panel" />
+      <Wall Number="50" Page="34" DarkSide="35" Name="Naamah portrait" />
+      <Wall Number="51" Page="36" DarkSide="37" Name="Checkered wall 1" />
+      <Wall Number="52" Page="38" DarkSide="39" Name="Checkered w pennant" />
+      <Wall Number="53" Page="40" DarkSide="41" Name="Grey brick wall" />
+      <Wall Number="54" Page="42" DarkSide="43" Name="Blue curtain" />
+      <Wall Number="55" Page="44" DarkSide="45" Name="Light wood panel" />
+      <Wall Number="56" Page="46" DarkSide="47" Name="Chalkboard" />
+      <Wall Number="57" Page="48" DarkSide="49" Name="Yellow wall" />
+      <Wall Number="58" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
+      <Wall Number="59" Page="52" DarkSide="53" Name="Red wall" />
+      <Wall Number="60" Page="54" DarkSide="55" Name="Small cabinets" />
+      <Wall Number="61" Page="56" DarkSide="57" Name="Purple wall" />
+      <Wall Number="62" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
+      <Wall Number="63" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
+      <Wall Number="65" Page="0" DarkSide="1" Name="Wood wall 1" />
+      <Wall Number="66" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+      <Wall Number="67" Page="4" DarkSide="5" Name="Yellow curtain" />
+      <Wall Number="68" Page="6" DarkSide="7" Name="Monkey portrait" />
+      <Wall Number="69" Page="8" DarkSide="9" Name="Log wall" />
+      <Wall Number="70" Page="10" DarkSide="11" Name="Noah portrait" />
+      <Wall Number="71" Page="12" DarkSide="13" Name="Red curtain" />
+      <Wall Number="72" Page="14" DarkSide="15" Name="Duck portrait" />
+      <Wall Number="73" Page="16" DarkSide="17" Name="Silvery with wood" />
+      <Wall Number="74" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+      <Wall Number="75" Page="20" DarkSide="21" Name="Silvery wall" />
+      <Wall Number="76" Page="22" DarkSide="23" Name="Broken kennel" />
+      <Wall Number="77" Page="24" DarkSide="25" Name="Wooden panel" />
+      <Wall Number="78" Page="26" DarkSide="27" Name="Large cabinet" />
+      <Elevator Number="79" Page="28" DarkSide="29" Direction="W" Action="Menu" Argument="FloorComplete" Name="EW=Stairs/NS=Brick" />
+      <Wall Number="80" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+      <Wall Number="81" Page="32" DarkSide="33" Name="Entry panel" />
+      <Wall Number="82" Page="34" DarkSide="35" Name="Naamah portrait" />
+      <Wall Number="83" Page="36" DarkSide="37" Name="Checkered wall 1" />
+      <Wall Number="84" Page="38" DarkSide="39" Name="Checkered w pennant" />
+      <Wall Number="85" Page="40" DarkSide="41" Name="Grey brick wall" />
+      <Wall Number="86" Page="42" DarkSide="43" Name="Blue curtain" />
+      <Wall Number="87" Page="44" DarkSide="45" Name="Light wood panel" />
+      <Wall Number="88" Page="46" DarkSide="47" Name="Chalkboard" />
+      <Wall Number="89" Page="56" DarkSide="57" Name="Map background/Fake: NS=Str/EW=Lock" />
+      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" />
+      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" />
+      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" />
+      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" />
+      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" />
+      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" />
+      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" />
+      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" />
+      <Wall Number="98" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+      <Wall Number="99" Page="4" DarkSide="5" Name="Yellow curtain" />
+      <Wall Number="100" Page="6" DarkSide="7" Name="Monkey portrait" />
+      <Wall Number="101" Page="8" DarkSide="9" Name="Log wall" />
+      <Wall Number="102" Page="10" DarkSide="11" Name="Noah portrait" />
+      <Wall Number="103" Page="12" DarkSide="13" Name="Red curtain" />
+      <Wall Number="104" Page="14" DarkSide="15" Name="Duck portrait" />
+      <Wall Number="105" Page="16" DarkSide="17" Name="Silvery with wood" />
+      <Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+      <Ambush Number="107" Name="Passive animal floor" />
+    </Walls>
   </VSwap>
-  -->
   <Palette>
     JASC-PAL
     0100
