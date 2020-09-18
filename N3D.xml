@@ -350,6 +350,73 @@
       <Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
       <Ambush Number="107" Name="Passive animal floor" />
     </Walls>
+    <Sprite Page="71" Name="Demo" />
+    <Objects>
+      <Start Number="19" Direction="E" Name="Start" />
+      <Start Number="20" Direction="N" Name="Start" />
+      <Start Number="21" Direction="W" Name="Start" />
+      <Start Number="22" Direction="S" Name="Start" />
+      <Billboard Number="23" Page="72" Walk="true" Name="Water puddle 1" />
+      <Billboard Number="24" Page="73" Name="Water bucket" />
+      <Billboard Number="25" Page="74" Name="Table" />
+      <Billboard Number="26" Page="75" Name="Barrel" />
+      <Billboard Number="27" Page="76" Walk="true" Name="Debris" />
+      <Billboard Number="28" Page="77" Walk="true" Name="Question scroll -- maybe?" />
+      <Billboard Number="29" Page="78" Name="Feed bucket" />
+      <Billboard Number="30" Page="79" Name="Column 1" />
+      <Billboard Number="31" Page="80" Name="Slender column" />
+      <Billboard Number="32" Page="81" Name="Bird cage" />
+      <Billboard Number="33" Page="82" Walk="true" Name="Water pitcher" />
+      <Billboard Number="34" Page="83" Walk="true" Name="Water puddle 2" />
+      <Billboard Number="35" Page="84" Walk="true" Name="Overhead post" />
+      <Billboard Number="36" Page="85" Walk="true" Name="Chandelier" />
+      <Billboard Number="37" Page="86" Name="Water trough" />
+      <Billboard Number="38" Page="87" Name="Candle" />
+      <Billboard Number="39" Page="88" Walk="true" Name="Yellow key" />
+      <Billboard Number="40" Page="89" Walk="true" Name="Blue key" />
+      <Billboard Number="41" Page="90" Walk="true" Name="Feed carrying bag" />
+      <Billboard Number="42" Page="91" Name="Feed trough" />
+      <Billboard Number="43" Page="92" Walk="true" Name="Small band-aid" />
+      <Billboard Number="44" Page="93" Walk="true" Name="Large band-aid" />
+      <Billboard Number="45" Page="94" Walk="true" Name="Feed" />
+      <Billboard Number="46" Page="95" Walk="true" Name="Slingshot 2" />
+      <Billboard Number="47" Page="96" Walk="true" Name="Slingshot 3" />
+      <Billboard Number="48" Page="97" Walk="true" Name="Banana" />
+      <Billboard Number="49" Page="98" Walk="true" Name="Red apple" />
+      <Billboard Number="50" Page="99" Walk="true" Name="Grapes" />
+      <Billboard Number="51" Page="100" Walk="true" Name="Peach" />
+      <Billboard Number="52" Page="101" Walk="true" Name="One Up/Extra Life" />
+      <Billboard Number="53" Page="102" Name="Cage" />
+      <Billboard Number="54" Page="103" Name="Column 2" />
+      <Billboard Number="55" Page="104" Walk="true" Name="Slingshot 4" />
+      <Billboard Number="56" Page="105" Walk="true" Name="Cantaloupe" />
+      <Billboard Number="57" Page="106" Walk="true" Name="Slingshot 5" />
+      <Billboard Number="58" Page="107" Walk="true" Name="Watermelons" />
+      <Billboard Number="59" Page="108" Walk="true" Name="Map" />
+      <Pushwall Number="98" Name="Secret Door" />
+      <!-- 99 is "Secret Door Path" -->
+      <Trigger Number="100" Name="Next level trigger" />
+      <Trigger Number="101" Name="Secret level trigger" />
+      <!--
+108=10,158,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
+109=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
+110=10,241,000C00000C0C000C000C00CCCCC00C000C00C000C00C000C0,Antelope
+111=10,161,0088800080008008000000800000080088008000800088800,Billy goat
+112=10,281,0777700070007007000700777700070007007000700777700,Bull
+113=B1,322,00000000E000E000EEE000EEEEE000EEE000E000E00000000,Boss: Carl Camel
+114=B1,357,0000000060006000666000666660006660006000600000000,Boss: Melvin Monkey
+115=B1,332,00000000C000C000CCC000CCCCC000CCC000C000C00000000,Boss: Ginny Giraffe
+118=B1,383,00000000F000F000FFF000FFFFF000FFF000F000F00000000,Boss: Burt Bear
+126=10,121,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
+127=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
+128=10,241,000C00000C0C000C000C00CCCCC00C000C00C000C00C000C0,Antelope
+129=10,161,0088800080008008000000800000080088008000800088800,Billy goat
+130=10,281,0777700070007007000700777700070007007000700777700,Bull
+131=B1,322,00000000E000E000EEE000EEEEE000EEE000E000E00000000,Boss: Carl Camel
+134=B1,343,0000000030003000333000333330003330003000300000000,Boss: Kerry Kangaroo
+135=B1,366,0000000070007000777000777770007770007000700000000,Boss: Ernie Elephant  
+    -->
+    </Objects>
   </VSwap>
   <Palette>
     JASC-PAL

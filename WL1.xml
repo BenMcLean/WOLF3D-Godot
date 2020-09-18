@@ -1001,10 +1001,10 @@
     <Sprite Page="106" Name="Demo" />
     <Sprite Page="107" Name="DeathCam" />
     <Objects>
-      <Start Number="19" Walk="true" Direction="E" Name="Start" />
-      <Start Number="20" Walk="true" Direction="N" Name="Start" />
-      <Start Number="21" Walk="true" Direction="W" Name="Start" />
-      <Start Number="22" Walk="true" Direction="S" Name="Start" />
+      <Start Number="19" Direction="E" Name="Start" />
+      <Start Number="20" Direction="N" Name="Start" />
+      <Start Number="21" Direction="W" Name="Start" />
+      <Start Number="22" Direction="S" Name="Start" />
       <Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
       <Billboard Number="24" Page="109" Name="Oil Drum" />
       <Billboard Number="25" Page="110" Name="Table with Chairs" />
@@ -1068,8 +1068,8 @@
       <Turn Number="95" Direction="SW" Name="Turn SW" />
       <Turn Number="96" Direction="S" Name="Turn S" />
       <Turn Number="97" Direction="SE" Name="Turn SE" />
-      <Pushwall Number="98" Walk="true" DigiSound="PUSHWALLSND" Name="Secret Door" />
-      <Trigger Number="99" Walk="true" Name="End Game Trigger" />
+      <Pushwall Number="98" DigiSound="PUSHWALLSND" Name="Secret Door" />
+      <Trigger Number="99" Name="End Game Trigger" />
       <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
       <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="s_grdstand" />
       <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="s_grdstand" />
