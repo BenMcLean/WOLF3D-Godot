@@ -172,12 +172,15 @@ namespace WOLF3D.WOLF3DGame.Action
                 && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
                 && SoundBlaster.Song != song)
                 SoundBlaster.Song = song;
+            if (Main.Pancake)
+                Input.SetMouseMode(Input.MouseMode.Captured);
         }
 
         public override void Exit()
         {
             base.Exit();
             Main.NextLevelStats = Main.StatusBar.NextLevelStats();
+            Input.SetMouseMode(Input.MouseMode.Visible);
         }
 
         public bool Pickup(Pickup pickup)
