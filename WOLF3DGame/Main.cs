@@ -107,6 +107,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public override void _Ready()
 		{
+			Input.SetMouseMode(Input.MouseMode.Hidden);
 			Platform = OS.GetName().Equals("Android", StringComparison.InvariantCultureIgnoreCase) ?
 				PlatformEnum.ANDROID
 				: PlatformEnum.PC;

@@ -180,7 +180,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             base.Exit();
             Main.NextLevelStats = Main.StatusBar.NextLevelStats();
-            Input.SetMouseMode(Input.MouseMode.Visible);
+            Input.SetMouseMode(Input.MouseMode.Hidden);
         }
 
         public bool Pickup(Pickup pickup)
