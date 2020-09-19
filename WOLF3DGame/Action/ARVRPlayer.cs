@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -7,15 +8,26 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public ARVROrigin ARVROrigin { get; set; }
         public FadeCamera ARVRCamera { get; set; }
-        public ARVRController LeftController { get; set; }
-        public ARVRController RightController { get; set; }
+        public FadeCameraPancake PancakeCamera { get; set; }
+        public ARVRController LeftController { get; set; } = null;
+        public ARVRController RightController { get; set; } = null;
         public ARVRController Controller(bool left) => left ? LeftController : RightController;
         public ARVRController Controller(int which) => Controller(which == 0);
+        public IEnumerable<ARVRController> Controllers()
+        {
+            if (LeftController != null) yield return LeftController;
+            if (RightController != null) yield return RightController;
+        }
         public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 
         public ARVRPlayer()
         {
             Name = "ARVRPlayer";
+            if (Main.Pancake)
+                AddChild(PancakeCamera = new FadeCameraPancake()
+                {
+                    Current = Main.Pancake,
+                });
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {
@@ -27,7 +39,7 @@ namespace WOLF3D.WOLF3DGame.Action
             });
             ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
-                Current = true,
+                Current = Main.VR,
             });
 
             /*
@@ -146,7 +158,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Input.IsKeyPressed((int)KeyList.Right))
                 axis0 -= 1;
             if (Mathf.Abs(axis0) > float.Epsilon)
-                Rotate(Godot.Vector3.Up, Mathf.Pi * delta * axis0);
+                Rotate(Vector3.Up, Mathf.Pi * delta * axis0);
             #endregion Walking
 
             #region Shooting
@@ -230,8 +242,26 @@ namespace WOLF3D.WOLF3DGame.Action
 
         private readonly Godot.Collections.Array exclude = new Godot.Collections.Array();
 
+        public override void _Input(InputEvent @event)
+        {
+            base._Input(@event);
+            if (Main.Pancake && @event is InputEventMouseMotion motion)
+            {
+                float x = PancakeCamera.Transform.basis.GetEuler().x - motion.Relative.y * Settings.MouseYSensitivity / 180f;
+                if (x > Mathf.Pi)
+                    x = Mathf.Pi;
+                else if (x < -Mathf.Pi)
+                    x = -Mathf.Pi;
+                PancakeCamera.Transform = new Transform(new Basis(Vector3.Right,
+                    x
+                    ), new Vector3(0f, Assets.HalfWallWidth, 0f));
+                Rotate(Vector3.Up, Transform.basis.GetEuler().z - motion.Relative.x * Settings.MouseYSensitivity / 180f);
+            }
+        }
+
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
+        public bool Clicking { get; set; } = false;
 
         public float Height => Settings.Roomscale ?
             0f
@@ -281,6 +311,12 @@ namespace WOLF3D.WOLF3DGame.Action
             && floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
             (ushort)(floorCode - Assets.FloorCodeFirst)
             : (ushort?)null;
+
+        public void Enter()
+        {
+            if (Main.Pancake)
+                PancakeCamera.Current = true;
+        }
 
         public Vector2 GlobalPosition
         {

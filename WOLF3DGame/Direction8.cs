@@ -196,24 +196,26 @@ namespace WOLF3D.WOLF3DGame
         public static Direction8 FromAngle(Transform transform) => FromAngle(transform.basis);
         public static Direction8 FromAngle(Basis basis) => FromAngle(basis.GetEuler().y);
         public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
+        private static readonly float[] positiveAngles = new float[8] { Mathf.Tau / 16f, Mathf.Tau * 3f / 16f, Mathf.Tau * 5f / 16f, Mathf.Tau * 7f / 16f, Mathf.Tau * 9f / 16f, Mathf.Tau * 11f / 16f, Mathf.Tau * 13f / 16f, Mathf.Tau * 15f / 16f };
         public static Direction8 PositiveAngle(float angle) =>
-            angle < Mathf.Tau / 16f ? SOUTH
-            : angle < Mathf.Tau * 3f / 16f ? SOUTHWEST
-            : angle < Mathf.Tau * 5f / 16f ? WEST
-            : angle < Mathf.Tau * 7f / 16f ? NORTHWEST
-            : angle < Mathf.Tau * 9f / 16f ? NORTH
-            : angle < Mathf.Tau * 11f / 16f ? NORTHEAST
-            : angle < Mathf.Tau * 13f / 16f ? EAST
-            : angle < Mathf.Tau * 15f / 16f ? SOUTHEAST
+            angle < positiveAngles[0] ? SOUTH
+            : angle < positiveAngles[1] ? SOUTHWEST
+            : angle < positiveAngles[2] ? WEST
+            : angle < positiveAngles[3] ? NORTHWEST
+            : angle < positiveAngles[4] ? NORTH
+            : angle < positiveAngles[5] ? NORTHEAST
+            : angle < positiveAngles[6] ? EAST
+            : angle < positiveAngles[7] ? SOUTHEAST
             : SOUTH;
         public static Direction8 CardinalFromAngle(Transform transform) => CardinalFromAngle(transform.basis);
         public static Direction8 CardinalFromAngle(Basis basis) => CardinalFromAngle(basis.GetEuler().y);
         public static Direction8 CardinalFromAngle(float angle) => CardinalPositiveAngle(angle + Mathf.Pi);
+        private static readonly float[] cardinalPositiveAngles = new float[4] { Mathf.Tau / 8f, Mathf.Tau * 3f / 8f, Mathf.Tau * 5f / 8f, Mathf.Tau * 7f / 8f };
         public static Direction8 CardinalPositiveAngle(float angle) =>
-            angle < Mathf.Tau / 8f ? SOUTH
-            : angle < Mathf.Tau * 3f / 8f ? WEST
-            : angle < Mathf.Tau * 5f / 8f ? NORTH
-            : angle < Mathf.Tau * 7f / 8f ? EAST
+            angle < cardinalPositiveAngles[0] ? SOUTH
+            : angle < cardinalPositiveAngles[1] ? WEST
+            : angle < cardinalPositiveAngles[2] ? NORTH
+            : angle < cardinalPositiveAngles[3] ? EAST
             : SOUTH;
         public static Direction8 From(XAttribute xAttribute) => From(xAttribute.Value);
         public static Direction8 From(string @string) =>

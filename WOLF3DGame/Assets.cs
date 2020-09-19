@@ -75,6 +75,7 @@ namespace WOLF3D.WOLF3DGame
         public const float RunSpeed = 27.34714368f;
         public const float WalkSpeed = 13.67357184f;
         public const float DeadZone = 0.5f;
+        public const float HalfPi = Mathf.Pi / 2f;
 
         public static readonly QuadMesh WallMesh = new QuadMesh()
         {

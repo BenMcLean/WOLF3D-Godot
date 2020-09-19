@@ -71,6 +71,8 @@
     <Compile Include="WOLF3DGame\Action\PushWall.cs" />
     <Compile Include="WOLF3DGame\Action\State.cs" />
     <Compile Include="WOLF3DGame\Action\Target3D.cs" />
+    <Compile Include="WOLF3DGame\FadeCameraPancake.cs" />
+    <Compile Include="WOLF3DGame\IFadeCamera.cs" />
     <Compile Include="WOLF3DGame\StatusBar.cs" />
     <Compile Include="WOLF3DGame\StatusNumber.cs" />
     <Compile Include="WOLF3DGame\Action\SymmetricMatrix.cs" />

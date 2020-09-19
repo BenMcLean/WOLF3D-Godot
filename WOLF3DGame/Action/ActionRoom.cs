@@ -71,9 +71,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Ready()
         {
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
-
-            //SoundBlaster.Adl = Assets.AudioT.Sounds[31];
-            //PlayASound();
             ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 
             AddChild(Line3D = new Line3D()
@@ -174,6 +171,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 SoundBlaster.Song = song;
             if (Main.Pancake)
                 Input.SetMouseMode(Input.MouseMode.Captured);
+            ARVRPlayer.Enter();
         }
 
         public override void Exit()

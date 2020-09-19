@@ -110,6 +110,8 @@ namespace WOLF3D.WOLF3DGame
             if (Enum.TryParse(m.ToUpperInvariant(), out MusicEnum newM))
                 Music = newM;
         }
+        public static float MouseXSensitivity = 0.4f;
+        public static float MouseYSensitivity = 0.4f;
         #endregion
 
         public static string XML()
