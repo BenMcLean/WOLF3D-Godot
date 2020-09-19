@@ -154,41 +154,41 @@
   </VgaGraph>
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
     <!-- e1 -->
-    <Map Number="0" Floor="212" Ceiling="220" Border="218" Par="00:30" />
-    <Map Number="1" Floor="212" Ceiling="220" Border="218" Par="01:00" />
-    <Map Number="2" Floor="212" Ceiling="220" Border="218" Par="01:00" />
+    <Map Number="0" Ground="212" Ceiling="220" Border="218" Par="00:30" />
+    <Map Number="1" Ground="212" Ceiling="220" Border="218" Par="01:00" />
+    <Map Number="2" Ground="212" Ceiling="220" Border="218" Par="01:00" />
     <!-- e2 -->
-    <Map Number="3" Floor="212" Ceiling="220" Border="218" Par="02:00" />
-    <Map Number="4" Floor="212" Ceiling="220" Border="218" Par="01:45" />
-    <Map Number="5" Floor="212" Ceiling="220" Border="218" Par="01:30" />
-    <Map Number="6" Floor="212" Ceiling="220" Border="218" Par="01:45" />
+    <Map Number="3" Ground="212" Ceiling="220" Border="218" Par="02:00" />
+    <Map Number="4" Ground="212" Ceiling="220" Border="218" Par="01:45" />
+    <Map Number="5" Ground="212" Ceiling="220" Border="218" Par="01:30" />
+    <Map Number="6" Ground="212" Ceiling="220" Border="218" Par="01:45" />
     <!-- e3 -->
-    <Map Number="7" Floor="212" Ceiling="220" Border="218" Par="02:45" />
-    <Map Number="8" Floor="212" Ceiling="220" Border="218" Par="02:00" />
-    <Map Number="9" Floor="212" Ceiling="220" Border="218" Par="02:15" />
-    <Map Number="10" Floor="212" Ceiling="220" Border="218" Par="01:00" />
-    <Map Number="11" Floor="212" Ceiling="220" Border="218" Par="02:00" />
+    <Map Number="7" Ground="212" Ceiling="220" Border="218" Par="02:45" />
+    <Map Number="8" Ground="212" Ceiling="220" Border="218" Par="02:00" />
+    <Map Number="9" Ground="212" Ceiling="220" Border="218" Par="02:15" />
+    <Map Number="10" Ground="212" Ceiling="220" Border="218" Par="01:00" />
+    <Map Number="11" Ground="212" Ceiling="220" Border="218" Par="02:00" />
     <!-- e4 -->
-    <Map Number="12" Floor="212" Ceiling="220" Border="218" Par="03:30" />
-    <Map Number="13" Floor="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="14" Floor="212" Ceiling="220" Border="218" Par="04:00" />
-    <Map Number="15" Floor="212" Ceiling="220" Border="218" Par="02:15" />
-    <Map Number="16" Floor="212" Ceiling="220" Border="218" Par="03:30" />
+    <Map Number="12" Ground="212" Ceiling="220" Border="218" Par="03:30" />
+    <Map Number="13" Ground="212" Ceiling="220" Border="218" Par="02:30" />
+    <Map Number="14" Ground="212" Ceiling="220" Border="218" Par="04:00" />
+    <Map Number="15" Ground="212" Ceiling="220" Border="218" Par="02:15" />
+    <Map Number="16" Ground="212" Ceiling="220" Border="218" Par="03:30" />
     <!-- e5 -->
-    <Map Number="17" Floor="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="18" Floor="212" Ceiling="220" Border="218" Par="02:45" />
-    <Map Number="19" Floor="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="20" Floor="212" Ceiling="220" Border="218" Par="03:30" />
-    <Map Number="21" Floor="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="22" Floor="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="17" Ground="212" Ceiling="220" Border="218" Par="02:30" />
+    <Map Number="18" Ground="212" Ceiling="220" Border="218" Par="02:45" />
+    <Map Number="19" Ground="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="20" Ground="212" Ceiling="220" Border="218" Par="03:30" />
+    <Map Number="21" Ground="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="22" Ground="212" Ceiling="220" Border="218" Par="03:00" />
     <!-- e6 -->
-    <Map Number="23" Floor="212" Ceiling="220" Border="218" Par="01:45" />
-    <Map Number="24" Floor="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="25" Floor="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="26" Floor="212" Ceiling="220" Border="218" Par="01:30" />
-    <Map Number="27" Floor="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="28" Floor="212" Ceiling="220" Border="218" Par="03:11" />
-    <Map Number="29" Floor="212" Ceiling="220" Border="218" Par="02:30" />
+    <Map Number="23" Ground="212" Ceiling="220" Border="218" Par="01:45" />
+    <Map Number="24" Ground="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="25" Ground="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="26" Ground="212" Ceiling="220" Border="218" Par="01:30" />
+    <Map Number="27" Ground="212" Ceiling="220" Border="218" Par="02:30" />
+    <Map Number="28" Ground="212" Ceiling="220" Border="218" Par="03:11" />
+    <Map Number="29" Ground="212" Ceiling="220" Border="218" Par="02:30" />
   </Maps>
   <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
     <Sound Number="0" Name="D_ANTLPESND" />

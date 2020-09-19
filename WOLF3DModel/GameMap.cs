@@ -18,8 +18,8 @@ namespace WOLF3DModel
             foreach (XElement xMap in xml.Element("Maps").Elements("Map"))
                 if (ushort.TryParse(xMap.Attribute("Number")?.Value, out ushort map) && map < maps.Length)
                 {
-                    if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
-                        maps[map].Floor = floor;
+                    if (byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground))
+                        maps[map].Ground = ground;
                     if (byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling))
                         maps[map].Ceiling = ceiling;
                     if (byte.TryParse(xMap.Attribute("Border")?.Value, out byte border))
@@ -40,7 +40,7 @@ namespace WOLF3DModel
         public ushort[] ObjectData { get; set; }
         public ushort[] OtherData { get; set; }
         public byte Ceiling { get; set; }
-        public byte Floor { get; set; }
+        public byte Ground { get; set; }
         public byte Border { get; set; }
         public TimeSpan Par { get; set; }
         public string Song { get; set; }

@@ -826,16 +826,16 @@
     </StatusBar>
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
-    <Map Number="0" Floor="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
-    <Map Number="1" Floor="25" Ceiling="29" Border="127" Par="02:00" Song="SEARCHN_MUS" />
-    <Map Number="2" Floor="25" Ceiling="29" Border="127" Par="02:00" Song="POW_MUS" />
-    <Map Number="3" Floor="25" Ceiling="29" Border="127" Par="03:30" Song="SUSPENSE_MUS" />
-    <Map Number="4" Floor="25" Ceiling="29" Border="127" Par="03:00" Song="GETTHEM_MUS" />
-    <Map Number="5" Floor="25" Ceiling="29" Border="127" Par="03:00" Song="SEARCHN_MUS" />
-    <Map Number="6" Floor="25" Ceiling="29" Border="127" Par="02:30" Song="POW_MUS" />
-    <Map Number="7" Floor="25" Ceiling="29" Border="127" Par="02:30" Song="SUSPENSE_MUS" />
-    <Map Number="8" Floor="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
-    <Map Number="9" Floor="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="1" />
+    <Map Number="0" Ground="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
+    <Map Number="1" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="SEARCHN_MUS" />
+    <Map Number="2" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="POW_MUS" />
+    <Map Number="3" Ground="25" Ceiling="29" Border="127" Par="03:30" Song="SUSPENSE_MUS" />
+    <Map Number="4" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="GETTHEM_MUS" />
+    <Map Number="5" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="SEARCHN_MUS" />
+    <Map Number="6" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="POW_MUS" />
+    <Map Number="7" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="SUSPENSE_MUS" />
+    <Map Number="8" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
+    <Map Number="9" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="1" />
   </Maps>
   <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />

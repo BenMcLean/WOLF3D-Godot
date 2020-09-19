@@ -52,7 +52,7 @@ namespace WOLF3DTest
             for (int i = 0; i < maps.Length; i++)
                 Console.WriteLine(
                     "\"" + maps[i].Name + "\" " +
-                    "Floor: " + maps[i].Floor +
+                    "Floor: " + maps[i].Ground +
                     ", Ceiling: " + maps[i].Ceiling +
                     ", Border: " + maps[i].Border
                     );
