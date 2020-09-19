@@ -142,14 +142,14 @@
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-      <Number Name="Floor" X="24" Y="16" Init="1" />
-      <!--
-      <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
-      <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
-      <Face X="134" Y="5" />
-      <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
-      <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
-      -->
+      <Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
+      <Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
+      <Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
+      <Number Name="Lives" X="126" Y="16" Digits="2" Init="3" />
+      <Face X="152" Y="4" />
+      <Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
+      <Number Name="Feed" X="240" Y="16" Digits="2" Init="7" />
+      <Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
     </StatusBar>
   </VgaGraph>
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
@@ -326,7 +326,7 @@
       <Wall Number="76" Page="22" DarkSide="23" Name="Broken kennel" />
       <Wall Number="77" Page="24" DarkSide="25" Name="Wooden panel" />
       <Wall Number="78" Page="26" DarkSide="27" Name="Large cabinet" />
-      <Elevator Number="79" Page="28" DarkSide="29" Direction="W" Action="Menu" Argument="FloorComplete" Name="EW=Stairs/NS=Brick" />
+      <Elevator Number="79" Page="28" DarkSide="29" Direction="W" Action="NextFloor" Name="EW=Stairs/NS=Brick" />
       <Wall Number="80" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
       <Wall Number="81" Page="32" DarkSide="33" Name="Entry panel" />
       <Wall Number="82" Page="34" DarkSide="35" Name="Naamah portrait" />

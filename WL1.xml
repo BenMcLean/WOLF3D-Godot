@@ -808,6 +808,7 @@
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+      <Number Name="Episode" Init="1" />
       <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
       <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
       <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
