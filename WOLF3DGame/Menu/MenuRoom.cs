@@ -44,12 +44,15 @@ namespace WOLF3D.WOLF3DGame.Menu
             {
                 ControllerId = 2,
             });
-            Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            LeftController.AddChild(controller);
-            controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            RightController.AddChild(controller);
+            if (Main.VR)
+            {
+                Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
+                controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+                LeftController.AddChild(controller);
+                controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
+                controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+                RightController.AddChild(controller);
+            }
             ActiveController = RightController;
             AddChild(Body = new MenuBody(menuScreen)
             {
@@ -92,26 +95,29 @@ namespace WOLF3D.WOLF3DGame.Menu
                     )
                 );
 
-                Godot.Collections.Dictionary CastRay(ARVRController controller) => GetWorld()
-                    .DirectSpaceState.IntersectRay(
-                        controller.GlobalTransform.origin,
-                        controller.GlobalTransform.origin + ARVRPlayer.ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange
-                    );
-                if (CastRay(ActiveController) is Godot.Collections.Dictionary result &&
-                    result.Count > 0 &&
-                    result["position"] is Vector3 position &&
-                    position != null)
-                    Body.Target(position);
-                else if ((CastRay(InactiveController) is Godot.Collections.Dictionary result2 &&
-                    result2.Count > 0 &&
-                    result2["position"] is Vector3 position2 &&
-                    position2 != null))
+                if (Main.VR)
                 {
-                    ActiveController = InactiveController;
-                    Body.Target(position2);
+                    Godot.Collections.Dictionary CastRay(ARVRController controller) => GetWorld()
+                        .DirectSpaceState.IntersectRay(
+                            controller.GlobalTransform.origin,
+                            controller.GlobalTransform.origin + ARVRPlayer.ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange
+                        );
+                    if (CastRay(ActiveController) is Godot.Collections.Dictionary result &&
+                        result.Count > 0 &&
+                        result["position"] is Vector3 position &&
+                        position != null)
+                        Body.Target(position);
+                    else if ((CastRay(InactiveController) is Godot.Collections.Dictionary result2 &&
+                        result2.Count > 0 &&
+                        result2["position"] is Vector3 position2 &&
+                        position2 != null))
+                    {
+                        ActiveController = InactiveController;
+                        Body.Target(position2);
+                    }
+                    else
+                        Body.Target();
                 }
-                else
-                    Body.Target();
             }
         }
 

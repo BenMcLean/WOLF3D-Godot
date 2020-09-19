@@ -38,12 +38,15 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             Name = "ActionRoom";
             AddChild(ARVRPlayer = new ARVRPlayer());
-            Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            ARVRPlayer.LeftController.AddChild(controller);
-            controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
-            controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
-            ARVRPlayer.RightController.AddChild(controller);
+            if (Main.VR)
+            {
+                Spatial controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Left.gltf").Instance();
+                controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+                ARVRPlayer.LeftController.AddChild(controller);
+                controller = (Spatial)GD.Load<PackedScene>("res://OQ_Toolkit/OQ_ARVRController/models3d/OculusQuestTouchController_Right.gltf").Instance();
+                controller.Rotate(controller.Transform.basis.x.Normalized(), -Mathf.Pi / 4f);
+                ARVRPlayer.RightController.AddChild(controller);
+            }
             ARVRCamera.AddChild(new MeshInstance()
             {
                 Name = "StatusBarTest",

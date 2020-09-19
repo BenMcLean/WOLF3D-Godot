@@ -165,7 +165,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (!Main.Room.Paused)
                 for (int control = 0; control < 2; control++)
                 {
-                    ARVRController controller = Controller(control);
+                    Spatial controller = Main.VR ? Controller(control) : (Spatial)PancakeCamera;
                     exclude.Clear();
                     while (true)
                     { // Shooting while loop
@@ -272,7 +272,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public Vector2 ARVRCameraDirection => -Assets.Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
         public Vector2 ARVRCameraMovement => ARVRCameraPosition - Assets.Vector2(GlobalTransform.origin);
 
-        public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -Mathf.Pi * 3f / 16f).Normalized();
+        public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -(Main.VR && Main.PC ? Mathf.Pi * 3f / 16f : 0f)).Normalized();
         public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
         public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
 
