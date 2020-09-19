@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
-using WOLF3D.WOLF3DGame.OPL;
+using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -12,8 +12,8 @@ namespace WOLF3D.WOLF3DGame.Menu
         public ARVRController ActiveController { get; set; }
         public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
 
-        public static byte Episode { get; set; } = 0;
-        public static byte Difficulty { get; set; } = 0;
+        public static byte Episode { get; set; } = 1;
+        public static byte Difficulty { get; set; } = 1;
 
         public MenuBody Body { get; set; }
         public MenuScreen Menu
@@ -194,10 +194,6 @@ namespace WOLF3D.WOLF3DGame.Menu
         {
             if (xml == null || !Main.InGameMatch(xml))
                 return this;
-            if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
-                Episode = episode;
-            if (byte.TryParse(xml.Attribute("Difficulty")?.Value, out byte difficulty))
-                Difficulty = difficulty;
             if (xml.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
                 Settings.SetVrMode(vrMode);
             if (xml.Attribute("FX")?.Value is string fx && !string.IsNullOrWhiteSpace(fx))
@@ -222,21 +218,17 @@ namespace WOLF3D.WOLF3DGame.Menu
                 MenuScreen.Update();
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
-                Settings.Episode = Episode;
-                Settings.Difficulty = Difficulty;
                 Main.NextLevelStats = null;
                 Main.StatusBar = new StatusBar();
-                ChangeRoom(new LoadingRoom(0));
+                Main.StatusBar["Difficulty"].Value = Difficulty;
+                ChangeRoom(new LoadingRoom((GameMap)Assets.GetMap(Episode, 1)));
             }
             if (xml.Attribute("Action")?.Value.Equals("NextFloor", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                ChangeRoom(new LoadingRoom((ushort)(
+                ChangeRoom(new LoadingRoom((GameMap)(
                         Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == LastPushedTile)?.FirstOrDefault() is XElement over
-                            && ushort.TryParse(over.Attribute("Floor")?.Value, out ushort floor) ?
-                            floor
-                            : Assets.XML?.Element("Maps")?.Elements("Map")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == Main.ActionRoom.Map.Number).FirstOrDefault() is XElement map
-                            && ushort.TryParse(map.Attribute("ElevatorTo")?.Value, out ushort elevatorTo) ?
-                            elevatorTo
-                            : Main.StatusBar["Floor"].Value
+                            && byte.TryParse(over.Attribute("Floor")?.Value, out byte floor) ?
+                            Assets.GetMap(Main.ActionRoom.Level.Map.Episode, floor)
+                            : Assets.NextMap(Main.ActionRoom.Level.Map)
                         )));
             if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {

@@ -1,5 +1,4 @@
 ﻿using Godot;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -123,30 +122,6 @@ namespace WOLF3D.WOLF3DGame.Action
                     actor.ArrayIndex = Actors.Add(actor);
             }
         }
-
-        public bool Start(out ushort index, out Direction8 direction)
-        {
-            foreach (XElement start in Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
-            {
-                if (!ushort.TryParse(start.Attribute("Number")?.Value, out ushort find))
-                    continue;
-                int found = Array.FindIndex(Map.ObjectData, o => o == find);
-                if (found > -1)
-                {
-                    index = (ushort)found;
-                    direction = Direction8.From(start.Attribute("Direction"));
-                    return true;
-                }
-            }
-            index = 0;
-            direction = null;
-            return false;
-        }
-
-        public Transform StartTransform =>
-            Start(out ushort index, out Direction8 direction) ?
-            new Transform(direction.Basis, new Vector3(Assets.CenterSquare(Map.X(index)), 0f, Assets.CenterSquare(Map.Z(index))))
-            : throw new InvalidDataException("Could not find start of level!");
         #endregion Loading
 
         #region Doors

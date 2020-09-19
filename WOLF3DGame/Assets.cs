@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -481,6 +482,36 @@ namespace WOLF3D.WOLF3DGame
                     .Where(e => (uint)e.Attribute("Number") == objectData).FirstOrDefault() is XElement mapObject)
                 || mapObject.IsTrue("Walk")
             );
+
+        public static GameMap? NextMap(GameMap previous) =>
+            GetMap(
+                previous.Episode,
+                byte.TryParse(XML.Element("Maps")?.Elements("Map").Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == previous.Number)?.FirstOrDefault()?.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ?
+                elevatorTo
+                : (byte)(previous.Floor + 1)
+                );
+        public static GameMap? GetMap(byte episode, byte floor) => Maps.Where(e => e.Episode == episode && e.Floor == floor).FirstOrDefault();
+
+        public static bool Start(GameMap map, out ushort index, out Direction8 direction)
+        {
+            foreach (XElement start in XML?.Element("VSwap")?.Elements("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())
+                if (ushort.TryParse(start.Attribute("Number")?.Value, out ushort find)
+                    && Array.FindIndex(map.ObjectData, o => o == find) is int found
+                    && found > -1)
+                {
+                    index = (ushort)found;
+                    direction = Direction8.From(start.Attribute("Direction"));
+                    return true;
+                }
+            index = 0;
+            direction = null;
+            return false;
+        }
+
+        public static Transform StartTransform(GameMap map) =>
+            Start(map, out ushort index, out Direction8 direction) ?
+            new Transform(direction.Basis, new Vector3(CenterSquare(map.X(index)), 0f, CenterSquare(map.Z(index))))
+            : throw new InvalidDataException("Could not find start of \"" + map.Name + "\"!");
         #endregion Game assets
     }
 }

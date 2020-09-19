@@ -8,15 +8,11 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class LoadingRoom : Room
     {
-        public LoadingRoom(ushort mapNumber = 0)
-            : this(mapNumber, Settings.Episode, Settings.Difficulty) { }
 
-        public LoadingRoom(ushort mapNumber, byte episode, byte difficulty)
+        public LoadingRoom(GameMap map)
         {
-            Name = "LoadingRoom for map " + mapNumber;
-            Episode = episode;
-            Difficulty = difficulty;
-            MapNumber = mapNumber;
+            Name = "LoadingRoom for map " + map.Number;
+            Map = map;
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
@@ -56,25 +52,25 @@ namespace WOLF3D.WOLF3DGame.Action
                 thread.Start();
             }
         }
-        public byte Difficulty { get; set; }
-        public byte Episode { get; set; }
-        public ushort MapNumber { get; set; }
+        public GameMap Map { get; set; }
 
         public void ThreadProc()
         {
-            Main.ActionRoom = new ActionRoom(MapNumber, Episode, Difficulty);
+            MenuRoom.LastPushedTile = 0;
             if (Main.NextLevelStats != null)
                 Main.StatusBar.Set(Main.NextLevelStats);
-            MenuRoom.LastPushedTile = 0;
+            Main.StatusBar["Episode"].Value = Map.Episode;
+            Main.StatusBar["Floor"].Value = Map.Floor;
+            Main.ActionRoom = new ActionRoom(Map);
             ChangeRoom(Main.ActionRoom);
         }
 
         public override void Enter()
         {
             base.Enter();
-            Main.StatusBar["Floor"].Value = MapNumber + 1u;
-            Main.Color = Assets.Palettes[0][Assets.Maps[MapNumber].Border];
-            if (Assets.Maps[MapNumber].Song is string songName
+            Main.StatusBar["Floor"].Value = Map.Floor;
+            Main.Color = Assets.Palettes[0][Map.Border];
+            if (Map.Song is string songName
                 && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
                 && SoundBlaster.Song != song)
                 SoundBlaster.Song = song;

@@ -34,7 +34,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public byte Episode { get; set; }
         public GameMap Map => Level.Map;
 
-        public ActionRoom(ushort mapNumber, ushort episode = 0, byte difficulty = 4)
+        public ActionRoom(GameMap map)
         {
             Name = "ActionRoom";
             AddChild(ARVRPlayer = new ARVRPlayer());
@@ -64,8 +64,8 @@ namespace WOLF3D.WOLF3DGame.Action
                 Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
             });
 
-            AddChild(Level = new Level(Assets.Maps[mapNumber], difficulty)); // TODO: Support multiple episodes!
-            ARVRPlayer.GlobalTransform = Level.StartTransform;
+            AddChild(Level = new Level(map));
+            ARVRPlayer.GlobalTransform = Assets.StartTransform(map);
         }
 
         public override void _Ready()
@@ -136,7 +136,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (buttonIndex == (int)JoystickList.OculusAx)
                 Print();
             if (buttonIndex == (int)JoystickList.OculusBy)
-                ChangeRoom(new LoadingRoom(NextMap));
+                ChangeRoom(new LoadingRoom((GameMap)Assets.NextMap(Level.Map)));
         }
 
         public void Print()

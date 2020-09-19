@@ -808,6 +808,7 @@
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+      <Number Name="Difficulty" Init="1" />
       <Number Name="Episode" Init="1" />
       <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
       <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
@@ -826,16 +827,16 @@
     </StatusBar>
   </VgaGraph>
   <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
-    <Map Number="0" Ground="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
-    <Map Number="1" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="SEARCHN_MUS" />
-    <Map Number="2" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="POW_MUS" />
-    <Map Number="3" Ground="25" Ceiling="29" Border="127" Par="03:30" Song="SUSPENSE_MUS" />
-    <Map Number="4" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="GETTHEM_MUS" />
-    <Map Number="5" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="SEARCHN_MUS" />
-    <Map Number="6" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="POW_MUS" />
-    <Map Number="7" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="SUSPENSE_MUS" />
-    <Map Number="8" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
-    <Map Number="9" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="1" />
+    <Map Number="0" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="01:30" Song="GETTHEM_MUS" />
+    <Map Number="1" Episode="1" Floor="2" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="SEARCHN_MUS" />
+    <Map Number="2" Episode="1" Floor="3" Ground="25" Ceiling="29" Border="127" Par="02:00" Song="POW_MUS" />
+    <Map Number="3" Episode="1" Floor="4" Ground="25" Ceiling="29" Border="127" Par="03:30" Song="SUSPENSE_MUS" />
+    <Map Number="4" Episode="1" Floor="5" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="GETTHEM_MUS" />
+    <Map Number="5" Episode="1" Floor="6" Ground="25" Ceiling="29" Border="127" Par="03:00" Song="SEARCHN_MUS" />
+    <Map Number="6" Episode="1" Floor="7" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="POW_MUS" />
+    <Map Number="7" Episode="1" Floor="8" Ground="25" Ceiling="29" Border="127" Par="02:30" Song="SUSPENSE_MUS" />
+    <Map Number="8" Episode="1" Floor="9" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
+    <Map Number="9" Episode="1" Floor="10" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="1" />
   </Maps>
   <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
     <Sound Number="0" Name="HITWALLSND" />

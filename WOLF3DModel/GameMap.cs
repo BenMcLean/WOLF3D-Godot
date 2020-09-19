@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3DModel
@@ -18,6 +17,10 @@ namespace WOLF3DModel
             foreach (XElement xMap in xml.Element("Maps").Elements("Map"))
                 if (ushort.TryParse(xMap.Attribute("Number")?.Value, out ushort map) && map < maps.Length)
                 {
+                    if (byte.TryParse(xMap.Attribute("Episode")?.Value, out byte episode))
+                        maps[map].Episode = episode;
+                    if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
+                        maps[map].Floor = floor;
                     if (byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground))
                         maps[map].Ground = ground;
                     if (byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling))
@@ -39,8 +42,10 @@ namespace WOLF3DModel
         public ushort[] MapData { get; set; }
         public ushort[] ObjectData { get; set; }
         public ushort[] OtherData { get; set; }
-        public byte Ceiling { get; set; }
+        public byte Episode { get; set; }
+        public byte Floor { get; set; }
         public byte Ground { get; set; }
+        public byte Ceiling { get; set; }
         public byte Border { get; set; }
         public TimeSpan Par { get; set; }
         public string Song { get; set; }
@@ -93,9 +98,6 @@ namespace WOLF3DModel
                     {
                         Width = gameMapsReader.ReadUInt16(),
                         Depth = gameMapsReader.ReadUInt16(),
-                        //Floor = 24,
-                        //Ceiling = 28,
-                        //Border = 126,
                     };
 
                     char[] name = new char[16];
