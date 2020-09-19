@@ -28,6 +28,13 @@ namespace WOLF3D.WOLF3DGame
 		public static bool Android => Platform == PlatformEnum.ANDROID;
 		public static bool PC => Platform == PlatformEnum.PC;
 
+		public static bool VR = false;
+		public static bool Pancake
+		{
+			get => !VR;
+			set => VR = !value;
+		}
+
 		/// <summary>
 		/// The WOLF3D root folder
 		/// </summary>
@@ -108,7 +115,7 @@ namespace WOLF3D.WOLF3DGame
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 			AddChild(WorldEnvironment);
 
-			if (ARVRInterface != null && ARVRInterface.Initialize())
+			if (VR = (ARVRInterface?.Initialize() ?? false))
 			{
 				GetViewport().Arvr = true;
 				OS.VsyncEnabled = false;

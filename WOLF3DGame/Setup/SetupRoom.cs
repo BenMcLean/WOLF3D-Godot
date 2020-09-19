@@ -72,7 +72,8 @@ namespace WOLF3D.WOLF3DGame.Setup
                 Transform = new Transform(Basis.Identity, Vector3.Forward * 3f),
             });
 
-            WriteLine("Platform detected: " + OS.GetName());
+            WriteLine("Platform detected: " + OS.GetName())
+                .WriteLine("VR mode: " + Main.VR);
         }
 
         public override void _Ready()
