@@ -19,6 +19,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (RightController != null) yield return RightController;
         }
         public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
+        public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallWidth, 0f);
 
         public ARVRPlayer()
         {
@@ -27,6 +28,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 AddChild(PancakeCamera = new FadeCameraPancake()
                 {
                     Current = Main.Pancake,
+                    Transform = new Transform(Basis.Identity, PancakeCameraOrigin),
                 });
             AddChild(ARVROrigin = new ARVROrigin());
             ARVROrigin.AddChild(LeftController = new ARVRController()
@@ -41,43 +43,6 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Current = Main.VR,
             });
-
-            /*
-            ARVROrigin.AddChild(new MeshInstance()
-            {
-                Mesh = new CubeMesh()
-                {
-                    Size = new Vector3(Assets.HeadXZ, Assets.HeadXZ, Assets.HeadXZ),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Color.Color8(255, 165, 0, 255), // Orange
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-            });
-            AddChild(new MeshInstance()
-            {
-                Mesh = new CubeMesh()
-                {
-                    Size = new Vector3(Assets.HeadXZ, Assets.HeadXZ, Assets.HeadXZ),
-                },
-                MaterialOverride = new SpatialMaterial()
-                {
-                    AlbedoColor = Color.Color8(255, 0, 255, 255), // Purple
-                    FlagsUnshaded = true,
-                    FlagsDoNotReceiveShadows = true,
-                    FlagsDisableAmbientLight = true,
-                    FlagsTransparent = false,
-                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                },
-            });
-            */
         }
 
         public static float Strength(float input) =>
@@ -245,17 +210,18 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
+            if (Main.Pancake && @event is InputEventMouseButton button)
+            {
+                if (button.ButtonIndex == (int)ButtonList.Left)
+                    GD.Print(PancakeCamera.Transform.basis.GetEuler().x);
+            }
             if (Main.Pancake && @event is InputEventMouseMotion motion)
             {
-                float x = PancakeCamera.Transform.basis.GetEuler().x - motion.Relative.y * Settings.MouseYSensitivity / 180f;
-                if (x > Mathf.Pi)
-                    x = Mathf.Pi;
-                else if (x < -Mathf.Pi)
-                    x = -Mathf.Pi;
-                PancakeCamera.Transform = new Transform(new Basis(Vector3.Right,
-                    x
-                    ), new Vector3(0f, Assets.HalfWallWidth, 0f));
-                Rotate(Vector3.Up, Transform.basis.GetEuler().z - motion.Relative.x * Settings.MouseYSensitivity / 180f);
+                float dx = motion.Relative.y * Settings.MouseYSensitivity / 180f,
+                    x = PancakeCamera.Transform.basis.GetEuler().x - dx;
+                if (x > -Assets.HalfPi && x < Assets.HalfPi)
+                    PancakeCamera.Rotate(Vector3.Left, dx);
+                Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
             }
         }
 
