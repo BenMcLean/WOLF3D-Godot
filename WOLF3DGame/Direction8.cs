@@ -19,8 +19,8 @@ namespace WOLF3D.WOLF3DGame
             Name = "West",
             X = 0,
             Z = 1,
-            Vector2 = Vector2.Down,
-            Vector3 = Vector3.Back,
+            //Vector2 = Vector2.Down,
+            //Vector3 = Vector3.Back,
         };
         public static readonly Direction8 NORTHWEST = new Direction8()
         {
@@ -29,8 +29,6 @@ namespace WOLF3D.WOLF3DGame
             Name = "Northwest",
             X = -1,
             Z = 1,
-            Vector2 = new Vector2(-1, 1).Normalized(),
-            Vector3 = new Vector3(-1, 0, 1).Normalized(),
         };
         public static readonly Direction8 NORTH = new Direction8()
         {
@@ -39,8 +37,8 @@ namespace WOLF3D.WOLF3DGame
             Name = "North",
             X = -1,
             Z = 0,
-            Vector2 = Vector2.Left,
-            Vector3 = Vector3.Left,
+            //Vector2 = Vector2.Left,
+            //Vector3 = Vector3.Left,
         };
         public static readonly Direction8 NORTHEAST = new Direction8()
         {
@@ -49,8 +47,6 @@ namespace WOLF3D.WOLF3DGame
             Name = "Northeast",
             X = -1,
             Z = -1,
-            Vector2 = new Vector2(-1, -1).Normalized(),
-            Vector3 = new Vector3(-1, 0, -1).Normalized(),
         };
         public static readonly Direction8 EAST = new Direction8()
         {
@@ -59,8 +55,8 @@ namespace WOLF3D.WOLF3DGame
             Name = "East",
             X = 0,
             Z = -1,
-            Vector2 = Vector2.Up,
-            Vector3 = Vector3.Forward,
+            //Vector2 = Vector2.Up,
+            //Vector3 = Vector3.Forward,
         };
         public static readonly Direction8 SOUTHEAST = new Direction8()
         {
@@ -69,8 +65,6 @@ namespace WOLF3D.WOLF3DGame
             Name = "Southeast",
             X = 1,
             Z = -1,
-            Vector2 = new Vector2(1, -1).Normalized(),
-            Vector3 = new Vector3(1, 0, -1).Normalized(),
         };
         public static readonly Direction8 SOUTH = new Direction8()
         {
@@ -79,8 +73,8 @@ namespace WOLF3D.WOLF3DGame
             Name = "South",
             X = 1,
             Z = 0,
-            Vector2 = Vector2.Right,
-            Vector3 = Vector3.Right,
+            //Vector2 = Vector2.Right,
+            //Vector3 = Vector3.Right,
         };
         public static readonly Direction8 SOUTHWEST = new Direction8()
         {
@@ -89,8 +83,6 @@ namespace WOLF3D.WOLF3DGame
             Name = "Southwest",
             X = 1,
             Z = 1,
-            Vector2 = new Vector2(1, 1).Normalized(),
-            Vector3 = new Vector3(1, 0, 1).Normalized(),
         };
         public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
         public static readonly ReadOnlyCollection<Direction8> Cardinals = Array.AsReadOnly(new Direction8[] { WEST, NORTH, EAST, SOUTH });
@@ -108,7 +100,11 @@ namespace WOLF3D.WOLF3DGame
         static Direction8()
         {
             foreach (Direction8 direction in Values)
+            {
+                direction.Vector2 = new Vector2(direction.X, direction.Z).Normalized();
+                direction.Vector3 = new Vector3(direction.X, 0f, direction.Z).Normalized();
                 direction.Angle = Mathf.Atan2(-direction.Z, -direction.X);
+            }
         }
         public static implicit operator ulong(Direction8 d) => d.Value;
         public static implicit operator long(Direction8 d) => d.Value;
