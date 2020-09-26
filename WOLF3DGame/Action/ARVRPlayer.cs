@@ -210,9 +210,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
-
             if (Main.Pancake)
-            {
                 if (@event is InputEventMouseButton button && button.IsPressed())
                 {
                     if (button.ButtonIndex == (int)ButtonList.Right)
@@ -221,7 +219,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
                             ));
                 }
-                if (@event is InputEventMouseMotion motion)
+                else if (@event is InputEventMouseMotion motion)
                 {
                     float dx = motion.Relative.y * Settings.MouseYSensitivity / 180f,
                         x = PancakeCamera.Transform.basis.GetEuler().x - dx;
@@ -229,7 +227,6 @@ namespace WOLF3D.WOLF3DGame.Action
                         PancakeCamera.Rotate(Vector3.Left, dx);
                     Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
                 }
-            }
         }
 
         public bool Shooting { get; set; } = false;
