@@ -32,7 +32,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                     CurrentNote = 0;
                     if (Opl != null)
                         if ((adl = value) != null)
-                            SetInstrument().PlayNote();
+                            SetInstrument();
                         else
                             Note = false;
                 }

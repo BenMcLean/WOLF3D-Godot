@@ -19,18 +19,18 @@ namespace WOLF3DModel
         /// <summary>
         /// The OPL register settings for the instrument
         /// </summary>
-        public byte[] Instrument = new byte[16];
+        public readonly byte[] Instrument = new byte[16];
 
         /// <summary>
         /// Octave to play notes at
         /// </summary>
-        public byte Octave;
+        public readonly byte Octave;
 
         /// <summary>
         /// Pitch data
         /// </summary>
-        public byte[] Notes;
-        public ushort Priority;
+        public readonly byte[] Notes;
+        public readonly ushort Priority;
         public Adl(Stream stream) : this(new BinaryReader(stream))
         { }
         public Adl(BinaryReader binaryReader)

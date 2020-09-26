@@ -16,30 +16,26 @@ namespace WOLF3DModel
         /// <summary>
         /// Sent to register port.
         /// </summary>
-        public byte Register { get; set; }
+        public readonly byte Register;
 
         /// <summary>
         /// Sent to data port.
         /// </summary>
-        public byte Data { get; set; }
+        public readonly byte Data;
 
         /// <summary>
         /// How much to wait.
         /// </summary>
-        public ushort Delay { get; set; }
+        public readonly ushort Delay;
+
+        public readonly float DelayFloat;
 
         public Imf(BinaryReader binaryReader)
         {
             Register = binaryReader.ReadByte();
             Data = binaryReader.ReadByte();
-            Delay = binaryReader.ReadUInt16();
+            DelayFloat = (Delay = binaryReader.ReadUInt16()) * Hz;
         }
-
-        /// <summary>
-        /// WOLF3D song notes happen at 700 hz.
-        /// </summary>
-        /// <param name="time">Delay value read from IMF</param>
-        public static float CalcDelay(ushort time) => time / 700f;
 
         /// <summary>
         /// Parsing IMF files based on http://www.shikadi.net/moddingwiki/IMF_Format

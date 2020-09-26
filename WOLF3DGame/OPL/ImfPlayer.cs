@@ -10,21 +10,12 @@ namespace WOLF3D.WOLF3DGame.OPL
     {
         public IOpl Opl { get; set; }
         public bool Loop { get; set; } = true;
-        public uint CurrentPacket
-        {
-            get => currentPacket;
-            set
-            {
-                currentPacket = value;
-                CalcDelay = Delay * Imf.Hz;
-            }
-        }
-        private uint currentPacket = 0;
-        public double CalcDelay { get; private set; } = 0d;
+        public uint CurrentPacket { get; set; }
         public Imf? Packet => Song != null && Song.IsImf && CurrentPacket < Song.Imf.Length ? Song.Imf[CurrentPacket] : (Imf?)null;
         public byte Register => Packet?.Register ?? 0;
         public byte Data => Packet?.Data ?? 0;
         public ushort Delay => Packet?.Delay ?? 0;
+        public float DelayFloat => Packet?.DelayFloat ?? 0f;
         public double TimeSinceLastPacket { get; private set; } = 0d;
 
         public AudioT.Song Song
@@ -39,10 +30,11 @@ namespace WOLF3D.WOLF3DGame.OPL
                 }
                 if (song != value)
                     song = value;
-                if (song == null) MusicOff();
+                if (song == null) Silence();
                 CurrentPacket = 0;
             }
         }
+
         private AudioT.Song song = null;
 
         public ImfPlayer PlayMilliseconds(long milliseconds) => PlaySeconds(milliseconds / 1000d);
@@ -54,9 +46,9 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (Song.IsImf)
             {
                 TimeSinceLastPacket += delta;
-                while (CurrentPacket < Song.Imf.Length && TimeSinceLastPacket >= CalcDelay)
+                while (CurrentPacket < Song.Imf.Length && TimeSinceLastPacket >= DelayFloat)
                 {
-                    TimeSinceLastPacket -= CalcDelay;
+                    TimeSinceLastPacket -= DelayFloat;
                     do
                     {
                         CurrentPacket++;
@@ -71,7 +63,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             return this;
         }
 
-        public ImfPlayer MusicOff()
+        public ImfPlayer Silence()
         {
             Opl?.WriteReg(189, 0);
             for (int i = 0; i < 10; i++)
