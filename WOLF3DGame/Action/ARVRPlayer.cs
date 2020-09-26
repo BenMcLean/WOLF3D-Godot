@@ -219,7 +219,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 float dx = motion.Relative.y * Settings.MouseYSensitivity / 180f,
                     x = PancakeCamera.Transform.basis.GetEuler().x - dx;
-                if (x > -Assets.HalfPi && x < Assets.HalfPi)
+                if (Mathf.Abs(x) < Assets.HalfPi)
                     PancakeCamera.Rotate(Vector3.Left, dx);
                 Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
             }

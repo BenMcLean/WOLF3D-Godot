@@ -104,6 +104,12 @@ namespace WOLF3D.WOLF3DGame
         public string ShortName { get; private set; }
         public Vector2 Vector2 { get; private set; }
         public Vector3 Vector3 { get; private set; }
+        public float Angle { get; private set; }
+        static Direction8()
+        {
+            foreach (Direction8 direction in Values)
+                direction.Angle = Mathf.Atan2(-direction.Z, -direction.X);
+        }
         public static implicit operator ulong(Direction8 d) => d.Value;
         public static implicit operator long(Direction8 d) => d.Value;
         public static implicit operator uint(Direction8 d) => d.Value;
@@ -176,22 +182,21 @@ namespace WOLF3D.WOLF3DGame
 
         public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
         public static Direction8 CardinalToPoint(float x1, float y1, float x2, float y2) => CardinalFromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
-        public float Angle => Mathf.Atan2(-Z, -X);
+
         public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
 
-        public static Direction8 FromAxis(Vector3.Axis axis)
-        {
-            switch (axis)
-            {
-                case Godot.Vector3.Axis.X:
-                    return SOUTH;
-                case Godot.Vector3.Axis.Y:
-                    return null;
-                case Godot.Vector3.Axis.Z:
-                default:
-                    return WEST;
-            }
-        }
+        public bool InSight(Vector3 a, Vector3 b, float halfFOV = Assets.HalfPi) => InSight(a.x, a.z, b.x, b.z, halfFOV);
+        public bool InSight(Vector2 a, Vector2 b, float halfFOV = Assets.HalfPi) => InSight(a.x, a.y, b.x, b.y, halfFOV);
+        public bool InSight(float x1, float y1, float x2, float y2, float halfFOV = Assets.HalfPi) => InSight(Mathf.Atan2(y1 - y2, x1 - x2), halfFOV);
+        public bool InSight(float angle, float halfFOV = Assets.HalfPi) =>
+            Mathf.Abs(angle - Angle) % Mathf.Tau < halfFOV;
+
+        public static Direction8 FromAxis(Vector3.Axis? axis) =>
+            axis == Godot.Vector3.Axis.X ?
+            SOUTH
+            : axis == Godot.Vector3.Axis.Z ?
+            WEST
+            : null;
 
         public static Direction8 FromAngle(Transform transform) => FromAngle(transform.basis);
         public static Direction8 FromAngle(Basis basis) => FromAngle(basis.GetEuler().y);
@@ -217,7 +222,7 @@ namespace WOLF3D.WOLF3DGame
             : angle < cardinalPositiveAngles[2] ? NORTH
             : angle < cardinalPositiveAngles[3] ? EAST
             : SOUTH;
-        public static Direction8 From(XAttribute xAttribute) => From(xAttribute.Value);
+        public static Direction8 From(XAttribute xAttribute) => From(xAttribute?.Value);
         public static Direction8 From(string @string) =>
             int.TryParse(@string, out int result) ?
                 From(result)
