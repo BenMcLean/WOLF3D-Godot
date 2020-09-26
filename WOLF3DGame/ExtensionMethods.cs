@@ -13,6 +13,6 @@ namespace WOLF3D.WOLF3DGame
         public static bool IsTrue(this XElement xElement, string attribute) =>
             bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
         public static bool IsFalse(this XElement xElement, string attribute) =>
-            !(bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && !@bool);
+            bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && !@bool;
     }
 }

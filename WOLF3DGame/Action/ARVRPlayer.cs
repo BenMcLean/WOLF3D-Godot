@@ -213,7 +213,12 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Main.Pancake)
                 if (@event is InputEventMouseButton button && button.IsPressed())
                 {
-                    if (button.ButtonIndex == (int)ButtonList.Right)
+                    if (button.ButtonIndex == (int)ButtonList.Left)
+                    {
+                        if (Target() is Actor actor)
+                            actor.Kill();
+                    }
+                    else if (button.ButtonIndex == (int)ButtonList.Right)
                         Push(new Vector2(
                             Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
                             Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
@@ -231,7 +236,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Shooting { get; set; } = false;
         public bool Pushing { get; set; } = false;
-        public bool Clicking { get; set; } = false;
 
         public float Height => Settings.Roomscale ?
             0f
@@ -248,7 +252,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Actor LeftTarget { get; set; } = null;
         public Actor RightTarget { get; set; } = null;
-        public Actor Target(bool left) => left ? LeftTarget : RightTarget;
+        public Actor Target(bool left = true) => left ? LeftTarget : RightTarget;
         public Actor Target(int which) => Target(which == 0);
         public ARVRPlayer SetTarget(bool left, Actor actor = null)
         {

@@ -19,25 +19,30 @@ namespace WOLF3D.WOLF3DGame.Action
         public StateDelegate Think { get; private set; } = null;
         public StateDelegate Act { get; private set; } = null;
         public State Next { get; set; }
-
+        public bool Mark { get; private set; } = true;
+        public bool Alive { get; private set; } = true;
         public State(XElement xml)
         {
-            XML = xml;
-            if (xml?.Attribute("Name")?.Value is string name)
-                Name = name;
-            Rotate = xml.IsTrue("Rotate");
-            if (short.TryParse(xml?.Attribute("Shape")?.Value, out short shape))
-                Shape = shape;
-            if (short.TryParse(xml?.Attribute("Tics")?.Value, out short tics))
-                Tics = tics;
-            if (xml?.Attribute("Think")?.Value is string sThink
-                && typeof(Actor).GetMethod(sThink, BindingFlags.Public | BindingFlags.Static) is MethodInfo thinkMethod
-                && thinkMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate think)
-                Think = think;
-            if (xml?.Attribute("Act")?.Value is string sAct
-                && typeof(Actor).GetMethod(sAct, BindingFlags.Public | BindingFlags.Static) is MethodInfo actMethod
-                && actMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate act)
-                Act = act;
+            if ((XML = xml) is XElement)
+            {
+                if (XML?.Attribute("Name")?.Value is string name)
+                    Name = name;
+                Rotate = XML.IsTrue("Rotate");
+                if (short.TryParse(XML?.Attribute("Shape")?.Value, out short shape))
+                    Shape = shape;
+                if (short.TryParse(XML?.Attribute("Tics")?.Value, out short tics))
+                    Tics = tics;
+                if (XML?.Attribute("Think")?.Value is string sThink
+                    && typeof(Actor).GetMethod(sThink, BindingFlags.Public | BindingFlags.Static) is MethodInfo thinkMethod
+                    && thinkMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate think)
+                    Think = think;
+                if (XML?.Attribute("Act")?.Value is string sAct
+                    && typeof(Actor).GetMethod(sAct, BindingFlags.Public | BindingFlags.Static) is MethodInfo actMethod
+                    && actMethod.CreateDelegate(typeof(StateDelegate)) is StateDelegate act)
+                    Act = act;
+                Mark = !XML.IsFalse("Mark");
+                Alive = !XML.IsFalse("Alive");
+            }
             Next = this;
         }
     }

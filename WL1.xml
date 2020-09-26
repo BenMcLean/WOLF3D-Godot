@@ -999,7 +999,7 @@
       <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Ambush Number="106" Walk="true" Name="Deaf Guard" />
-      <Override Number="107" Floor="9" Name="Elevator to Secret Floor" />
+      <Override Number="107" Floor="10" Name="Elevator to Secret Floor" />
     </Walls>
     <Sprite Page="106" Name="Demo" />
     <Sprite Page="107" Name="DeathCam" />
@@ -1135,7 +1135,7 @@
       <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-      <Actor Name="Guard" HP="25,25,25,25" Speed="512" />
+      <Actor Name="Guard" HP="25,25,25,25" Speed="512" Death="s_grddie1" />
       <State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Next="s_grdstand" />
       <State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Next="s_grdpath1s" />
       <State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Next="s_grdpath2" />
@@ -1154,11 +1154,11 @@
       <State Name="s_grdchase3" Rotate="true" Shape="180" Tics="10" Think="T_Chase" Next="s_grdchase3s" />
       <State Name="s_grdchase3s" Rotate="true" Shape="180" Tics="3" Next="s_grdchase4" />
       <State Name="s_grdchase4" Rotate="true" Shape="188" Tics="8" Think="T_Chase" Next="s_grdchase1" />
-      <State Name="s_grddie1" Shape="197" Tics="15" Act="A_DeathScream" Next="s_grddie2" />
-      <State Name="s_grddie2" Shape="198" Tics="15" Next="s_grddie3" />
-      <State Name="s_grddie3" Shape="199" Tics="15" Next="s_grddie4" />
-      <State Name="s_grddie4" Shape="201" Tics="0" Next="s_grddie4" />
-      <Actor Name="Dog" HP="1,1,1,1" Speed="1500" />
+      <State Name="s_grddie1" Shape="197" Tics="15" Act="A_DeathScream" Next="s_grddie2" Alive="false" Mark="false" />
+      <State Name="s_grddie2" Shape="198" Tics="15" Next="s_grddie3" Alive="false" Mark="false" />
+      <State Name="s_grddie3" Shape="199" Tics="15" Next="s_grddie4" Alive="false" Mark="false" />
+      <State Name="s_grddie4" Shape="201" Tics="0" Next="s_grddie4" Alive="false" Mark="false" />
+      <Actor Name="Dog" HP="1,1,1,1" Speed="1500" Death="s_dogdie1" />
       <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Next="s_dogpath1s" />
       <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Next="s_dogpath2" />
       <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Next="s_dogpath3" />
@@ -1176,11 +1176,11 @@
       <State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Next="s_dogchase3s" />
       <State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Next="s_dogchase4" />
       <State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Next="s_dogchase1" />
-      <State Name="s_dogdie1" Shape="237" Tics="15" Act="A_DeathScream" Next="s_dogdie2" />
-      <State Name="s_dogdie2" Shape="238" Tics="15" Next="s_dogdie3" />
-      <State Name="s_dogdie3" Shape="239" Tics="15" Next="s_dogdead" />
-      <State Name="s_dogdead" Shape="240" Tics="15" Next="s_dogdead" />
-      <Actor Name="SS" HP="100,100,100,100" Speed="512" />
+      <State Name="s_dogdie1" Shape="237" Tics="15" Act="A_DeathScream" Next="s_dogdie2" Alive="false" Mark="false" />
+      <State Name="s_dogdie2" Shape="238" Tics="15" Next="s_dogdie3" Alive="false" Mark="false" />
+      <State Name="s_dogdie3" Shape="239" Tics="15" Next="s_dogdead" Alive="false" Mark="false" />
+      <State Name="s_dogdead" Shape="240" Tics="15" Next="s_dogdead" Alive="false" Mark="false" />
+      <Actor Name="SS" HP="100,100,100,100" Speed="512" Death="s_ssdie1" />
       <State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Next="s_ssstand" />
       <State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Next="s_sspath1s" />
       <State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Next="s_sspath2" />
@@ -1205,11 +1205,11 @@
       <State Name="s_sschase3" Rotate="true" Shape="268" Tics="10" Think="T_Chase" Next="s_sschase3s" />
       <State Name="s_sschase3s" Rotate="true" Shape="268" Tics="3" Next="s_sschase4" />
       <State Name="s_sschase4" Rotate="true" Shape="276" Tics="8" Think="T_Chase" Next="s_sschase1" />
-      <State Name="s_ssdie1" Shape="285" Tics="15" Act="A_DeathScream" Next="s_ssdie2" />
-      <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" />
-      <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" />
-      <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" />
-      <Actor Name="Hans" HP="850,950,1050,1200" Speed="512" />
+      <State Name="s_ssdie1" Shape="285" Tics="15" Act="A_DeathScream" Next="s_ssdie2" Alive="false" Mark="false" />
+      <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
+      <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" Alive="false" Mark="false" />
+      <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" Alive="false" Mark="false" />
+      <Actor Name="Hans" HP="850,950,1050,1200" Speed="512" Death="s_bossdie1" />
       <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Next="s_bossstand" />
       <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Next="s_bosschase1s" />
       <State Name="s_bosschase1s" Shape="402" Tics="3" Next="s_bosschase2" />
@@ -1217,10 +1217,10 @@
       <State Name="s_bosschase3" Shape="404" Tics="10" Think="T_Chase" Next="s_bosschase3s" />
       <State Name="s_bosschase3s" Shape="404" Tics="3" Next="s_bosschase4" />
       <State Name="s_bosschase4" Shape="405" Tics="8" Think="T_Chase" Next="s_bosschase1" />
-      <State Name="s_bossdie1" Shape="410" Tics="15" Act="A_DeathScream" Next="s_bossdie2" />
-      <State Name="s_bossdie2" Shape="411" Tics="15" Next="s_bossdie3" />
-      <State Name="s_bossdie3" Shape="412" Tics="15" Next="s_bossdie4" />
-      <State Name="s_bossdie4" Shape="409" Tics="0" Next="s_bossdie4" />
+      <State Name="s_bossdie1" Shape="410" Tics="15" Act="A_DeathScream" Next="s_bossdie2" Alive="false" />
+      <State Name="s_bossdie2" Shape="411" Tics="15" Next="s_bossdie3" Alive="false" Mark="false" />
+      <State Name="s_bossdie3" Shape="412" Tics="15" Next="s_bossdie4" Alive="false" Mark="false" />
+      <State Name="s_bossdie4" Shape="409" Tics="0" Next="s_bossdie4" Alive="false" Mark="false" />
       <State Name="s_bossshoot1" Shape="406" Tics="30" Next="s_bossshoot2" />
       <State Name="s_bossshoot2" Shape="407" Tics="10" Act="T_Shoot" Next="s_bossshoot3" />
       <State Name="s_bossshoot3" Shape="408" Tics="10" Act="T_Shoot" Next="s_bossshoot4" />

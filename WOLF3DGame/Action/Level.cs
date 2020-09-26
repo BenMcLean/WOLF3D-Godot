@@ -198,7 +198,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool CanWalk(Vector2 there) => CanWalk(there, out _);
 
-        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideActor(there.x, there.y);
+        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
         public bool CanWalk(int x, int z) =>
             Walls.IsNavigable(x, z)
             && (!(Doors[x][z] is Door door) || door.IsOpen)
@@ -244,6 +244,16 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             foreach (Actor actor in Actors)
                 if (actor.IsIn(x, z))
+                    return actor;
+            return null;
+        }
+
+        public bool IsInsideMarkedActor(float x, float z) => InsideMarkedActor(x, z) != null;
+
+        public Actor InsideMarkedActor(float x, float z)
+        {
+            foreach (Actor actor in Actors)
+                if ((actor.State?.Mark ?? false) && actor.IsIn(x, z))
                     return actor;
             return null;
         }

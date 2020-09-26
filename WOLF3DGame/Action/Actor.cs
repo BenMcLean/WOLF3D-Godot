@@ -56,7 +56,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     && newFrame != Page)
                     Page = newFrame;
 
-                if (Mark)
+                if (State.Mark)
                     Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
             }
         }
@@ -87,7 +87,15 @@ namespace WOLF3D.WOLF3DGame.Action
             set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; set; } = 0f;
-        public State State { get; set; } = null;
+        public State State
+        {
+            get => state;
+            set
+            {
+                state = value;
+            }
+        }
+        private State state;
         //    byte flags;                //    FL_SHOOTABLE, etc
         //#define FL_SHOOTABLE	1
         public bool Shootable = false;
@@ -102,7 +110,6 @@ namespace WOLF3D.WOLF3DGame.Action
         //#define FL_AMBUSH		64
         public bool Ambush = false;
         //#define FL_NONMARK		128
-        public bool Mark = true;
         //    long distance;            // if negative, wait for that door to open
         public float Distance { get; set; } = Assets.WallWidth;
         //    dirtype dir;
@@ -202,6 +209,13 @@ namespace WOLF3D.WOLF3DGame.Action
         public Actor Recenter()
         {
             GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0f, Assets.CenterSquare(Z)));
+            return this;
+        }
+
+        public Actor Kill()
+        {
+            if (Assets.States.TryGetValue(ActorXML?.Attribute("Death")?.Value, out State deathState))
+                State = deathState;
             return this;
         }
     }
