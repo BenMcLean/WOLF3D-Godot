@@ -210,18 +210,25 @@ namespace WOLF3D.WOLF3DGame.Action
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
-            if (Main.Pancake && @event is InputEventMouseButton button)
+
+            if (Main.Pancake)
             {
-                if (button.ButtonIndex == (int)ButtonList.Left)
-                    GD.Print(PancakeCamera.Transform.basis.GetEuler().x);
-            }
-            if (Main.Pancake && @event is InputEventMouseMotion motion)
-            {
-                float dx = motion.Relative.y * Settings.MouseYSensitivity / 180f,
-                    x = PancakeCamera.Transform.basis.GetEuler().x - dx;
-                if (Mathf.Abs(x) < Assets.HalfPi)
-                    PancakeCamera.Rotate(Vector3.Left, dx);
-                Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
+                if (@event is InputEventMouseButton button && button.IsPressed())
+                {
+                    if (button.ButtonIndex == (int)ButtonList.Right)
+                        Push(new Vector2(
+                            Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+                            Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+                            ));
+                }
+                if (@event is InputEventMouseMotion motion)
+                {
+                    float dx = motion.Relative.y * Settings.MouseYSensitivity / 180f,
+                        x = PancakeCamera.Transform.basis.GetEuler().x - dx;
+                    if (Mathf.Abs(x) < Assets.HalfPi)
+                        PancakeCamera.Rotate(Vector3.Left, dx);
+                    Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
+                }
             }
         }
 
