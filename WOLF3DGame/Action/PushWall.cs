@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class PushWall : FourWalls
+    public class PushWall : FourWalls, ISpeaker
     {
         public const float Seconds = 128f / 70f; // It takes 128 tics for a pushwall to fully open in Wolfenstein 3-D.
         public const float HalfSeconds = Seconds / 2f;

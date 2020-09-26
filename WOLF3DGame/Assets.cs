@@ -484,13 +484,7 @@ namespace WOLF3D.WOLF3DGame
                 || mapObject.IsTrue("Walk")
             );
 
-        public static GameMap? NextMap(GameMap previous) =>
-            GetMap(
-                previous.Episode,
-                byte.TryParse(XML.Element("Maps")?.Elements("Map").Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == previous.Number)?.FirstOrDefault()?.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ?
-                elevatorTo
-                : (byte)(previous.Floor + 1)
-                );
+        public static GameMap? NextMap(GameMap previous) => GetMap(previous.Episode, previous.ElevatorTo);
         public static GameMap? GetMap(byte episode, byte floor) => Maps.Where(e => e.Episode == episode && e.Floor == floor).FirstOrDefault();
 
         public static bool Start(GameMap map, out ushort index, out Direction8 direction)

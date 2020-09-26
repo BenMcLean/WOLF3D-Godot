@@ -34,10 +34,12 @@ namespace WOLF3D.WOLF3DGame.Action
 
                 Seconds += delta;
                 if (Seconds > State.Seconds)
-                {
-                    Seconds -= State.Seconds;
                     State = State.Next;
+
+                if (NewState)
+                {
                     State?.Act?.Invoke(this, delta);
+                    NewState = false;
                 }
 
                 State?.Think?.Invoke(this, delta);
@@ -93,9 +95,12 @@ namespace WOLF3D.WOLF3DGame.Action
             set
             {
                 state = value;
+                Seconds = 0f;
+                NewState = true;
             }
         }
         private State state;
+        public bool NewState = false;
         //    byte flags;                //    FL_SHOOTABLE, etc
         //#define FL_SHOOTABLE	1
         public bool Shootable = false;

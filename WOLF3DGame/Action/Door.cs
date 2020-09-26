@@ -5,7 +5,7 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class Door : Pushable
+    public class Door : Pushable, ISpeaker
     {
         public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.

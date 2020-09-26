@@ -20,7 +20,10 @@ namespace WOLF3DModel
                     if (byte.TryParse(xMap.Attribute("Episode")?.Value, out byte episode))
                         maps[map].Episode = episode;
                     if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
+                    {
                         maps[map].Floor = floor;
+                        maps[map].ElevatorTo = byte.TryParse(xMap.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(floor + 1);
+                    }
                     if (byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground))
                         maps[map].Ground = ground;
                     if (byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling))
@@ -35,20 +38,21 @@ namespace WOLF3DModel
             return maps;
         }
 
-        public string Name { get; set; }
-        public ushort Number { get; set; }
-        public ushort Width { get; set; }
-        public ushort Depth { get; set; }
-        public ushort[] MapData { get; set; }
-        public ushort[] ObjectData { get; set; }
-        public ushort[] OtherData { get; set; }
-        public byte Episode { get; set; }
-        public byte Floor { get; set; }
-        public byte Ground { get; set; }
-        public byte Ceiling { get; set; }
-        public byte Border { get; set; }
-        public TimeSpan Par { get; set; }
-        public string Song { get; set; }
+        public string Name { get; private set; }
+        public ushort Number { get; private set; }
+        public ushort Width { get; private set; }
+        public ushort Depth { get; private set; }
+        public ushort[] MapData { get; private set; }
+        public ushort[] ObjectData { get; private set; }
+        public ushort[] OtherData { get; private set; }
+        public byte Episode { get; private set; }
+        public byte Floor { get; private set; }
+        public byte ElevatorTo { get; private set; }
+        public byte Ground { get; private set; }
+        public byte Ceiling { get; private set; }
+        public byte Border { get; private set; }
+        public TimeSpan Par { get; private set; }
+        public string Song { get; private set; }
 
         public ushort X(uint i) => X((ushort)i);
         public ushort X(ushort i) => (ushort)(i / Width);
@@ -152,6 +156,8 @@ namespace WOLF3DModel
                 }
             return (GameMap[])maps.ToArray(typeof(GameMap));
         }
+
+        public override string ToString() => Name;
 
         #region Decompression algorithms
         public const ushort CARMACK_NEAR = 0xA7;
