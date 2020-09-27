@@ -338,14 +338,14 @@
       <Wall Number="87" Page="44" DarkSide="45" Name="Light wood panel" />
       <Wall Number="88" Page="46" DarkSide="47" Name="Chalkboard" />
       <Wall Number="89" Page="56" DarkSide="57" Name="Map background/Fake: NS=Str/EW=Lock" />
-      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" />
-      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" />
-      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" />
-      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" />
-      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" />
-      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" />
-      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" />
-      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" />
+      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
       <Wall Number="98" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
       <Wall Number="99" Page="4" DarkSide="5" Name="Yellow curtain" />
       <Wall Number="100" Page="6" DarkSide="7" Name="Monkey portrait" />
@@ -400,7 +400,7 @@
       <Billboard Number="57" Page="106" Walk="true" Name="Slingshot 5" />
       <Billboard Number="58" Page="107" Walk="true" Name="Watermelons" />
       <Billboard Number="59" Page="108" Walk="true" Name="Map" />
-      <Pushwall Number="98" Name="Secret Door" />
+      <Pushwall Number="98" DigiSound="D_PWALLSND" Name="Secret Door" />
       <!-- 99 is "Secret Door Path" -->
       <Trigger Number="100" Name="Next level trigger" />
       <Trigger Number="101" Name="Secret level trigger" />
@@ -424,6 +424,39 @@
 135=B1,366,0000000070007000777000777770007770007000700000000,Boss: Ernie Elephant  
     -->
     </Objects>
+    <DigiSound Number="0" Name="D_ANTLPESND" />
+    <DigiSound Number="1" Name="D_BEARSND" />
+    <DigiSound Number="2" Name="D_BONUSSND" />
+    <DigiSound Number="3" Name="D_CAMELSND" />
+    <DigiSound Number="4" Name="D_CLOSDRSND" />
+    <DigiSound Number="5" Name="D_COCHITSND" />
+    <DigiSound Number="6" Name="D_COCTHRSND" />
+    <DigiSound Number="7" Name="D_DBITESND" />
+    <DigiSound Number="8" Name="D_EATSND" />
+    <DigiSound Number="9" Name="D_EDIESND" />
+    <DigiSound Number="10" Name="D_ELPHNTSND" />
+    <DigiSound Number="11" Name="D_EXTRASND" />
+    <DigiSound Number="12" Name="D_GATLINSND" />
+    <DigiSound Number="13" Name="D_GIRAFESND" />
+    <DigiSound Number="14" Name="D_GOATSND" />
+    <DigiSound Number="15" Name="D_GUNSHTSND" />
+    <DigiSound Number="16" Name="D_INCSND" />
+    <DigiSound Number="17" Name="D_KANGROSND" />
+    <DigiSound Number="18" Name="D_KEYSND" />
+    <DigiSound Number="19" Name="D_KNIFESND" />
+    <DigiSound Number="20" Name="D_MONKEYSND" />
+    <DigiSound Number="21" Name="D_MSTEPSND" />
+    <DigiSound Number="22" Name="D_OPENDRSND" />
+    <DigiSound Number="23" Name="D_OSTRCHSND" />
+    <DigiSound Number="24" Name="D_OXSND" />
+    <DigiSound Number="25" Name="D_PAINSND" />
+    <DigiSound Number="26" Name="D_PDIESND" />
+    <DigiSound Number="27" Name="D_PWALLSND" />
+    <DigiSound Number="28" Name="D_SHEEPSND" />
+    <DigiSound Number="29" Name="D_SLING2SND" />
+    <DigiSound Number="30" Name="D_SPITSND" />
+    <DigiSound Number="31" Name="D_WATHITSND" />
+    <DigiSound Number="32" Name="D_WATTHRSND" />
   </VSwap>
   <Palette>
     JASC-PAL

@@ -239,7 +239,6 @@ namespace WOLF3D.WOLF3DGame
                             FlagsTransparent = i >= VSwap.SpritePage,
                             ParamsUseAlphaScissor = true,
                             ParamsAlphaScissorThreshold = 0.5f,
-                            //FlagsTransparent = false,
                             ParamsCullMode = i >= VSwap.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
                             ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
                             AnisotropyEnabled = true,
