@@ -69,17 +69,31 @@ namespace WOLF3D.WOLF3DGame.Action
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
-                MaterialOverride = Map.GroundTile is ushort groundTile && groundTile < Assets.VSwapMaterialsTiled.Length && Assets.VSwapMaterialsTiled[groundTile] is SpatialMaterial groundMaterial ?
-                groundMaterial
-                : new SpatialMaterial()
+                MaterialOverride = Map.GroundTile is ushort groundTile && groundTile < Assets.VSwapTextures.Length ?
+                new SpatialMaterial()
                 {
-                    AlbedoColor = Assets.Palettes[0][(byte)Map.Ground],
+                    AlbedoTexture = Assets.VSwapTextures[groundTile],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
                     FlagsTransparent = false,
                     ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    AnisotropyEnabled = true,
+                    RenderPriority = 1,
+                    Uv1Scale = new Vector3(Map.Width, Map.Depth, 0f),
+                }
+                : new SpatialMaterial()
+                {
+                    AlbedoColor = Assets.Palettes[0][(int)Map.Ground],
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    AnisotropyEnabled = true,
+                    RenderPriority = 1,
                 },
             });
             AddChild(Ceiling = new CollisionShape()
@@ -105,8 +119,20 @@ namespace WOLF3D.WOLF3DGame.Action
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
-                MaterialOverride = Map.CeilingTile is ushort ceilingTile && ceilingTile < Assets.VSwapMaterialsTiled.Length && Assets.VSwapMaterialsTiled[ceilingTile] is SpatialMaterial ceilingMaterial ?
-                ceilingMaterial
+                MaterialOverride = Map.CeilingTile is ushort ceilingTile && ceilingTile < Assets.VSwapTextures.Length ?
+                new SpatialMaterial()
+                {
+                    AlbedoTexture = Assets.VSwapTextures[ceilingTile],
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = false,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    AnisotropyEnabled = true,
+                    RenderPriority = 1,
+                    Uv1Scale = new Vector3(Map.Width, Map.Depth, 0f),
+                }
                 : new SpatialMaterial()
                 {
                     AlbedoColor = Assets.Palettes[0][(int)Map.Ceiling],
@@ -116,6 +142,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     FlagsTransparent = false,
                     ParamsCullMode = SpatialMaterial.CullMode.Disabled,
                     ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    AnisotropyEnabled = true,
+                    RenderPriority = 1,
                 },
             });
 

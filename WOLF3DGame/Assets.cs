@@ -215,7 +215,6 @@ namespace WOLF3D.WOLF3DGame
                 }
                 VSwapTextures = new ImageTexture[VSwap.SoundPage];
                 VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
-                VSwapMaterialsTiled = new SpatialMaterial[VSwapMaterials.Length];
                 int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
                 int side = (ushort.TryParse(XML?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : 64) * scale;
                 uint textureFlags = (uint)(
@@ -246,22 +245,6 @@ namespace WOLF3D.WOLF3DGame
                             AnisotropyEnabled = true,
                             RenderPriority = 1,
                         };
-                        if (XML?.Element("VSwap").Elements("Tile")?.Where(e => uint.TryParse(e.Attribute("Page")?.Value, out uint page) && page == i).FirstOrDefault() is XElement tile)
-                        {
-                            VSwapMaterialsTiled[i] = new SpatialMaterial()
-                            {
-                                AlbedoTexture = VSwapTextures[i],
-                                FlagsUnshaded = true,
-                                FlagsDoNotReceiveShadows = true,
-                                FlagsDisableAmbientLight = true,
-                                FlagsTransparent = false,
-                                ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-                                ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-                                AnisotropyEnabled = true,
-                                RenderPriority = 1,
-                                Uv1Scale = new Vector3(64f, 64f, 0f),
-                            };
-                        }
                     }
                 DigiSounds = new AudioStreamSample[VSwap.DigiSounds.Length];
                 for (uint i = 0; i < DigiSounds.Length; i++)
@@ -365,7 +348,6 @@ namespace WOLF3D.WOLF3DGame
         public static Color[][] Palettes;
         public static ImageTexture[] VSwapTextures;
         public static SpatialMaterial[] VSwapMaterials;
-        public static SpatialMaterial[] VSwapMaterialsTiled;
         public static ImageTexture[] PicTextures;
         public static AudioStreamSample[] DigiSounds;
         public static ImageTexture StatusBarBlank;
