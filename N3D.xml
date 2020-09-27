@@ -155,41 +155,41 @@
   </VgaGraph>
   <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
     <!-- e1 -->
-    <Map Number="0" Episode="1" Floor="1" Ground="212" Ceiling="220" Border="218" Par="00:30" />
-    <Map Number="1" Episode="1" Floor="2" Ground="212" Ceiling="220" Border="218" Par="01:00" />
-    <Map Number="2" Episode="1" Floor="3" Ground="212" Ceiling="220" Border="218" Par="01:00" />
+    <Map Number="0" Episode="1" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="00:30" />
+    <Map Number="1" Episode="1" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:00" />
+    <Map Number="2" Episode="1" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:00" />
     <!-- e2 -->
-    <Map Number="3" Episode="2" Floor="1" Ground="212" Ceiling="220" Border="218" Par="02:00" />
-    <Map Number="4" Episode="2" Floor="2" Ground="212" Ceiling="220" Border="218" Par="01:45" />
-    <Map Number="5" Episode="2" Floor="3" Ground="212" Ceiling="220" Border="218" Par="01:30" />
-    <Map Number="6" Episode="2" Floor="4" Ground="212" Ceiling="220" Border="218" Par="01:45" />
+    <Map Number="3" Episode="2" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:00" />
+    <Map Number="4" Episode="2" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:45" />
+    <Map Number="5" Episode="2" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:30" />
+    <Map Number="6" Episode="2" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:45" />
     <!-- e3 -->
-    <Map Number="7" Episode="3" Floor="1" Ground="212" Ceiling="220" Border="218" Par="02:45" />
-    <Map Number="8" Episode="3" Floor="2" Ground="212" Ceiling="220" Border="218" Par="02:00" />
-    <Map Number="9" Episode="3" Floor="3" Ground="212" Ceiling="220" Border="218" Par="02:15" />
-    <Map Number="10" Episode="3" Floor="4" Ground="212" Ceiling="220" Border="218" Par="01:00" />
-    <Map Number="11" Episode="3" Floor="5" Ground="212" Ceiling="220" Border="218" Par="02:00" />
+    <Map Number="7" Episode="3" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:45" />
+    <Map Number="8" Episode="3" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:00" />
+    <Map Number="9" Episode="3" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:15" />
+    <Map Number="10" Episode="3" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:00" />
+    <Map Number="11" Episode="3" Floor="5" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:00" />
     <!-- e4 -->
-    <Map Number="12" Episode="4" Floor="1" Ground="212" Ceiling="220" Border="218" Par="03:30" />
-    <Map Number="13" Episode="4" Floor="2" Ground="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="14" Episode="4" Floor="3" Ground="212" Ceiling="220" Border="218" Par="04:00" />
-    <Map Number="15" Episode="4" Floor="4" Ground="212" Ceiling="220" Border="218" Par="02:15" />
-    <Map Number="16" Episode="4" Floor="5" Ground="212" Ceiling="220" Border="218" Par="03:30" />
+    <Map Number="12" Episode="4" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:30" />
+    <Map Number="13" Episode="4" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" />
+    <Map Number="14" Episode="4" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="04:00" />
+    <Map Number="15" Episode="4" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:15" />
+    <Map Number="16" Episode="4" Floor="5" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:30" />
     <!-- e5 -->
-    <Map Number="17" Episode="5" Floor="1" Ground="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="18" Episode="5" Floor="2" Ground="212" Ceiling="220" Border="218" Par="02:45" />
-    <Map Number="19" Episode="5" Floor="3" Ground="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="20" Episode="5" Floor="4" Ground="212" Ceiling="220" Border="218" Par="03:30" />
-    <Map Number="21" Episode="5" Floor="5" Ground="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="22" Episode="5" Floor="6" Ground="212" Ceiling="220" Border="218" Par="03:00" />
+    <Map Number="17" Episode="5" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" />
+    <Map Number="18" Episode="5" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:45" />
+    <Map Number="19" Episode="5" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" />
+    <Map Number="20" Episode="5" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:30" />
+    <Map Number="21" Episode="5" Floor="5" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" />
+    <Map Number="22" Episode="5" Floor="6" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" />
     <!-- e6 -->
-    <Map Number="23" Episode="6" Floor="1" Ground="212" Ceiling="220" Border="218" Par="01:45" />
-    <Map Number="24" Episode="6" Floor="2" Ground="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="25" Episode="6" Floor="3" Ground="212" Ceiling="220" Border="218" Par="03:00" />
-    <Map Number="26" Episode="6" Floor="4" Ground="212" Ceiling="220" Border="218" Par="01:30" />
-    <Map Number="27" Episode="6" Floor="5" Ground="212" Ceiling="220" Border="218" Par="02:30" />
-    <Map Number="28" Episode="6" Floor="6" Ground="212" Ceiling="220" Border="218" Par="03:11" />
-    <Map Number="29" Episode="6" Floor="7" Ground="212" Ceiling="220" Border="218" Par="02:30" />
+    <Map Number="23" Episode="6" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:45" />
+    <Map Number="24" Episode="6" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" />
+    <Map Number="25" Episode="6" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" />
+    <Map Number="26" Episode="6" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:30" />
+    <Map Number="27" Episode="6" Floor="5" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" />
+    <Map Number="28" Episode="6" Floor="6" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:11" />
+    <Map Number="29" Episode="6" Floor="7" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" />
   </Maps>
   <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
     <Sound Number="0" Name="D_ANTLPESND" />
@@ -357,6 +357,8 @@
       <Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
       <Ambush Number="107" Name="Passive animal floor" />
     </Walls>
+    <Tile Page="63" Name="Ground" />
+    <Tile Page="64" Name="Ceiling" />
     <Sprite Page="71" Name="Demo" />
     <Objects>
       <Start Number="19" Direction="E" Name="Start" />

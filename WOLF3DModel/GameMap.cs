@@ -24,10 +24,10 @@ namespace WOLF3DModel
                         maps[map].Floor = floor;
                         maps[map].ElevatorTo = byte.TryParse(xMap.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(floor + 1);
                     }
-                    if (byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground))
-                        maps[map].Ground = ground;
-                    if (byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling))
-                        maps[map].Ceiling = ceiling;
+                    maps[map].Ground = byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground) ? ground : (byte?)null;
+                    maps[map].GroundTile = byte.TryParse(xMap.Attribute("GroundTile")?.Value, out byte groundTile) ? groundTile : (byte?)null;
+                    maps[map].Ceiling = byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling) ? ceiling : (byte?)null;
+                    maps[map].CeilingTile = byte.TryParse(xMap.Attribute("CeilingTile")?.Value, out byte ceilingTile) ? ceilingTile : (ushort?)null;
                     if (byte.TryParse(xMap.Attribute("Border")?.Value, out byte border))
                         maps[map].Border = border;
                     if (TimeSpan.TryParse(xMap.Attribute("Par")?.Value, out TimeSpan par))
@@ -48,8 +48,10 @@ namespace WOLF3DModel
         public byte Episode { get; private set; }
         public byte Floor { get; private set; }
         public byte ElevatorTo { get; private set; }
-        public byte Ground { get; private set; }
-        public byte Ceiling { get; private set; }
+        public byte? Ground { get; private set; }
+        public ushort? GroundTile { get; private set; }
+        public byte? Ceiling { get; private set; }
+        public ushort? CeilingTile { get; private set; }
         public byte Border { get; private set; }
         public TimeSpan Par { get; private set; }
         public string Song { get; private set; }

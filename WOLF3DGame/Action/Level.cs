@@ -44,7 +44,6 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
-
         public readonly ArrayList Actors = new ArrayList();
         private readonly int[][] ActorAt;
         public bool IsActorAt(ushort x, ushort z) => x < ActorAt.Length && z < ActorAt[x].Length && ActorAt[x][z] != 0;

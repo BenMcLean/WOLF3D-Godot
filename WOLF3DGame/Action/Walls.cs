@@ -19,8 +19,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool IsNavigable(int x, int z) =>
             x >= 0 && z >= 0 && x < Navigable.Length && z < Navigable[x].Length
             && Navigable[x][z];
-        public CollisionShape Floor { get; private set; }
-        public MeshInstance FloorMesh { get; private set; }
+        public CollisionShape Ground { get; private set; }
+        public MeshInstance GroundMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }
         public MeshInstance CeilingMesh { get; private set; }
         public List<Elevator> Elevators = new List<Elevator>();
@@ -46,7 +46,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     realWalls[i] = Assets.FloorCodeFirst;
             ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
 
-            AddChild(Floor = new CollisionShape()
+            AddChild(Ground = new CollisionShape()
             {
                 Name = "Floor",
                 Shape = new BoxShape()
@@ -62,16 +62,18 @@ namespace WOLF3D.WOLF3DGame.Action
                     )
                 ),
             });
-            Floor.AddChild(FloorMesh = new MeshInstance()
+            Ground.AddChild(GroundMesh = new MeshInstance()
             {
-                Name = "Floor Mesh",
+                Name = "Ground Mesh",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
-                MaterialOverride = new SpatialMaterial()
+                MaterialOverride = Map.GroundTile is ushort groundTile && groundTile < Assets.VSwapMaterialsTiled.Length && Assets.VSwapMaterialsTiled[groundTile] is SpatialMaterial groundMaterial ?
+                groundMaterial
+                : new SpatialMaterial()
                 {
-                    AlbedoColor = Assets.Palettes[0][Map.Ground],
+                    AlbedoColor = Assets.Palettes[0][(byte)Map.Ground],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
@@ -103,9 +105,11 @@ namespace WOLF3D.WOLF3DGame.Action
                 {
                     Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
                 },
-                MaterialOverride = new SpatialMaterial()
+                MaterialOverride = Map.CeilingTile is ushort ceilingTile && ceilingTile < Assets.VSwapMaterialsTiled.Length && Assets.VSwapMaterialsTiled[ceilingTile] is SpatialMaterial ceilingMaterial ?
+                ceilingMaterial
+                : new SpatialMaterial()
                 {
-                    AlbedoColor = Assets.Palettes[0][Map.Ceiling],
+                    AlbedoColor = Assets.Palettes[0][(int)Map.Ceiling],
                     FlagsUnshaded = true,
                     FlagsDoNotReceiveShadows = true,
                     FlagsDisableAmbientLight = true,
