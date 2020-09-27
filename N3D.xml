@@ -400,7 +400,7 @@
       <Billboard Number="57" Page="106" Walk="true" Name="Slingshot 5" />
       <Billboard Number="58" Page="107" Walk="true" Name="Watermelons" />
       <Billboard Number="59" Page="108" Walk="true" Name="Map" />
-      <Pushwall Number="98" DigiSound="D_PWALLSND" Name="Secret Door" />
+      <Pushwall Number="98" DigiSound="D_PWALLSND" RepeatDigiSound="8" Name="Secret Door" />
       <!-- 99 is "Secret Door Path" -->
       <Trigger Number="100" Name="Next level trigger" />
       <Trigger Number="101" Name="Secret level trigger" />

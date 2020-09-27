@@ -63,9 +63,20 @@ namespace WOLF3D.WOLF3DGame.Action
                         Halfway = true;
                     }
                 }
+                if (!Settings.DigiSoundMuted && RepeatDigiSound is float repeat)
+                {
+                    SinceRepeatDigiSound += delta;
+                    while (SinceRepeatDigiSound >= repeat)
+                    {
+                        Play = Sound;
+                        SinceRepeatDigiSound -= repeat;
+                    }
+                }
             }
         }
 
+        public float? RepeatDigiSound = null;
+        public float SinceRepeatDigiSound = 0f;
         public float Time = 0f;
         public bool Halfway = false;
         public bool Pushed
