@@ -48,13 +48,13 @@ namespace WOLF3D.WOLF3DGame.Action
 
             AddChild(Ground = new CollisionShape()
             {
-                Name = "Floor",
+                Name = "Ground",
                 Shape = new BoxShape()
                 {
                     Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
                 },
                 Transform = new Transform(
-                    new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
+                    new Basis(Vector3.Right, Mathf.Pi / 2f).Rotated(Vector3.Up, Mathf.Pi / 2f).Orthonormalized(),
                     new Vector3(
                         Map.Width * Assets.HalfWallWidth,
                         Assets.PixelHeight / -2f,
@@ -104,7 +104,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
                 },
                 Transform = new Transform(
-                    new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(),
+                    new Basis(Vector3.Right, Mathf.Pi / 2f).Rotated(Vector3.Up, Mathf.Pi / 2f).Orthonormalized(),
                     new Vector3(
                         Map.Width * Assets.HalfWallWidth,
                         Assets.WallHeight + Assets.PixelHeight / 2f,
