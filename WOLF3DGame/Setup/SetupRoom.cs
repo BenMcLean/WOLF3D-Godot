@@ -41,7 +41,7 @@ namespace WOLF3D.WOLF3DGame.Setup
                             WriteLine(ex.GetType().Name + ": " + ex.Message + "\n" + ex.StackTrace);
                             break;
                         }
-                        Main.Folder = System.IO.Path.Combine(Main.Path, "N3D");
+                        Main.Folder = System.IO.Path.Combine(Main.Path, "WL1");
                         Main.Load();
                         break;
                 }

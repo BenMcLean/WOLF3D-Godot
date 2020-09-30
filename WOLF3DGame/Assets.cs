@@ -357,13 +357,15 @@ namespace WOLF3D.WOLF3DGame
         public static AudioStreamSample DigiSound(string name) =>
             DigiSoundSafe(name) ?? throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
 
-        public static AudioStreamSample DigiSoundSafe(string name) =>
+        public static AudioStreamSample DigiSoundSafe(string name) => DigiOneSoundSafe(name.Contains(',') ? name.Split(',').Random() : name);
+
+        public static AudioStreamSample DigiOneSoundSafe(string name) =>
             uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
             DigiSounds[index]
             : uint.TryParse((
             from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
             where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
-            select e.Attribute("Number").Value).FirstOrDefault(),
+            select e.Attribute("Number")?.Value).FirstOrDefault(),
             out uint result) && result < DigiSounds.Length ?
             DigiSounds[result]
             : null;

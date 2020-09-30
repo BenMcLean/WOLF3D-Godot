@@ -1154,7 +1154,7 @@
       <State Name="s_grdchase3" Rotate="true" Shape="180" Tics="10" Think="T_Chase" Next="s_grdchase3s" />
       <State Name="s_grdchase3s" Rotate="true" Shape="180" Tics="3" Next="s_grdchase4" />
       <State Name="s_grdchase4" Rotate="true" Shape="188" Tics="8" Think="T_Chase" Next="s_grdchase1" />
-      <State Name="s_grddie1" Shape="197" Tics="15" Act="A_DeathScream" Next="s_grddie2" Alive="false" Mark="false" />
+      <State Name="s_grddie1" Shape="197" Tics="15" Next="s_grddie2" Alive="false" Mark="false" DigiSound="DEATHSCREAM1SND,DEATHSCREAM2SND,DEATHSCREAM3SND" />
       <State Name="s_grddie2" Shape="198" Tics="15" Next="s_grddie3" Alive="false" Mark="false" />
       <State Name="s_grddie3" Shape="199" Tics="15" Next="s_grddie4" Alive="false" Mark="false" />
       <State Name="s_grddie4" Shape="201" Tics="0" Next="s_grddie4" Alive="false" Mark="false" />
@@ -1176,7 +1176,7 @@
       <State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Next="s_dogchase3s" />
       <State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Next="s_dogchase4" />
       <State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Next="s_dogchase1" />
-      <State Name="s_dogdie1" Shape="237" Tics="15" Act="A_DeathScream" Next="s_dogdie2" Alive="false" Mark="false" />
+      <State Name="s_dogdie1" Shape="237" Tics="15" Next="s_dogdie2" Alive="false" Mark="false" />
       <State Name="s_dogdie2" Shape="238" Tics="15" Next="s_dogdie3" Alive="false" Mark="false" />
       <State Name="s_dogdie3" Shape="239" Tics="15" Next="s_dogdead" Alive="false" Mark="false" />
       <State Name="s_dogdead" Shape="240" Tics="15" Next="s_dogdead" Alive="false" Mark="false" />
@@ -1205,7 +1205,7 @@
       <State Name="s_sschase3" Rotate="true" Shape="268" Tics="10" Think="T_Chase" Next="s_sschase3s" />
       <State Name="s_sschase3s" Rotate="true" Shape="268" Tics="3" Next="s_sschase4" />
       <State Name="s_sschase4" Rotate="true" Shape="276" Tics="8" Think="T_Chase" Next="s_sschase1" />
-      <State Name="s_ssdie1" Shape="285" Tics="15" Act="A_DeathScream" Next="s_ssdie2" Alive="false" Mark="false" />
+      <State Name="s_ssdie1" Shape="285" Tics="15" Next="s_ssdie2" Alive="false" Mark="false" DigiSound="LEBENSND" />
       <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
       <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" Alive="false" Mark="false" />
       <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" Alive="false" Mark="false" />
@@ -1217,7 +1217,7 @@
       <State Name="s_bosschase3" Shape="404" Tics="10" Think="T_Chase" Next="s_bosschase3s" />
       <State Name="s_bosschase3s" Shape="404" Tics="3" Next="s_bosschase4" />
       <State Name="s_bosschase4" Shape="405" Tics="8" Think="T_Chase" Next="s_bosschase1" />
-      <State Name="s_bossdie1" Shape="410" Tics="15" Act="A_DeathScream" Next="s_bossdie2" Alive="false" />
+      <State Name="s_bossdie1" Shape="410" Tics="15" Next="s_bossdie2" Alive="false" />
       <State Name="s_bossdie2" Shape="411" Tics="15" Next="s_bossdie3" Alive="false" Mark="false" />
       <State Name="s_bossdie3" Shape="412" Tics="15" Next="s_bossdie4" Alive="false" Mark="false" />
       <State Name="s_bossdie4" Shape="409" Tics="0" Next="s_bossdie4" Alive="false" Mark="false" />
@@ -1289,7 +1289,6 @@
     <DigiSound Number="11" Name="SSFIRESND" />
     <DigiSound Number="12" Name="DEATHSCREAM1SND" />
     <DigiSound Number="13" Name="DEATHSCREAM2SND" />
-    <DigiSound Number="13" Name="DEATHSCREAM3SND" />
     <DigiSound Number="14" Name="TAKEDAMAGESND" />
     <DigiSound Number="15" Name="PUSHWALLSND" />
     <DigiSound Number="20" Name="LEBENSND" />

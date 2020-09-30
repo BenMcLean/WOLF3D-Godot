@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-    public class Actor : Billboard
+    public class Actor : Billboard, ISpeaker
     {
         public XElement ActorXML;
         public int ArrayIndex { get; set; }
@@ -21,6 +21,10 @@ namespace WOLF3D.WOLF3DGame.Action
                     ActorSpeed = speed;
             }
             Direction = Direction8.From(XML?.Attribute("Direction")?.Value);
+            AddChild(Speaker = new AudioStreamPlayer3D()
+            {
+                Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),
+            });
             State = Assets.States[XML?.Attribute("State")?.Value];
         }
 
@@ -38,11 +42,15 @@ namespace WOLF3D.WOLF3DGame.Action
 
                 if (NewState)
                 {
-                    State?.Act?.Invoke(this, delta);
                     NewState = false;
+                    if (!Settings.DigiSoundMuted
+                        && State?.XML?.Attribute("DigiSound")?.Value is string digiSound
+                        && Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
+                        Play = audioStreamSample;
+                    State?.Act?.Invoke(this, delta); // Act methods are called once per state
                 }
 
-                State?.Think?.Invoke(this, delta);
+                State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
                 if (MeshInstance.Visible && State != null
                     && State.Shape is short shape
                     && (ushort)(shape + (State.Rotate ?
@@ -96,6 +104,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 state = value;
                 Seconds = 0f;
+                Speaker.Transform = new Transform(Basis.Identity, new Vector3(0f, state.SpeakerHeight, 0f));
                 NewState = true;
             }
         }
@@ -144,6 +153,20 @@ namespace WOLF3D.WOLF3DGame.Action
         //}
         //objtype;
         #endregion objstruct
+
+        #region ISpeaker
+        public AudioStreamPlayer3D Speaker { get; private set; }
+        public AudioStreamSample Play
+        {
+            get => (AudioStreamSample)Speaker.Stream;
+            set
+            {
+                Speaker.Stream = Settings.DigiSoundMuted ? null : value;
+                if (value != null)
+                    Speaker.Play();
+            }
+        }
+        #endregion ISpeaker
 
         #region StateDelegates
         public static void T_Stand(Actor actor, float delta = 0f) => actor.T_Stand(delta);

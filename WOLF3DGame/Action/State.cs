@@ -21,6 +21,7 @@ namespace WOLF3D.WOLF3DGame.Action
         public State Next { get; set; }
         public bool Mark { get; private set; } = true;
         public bool Alive { get; private set; } = true;
+        public float SpeakerHeight { get; private set; } = Assets.HalfWallHeight;
         public State(XElement xml)
         {
             if ((XML = xml) is XElement)
@@ -29,7 +30,11 @@ namespace WOLF3D.WOLF3DGame.Action
                     Name = name;
                 Rotate = XML.IsTrue("Rotate");
                 if (short.TryParse(XML?.Attribute("Shape")?.Value, out short shape))
+                {
                     Shape = shape;
+                    if (ushort.TryParse(XML?.Attribute("SpeakerHeight")?.Value, out ushort speakerHeight))
+                        SpeakerHeight = speakerHeight / Assets.VSwapTextures[shape].GetHeight() * Assets.WallHeight;
+                }
                 if (short.TryParse(XML?.Attribute("Tics")?.Value, out short tics))
                     Tics = tics;
                 if (XML?.Attribute("Think")?.Value is string sThink
@@ -42,6 +47,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Act = act;
                 Mark = !XML.IsFalse("Mark");
                 Alive = !XML.IsFalse("Alive");
+
             }
             Next = this;
         }
