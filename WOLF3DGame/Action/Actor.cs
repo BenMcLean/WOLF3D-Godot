@@ -285,15 +285,26 @@ namespace WOLF3D.WOLF3DGame.Action
             if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
             /*
-            int px = Main.ActionRoom.ARVRPlayer.X, pz = Main.ActionRoom.ARVRPlayer.Z, rx = X, rz = Z;
-            while (px != rx && pz != rz)
+            float actorX = Transform.origin.x / Assets.WallWidth,
+                actorZ = Transform.origin.z / Assets.WallWidth,
+                playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,
+                playerZ = Main.ActionRoom.ARVRPlayer.Transform.origin.z / Assets.WallWidth,
+                distance = Mathf.Sqrt((actorX - playerX) * (actorX - playerX) + (actorZ - playerZ) * (actorZ - playerZ)) * 256f,
+                dx = (playerX - actorX) / distance,
+                dy = (playerX - actorX) / distance,
+                runningX = actorX, runningZ = actorZ;
+            int tempX = Mathf.FloorToInt(runningX), tempZ = Mathf.FloorToInt(runningZ);
+            for (int i = 0; i <= distance; i++)
             {
-                if (Math.Abs(rx - px) > Math.Abs(rx - px))
-                    rx += Math.Sign(rx - px);
-                else
-                    rz += Math.Sign(rx - px);
-                if (rx < 0 || rz < 0 || rx >= Main.ActionRoom.Level.Walls.Map.Width || rz >= Main.ActionRoom.Level.Walls.Map.Depth || !Main.ActionRoom.Level.IsTransparent(rx, rz))
-                    return false;
+                runningX += dx;
+                runningZ += dy;
+                if (Mathf.FloorToInt(runningX) != tempX || Mathf.FloorToInt(runningZ) != tempZ)
+                {
+                    tempX = Mathf.FloorToInt(runningX);
+                    tempZ = Mathf.FloorToInt(runningZ);
+                    if (!Main.ActionRoom.Level.IsTransparent(tempX, tempZ))
+                        return false;
+                }
             }
             */
             return true;
