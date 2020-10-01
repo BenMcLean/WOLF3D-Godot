@@ -181,11 +181,15 @@ namespace WOLF3D.WOLF3DGame
 
         public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
 
-        public bool InSight(Vector3 a, Vector3 b, float halfFOV = Assets.HalfPi) => InSight(a.x, a.z, b.x, b.z, halfFOV);
-        public bool InSight(Vector2 a, Vector2 b, float halfFOV = Assets.HalfPi) => InSight(a.x, a.y, b.x, b.y, halfFOV);
-        public bool InSight(float x1, float y1, float x2, float y2, float halfFOV = Assets.HalfPi) => InSight(Mathf.Atan2(y1 - y2, x1 - x2), halfFOV);
-        public bool InSight(float angle, float halfFOV = Assets.HalfPi) =>
-            Mathf.Abs(angle - Angle) % Mathf.Tau < halfFOV;
+        public bool InSight(Vector3 a, Vector3 b, float halfFOV = Assets.QuarterPi) => InSight(a.x, a.z, b.x, b.z, halfFOV);
+        public bool InSight(Vector2 a, Vector2 b, float halfFOV = Assets.QuarterPi) => InSight(a.x, a.y, b.x, b.y, halfFOV);
+        public bool InSight(float x1, float y1, float x2, float y2, float halfFOV = Assets.QuarterPi) => InSight(Mathf.Atan2(y1 - y2, x1 - x2), halfFOV);
+        public bool InSight(float angle, float halfFOV = Assets.QuarterPi)
+        {
+            angle = (angle + Mathf.Tau) % Mathf.Tau;
+            float newAngle = (Angle + Mathf.Tau) % Mathf.Tau;
+            return ((angle - newAngle + Mathf.Tau) % Mathf.Tau <= halfFOV || (newAngle - angle + Mathf.Tau) % Mathf.Tau <= halfFOV);
+        }
 
         public static Direction8 FromAxis(Vector3.Axis? axis) =>
             axis == Godot.Vector3.Axis.X ?

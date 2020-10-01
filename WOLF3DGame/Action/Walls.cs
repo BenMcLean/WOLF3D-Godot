@@ -19,6 +19,11 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool IsNavigable(int x, int z) =>
             x >= 0 && z >= 0 && x < Navigable.Length && z < Navigable[x].Length
             && Navigable[x][z];
+        protected readonly bool[][] Transparent;
+        public bool IsTransparent(int x, int z) =>
+            x >= 0 && z >= 0 && x < Transparent.Length && z < Transparent[x].Length
+            && Transparent[x][z];
+
         public CollisionShape Ground { get; private set; }
         public MeshInstance GroundMesh { get; private set; }
         public CollisionShape Ceiling { get; private set; }
@@ -31,11 +36,16 @@ namespace WOLF3D.WOLF3DGame.Action
             Map = map;
 
             Navigable = new bool[Map.Width][];
+            Transparent = new bool[Map.Width][];
             for (ushort x = 0; x < Map.Width; x++)
             {
                 Navigable[x] = new bool[Map.Depth];
+                Transparent[x] = new bool[Map.Depth];
                 for (ushort z = 0; z < Map.Depth; z++)
+                {
                     Navigable[x][z] = Assets.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+                    Transparent[x][z] = Assets.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+                }
             }
 
             // realWalls replaces pushwalls with floors.

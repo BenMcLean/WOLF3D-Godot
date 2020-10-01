@@ -222,8 +222,10 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
         public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
-
-
+        public bool IsTransparent(int x, int z) =>
+            Walls.IsTransparent(x, z)
+            && (!(Doors[x][z] is Door door) || !door.IsClosed)
+            && !IsPushWallAt((ushort)x, (ushort)z);
 
         /// <returns>if the specified map coordinates are adjacent to a floor</returns>
         public bool IsByFloor(ushort x, ushort z)

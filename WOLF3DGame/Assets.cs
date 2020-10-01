@@ -76,6 +76,7 @@ namespace WOLF3D.WOLF3DGame
         public const float WalkSpeed = 13.67357184f;
         public const float DeadZone = 0.5f;
         public const float HalfPi = Mathf.Pi / 2f;
+        public const float QuarterPi = Mathf.Pi / 4f;
 
         public static readonly QuadMesh WallMesh = new QuadMesh()
         {
@@ -480,13 +481,14 @@ namespace WOLF3D.WOLF3DGame
         public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
 
         public static bool IsNavigable(ushort mapData, ushort objectData) =>
-            (!Walls.Contains(mapData) || PushWalls.Contains(objectData))
-            && !Elevators.Contains(mapData)
-            && (
+            IsTransparent(mapData, objectData) && (
                 !(XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
-                    .Where(e => (uint)e.Attribute("Number") == objectData).FirstOrDefault() is XElement mapObject)
+                    .Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == objectData).FirstOrDefault() is XElement mapObject)
                 || mapObject.IsTrue("Walk")
             );
+        public static bool IsTransparent(ushort mapData, ushort objectData) =>
+            (!Walls.Contains(mapData) || PushWalls.Contains(objectData))
+            && !Elevators.Contains(mapData);
 
         public static GameMap? NextMap(GameMap previous) => GetMap(previous.Episode, previous.ElevatorTo);
         public static GameMap? GetMap(byte episode, byte floor) => Maps.Where(e => e.Episode == episode && e.Floor == floor).FirstOrDefault();

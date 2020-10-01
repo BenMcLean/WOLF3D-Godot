@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -65,6 +66,18 @@ namespace WOLF3D.WOLF3DGame.Action
                     : 0)) is ushort newFrame
                     && newFrame != Page)
                     Page = newFrame;
+
+                // START DEBUGGING
+                if (!State.Alive && SightPlayer())
+                {
+                    if (!Settings.DigiSoundMuted
+    && ActorXML?.Attribute("DigiSound")?.Value is string digiSound
+    && Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
+                        Play = audioStreamSample;
+                    if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
+                        State = chase;
+                }
+                // END DEBUGGING
 
                 if (State.Mark)
                     Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
@@ -172,12 +185,15 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Stand(Actor actor, float delta = 0f) => actor.T_Stand(delta);
         public Actor T_Stand(float delta = 0f)
         {
+            CheckChase();
             return this;
         }
         public static void T_Path(Actor actor, float delta = 0f) => actor.T_Path(delta);
         public Actor T_Path(float delta = 0f)
         {
-            // TODO: Check if player is sighted.
+            if (CheckChase())
+                return this;
+
             if (Direction == null)
             {
                 SelectPathDir();
@@ -205,6 +221,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Chase(Actor actor, float delta = 0f) => actor.T_Chase(delta);
         public Actor T_Chase(float delta = 0f)
         {
+            if (!SightPlayer())
+                Kill();
             return this;
         }
         public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
@@ -242,9 +260,43 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public Actor Kill()
         {
-            if (Assets.States.TryGetValue(ActorXML?.Attribute("Death")?.Value, out State deathState))
+            if (State.Alive && Assets.States.TryGetValue(ActorXML?.Attribute("Death")?.Value, out State deathState))
                 State = deathState;
             return this;
+        }
+
+        public bool CheckChase()
+        {
+            if (SightPlayer())
+            {
+                if (!Settings.DigiSoundMuted
+                    && ActorXML?.Attribute("DigiSound")?.Value is string digiSound
+                    && Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
+                    Play = audioStreamSample;
+                if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
+                    State = chase;
+                return true;
+            }
+            return false;
+        }
+
+        public bool SightPlayer()
+        {
+            if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
+                return false;
+            /*
+            int px = Main.ActionRoom.ARVRPlayer.X, pz = Main.ActionRoom.ARVRPlayer.Z, rx = X, rz = Z;
+            while (px != rx && pz != rz)
+            {
+                if (Math.Abs(rx - px) > Math.Abs(rx - px))
+                    rx += Math.Sign(rx - px);
+                else
+                    rz += Math.Sign(rx - px);
+                if (rx < 0 || rz < 0 || rx >= Main.ActionRoom.Level.Walls.Map.Width || rz >= Main.ActionRoom.Level.Walls.Map.Depth || !Main.ActionRoom.Level.IsTransparent(rx, rz))
+                    return false;
+            }
+            */
+            return true;
         }
     }
 }
