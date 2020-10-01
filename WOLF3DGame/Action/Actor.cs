@@ -284,26 +284,26 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
-            float actorX = Transform.origin.x / Assets.WallWidth,
-                actorZ = Transform.origin.z / Assets.WallWidth,
+            float x = Transform.origin.x / Assets.WallWidth,
+                z = Transform.origin.z / Assets.WallWidth,
                 playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,
                 playerZ = Main.ActionRoom.ARVRPlayer.Transform.origin.z / Assets.WallWidth,
-                distance = Mathf.Sqrt((actorX - playerX) * (actorX - playerX) + (actorZ - playerZ) * (actorZ - playerZ)) * 256f,
-                dx = (playerX - actorX) / distance,
-                dy = (playerZ - actorZ) / distance,
-                runningX = actorX, runningZ = actorZ;
-            int tempX = Mathf.FloorToInt(runningX), tempZ = Mathf.FloorToInt(runningZ);
+                distance = Mathf.Sqrt((x - playerX) * (x - playerX) + (z - playerZ) * (z - playerZ)) * 256f,
+                dx = (playerX - x) / distance,
+                dz = (playerZ - z) / distance;
+            int tempX = Mathf.FloorToInt(x),
+                tempZ = Mathf.FloorToInt(z);
             for (int i = 0; i <= distance; i++)
             {
-                runningX += dx;
-                runningZ += dy;
-                if (Mathf.FloorToInt(runningX) != tempX || Mathf.FloorToInt(runningZ) != tempZ)
-                {
-                    tempX = Mathf.FloorToInt(runningX);
-                    tempZ = Mathf.FloorToInt(runningZ);
-                    if (!Main.ActionRoom.Level.IsTransparent(tempX, tempZ))
-                        return false;
-                }
+                x += dx;
+                z += dz;
+                if ((Mathf.FloorToInt(x) != tempX || Mathf.FloorToInt(z) != tempZ)
+                    && !Main.ActionRoom.Level.IsTransparent(
+                        tempX = Mathf.FloorToInt(x),
+                        tempZ = Mathf.FloorToInt(z)
+                        )
+                    )
+                    return false;
             }
             return true;
         }
