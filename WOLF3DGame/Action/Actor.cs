@@ -284,14 +284,13 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
-            /*
             float actorX = Transform.origin.x / Assets.WallWidth,
                 actorZ = Transform.origin.z / Assets.WallWidth,
                 playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,
                 playerZ = Main.ActionRoom.ARVRPlayer.Transform.origin.z / Assets.WallWidth,
                 distance = Mathf.Sqrt((actorX - playerX) * (actorX - playerX) + (actorZ - playerZ) * (actorZ - playerZ)) * 256f,
                 dx = (playerX - actorX) / distance,
-                dy = (playerX - actorX) / distance,
+                dy = (playerZ - actorZ) / distance,
                 runningX = actorX, runningZ = actorZ;
             int tempX = Mathf.FloorToInt(runningX), tempZ = Mathf.FloorToInt(runningZ);
             for (int i = 0; i <= distance; i++)
@@ -306,7 +305,6 @@ namespace WOLF3D.WOLF3DGame.Action
                         return false;
                 }
             }
-            */
             return true;
         }
     }
