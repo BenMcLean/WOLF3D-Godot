@@ -134,11 +134,29 @@
     <Pic Number="127" Chunk="132" Name="T_DEMO1" />
     <Pic Number="128" Chunk="133" Name="T_DEMO2" />
     <Menus BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1">
+      <!-- Classic game end strings -->
+      <EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
+      <EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>
+      <EndString>Are a few hungry animals&#10;too tough for you?&#10;Press Y to Quit.</EndString>
+      <EndString>Giving up so soon?&#10;Press Y to Quit.</EndString>
+      <EndString>Be sure to take your&#10;umbrella, it's wet out there.&#10;Press Y to Quit.</EndString>
+      <EndString>You're going to let&#10;those animals run free?&#10;Press Y to Quit.</EndString>
+      <EndString>Did the animals wear&#10;you out?&#10;Press Y to Quit.</EndString>
+      <EndString>Are you monkeying around or&#10;do you really want to quit?&#10;Press Y to Quit.</EndString>
+      <EndString>The animals might get&#10;hungry if you're gone&#10;too long!&#10;Press Y to Quit.</EndString>
+      <!-- Additional end strings I made up just for fun -->
+      <EndString>For Evolution, press Y.&#10;For more Intelligent&#10;Design, press N.</EndString>
+      <EndString>Press N to feed more&#10;hungry animals.&#10;Press Y to let them&#10;STARVE!</EndString>
+      <EndString>What was your Flood plan?&#10;Press N for Ark.&#10;Press Y for umbrella.</EndString>
+      <EndString>You know the food&#10;Noah throws is drugged,&#10;right? Press N to&#10;keep playing or Y&#10;to Just Say No.</EndString>
+      <EndString>Flood almost over?&#10;Press N for more rain,&#10;or Y to find the&#10;Rainbow Connection.</EndString>
+      <EndString>Press N to calm down&#10;more goats or Y to&#10;let them eat your&#10;sandals.</EndString>
       <Menu Name="Main" Font="1">
         <Image Name="TITLEPIC" X="center" Y="center" />
         <MenuItems>
           <MenuItem Episode="0" Difficulty="4" Action="NewGame" />
         </MenuItems>
+        <Cancel Action="Quit" />
       </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
@@ -190,6 +208,7 @@
     <Map Number="27" Episode="6" Floor="5" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:30" />
     <Map Number="28" Episode="6" Floor="6" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:11" />
     <Map Number="29" Episode="6" Floor="7" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:30" />
+    <Map Number="30" Episode="6" Floor="8" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" />
   </Maps>
   <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
     <Sound Number="0" Name="D_ANTLPESND" />
