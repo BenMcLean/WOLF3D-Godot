@@ -68,6 +68,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     Page = newFrame;
 
                 // START DEBUGGING
+                /*
                 if (!State.Alive && SightPlayer())
                 {
                     if (!Settings.DigiSoundMuted
@@ -77,6 +78,7 @@ namespace WOLF3D.WOLF3DGame.Action
                     if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
                         State = chase;
                 }
+                */
                 // END DEBUGGING
 
                 if (State.Mark)
@@ -221,8 +223,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Chase(Actor actor, float delta = 0f) => actor.T_Chase(delta);
         public Actor T_Chase(float delta = 0f)
         {
-            if (!SightPlayer())
-                Kill();
+            //if (!SightPlayer())
+            //    Kill();
             return this;
         }
         public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);

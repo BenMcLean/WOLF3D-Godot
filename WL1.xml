@@ -1290,6 +1290,7 @@
     <DigiSound Number="12" Name="DEATHSCREAM1SND" />
     <DigiSound Number="13" Name="DEATHSCREAM2SND" />
     <DigiSound Number="14" Name="TAKEDAMAGESND" />
+    <DigiSound Number="14" Name="DEATHSCREAM3SND" />
     <DigiSound Number="15" Name="PUSHWALLSND" />
     <DigiSound Number="20" Name="LEBENSND" />
     <DigiSound Number="21" Name="NAZIFIRESND" />
