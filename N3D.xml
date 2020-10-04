@@ -176,6 +176,41 @@
         <Cancel InGame="true" Action="Resume" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
+      <Menu Name="Episodes" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219">
+        <PixelRect X="6" Y="19" Width="309" Height="165" Color="221" BordColor="219" Bord2Color="215" />
+        <Text String="Which episode to play?" X="center" Y="3" Color="15" />
+        <Image Name="C_EPISODE1PIC" X="40" Y="22" />
+        <Image Name="C_EPISODE2PIC" X="40" Y="49" />
+        <Image Name="C_EPISODE3PIC" X="40" Y="76" />
+        <Image Name="C_EPISODE4PIC" X="40" Y="103" />
+        <Image Name="C_EPISODE5PIC" X="40" Y="130" />
+        <Image Name="C_EPISODE6PIC" X="40" Y="157" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+        <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
+          <MenuItem Text="Carl the Camel&#10;Start at level 1-1" Episode="1" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Ginny the Giraffe&#10;Start at level 2-1" Episode="2" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Melvin the Monkey&#10;Start at level 3-1" Episode="3" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Kerry the Kangaroo&#10;Start at level 4-1" Episode="4" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Ernie the Elephant&#10;Start at level 5-1" Episode="5" Action="Menu" Argument="Difficulty" />
+          <MenuItem Text="Burt the Bear&#10;Start at level 6-1" Episode="6" Action="Menu" Argument="Difficulty" />
+        </MenuItems>
+        <Cancel Action="Menu" Argument="Main" />
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+      </Menu>
+      <Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" >
+        <PixelRect X="45" Y="90" Width="245" Height="67" Color="221" BordColor="219" Bord2Color="215" />
+        <Text String="How tough are you?" X="center" Y="69" Color="15" />
+        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+        <Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
+        <MenuItems StartX="51" StartY="101" PaddingX="28">
+          <MenuItem Text="Super Easy" Difficulty="1" Action="NewGame" />
+          <MenuItem Text="Easy" Difficulty="2" Action="NewGame" />
+          <MenuItem Text="Normal" Difficulty="3" Action="NewGame" />
+          <MenuItem Text="Hard" Difficulty="4" Action="NewGame" />
+        </MenuItems>
+        <Cancel Action="Menu" Argument="Episodes" />
+        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+      </Menu>
     </Menus>
     <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
       <Number Name="Difficulty" Init="1" />

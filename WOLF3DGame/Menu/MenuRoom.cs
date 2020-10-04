@@ -208,6 +208,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Settings.SetDigiSound(d);
             if (xml.Attribute("Music")?.Value is string m && !string.IsNullOrWhiteSpace(m))
                 Settings.SetMusic(m);
+            if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
+                Episode = episode;
             if (xml.Attribute("Action")?.Value.Equals("Cancel", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 MenuScreen.Cancel();
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
