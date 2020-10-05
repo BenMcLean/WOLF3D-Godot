@@ -282,10 +282,24 @@ namespace WOLF3D.WOLF3DGame.Action
             return false;
         }
 
+        public const float MinSight = 2f / 3f * Assets.WallWidth;
+
         public bool SightPlayer()
         {
+            // don't bother tracing a line if the area isn't connected to the player's
+            if (FloorCode is ushort floorCode
+                && Main.ActionRoom.ARVRPlayer.FloorCode is ushort playerFloorCode
+                && floorCode != playerFloorCode
+                && Main.ActionRoom.Level.FloorCodes[floorCode, playerFloorCode] < 1)
+                return false;
+            // if the player is real close, sight is automatic
+            if (Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x) < MinSight
+                && Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z) < MinSight)
+                return true;
+            // see if they are looking in the right direction
             if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
+            // trace the line
             float x = Transform.origin.x / Assets.WallWidth,
                 z = Transform.origin.z / Assets.WallWidth,
                 playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,

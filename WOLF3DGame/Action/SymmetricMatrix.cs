@@ -97,5 +97,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 DoFloor(floorCode);
             return results;
         }
+
+        public bool IsConnected(uint a, uint b) => this[a, b] > 0 || FloorCodes(a).Contains(b);
     }
 }
