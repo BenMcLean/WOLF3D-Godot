@@ -26,7 +26,7 @@ namespace WOLF3D.WOLF3DGame
                 {
                     Name = "StatusBarPic",
                     Texture = pic,
-                    Position = Size / 2,
+                    Position = Size / 2f,
                 });
             foreach (XElement number in XML?.Elements("Number") ?? Enumerable.Empty<XElement>())
                 Add(new StatusNumber(number));
@@ -180,11 +180,21 @@ namespace WOLF3D.WOLF3DGame
 
         public StatusBar EffectOne(XElement xml)
         {
-            if (xml?.Attribute("SetMaxOf")?.Value is string mStat
-                && !string.IsNullOrWhiteSpace(mStat)
-                && TryGetValue(mStat, out StatusNumber mStatusNumber)
-                && uint.TryParse(xml?.Attribute("SetMax")?.Value, out uint max))
-                mStatusNumber.Max = max;
+            if (xml?.Attribute("SetMaxOf")?.Value is string setMaxOfString
+                && !string.IsNullOrWhiteSpace(setMaxOfString)
+                && TryGetValue(setMaxOfString, out StatusNumber setMaxOf)
+                && uint.TryParse(xml?.Attribute("SetMax")?.Value, out uint setMax))
+                setMaxOf.Max = setMax;
+            if (xml?.Attribute("AddToMaxOf")?.Value is string addToMaxString
+                && !string.IsNullOrWhiteSpace(addToMaxString)
+                && TryGetValue(addToMaxString, out StatusNumber addToMaxOf)
+                && uint.TryParse(xml?.Attribute("AddToMax")?.Value, out uint addToMax))
+                addToMaxOf.Max = addToMax;
+            if (xml?.Attribute("SetTo")?.Value is string setString
+                && !string.IsNullOrWhiteSpace(setString)
+                && TryGetValue(setString, out StatusNumber setStatusNumber)
+                && uint.TryParse(xml?.Attribute("Set")?.Value, out uint set))
+                setStatusNumber.Value = set;
             if (xml?.Attribute("AddTo")?.Value is string stat
                 && !string.IsNullOrWhiteSpace(stat)
                 && TryGetValue(stat, out StatusNumber statusNumber)
