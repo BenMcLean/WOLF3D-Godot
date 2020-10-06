@@ -116,11 +116,19 @@ namespace WOLF3D.WOLF3DGame.Action
                                 AddChild(pushWall);
                             }
 
+            List<ushort> ambushes = new List<ushort>();
+            foreach (XElement xAmbush in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Ambush") ?? XElement.EmptySequence)
+                if (ushort.TryParse(xAmbush.Attribute("Number")?.Value, out ushort ambush))
+                    ambushes.Add(ambush);
             foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
             {
                 AddChild(billboard);
                 if (billboard is Actor actor)
+                {
                     actor.ArrayIndex = Actors.Add(actor);
+                    if (ambushes.Contains(Map.GetMapData((ushort)actor.X, (ushort)actor.Z)))
+                        actor.Ambush = true;
+                }
             }
         }
         #endregion Loading

@@ -1209,7 +1209,7 @@
       <State Name="s_ssdie2" Shape="286" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
       <State Name="s_ssdie3" Shape="287" Tics="15" Next="s_ssdie4" Alive="false" Mark="false" />
       <State Name="s_ssdie4" Shape="289" Tics="0" Next="s_ssdie4" Alive="false" Mark="false" />
-      <Actor Name="Hans" HP="850,950,1050,1200" Speed="512" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Death="s_bossdie1" />
+      <Actor Name="Hans" HP="850,950,1050,1200" Speed="512" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Death="s_bossdie1" Ambush="true" />
       <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Next="s_bossstand" />
       <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Next="s_bosschase1s" />
       <State Name="s_bosschase1s" Shape="402" Tics="3" Next="s_bosschase2" />

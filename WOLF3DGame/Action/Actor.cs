@@ -20,6 +20,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 ActorXML = Assets.XML.Element("VSwap")?.Element("Objects").Elements("Actor").Where(e => e.Attribute("Name")?.Value?.Equals(Name, System.StringComparison.InvariantCultureIgnoreCase) ?? false).FirstOrDefault();
                 if (ushort.TryParse(ActorXML?.Attribute("Speed")?.Value, out ushort speed))
                     ActorSpeed = speed;
+                Ambush = ActorXML.IsTrue("Ambush");
             }
             Direction = Direction8.From(XML?.Attribute("Direction")?.Value);
             AddChild(Speaker = new AudioStreamPlayer3D()
@@ -286,6 +287,18 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool SightPlayer()
         {
+            // I've decided to skip checking for "An actor in ATTACKMODE called SightPlayer!"
+
+            // TODO: check reaction time
+
+            // TODO: if (!areabyplayer[ob->areanumber]) return false;
+
+
+            return CheckSight();
+        }
+
+        public bool CheckSight()
+        {
             // don't bother tracing a line if the area isn't connected to the player's
             if (FloorCode is ushort floorCode
                 && Main.ActionRoom.ARVRPlayer.FloorCode is ushort playerFloorCode
@@ -299,7 +312,15 @@ namespace WOLF3D.WOLF3DGame.Action
             // see if they are looking in the right direction
             if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
-            // trace the line
+            return CheckLine();
+        }
+
+        /// <summary>
+        /// trace a line to check for blocking tiles (corners)
+        /// </summary>
+        /// <returns>true if there are no blocking tiles</returns>
+        public bool CheckLine()
+        {
             float x = Transform.origin.x / Assets.WallWidth,
                 z = Transform.origin.z / Assets.WallWidth,
                 playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,
