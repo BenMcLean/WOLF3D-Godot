@@ -449,7 +449,7 @@
       <Billboard Number="30" Page="79" Name="Column 1" />
       <Billboard Number="31" Page="80" Name="Slender column" />
       <Billboard Number="32" Page="81" Name="Bird cage" />
-      <Billboard Number="33" Page="82" Walk="true" Name="Water pitcher" />
+      <Billboard Number="33" Page="82" Name="Water pitcher" />
       <Billboard Number="34" Page="83" Walk="true" Name="Water puddle 2" />
       <Billboard Number="35" Page="84" Walk="true" Name="Overhead post" />
       <Billboard Number="36" Page="85" Walk="true" Name="Chandelier" />
@@ -457,17 +457,17 @@
       <Billboard Number="38" Page="87" Name="Candle" />
       <Pickup Number="39" Page="88" AddTo="Yellow Key" Add="1" Sound="D_KEYSND" Name="Yellow Key" />
       <Pickup Number="40" Page="89" AddTo="Blue Key" Add="1" Sound="D_KEYSND" Name="Blue Key" />
-      <Billboard Number="41" Page="90" Walk="true" Name="Feed carrying bag" />
-      <Billboard Number="42" Page="91" Name="Feed trough" />
+      <Pickup Number="41" Page="90" AddTo="Feed" Add="6" Name="Feed carrying bag" />
+      <Pickup Number="42" Page="91" If="Feed" AddTo="Feed" Add="5" Name="Feed trough" />
       <Pickup Number="43" Page="92" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Small band-aid" />
       <Pickup Number="44" Page="93" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH1SND" Name="Large band-aid" />
-      <Pickup Number="45" Page="94" If="Feed" LessThan="299" AddTo="Feed" Add="5" Name="Feed" />
+      <Pickup Number="45" Page="94" If="Feed" AddTo="Feed" Add="5" Name="Feed" />
       <Billboard Number="46" Page="95" Walk="true" Name="Slingshot 2" />
       <Billboard Number="47" Page="96" Walk="true" Name="Slingshot 3" />
-      <Billboard Number="48" Page="97" Walk="true" Name="Banana" />
-      <Billboard Number="49" Page="98" Walk="true" Name="Red apple" />
-      <Billboard Number="50" Page="99" Walk="true" Name="Grapes" />
-      <Billboard Number="51" Page="100" Walk="true" Name="Peach" />
+      <Pickup Number="48" Page="97" AddTo="Fruit" Add="1" Name="Banana" />
+      <Pickup Number="49" Page="98" AddTo="Fruit" Add="1" Name="Red apple" />
+      <Pickup Number="50" Page="99" AddTo="Fruit" Add="1" Name="Grapes" />
+      <Pickup Number="51" Page="100" AddTo="Fruit" Add="1" Name="Peach" />
       <Billboard Number="52" Page="101" Walk="true" Name="One Up/Extra Life" />
       <Billboard Number="53" Page="102" Name="Cage" />
       <Billboard Number="54" Page="103" Name="Column 2" />
