@@ -60,7 +60,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Main.NextLevelStats != null)
             {
                 Main.StatusBar.Set(Main.NextLevelStats);
-                Main.StatusBar.SetMax(Main.NextLevelMax);
+                Main.NextLevelStats = null;
             }
             Main.StatusBar["Episode"].Value = Map.Episode;
             Main.StatusBar["Floor"].Value = Map.Floor;

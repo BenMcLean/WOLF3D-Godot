@@ -62,8 +62,7 @@ namespace WOLF3D.WOLF3DGame
         public static bool InGameMatch(XElement xElement) =>
             xElement?.Attribute("InGame") == null ||
             (xElement.IsTrue("InGame") == InGame);
-        public static IEnumerable<KeyValuePair<string, uint>> NextLevelStats { get; set; } = null;
-        public static IEnumerable<KeyValuePair<string, uint>> NextLevelMax { get; set; } = null;
+        public static IEnumerable<StatusNumber.Stat> NextLevelStats { get; set; } = null;
         public static ARVRInterface ARVRInterface { get; set; }
         public static readonly WorldEnvironment WorldEnvironment = new WorldEnvironment()
         {

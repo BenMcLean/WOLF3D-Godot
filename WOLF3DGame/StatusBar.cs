@@ -90,37 +90,25 @@ namespace WOLF3D.WOLF3DGame
             set => Add(key, value);
         }
 
-        public IEnumerable<KeyValuePair<string, uint>> Stats()
+        public StatusNumber.Stat? Stat(string key) => TryGetValue(key, out StatusNumber statusNumber) ? statusNumber.GetStat() : (StatusNumber.Stat?)null;
+
+        public IEnumerable<StatusNumber.Stat> GetStats()
         {
-            foreach (KeyValuePair<string, StatusNumber> pair in this)
-                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.Value);
+            foreach (StatusNumber statusNumber in StatusNumbers.Values)
+                yield return statusNumber.GetStat();
         }
 
-        public IEnumerable<KeyValuePair<string, uint>> NextLevelStats()
+        public IEnumerable<StatusNumber.Stat> NextLevelStats()
         {
-            foreach (KeyValuePair<string, StatusNumber> pair in this)
-                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.NextLevel);
+            foreach (StatusNumber statusNumber in StatusNumbers.Values)
+                yield return statusNumber.GetNextLevelStat();
         }
 
-        public IEnumerable<KeyValuePair<string, uint>> Max()
+        public StatusBar Set(IEnumerable<StatusNumber.Stat> stats)
         {
-            foreach (KeyValuePair<string, StatusNumber> pair in this)
-                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.Max);
-        }
-
-        public StatusBar Set(IEnumerable<KeyValuePair<string, uint>> stats)
-        {
-            foreach (KeyValuePair<string, uint> stat in stats)
-                if (this[stat.Key] is StatusNumber statusNumber)
-                    statusNumber.Value = stat.Value;
-            return this;
-        }
-
-        public StatusBar SetMax(IEnumerable<KeyValuePair<string, uint>> stats)
-        {
-            foreach (KeyValuePair<string, uint> stat in stats)
-                if (this[stat.Key] is StatusNumber statusNumber)
-                    statusNumber.Max = stat.Value;
+            foreach (StatusNumber.Stat stat in stats)
+                if (TryGetValue(stat.Name, out StatusNumber statusNumber))
+                    statusNumber.Set(stat);
             return this;
         }
 

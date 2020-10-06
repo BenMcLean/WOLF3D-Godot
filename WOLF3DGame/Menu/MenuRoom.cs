@@ -227,7 +227,6 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (xml.Attribute("Action")?.Value.Equals("NewGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
             {
                 Main.NextLevelStats = null;
-                Main.NextLevelMax = null;
                 Main.StatusBar = new StatusBar();
                 Main.StatusBar["Difficulty"].Value = Difficulty;
                 ChangeRoom(new LoadingRoom((GameMap)Assets.GetMap(Episode, 1)));

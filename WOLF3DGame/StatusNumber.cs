@@ -35,6 +35,7 @@ namespace WOLF3D.WOLF3DGame
                 Max = max;
             if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
                 Value = init;
+            Visible = !XML.IsFalse("Visible");
         }
 
         public Sprite Item
@@ -104,19 +105,52 @@ namespace WOLF3D.WOLF3DGame
 
         public uint Max
         {
-            get => max;
+            get => max ?? uint.MaxValue;
             set
             {
                 max = value;
-                if (Value > max)
-                    Value = max;
+                if (Value > Max)
+                    Value = Max;
             }
         }
-        private uint max;
+        private uint? max = null;
 
         public Sprite[] Digits { get; set; }
 
         public uint NextLevel =>
             uint.TryParse(XML?.Attribute("LevelReset")?.Value, out uint levelReset) ? levelReset : Value;
+
+        public struct Stat
+        {
+            public string Name;
+            public uint Max;
+            public uint Value;
+            public bool Visible;
+        }
+
+        public Stat GetStat() => new Stat()
+        {
+            Name = Name,
+            Max = Max,
+            Value = Value,
+            Visible = Visible,
+        };
+
+        public Stat GetNextLevelStat() => new Stat()
+        {
+            Name = Name,
+            Max = Max,
+            Value = NextLevel,
+            Visible = Visible,
+        };
+
+        public StatusNumber Set(Stat stat)
+        {
+            Name = stat.Name;
+            Max = stat.Max;
+            Value = stat.Value;
+            Visible = stat.Visible;
+            return this;
+        }
     }
 }
