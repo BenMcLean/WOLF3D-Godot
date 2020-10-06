@@ -58,7 +58,10 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             MenuRoom.LastPushedTile = 0;
             if (Main.NextLevelStats != null)
+            {
                 Main.StatusBar.Set(Main.NextLevelStats);
+                Main.StatusBar.SetMax(Main.NextLevelMax);
+            }
             Main.StatusBar["Episode"].Value = Map.Episode;
             Main.StatusBar["Floor"].Value = Map.Floor;
             Main.ActionRoom = new ActionRoom(Map);

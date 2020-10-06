@@ -181,6 +181,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             base.Exit();
             Main.NextLevelStats = Main.StatusBar.NextLevelStats();
+            Main.NextLevelMax = Main.StatusBar.Max();
             Input.SetMouseMode(Input.MouseMode.Hidden);
         }
 

@@ -217,10 +217,12 @@
       <Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
       <Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
       <Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
-      <Number Name="Lives" X="126" Y="16" Digits="2" Init="3" />
+      <Number Name="Lives" X="126" Y="16" Digits="2" Init="3" Max="9" />
       <Face X="152" Y="4" />
       <Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
-      <Number Name="Feed" X="240" Y="16" Digits="2" Init="7" />
+      <Number Name="Feed" X="240" Y="16" Digits="2" Init="7" Max="299" />
+      <Number Name="Yellow Key" X="256" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+      <Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
       <Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
     </StatusBar>
   </VgaGraph>
@@ -453,13 +455,13 @@
       <Billboard Number="36" Page="85" Walk="true" Name="Chandelier" />
       <Billboard Number="37" Page="86" Name="Water trough" />
       <Billboard Number="38" Page="87" Name="Candle" />
-      <Billboard Number="39" Page="88" Walk="true" Name="Yellow key" />
-      <Billboard Number="40" Page="89" Walk="true" Name="Blue key" />
+      <Pickup Number="39" Page="88" AddTo="Yellow Key" Add="1" Sound="D_KEYSND" Name="Yellow Key" />
+      <Pickup Number="40" Page="89" AddTo="Blue Key" Add="1" Sound="D_KEYSND" Name="Blue Key" />
       <Billboard Number="41" Page="90" Walk="true" Name="Feed carrying bag" />
       <Billboard Number="42" Page="91" Name="Feed trough" />
-      <Billboard Number="43" Page="92" Walk="true" Name="Small band-aid" />
-      <Billboard Number="44" Page="93" Walk="true" Name="Large band-aid" />
-      <Billboard Number="45" Page="94" Walk="true" Name="Feed" />
+      <Pickup Number="43" Page="92" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Small band-aid" />
+      <Pickup Number="44" Page="93" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH1SND" Name="Large band-aid" />
+      <Pickup Number="45" Page="94" If="Feed" LessThan="299" AddTo="Feed" Add="5" Name="Feed" />
       <Billboard Number="46" Page="95" Walk="true" Name="Slingshot 2" />
       <Billboard Number="47" Page="96" Walk="true" Name="Slingshot 3" />
       <Billboard Number="48" Page="97" Walk="true" Name="Banana" />

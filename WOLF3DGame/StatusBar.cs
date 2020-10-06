@@ -102,11 +102,25 @@ namespace WOLF3D.WOLF3DGame
                 yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.NextLevel);
         }
 
+        public IEnumerable<KeyValuePair<string, uint>> Max()
+        {
+            foreach (KeyValuePair<string, StatusNumber> pair in this)
+                yield return new KeyValuePair<string, uint>(pair.Key, pair.Value.Max);
+        }
+
         public StatusBar Set(IEnumerable<KeyValuePair<string, uint>> stats)
         {
             foreach (KeyValuePair<string, uint> stat in stats)
                 if (this[stat.Key] is StatusNumber statusNumber)
                     statusNumber.Value = stat.Value;
+            return this;
+        }
+
+        public StatusBar SetMax(IEnumerable<KeyValuePair<string, uint>> stats)
+        {
+            foreach (KeyValuePair<string, uint> stat in stats)
+                if (this[stat.Key] is StatusNumber statusNumber)
+                    statusNumber.Max = stat.Value;
             return this;
         }
 
@@ -139,6 +153,21 @@ namespace WOLF3D.WOLF3DGame
             uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
                     ? statusNumber.Value > greater : true
             )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals)
+                    ? statusNumber.Max == maxEquals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess)
+                    ? statusNumber.Max < maxLess : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
+                    ? statusNumber.Max > maxGreater : true
+            )
             ) : true;
 
         public StatusBar Effect(XElement xml)
@@ -151,6 +180,11 @@ namespace WOLF3D.WOLF3DGame
 
         public StatusBar EffectOne(XElement xml)
         {
+            if (xml?.Attribute("SetMaxOf")?.Value is string mStat
+                && !string.IsNullOrWhiteSpace(mStat)
+                && TryGetValue(mStat, out StatusNumber mStatusNumber)
+                && uint.TryParse(xml?.Attribute("SetMax")?.Value, out uint max))
+                mStatusNumber.Max = max;
             if (xml?.Attribute("AddTo")?.Value is string stat
                 && !string.IsNullOrWhiteSpace(stat)
                 && TryGetValue(stat, out StatusNumber statusNumber)

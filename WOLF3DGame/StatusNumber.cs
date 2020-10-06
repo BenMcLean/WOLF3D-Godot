@@ -31,6 +31,8 @@ namespace WOLF3D.WOLF3DGame
                     Position = new Vector2(size.GetWidth() / 2, size.GetHeight() / 2),
                 };
             }
+            if (uint.TryParse(XML?.Attribute("Max")?.Value, out uint max))
+                Max = max;
             if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
                 Value = init;
         }
@@ -85,9 +87,7 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 uint? old = val;
-                val = uint.TryParse(XML?.Attribute("Max")?.Value, out uint max) && value > max ?
-                    max
-                    : value;
+                val = value > Max ? Max : value;
                 if (val != old)
                     if (Item == null)
                     {
@@ -101,6 +101,18 @@ namespace WOLF3D.WOLF3DGame
             }
         }
         private uint? val = null;
+
+        public uint Max
+        {
+            get => max;
+            set
+            {
+                max = value;
+                if (Value > max)
+                    Value = max;
+            }
+        }
+        private uint max;
 
         public Sprite[] Digits { get; set; }
 
