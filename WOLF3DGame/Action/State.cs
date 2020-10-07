@@ -22,6 +22,12 @@ namespace WOLF3D.WOLF3DGame.Action
         public bool Mark { get; private set; } = true;
         public bool Alive { get; private set; } = true;
         public float SpeakerHeight { get; private set; } = Assets.HalfWallHeight;
+        public uint ActorSpeed
+        {
+            get => (uint)(Speed / Assets.ActorSpeedConversion);
+            set => Speed = value * Assets.ActorSpeedConversion;
+        }
+        public float Speed = 0f;
         public State(XElement xml)
         {
             if ((XML = xml) is XElement)
@@ -47,7 +53,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     Act = act;
                 Mark = !XML.IsFalse("Mark");
                 Alive = !XML.IsFalse("Alive");
-
+                if (ushort.TryParse(XML?.Attribute("Speed")?.Value, out ushort speed))
+                    ActorSpeed = speed;
             }
             Next = this;
         }

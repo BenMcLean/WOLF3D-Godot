@@ -18,8 +18,6 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 CollisionShape.Name = "Collision " + Name;
                 ActorXML = Assets.XML.Element("VSwap")?.Element("Objects").Elements("Actor").Where(e => e.Attribute("Name")?.Value?.Equals(Name, System.StringComparison.InvariantCultureIgnoreCase) ?? false).FirstOrDefault();
-                if (ushort.TryParse(ActorXML?.Attribute("Speed")?.Value, out ushort speed))
-                    ActorSpeed = speed;
                 Ambush = ActorXML.IsTrue("Ambush");
             }
             Direction = Direction8.From(XML?.Attribute("Direction")?.Value);
@@ -157,12 +155,8 @@ namespace WOLF3D.WOLF3DGame.Action
         //    int hitpoints;
         public ushort HitPoints = 0;
         //    long speed;
-        public uint ActorSpeed
-        {
-            get => (uint)(Speed / Assets.ActorSpeedConversion);
-            set => Speed = value * Assets.ActorSpeedConversion;
-        }
-        public float Speed = 0f;
+        public uint ActorSpeed => State.ActorSpeed;
+        public float Speed => State.Speed;
 
         //    int temp1, temp2, temp3;
         //    struct objstruct    *next,*prev;
