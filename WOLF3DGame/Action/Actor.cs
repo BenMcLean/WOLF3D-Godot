@@ -92,6 +92,26 @@ namespace WOLF3D.WOLF3DGame.Action
             (ushort)(floorCode - Assets.FloorCodeFirst)
             : (ushort?)null;
 
+        public float GetReaction() => GetReaction(ActorXML);
+
+        public static float GetReaction(XElement xElement) => xElement?.Attribute("Reaction")?.Value is string reaction ? GetReaction(reaction) : 0f;
+
+        public static float GetReaction(string reaction)
+        {
+            if (string.IsNullOrWhiteSpace(reaction))
+                return 0f;
+            if (reaction.Split(',') is string[] reactions && reactions.Length > 1)
+                reaction = reactions.Random();
+            return Assets.TicsToSeconds(reaction.Split('-') is string[] values
+                && values.Length == 2
+                && uint.TryParse(values[0], out uint min)
+                && uint.TryParse(values[1], out uint max) ?
+                Main.RNG.Next((int)min, (int)max)
+                : uint.TryParse(reaction, out uint value) ?
+                (int)value
+                : 0);
+        }
+
         #region objstruct
         //typedef struct objstruct
         //{

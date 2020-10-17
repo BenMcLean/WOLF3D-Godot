@@ -1135,7 +1135,7 @@
       <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
       <Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-      <Actor Name="Guard" HP="25,25,25,25" DigiSound="HALTSND" Chase="s_grdchase1" Death="s_grddie1" />
+      <Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" DigiSound="HALTSND" Chase="s_grdchase1" Death="s_grddie1" />
       <State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
       <State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath1s" />
       <State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Speed="512" Next="s_grdpath2" />
@@ -1158,7 +1158,7 @@
       <State Name="s_grddie2" Shape="198" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
       <State Name="s_grddie3" Shape="199" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
       <State Name="s_grddie4" Shape="201" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-      <Actor Name="Dog" HP="1,1,1,1" DigiSound="DOGBARKSND" Chase="s_dogchase1" Death="s_dogdie1" />
+      <Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" DigiSound="DOGBARKSND" Chase="s_dogchase1" Death="s_dogdie1" />
       <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
       <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
       <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
@@ -1180,7 +1180,7 @@
       <State Name="s_dogdie2" Shape="238" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
       <State Name="s_dogdie3" Shape="239" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
       <State Name="s_dogdead" Shape="240" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-      <Actor Name="SS" HP="100,100,100,100" DigiSound="SCHUTZADSND" Chase="s_sschase1" Death="s_ssdie1" />
+      <Actor Name="SS" HP="100,100,100,100" Reaction="1-43" DigiSound="SCHUTZADSND" Chase="s_sschase1" Death="s_ssdie1" />
       <State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Speed="0" Next="s_ssstand" />
       <State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Speed="512" Next="s_sspath1s" />
       <State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Speed="512" Next="s_sspath2" />
@@ -1209,7 +1209,7 @@
       <State Name="s_ssdie2" Shape="286" Tics="15" Speed="0" Next="s_ssdie3" Alive="false" Mark="false" />
       <State Name="s_ssdie3" Shape="287" Tics="15" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
       <State Name="s_ssdie4" Shape="289" Tics="0" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
-      <Actor Name="Hans" HP="850,950,1050,1200" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Death="s_bossdie1" Ambush="true" />
+      <Actor Name="Hans" HP="850,950,1050,1200" Reaction="1" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Death="s_bossdie1" Ambush="true" />
       <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Speed="0" Next="s_bossstand" />
       <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase1s" />
       <State Name="s_bosschase1s" Shape="402" Tics="3" Speed="512" Next="s_bosschase2" />
