@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -179,6 +180,9 @@ namespace WOLF3D.WOLF3DGame.Action
         public float Speed => State.Speed;
 
         //    int temp1, temp2, temp3;
+        public float ReactionTime = 0f;
+        public float ReactionTimer = 0f;
+
         //    struct objstruct    *next,*prev;
         //}
         //objtype;
@@ -202,13 +206,13 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Stand(Actor actor, float delta = 0f) => actor.T_Stand(delta);
         public Actor T_Stand(float delta = 0f)
         {
-            CheckChase();
+            CheckChase(delta);
             return this;
         }
         public static void T_Path(Actor actor, float delta = 0f) => actor.T_Path(delta);
         public Actor T_Path(float delta = 0f)
         {
-            if (CheckChase())
+            if (CheckChase(delta))
                 return this;
 
             if (Direction == null)
@@ -282,9 +286,9 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
-        public bool CheckChase()
+        public bool CheckChase(float delta = 0f)
         {
-            if (SightPlayer())
+            if (SightPlayer(delta))
             {
                 if (!Settings.DigiSoundMuted
                     && ActorXML?.Attribute("DigiSound")?.Value is string digiSound
@@ -299,15 +303,17 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public const float MinSight = 2f / 3f * Assets.WallWidth;
 
-        public bool SightPlayer()
+        public bool SightPlayer(float delta = 0f)
         {
-            // I've decided to skip checking for "An actor in ATTACKMODE called SightPlayer!"
-
-            // TODO: check reaction time
-
+            // I've decided to omit checking for "An actor in ATTACKMODE called SightPlayer!"
+            ReactionTime += delta;
+            if (ReactionTime > ReactionTimer)
+            {
+                ReactionTime = 0f;
+                ReactionTimer = GetReaction();
+            }
+            else return false;
             // TODO: if (!areabyplayer[ob->areanumber]) return false;
-
-
             return CheckSight();
         }
 
