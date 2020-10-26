@@ -242,8 +242,85 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Chase(Actor actor, float delta = 0f) => actor.T_Chase(delta);
         public Actor T_Chase(float delta = 0f)
         {
-            //if (!SightPlayer())
-            //    Kill();
+            //long move;
+            //int dx, dy, dist, chance;
+
+            // TODO: return if gamestate.victoryflag
+
+            bool dodge = false;
+            //if (CheckLine(ob))  // got a shot at player?
+            //{
+            //    dx = abs(ob->tilex - player->tilex);
+            //    dy = abs(ob->tiley - player->tiley);
+            //    dist = dx > dy ? dx : dy;
+            //    if (!dist || (dist == 1 && ob->distance < 0x4000))
+            //        chance = 300;
+            //    else
+            //        chance = (tics << 4) / dist;
+
+            //    if (US_RndT() < chance)
+            //    {
+            //        //
+            //        // go into attack frame
+            //        //
+
+            //        return;
+            //    }
+            //    dodge = true;
+            //}
+
+            //if (ob->dir == nodir)
+            //{
+            //    if (dodge)
+            //        SelectDodgeDir(ob);
+            //    else
+            //        SelectChaseDir(ob);
+            //    if (ob->dir == nodir)
+            //        return;                         // object is blocked in
+            //}
+
+            //move = ob->speed * tics;
+
+            //while (move)
+            //{
+            //    if (ob->distance < 0)
+            //    {
+            //        //
+            //        // waiting for a door to open
+            //        //
+            //        OpenDoor(-ob->distance - 1);
+            //        if (doorobjlist[-ob->distance - 1].action != dr_open)
+            //            return;
+            //        ob->distance = TILEGLOBAL;  // go ahead, the door is now opoen
+            //    }
+
+            //    if (move < ob->distance)
+            //    {
+            //        MoveObj(ob, move);
+            //        break;
+            //    }
+
+            //    //
+            //    // reached goal tile, so select another one
+            //    //
+
+            //    //
+            //    // fix position to account for round off during moving
+            //    //
+            //    ob->x = ((long)ob->tilex << TILESHIFT) + TILEGLOBAL / 2;
+            //    ob->y = ((long)ob->tiley << TILESHIFT) + TILEGLOBAL / 2;
+
+            //    move -= ob->distance;
+
+            //    if (dodge)
+            //        SelectDodgeDir(ob);
+            //    else
+            //        SelectChaseDir(ob);
+
+            //    if (ob->dir == nodir)
+            //        return;                         // object is blocked in
+            //}
+
             return this;
         }
         public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
@@ -313,7 +390,6 @@ namespace WOLF3D.WOLF3DGame.Action
                 ReactionTimer = GetReaction();
             }
             else return false;
-            // TODO: if (!areabyplayer[ob->areanumber]) return false;
             return CheckSight();
         }
 
