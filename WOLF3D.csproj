@@ -101,6 +101,7 @@
     <Compile Include="WOLF3DGame\Settings.cs" />
     <Compile Include="WOLF3DGame\Setup\DosScreen.cs" />
     <Compile Include="WOLF3DGame\Setup\SetupRoom.cs" />
+    <Compile Include="WOLF3DGame\XMLScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="OPL\OPL.csproj">

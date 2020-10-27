@@ -247,7 +247,8 @@ namespace WOLF3D.WOLF3DGame.Action
 
             // TODO: return if gamestate.victoryflag
 
-            bool dodge = false;
+            //bool dodge = false;
+
             //if (CheckLine(ob))  // got a shot at player?
             //{
             //    dx = abs(ob->tilex - player->tilex);

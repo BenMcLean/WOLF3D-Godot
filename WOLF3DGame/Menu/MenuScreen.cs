@@ -249,20 +249,20 @@ namespace WOLF3D.WOLF3DGame.Menu
                 {
                     selection = 0;
                     if (value > 0 && XML.Element("Down") is XElement d)
-                        Main.MenuRoom.Action(d);
+                        XMLScript.Action(d);
                     else if (value < 0 && XML.Element("Up") is XElement up)
-                        Main.MenuRoom.Action(up);
+                        XMLScript.Action(up);
                     return;
                 }
                 MenuItems[selection].Color = MenuItems[selection].TextColor;
                 if (value >= MenuItems.Count && XML.Element("Down") is XElement down)
                 {
-                    Main.MenuRoom.Action(down);
+                    XMLScript.Action(down);
                     return;
                 }
                 else if (value < 0 && XML.Element("Up") is XElement up)
                 {
-                    Main.MenuRoom.Action(up);
+                    XMLScript.Action(up);
                     return;
                 }
                 selection = Direction8.Modulus(value, MenuItems.Count);
@@ -372,14 +372,14 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (Modal == null)
             {
                 if (GetExtraItem() is Target2D target && target != null)
-                    Main.MenuRoom.Action(target.XML);
+                    XMLScript.Action(target.XML);
                 else if (SelectedItem is MenuItem selected && selected != null)
                 {
                     if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
                         SoundBlaster.Adl = Assets.Sound(selectSound.Value);
                     else if (Assets.SelectSound != null)
                         SoundBlaster.Adl = Assets.SelectSound;
-                    Main.MenuRoom.Action(selected.XML);
+                    XMLScript.Action(selected.XML);
                 }
             }
             else if (Modal.Answer)
@@ -394,7 +394,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             if (Modal != null)
                 return Accept();
             if (XML.Elements("Cancel")?.Where(c => Main.InGameMatch(c)).FirstOrDefault() is XElement cancel && cancel != null)
-                Main.MenuRoom.Action(cancel);
+                XMLScript.Action(cancel);
             return this;
         }
 
