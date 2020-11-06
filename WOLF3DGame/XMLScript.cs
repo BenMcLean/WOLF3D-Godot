@@ -37,40 +37,40 @@ namespace WOLF3D.WOLF3DGame
         }
 
         private static bool ConditionalOne(XElement xml) =>
-            xml?.Attribute("If")?.Value is string stat
-                && !string.IsNullOrWhiteSpace(stat)
-                && Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
-            ? (
+            !(xml?.Attribute("If")?.Value is string stat)
+                || string.IsNullOrWhiteSpace(stat)
+                || !Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+            || (
             (
-            uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
-                    ? statusNumber.Value == equals : true
+            !uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
+|| statusNumber.Value == equals
             )
             &&
             (
-            uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
-                    ? statusNumber.Value < less : true
+            !uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
+|| statusNumber.Value < less
             )
             &&
             (
-            uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
-                    ? statusNumber.Value > greater : true
+            !uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
+|| statusNumber.Value > greater
             )
             &&
             (
-            uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals)
-                    ? statusNumber.Max == maxEquals : true
+            !uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals)
+|| statusNumber.Max == maxEquals
             )
             &&
             (
-            uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess)
-                    ? statusNumber.Max < maxLess : true
+            !uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess)
+|| statusNumber.Max < maxLess
             )
             &&
             (
-            uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
-                    ? statusNumber.Max > maxGreater : true
+            !uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
+|| statusNumber.Max > maxGreater
             )
-            ) : true;
+            );
 
         private static void Effect(XElement xml)
         {
