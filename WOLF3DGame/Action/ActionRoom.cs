@@ -186,9 +186,9 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Pickup(Pickup pickup)
         {
-            if (pickup.IsIn(ARVRPlayer.Position) && Main.StatusBar.Conditional(pickup.XML))
+            if (pickup.IsIn(ARVRPlayer.Position) && XMLScript.Conditional(pickup.XML))
             {
-                Main.StatusBar.Effect(pickup.XML);
+                XMLScript.Effect(pickup.XML);
                 Level.RemoveChild(pickup);
                 return true;
             }

@@ -3,12 +3,94 @@ using System.Linq;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
+using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame
 {
     public static class XMLScript
     {
+
+        public static bool Conditional(XElement xml)
+        {
+            if (!ConditionalOne(xml))
+                return false;
+            foreach (XElement conditional in xml?.Elements("Conditional") ?? Enumerable.Empty<XElement>())
+                if (!ConditionalOne(conditional))
+                    return false;
+            return true;
+        }
+
+        public static bool ConditionalOne(XElement xml) =>
+            xml?.Attribute("If")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+            ? (
+            (
+            uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
+                    ? statusNumber.Value == equals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
+                    ? statusNumber.Value < less : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
+                    ? statusNumber.Value > greater : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals)
+                    ? statusNumber.Max == maxEquals : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess)
+                    ? statusNumber.Max < maxLess : true
+            )
+            &&
+            (
+            uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
+                    ? statusNumber.Max > maxGreater : true
+            )
+            ) : true;
+
+        public static void Effect(XElement xml)
+        {
+            EffectOne(xml);
+            foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
+                EffectOne(effect);
+            return;
+        }
+
+        public static void EffectOne(XElement xml)
+        {
+            if (xml?.Attribute("SetMaxOf")?.Value is string setMaxOfString
+                && !string.IsNullOrWhiteSpace(setMaxOfString)
+                && Main.StatusBar.TryGetValue(setMaxOfString, out StatusNumber setMaxOf)
+                && uint.TryParse(xml?.Attribute("SetMax")?.Value, out uint setMax))
+                setMaxOf.Max = setMax;
+            if (xml?.Attribute("AddToMaxOf")?.Value is string addToMaxString
+                && !string.IsNullOrWhiteSpace(addToMaxString)
+                && Main.StatusBar.TryGetValue(addToMaxString, out StatusNumber addToMaxOf)
+                && uint.TryParse(xml?.Attribute("AddToMax")?.Value, out uint addToMax))
+                addToMaxOf.Max = addToMax;
+            if (xml?.Attribute("SetTo")?.Value is string setString
+                && !string.IsNullOrWhiteSpace(setString)
+                && Main.StatusBar.TryGetValue(setString, out StatusNumber setStatusNumber)
+                && uint.TryParse(xml?.Attribute("Set")?.Value, out uint set))
+                setStatusNumber.Value = set;
+            if (xml?.Attribute("AddTo")?.Value is string stat
+                && !string.IsNullOrWhiteSpace(stat)
+                && Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
+                && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
+                statusNumber.Value += add;
+            SoundBlaster.Play(xml);
+            return;
+        }
+
         public static void Action(XElement xml)
         {
             if (xml == null || !Main.InGameMatch(xml))

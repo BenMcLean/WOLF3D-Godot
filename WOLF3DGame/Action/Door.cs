@@ -227,7 +227,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public override bool Push(Direction8 direction)
         {
-            if (Main.StatusBar.Conditional(XML))
+            if (XMLScript.Conditional(XML))
             {
                 State = Pushed;
                 return true;
