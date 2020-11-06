@@ -10,18 +10,33 @@ namespace WOLF3D.WOLF3DGame
 {
     public static class XMLScript
     {
+        public static bool Run(XElement xml)
+        {
+            if (Conditional(xml))
+            {
+                Effect(xml);
+                foreach (XElement child in xml.Elements())
+                    if (!"And".Equals(child.Name?.LocalName)
+                        && !"Else".Equals(child.Name?.LocalName))
+                        Run(child);
+                return true;
+            }
+            foreach (XElement child in xml.Elements("Else"))
+                Run(child);
+            return false;
+        }
 
-        public static bool Conditional(XElement xml)
+        private static bool Conditional(XElement xml)
         {
             if (!ConditionalOne(xml))
                 return false;
-            foreach (XElement conditional in xml?.Elements("Conditional") ?? Enumerable.Empty<XElement>())
-                if (!ConditionalOne(conditional))
+            foreach (XElement and in xml?.Elements("And") ?? Enumerable.Empty<XElement>())
+                if (!ConditionalOne(and))
                     return false;
             return true;
         }
 
-        public static bool ConditionalOne(XElement xml) =>
+        private static bool ConditionalOne(XElement xml) =>
             xml?.Attribute("If")?.Value is string stat
                 && !string.IsNullOrWhiteSpace(stat)
                 && Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
@@ -57,16 +72,11 @@ namespace WOLF3D.WOLF3DGame
             )
             ) : true;
 
-        public static void Effect(XElement xml)
+        private static void Effect(XElement xml)
         {
-            EffectOne(xml);
-            foreach (XElement effect in xml?.Elements("Effect") ?? Enumerable.Empty<XElement>())
-                EffectOne(effect);
-            return;
-        }
+            SoundBlaster.Play(xml);
 
-        public static void EffectOne(XElement xml)
-        {
+            // Status effects
             if (xml?.Attribute("SetMaxOf")?.Value is string setMaxOfString
                 && !string.IsNullOrWhiteSpace(setMaxOfString)
                 && Main.StatusBar.TryGetValue(setMaxOfString, out StatusNumber setMaxOf)
@@ -87,12 +97,8 @@ namespace WOLF3D.WOLF3DGame
                 && Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
                 && uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
                 statusNumber.Value += add;
-            SoundBlaster.Play(xml);
-            return;
-        }
 
-        public static void Action(XElement xml)
-        {
+            // Menu effects
             if (xml == null || !Main.InGameMatch(xml))
                 return;
             if (xml.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
@@ -105,6 +111,8 @@ namespace WOLF3D.WOLF3DGame
                 Settings.SetMusic(m);
             if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
                 MenuRoom.Episode = episode;
+
+            // Actions
             if (xml.Attribute("Action")?.Value.Equals("Cancel", StringComparison.InvariantCultureIgnoreCase) ?? false)
                 Main.MenuRoom.MenuScreen.Cancel();
             if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
