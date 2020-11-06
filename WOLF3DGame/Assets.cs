@@ -114,6 +114,22 @@ namespace WOLF3D.WOLF3DGame
             }
         }
         public static readonly Color White = Color.Color8(255, 255, 255, 255);
+
+        public static uint GetUInt(string @string)
+        {
+            if (string.IsNullOrWhiteSpace(@string))
+                return 0;
+            if (@string.Split(',') is string[] ranges && ranges.Length > 1)
+                @string = ranges.Random();
+            return @string.Split('-') is string[] values
+                && values.Length == 2
+                && uint.TryParse(values[0], out uint min)
+                && uint.TryParse(values[1], out uint max) ?
+                (uint)Main.RNG.Next((int)min, (int)max)
+                : uint.TryParse(@string, out uint value) ?
+                value
+                : 0;
+        }
         #endregion Math
 
         #region Game assets
