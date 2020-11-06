@@ -29,6 +29,7 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 Mesh = Assets.WallMesh,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.PixelWidth)),
+                Visible = false,
             });
             Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
             Offset = new Vector2(-Assets.HalfWallWidth, -Assets.HalfWallWidth);
@@ -57,11 +58,13 @@ namespace WOLF3D.WOLF3DGame.Action
                 {
                     page = @ushort;
                     MeshInstance.MaterialOverride = Assets.VSwapMaterials[@ushort];
+                    MeshInstance.Visible = true;
                 }
                 else
                 {
                     page = null;
                     MeshInstance.MaterialOverride = null;
+                    MeshInstance.Visible = false;
                 }
             }
         }

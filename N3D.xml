@@ -478,8 +478,9 @@
       <Billboard Number="59" Page="108" Walk="true" Name="Map" />
       <Pushwall Number="98" DigiSound="D_PWALLSND" RepeatDigiSound="8" Name="Secret Door" />
       <!-- 99 is "Secret Door Path" -->
-      <Trigger Number="100" Name="Next level trigger" />
-      <Trigger Number="101" Name="Secret level trigger" />
+      <Pickup Number="100" Action="NextFloor" Name="Next level trigger" DigiSound="D_ELPHNTSND" />
+      <Override Number="101" Floor="10" Name="Elevator to Secret Floor" />
+      <Pickup Number="101" Action="NextFloor" Name="Secret level trigger" />
       <!--
 108=10,158,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
 109=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
