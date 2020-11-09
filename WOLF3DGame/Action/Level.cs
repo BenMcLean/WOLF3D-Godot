@@ -311,5 +311,34 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public static ushort DoorTexture(ushort cell) =>
             (ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
+
+        public bool CheckLine(float ax, float ay, float bx, float by) => CheckLine(Assets.IntCoordinate(ax), Assets.IntCoordinate(ay), Assets.IntCoordinate(bx), Assets.IntCoordinate(by));
+
+        /// <summary>
+        /// trace a line to check for blocking tiles (corners)
+        /// </summary>
+        /// <returns>true if there are no blocking tiles</returns>
+        public bool CheckLine(int ax, int ay, int bx, int by)
+        {
+            float x1 = ax, y1 = ay, x2 = bx, y2 = by,
+                distance = Mathf.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) * 256f,
+                dx = (x2 - x1) / distance,
+                dz = (y2 - y1) / distance;
+            int tempX = Mathf.FloorToInt(x1),
+                tempY = Mathf.FloorToInt(y1);
+            for (int i = 0; i <= distance; i++)
+            {
+                x1 += dx;
+                y1 += dz;
+                if ((Mathf.FloorToInt(x1) != tempX || Mathf.FloorToInt(y1) != tempY)
+                    && !IsTransparent(
+                        tempX = Mathf.FloorToInt(x1),
+                        tempY = Mathf.FloorToInt(y1)
+                        )
+                    )
+                    return false;
+            }
+            return true;
+        }
     }
 }

@@ -224,86 +224,49 @@ namespace WOLF3D.WOLF3DGame.Action
         public static void T_Chase(Actor actor, float delta = 0f) => actor.T_Chase(delta);
         public Actor T_Chase(float delta = 0f)
         {
-            //long move;
-            //int dx, dy, dist, chance;
-
             // TODO: return if gamestate.victoryflag
-
-            //bool dodge = false;
-
-            //if (CheckLine(ob))  // got a shot at player?
-            //{
-            //    dx = abs(ob->tilex - player->tilex);
-            //    dy = abs(ob->tiley - player->tiley);
-            //    dist = dx > dy ? dx : dy;
-            //    if (!dist || (dist == 1 && ob->distance < 0x4000))
-            //        chance = 300;
-            //    else
-            //        chance = (tics << 4) / dist;
-
-            //    if (US_RndT() < chance)
-            //    {
-            //        //
-            //        // go into attack frame
-            //        //
-
-            //        return;
-            //    }
-            //    dodge = true;
-            //}
-
-            //if (ob->dir == nodir)
-            //{
-            //    if (dodge)
-            //        SelectDodgeDir(ob);
-            //    else
-            //        SelectChaseDir(ob);
-            //    if (ob->dir == nodir)
-            //        return;                         // object is blocked in
-            //}
-
-            //move = ob->speed * tics;
-
-            //while (move)
-            //{
-            //    if (ob->distance < 0)
-            //    {
-            //        //
-            //        // waiting for a door to open
-            //        //
-            //        OpenDoor(-ob->distance - 1);
-            //        if (doorobjlist[-ob->distance - 1].action != dr_open)
-            //            return;
-            //        ob->distance = TILEGLOBAL;  // go ahead, the door is now opoen
-            //    }
-
-            //    if (move < ob->distance)
-            //    {
-            //        MoveObj(ob, move);
-            //        break;
-            //    }
-
-            //    //
-            //    // reached goal tile, so select another one
-            //    //
-
-            //    //
-            //    // fix position to account for round off during moving
-            //    //
-            //    ob->x = ((long)ob->tilex << TILESHIFT) + TILEGLOBAL / 2;
-            //    ob->y = ((long)ob->tiley << TILESHIFT) + TILEGLOBAL / 2;
-
-            //    move -= ob->distance;
-
-            //    if (dodge)
-            //        SelectDodgeDir(ob);
-            //    else
-            //        SelectChaseDir(ob);
-
-            //    if (ob->dir == nodir)
-            //        return;                         // object is blocked in
-            //}
-
+            bool dodge = false;
+            if (CheckLine())
+            {
+                int dx = Mathf.Abs((int)(GlobalTransform.origin.x * 0x4000) - (int)(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.x * 0x4000)),
+                    dy = Mathf.Abs((int)(GlobalTransform.origin.z * 0x4000) - (int)(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.z * 0x4000)),
+                    dist = dx > dy ? dx : dy;
+                if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Assets.SecondsToTics(delta) << 4) / dist)
+                {
+                    if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
+                        State = attackState;
+                    return this;
+                }
+                dodge = true;
+            }
+            if (Direction == null)
+            {
+                if (dodge)
+                    SelectDodgeDir();
+                else
+                    SelectChaseDir();
+                if (Direction == null)
+                    return this; // object is blocked in
+            }
+            float move = Speed * delta;
+            Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
+            if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+            {
+                GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+                Distance -= move;
+            }
+            if (Distance <= 0f)
+            {
+                Recenter();
+                if (dodge)
+                    SelectDodgeDir();
+                else
+                    SelectChaseDir();
+                if (Direction == null)
+                    return this; // All movement is blocked
+                else if (Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door)
+                    door.ActorPush();
+            }
             return this;
         }
         public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
@@ -330,6 +293,18 @@ namespace WOLF3D.WOLF3DGame.Action
                 TileX = (ushort)X;
                 TileZ = (ushort)Z;
             }
+            return this;
+        }
+
+        public Actor SelectDodgeDir()
+        {
+            // TODO
+            return this;
+        }
+
+        public Actor SelectChaseDir()
+        {
+            // TODO
             return this;
         }
 
@@ -394,34 +369,11 @@ namespace WOLF3D.WOLF3DGame.Action
             return CheckLine();
         }
 
-        /// <summary>
-        /// trace a line to check for blocking tiles (corners)
-        /// </summary>
-        /// <returns>true if there are no blocking tiles</returns>
-        public bool CheckLine()
-        {
-            float x = Transform.origin.x / Assets.WallWidth,
-                z = Transform.origin.z / Assets.WallWidth,
-                playerX = Main.ActionRoom.ARVRPlayer.Transform.origin.x / Assets.WallWidth,
-                playerZ = Main.ActionRoom.ARVRPlayer.Transform.origin.z / Assets.WallWidth,
-                distance = Mathf.Sqrt((x - playerX) * (x - playerX) + (z - playerZ) * (z - playerZ)) * 256f,
-                dx = (playerX - x) / distance,
-                dz = (playerZ - z) / distance;
-            int tempX = Mathf.FloorToInt(x),
-                tempZ = Mathf.FloorToInt(z);
-            for (int i = 0; i <= distance; i++)
-            {
-                x += dx;
-                z += dz;
-                if ((Mathf.FloorToInt(x) != tempX || Mathf.FloorToInt(z) != tempZ)
-                    && !Main.ActionRoom.Level.IsTransparent(
-                        tempX = Mathf.FloorToInt(x),
-                        tempZ = Mathf.FloorToInt(z)
-                        )
-                    )
-                    return false;
-            }
-            return true;
-        }
+        public bool CheckLine() => Main.ActionRoom.Level.CheckLine(
+            Transform.origin.x,
+            Transform.origin.z,
+            Main.ActionRoom.ARVRPlayer.Transform.origin.x,
+            Main.ActionRoom.ARVRPlayer.Transform.origin.z
+            );
     }
 }
