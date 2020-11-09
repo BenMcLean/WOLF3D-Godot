@@ -196,7 +196,6 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (CheckChase(delta))
                 return this;
-
             if (Direction == null)
             {
                 SelectPathDir();
@@ -205,7 +204,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             float move = Speed * delta;
             Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
-            if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+            if (Distance > 0f && !Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
             {
                 GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                 Distance -= move;
@@ -228,10 +227,10 @@ namespace WOLF3D.WOLF3DGame.Action
             bool dodge = false;
             if (CheckLine())
             {
-                int dx = Mathf.Abs((int)(GlobalTransform.origin.x * 0x4000) - (int)(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.x * 0x4000)),
-                    dy = Mathf.Abs((int)(GlobalTransform.origin.z * 0x4000) - (int)(Main.ActionRoom.ARVRPlayer.GlobalTransform.origin.z * 0x4000)),
-                    dist = dx > dy ? dx : dy;
-                if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Assets.SecondsToTics(delta) << 4) / dist)
+                float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
+                    dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
+                int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
+                if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Tics << 4) / dist)
                 {
                     if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
                         State = attackState;
@@ -250,7 +249,7 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             float move = Speed * delta;
             Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
-            if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+            if (Distance > 0f && Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
             {
                 GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                 Distance -= move;
