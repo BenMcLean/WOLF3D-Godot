@@ -295,15 +295,229 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
 
+        /// <summary>
+        /// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
+        /// <br/>
+        /// If there is no possible move(ob is totally surrounded) then Direction = null
+        /// <br/>
+        /// Otherwise
+        /// <br/>
+        /// Direction = new direction to follow
+        /// <br/>
+        /// Distance = WallWidth or -1 for waiting on opening door
+        /// <br/>
+        /// TileX, TileY = new destination
+        /// </summary>
+        /// <returns>this</returns>
         public Actor SelectDodgeDir()
         {
             // TODO
-            return this;
+            // 	int 		deltax,deltay,i;
+            // 	unsigned	absdx,absdy;
+            // 	dirtype 	dirtry[5];
+            // 	dirtype 	turnaround,tdir;
+            // 
+            // 	if (ob->flags & FL_FIRSTATTACK)
+            // 	{
+            // 	//
+            // 	// turning around is only ok the very first time after noticing the
+            // 	// player
+            // 	//
+            // 		turnaround = nodir;
+            // 		ob->flags &= ~FL_FIRSTATTACK;
+            // 	}
+            // 	else
+            // 		turnaround=opposite[ob->dir];
+            // 
+            // 	deltax = player->tilex - ob->tilex;
+            // 	deltay = player->tiley - ob->tiley;
+            // 
+            // //
+            // // arange 5 direction choices in order of preference
+            // // the four cardinal directions plus the diagonal straight towards
+            // // the player
+            // //
+            // 
+            // 	if (deltax>0)
+            // 	{
+            // 		dirtry[1]= east;
+            // 		dirtry[3]= west;
+            // 	}
+            // 	else
+            // 	{
+            // 		dirtry[1]= west;
+            // 		dirtry[3]= east;
+            // 	}
+            // 
+            // 	if (deltay>0)
+            // 	{
+            // 		dirtry[2]= south;
+            // 		dirtry[4]= north;
+            // 	}
+            // 	else
+            // 	{
+            // 		dirtry[2]= north;
+            // 		dirtry[4]= south;
+            // 	}
+            // 
+            // //
+            // // randomize a bit for dodging
+            // //
+            // 	absdx = abs(deltax);
+            // 	absdy = abs(deltay);
+            // 
+            // 	if (absdx > absdy)
+            // 	{
+            // 		tdir = dirtry[1];
+            // 		dirtry[1] = dirtry[2];
+            // 		dirtry[2] = tdir;
+            // 		tdir = dirtry[3];
+            // 		dirtry[3] = dirtry[4];
+            // 		dirtry[4] = tdir;
+            // 	}
+            // 
+            // 	if (US_RndT() < 128)
+            // 	{
+            // 		tdir = dirtry[1];
+            // 		dirtry[1] = dirtry[2];
+            // 		dirtry[2] = tdir;
+            // 		tdir = dirtry[3];
+            // 		dirtry[3] = dirtry[4];
+            // 		dirtry[4] = tdir;
+            // 	}
+            // 
+            // 	dirtry[0] = diagonal [ dirtry[1] ] [ dirtry[2] ];
+            // 
+            // //
+            // // try the directions util one works
+            // //
+            // 	for (i=0;i<5;i++)
+            // 	{
+            // 		if ( dirtry[i] == nodir || dirtry[i] == turnaround)
+            // 			continue;
+            // 
+            // 		ob->dir = dirtry[i];
+            // 		if (TryWalk(ob))
+            // 			return;
+            // 	}
+            // 
+            // //
+            // // turn around only as a last resort
+            // //
+            // 	if (turnaround != nodir)
+            // 	{
+            // 		ob->dir = turnaround;
+            // 
+            // 		if (TryWalk(ob))
+            // 			return;
+            // 	}
+            // 
+            // 	ob->dir = nodir;
+            return SelectChaseDir();
         }
 
+        /// <summary>
+        /// As SelectDodgeDir, but doesn't try to dodge
+        /// </summary>
+        /// <returns>this</returns>
         public Actor SelectChaseDir()
         {
             // TODO
+            // 	int deltax,deltay,i;
+            // 	dirtype d[3];
+            // 	dirtype tdir, olddir, turnaround;
+            // 
+            // 
+            // 	olddir=ob->dir;
+            // 	turnaround=opposite[olddir];
+            // 
+            // 	deltax=player->tilex - ob->tilex;
+            // 	deltay=player->tiley - ob->tiley;
+            // 
+            // 	d[1]=nodir;
+            // 	d[2]=nodir;
+            // 
+            // 	if (deltax>0)
+            // 		d[1]= east;
+            // 	else if (deltax<0)
+            // 		d[1]= west;
+            // 	if (deltay>0)
+            // 		d[2]=south;
+            // 	else if (deltay<0)
+            // 		d[2]=north;
+            // 
+            // 	if (abs(deltay)>abs(deltax))
+            // 	{
+            // 		tdir=d[1];
+            // 		d[1]=d[2];
+            // 		d[2]=tdir;
+            // 	}
+            // 
+            // 	if (d[1]==turnaround)
+            // 		d[1]=nodir;
+            // 	if (d[2]==turnaround)
+            // 		d[2]=nodir;
+            // 
+            // 
+            // 	if (d[1]!=nodir)
+            // 	{
+            // 		ob->dir=d[1];
+            // 		if (TryWalk(ob))
+            // 			return;     /*either moved forward or attacked*/
+            // 	}
+            // 
+            // 	if (d[2]!=nodir)
+            // 	{
+            // 		ob->dir=d[2];
+            // 		if (TryWalk(ob))
+            // 			return;
+            // 	}
+            // 
+            // /* there is no direct path to the player, so pick another direction */
+            // 
+            // 	if (olddir!=nodir)
+            // 	{
+            // 		ob->dir=olddir;
+            // 		if (TryWalk(ob))
+            // 			return;
+            // 	}
+            // 
+            // 	if (US_RndT()>128) 	/*randomly determine direction of search*/
+            // 	{
+            // 		for (tdir=north;tdir<=west;tdir++)
+            // 		{
+            // 			if (tdir!=turnaround)
+            // 			{
+            // 				ob->dir=tdir;
+            // 				if ( TryWalk(ob) )
+            // 					return;
+            // 			}
+            // 		}
+            // 	}
+            // 	else
+            // 	{
+            // 		for (tdir=west;tdir>=north;tdir--)
+            // 		{
+            // 			if (tdir!=turnaround)
+            // 			{
+            // 			  ob->dir=tdir;
+            // 			  if ( TryWalk(ob) )
+            // 				return;
+            // 			}
+            // 		}
+            // 	}
+            // 
+            // 	if (turnaround !=  nodir)
+            // 	{
+            // 		ob->dir=turnaround;
+            // 		if (ob->dir != nodir)
+            // 		{
+            // 			if ( TryWalk(ob) )
+            // 				return;
+            // 		}
+            // 	}
+            // 
+            // 	ob->dir = nodir;		// can't move
             return this;
         }
 
