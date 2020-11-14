@@ -422,7 +422,6 @@ namespace WOLF3D.WOLF3DGame.Action
         /// <returns>this</returns>
         public Actor SelectChaseDir()
         {
-            // TODO
             // 	int deltax,deltay,i;
             // 	dirtype d[3];
             Direction8[] d = new Direction8[3];
@@ -523,37 +522,9 @@ namespace WOLF3D.WOLF3DGame.Action
                 // 	}
             }
             // 
-            // 	if (US_RndT()>128) 	/*randomly determine direction of search*/
-            if (Main.RNG.NextBoolean())
-            // 	{
-            {
-                // 		for (tdir=north;tdir<=west;tdir++)
-                // 		{
-                // 			if (tdir!=turnaround)
-                // 			{
-                // 				ob->dir=tdir;
-                // 				if ( TryWalk(ob) )
-                // 					return;
-                // 			}
-                // 		}
-                // 	}
-            }
-            // 	else
-            else
-            // 	{
-            {
-                // 		for (tdir=west;tdir>=north;tdir--)
-                // 		{
-                // 			if (tdir!=turnaround)
-                // 			{
-                // 			  ob->dir=tdir;
-                // 			  if ( TryWalk(ob) )
-                // 				return;
-                // 			}
-                // 		}
-                // 	}
-            }
-            // 
+            // randomly determine direction of search
+            if ((Direction = RandomDirection(turnaround)) != null)
+                return this;
             // 	if (turnaround !=  nodir)
             if (turnaround != null)
             // 	{
