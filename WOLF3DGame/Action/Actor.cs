@@ -238,7 +238,7 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             // TODO: return if gamestate.victoryflag
             bool dodge = false;
-            if (CheckSight())
+            if (CheckLine())
             {
                 // TODO: attack
                 //float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
@@ -434,7 +434,7 @@ namespace WOLF3D.WOLF3DGame.Action
             // 	olddir=ob->dir;
             Direction8 olddir = Direction,
             // 	turnaround=opposite[olddir];
-                turnaround = olddir.Opposite;
+                turnaround = olddir?.Opposite ?? null;
             // 
             // 	deltax=player->tilex - ob->tilex;
             int deltax = Main.ActionRoom.ARVRPlayer.X - TileX,
