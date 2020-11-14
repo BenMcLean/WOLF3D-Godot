@@ -1031,7 +1031,7 @@
       <Pickup Number="43" Page="128" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
       <Pickup Number="44" Page="129" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
       <Billboard Number="45" Page="130" Name="Bed" />
-      <Billboard Number="46" Page="131" Name="Basket" />
+      <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
       <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />
       <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH2SND" Name="First Aid Kit" />
       <Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
