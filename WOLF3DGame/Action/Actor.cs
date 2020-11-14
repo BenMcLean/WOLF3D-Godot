@@ -221,11 +221,11 @@ namespace WOLF3D.WOLF3DGame.Action
                     TileZ = (ushort)Z;
                 }
             }
-            if (Direction != null)
+            if (Direction != null && Distance > 0f)
             {
                 float move = Speed * delta;
                 Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
-                if (Distance > 0f && !Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+                if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
                 {
                     GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                     Distance -= move;
@@ -238,48 +238,51 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             // TODO: return if gamestate.victoryflag
             bool dodge = false;
-            if (CheckLine())
+            if (CheckSight())
             {
-                float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
-                    dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
-                int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
-                if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Tics << 4) / dist)
-                {
-                    if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
-                        State = attackState;
-                    return this;
-                }
+                // TODO: attack
+                //float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
+                //    dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
+                //int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
+                //if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Tics << 4) / dist)
+                //{
+                //    if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
+                //        State = attackState;
+                //    return this;
+                //}
                 dodge = true;
             }
-            if (Direction == null)
+            if (Direction == null || Distance <= 0f)
             {
-                if (dodge)
-                    SelectDodgeDir();
-                else
-                    SelectChaseDir();
-                if (Direction == null)
-                    return this; // object is blocked in
-            }
-            float move = Speed * delta;
-            Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
-            if (Distance > 0f && Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
-            {
-                GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
-                Distance -= move;
-            }
-            if (Distance <= 0f)
-            {
-                Recenter();
                 if (dodge)
                     SelectDodgeDir();
                 else
                     SelectChaseDir();
                 if (Direction == null)
                     return this; // All movement is blocked
-                else if (Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door)
+                else if (Direction.IsCardinal && Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door && !door.IsOpen)
+                {
                     door.ActorPush();
+                    TileX = (ushort)X;
+                    TileZ = (ushort)Z;
+                    Distance = -1f;
+                }
                 else
+                {
+                    TileX = (ushort)(X + Direction.X);
+                    TileZ = (ushort)(Z + Direction.Z);
                     Distance = Assets.WallWidth;
+                }
+            }
+            if (Direction != null && Distance > 0f)
+            {
+                float move = Speed * delta;
+                Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
+                if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+                {
+                    GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+                    Distance -= move;
+                }
             }
             return this;
         }
@@ -608,7 +611,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 && Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z) < MinSight)
                 return true;
             // see if they are looking in the right direction
-            if (!Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
+            if (Direction != null && !Direction.InSight(Transform.origin, Main.ActionRoom.ARVRPlayer.Transform.origin))
                 return false;
             return CheckLine();
         }
