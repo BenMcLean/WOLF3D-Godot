@@ -98,7 +98,9 @@ namespace WOLF3D.WOLF3DGame.Action
         public ushort? FloorCodeMinus { get; set; } = 0;
         public Level Level { get; set; } = null;
         public bool IsOpen => State == DoorEnum.OPEN;
+        public bool IsOpening => State == DoorEnum.OPENING;
         public bool IsClosed => State == DoorEnum.CLOSED;
+        public bool IsClosing => State == DoorEnum.CLOSING;
         public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
 
         public Door(Material material, ushort x, ushort z, bool western)

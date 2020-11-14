@@ -196,11 +196,30 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             if (CheckChase(delta))
                 return this;
-            if (Direction == null)
+            if (Direction == null || Distance <= 0f)
             {
-                SelectPathDir();
+                Recenter();
+                if (Main.ActionRoom.Map.WithinMap(X, Z)
+                    && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
+                    Direction = direction;
                 if (Direction == null)
                     return this; // All movement is blocked
+                else if (Direction.IsCardinal && Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door && !door.IsOpen)
+                {
+                    door.ActorPush();
+                    Distance = -1f;
+                }
+                if (TryWalk())
+                {
+                    TileX = (ushort)(X + Direction.X);
+                    TileZ = (ushort)(Z + Direction.Z);
+                    Distance = Assets.WallWidth;
+                }
+                else
+                {
+                    TileX = (ushort)X;
+                    TileZ = (ushort)Z;
+                }
             }
             float move = Speed * delta;
             Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
@@ -208,15 +227,6 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
                 Distance -= move;
-            }
-            if (Distance <= 0f)
-            {
-                Recenter();
-                SelectPathDir();
-                if (Direction == null)
-                    return this; // All movement is blocked
-                else if (Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door)
-                    door.ActorPush();
             }
             return this;
         }
@@ -265,6 +275,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     return this; // All movement is blocked
                 else if (Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door)
                     door.ActorPush();
+                else
+                    Distance = Assets.WallWidth;
             }
             return this;
         }
@@ -274,26 +286,6 @@ namespace WOLF3D.WOLF3DGame.Action
             return this;
         }
         #endregion StateDelegates
-
-        public Actor SelectPathDir()
-        {
-            if (Main.ActionRoom.Map.WithinMap(X, Z)
-                && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
-                Direction = direction;
-            if (Direction != null && TryWalk()
-                && !(Main.ActionRoom.ARVRPlayer.X == X + Direction.X && Main.ActionRoom.ARVRPlayer.Z == Z + Direction.Z))
-            {
-                Distance = Assets.WallWidth;
-                TileX = (ushort)(X + Direction.X);
-                TileZ = (ushort)(Z + Direction.Z);
-            }
-            else
-            {
-                TileX = (ushort)X;
-                TileZ = (ushort)Z;
-            }
-            return this;
-        }
 
         /// <summary>
         /// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
