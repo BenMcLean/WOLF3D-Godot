@@ -221,12 +221,15 @@ namespace WOLF3D.WOLF3DGame.Action
                     TileZ = (ushort)Z;
                 }
             }
-            float move = Speed * delta;
-            Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
-            if (Distance > 0f && !Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+            if (Direction != null)
             {
-                GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
-                Distance -= move;
+                float move = Speed * delta;
+                Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
+                if (Distance > 0f && !Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+                {
+                    GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+                    Distance -= move;
+                }
             }
             return this;
         }
