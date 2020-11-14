@@ -50,7 +50,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 }
 
                 State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
-                if (MeshInstance.Visible && State != null
+                if (Visible && State != null
                     && State.Shape is short shape
                     && (ushort)(shape + (State.Rotate ?
                     Direction8.Modulus(
