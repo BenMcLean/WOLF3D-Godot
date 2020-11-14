@@ -6,6 +6,8 @@ namespace WOLF3D.WOLF3DGame
 {
     public static class ExtensionMethods
     {
+        public static T Random<T>(this List<T> list) =>
+            list[Main.RNG.Next(0, list?.Count ?? 0)];
         public static T Random<T>(this IEnumerable<T> list) =>
             list.ToArray().Random();
         public static T Random<T>(this T[] array) =>

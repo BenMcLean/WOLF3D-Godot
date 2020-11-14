@@ -280,7 +280,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Main.ActionRoom.Map.WithinMap(X, Z)
                 && Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
                 Direction = direction;
-            if (Direction != null && Main.ActionRoom.Level.CanWalk(X + Direction.X, Z + Direction.Z)
+            if (Direction != null && TryWalk()
                 && !(Main.ActionRoom.ARVRPlayer.X == X + Direction.X && Main.ActionRoom.ARVRPlayer.Z == Z + Direction.Z))
             {
                 Distance = Assets.WallWidth;
@@ -425,100 +425,165 @@ namespace WOLF3D.WOLF3DGame.Action
             // TODO
             // 	int deltax,deltay,i;
             // 	dirtype d[3];
+            Direction8[] d = new Direction8[3];
             // 	dirtype tdir, olddir, turnaround;
             // 
             // 
             // 	olddir=ob->dir;
+            Direction8 olddir = Direction,
             // 	turnaround=opposite[olddir];
+                turnaround = olddir.Opposite;
             // 
             // 	deltax=player->tilex - ob->tilex;
+            int deltax = Main.ActionRoom.ARVRPlayer.X - TileX,
             // 	deltay=player->tiley - ob->tiley;
+                deltay = Main.ActionRoom.ARVRPlayer.Z - TileZ;
             // 
             // 	d[1]=nodir;
             // 	d[2]=nodir;
             // 
             // 	if (deltax>0)
-            // 		d[1]= east;
+            if (deltax > 0)
+                // 		d[1]= east;
+                d[1] = Direction8.EAST;
             // 	else if (deltax<0)
-            // 		d[1]= west;
+            else if (deltax < 0)
+                // 		d[1]= west;
+                d[1] = Direction8.WEST;
             // 	if (deltay>0)
-            // 		d[2]=south;
+            if (deltay > 0)
+                // 		d[2]=south;
+                d[2] = Direction8.SOUTH;
             // 	else if (deltay<0)
-            // 		d[2]=north;
+            else if (deltay < 0)
+                // 		d[2]=north;
+                d[2] = Direction8.NORTH;
             // 
             // 	if (abs(deltay)>abs(deltax))
+            if (Mathf.Abs(deltay) > Mathf.Abs(deltax))
             // 	{
-            // 		tdir=d[1];
-            // 		d[1]=d[2];
-            // 		d[2]=tdir;
-            // 	}
+            {
+                // 		tdir=d[1];
+                Direction8 tdir = d[1];
+                // 		d[1]=d[2];
+                d[1] = d[2];
+                // 		d[2]=tdir;
+                d[2] = tdir;
+                // 	}
+            }
             // 
             // 	if (d[1]==turnaround)
-            // 		d[1]=nodir;
+            if (d[1] == turnaround)
+                // 		d[1]=nodir;
+                d[1] = null;
             // 	if (d[2]==turnaround)
-            // 		d[2]=nodir;
+            if (d[2] == turnaround)
+                // 		d[2]=nodir;
+                d[2] = null;
             // 
             // 
             // 	if (d[1]!=nodir)
+            if (d[1] != null)
             // 	{
-            // 		ob->dir=d[1];
-            // 		if (TryWalk(ob))
-            // 			return;     /*either moved forward or attacked*/
-            // 	}
+            {
+                // 		ob->dir=d[1];
+                Direction = d[1];
+                // 		if (TryWalk(ob))
+                if (TryWalk())
+                    // 			return;     /*either moved forward or attacked*/
+                    return this; // either moved forward or attacked
+                // 	}
+            }
             // 
             // 	if (d[2]!=nodir)
+            if (d[2] != null)
             // 	{
-            // 		ob->dir=d[2];
-            // 		if (TryWalk(ob))
-            // 			return;
-            // 	}
+            {
+                // 		ob->dir=d[2];
+                Direction = d[2];
+                // 		if (TryWalk(ob))
+                if (TryWalk())
+                    // 			return;
+                    return this;
+                // 	}
+            }
             // 
             // /* there is no direct path to the player, so pick another direction */
             // 
             // 	if (olddir!=nodir)
+            if (olddir != null)
             // 	{
-            // 		ob->dir=olddir;
-            // 		if (TryWalk(ob))
-            // 			return;
-            // 	}
+            {
+                // 		ob->dir=olddir;
+                Direction = olddir;
+                // 		if (TryWalk(ob))
+                if (TryWalk())
+                    // 			return;
+                    return this;
+                // 	}
+            }
             // 
             // 	if (US_RndT()>128) 	/*randomly determine direction of search*/
+            if (Main.RNG.NextBoolean())
             // 	{
-            // 		for (tdir=north;tdir<=west;tdir++)
-            // 		{
-            // 			if (tdir!=turnaround)
-            // 			{
-            // 				ob->dir=tdir;
-            // 				if ( TryWalk(ob) )
-            // 					return;
-            // 			}
-            // 		}
-            // 	}
+            {
+                // 		for (tdir=north;tdir<=west;tdir++)
+                // 		{
+                // 			if (tdir!=turnaround)
+                // 			{
+                // 				ob->dir=tdir;
+                // 				if ( TryWalk(ob) )
+                // 					return;
+                // 			}
+                // 		}
+                // 	}
+            }
             // 	else
+            else
             // 	{
-            // 		for (tdir=west;tdir>=north;tdir--)
-            // 		{
-            // 			if (tdir!=turnaround)
-            // 			{
-            // 			  ob->dir=tdir;
-            // 			  if ( TryWalk(ob) )
-            // 				return;
-            // 			}
-            // 		}
-            // 	}
+            {
+                // 		for (tdir=west;tdir>=north;tdir--)
+                // 		{
+                // 			if (tdir!=turnaround)
+                // 			{
+                // 			  ob->dir=tdir;
+                // 			  if ( TryWalk(ob) )
+                // 				return;
+                // 			}
+                // 		}
+                // 	}
+            }
             // 
             // 	if (turnaround !=  nodir)
+            if (turnaround != null)
             // 	{
-            // 		ob->dir=turnaround;
-            // 		if (ob->dir != nodir)
-            // 		{
-            // 			if ( TryWalk(ob) )
-            // 				return;
-            // 		}
-            // 	}
+            {
+                // 		ob->dir=turnaround;
+                Direction = turnaround;
+                // 		if (ob->dir != nodir)
+                // 		{
+                // 			if ( TryWalk(ob) )
+                // 				return;
+                // 		}
+                // 	}
+                if (TryWalk())
+                    return this;
+            }
             // 
             // 	ob->dir = nodir;		// can't move
+            Direction = null;
             return this;
+        }
+
+        public bool TryWalk() => TryWalk(Direction);
+        public bool TryWalk(Direction8 direction) => Main.ActionRoom.Level.TryWalk(direction, X, Z);
+
+        public Direction8 RandomDirection(params Direction8[] excluded)
+        {
+            foreach (Direction8 direction in Direction8.RandomOrder(excluded))
+                if (TryWalk(direction))
+                    return direction;
+            return null;
         }
 
         public Actor Recenter()

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
@@ -160,7 +161,7 @@ namespace WOLF3D.WOLF3DGame
         public Direction8 Opposite => this + 4;
         public Direction8 MirrorX => MirrorZ.Opposite;
         public Direction8 MirrorZ => From(Values.Count - (int)Value);
-        public bool IsCardinal => Value % 2 == 0;
+        public bool IsCardinal => X == 0 || Z == 0; // Value % 2 == 0;
         public bool IsDiagonal => !IsCardinal;
         public static Direction8 From(int @int) => Values[Modulus(@int, Values.Count)];
         public static Direction8 From(uint @uint) => From((int)@uint);
@@ -230,5 +231,19 @@ namespace WOLF3D.WOLF3DGame
                    where string.Equals(v.ShortName, @string, StringComparison.InvariantCultureIgnoreCase)
                    || string.Equals(v.Name, @string, StringComparison.InvariantCultureIgnoreCase)
                    select v).FirstOrDefault();
+
+        public static IEnumerable<Direction8> RandomOrder(params Direction8[] excluded) => RandomOrder(Main.RNG, excluded);
+        public static IEnumerable<Direction8> RandomOrder(RNG rng, params Direction8[] excluded)
+        {
+            List<Direction8> directions = new List<Direction8>(Values);
+            foreach (Direction8 exclude in excluded)
+                directions.Remove(exclude);
+            while (directions.Count > 0)
+            {
+                Direction8 direction = directions[rng.Next(0, directions.Count)];
+                yield return direction;
+                directions.Remove(direction);
+            }
+        }
     }
 }

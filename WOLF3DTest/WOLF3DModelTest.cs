@@ -184,5 +184,12 @@ namespace WOLF3DTest
             RNG rng = new RNG();
             Console.WriteLine("Random element: \"" + rng.RandomElement(it) + "\"");
         }
+
+        [TestMethod]
+        public void Direction8RandomOrderTest()
+        {
+            foreach (Direction8 direction in Direction8.RandomOrder(new RNG(), Direction8.NORTH))
+                Console.WriteLine(direction.Name);
+        }
     }
 }

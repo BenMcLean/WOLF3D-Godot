@@ -175,8 +175,8 @@ namespace WOLF3D.WOLF3DGame.Action
         #region Collision Detection
         public Vector2 Walk(Vector2 here, Vector2 there)
         {
-            float x = CanWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
-            return new Vector2(x, CanWalk(new Vector2(x, there.y)) ? there.y : here.y);
+            float x = TryWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
+            return new Vector2(x, TryWalk(new Vector2(x, there.y)) ? there.y : here.y);
         }
 
         public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
@@ -192,7 +192,7 @@ namespace WOLF3D.WOLF3DGame.Action
             : Assets.CenterSquare(here);
 
 
-        public bool CanWalk(Vector2 there, out Vector2 cant)
+        public bool TryWalk(Vector2 there, out Vector2 cant)
         {
             if (!Clipping)
             {
@@ -200,19 +200,27 @@ namespace WOLF3D.WOLF3DGame.Action
                 return true;
             }
             foreach (Direction8 direction in Direction8.Diagonals)
-                if (!CanWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
+                if (!TryWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
                     return false;
-            return CanWalkPoint(cant = there);
+            return TryWalkPoint(cant = there);
         }
 
-        public bool CanWalk(Vector2 there) => CanWalk(there, out _);
+        public bool TryWalk(Vector2 there) => TryWalk(there, out _);
 
-        public bool CanWalkPoint(Vector2 there) => CanWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
-        public bool CanWalk(int x, int z) =>
+        public bool TryWalkPoint(Vector2 there) => TryWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
+        public bool TryWalk(int x, int z) =>
             Walls.IsNavigable(x, z)
             && (!(Doors[x][z] is Door door) || door.IsOpen)
             && !IsActorAt((ushort)x, (ushort)z)
             && !IsPushWallAt((ushort)x, (ushort)z);
+        public bool TryWalk(Direction8 direction, int x, int z) =>
+            direction == null ?
+                TryWalk(x, z)
+                : ((direction.IsCardinal || (
+                        TryWalk(x + direction.X, z)
+                        && TryWalk(x, z + direction.Z)
+                    ))
+                    && TryWalk(x + direction.X, z + direction.Z));
 
         public bool CanCloseDoor(int x, int z) =>
             Walls.IsNavigable(x, z)
