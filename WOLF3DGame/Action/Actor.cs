@@ -255,9 +255,9 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Direction == null || Distance <= 0f)
             {
                 if (dodge)
-                    SelectDodgeDir();
+                    Direction = SelectDodgeDir();
                 else
-                    SelectChaseDir();
+                    Direction = SelectChaseDir();
                 if (Direction == null)
                     return this; // All movement is blocked
                 else if (Direction.IsCardinal && Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door && !door.IsOpen)
@@ -312,7 +312,7 @@ namespace WOLF3D.WOLF3DGame.Action
         /// TileX, TileY = new destination
         /// </summary>
         /// <returns>this</returns>
-        public Actor SelectDodgeDir()
+        public Direction8 SelectDodgeDir()
         {
             // TODO
             // 	int 		deltax,deltay,i;
@@ -423,7 +423,7 @@ namespace WOLF3D.WOLF3DGame.Action
         /// As SelectDodgeDir, but doesn't try to dodge
         /// </summary>
         /// <returns>this</returns>
-        public Actor SelectChaseDir()
+        public Direction8 SelectChaseDir()
         {
             // 	int deltax,deltay,i;
             // 	dirtype d[3];
@@ -485,68 +485,51 @@ namespace WOLF3D.WOLF3DGame.Action
             // 
             // 
             // 	if (d[1]!=nodir)
-            if (d[1] != null)
             // 	{
-            {
-                // 		ob->dir=d[1];
-                Direction = d[1];
-                // 		if (TryWalk(ob))
-                if (TryWalk())
-                    // 			return;     /*either moved forward or attacked*/
-                    return this; // either moved forward or attacked
-                // 	}
-            }
+            // 		ob->dir=d[1];
+            // 		if (TryWalk(ob))
+            // 			return;     /*either moved forward or attacked*/
+            // 	}
+            if (d[1] != null && TryWalk(d[1]))
+                return d[1]; // either moved forward or attacked
             // 
             // 	if (d[2]!=nodir)
-            if (d[2] != null)
             // 	{
-            {
-                // 		ob->dir=d[2];
-                Direction = d[2];
-                // 		if (TryWalk(ob))
-                if (TryWalk())
-                    // 			return;
-                    return this;
-                // 	}
-            }
+            // 		ob->dir=d[2];
+            // 		if (TryWalk(ob))
+            // 			return;
+            if (d[2] != null && TryWalk(d[2]))
+                return d[2];
+            // 	}
             // 
             // /* there is no direct path to the player, so pick another direction */
             // 
             // 	if (olddir!=nodir)
-            if (olddir != null)
             // 	{
-            {
-                // 		ob->dir=olddir;
-                Direction = olddir;
-                // 		if (TryWalk(ob))
-                if (TryWalk())
-                    // 			return;
-                    return this;
-                // 	}
-            }
+            // 		ob->dir=olddir;
+            // 		if (TryWalk(ob))
+            // 			return;
+            // 	}
+            if (olddir != null && TryWalk(olddir))
+                return olddir;
             // 
             // randomly determine direction of search
-            if ((Direction = RandomDirection(turnaround)) != null)
-                return this;
+            if (RandomDirection(turnaround) is Direction8 dir)
+                return dir;
             // 	if (turnaround !=  nodir)
-            if (turnaround != null)
             // 	{
-            {
-                // 		ob->dir=turnaround;
-                Direction = turnaround;
-                // 		if (ob->dir != nodir)
-                // 		{
-                // 			if ( TryWalk(ob) )
-                // 				return;
-                // 		}
-                // 	}
-                if (TryWalk())
-                    return this;
-            }
+            // 		ob->dir=turnaround;
+            // 		if (ob->dir != nodir)
+            // 		{
+            // 			if ( TryWalk(ob) )
+            // 				return;
+            // 		}
+            // 	}
+            if (turnaround != null && TryWalk(turnaround))
+                return turnaround;
             // 
             // 	ob->dir = nodir;		// can't move
-            Direction = null;
-            return this;
+            return null;
         }
 
         public bool TryWalk() => TryWalk(Direction);
