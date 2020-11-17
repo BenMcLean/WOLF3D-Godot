@@ -232,6 +232,24 @@ namespace WOLF3D.WOLF3DGame
                    || string.Equals(v.Name, @string, StringComparison.InvariantCultureIgnoreCase)
                    select v).FirstOrDefault();
 
+        public static Direction8 Combine(params Direction8[] directions)
+        {
+            if (directions == null || directions.Length < 1)
+                return null;
+            int x = 0, z = 0;
+            foreach (Direction8 direction in directions)
+            {
+                x += direction.X;
+                z += direction.Z;
+            }
+            x = Math.Sign(x);
+            z = Math.Sign(z);
+            foreach (Direction8 direction in Values)
+                if (direction.X == x && direction.Z == z)
+                    return direction;
+            return null;
+        }
+
         public static IEnumerable<Direction8> RandomOrder(params Direction8[] excluded) => RandomOrder(Main.RNG, excluded);
         public static IEnumerable<Direction8> RandomOrder(RNG rng, params Direction8[] excluded)
         {

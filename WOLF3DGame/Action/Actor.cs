@@ -300,25 +300,16 @@ namespace WOLF3D.WOLF3DGame.Action
 
         /// <summary>
         /// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
-        /// <br/>
-        /// If there is no possible move(ob is totally surrounded) then Direction = null
-        /// <br/>
-        /// Otherwise
-        /// <br/>
-        /// Direction = new direction to follow
-        /// <br/>
-        /// Distance = WallWidth or -1 for waiting on opening door
-        /// <br/>
-        /// TileX, TileY = new destination
         /// </summary>
-        /// <returns>this</returns>
         public Direction8 SelectDodgeDir()
         {
             // TODO
             // 	int 		deltax,deltay,i;
             // 	unsigned	absdx,absdy;
             // 	dirtype 	dirtry[5];
+            Direction8[] dirtry = new Direction8[5];
             // 	dirtype 	turnaround,tdir;
+            Direction8 turnaround = Direction?.Opposite ?? null;
             // 
             // 	if (ob->flags & FL_FIRSTATTACK)
             // 	{
@@ -333,80 +324,121 @@ namespace WOLF3D.WOLF3DGame.Action
             // 		turnaround=opposite[ob->dir];
             // 
             // 	deltax = player->tilex - ob->tilex;
-            // 	deltay = player->tiley - ob->tiley;
+            int deltax = Main.ActionRoom.ARVRPlayer.X - TileX,
+                // 	deltay = player->tiley - ob->tiley;
+                deltay = Main.ActionRoom.ARVRPlayer.Z - TileZ;
             // 
-            // //
-            // // arange 5 direction choices in order of preference
-            // // the four cardinal directions plus the diagonal straight towards
-            // // the player
-            // //
+            // arange 5 direction choices in order of preference
+            // the four cardinal directions plus the diagonal straight towards the player
+            //
             // 
             // 	if (deltax>0)
+            if (deltax > 0)
             // 	{
-            // 		dirtry[1]= east;
-            // 		dirtry[3]= west;
-            // 	}
+            {
+                // 		dirtry[1]= east;
+                dirtry[1] = Direction8.EAST;
+                // 		dirtry[3]= west;
+                dirtry[3] = Direction8.WEST;
+                // 	}
+            }
             // 	else
+            else
             // 	{
-            // 		dirtry[1]= west;
-            // 		dirtry[3]= east;
-            // 	}
+            {
+                // 		dirtry[1]= west;
+                dirtry[1] = Direction8.WEST;
+                // 		dirtry[3]= east;
+                dirtry[3] = Direction8.EAST;
+                // 	}
+            }
             // 
             // 	if (deltay>0)
+            if (deltay > 0)
             // 	{
-            // 		dirtry[2]= south;
-            // 		dirtry[4]= north;
-            // 	}
+            {
+                // 		dirtry[2]= south;
+                dirtry[2] = Direction8.SOUTH;
+                // 		dirtry[4]= north;
+                dirtry[4] = Direction8.NORTH;
+                // 	}
+            }
             // 	else
+            else
             // 	{
-            // 		dirtry[2]= north;
-            // 		dirtry[4]= south;
-            // 	}
+            {
+                // 		dirtry[2]= north;
+                dirtry[2] = Direction8.NORTH;
+                // 		dirtry[4]= south;
+                dirtry[4] = Direction8.SOUTH;
+                // 	}
+            }
             // 
-            // //
-            // // randomize a bit for dodging
-            // //
+            //
+            // randomize a bit for dodging
+            //
             // 	absdx = abs(deltax);
             // 	absdy = abs(deltay);
             // 
             // 	if (absdx > absdy)
+            if (Mathf.Abs(deltax) > Mathf.Abs(deltay))
             // 	{
-            // 		tdir = dirtry[1];
-            // 		dirtry[1] = dirtry[2];
-            // 		dirtry[2] = tdir;
-            // 		tdir = dirtry[3];
-            // 		dirtry[3] = dirtry[4];
-            // 		dirtry[4] = tdir;
-            // 	}
+            {
+                // 		tdir = dirtry[1];
+                Direction8 tdir = dirtry[1];
+                // 		dirtry[1] = dirtry[2];
+                dirtry[1] = dirtry[2];
+                // 		dirtry[2] = tdir;
+                dirtry[2] = tdir;
+                // 		tdir = dirtry[3];
+                tdir = dirtry[3];
+                // 		dirtry[3] = dirtry[4];
+                dirtry[3] = dirtry[4];
+                // 		dirtry[4] = tdir;
+                dirtry[4] = tdir;
+                // 	}
+            }
             // 
             // 	if (US_RndT() < 128)
+            if (Main.RNG.NextBoolean())
             // 	{
-            // 		tdir = dirtry[1];
-            // 		dirtry[1] = dirtry[2];
-            // 		dirtry[2] = tdir;
-            // 		tdir = dirtry[3];
-            // 		dirtry[3] = dirtry[4];
-            // 		dirtry[4] = tdir;
-            // 	}
+            {
+                // 		tdir = dirtry[1];
+                Direction8 tdir = dirtry[1];
+                // 		dirtry[1] = dirtry[2];
+                dirtry[1] = dirtry[2];
+                // 		dirtry[2] = tdir;
+                dirtry[2] = tdir;
+                // 		tdir = dirtry[3];
+                tdir = dirtry[3];
+                // 		dirtry[3] = dirtry[4];
+                dirtry[3] = dirtry[4];
+                // 		dirtry[4] = tdir;
+                dirtry[4] = tdir;
+                // 	}
+            }
             // 
             // 	dirtry[0] = diagonal [ dirtry[1] ] [ dirtry[2] ];
+            dirtry[0] = Direction8.Combine(dirtry[1], dirtry[2]);
             // 
-            // //
-            // // try the directions util one works
-            // //
+            //
+            // try the directions util one works
+            //
             // 	for (i=0;i<5;i++)
-            // 	{
-            // 		if ( dirtry[i] == nodir || dirtry[i] == turnaround)
-            // 			continue;
-            // 
-            // 		ob->dir = dirtry[i];
-            // 		if (TryWalk(ob))
-            // 			return;
-            // 	}
-            // 
-            // //
-            // // turn around only as a last resort
-            // //
+            foreach (Direction8 direction in dirtry)
+                // 	{
+                // 		if ( dirtry[i] == nodir || dirtry[i] == turnaround)
+                // 			continue;
+                // 
+                // 		ob->dir = dirtry[i];
+                // 		if (TryWalk(ob))
+                // 			return;
+                // 	}
+                if (direction != null && direction != turnaround && TryWalk(direction))
+                    return direction;
+            //
+            // turn around only as a last resort
+            //
             // 	if (turnaround != nodir)
             // 	{
             // 		ob->dir = turnaround;
@@ -414,15 +446,16 @@ namespace WOLF3D.WOLF3DGame.Action
             // 		if (TryWalk(ob))
             // 			return;
             // 	}
+            if (turnaround != null && TryWalk(turnaround))
+                return turnaround;
             // 
             // 	ob->dir = nodir;
-            return SelectChaseDir();
+            return null;
         }
 
         /// <summary>
         /// As SelectDodgeDir, but doesn't try to dodge
         /// </summary>
-        /// <returns>this</returns>
         public Direction8 SelectChaseDir()
         {
             // 	int deltax,deltay,i;
