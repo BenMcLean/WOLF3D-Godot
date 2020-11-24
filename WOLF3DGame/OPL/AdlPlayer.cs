@@ -31,10 +31,14 @@ namespace WOLF3D.WOLF3DGame.OPL
                     SinceLastNote = 0f;
                     CurrentNote = 0;
                     if (Opl != null)
+                    {
+                        Note = false; // Must send a signal to stop the previous sound before starting a new sound
                         if ((adl = value) != null)
+                        {
                             SetInstrument();
-                        else
-                            Note = false;
+                            Note = true;
+                        }
+                    }
                 }
             }
         }
