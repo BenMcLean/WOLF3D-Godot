@@ -436,6 +436,10 @@ namespace WOLF3D.WOLF3DGame.Action
                 // 	}
                 if (direction != null && direction != turnaround && TryWalk(direction))
                     return direction;
+
+            foreach (Direction8 direction in Direction8.RandomOrder(turnaround))
+                if (TryWalk(direction))
+                    return direction;
             //
             // turn around only as a last resort
             //
