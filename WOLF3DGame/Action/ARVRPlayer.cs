@@ -13,6 +13,8 @@ namespace WOLF3D.WOLF3DGame.Action
         public ARVRController RightController { get; set; } = null;
         public ARVRController Controller(bool left) => left ? LeftController : RightController;
         public ARVRController Controller(int which) => Controller(which == 0);
+        public IFadeCamera FadeCamera => PancakeCamera is IFadeCamera ? PancakeCamera : ARVRCamera is IFadeCamera f ? f : null;
+        public FadeCameraController FadeCameraController;
         public IEnumerable<ARVRController> Controllers()
         {
             if (LeftController != null) yield return LeftController;
@@ -42,6 +44,10 @@ namespace WOLF3D.WOLF3DGame.Action
             ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
                 Current = Main.VR,
+            });
+            ((Node)FadeCamera).AddChild(FadeCameraController = new FadeCameraController()
+            {
+                FadeCamera = FadeCamera,
             });
         }
 
