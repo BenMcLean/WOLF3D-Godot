@@ -1,0 +1,3 @@
+[submodule "NScumm.Audio"]
+	path = NScumm.Audio
+	url = https://github.com/scemino/NScumm.Audio.git
