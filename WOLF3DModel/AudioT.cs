@@ -51,6 +51,7 @@ namespace WOLF3DModel
         public class Song
         {
             public string Name { get; set; }
+            public byte[] Bytes { get; set; }
             public Imf[] Imf { get; set; }
             public bool IsImf => Imf != null;
 
@@ -72,26 +73,43 @@ namespace WOLF3DModel
             uint startMusic = (uint)xml.Attribute("StartMusic"),
                 endMusic = (uint)file.Length - startMusic;
             Songs = new Dictionary<string, Song>();
+
             for (uint i = 0; i < endMusic; i++)
                 if (file[startMusic + i] != null)
                     using (MemoryStream song = new MemoryStream(file[startMusic + i]))
+                    {
                         if (Imf.ReadImf(song) is Imf[] imf)
-                            if (xml.Elements("Imf").Where(
+                        {
+                            Song newSong = new Song()
+                            {
+                                Name = (xml.Elements("Imf")?.Where(
                                 e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == i
                                 )?.Select(e => e.Attribute("Name")?.Value)
                                 ?.FirstOrDefault() is string name
-                                && !string.IsNullOrWhiteSpace(name))
-                                Songs.Add(name, new Song()
-                                {
-                                    Name = name,
-                                    Imf = imf,
-                                });
-                            else
-                                Songs.Add(i.ToString(), new Song()
-                                {
-                                    Name = i.ToString(),
-                                    Imf = imf,
-                                });
+                                && !string.IsNullOrWhiteSpace(name)) ?
+                                name
+                                : i.ToString(),
+                                Bytes = file[startMusic + i],
+                                Imf = imf,
+                            };
+                            Songs.Add(newSong.Name, newSong);
+                        }
+                        else
+                        {
+                            Song newSong = new Song()
+                            {
+                                Name = (xml.Elements("MIDI").Where(
+                                e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == i
+                                )?.Select(e => e.Attribute("Name")?.Value)
+                                ?.FirstOrDefault() is string name
+                                && !string.IsNullOrWhiteSpace(name)) ?
+                                name
+                                : i.ToString(),
+                                Bytes = file[startMusic + i],
+                            };
+                            Songs.Add(newSong.Name, newSong);
+                        }
+                    }
         }
     }
 }
