@@ -175,6 +175,11 @@ namespace WOLF3D.WOLF3DGame.Menu
                         MenuItems.Add(item);
                         AddChild(item);
                     }
+            foreach (XElement xCounter in menu.Elements("Counter") ?? Enumerable.Empty<XElement>())
+            {
+                Counter counter = new Counter(xCounter);
+                AddChild(counter);
+            }
             if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))
             {
                 List<ImageTexture> cursors = new List<ImageTexture>();
