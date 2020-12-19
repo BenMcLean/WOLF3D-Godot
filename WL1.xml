@@ -796,17 +796,20 @@
         <Text String="1" BitmapFont="0" X="208" Y="16" />
         <Text String="COMPLETE" BitmapFont="0" X="112" Y="32" />
         <Text String="BONUS" BitmapFont="0" X="112" Y="56" />
-        <Text String="10000" BitmapFont="0" X="208" Y="56" />
+        <Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />
         <Text String=" TIME" BitmapFont="0" X="112" Y="80" />
         <Text String="02:08" BitmapFont="0" X="208" Y="80" />
         <Text String="  PAR" BitmapFont="0" X="112" Y="96" />
         <Text String="02:08" BitmapFont="0" X="208" Y="96" />
         <Text String="    KILL RATIO" BitmapFont="0" X="8" Y="112" />
-        <Text String=" 75%" BitmapFont="0" X="248" Y="112" />
+        <Counter Name="Kill" Digits="3" BitmapFont="0" X="248" Y="112" />
+        <Text String="%" BitmapFont="0" X="296" Y="112" />
         <Text String="  SECRET RATIO" BitmapFont="0" X="8" Y="128" />
-        <Text String=" 33%" BitmapFont="0" X="248" Y="128" />
+        <Counter Name="Secret" Digits="3" BitmapFont="0" X="248" Y="128" />
+        <Text String="%" BitmapFont="0" X="296" Y="128" />
         <Text String="TREASURE RATIO" BitmapFont="0" X="8" Y="144" />
-        <Text String="100%" BitmapFont="0" X="248" Y="144" />
+        <Counter Name="Treasure" Digits="3" BitmapFont="0" X="248" Y="144" />
+        <Text String="%" BitmapFont="0" X="296" Y="144" />
         <StatusBar X="0" Y="160" />
         <MenuItems>
           <MenuItem Action="NextFloor" />
