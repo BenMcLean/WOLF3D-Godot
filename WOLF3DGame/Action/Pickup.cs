@@ -1,10 +1,10 @@
-﻿using Godot;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
     public class Pickup : Billboard
     {
+        public bool Treasure => XML.IsTrue("Treasure");
         public Pickup(XElement xml) : base(xml) { }
         public override void _Process(float delta)
         {

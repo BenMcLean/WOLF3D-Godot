@@ -34,7 +34,7 @@ namespace WOLF3D.WOLF3DGame.Action
             PushWallAt[x][z] = pushWall == null ? 0 : pushWall.ArrayIndex + 1;
             return this;
         }
-        public Level ErasePushWall(PushWall pushWall) => EraseActor(pushWall.ArrayIndex);
+        public Level ErasePushWall(PushWall pushWall) => ErasePushWall(pushWall.ArrayIndex);
         public Level ErasePushWall(int index)
         {
             for (ushort x = 0; x < PushWallAt.Length; x++)

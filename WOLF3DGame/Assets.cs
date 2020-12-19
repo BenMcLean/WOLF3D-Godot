@@ -443,7 +443,7 @@ namespace WOLF3D.WOLF3DGame
             ?.FirstOrDefault()?.Attribute("Name")?.Value;
 
         public static IEnumerable<XElement> Treasures =>
-            XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")?.Where(e => e.IsTrue("Treasure"));
+            XML?.Element("VSwap")?.Element("Objects")?.Elements("Pickup")?.Where(e => e.IsTrue("Treasure"));
 
         public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
 
