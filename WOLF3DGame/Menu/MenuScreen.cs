@@ -178,6 +178,7 @@ namespace WOLF3D.WOLF3DGame.Menu
             foreach (XElement xCounter in menu.Elements("Counter") ?? Enumerable.Empty<XElement>())
             {
                 Counter counter = new Counter(xCounter);
+                Counters.Add(counter);
                 AddChild(counter);
             }
             if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))
@@ -226,8 +227,9 @@ namespace WOLF3D.WOLF3DGame.Menu
             AddChild(Crosshairs);
         }
 
-        public List<MenuItem> MenuItems { get; private set; } = new List<MenuItem>();
-        public List<Target2D> ExtraItems { get; private set; } = new List<Target2D>();
+        public readonly List<MenuItem> MenuItems = new List<MenuItem>();
+        public readonly List<Target2D> ExtraItems = new List<Target2D>();
+        public readonly List<Counter> Counters = new List<Counter>();
 
         public const float BlinkRate = 0.5f;
         public float Blink = 0f;
@@ -332,6 +334,13 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Blink -= BlinkRate;
                 CursorSprite++;
             }
+            if (Counters.Count > 1)
+                for (int i = 1; i < Counters.Count; i++)
+                    if (Counters[i - 1].Finished && !Counters[i].Started)
+                    {
+                        Counters[i].Started = true;
+                        break;
+                    }
         }
 
         public MenuScreen Update()
@@ -469,6 +478,12 @@ namespace WOLF3D.WOLF3DGame.Menu
                         SoundBlaster.Song = defaultSong;
                 }
             return this;
+        }
+
+        public void FinishedFadeIn()
+        {
+            if (Counters.Count > 0)
+                Counters.First().Started = true;
         }
     }
 }

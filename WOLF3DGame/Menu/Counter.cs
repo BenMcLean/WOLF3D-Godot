@@ -7,6 +7,24 @@ namespace WOLF3D.WOLF3DGame.Menu
     {
         public XElement XML { get; set; } = null;
         public uint Digits { get; set; } = 3;
+        public uint FinalValue { get; set; } = 0;
+        public float SinceLast { get; set; } = 0f;
+        public float Interval { get; set; } = 0.1f;
+        public bool Started
+        {
+            get => started;
+            set
+            {
+                started = value;
+                if (started)
+                {
+                    SinceLast = 0f;
+                    Value = 0;
+                }
+            }
+        }
+        private bool started = false;
+        public bool Finished { get; private set; } = false;
 
         public Counter(XElement xml)
         {
@@ -20,8 +38,9 @@ namespace WOLF3D.WOLF3DGame.Menu
                 AddFontOverride("font", Assets.BitmapFonts[bitmapFont]);
             if (uint.TryParse(xml?.Attribute("Digits")?.Value, out uint digits))
                 Digits = digits;
-            if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
-                Value = init;
+            //if (uint.TryParse(XML?.Attribute("Init")?.Value, out uint init))
+            //    Value = init;
+            FinalValue = 100;
             Visible = !XML.IsFalse("Visible");
         }
 
@@ -39,5 +58,23 @@ namespace WOLF3D.WOLF3DGame.Menu
             }
         }
         private uint? val = null;
+
+        public override void _Process(float delta)
+        {
+            if (Started && !Finished)
+            {
+                SinceLast += delta;
+                while (Value < FinalValue && SinceLast > Interval)
+                {
+                    SinceLast -= Interval;
+                    Value++;
+                }
+                if (Value >= FinalValue)
+                {
+                    Value = FinalValue;
+                    Finished = true;
+                }
+            }
+        }
     }
 }

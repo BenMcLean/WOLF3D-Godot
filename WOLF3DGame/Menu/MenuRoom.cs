@@ -196,5 +196,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 
         public static ushort LastPushedTile { get; set; } = 0;
 
+        public override void FinishedFadeIn()
+        {
+            base.FinishedFadeIn();
+            MenuScreen.FinishedFadeIn();
+        }
     }
 }

@@ -21,6 +21,11 @@ namespace WOLF3D.WOLF3DGame
             Paused = true;
         }
         public virtual void Exit() { }
+        public virtual void FinishedFadeIn()
+        {
+            Main.Brightness = 1f;
+            Paused = false;
+        }
 
         public static bool IsVRButton(int buttonIndex)
         {
@@ -57,8 +62,7 @@ namespace WOLF3D.WOLF3DGame
             if (FadeProgress > FadeSeconds)
                 if (NewRoom == null)
                 {
-                    Main.Brightness = 1f;
-                    Paused = false;
+                    FinishedFadeIn();
                     return;
                 }
                 else
