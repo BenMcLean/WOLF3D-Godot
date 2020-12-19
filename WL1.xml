@@ -796,7 +796,7 @@
         <Text String="1" BitmapFont="0" X="208" Y="16" />
         <Text String="COMPLETE" BitmapFont="0" X="112" Y="32" />
         <Text String="BONUS" BitmapFont="0" X="112" Y="56" />
-        <Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />
+        <!--<Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />-->
         <Text String=" TIME" BitmapFont="0" X="112" Y="80" />
         <Text String="02:08" BitmapFont="0" X="208" Y="80" />
         <Text String="  PAR" BitmapFont="0" X="112" Y="96" />

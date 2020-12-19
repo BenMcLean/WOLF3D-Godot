@@ -21,6 +21,11 @@ namespace WOLF3D.WOLF3DGame.Action
         public State Next { get; set; }
         public bool Mark { get; private set; } = true;
         public bool Alive { get; private set; } = true;
+        public bool Dead
+        {
+            get => !Alive;
+            private set => Alive = !value;
+        }
         public float SpeakerHeight { get; private set; } = Assets.HalfWallHeight;
         public uint ActorSpeed
         {
