@@ -798,9 +798,9 @@
         <Text String="BONUS" BitmapFont="0" X="112" Y="56" />
         <!--<Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />-->
         <Text String=" TIME" BitmapFont="0" X="112" Y="80" />
-        <Timer Name="You" BitmapFont="0" X="208" Y="80" />
+        <Timer Name="TIME" BitmapFont="0" X="208" Y="80" />
         <Text String="  PAR" BitmapFont="0" X="112" Y="96" />
-        <Timer Name="Par" BitmapFont="0" X="208" Y="96" />
+        <Timer Name="PAR" BitmapFont="0" X="208" Y="96" />
         <Text String="    KILL RATIO" BitmapFont="0" X="8" Y="112" />
         <Counter Name="Kill" Digits="3" BitmapFont="0" X="248" Y="112" />
         <Text String="%" BitmapFont="0" X="296" Y="112" />

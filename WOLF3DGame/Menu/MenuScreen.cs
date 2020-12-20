@@ -197,7 +197,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (Main.InGame)
                     if (timer.Name.ToUpperInvariant().Equals("PAR"))
                         timer.Text = Main.ActionRoom.Level.Map.Par.ToString(@"mm\:ss");
-                    else if (timer.Name.ToUpperInvariant().Equals("YOU"))
+                    else if (timer.Name.ToUpperInvariant().Equals("TIME"))
                         timer.Text = Main.ActionRoom.Level.Time >= TimeSpan.FromHours(1) ?
                             "59:59"
                             : Main.ActionRoom.Level.Time.ToString(@"mm\:ss");
