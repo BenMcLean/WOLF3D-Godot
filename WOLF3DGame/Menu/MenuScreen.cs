@@ -134,6 +134,7 @@ namespace WOLF3D.WOLF3DGame.Menu
                 {
                     Label label = new Label()
                     {
+                        Name = "Text",
                         Text = text.Attribute("String").Value,
                         RectPosition = new Vector2(
                             uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0,
@@ -180,6 +181,27 @@ namespace WOLF3D.WOLF3DGame.Menu
                 Counter counter = new Counter(xCounter);
                 Counters.Add(counter);
                 AddChild(counter);
+            }
+            foreach (XElement xTimer in menu.Elements("Timer") ?? Enumerable.Empty<XElement>())
+            {
+                Label timer = new Label()
+                {
+                    Name = xTimer.Attribute("Name")?.Value,
+                    RectPosition = new Vector2(
+                            uint.TryParse(xTimer.Attribute("X")?.Value, out uint x) ? x : 0,
+                            uint.TryParse(xTimer.Attribute("Y")?.Value, out uint y) ? y : 0
+                            ),
+                };
+                if (uint.TryParse(xTimer?.Attribute("BitmapFont")?.Value, out uint bitmapFont))
+                    timer.AddFontOverride("font", Assets.BitmapFonts[bitmapFont]);
+                if (Main.InGame)
+                    if (timer.Name.ToUpperInvariant().Equals("PAR"))
+                        timer.Text = Main.ActionRoom.Level.Map.Par.ToString(@"mm\:ss");
+                    else if (timer.Name.ToUpperInvariant().Equals("YOU"))
+                        timer.Text = Main.ActionRoom.Level.Time >= TimeSpan.FromHours(1) ?
+                            "59:59"
+                            : Main.ActionRoom.Level.Time.ToString(@"mm\:ss");
+                AddChild(timer);
             }
             if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))
             {

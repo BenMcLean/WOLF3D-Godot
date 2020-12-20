@@ -216,5 +216,17 @@ namespace WOLF3D.WOLF3DGame.Action
         public MeshInstance RightTarget { get; set; }
         public MeshInstance Target(bool left) => left ? LeftTarget : RightTarget;
         public MeshInstance Target(int which) => Target(which == 0);
+
+        public override void OnPause()
+        {
+            base.OnPause();
+            Level.OnPause();
+        }
+
+        public override void OnUnpause()
+        {
+            base.OnUnpause();
+            Level.OnUnpause();
+        }
     }
 }

@@ -4,7 +4,21 @@ namespace WOLF3D.WOLF3DGame
 {
     public abstract class Room : Spatial
     {
-        public bool Paused = true;
+        public bool Paused
+        {
+            get => paused;
+            set
+            {
+                if (paused = value)
+                    OnPause();
+                else
+                    OnUnpause();
+            }
+        }
+        private bool paused = true;
+
+        public virtual void OnPause() { }
+        public virtual void OnUnpause() { }
         public virtual ARVROrigin ARVROrigin { get; set; }
         public virtual FadeCamera ARVRCamera { get; set; }
         public virtual ARVRController LeftController { get; set; }

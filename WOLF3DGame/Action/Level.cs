@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,8 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         #region Data Members
         public GameMap Map => Walls.Map;
+        public TimeSpan Time { get; private set; } = TimeSpan.Zero;
+        public DateTime? Unpaused { get; private set; } = null;
         public Walls Walls { get; private set; }
 
         public Door[][] Doors { get; private set; }
@@ -347,6 +350,19 @@ namespace WOLF3D.WOLF3DGame.Action
                     return false;
             }
             return true;
+        }
+
+        public Level OnPause()
+        {
+            if (Unpaused is DateTime u)
+                Time += DateTime.Now - u;
+            return this;
+        }
+
+        public Level OnUnpause()
+        {
+            Unpaused = DateTime.Now;
+            return this;
         }
     }
 }
