@@ -197,10 +197,11 @@ namespace WOLF3D.WOLF3DGame.Menu
                 if (Main.InGame)
                     if (timer.Name.ToUpperInvariant().Equals("PAR"))
                         timer.Text = Main.ActionRoom.Level.Map.Par.ToString(@"mm\:ss");
-                    else if (timer.Name.ToUpperInvariant().Equals("TIME"))
-                        timer.Text = Main.ActionRoom.Level.Time >= TimeSpan.FromHours(1) ?
+                    else if (timer.Name.ToUpperInvariant().Equals("TIME")
+                        && TimeSpan.FromSeconds(Main.ActionRoom.Level.Time) is TimeSpan timeSpan)
+                        timer.Text = timeSpan >= TimeSpan.FromHours(1) ?
                             "59:59"
-                            : Main.ActionRoom.Level.Time.ToString(@"mm\:ss");
+                            : timeSpan.ToString(@"mm\:ss");
                 AddChild(timer);
             }
             if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))

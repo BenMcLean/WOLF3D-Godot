@@ -15,7 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         #region Data Members
         public GameMap Map => Walls.Map;
-        public TimeSpan Time { get; private set; } = TimeSpan.Zero;
+        public float Time { get; set; } = 0f;
         public DateTime? Unpaused { get; private set; } = null;
         public Walls Walls { get; private set; }
 
@@ -237,7 +237,6 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
         public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth || TryClose(x, z);
-        #endregion Collision Detection
 
         public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
         public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
@@ -300,6 +299,7 @@ namespace WOLF3D.WOLF3DGame.Action
                 add(vector2 + direction.Vector2 * Assets.HeadDiagonal);
             return list;
         }
+        #endregion Collision Detection
 
         public static ushort WallTexture(ushort cell) =>
             ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
@@ -352,17 +352,11 @@ namespace WOLF3D.WOLF3DGame.Action
             return true;
         }
 
-        public Level OnPause()
+        public override void _Process(float delta)
         {
-            if (Unpaused is DateTime u)
-                Time += DateTime.Now - u;
-            return this;
-        }
-
-        public Level OnUnpause()
-        {
-            Unpaused = DateTime.Now;
-            return this;
+            base._Process(delta);
+            if (!Main.ActionRoom.Paused)
+                Time += delta;
         }
     }
 }
