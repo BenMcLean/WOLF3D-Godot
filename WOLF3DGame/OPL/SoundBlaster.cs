@@ -1,8 +1,5 @@
-﻿using NScumm.Audio.OPL.Woody;
-using NScumm.Core.Audio.OPL;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Threading;
 using System.Xml.Linq;
 using WOLF3DModel;
 
@@ -10,22 +7,17 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        public static OplPlayer OplPlayer { get; set; } = new OplPlayer()
-        {
-            Opl = new WoodyEmulatorOpl(OplType.Opl2),
-        };
-
+        #region SoundMessages
         public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
 
         public static AudioT.Song Song
         {
-            get => OplPlayer.ImfPlayer.Song;
+            get => throw new NotImplementedException();
             set
             {
                 if (value == null)
                 {
                     SoundMessages.Enqueue(SoundMessage.STOP_MUSIC);
-                    MusicOff();
                 }
                 else
                     SoundMessages.Enqueue(value);
@@ -34,7 +26,7 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public static Adl Adl
         {
-            get => OplPlayer.AdlPlayer.Adl;
+            get => throw new NotImplementedException();
             set
             {
                 if (value == null)
@@ -49,72 +41,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             STOP_MUSIC, STOP_SFX, QUIT
         }
 
-        public static System.Threading.Thread Thread { get; set; } = null;
-
-        public static void Start()
-        {
-            /*
-            if (Thread == null)
-            {
-                Thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
-                Thread.Start();
-            }
-            */
-        }
-
-        public static void Stop()
-        {
-            SoundMessages.Enqueue(SoundMessage.QUIT);
-            Thread.Join();
-            Thread = null;
-        }
-
-        private static void ThreadProc()
-        {
-            bool quit = false;
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            while (!quit)
-            {
-                while (SoundMessages.TryDequeue(out object soundMessage))
-                    if (soundMessage is AudioT.Song song)
-                        OplPlayer.ImfPlayer.Song = song;
-                    else if (soundMessage is Adl adl)
-                        OplPlayer.AdlPlayer.Adl = adl;
-                    else if (soundMessage is SoundMessage message)
-                        switch (message)
-                        {
-                            case SoundMessage.STOP_MUSIC:
-                                OplPlayer.ImfPlayer.Song = null;
-                                break;
-                            case SoundMessage.STOP_SFX:
-                                OplPlayer.AdlPlayer.Adl = null;
-                                break;
-                            case SoundMessage.QUIT:
-                                quit = true;
-                                break;
-                        }
-                Thread.Sleep(1);
-                stopwatch.Stop();
-                OplPlayer.ImfPlayer.PlaySeconds(stopwatch.ElapsedMilliseconds * Imf.Hz);
-                stopwatch.Restart();
-                OplPlayer.FillBuffer();
-            }
-            stopwatch.Stop();
-        }
-
-        public static void PlayNotes(float delta)
-        {
-            //OplPlayer.ImfPlayer.PlayNotes(delta);
-            OplPlayer.AdlPlayer.PlayNotes(delta);
-        }
-
-        public static void MusicOff() => OplPlayer?.ImfPlayer?.Silence();
-
         public static void Play(XElement xml)
         {
             if (xml?.Attribute("Sound")?.Value is string sound && !string.IsNullOrWhiteSpace(sound) && Assets.Sound(sound) is Adl adl && adl != null)
                 Adl = adl;
         }
+        #endregion SoundMessages
     }
 }

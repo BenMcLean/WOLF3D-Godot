@@ -76,6 +76,9 @@
     <Compile Include="WOLF3DGame\FadeCameraPancake.cs" />
     <Compile Include="WOLF3DGame\IFadeCamera.cs" />
     <Compile Include="WOLF3DGame\Menu\Counter.cs" />
+    <Compile Include="WOLF3DGame\OPL\IdAdlPlayer.cs" />
+    <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
+    <Compile Include="WOLF3DGame\OPL\IMusicPlayer.cs" />
     <Compile Include="WOLF3DGame\StatusBar.cs" />
     <Compile Include="WOLF3DGame\StatusNumber.cs" />
     <Compile Include="WOLF3DGame\Action\SymmetricMatrix.cs" />
@@ -94,9 +97,6 @@
     <Compile Include="WOLF3DGame\Menu\Modal.cs" />
     <Compile Include="WOLF3DGame\Menu\PixelRect.cs" />
     <Compile Include="WOLF3DGame\Menu\Target2D.cs" />
-    <Compile Include="WOLF3DGame\OPL\AdlPlayer.cs" />
-    <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
-    <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\SoundBlaster.cs" />
     <Compile Include="WOLF3DGame\RNG.cs" />
     <Compile Include="WOLF3DGame\Room.cs" />
@@ -106,10 +106,6 @@
     <Compile Include="WOLF3DGame\XMLScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NScumm.Audio\NScumm.Audio.Players\NScumm.Audio.Players.csproj">
-      <Project>{fe5d3748-0ec9-4140-b8ee-e993595ea5a3}</Project>
-      <Name>NScumm.Audio.Players</Name>
-    </ProjectReference>
     <ProjectReference Include="NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj">
       <Project>{925dc152-4a05-49fe-a53e-6287b03634be}</Project>
       <Name>NScumm.Audio</Name>

@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOLF3DTest", "WOLF3DTest\WOLF3DTest.csproj", "{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NScumm.Audio.Players", "NScumm.Audio\NScumm.Audio.Players\NScumm.Audio.Players.csproj", "{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NScumm.Audio", "NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj", "{925DC152-4A05-49FE-A53E-6287B03634BE}"
 EndProject
 Global
@@ -53,14 +51,6 @@ Global
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA4521B7-0AE2-45F8-8B6E-66F38E92F8A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE5D3748-0EC9-4140-B8EE-E993595EA5A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{925DC152-4A05-49FE-A53E-6287B03634BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{925DC152-4A05-49FE-A53E-6287B03634BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925DC152-4A05-49FE-A53E-6287B03634BE}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
