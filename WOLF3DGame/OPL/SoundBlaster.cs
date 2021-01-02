@@ -1,5 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using NScumm.Audio.OPL.Woody;
+using NScumm.Core.Audio.OPL;
+using NScumm.Core.Audio.OPL.DosBox;
+using System;
 using System.Xml.Linq;
 using WOLF3DModel;
 
@@ -7,38 +9,52 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        #region SoundMessages
-        public static readonly ConcurrentQueue<object> SoundMessages = new ConcurrentQueue<object>();
+        public static OplPlayer ImfOplPlayer;
+        public static ImfPlayer ImfPlayer => (ImfPlayer)ImfOplPlayer.MusicPlayer;
+        public static OplPlayer IdAdlOplPlayer;
+        public static IdAdlPlayer IdAdlPlayer => (IdAdlPlayer)IdAdlOplPlayer.MusicPlayer;
+
+        static SoundBlaster()
+        {
+            IOpl imfOpl = new WoodyEmulatorOpl(OplType.Opl2);
+            ImfOplPlayer = new OplPlayer()
+            {
+                Opl = imfOpl,
+                MusicPlayer = new ImfPlayer()
+                {
+                    Opl = imfOpl,
+                },
+            };
+            IOpl idAdlOpl = new DosBoxOPL(OplType.Opl2);
+            IdAdlOplPlayer = new OplPlayer()
+            {
+                Opl = idAdlOpl,
+                MusicPlayer = new IdAdlPlayer()
+                {
+                    Opl = idAdlOpl,
+                },
+            };
+        }
+
+
 
         public static AudioT.Song Song
         {
-            get => throw new NotImplementedException();
+            get => song;
             set
             {
-                if (value == null)
-                {
-                    SoundMessages.Enqueue(SoundMessage.STOP_MUSIC);
-                }
-                else
-                    SoundMessages.Enqueue(value);
+                if (!((song = value) is AudioT.Song s))
+                    ImfPlayer.ImfQueue.Enqueue(null);
+                else if (s.IsImf)
+                    ImfPlayer.ImfQueue.Enqueue(s.Imf);
             }
         }
+        private static AudioT.Song song = null;
 
         public static Adl Adl
         {
             get => throw new NotImplementedException();
-            set
-            {
-                if (value == null)
-                    SoundMessages.Enqueue(SoundMessage.STOP_SFX);
-                else
-                    SoundMessages.Enqueue(value);
-            }
-        }
-
-        public enum SoundMessage
-        {
-            STOP_MUSIC, STOP_SFX, QUIT
+            set => IdAdlPlayer.IdAdlQueue.Enqueue(value);
         }
 
         public static void Play(XElement xml)
@@ -46,6 +62,5 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (xml?.Attribute("Sound")?.Value is string sound && !string.IsNullOrWhiteSpace(sound) && Assets.Sound(sound) is Adl adl && adl != null)
                 Adl = adl;
         }
-        #endregion SoundMessages
     }
 }

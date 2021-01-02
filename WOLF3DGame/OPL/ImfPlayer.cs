@@ -1,4 +1,5 @@
 ﻿using NScumm.Core.Audio.OPL;
+using System.Collections.Concurrent;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -31,8 +32,12 @@ namespace WOLF3D.WOLF3DGame.OPL
         }
         private Imf[] imf = null;
 
+        public static readonly ConcurrentQueue<Imf[]> ImfQueue = new ConcurrentQueue<Imf[]>();
+
         public bool Update()
         {
+            if (ImfQueue.TryDequeue(out Imf[] imf))
+                Imf = imf;
             if (Imf != null)
             {
                 ushort delay;

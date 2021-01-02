@@ -93,10 +93,7 @@ namespace WOLF3D.WOLF3DGame
                 MusicEnum old = music;
                 music = value;
                 if (MusicMuted)
-                {
                     SoundBlaster.Song = null;
-                    SoundBlaster.MusicOff();
-                }
                 else if (old == MusicEnum.NONE && Main.Room is MenuRoom menuRoom)
                     menuRoom.MenuScreen.OnSet();
                 Save();

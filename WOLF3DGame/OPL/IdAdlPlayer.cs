@@ -1,4 +1,5 @@
 ﻿using NScumm.Core.Audio.OPL;
+using System.Collections.Concurrent;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -33,8 +34,12 @@ namespace WOLF3D.WOLF3DGame.OPL
             return this;
         }
 
+        public static readonly ConcurrentQueue<Adl> IdAdlQueue = new ConcurrentQueue<Adl>();
+
         public bool Update()
         {
+            if (IdAdlQueue.TryDequeue(out Adl adl))
+                Adl = adl;
             if (Adl != null)
             {
                 if (Adl.Notes[CurrentNote] == 0)

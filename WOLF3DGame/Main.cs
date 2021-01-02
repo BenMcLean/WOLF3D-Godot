@@ -127,7 +127,8 @@ namespace WOLF3D.WOLF3DGame
             else
                 GD.Print("ARVRInterface failed to initialize!");
 
-            AddChild(SoundBlaster.OplPlayer);
+            AddChild(SoundBlaster.ImfOplPlayer);
+            AddChild(SoundBlaster.IdAdlOplPlayer);
             Room = new SetupRoom();
         }
 
@@ -135,7 +136,6 @@ namespace WOLF3D.WOLF3DGame
         {
             Assets.Load();
             Settings.Load();
-            SoundBlaster.Start();
             StatusBar = new StatusBar();
             Room = MenuRoom = new MenuRoom();
         }
