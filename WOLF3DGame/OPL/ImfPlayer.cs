@@ -44,7 +44,10 @@ namespace WOLF3D.WOLF3DGame.OPL
                 } while (delay == 0 && Position < Imf.Length);
 
                 if (Position >= Imf.Length)
+                {
                     Position = 0;
+                    RefreshRate = 700f;
+                }
                 else RefreshRate = 700f / delay;
             }
             return Imf == null;

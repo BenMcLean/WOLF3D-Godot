@@ -79,6 +79,7 @@
     <Compile Include="WOLF3DGame\OPL\IdAdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\IMusicPlayer.cs" />
+    <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
     <Compile Include="WOLF3DGame\StatusBar.cs" />
     <Compile Include="WOLF3DGame\StatusNumber.cs" />
     <Compile Include="WOLF3DGame\Action\SymmetricMatrix.cs" />
