@@ -25,7 +25,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                     Opl = imfOpl,
                 },
             };
-            IOpl idAdlOpl = new DosBoxOPL(OplType.Opl2);
+            IOpl idAdlOpl = new WoodyEmulatorOpl(OplType.Opl2);
             IdAdlOplPlayer = new OplPlayer()
             {
                 Opl = idAdlOpl,
@@ -35,8 +35,6 @@ namespace WOLF3D.WOLF3DGame.OPL
                 },
             };
         }
-
-
 
         public static AudioT.Song Song
         {

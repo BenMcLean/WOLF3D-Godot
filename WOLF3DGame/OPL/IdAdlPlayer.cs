@@ -9,7 +9,17 @@ namespace WOLF3D.WOLF3DGame.OPL
     /// </summary>
     public class IdAdlPlayer : IMusicPlayer
     {
-        public IOpl Opl { get; set; } = null;
+        public IOpl Opl
+        {
+            get => opl;
+            set
+            {
+                opl = value;
+                Opl?.WriteReg(1, 32); // go to OPL2 mode
+                Note = false;
+            }
+        }
+        private IOpl opl = null;
 
         public float RefreshRate => 140f; // These sound effects play back at 140 Hz.
 
@@ -28,6 +38,7 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public IdAdlPlayer SetInstrument()
         {
+            Opl.WriteReg(1, 32); // go to OPL2 mode
             for (int i = 0; i < Adl.InstrumentPorts.Count; i++)
                 Opl?.WriteReg(Adl.InstrumentPorts[i], Adl.Instrument[i]);
             Opl?.WriteReg(0xC0, 0); // WOLF3D's code ignores this value in its sound data, always setting it to zero instead.
