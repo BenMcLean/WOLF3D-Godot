@@ -35,9 +35,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if ((opl = value) != null)
-                {
                     Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
-                }
             }
         }
         private IOpl opl;
@@ -46,7 +44,6 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
             if (Playing && (thread == null || !thread.IsAlive))
             { // Create thread if it ever crashes
                 thread = new System.Threading.Thread(new ThreadStart(AudioPlayerThread))
