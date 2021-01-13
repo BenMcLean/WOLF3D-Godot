@@ -52,6 +52,10 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
+[editor_plugins]
+
+enabled=PoolStringArray( "midi" )
+
 [gdnative]
 
 singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib", "res://addons/godot_ovrmobile/godot_ovrmobile.gdnlib" ]
