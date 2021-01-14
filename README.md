@@ -39,6 +39,10 @@ The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/
 
 [Godot](http://godot.org/) is under the [MIT licsense](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
 
+[godot_openvr](https://github.com/GodotVR/godot_openvr) by Bastiaan Olij a.k.a. Mux213 is [MIT licensed](https://github.com/GodotVR/godot_openvr/blob/master/LICENSE). It uses the [OpenVR SDK](https://github.com/ValveSoftware/openvr) by Valve Software under the [BSD 3-Clause "New" or "Revised" License](https://github.com/ValveSoftware/openvr/blob/master/LICENSE).
+
+[godot_oculus_mobile](https://github.com/GodotVR/godot_oculus_mobile) is [MIT licensed](https://github.com/GodotVR/godot_oculus_mobile/blob/master/LICENSE). It uses the [Oculus Mobile SDK](https://developer.oculus.com/downloads/package/oculus-mobile-sdk/) which is available under the [Oculus SDK License Agreement](https://developer.oculus.com/licenses).
+
 [NScumm.Audio](https://github.com/scemino/NScumm.Audio) by scemino is a C# port of [AdPlug](http://adplug.github.io/) by Simon Peter which is licensed under [LGPL v2.1](https://github.com/adplug/adplug/blob/master/COPYING). Its [DosBox OPL3 emulator is licensed under GPL v2+ and its WoodyOPL emulator from the DOSBox team is licensed under LGPL v2.1.](https://www.dosbox.com/). Its [Mono.Options](https://github.com/xamarin/XamarinComponents/tree/master/XPlat/Mono.Options) is under the [MIT license](https://github.com/xamarin/XamarinComponents/blob/master/XPlat/Mono.Options/License.md).
 
 [Godot MIDI Player](https://bitbucket.org/arlez80/godot-midi-player/src/master/) by Yui Kinomoto is [MIT licensed](https://bitbucket.org/arlez80/godot-midi-player/src/master/LICENSE.txt).
