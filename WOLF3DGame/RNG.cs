@@ -1,4 +1,30 @@
-﻿using System;
+﻿///This file was written by Tommy Ettinger, who hereby releases it into the
+///public domain. As per public domain, attribution is in no way required.
+///The longer legal text of the Unlicense is below.
+///
+///This is free and unencumbered software released into the public domain.
+///
+///Anyone is free to copy, modify, publish, use, compile, sell, or
+///distribute this software, either in source code form or as a compiled
+///binary, for any purpose, commercial or non-commercial, and by any
+///means.
+///
+///In jurisdictions that recognize copyright laws, the author or authors
+///of this software dedicate any and all copyright interest in the
+///software to the public domain. We make this dedication for the benefit
+///of the public at large and to the detriment of our heirs and
+///successors. We intend this dedication to be an overt act of
+///relinquishment in perpetuity of all present and future rights to this
+///software under copyright law.
+///
+///THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+///EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+///MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+///IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+///OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+///ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+///OTHER DEALINGS IN THE SOFTWARE.
+using System;
 using System.Collections.Generic;
 
 namespace WOLF3D.WOLF3DGame
@@ -200,7 +226,14 @@ namespace WOLF3D.WOLF3DGame
         public long NextLong(long bound) => (long)NextULong((ulong)Math.Max(0L, bound));
 
         /// <summary>
-        /// Exclusive on bound (which may be positive or negative), with an inner bound of 0.        /// If bound is negative this returns a negative long; if bound is positive this returns a positive long. The bound        /// can even be 0, which will cause this to return 0L every time.        /// <br/>        /// Credit goes to https://gist.github.com/cocowalla/6070a53445e872f2bb24304712a3e1d2 ,        /// who ported this StackOverflow answer by catid https://stackoverflow.com/a/51587262 .        /// It also always gets exactly one random long, so by default it advances the state as much        /// as {@link #NextLong()}.
+        /// Exclusive on bound (which may be positive or negative), with an inner bound of 0.
+        /// If bound is negative this returns a negative long; if bound is positive this returns a positive long. The bound
+        /// can even be 0, which will cause this to return 0L every time.
+        /// <br/>
+        /// Credit goes to https://gist.github.com/cocowalla/6070a53445e872f2bb24304712a3e1d2 ,
+        /// who ported this StackOverflow answer by catid https://stackoverflow.com/a/51587262 .
+        /// It also always gets exactly one random long, so by default it advances the state as much
+        /// as {@link #NextLong()}.
         /// </summary>
         /// <param name="bound">the outer exclusive bound; can be positive or negative</param>
         /// <returns>a random long between 0 (inclusive) and bound (exclusive)</returns>
