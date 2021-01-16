@@ -14,7 +14,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         public static ImfPlayer ImfPlayer => (ImfPlayer)ImfOplPlayer.MusicPlayer;
         public static OplPlayer IdAdlOplPlayer;
         public static IdAdlPlayer IdAdlPlayer => (IdAdlPlayer)IdAdlOplPlayer.MusicPlayer;
-        public static Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
+        public static readonly Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
         public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
 
         static SoundBlaster()
@@ -46,20 +46,14 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => song;
             set
             {
+                MidiPlayer.Call("stop");
                 if (!((song = value) is AudioT.Song s))
-                {
                     ImfPlayer.ImfQueue.Enqueue(null);
-                    MidiPlayer.Call("stop");
-                }
                 else if (s.IsImf)
-                {
-                    MidiPlayer.Call("stop");
                     ImfPlayer.ImfQueue.Enqueue(s.Imf);
-                }
                 else
                 {
                     ImfPlayer.ImfQueue.Enqueue(null);
-                    MidiPlayer.Call("stop");
                     MidiPlayer.Set("smf_data", SMF.Call("read_data", s.Bytes));
                     MidiPlayer.Call("play", 0f);
                 }

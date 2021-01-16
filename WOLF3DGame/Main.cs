@@ -129,6 +129,7 @@ namespace WOLF3D.WOLF3DGame
 
             AddChild(SoundBlaster.ImfOplPlayer);
             AddChild(SoundBlaster.IdAdlOplPlayer);
+            AddChild(SoundBlaster.MidiPlayer);
             Room = new SetupRoom();
         }
 
