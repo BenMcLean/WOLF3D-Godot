@@ -1,4 +1,5 @@
-﻿using NScumm.Audio.OPL.Woody;
+﻿using Godot;
+using NScumm.Audio.OPL.Woody;
 using NScumm.Core.Audio.OPL;
 using NScumm.Core.Audio.OPL.DosBox;
 using System;
@@ -13,6 +14,8 @@ namespace WOLF3D.WOLF3DGame.OPL
         public static ImfPlayer ImfPlayer => (ImfPlayer)ImfOplPlayer.MusicPlayer;
         public static OplPlayer IdAdlOplPlayer;
         public static IdAdlPlayer IdAdlPlayer => (IdAdlPlayer)IdAdlOplPlayer.MusicPlayer;
+        public static Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
+        public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
 
         static SoundBlaster()
         {
@@ -34,6 +37,8 @@ namespace WOLF3D.WOLF3DGame.OPL
                     Opl = idAdlOpl,
                 },
             };
+            MidiPlayer.Set("soundfont", "res://1mgm.sf2");
+            MidiPlayer.Set("loop", true);
         }
 
         public static AudioT.Song Song
@@ -42,9 +47,22 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if (!((song = value) is AudioT.Song s))
+                {
                     ImfPlayer.ImfQueue.Enqueue(null);
+                    MidiPlayer.Call("stop");
+                }
                 else if (s.IsImf)
+                {
+                    MidiPlayer.Call("stop");
                     ImfPlayer.ImfQueue.Enqueue(s.Imf);
+                }
+                else
+                {
+                    ImfPlayer.ImfQueue.Enqueue(null);
+                    MidiPlayer.Call("stop");
+                    MidiPlayer.Set("smf_data", SMF.Call("read_data", s.Bytes));
+                    MidiPlayer.Call("play", 0f);
+                }
             }
         }
         private static AudioT.Song song = null;

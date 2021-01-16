@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -73,13 +74,42 @@ namespace WOLF3DModel
             uint startMusic = (uint)xml.Attribute("StartMusic"),
                 endMusic = (uint)file.Length - startMusic;
             Songs = new Dictionary<string, Song>();
-
+            bool midi = xml?.Elements("MIDI")?.Any() ?? false;
             for (uint i = 0; i < endMusic; i++)
                 if (file[startMusic + i] != null)
                     using (MemoryStream song = new MemoryStream(file[startMusic + i]))
                     {
-                        if (Imf.ReadImf(song) is Imf[] imf)
+                        if (midi)
                         {
+                            Song newSong = new Song()
+                            {
+                                Name = (xml.Elements("MIDI").Where(
+                                e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == i
+                                )?.Select(e => e.Attribute("Name")?.Value)
+                                ?.FirstOrDefault() is string name
+                                && !string.IsNullOrWhiteSpace(name)) ?
+                                name
+                                : i.ToString(),
+                                Bytes = new byte[file[startMusic + i].Length - 2],
+                            };
+                            // Super 3D Noah's Ark adds two bytes of junk data to the start of all its MIDI songs and I don't know why.
+                            Array.Copy(
+                                //sourceArray
+                                file[startMusic + i],
+                                //sourceIndex
+                                2,
+                                //destinationArray
+                                newSong.Bytes,
+                                //destinationIndex
+                                0,
+                                //length
+                                newSong.Bytes.Length
+                                );
+                            Songs.Add(newSong.Name, newSong);
+                        }
+                        else
+                        {
+                            Imf[] imf = Imf.ReadImf(song);
                             Song newSong = new Song()
                             {
                                 Name = (xml.Elements("Imf")?.Where(
@@ -91,21 +121,6 @@ namespace WOLF3DModel
                                 : i.ToString(),
                                 Bytes = file[startMusic + i],
                                 Imf = imf,
-                            };
-                            Songs.Add(newSong.Name, newSong);
-                        }
-                        else
-                        {
-                            Song newSong = new Song()
-                            {
-                                Name = (xml.Elements("MIDI").Where(
-                                e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == i
-                                )?.Select(e => e.Attribute("Name")?.Value)
-                                ?.FirstOrDefault() is string name
-                                && !string.IsNullOrWhiteSpace(name)) ?
-                                name
-                                : i.ToString(),
-                                Bytes = file[startMusic + i],
                             };
                             Songs.Add(newSong.Name, newSong);
                         }
