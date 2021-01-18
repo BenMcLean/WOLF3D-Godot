@@ -11,12 +11,12 @@ namespace WOLF3D.WOLF3DGame.OPL
             Players = players;
             TimeLeft = new float[Players.Length];
             for (int i = 0; i < Players.Length; i++)
-                TimeLeft[i] = 1f / Players[i].RefreshRate;
-            RefreshRate = 1f / TimeLeft[Soonest];
+                TimeLeft[i] = Players[i].UntilNextUpdate;
+            UntilNextUpdate = TimeLeft[Soonest];
         }
         private readonly IAdlibPlayer[] Players;
         private readonly float[] TimeLeft;
-        public float RefreshRate { get; private set; }
+        public float UntilNextUpdate { get; private set; }
         public void Init(IOpl opl)
         {
             foreach (IAdlibPlayer player in Players)
@@ -36,9 +36,9 @@ namespace WOLF3D.WOLF3DGame.OPL
                 Players[soonest].Update(opl);
                 for (int i = 0; i < Players.Length; i++)
                     TimeLeft[i] -= subtract;
-                TimeLeft[soonest] = 1f / Players[soonest].RefreshRate;
+                TimeLeft[soonest] = Players[soonest].UntilNextUpdate;
             } while (TimeLeft.Where(f => f <= 0f).Any());
-            RefreshRate = 1f / TimeLeft[Soonest];
+            UntilNextUpdate = TimeLeft[Soonest];
             return true;
         }
         private int Soonest =>

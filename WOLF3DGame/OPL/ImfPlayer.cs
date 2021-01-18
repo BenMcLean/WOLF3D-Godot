@@ -7,7 +7,7 @@ namespace WOLF3D.WOLF3DGame.OPL
     public class ImfPlayer : IAdlibPlayer
     {
         public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
-        public float RefreshRate { get; set; } = 700f;
+        public float UntilNextUpdate { get; set; } = 1f / 700f;
         public int Position;
         public Imf[] Imf
         {
@@ -40,9 +40,9 @@ namespace WOLF3D.WOLF3DGame.OPL
                 if (Position >= Imf.Length)
                 {
                     Position = 0;
-                    RefreshRate = 700f;
+                    UntilNextUpdate = 1f / 700f;
                 }
-                else RefreshRate = 700f / delay;
+                else UntilNextUpdate = delay / 700f;
             }
             return Imf == null;
         }

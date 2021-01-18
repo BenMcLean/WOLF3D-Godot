@@ -106,11 +106,11 @@ namespace WOLF3D.WOLF3DGame.OPL
                         if (!MusicPlayer.Update(Opl))
                             return;
                     }
-                    i = Math.Min(toFill, (int)(minicnt / MusicPlayer.RefreshRate + 4) & ~3);
+                    i = Math.Min(toFill, (int)(minicnt * MusicPlayer.UntilNextUpdate + 4) & ~3);
                     Opl.ReadBuffer(ShortBuffer, pos, i);
                     pos += i;
                     toFill -= i;
-                    minicnt -= (int)(MusicPlayer.RefreshRate * i);
+                    minicnt -= (int)(i / MusicPlayer.UntilNextUpdate);
                 }
             }
             FillBuffer2();
