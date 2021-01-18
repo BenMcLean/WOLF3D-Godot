@@ -10,7 +10,7 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        public static readonly AudioStreamPlayer AudioStreamPlayer = new AudioStreamPlayer();
+        //public static readonly AudioStreamPlayer AudioStreamPlayer = new AudioStreamPlayer();
         public static readonly ImfSignaller ImfSignaller = new ImfSignaller();
         public static readonly IdAdlSignaller IdAdlSignaller = new IdAdlSignaller();
         public static readonly OplPlayer OplPlayer = new OplPlayer()
@@ -69,8 +69,8 @@ namespace WOLF3D.WOLF3DGame.OPL
                     iSpeaker.Play = audioStreamSample;
                 else
                 {
-                    AudioStreamPlayer.Stream = audioStreamSample;
-                    AudioStreamPlayer.Play();
+                    //AudioStreamPlayer.Stream = audioStreamSample;
+                    //AudioStreamPlayer.Play();
                 }
             else if (!Settings.FXMuted
                 && xml?.Attribute("Sound")?.Value is string sound
