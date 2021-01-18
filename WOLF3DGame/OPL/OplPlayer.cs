@@ -1,6 +1,5 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
-using System;
 using System.Threading;
 
 namespace WOLF3D.WOLF3DGame.OPL
@@ -19,16 +18,16 @@ namespace WOLF3D.WOLF3DGame.OPL
             };
         }
 
-        public IAdlibPlayer MusicPlayer
+        public IAdlibSignaller AdlibSignaller
         {
-            get => musicPlayer;
+            get => adlibSignaller;
             set
             {
-                if ((musicPlayer = value) != null && Opl != null)
-                    MusicPlayer.Init(Opl);
+                if ((adlibSignaller = value) != null && Opl != null)
+                    AdlibSignaller.Init(Opl);
             }
         }
-        private IAdlibPlayer musicPlayer = null;
+        private IAdlibSignaller adlibSignaller = null;
 
         public IOpl Opl
         {
@@ -37,9 +36,8 @@ namespace WOLF3D.WOLF3DGame.OPL
             {
                 if ((opl = value) != null)
                 {
-                    Opl.Init(MixRate);
-                    if (MusicPlayer != null)
-                        MusicPlayer.Init(Opl);
+                    Opl?.Init(MixRate);
+                    AdlibSignaller?.Init(Opl);
                 }
             }
         }
@@ -63,7 +61,7 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         private void AudioPlayerThread()
         {
-            while (Playing && MusicPlayer != null)
+            while (Playing && AdlibSignaller != null)
             {
                 if (Opl == null)
                     Stop();
@@ -104,8 +102,8 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
             while (pos + LeftoverFrames < toFill)
             {
-                MusicPlayer.Update(Opl);
-                LeftoverFrames += (int)MusicPlayer.IntervalsOf700HzToWait * FramesPerUpdate;
+                AdlibSignaller.Update(Opl);
+                LeftoverFrames += (int)AdlibSignaller.IntervalsOf700HzToWait * FramesPerUpdate;
                 if (LeftoverFrames > 0 && pos + LeftoverFrames < toFill)
                 {
                     Opl.ReadBuffer(ShortBuffer, pos, LeftoverFrames);

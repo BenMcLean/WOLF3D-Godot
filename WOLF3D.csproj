@@ -77,9 +77,9 @@
     <Compile Include="WOLF3DGame\IFadeCamera.cs" />
     <Compile Include="WOLF3DGame\Menu\Counter.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlibMultiplexer.cs" />
-    <Compile Include="WOLF3DGame\OPL\IdAdlPlayer.cs" />
-    <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
-    <Compile Include="WOLF3DGame\OPL\IAdlibPlayer.cs" />
+    <Compile Include="WOLF3DGame\OPL\IdAdlSignaller.cs" />
+    <Compile Include="WOLF3DGame\OPL\ImfSignaller.cs" />
+    <Compile Include="WOLF3DGame\OPL\IAdlibSignaller.cs" />
     <Compile Include="WOLF3DGame\OPL\OplPlayer.cs" />
     <Compile Include="WOLF3DGame\StatusBar.cs" />
     <Compile Include="WOLF3DGame\StatusNumber.cs" />

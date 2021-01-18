@@ -4,7 +4,7 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
-    public class ImfPlayer : IAdlibPlayer
+    public class ImfSignaller : IAdlibSignaller
     {
         public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
         public uint IntervalsOf700HzToWait { get; private set; } = 1;

@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
-    public class AdlibMultiplexer : IAdlibPlayer
+    public class AdlibMultiplexer : IAdlibSignaller
     {
-        public AdlibMultiplexer(params IAdlibPlayer[] players)
+        public AdlibMultiplexer(params IAdlibSignaller[] players)
         {
             Players = players;
             TimeLeft = new int[Players.Length];
@@ -14,17 +14,17 @@ namespace WOLF3D.WOLF3DGame.OPL
                 TimeLeft[i] = (int)Players[i].IntervalsOf700HzToWait;
             IntervalsOf700HzToWait = (uint)TimeLeft[Soonest];
         }
-        private readonly IAdlibPlayer[] Players;
+        private readonly IAdlibSignaller[] Players;
         private readonly int[] TimeLeft;
         public uint IntervalsOf700HzToWait { get; private set; } = 1;
         public void Init(IOpl opl)
         {
-            foreach (IAdlibPlayer player in Players)
+            foreach (IAdlibSignaller player in Players)
                 player.Init(opl);
         }
         public void Silence(IOpl opl)
         {
-            foreach (IAdlibPlayer player in Players)
+            foreach (IAdlibSignaller player in Players)
                 player.Silence(opl);
         }
         public bool Update(IOpl opl)

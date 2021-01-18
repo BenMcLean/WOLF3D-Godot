@@ -9,12 +9,12 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        public static readonly ImfPlayer ImfPlayer = new ImfPlayer();
-        public static readonly IdAdlPlayer IdAdlPlayer = new IdAdlPlayer();
+        public static readonly ImfSignaller ImfSignaller = new ImfSignaller();
+        public static readonly IdAdlSignaller IdAdlSignaller = new IdAdlSignaller();
         public static readonly OplPlayer OplPlayer = new OplPlayer()
         {
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
-            MusicPlayer = new AdlibMultiplexer(ImfPlayer, IdAdlPlayer),
+            AdlibSignaller = new AdlibMultiplexer(ImfSignaller, IdAdlSignaller),
         };
         public static readonly Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
         public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
@@ -32,12 +32,12 @@ namespace WOLF3D.WOLF3DGame.OPL
             {
                 MidiPlayer.Call("stop");
                 if (!((song = value) is AudioT.Song s))
-                    ImfPlayer.ImfQueue.Enqueue(null);
+                    ImfSignaller.ImfQueue.Enqueue(null);
                 else if (s.IsImf)
-                    ImfPlayer.ImfQueue.Enqueue(s.Imf);
+                    ImfSignaller.ImfQueue.Enqueue(s.Imf);
                 else
                 {
-                    ImfPlayer.ImfQueue.Enqueue(null);
+                    ImfSignaller.ImfQueue.Enqueue(null);
                     MidiPlayer.Set("smf_data", SMF.Call("read_data", s.Bytes));
                     MidiPlayer.Call("play", 0f);
                 }
@@ -48,7 +48,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         public static Adl Adl
         {
             get => throw new NotImplementedException();
-            set => IdAdlPlayer.IdAdlQueue.Enqueue(value);
+            set => IdAdlSignaller.IdAdlQueue.Enqueue(value);
         }
 
         public static void Play(XElement xml)

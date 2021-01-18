@@ -7,13 +7,13 @@ namespace WOLF3D.WOLF3DGame.OPL
     /// <summary>
     /// id Software Adlib Sound Effect Player by Ben McLean mclean.ben@gmail.com
     /// </summary>
-    public class IdAdlPlayer : IAdlibPlayer
+    public class IdAdlSignaller : IAdlibSignaller
     {
         public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
         public uint IntervalsOf700HzToWait => 5; // These sound effects play back at 140 Hz.
         public void Silence(IOpl opl) => SetNote(false, opl);
         public bool Note { get; private set; }
-        public IdAdlPlayer SetNote(bool value, IOpl opl)
+        public IdAdlSignaller SetNote(bool value, IOpl opl)
         {
             if (Note = value)
                 opl?.WriteReg(Adl.OctavePort, (byte)(Adl.Block | Adl.KeyFlag));
@@ -21,7 +21,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                 opl?.WriteReg(Adl.OctavePort, 0);
             return this;
         }
-        public IdAdlPlayer SetInstrument(IOpl opl)
+        public IdAdlSignaller SetInstrument(IOpl opl)
         {
             opl.WriteReg(1, 32); // go to OPL2 mode
             for (int i = 0; i < Adl.InstrumentPorts.Count; i++)

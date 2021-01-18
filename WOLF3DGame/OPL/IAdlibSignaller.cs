@@ -2,7 +2,7 @@
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
-    public interface IAdlibPlayer
+    public interface IAdlibSignaller
     {
         uint IntervalsOf700HzToWait { get; }
         void Init(IOpl opl);
