@@ -53,12 +53,6 @@ namespace WOLF3D.WOLF3DGame.OPL
                     FillBuffer();
         }
 
-        /// <summary>
-        /// This code was originally here: https://github.com/adplug/adplay-unix/blob/master/src/sdl.cc
-        /// Then it got ported to C# here: https://github.com/scemino/NScumm.Audio/blob/master/NScumm.Audio.Player/AlPlayer.cs
-        /// Then I (Ben McLean) adapted it to work with Godot.
-        /// The confusing way it is written is awful and I wish there was a better way.
-        /// </summary>
         public OplPlayer FillBuffer()
         {
             if (Opl == null)
