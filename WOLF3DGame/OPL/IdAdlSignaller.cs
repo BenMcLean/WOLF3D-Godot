@@ -10,7 +10,6 @@ namespace WOLF3D.WOLF3DGame.OPL
     public class IdAdlSignaller : IAdlibSignaller
     {
         public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
-        public uint IntervalsOf700HzToWait => 5; // These sound effects play back at 140 Hz.
         public void Silence(IOpl opl) => SetNote(false, opl);
         public bool Note { get; private set; }
         public IdAdlSignaller SetNote(bool value, IOpl opl)
@@ -30,7 +29,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             return this;
         }
         public static readonly ConcurrentQueue<Adl> IdAdlQueue = new ConcurrentQueue<Adl>();
-        public bool Update(IOpl opl)
+        public uint Update(IOpl opl)
         {
             if (IdAdlQueue.TryDequeue(out Adl adl)
                 && (Adl == null || adl == null || Adl == adl || adl.Priority >= Adl.Priority))
@@ -60,11 +59,9 @@ namespace WOLF3D.WOLF3DGame.OPL
                 {
                     Adl = null;
                     SetNote(false, opl);
-                    return false;
                 }
-                return true;
             }
-            return false;
+            return 5; // These sound effects play back at 140 Hz.
         }
         public uint CurrentNote = 0;
         public Adl Adl { get; private set; } = null;

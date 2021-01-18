@@ -10,13 +10,9 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             Players = players;
             TimeLeft = new int[Players.Length];
-            for (int i = 0; i < Players.Length; i++)
-                TimeLeft[i] = (int)Players[i].IntervalsOf700HzToWait;
-            IntervalsOf700HzToWait = (uint)TimeLeft[Soonest];
         }
         private readonly IAdlibSignaller[] Players;
         private readonly int[] TimeLeft;
-        public uint IntervalsOf700HzToWait { get; private set; } = 1;
         public void Init(IOpl opl)
         {
             foreach (IAdlibSignaller player in Players)
@@ -27,19 +23,18 @@ namespace WOLF3D.WOLF3DGame.OPL
             foreach (IAdlibSignaller player in Players)
                 player.Silence(opl);
         }
-        public bool Update(IOpl opl)
+        public uint Update(IOpl opl)
         {
             do
             {
                 int soonest = Soonest;
                 int subtract = TimeLeft[soonest];
-                Players[soonest].Update(opl);
+                TimeLeft[soonest] = (int)Players[soonest].Update(opl);
                 for (int i = 0; i < Players.Length; i++)
-                    TimeLeft[i] -= subtract;
-                TimeLeft[soonest] = (int)Players[soonest].IntervalsOf700HzToWait;
+                    if (i != soonest)
+                        TimeLeft[i] -= subtract;
             } while (TimeLeft.Where(f => f <= 0).Any());
-            IntervalsOf700HzToWait = (uint)TimeLeft[Soonest];
-            return true;
+            return (uint)TimeLeft[Soonest];
         }
         private int Soonest =>
             IndexOfSmallest(TimeLeft) is int index && index >= 0 ?

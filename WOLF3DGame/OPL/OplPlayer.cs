@@ -102,8 +102,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
             while (pos + LeftoverFrames < toFill)
             {
-                AdlibSignaller.Update(Opl);
-                LeftoverFrames += (int)AdlibSignaller.IntervalsOf700HzToWait * FramesPerUpdate;
+                LeftoverFrames += (int)AdlibSignaller.Update(Opl) * FramesPerUpdate;
                 if (LeftoverFrames > 0 && pos + LeftoverFrames < toFill)
                 {
                     Opl.ReadBuffer(ShortBuffer, pos, LeftoverFrames);
