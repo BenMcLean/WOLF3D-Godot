@@ -134,10 +134,6 @@
     <Pic Number="127" Chunk="132" Name="T_DEMO1" />
     <Pic Number="128" Chunk="133" Name="T_DEMO2" />
     <Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1">
-      <!--
-      #define MENUSONG	NOAH01_MUS
-      #define INTROSONG	NOAH02_MUS
-      -->
       <!-- Classic game end strings -->
       <EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
       <EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>
@@ -155,13 +151,13 @@
       <EndString>You know the food&#10;Noah throws is&#10;drugged, right?&#10;Press N to keep&#10;playing or Y to&#10;Just Say No.</EndString>
       <EndString>Flood almost over?&#10;Press N for more rain.&#10;Press Y to find the&#10;Rainbow Connection.</EndString>
       <EndString>Press N to calm down&#10;more goats or Y to&#10;let them eat your&#10;sandals.</EndString>
-      <Menu Name="Title" Font="1">
+      <Menu Name="Title" Font="1" Song="NOAH02_MUS" >
         <Image Name="TITLEPIC" X="center" Y="center" />
         <MenuItems>
           <MenuItem Action="Menu" Argument="Main" />
         </MenuItems>
       </Menu>
-      <Menu Name="Main" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219">
+      <Menu Name="Main" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
         <Image Name="C_OPTIONSPIC" X="center" Y="0" />
         <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
         <PixelRect X="68" Y="52" Width="179" Height="130" Color="221" BordColor="219" Bord2Color="215" />
@@ -180,7 +176,7 @@
         <Cancel InGame="true" Action="Resume" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
       </Menu>
-      <Menu Name="Episodes" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219">
+      <Menu Name="Episodes" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
         <PixelRect X="6" Y="19" Width="309" Height="165" Color="221" BordColor="219" Bord2Color="215" />
         <Text String="Which episode to play?" X="center" Y="3" Color="15" />
         <Image Name="C_EPISODE1PIC" X="40" Y="22" />
@@ -201,7 +197,7 @@
         <Cancel Action="Menu" Argument="Main" />
         <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
       </Menu>
-      <Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" >
+      <Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" Song="NOAH01_MUS" >
         <PixelRect X="45" Y="90" Width="245" Height="67" Color="221" BordColor="219" Bord2Color="215" />
         <Text String="How tough are you?" X="center" Y="69" Color="15" />
         <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
