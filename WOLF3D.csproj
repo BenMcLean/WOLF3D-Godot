@@ -76,6 +76,7 @@
     <Compile Include="WOLF3DGame\FadeCameraPancake.cs" />
     <Compile Include="WOLF3DGame\IFadeCamera.cs" />
     <Compile Include="WOLF3DGame\Menu\Counter.cs" />
+    <Compile Include="WOLF3DGame\OPL\AdlibMultiplexer.cs" />
     <Compile Include="WOLF3DGame\OPL\IdAdlPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfPlayer.cs" />
     <Compile Include="WOLF3DGame\OPL\IAdlibPlayer.cs" />
