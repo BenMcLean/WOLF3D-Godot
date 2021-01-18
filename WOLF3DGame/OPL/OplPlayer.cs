@@ -83,7 +83,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             while (pos + LeftoverFrames < toFill)
             {
                 LeftoverFrames += (int)AdlibSignaller.Update(Opl) * FramesPerUpdate;
-                if (LeftoverFrames > 0 && pos + LeftoverFrames < toFill)
+                if (pos + LeftoverFrames < toFill)
                 {
                     Opl.ReadBuffer(ShortBuffer, pos, LeftoverFrames);
                     pos += LeftoverFrames;
