@@ -7,92 +7,66 @@ namespace WOLF3D.WOLF3DGame.OPL
     /// <summary>
     /// id Software Adlib Sound Effect Player by Ben McLean mclean.ben@gmail.com
     /// </summary>
-    public class IdAdlPlayer : IMusicPlayer
+    public class IdAdlPlayer : IAdlibPlayer
     {
-        public IOpl Opl
-        {
-            get => opl;
-            set
-            {
-                opl = value;
-                Opl?.WriteReg(1, 32); // go to OPL2 mode
-                Note = false;
-            }
-        }
-        private IOpl opl = null;
-
+        public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
         public float RefreshRate => 140f; // These sound effects play back at 140 Hz.
-
-        public bool Note
+        public void Silence(IOpl opl) => SetNote(false, opl);
+        public bool Note { get; private set; }
+        public IdAdlPlayer SetNote(bool value, IOpl opl)
         {
-            get => note;
-            set
-            {
-                if (note = value)
-                    Opl?.WriteReg(Adl.OctavePort, (byte)(Adl.Block | Adl.KeyFlag));
-                else
-                    Opl?.WriteReg(Adl.OctavePort, 0);
-            }
-        }
-        private bool note = false;
-
-        public IdAdlPlayer SetInstrument()
-        {
-            Opl.WriteReg(1, 32); // go to OPL2 mode
-            for (int i = 0; i < Adl.InstrumentPorts.Count; i++)
-                Opl?.WriteReg(Adl.InstrumentPorts[i], Adl.Instrument[i]);
-            Opl?.WriteReg(0xC0, 0); // WOLF3D's code ignores this value in its sound data, always setting it to zero instead.
+            if (Note = value)
+                opl?.WriteReg(Adl.OctavePort, (byte)(Adl.Block | Adl.KeyFlag));
+            else
+                opl?.WriteReg(Adl.OctavePort, 0);
             return this;
         }
-
-        public static readonly ConcurrentQueue<Adl> IdAdlQueue = new ConcurrentQueue<Adl>();
-
-        public bool Update()
+        public IdAdlPlayer SetInstrument(IOpl opl)
         {
-            if (IdAdlQueue.TryDequeue(out Adl adl))
-                Adl = adl;
+            opl.WriteReg(1, 32); // go to OPL2 mode
+            for (int i = 0; i < Adl.InstrumentPorts.Count; i++)
+                opl?.WriteReg(Adl.InstrumentPorts[i], Adl.Instrument[i]);
+            opl?.WriteReg(0xC0, 0); // WOLF3D's code ignores this value in its sound data, always setting it to zero instead.
+            return this;
+        }
+        public static readonly ConcurrentQueue<Adl> IdAdlQueue = new ConcurrentQueue<Adl>();
+        public bool Update(IOpl opl)
+        {
+            if (IdAdlQueue.TryDequeue(out Adl adl)
+                && (Adl == null || adl == null || Adl == adl || adl.Priority >= Adl.Priority))
+            {
+                CurrentNote = 0;
+                if (opl != null)
+                {
+                    SetNote(false, opl); // Must send a signal to stop the previous sound before starting a new sound
+                    if ((Adl = adl) != null)
+                    {
+                        SetInstrument(opl);
+                        SetNote(true, opl);
+                    }
+                }
+            }
             if (Adl != null)
             {
                 if (Adl.Notes[CurrentNote] == 0)
-                    Note = false;
+                    SetNote(false, opl);
                 else
                 {
-                    if (!Note) Note = true;
-                    Opl?.WriteReg(Adl.NotePort, Adl.Notes[CurrentNote]);
+                    if (!Note) SetNote(true, opl);
+                    opl?.WriteReg(Adl.NotePort, Adl.Notes[CurrentNote]);
                 }
                 CurrentNote++;
                 if (CurrentNote >= Adl.Notes.Length)
                 {
                     Adl = null;
+                    SetNote(false, opl);
                     return false;
                 }
                 return true;
             }
             return false;
         }
-
         public uint CurrentNote = 0;
-
-        public Adl Adl
-        {
-            get => adl;
-            set
-            {
-                if (adl == null || value == null || adl == value || value.Priority >= adl.Priority)
-                {
-                    CurrentNote = 0;
-                    if (Opl != null)
-                    {
-                        Note = false; // Must send a signal to stop the previous sound before starting a new sound
-                        if ((adl = value) != null)
-                        {
-                            SetInstrument();
-                            Note = true;
-                        }
-                    }
-                }
-            }
-        }
-        private Adl adl;
+        public Adl Adl { get; private set; } = null;
     }
 }

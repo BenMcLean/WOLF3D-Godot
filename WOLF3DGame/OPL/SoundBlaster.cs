@@ -1,7 +1,6 @@
 ﻿using Godot;
 using NScumm.Audio.OPL.Woody;
 using NScumm.Core.Audio.OPL;
-using NScumm.Core.Audio.OPL.DosBox;
 using System;
 using System.Xml.Linq;
 using WOLF3DModel;
@@ -10,33 +9,23 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        public static OplPlayer ImfOplPlayer;
+        public static OplPlayer ImfOplPlayer = new OplPlayer()
+        {
+            Opl = new WoodyEmulatorOpl(OplType.Opl2),
+            MusicPlayer = new ImfPlayer(),
+        };
         public static ImfPlayer ImfPlayer => (ImfPlayer)ImfOplPlayer.MusicPlayer;
-        public static OplPlayer IdAdlOplPlayer;
+        public static OplPlayer IdAdlOplPlayer = new OplPlayer()
+        {
+            Opl = new WoodyEmulatorOpl(OplType.Opl2),
+            MusicPlayer = new IdAdlPlayer(),
+        };
         public static IdAdlPlayer IdAdlPlayer => (IdAdlPlayer)IdAdlOplPlayer.MusicPlayer;
         public static readonly Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
         public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
 
         static SoundBlaster()
         {
-            IOpl imfOpl = new WoodyEmulatorOpl(OplType.Opl2);
-            ImfOplPlayer = new OplPlayer()
-            {
-                Opl = imfOpl,
-                MusicPlayer = new ImfPlayer()
-                {
-                    Opl = imfOpl,
-                },
-            };
-            IOpl idAdlOpl = new WoodyEmulatorOpl(OplType.Opl2);
-            IdAdlOplPlayer = new OplPlayer()
-            {
-                Opl = idAdlOpl,
-                MusicPlayer = new IdAdlPlayer()
-                {
-                    Opl = idAdlOpl,
-                },
-            };
             MidiPlayer.Set("soundfont", "res://1mgm.sf2");
             MidiPlayer.Set("loop", true);
         }

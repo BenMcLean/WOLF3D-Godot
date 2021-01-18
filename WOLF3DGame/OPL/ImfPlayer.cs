@@ -4,20 +4,9 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
-    public class ImfPlayer : IMusicPlayer
+    public class ImfPlayer : IAdlibPlayer
     {
-        public IOpl Opl
-        {
-            get => opl;
-            set
-            {
-                opl = value;
-                Opl?.WriteReg(1, 32); // go to OPL2 mode
-                MusicOff();
-            }
-        }
-        private IOpl opl = null;
-
+        public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
         public float RefreshRate { get; set; } = 700f;
         public int Position;
         public Imf[] Imf
@@ -25,25 +14,25 @@ namespace WOLF3D.WOLF3DGame.OPL
             get => imf;
             set
             {
-                MusicOff();
                 imf = value;
                 Position = 0;
             }
         }
         private Imf[] imf = null;
-
         public static readonly ConcurrentQueue<Imf[]> ImfQueue = new ConcurrentQueue<Imf[]>();
-
-        public bool Update()
+        public bool Update(IOpl opl)
         {
             if (ImfQueue.TryDequeue(out Imf[] imf))
+            {
+                Silence(opl);
                 Imf = imf;
+            }
             if (Imf != null)
             {
                 ushort delay;
                 do
                 {
-                    Opl?.WriteReg(Imf[Position].Register, Imf[Position].Data);
+                    opl?.WriteReg(Imf[Position].Register, Imf[Position].Data);
                     delay = Imf[Position].Delay;
                     Position++;
                 } while (delay == 0 && Position < Imf.Length);
@@ -57,13 +46,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
             return Imf == null;
         }
-
-        public ImfPlayer MusicOff()
+        public void Silence(IOpl opl)
         {
-            Opl?.WriteReg(189, 0);
+            opl?.WriteReg(189, 0);
             for (int i = 0; i < 10; i++)
-                Opl?.WriteReg(177 + i, 0);
-            return this;
+                opl?.WriteReg(177 + i, 0);
         }
     }
 }

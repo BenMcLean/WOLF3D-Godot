@@ -27,7 +27,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
 
-        public IMusicPlayer MusicPlayer { get; set; } = null;
+        public IAdlibPlayer MusicPlayer { get; set; } = null;
 
         public IOpl Opl
         {
@@ -90,7 +90,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                     while (minicnt < 0)
                     {
                         minicnt += MixRate;
-                        if (!MusicPlayer.Update())
+                        if (!MusicPlayer.Update(Opl))
                             return;
                     }
                     i = Math.Min(toFill, (int)(minicnt / MusicPlayer.RefreshRate + 4) & ~3);
