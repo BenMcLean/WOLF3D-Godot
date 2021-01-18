@@ -12,7 +12,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             TimeLeft = new float[Players.Length];
             for (int i = 0; i < Players.Length; i++)
                 TimeLeft[i] = 1f / Players[i].RefreshRate;
-            RefreshRate = 1f / TimeLeft[IndexOfSmallest(TimeLeft)];
+            RefreshRate = 1f / TimeLeft[Soonest];
         }
         private readonly IAdlibPlayer[] Players;
         private readonly float[] TimeLeft;
@@ -31,18 +31,20 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             do
             {
-                int smallest = IndexOfSmallest(TimeLeft);
-                if (smallest == -1)
-                    throw new InvalidDataException("AdlibMultiPlexer couldn't find next player!");
-                float subtract = TimeLeft[smallest];
-                Players[smallest].Update(opl);
+                int soonest = Soonest;
+                float subtract = TimeLeft[soonest];
+                Players[soonest].Update(opl);
                 for (int i = 0; i < Players.Length; i++)
                     TimeLeft[i] -= subtract;
-                TimeLeft[smallest] = 1f / Players[smallest].RefreshRate;
+                TimeLeft[soonest] = 1f / Players[soonest].RefreshRate;
             } while (TimeLeft.Where(f => f <= 0f).Any());
-            RefreshRate = 1f / TimeLeft[IndexOfSmallest(TimeLeft)];
+            RefreshRate = 1f / TimeLeft[Soonest];
             return true;
         }
+        private int Soonest =>
+            IndexOfSmallest(TimeLeft) is int index && index >= 0 ?
+                index
+                : throw new InvalidDataException("AdlibMultiplexer couldn't find next player!");
         public static int IndexOfSmallest(float[] array)
         {
             if (array == null || array.Length < 1)
