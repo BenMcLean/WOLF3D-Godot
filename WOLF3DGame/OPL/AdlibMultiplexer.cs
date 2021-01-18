@@ -42,11 +42,8 @@ namespace WOLF3D.WOLF3DGame.OPL
                 : throw new InvalidDataException("AdlibMultiplexer couldn't find next player!");
         public static int IndexOfSmallest(int[] array)
         {
-            if (array == null || array.Length < 1)
-                return -1;
-            int min = int.MaxValue;
-            int result = 0;
-            for (int i = 0; i < array.Length; i++)
+            int min = int.MaxValue, result = -1;
+            for (int i = 0; i < (array?.Length ?? 0); i++)
                 if (array[i] < min)
                 {
                     min = array[i];

@@ -1,6 +1,5 @@
 ﻿using Godot;
 using NScumm.Core.Audio.OPL;
-using System.Threading;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
@@ -47,31 +46,12 @@ namespace WOLF3D.WOLF3DGame.OPL
 
         public override void _Process(float delta)
         {
-            if (Playing && (thread == null || !thread.IsAlive))
-            { // Create thread if it ever crashes
-                thread = new System.Threading.Thread(new ThreadStart(AudioPlayerThread))
-                {
-                    IsBackground = true,
-                };
-                thread.Start();
-            }
-        }
-
-        private System.Threading.Thread thread = null;
-
-        private void AudioPlayerThread()
-        {
-            while (Playing && AdlibSignaller != null)
-            {
+            if (Playing && AdlibSignaller != null)
                 if (Opl == null)
                     Stop();
                 else
                     FillBuffer();
-                System.Threading.Thread.Sleep(10); // Sleep 10 msec periodically
-            }
         }
-
-        public const float RefreshRate = 1f / 700f;
 
         /// <summary>
         /// This code was originally here: https://github.com/adplug/adplay-unix/blob/master/src/sdl.cc
