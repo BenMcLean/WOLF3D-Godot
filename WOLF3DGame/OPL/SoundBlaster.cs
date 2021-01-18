@@ -9,18 +9,13 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        public static OplPlayer ImfOplPlayer = new OplPlayer()
+        public static readonly ImfPlayer ImfPlayer = new ImfPlayer();
+        public static readonly IdAdlPlayer IdAdlPlayer = new IdAdlPlayer();
+        public static readonly OplPlayer OplPlayer = new OplPlayer()
         {
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
-            MusicPlayer = new ImfPlayer(),
+            MusicPlayer = new AdlibMultiplexer(ImfPlayer, IdAdlPlayer),
         };
-        public static ImfPlayer ImfPlayer => (ImfPlayer)ImfOplPlayer.MusicPlayer;
-        public static OplPlayer IdAdlOplPlayer = new OplPlayer()
-        {
-            Opl = new WoodyEmulatorOpl(OplType.Opl2),
-            MusicPlayer = new IdAdlPlayer(),
-        };
-        public static IdAdlPlayer IdAdlPlayer => (IdAdlPlayer)IdAdlOplPlayer.MusicPlayer;
         public static readonly Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
         public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
 

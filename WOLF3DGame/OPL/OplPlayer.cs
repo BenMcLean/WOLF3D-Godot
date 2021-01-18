@@ -27,7 +27,16 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
 
-        public IAdlibPlayer MusicPlayer { get; set; } = null;
+        public IAdlibPlayer MusicPlayer
+        {
+            get => musicPlayer;
+            set
+            {
+                if ((musicPlayer = value) != null && Opl != null)
+                    MusicPlayer.Init(Opl);
+            }
+        }
+        private IAdlibPlayer musicPlayer = null;
 
         public IOpl Opl
         {
@@ -35,7 +44,11 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 if ((opl = value) != null)
+                {
                     Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
+                    if (MusicPlayer != null)
+                        MusicPlayer.Init(Opl);
+                }
             }
         }
         private IOpl opl;
