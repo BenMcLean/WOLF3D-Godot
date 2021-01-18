@@ -64,14 +64,14 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (!Settings.DigiSoundMuted
                 && xml?.Attribute("DigiSound")?.Value is string digiSound
                 && !string.IsNullOrWhiteSpace(digiSound)
-                && Assets.DigiSound(digiSound) is AudioStreamSample audioStreamSample)
-                if (iSpeaker != null)
-                    iSpeaker.Play = audioStreamSample;
-                else
-                {
-                    //AudioStreamPlayer.Stream = audioStreamSample;
-                    //AudioStreamPlayer.Play();
-                }
+                && Assets.DigiSound(digiSound) is AudioStreamSample audioStreamSample
+                && iSpeaker != null)
+                iSpeaker.Play = audioStreamSample;
+            //else
+            //{
+            //AudioStreamPlayer.Stream = audioStreamSample;
+            //AudioStreamPlayer.Play();
+            //}
             else if (!Settings.FXMuted
                 && xml?.Attribute("Sound")?.Value is string sound
                 && !string.IsNullOrWhiteSpace(sound)
