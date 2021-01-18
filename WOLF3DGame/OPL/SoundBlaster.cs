@@ -3,12 +3,14 @@ using NScumm.Audio.OPL.Woody;
 using NScumm.Core.Audio.OPL;
 using System;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.Action;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
+        public static readonly AudioStreamPlayer AudioStreamPlayer = new AudioStreamPlayer();
         public static readonly ImfSignaller ImfSignaller = new ImfSignaller();
         public static readonly IdAdlSignaller IdAdlSignaller = new IdAdlSignaller();
         public static readonly OplPlayer OplPlayer = new OplPlayer()
@@ -51,9 +53,29 @@ namespace WOLF3D.WOLF3DGame.OPL
             set => IdAdlSignaller.IdAdlQueue.Enqueue(value);
         }
 
-        public static void Play(XElement xml)
+        public static void Play(XElement xml, ISpeaker iSpeaker = null)
         {
-            if (xml?.Attribute("Sound")?.Value is string sound && !string.IsNullOrWhiteSpace(sound) && Assets.Sound(sound) is Adl adl && adl != null)
+            if (!Settings.MusicMuted
+                && xml?.Attribute("Song")?.Value is string songName
+                && !string.IsNullOrWhiteSpace(songName)
+                && Assets.AudioT.Songs[songName] is AudioT.Song song
+                && (Song != song || xml.IsTrue("OverrideSong")))
+                Song = song;
+            if (!Settings.DigiSoundMuted
+                && xml?.Attribute("DigiSound")?.Value is string digiSound
+                && !string.IsNullOrWhiteSpace(digiSound)
+                && Assets.DigiSound(digiSound) is AudioStreamSample audioStreamSample)
+                if (iSpeaker != null)
+                    iSpeaker.Play = audioStreamSample;
+                else
+                {
+                    AudioStreamPlayer.Stream = audioStreamSample;
+                    AudioStreamPlayer.Play();
+                }
+            else if (!Settings.FXMuted
+                && xml?.Attribute("Sound")?.Value is string sound
+                && !string.IsNullOrWhiteSpace(sound)
+                && Assets.Sound(sound) is Adl adl)
                 Adl = adl;
         }
     }
