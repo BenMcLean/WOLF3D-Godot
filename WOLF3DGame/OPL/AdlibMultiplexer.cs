@@ -9,14 +9,14 @@ namespace WOLF3D.WOLF3DGame.OPL
         public AdlibMultiplexer(params IAdlibPlayer[] players)
         {
             Players = players;
-            TimeLeft = new float[Players.Length];
+            TimeLeft = new int[Players.Length];
             for (int i = 0; i < Players.Length; i++)
-                TimeLeft[i] = Players[i].UntilNextUpdate;
-            UntilNextUpdate = TimeLeft[Soonest];
+                TimeLeft[i] = (int)Players[i].IntervalsOf700HzToWait;
+            IntervalsOf700HzToWait = (uint)TimeLeft[Soonest];
         }
         private readonly IAdlibPlayer[] Players;
-        private readonly float[] TimeLeft;
-        public float UntilNextUpdate { get; private set; }
+        private readonly int[] TimeLeft;
+        public uint IntervalsOf700HzToWait { get; private set; } = 1;
         public void Init(IOpl opl)
         {
             foreach (IAdlibPlayer player in Players)
@@ -32,24 +32,24 @@ namespace WOLF3D.WOLF3DGame.OPL
             do
             {
                 int soonest = Soonest;
-                float subtract = TimeLeft[soonest];
+                int subtract = TimeLeft[soonest];
                 Players[soonest].Update(opl);
                 for (int i = 0; i < Players.Length; i++)
                     TimeLeft[i] -= subtract;
-                TimeLeft[soonest] = Players[soonest].UntilNextUpdate;
-            } while (TimeLeft.Where(f => f <= 0f).Any());
-            UntilNextUpdate = TimeLeft[Soonest];
+                TimeLeft[soonest] = (int)Players[soonest].IntervalsOf700HzToWait;
+            } while (TimeLeft.Where(f => f <= 0).Any());
+            IntervalsOf700HzToWait = (uint)TimeLeft[Soonest];
             return true;
         }
         private int Soonest =>
             IndexOfSmallest(TimeLeft) is int index && index >= 0 ?
                 index
                 : throw new InvalidDataException("AdlibMultiplexer couldn't find next player!");
-        public static int IndexOfSmallest(float[] array)
+        public static int IndexOfSmallest(int[] array)
         {
             if (array == null || array.Length < 1)
                 return -1;
-            float min = float.MaxValue;
+            int min = int.MaxValue;
             int result = 0;
             for (int i = 0; i < array.Length; i++)
                 if (array[i] < min)

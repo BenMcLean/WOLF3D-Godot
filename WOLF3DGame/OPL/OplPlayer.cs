@@ -7,24 +7,16 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public class OplPlayer : AudioStreamPlayer
     {
+        public const int MixRate = 44100;
+        public const int FramesPerUpdate = 63; // 700 Hz interval
         public OplPlayer()
         {
             Name = "OplPlayer";
             Stream = new AudioStreamGenerator()
             {
-                MixRate = 44100,
+                MixRate = MixRate,
                 BufferLength = 0.05f, // Keep this as short as possible to minimize latency
             };
-        }
-
-        public int MixRate
-        {
-            get => (int)((AudioStreamGenerator)Stream).MixRate;
-            set
-            {
-                ((AudioStreamGenerator)Stream).MixRate = value;
-                Opl?.Init(MixRate);
-            }
         }
 
         public IAdlibPlayer MusicPlayer
@@ -45,7 +37,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             {
                 if ((opl = value) != null)
                 {
-                    Opl.Init((int)((AudioStreamGenerator)Stream).MixRate);
+                    Opl.Init(MixRate);
                     if (MusicPlayer != null)
                         MusicPlayer.Init(Opl);
                 }
@@ -81,6 +73,8 @@ namespace WOLF3D.WOLF3DGame.OPL
             }
         }
 
+        public const float RefreshRate = 1f / 700f;
+
         /// <summary>
         /// This code was originally here: https://github.com/adplug/adplay-unix/blob/master/src/sdl.cc
         /// Then it got ported to C# here: https://github.com/scemino/NScumm.Audio/blob/master/NScumm.Audio.Player/AlPlayer.cs
@@ -95,25 +89,31 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (ShortBuffer == null || ShortBuffer.Length < toFill)
                 ShortBuffer = new short[toFill];
             int pos = 0;
-            void FillBuffer2()
+
+            while (LeftoverFrames > 0 && pos + LeftoverFrames < toFill && LeftoverFrames > FramesPerUpdate)
             {
-                int i;
-                while (toFill > 0)
+                Opl.ReadBuffer(ShortBuffer, pos, FramesPerUpdate);
+                pos += FramesPerUpdate;
+                LeftoverFrames -= FramesPerUpdate;
+            }
+            if (LeftoverFrames > 0 && pos + LeftoverFrames < toFill)
+            {
+                Opl.ReadBuffer(ShortBuffer, pos, LeftoverFrames);
+                pos += LeftoverFrames;
+                LeftoverFrames = 0;
+            }
+            while (pos + LeftoverFrames < toFill)
+            {
+                MusicPlayer.Update(Opl);
+                LeftoverFrames += (int)MusicPlayer.IntervalsOf700HzToWait * FramesPerUpdate;
+                if (LeftoverFrames > 0 && pos + LeftoverFrames < toFill)
                 {
-                    while (minicnt < 0)
-                    {
-                        minicnt += MixRate;
-                        if (!MusicPlayer.Update(Opl))
-                            return;
-                    }
-                    i = Math.Min(toFill, (int)(minicnt * MusicPlayer.UntilNextUpdate + 4) & ~3);
-                    Opl.ReadBuffer(ShortBuffer, pos, i);
-                    pos += i;
-                    toFill -= i;
-                    minicnt -= (int)(i / MusicPlayer.UntilNextUpdate);
+                    Opl.ReadBuffer(ShortBuffer, pos, LeftoverFrames);
+                    pos += LeftoverFrames;
+                    LeftoverFrames = 0;
                 }
             }
-            FillBuffer2();
+
             if (pos > 0)
             {
                 Vector2[] vector2Buffer = new Vector2[pos];
@@ -128,6 +128,6 @@ namespace WOLF3D.WOLF3DGame.OPL
             return this;
         }
         private short[] ShortBuffer;
-        private int minicnt = 0;
+        private int LeftoverFrames = 0;
     }
 }

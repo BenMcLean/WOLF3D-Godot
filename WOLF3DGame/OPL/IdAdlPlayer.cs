@@ -10,7 +10,7 @@ namespace WOLF3D.WOLF3DGame.OPL
     public class IdAdlPlayer : IAdlibPlayer
     {
         public void Init(IOpl opl) => opl?.WriteReg(1, 32); // go to OPL2 mode
-        public float UntilNextUpdate => 1f / 140f; // These sound effects play back at 140 Hz.
+        public uint IntervalsOf700HzToWait => 5; // These sound effects play back at 140 Hz.
         public void Silence(IOpl opl) => SetNote(false, opl);
         public bool Note { get; private set; }
         public IdAdlPlayer SetNote(bool value, IOpl opl)
