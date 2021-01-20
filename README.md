@@ -27,7 +27,7 @@ In your Android export preset for Oculus Quest, you need these settings:
 * `Options > Xr Features > Degrees of Freedom`: `3DOF and 6DOF` (3DOF mode might not actually work but allowing it doesn't hurt anything)
 * `Options > Xr Features > Hand tracking`: `None` (I have no plans to support hand tracking)
 * `Options > Permissions`: select both `Read External Storage` and `Write External Storage`. (required to read the game files and write the shareware files)
-* `Resources > Filters to export non-resource files/folders`: add `*.zip, *.xml` to include the Wolfenstein 3-D shareware and the settings XML. (game will crash without this!)
+* `Resources > Filters to export non-resource files/folders`: add `*.zip, *.xml, *.sf2` to include the Wolfenstein 3-D shareware, the settings XML and a default soundfont. (game might crash without this!)
 
 # Useless Legal Crap
 
