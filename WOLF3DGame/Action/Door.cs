@@ -91,7 +91,6 @@ namespace WOLF3D.WOLF3DGame.Action
         public ushort Z { get; private set; } = 0;
         public CollisionShape DoorCollider { get; private set; }
         public MeshInstance DoorMesh { get; private set; }
-        public AudioStreamPlayer3D Speaker { get; private set; }
         public CollisionShape PlusGate { get; private set; }
         public CollisionShape MinusGate { get; private set; }
         public ushort? FloorCodePlus { get; set; } = 0;
@@ -244,6 +243,7 @@ namespace WOLF3D.WOLF3DGame.Action
             return true;
         }
 
+        #region ISpeaker
         public AudioStreamSample Play
         {
             get => (AudioStreamSample)Speaker.Stream;
@@ -260,6 +260,9 @@ namespace WOLF3D.WOLF3DGame.Action
                     Speaker.Play();
             }
         }
+
+        public AudioStreamPlayer3D Speaker { get; private set; }
+        #endregion ISpeaker
 
         public AudioStreamSample OpenDigiSound { get; set; } = null;
         public AudioStreamSample CloseDigiSound { get; set; } = null;
