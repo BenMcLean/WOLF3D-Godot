@@ -50,7 +50,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         public static Adl Adl
         {
             get => throw new NotImplementedException();
-            set => IdAdlSignaller.IdAdlQueue.Enqueue(value);
+            set => IdAdlSignaller.IdAdlQueue.Enqueue(Settings.FXMuted ? null : value);
         }
 
         public static void Play(XElement xml, ISpeaker iSpeaker = null)

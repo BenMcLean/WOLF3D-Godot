@@ -103,11 +103,11 @@ namespace WOLF3D.WOLF3DGame
                 return;
             if (xml.Attribute("VRMode")?.Value is string vrMode && !string.IsNullOrWhiteSpace(vrMode))
                 Settings.SetVrMode(vrMode);
-            if (xml.Attribute("FX")?.Value is string fx && !string.IsNullOrWhiteSpace(fx))
+            if (xml.Attribute("SetFX")?.Value is string fx && !string.IsNullOrWhiteSpace(fx))
                 Settings.SetFX(fx);
-            if (xml.Attribute("DigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
+            if (xml.Attribute("SetDigiSound")?.Value is string d && !string.IsNullOrWhiteSpace(d))
                 Settings.SetDigiSound(d);
-            if (xml.Attribute("Music")?.Value is string m && !string.IsNullOrWhiteSpace(m))
+            if (xml.Attribute("SetMusic")?.Value is string m && !string.IsNullOrWhiteSpace(m))
                 Settings.SetMusic(m);
             if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
                 MenuRoom.Episode = episode;
