@@ -65,7 +65,7 @@
     <Compile Include="WOLF3DGame\Action\Elevator.cs" />
     <Compile Include="WOLF3DGame\Action\FadeCameraController.cs" />
     <Compile Include="WOLF3DGame\Action\FourWalls.cs" />
-    <Compile Include="WOLF3DGame\Action\ISpeaker.cs" />
+    <Compile Include="WOLF3DGame\ISpeaker.cs" />
     <Compile Include="WOLF3DGame\Action\Level.cs" />
     <Compile Include="WOLF3DGame\Action\LoadingRoom.cs" />
     <Compile Include="WOLF3DGame\Action\Pickup.cs" />

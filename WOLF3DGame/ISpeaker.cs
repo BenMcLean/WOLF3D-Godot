@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WOLF3D.WOLF3DGame.Action
+namespace WOLF3D.WOLF3DGame
 {
     public interface ISpeaker
     {
