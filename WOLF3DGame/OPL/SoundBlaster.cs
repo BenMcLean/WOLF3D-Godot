@@ -78,6 +78,7 @@ namespace WOLF3D.WOLF3DGame.OPL
                 {
                     //AudioStreamPlayer.Stream = audioStreamSample;
                     //AudioStreamPlayer.Play();
+                    Main.Room.ARVRCamera.Play = audioStreamSample;
                 }
             else if (!Settings.FXMuted
                 && xml?.Attribute("Sound")?.Value is string sound
