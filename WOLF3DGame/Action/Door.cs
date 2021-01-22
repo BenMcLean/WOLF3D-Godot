@@ -135,7 +135,7 @@ namespace WOLF3D.WOLF3DGame.Action
             });
             AddChild(PlusGate = new CollisionShape()
             {
-                Name = (Western ? "West" : "South") + " +gate shape at [" + x + ", " + z + "]",
+                Name = (Western ? "West" : "South") + " +zgate shape at [" + x + ", " + z + "]",
                 Shape = Assets.WallShape,
                 Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.HalfWallWidth)),
             });
