@@ -78,6 +78,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
             AddChild(Line3D = new Line3D()
             {
+                Name = "Line3D",
                 Color = Color.Color8(255, 0, 0, 255),
             });
 
@@ -169,7 +170,8 @@ namespace WOLF3D.WOLF3DGame.Action
         {
             base.Enter();
             Main.Color = Assets.Palettes[0][Map.Border];
-            if (Map.Song is string songName
+            if (!Settings.MusicMuted
+                && Map.Song is string songName
                 && Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
                 && SoundBlaster.Song != song)
                 SoundBlaster.Song = song;

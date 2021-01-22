@@ -19,6 +19,7 @@ namespace WOLF3D.WOLF3DGame.Action
             AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.HalfWallWidth)),
+                Bus = "3D",
             });
         }
 

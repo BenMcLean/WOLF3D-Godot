@@ -130,6 +130,7 @@ namespace WOLF3D.WOLF3DGame.Action
             DoorCollider.AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
+                Bus = "3D",
             });
             AddChild(PlusGate = new CollisionShape()
             {

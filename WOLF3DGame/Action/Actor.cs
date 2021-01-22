@@ -23,6 +23,7 @@ namespace WOLF3D.WOLF3DGame.Action
             AddChild(Speaker = new AudioStreamPlayer3D()
             {
                 Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),
+                Bus = "3D",
             });
             State = Assets.States[XML?.Attribute("State")?.Value];
         }

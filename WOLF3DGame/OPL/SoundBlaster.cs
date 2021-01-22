@@ -17,14 +17,17 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             Opl = new WoodyEmulatorOpl(OplType.Opl2),
             AdlibSignaller = new AdlibMultiplexer(ImfSignaller, IdAdlSignaller),
+            Bus = "OPL",
         };
         public static readonly Node MidiPlayer = (Node)GD.Load<GDScript>("res://addons/midi/MidiPlayer.gd").New();
         public static readonly Reference SMF = (Reference)GD.Load<GDScript>("res://addons/midi/SMF.gd").New();
 
         static SoundBlaster()
         {
+            MidiPlayer.Name = "MidiPlayer";
             MidiPlayer.Set("soundfont", "res://1mgm.sf2");
             MidiPlayer.Set("loop", true);
+            MidiPlayer.Set("bus", "Directionless");
         }
 
         public static AudioT.Song Song
@@ -33,7 +36,7 @@ namespace WOLF3D.WOLF3DGame.OPL
             set
             {
                 MidiPlayer.Call("stop");
-                if (!((song = value) is AudioT.Song s))
+                if (Settings.MusicMuted || !((song = value) is AudioT.Song s))
                     ImfSignaller.ImfQueue.Enqueue(null);
                 else if (s.IsImf)
                     ImfSignaller.ImfQueue.Enqueue(s.Imf);
