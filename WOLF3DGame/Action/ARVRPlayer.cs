@@ -29,24 +29,32 @@ namespace WOLF3D.WOLF3DGame.Action
             if (Main.Pancake)
                 AddChild(PancakeCamera = new FadeCameraPancake()
                 {
+                    Name = "PancakeCamera",
                     Current = Main.Pancake,
                     Transform = new Transform(Basis.Identity, PancakeCameraOrigin),
                 });
-            AddChild(ARVROrigin = new ARVROrigin());
+            AddChild(ARVROrigin = new ARVROrigin()
+            {
+                Name = "ARVROrigin",
+            });
             ARVROrigin.AddChild(LeftController = new ARVRController()
             {
+                Name = "LeftController",
                 ControllerId = 1,
             });
             ARVROrigin.AddChild(RightController = new ARVRController()
             {
+                Name = "RightController",
                 ControllerId = 2,
             });
             ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
             {
+                Name = "FadeCamera",
                 Current = Main.VR,
             });
             ((Node)FadeCamera).AddChild(FadeCameraController = new FadeCameraController()
             {
+                Name = "FadeCameraController",
                 FadeCamera = FadeCamera,
             });
         }

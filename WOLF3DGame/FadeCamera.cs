@@ -24,8 +24,10 @@ void fragment() {
 
         public FadeCamera()
         {
+            Name = "FadeCamera";
             Veil = new MeshInstance()
             {
+                Name = "Veil",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(1f, 1f),
