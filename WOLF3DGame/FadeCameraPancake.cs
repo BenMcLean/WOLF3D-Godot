@@ -6,8 +6,10 @@ namespace WOLF3D.WOLF3DGame
     {
         public FadeCameraPancake()
         {
+            Name = "FadeCameraPancake";
             Veil = new MeshInstance()
             {
+                Name = "Veil",
                 Mesh = new QuadMesh()
                 {
                     Size = new Vector2(1f, 1f),

@@ -15,10 +15,13 @@ namespace WOLF3D.WOLF3DGame.Action
             ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
             )
         {
+            Name = "Pushwall";
             XML = xml;
             AddChild(Speaker = new AudioStreamPlayer3D()
             {
+                Name = "Pushwall speaker",
                 Transform = new Transform(Basis.Identity, new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.HalfWallWidth)),
+                Bus = "3D",
             });
         }
 

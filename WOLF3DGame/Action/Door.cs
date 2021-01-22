@@ -7,8 +7,8 @@ namespace WOLF3D.WOLF3DGame.Action
 {
     public class Door : Pushable, ISpeaker
     {
-        public const float OpeningSeconds = 64f / 70f; // It takes 64 tics to open a door in Wolfenstein 3-D.
-        public const float OpenSeconds = 300f / 70f; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
+        public const float OpeningSeconds = 64f / Assets.TicsPerSecond; // It takes 64 tics to open a door in Wolfenstein 3-D.
+        public const float OpenSeconds = 300f / Assets.TicsPerSecond; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
         public XElement XML
         {
             get => xml;
@@ -129,7 +129,9 @@ namespace WOLF3D.WOLF3DGame.Action
             });
             DoorCollider.AddChild(Speaker = new AudioStreamPlayer3D()
             {
+                Name = (Western ? "West" : "South") + " door speaker at [" + x + ", " + z + "]",
                 Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
+                Bus = "3D",
             });
             AddChild(PlusGate = new CollisionShape()
             {
