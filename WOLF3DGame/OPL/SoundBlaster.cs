@@ -10,7 +10,11 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        //public static readonly AudioStreamPlayer AudioStreamPlayer = new AudioStreamPlayer();
+        //public static readonly AudioStreamPlayer3D AudioStreamPlayer = new AudioStreamPlayer3D()
+        //{
+        //    Name = "AudioStreamPlayer",
+        //    Bus = "Directionless",
+        //};
         public static readonly ImfSignaller ImfSignaller = new ImfSignaller();
         public static readonly IdAdlSignaller IdAdlSignaller = new IdAdlSignaller();
         public static readonly OplPlayer OplPlayer = new OplPlayer()
@@ -67,14 +71,14 @@ namespace WOLF3D.WOLF3DGame.OPL
             if (!Settings.DigiSoundMuted
                 && xml?.Attribute("DigiSound")?.Value is string digiSound
                 && !string.IsNullOrWhiteSpace(digiSound)
-                && Assets.DigiSound(digiSound) is AudioStreamSample audioStreamSample
-                && iSpeaker != null)
-                iSpeaker.Play = audioStreamSample;
-            //else
-            //{
-            //AudioStreamPlayer.Stream = audioStreamSample;
-            //AudioStreamPlayer.Play();
-            //}
+                && Assets.DigiSound(digiSound) is AudioStreamSample audioStreamSample)
+                if (iSpeaker != null)
+                    iSpeaker.Play = audioStreamSample;
+                else
+                {
+                    //AudioStreamPlayer.Stream = audioStreamSample;
+                    //AudioStreamPlayer.Play();
+                }
             else if (!Settings.FXMuted
                 && xml?.Attribute("Sound")?.Value is string sound
                 && !string.IsNullOrWhiteSpace(sound)
