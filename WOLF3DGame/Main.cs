@@ -114,7 +114,7 @@ namespace WOLF3D.WOLF3DGame
                 PlatformEnum.ANDROID
                 : PlatformEnum.PC;
             Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
-            ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
+            //ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(WorldEnvironment);
 
