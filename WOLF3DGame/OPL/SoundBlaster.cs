@@ -77,8 +77,8 @@ namespace WOLF3D.WOLF3DGame.OPL
                     iSpeaker.Play = audioStreamSample;
                 else
                 {
-                    //AudioStreamPlayer.Stream = audioStreamSample;
-                    //AudioStreamPlayer.Play();
+                    AudioStreamPlayer.Stream = audioStreamSample;
+                    AudioStreamPlayer.Play();
                 }
             else if (!Settings.FXMuted
                 && xml?.Attribute("Sound")?.Value is string sound

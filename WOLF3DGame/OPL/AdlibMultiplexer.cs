@@ -27,8 +27,7 @@ namespace WOLF3D.WOLF3DGame.OPL
         {
             do
             {
-                int soonest = Soonest;
-                int subtract = TimeLeft[soonest];
+                int soonest = Soonest, subtract = TimeLeft[soonest];
                 TimeLeft[soonest] = (int)Players[soonest].Update(opl);
                 for (int i = 0; i < Players.Length; i++)
                     if (i != soonest)
