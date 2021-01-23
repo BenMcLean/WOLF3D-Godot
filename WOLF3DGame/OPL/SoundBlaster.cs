@@ -10,11 +10,12 @@ namespace WOLF3D.WOLF3DGame.OPL
 {
     public static class SoundBlaster
     {
-        //public static readonly AudioStreamPlayer3D AudioStreamPlayer = new AudioStreamPlayer3D()
-        //{
-        //    Name = "AudioStreamPlayer",
-        //    Bus = "Directionless",
-        //};
+        public class NothingSpecial : AudioStreamPlayer { } // Godot makes the volumes go haywire if I use a raw AudioStreamPlayer together with C# modified ones. Don't know why.
+        public static readonly NothingSpecial AudioStreamPlayer = new NothingSpecial()
+        {
+            Name = "AudioStreamPlayer",
+            Bus = "Directionless",
+        };
         public static readonly ImfSignaller ImfSignaller = new ImfSignaller();
         public static readonly IdAdlSignaller IdAdlSignaller = new IdAdlSignaller();
         public static readonly OplPlayer OplPlayer = new OplPlayer()
