@@ -107,6 +107,20 @@ namespace WOLF3D.WOLF3DGame
         }
         private Room room = null;
 
+        public Node OpenVRConfig
+        {
+            get => openVRConfig;
+            set
+            {
+                if (openVRConfig != null)
+                    RemoveChild(openVRConfig);
+                openVRConfig = value;
+                if (openVRConfig != null)
+                    AddChild(openVRConfig);
+            }
+        }
+        private Node openVRConfig = null;
+
         public override void _Ready()
         {
             Input.SetMouseMode(Input.MouseMode.Hidden);
@@ -118,8 +132,21 @@ namespace WOLF3D.WOLF3DGame
             //	print("Setup configuration")
             //	openvr_config = openvr_config.new()
 
-            //if (Platform == PlatformEnum.PC && GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script)
-            //    GD.Print("Initialized OpenVRConfig.");
+            if (Platform == PlatformEnum.PC)
+                try
+                {
+                    if (GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script script)
+                    {
+                        Node openVRConfig = new Node();
+                        openVRConfig.SetScript(script);
+                        OpenVRConfig = openVRConfig;
+                        GD.Print("Initialized OpenVRConfig.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    GD.Print("Failed to initialize OpenVRConfig.", ex.ToString());
+                }
             Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
             ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
