@@ -113,8 +113,15 @@ namespace WOLF3D.WOLF3DGame
             Platform = OS.GetName().Equals("Android", StringComparison.InvariantCultureIgnoreCase) ?
                 PlatformEnum.ANDROID
                 : PlatformEnum.PC;
+            //var openvr_config = preload("res://addons/godot-openvr/OpenVRConfig.gdns");
+            //if openvr_config:
+            //	print("Setup configuration")
+            //	openvr_config = openvr_config.new()
+
+            //if (Platform == PlatformEnum.PC && GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script)
+            //    GD.Print("Initialized OpenVRConfig.");
             Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
-            //ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
+            ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(WorldEnvironment);
 
