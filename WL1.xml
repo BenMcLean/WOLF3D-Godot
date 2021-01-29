@@ -1000,14 +1000,14 @@
       <Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
       <Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
       <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
-      <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" If="Gold Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" If="Gold Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" If="Silver Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" DigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+      <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
       <Ambush Number="106" Walk="true" Name="Deaf Guard" />
       <Override Number="107" Floor="10" Name="Elevator to Secret Floor" />
     </Walls>

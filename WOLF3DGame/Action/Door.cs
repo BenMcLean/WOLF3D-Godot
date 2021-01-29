@@ -15,7 +15,7 @@ namespace WOLF3D.WOLF3DGame.Action
             set
             {
                 xml = value;
-                if (Assets.DigiSoundSafe(xml?.Attribute("DigiSound")?.Value) is AudioStreamSample open)
+                if (Assets.DigiSoundSafe(xml?.Attribute("OpenDigiSound")?.Value) is AudioStreamSample open)
                     OpenDigiSound = open;
                 if (Assets.DigiSoundSafe(xml?.Attribute("CloseDigiSound")?.Value) is AudioStreamSample close)
                     CloseDigiSound = close;
@@ -251,15 +251,20 @@ namespace WOLF3D.WOLF3DGame.Action
             get => (AudioStreamSample)Speaker.Stream;
             set
             {
-                Speaker.Stream = !Settings.DigiSoundMuted
-                    && (!(FloorCodePlus is ushort plus
+                if (Settings.DigiSoundMuted || value == null)
+                {
+                    Speaker.Stream = null;
+                    Speaker.Stop();
+                    return;
+                }
+                else if (FloorCodePlus is ushort plus
                     && FloorCodeMinus is ushort minus
-                    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode)
-                    || (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode))) ?
-                    value
-                    : null;
-                if (value != null)
+                    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode
+                    && (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode)))
+                {
+                    Speaker.Stream = value;
                     Speaker.Play();
+                }
             }
         }
 

@@ -412,14 +412,14 @@
       <Wall Number="87" Page="44" DarkSide="45" Name="Light wood panel" />
       <Wall Number="88" Page="46" DarkSide="47" Name="Chalkboard" />
       <Wall Number="89" Page="56" DarkSide="57" Name="Map background/Fake: NS=Str/EW=Lock" />
-      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" DigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
       <Wall Number="98" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
       <Wall Number="99" Page="4" DarkSide="5" Name="Yellow curtain" />
       <Wall Number="100" Page="6" DarkSide="7" Name="Monkey portrait" />
