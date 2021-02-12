@@ -70,6 +70,10 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
+[editor]
+
+main_run_args="-pancake"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "midi" )

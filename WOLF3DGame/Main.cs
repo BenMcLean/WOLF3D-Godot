@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
@@ -127,39 +128,44 @@ namespace WOLF3D.WOLF3DGame
             Platform = OS.GetName().Equals("Android", StringComparison.InvariantCultureIgnoreCase) ?
                 PlatformEnum.ANDROID
                 : PlatformEnum.PC;
-            //var openvr_config = preload("res://addons/godot-openvr/OpenVRConfig.gdns");
-            //if openvr_config:
-            //	print("Setup configuration")
-            //	openvr_config = openvr_config.new()
-
-            if (Platform == PlatformEnum.PC)
-                try
-                {
-                    if (GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script script)
-                    {
-                        Node openVRConfig = new Node();
-                        openVRConfig.SetScript(script);
-                        OpenVRConfig = openVRConfig;
-                        GD.Print("Initialized OpenVRConfig.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    GD.Print("Failed to initialize OpenVRConfig.", ex.ToString());
-                }
             Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
-            ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
             VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
             AddChild(WorldEnvironment);
-
-            if (VR = (ARVRInterface?.Initialize() ?? false))
+            if (!OS.GetCmdlineArgs().Any(e => e.EndsWith("pancake", StringComparison.InvariantCultureIgnoreCase)))
             {
-                GetViewport().Arvr = true;
-                OS.VsyncEnabled = false;
-                Engine.TargetFps = 90;
+                //var openvr_config = preload("res://addons/godot-openvr/OpenVRConfig.gdns");
+                //if openvr_config:
+                //	print("Setup configuration")
+                //	openvr_config = openvr_config.new()
+
+                if (Platform == PlatformEnum.PC)
+                    try
+                    {
+                        if (GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script script)
+                        {
+                            Node openVRConfig = new Node();
+                            openVRConfig.SetScript(script);
+                            OpenVRConfig = openVRConfig;
+                            GD.Print("Initialized OpenVRConfig.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        GD.Print("Failed to initialize OpenVRConfig.", ex.ToString());
+                    }
+                ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
+                if (VR = ARVRInterface?.Initialize() ?? false)
+                {
+                    GetViewport().Arvr = true;
+                    OS.VsyncEnabled = false;
+                    Engine.TargetFps = 90;
+                }
+                else
+                    GD.Print("ARVRInterface failed to initialize!");
             }
             else
-                GD.Print("ARVRInterface failed to initialize!");
+                GD.Print("Skipping ARVRInterface initialization because of PANCAKE command parameter.");
+
             AddChild(SoundBlaster.OplPlayer);
             AddChild(SoundBlaster.MidiPlayer);
             AddChild(SoundBlaster.AudioStreamPlayer);
