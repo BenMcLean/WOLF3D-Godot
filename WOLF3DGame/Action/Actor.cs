@@ -603,6 +603,11 @@ namespace WOLF3D.WOLF3DGame.Action
                     && ActorXML?.Attribute("DigiSound")?.Value is string digiSound
                     && Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
                     Play = audioStreamSample;
+                if (Direction8.AngleToPoint(GlobalTransform.origin, Main.ActionRoom.ARVRPlayer.GlobalTransform.origin) is Direction8 towardsPlayer
+                    && TryWalk(towardsPlayer))
+                    Direction = towardsPlayer;
+                else if (!TryWalk())
+                    Direction = null;
                 if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
                     State = chase;
                 return true;
