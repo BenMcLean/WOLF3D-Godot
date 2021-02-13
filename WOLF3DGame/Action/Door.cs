@@ -9,19 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public const float OpeningSeconds = 64f / Assets.TicsPerSecond; // It takes 64 tics to open a door in Wolfenstein 3-D.
         public const float OpenSeconds = 300f / Assets.TicsPerSecond; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
-        public XElement XML
-        {
-            get => xml;
-            set
-            {
-                xml = value;
-                if (Assets.DigiSoundSafe(xml?.Attribute("OpenDigiSound")?.Value) is AudioStreamSample open)
-                    OpenDigiSound = open;
-                if (Assets.DigiSoundSafe(xml?.Attribute("CloseDigiSound")?.Value) is AudioStreamSample close)
-                    CloseDigiSound = close;
-            }
-        }
-        private XElement xml = null;
+        public XElement XML { get; set; }
         public float Progress { get; set; } = 0;
         public float Slide
         {
@@ -61,14 +49,16 @@ namespace WOLF3D.WOLF3DGame.Action
                         Slide = Progress = 0f;
                         break;
                     case DoorEnum.OPENING:
-                        Play = OpenDigiSound;
+                        if (!Settings.DigiSoundMuted && Assets.DigiSoundSafe(XML?.Attribute("OpenDigiSound")?.Value) is AudioStreamSample openDigiSound)
+                            Play = openDigiSound;
                         break;
                     case DoorEnum.OPEN:
                         Slide = OpeningSeconds;
                         Progress = 0;
                         break;
                     case DoorEnum.CLOSING:
-                        Play = CloseDigiSound;
+                        if (!Settings.DigiSoundMuted && Assets.DigiSoundSafe(XML?.Attribute("CloseDigiSound")?.Value) is AudioStreamSample closeDigiSound)
+                            Play = closeDigiSound;
                         if (State == DoorEnum.OPEN || Progress > OpeningSeconds)
                             Slide = Progress = OpeningSeconds;
                         break;
@@ -270,8 +260,5 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public AudioStreamPlayer3D Speaker { get; private set; }
         #endregion ISpeaker
-
-        public AudioStreamSample OpenDigiSound { get; set; } = null;
-        public AudioStreamSample CloseDigiSound { get; set; } = null;
     }
 }
