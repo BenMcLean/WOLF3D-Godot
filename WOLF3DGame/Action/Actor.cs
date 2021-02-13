@@ -57,10 +57,8 @@ namespace WOLF3D.WOLF3DGame.Action
                     && (ushort)(shape + (State.Rotate ?
                     Direction8.Modulus(
                         Direction8.AngleToPoint(
-                            GlobalTransform.origin.x,
-                            GlobalTransform.origin.z,
-                            GetViewport().GetCamera().GlobalTransform.origin.x,
-                            GetViewport().GetCamera().GlobalTransform.origin.z
+                            GlobalTransform.origin,
+                            GetViewport().GetCamera().GlobalTransform.origin
                         ).MirrorZ + (Direction ?? 0),
                         8)
                     : 0)) is ushort newFrame
@@ -116,6 +114,7 @@ namespace WOLF3D.WOLF3DGame.Action
             set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; set; } = 0f;
+        public float ChaseTimer { get; set; } = 0f;
         public State State
         {
             get => state;
@@ -242,16 +241,21 @@ namespace WOLF3D.WOLF3DGame.Action
             bool dodge = false;
             if (CheckLine())
             {
-                // TODO: attack
-                //float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
-                //    dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
-                //int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
-                //if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < (Tics << 4) / dist)
-                //{
-                //    if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
-                //        State = attackState;
-                //    return this;
-                //}
+                // TODO: On the attack mode randomization: Simulate Tics = 1 after a timer adds up that amount of time delta. That should get the same probability as if classic Wolfenstein was running at an optimal framerate. If that makes the attacks come too often then try simulating Tics = 4 and see how that plays instead.
+                ChaseTimer += delta;
+                while (ChaseTimer > Assets.Tic)
+                {
+                    ChaseTimer -= Assets.Tic;
+                    float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
+                        dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
+                    int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
+                    if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < 16 / dist)
+                    {
+                        if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
+                            State = attackState;
+                        return this;
+                    }
+                }
                 dodge = true;
             }
             if (Direction == null || Distance <= 0f)
