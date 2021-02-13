@@ -114,6 +114,9 @@ namespace WOLF3D.WOLF3DGame.Action
             set => Seconds = Assets.TicsToSeconds(value);
         }
         public float Seconds { get; set; } = 0f;
+        /// <summary>
+        /// ChaseTimer is used to keep the probability of attack independent from the framerate
+        /// </summary>
         public float ChaseTimer { get; set; } = 0f;
         public State State
         {
@@ -241,14 +244,13 @@ namespace WOLF3D.WOLF3DGame.Action
             bool dodge = false;
             if (CheckLine())
             {
-                // TODO: On the attack mode randomization: Simulate Tics = 1 after a timer adds up that amount of time delta. That should get the same probability as if classic Wolfenstein was running at an optimal framerate. If that makes the attacks come too often then try simulating Tics = 4 and see how that plays instead.
                 ChaseTimer += delta;
                 while (ChaseTimer > Assets.Tic)
                 {
                     ChaseTimer -= Assets.Tic;
                     float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
                         dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
-                    int dist = Mathf.FloorToInt((dx > dy ? dx : dy) * 0x4000);
+                    int dist = Mathf.FloorToInt(dx > dy ? dx : dy);
                     if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < 16 / dist)
                     {
                         if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))

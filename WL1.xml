@@ -1155,9 +1155,9 @@
       <State Name="s_grdpath4" Rotate="true" Shape="188" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath1" />
       <State Name="s_grdpain" Shape="196" Tics="10" Speed="0" Next="s_grdchase1" />
       <State Name="s_grdpain1" Shape="200" Tics="10" Speed="0" Next="s_grdchase1" />
-      <State Name="s_grdshoot1" Shape="241" Tics="20" Speed="0" Next="s_grdshoot2" />
-      <State Name="s_grdshoot2" Shape="242" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
-      <State Name="s_grdshoot3" Shape="243" Tics="20" Speed="0" Next="s_grdchase1" />
+      <State Name="s_grdshoot1" Shape="202" Tics="20" Speed="0" Next="s_grdshoot2" />
+      <State Name="s_grdshoot2" Shape="203" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
+      <State Name="s_grdshoot3" Shape="204" Tics="20" Speed="0" DigiSound="ATKPISTOLSND" Next="s_grdchase1" />
       <State Name="s_grdchase1" Rotate="true" Shape="164" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase1s" />
       <State Name="s_grdchase1s" Rotate="true" Shape="164" Tics="3" Speed="1536" Next="s_grdchase2" />
       <State Name="s_grdchase2" Rotate="true" Shape="172" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase3" />
@@ -1201,13 +1201,13 @@
       <State Name="s_sspain" Shape="284" Tics="10" Speed="0" Next="s_sschase1" />
       <State Name="s_sspain1" Shape="288" Tics="10" Speed="0" Next="s_sschase1" />
       <State Name="s_ssshoot1" Shape="290" Tics="20" Speed="0" Next="s_ssshoot2" />
-      <State Name="s_ssshoot2" Shape="292" Tics="20" Act="T_Shoot" Speed="0" Next="s_ssshoot3" />
+      <State Name="s_ssshoot2" Shape="292" Tics="20" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot3" />
       <State Name="s_ssshoot3" Shape="291" Tics="10" Speed="0" Next="s_ssshoot4" />
-      <State Name="s_ssshoot4" Shape="292" Tics="10" Act="T_Shoot" Speed="0" Next="s_ssshoot5" />
+      <State Name="s_ssshoot4" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot5" />
       <State Name="s_ssshoot5" Shape="291" Tics="10" Speed="0" Next="s_ssshoot6" />
-      <State Name="s_ssshoot6" Shape="292" Tics="10" Act="T_Shoot" Speed="0" Next="s_ssshoot7" />
+      <State Name="s_ssshoot6" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot7" />
       <State Name="s_ssshoot7" Shape="291" Tics="10" Speed="0" Next="s_ssshoot8" />
-      <State Name="s_ssshoot8" Shape="292" Tics="10" Act="T_Shoot" Speed="0" Next="s_ssshoot9" />
+      <State Name="s_ssshoot8" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot9" />
       <State Name="s_ssshoot9" Shape="291" Tics="10" Speed="0" Next="s_sschase1" />
       <State Name="s_sschase1" Rotate="true" Shape="252" Tics="10" Think="T_Chase" Speed="2048" Next="s_sschase1s" />
       <State Name="s_sschase1s" Rotate="true" Shape="252" Tics="3" Speed="2048" Next="s_sschase2" />
