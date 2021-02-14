@@ -243,14 +243,15 @@ namespace WOLF3D.WOLF3DGame.Action
             {
                 if (Settings.DigiSoundMuted || value == null)
                 {
-                    Speaker.Stream = null;
                     Speaker.Stop();
+                    Speaker.Stream = null;
                     return;
                 }
-                else if (FloorCodePlus is ushort plus
-                    && FloorCodeMinus is ushort minus
-                    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode
-                    && (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode)))
+                else
+                //if (FloorCodePlus is ushort plus
+                //    && FloorCodeMinus is ushort minus
+                //    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode
+                //    && (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode))) // TODO debug this so that door sound only plays when player is in a room that can hear it.
                 {
                     Speaker.Stream = value;
                     Speaker.Play();
