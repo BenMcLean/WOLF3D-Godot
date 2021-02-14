@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3DModel;
@@ -248,13 +249,19 @@ namespace WOLF3D.WOLF3DGame.Action
                     return;
                 }
                 else
-                //if (FloorCodePlus is ushort plus
-                //    && FloorCodeMinus is ushort minus
-                //    && Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode
-                //    && (floorCode == plus || floorCode == minus || Level.FloorCodes.FloorCodes(plus, minus).Contains(floorCode))) // TODO debug this so that door sound only plays when player is in a room that can hear it.
                 {
-                    Speaker.Stream = value;
-                    Speaker.Play();
+                    List<ushort> floorCodes = new List<ushort>();
+                    if (FloorCodePlus is ushort plus)
+                        floorCodes.Add(plus);
+                    if (FloorCodeMinus is ushort minus)
+                        floorCodes.Add(minus);
+                    if (Main.ActionRoom.ARVRPlayer.FloorCode is ushort floorCode
+                        && (floorCode == FloorCodePlus || floorCode == FloorCodeMinus || Level.FloorCodes.FloorCodes(floorCodes.ToArray()).Contains(floorCode))
+                        || Main.ActionRoom.ARVRPlayer.StandingOnOverride)
+                    {
+                        Speaker.Stream = value;
+                        Speaker.Play();
+                    }
                 }
             }
         }

@@ -14,11 +14,11 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         private short[][] Data;
 
-        public SymmetricMatrix(uint size) => Size = size;
+        public SymmetricMatrix(ushort size) => Size = size;
 
-        public uint Size
+        public ushort Size
         {
-            get => (uint)(Data?.Length ?? 0);
+            get => (ushort)(Data?.Length ?? 0);
             set
             {
                 Data = new short[value][];
@@ -28,12 +28,12 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public SymmetricMatrix Clear()
         {
-            for (uint i = 0; i < Size; i++)
+            for (ushort i = 0; i < Size; i++)
                 Data[i] = new short[i + 1];
             return this;
         }
 
-        public short this[uint x, uint y]
+        public short this[ushort x, ushort y]
         {
             get => x < y ?
                 Data[y - 1][x]
@@ -49,8 +49,8 @@ namespace WOLF3D.WOLF3DGame.Action
             }
         }
 
-        public static uint CalcSize(uint n) => n * (n + 1) / 2;
-        public static uint CalcSizeReversed(uint s) => (uint)Math.Floor(Math.Sqrt(2u * s));
+        public static ushort CalcSize(ushort n) => (ushort)(n * (n + 1) / 2);
+        public static ushort CalcSizeReversed(ushort s) => (ushort)Math.Floor(Math.Sqrt(2u * s));
 
         public override string ToString() => ToString(",");
 
@@ -66,7 +66,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public SymmetricMatrix(XElement e, char separator = ',') : this(e.Attribute("Data").Value, separator) { }
 
-        public SymmetricMatrix(string @string, char separator = ',') : this(CalcSizeReversed((uint)@string.Count(x => x == separator) + 1))
+        public SymmetricMatrix(string @string, char separator = ',') : this(CalcSizeReversed((ushort)(@string.Count(x => x == separator) + 1)))
         {
             Queue<string> queue = new Queue<string>(@string.Split(separator));
             for (uint row = 0; row < Data.Length; row++)
@@ -76,28 +76,28 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public SymmetricMatrix(SymmetricMatrix other) : this(other.Size)
         {
-            for (uint row = 0; row < Size; row++)
+            for (ushort row = 0; row < Size; row++)
                 Array.Copy(other.Data[row], Data[row], Data[row].Length);
         }
 
-        public List<uint> FloorCodes(params uint[] floorCodes)
+        public List<ushort> FloorCodes(params ushort[] floorCodes)
         {
-            List<uint> results = new List<uint>();
-            void DoFloor(uint floor)
+            List<ushort> results = new List<ushort>();
+            void DoFloor(ushort floor)
             {
                 if (!results.Contains(floor))
                 {
                     results.Add(floor);
-                    for (uint i = 0; i < Size; i++)
+                    for (ushort i = 0; i < Size; i++)
                         if (this[floor, i] > 0)
                             DoFloor(i);
                 }
             }
-            foreach (uint floorCode in floorCodes)
+            foreach (ushort floorCode in floorCodes)
                 DoFloor(floorCode);
             return results;
         }
 
-        public bool IsConnected(uint a, uint b) => this[a, b] > 0 || FloorCodes(a).Contains(b);
+        public bool IsConnected(ushort a, ushort b) => this[a, b] > 0 || FloorCodes(a).Contains(b);
     }
 }

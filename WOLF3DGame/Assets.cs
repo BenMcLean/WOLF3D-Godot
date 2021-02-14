@@ -169,7 +169,7 @@ namespace WOLF3D.WOLF3DGame
             if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeFirst")?.Value, out ushort floorCodeFirst))
                 FloorCodeFirst = floorCodeFirst;
             if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
-                FloorCodes = (ushort)(floorCodeLast - FloorCodeFirst);
+                FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
         }
 
         public static ushort[] Walls { get; set; }

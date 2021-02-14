@@ -36,11 +36,11 @@ namespace WOLF3DTest
             test[3, 5] = 1;
             test[5, 7] = 1;
             test[7, 9] = 1;
-            void InnerTest(params uint[] input)
+            void InnerTest(params ushort[] input)
             {
-                List<uint> floorCodes = test.FloorCodes(input);
+                List<ushort> floorCodes = test.FloorCodes(input);
                 Assert.AreEqual(floorCodes.Count, 5);
-                foreach (uint floorCode in floorCodes)
+                foreach (ushort floorCode in floorCodes)
                     Assert.AreEqual(floorCode % 2u, 1u);
             }
             InnerTest(1);

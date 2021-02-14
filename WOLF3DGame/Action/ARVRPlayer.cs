@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -299,6 +300,9 @@ namespace WOLF3D.WOLF3DGame.Action
             && floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
             (ushort)(floorCode - Assets.FloorCodeFirst)
             : (ushort?)null;
+        public bool StandingOnOverride =>
+            Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
+            && (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Any(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort value) && value == floorCode) ?? false);
 
         public void Enter()
         {
