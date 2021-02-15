@@ -22,7 +22,7 @@ namespace WOLF3D.WOLF3DGame.Action
             if (RightController != null) yield return RightController;
         }
         public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
-        public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallWidth, 0f);
+        public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallHeight, 0f);
 
         public ARVRPlayer()
         {
