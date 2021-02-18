@@ -20,7 +20,7 @@ Not to mention that I, of course, will not be censoring any of the swatztikas in
 
 # Building
 
-Currently works with Godot Engine v3.2.4.rc1.mono.official 64-bit.
+Currently works with Godot Engine v3.2.4.rc2.mono.official 64-bit.
 
 In your Android export preset for Oculus Quest, you need these settings:
 * `Options > Xr Features > XR Mode`: `Oculus Mobile VR`
@@ -59,7 +59,7 @@ This is my (Ben McLean's) pet project, but I have received much help that I need
 
 First of all, [this is mind-blowing](https://bitbucket.org/NY00123/gamesrc-ver-recreation/). I still have a hard time believing tbat anything so awesome could ever exist.
 
-Second, Valéry Sablonnière has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
+Second, ValÃ©ry SablonniÃ¨re has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
 
 Third, [Adam Biser](https://adambiser.itch.io/wdc), [Fabien Sanglard](http://fabiensanglard.net/gebbwolf3d/), [Blzut3](http://maniacsvault.net/ecwolf/) and even John Carmack himsself have been quite helpful, not only by having made significant contributions to the Wolfenstein 3-D fan community but also by directly answering some of my emailed technical questions. Also, the [Game Modding wiki](http://www.shikadi.net/moddingwiki/Wolfenstein_3-D) has been quite helpful as a resource.
 
