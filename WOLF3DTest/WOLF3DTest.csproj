@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputPath>../../.mono/nunit/bin/$(Configuration)</OutputPath>
+    <OutputPath>../../.mono/tests/bin/$(Configuration)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
