@@ -10,33 +10,35 @@ namespace WOLF3D.WOLF3DGame
 {
     public static class XMLScript
     {
-        public static bool Run(XElement xml)
+        public static bool Run(XElement xml, ITarget target = null)
         {
-            if (Conditional(xml))
+            if (Conditional(xml, target))
             {
-                Effect(xml);
+                Effect(xml, target);
                 foreach (XElement child in xml.Elements())
+                {
                     if (!"And".Equals(child.Name?.LocalName)
                         && !"Else".Equals(child.Name?.LocalName))
-                        Run(child);
+                        Run(child, target);
+                }
                 return true;
             }
             foreach (XElement child in xml.Elements("Else"))
-                Run(child);
+                Run(child, target);
             return false;
         }
 
-        private static bool Conditional(XElement xml)
+        private static bool Conditional(XElement xml, ITarget target = null)
         {
-            if (!ConditionalOne(xml))
+            if (!ConditionalOne(xml, target))
                 return false;
             foreach (XElement and in xml?.Elements("And") ?? Enumerable.Empty<XElement>())
-                if (!ConditionalOne(and))
+                if (!ConditionalOne(and, target))
                     return false;
             return true;
         }
 
-        private static bool ConditionalOne(XElement xml) =>
+        private static bool ConditionalOne(XElement xml, ITarget target = null) =>
             !(xml?.Attribute("If")?.Value is string stat)
                 || string.IsNullOrWhiteSpace(stat)
                 || !Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
@@ -72,7 +74,7 @@ namespace WOLF3D.WOLF3DGame
             )
             );
 
-        private static void Effect(XElement xml)
+        private static void Effect(XElement xml, ITarget target = null)
         {
             SoundBlaster.Play(xml);
 
