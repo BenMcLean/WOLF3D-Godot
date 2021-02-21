@@ -52,6 +52,7 @@ namespace WOLF3D.WOLF3DGame.Action
                             (Z + Direction.Z * 2) * Assets.WallWidth
                         ));
                     Level.SetPushWallAt((ushort)(X + Direction.X), (ushort)(Z + Direction.Z));
+                    //TODO: Check for a "secret wall" tile on the destination square and reset the pushwall to its initial state on the new square if present. This should allow chaining secrets through the same wall: a technique supported in the original engine but only used in fan-made maps AFAIK.
                 }
                 else
                 {
