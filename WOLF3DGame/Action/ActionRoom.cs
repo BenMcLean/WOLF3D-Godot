@@ -189,7 +189,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
         public bool Pickup(Pickup pickup)
         {
-            if (pickup.IsIn(ARVRPlayer.Position) && XMLScript.Run(pickup.XML))
+            if (pickup.IsIn(ARVRPlayer.Position) && XMLScript.Run(pickup.XML, pickup))
             {
                 ARVRPlayer.FadeCameraController.Flashing = true;
                 Level.RemoveChild(pickup);

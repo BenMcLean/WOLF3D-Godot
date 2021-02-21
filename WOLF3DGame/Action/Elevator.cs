@@ -36,7 +36,7 @@ namespace WOLF3D.WOLF3DGame.Action
                         Sides[DirectionIndex(Direction)].MaterialOverride = Assets.VSwapMaterials[activated];
                         Sides[DirectionIndex(Direction.Opposite)].MaterialOverride = Assets.VSwapMaterials[activated];
                     }
-                XMLScript.Run(XML);
+                XMLScript.Run(XML, this);
                 return true;
             }
             return false;
