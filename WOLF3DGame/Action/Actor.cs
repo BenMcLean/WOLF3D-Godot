@@ -299,6 +299,61 @@ namespace WOLF3D.WOLF3DGame.Action
             }
             return this;
         }
+        public static void T_DogChase(Actor actor, float delta = 0f) => actor.T_DogChase(delta);
+        public Actor T_DogChase(float delta = 0f)
+        { // Just ilke T_Chase but without the ability to open doors.
+            // TODO: return if gamestate.victoryflag
+            bool dodge = false;
+            if (CheckLine())
+            {
+                ChaseTimer += delta;
+                while (ChaseTimer > Assets.Tic)
+                {
+                    ChaseTimer -= Assets.Tic;
+                    float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
+                        dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
+                    int dist = Mathf.FloorToInt(dx > dy ? dx : dy);
+                    if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < 16 / dist)
+                    {
+                        if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
+                            State = attackState;
+                        return this;
+                    }
+                }
+                dodge = true;
+            }
+            if (Direction == null || Distance <= 0f)
+            {
+                if (dodge)
+                    Direction = SelectDodgeDir();
+                else
+                    Direction = SelectChaseDir();
+                if (Direction == null)
+                    return this; // All movement is blocked
+                else if (TryWalk() && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
+                {
+                    TileX = (ushort)(X + Direction.X);
+                    TileZ = (ushort)(Z + Direction.Z);
+                    Distance = Assets.WallWidth;
+                }
+                else
+                {
+                    TileX = (ushort)X;
+                    TileZ = (ushort)Z;
+                }
+            }
+            if (Direction != null && Distance > 0f)
+            {
+                float move = Speed * delta;
+                Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
+                if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
+                {
+                    GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+                    Distance -= move;
+                }
+            }
+            return this;
+        }
         public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
         public Actor T_Shoot(float delta = 0f)
         {
