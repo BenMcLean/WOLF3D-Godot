@@ -1168,7 +1168,7 @@
       <State Name="s_grddie2" Shape="198" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
       <State Name="s_grddie3" Shape="199" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
       <State Name="s_grddie4" Shape="201" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-      <Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" DigiSound="DOGBARKSND" Chase="s_dogchase1" Death="s_dogdie1" />
+      <Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" DigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" />
       <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
       <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
       <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
