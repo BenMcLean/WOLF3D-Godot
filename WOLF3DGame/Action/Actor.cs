@@ -8,6 +8,7 @@ namespace WOLF3D.WOLF3DGame.Action
     {
         public XElement ActorXML;
         public int ArrayIndex { get; set; }
+        public MeshInstance DebugFloor;
 
         public Actor(XElement spawn) : base()
         {
@@ -27,11 +28,35 @@ namespace WOLF3D.WOLF3DGame.Action
                 Bus = "3D",
             });
             State = Assets.States[XML?.Attribute("State")?.Value];
+            AddChild(DebugFloor = new MeshInstance()
+            {
+                Name = Name + " Debug Floor",
+                Mesh = new QuadMesh()
+                {
+                    Size = new Vector2(Assets.WallWidth, Assets.WallWidth),
+                },
+                MaterialOverride = new SpatialMaterial()
+                {
+                    AlbedoColor = Color.Color8(255, 0, 0, 128),
+                    FlagsUnshaded = true,
+                    FlagsDoNotReceiveShadows = true,
+                    FlagsDisableAmbientLight = true,
+                    FlagsTransparent = true,
+                    ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+                    ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+                    AnisotropyEnabled = true,
+                    RenderPriority = 1,
+                },
+                Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
+            });
         }
 
         public override void _Process(float delta)
         {
             base._Process(delta);
+
+            DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
+
             if (!Main.Room.Paused)
             {
                 if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
@@ -330,6 +355,12 @@ namespace WOLF3D.WOLF3DGame.Action
                     Direction = SelectChaseDir();
                 if (Direction == null)
                     return this; // All movement is blocked
+                else if (Direction.IsCardinal && Main.ActionRoom.Level.GetDoor(X + Direction.X, Z + Direction.Z) is Door door && !door.IsOpen)
+                {
+                    TileX = (ushort)X;
+                    TileZ = (ushort)Z;
+                    Distance = 0f;
+                }
                 else if (TryWalk() && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
                 {
                     TileX = (ushort)(X + Direction.X);
