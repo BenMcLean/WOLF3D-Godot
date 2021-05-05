@@ -135,9 +135,36 @@ namespace WOLF3D.WOLF3DGame
         #region Game assets
         public static void Load() => Load(Main.Folder);
         public static void Load(string folder, string file = "game.xml") => Load(folder, LoadXML(folder, file));
-
+        /// <summary>
+        /// Warning: Does not clear types that aren't nullable!
+        /// </summary>
+        public static void Clear()
+        {
+            XML = null;
+            Palettes = null;
+            VSwapTextures = null;
+            VSwapMaterials = null;
+            PicTextures = null;
+            DigiSounds = null;
+            StatusBarBlank = null;
+            StatusBarDigits = null;
+            BitmapFonts = null;
+            Maps = null;
+            SelectSound = null;
+            ScrollSound = null;
+            Walls = null;
+            Doors = null;
+            Elevators = null;
+            PushWalls = null;
+            States?.Clear();
+            Turns?.Clear();
+            EndStrings = null;
+            FloorCodeFirst = 0;
+            FloorCodes = 0;
+        }
         public static void Load(string folder, XElement xml)
         {
+            Clear();
             XML = xml;
             if (XML.Element("VSwap") != null)
                 VSwap = VSwap.Load(folder, XML);
@@ -178,7 +205,7 @@ namespace WOLF3D.WOLF3DGame
         public static ushort[] PushWalls { get; set; }
         public static ushort FloorCodeFirst = 107;
         public static ushort FloorCodes = 36;
-        public static Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
+        public static readonly Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();
 
         public static XElement LoadXML(string folder, string file = "game.xml")
         {
@@ -197,7 +224,7 @@ namespace WOLF3D.WOLF3DGame
             set
             {
                 audioT = value;
-                if (XML.Element("VgaGraph")?.Element("Menus") is XElement menus && menus != null)
+                if (XML?.Element("VgaGraph")?.Element("Menus") is XElement menus && menus != null)
                 {
                     if (menus.Attribute("SelectSound")?.Value is string selectSound && !string.IsNullOrWhiteSpace(selectSound))
                         SelectSound = Sound(selectSound);

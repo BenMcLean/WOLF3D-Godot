@@ -302,8 +302,8 @@ namespace WOLF3D.WOLF3DGame.Menu
                         MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
                         MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 + CursorY
                         );
-                if (Difficulty != null && XML.Element("Difficulty") is XElement difficulty && difficulty != null)
-                    Difficulty.Texture = Assets.PicTexture(difficulty.Attribute("Difficulty" + (SelectedItem.XML.Attribute("Difficulty")?.Value ?? ""))?.Value);
+                if (Difficulty != null && XML?.Element("Difficulty") is XElement difficulty && difficulty != null)
+                    Difficulty.Texture = Assets.PicTexture(difficulty.Attribute("Difficulty" + (SelectedItem?.XML?.Attribute("Difficulty")?.Value ?? ""))?.Value);
             }
         }
         private int selection = 0;

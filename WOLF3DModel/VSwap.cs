@@ -156,6 +156,7 @@ namespace WOLF3DModel
                     yield return LoadPalette(palette);
         }
 
+        public static uint[] LoadPalette(string @string) => LoadPalette(new MemoryStream(Encoding.UTF8.GetBytes(@string)));
         public static uint[] LoadPalette(Stream stream)
         {
             uint[] result;
