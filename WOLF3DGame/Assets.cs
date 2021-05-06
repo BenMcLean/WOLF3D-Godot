@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3DModel;
+using static WOLF3DModel.AudioT;
 
 namespace WOLF3D.WOLF3DGame
 {
@@ -197,6 +198,24 @@ namespace WOLF3D.WOLF3DGame
 				FloorCodeFirst = floorCodeFirst;
 			if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
 				FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
+
+			// Load "extra" IMF/WLF files not included in AudioT
+			foreach (XElement songXML in XML.Element("Audio").Elements("Imf")?.Where(e =>
+				e.Attribute("File") is XAttribute))
+			{
+				Godot.File file = new Godot.File();
+				if (file.Open(songXML.Attribute("File").Value, Godot.File.ModeFlags.Read) == Godot.Error.Ok && file.IsOpen())
+				{
+					byte[] bytes = file.GetBuffer((int)file.GetLen());
+					file.Close();
+					AudioT.Songs.Add(songXML?.Attribute("Name")?.Value, new Song()
+					{
+						Name = songXML?.Attribute("Name")?.Value,
+						Bytes = bytes,
+						Imf = Imf.ReadImf(new MemoryStream(bytes)),
+					});
+				}
+			}
 		}
 
 		public static ushort[] Walls { get; set; }

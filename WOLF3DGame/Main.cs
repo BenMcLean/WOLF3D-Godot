@@ -180,8 +180,7 @@ namespace WOLF3D.WOLF3DGame
 				);
 			Settings.Load();
 			StatusBar = new StatusBar();
-			Assets.XML.Save("C:\\Temp\\GODOT.XML");
-			Room = MenuRoom = new MenuRoom("GameSelect");
+			Room = MenuRoom = new MenuRoom("_GameSelect");
 		}
 
 		/// <summary>
