@@ -40,6 +40,7 @@
     <Compile Include="WOLF3DGame\FadeCameraPancake.cs" />
     <Compile Include="WOLF3DGame\IFadeCamera.cs" />
     <Compile Include="WOLF3DGame\Menu\Counter.cs" />
+    <Compile Include="WOLF3DGame\Menu\GameSelectionMenu.cs" />
     <Compile Include="WOLF3DGame\OPL\AdlibMultiplexer.cs" />
     <Compile Include="WOLF3DGame\OPL\IdAdlSignaller.cs" />
     <Compile Include="WOLF3DGame\OPL\ImfSignaller.cs" />
@@ -81,5 +82,4 @@
       <Name>WOLF3DModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
 </Project>
