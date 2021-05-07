@@ -200,10 +200,8 @@ namespace WOLF3D.WOLF3DGame
 				FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
 
 			// Load "extra" IMF/WLF files not included in AudioT
-			foreach (XElement songXML in XML.Element("Audio").Elements("Imf")?.Where(e =>
-				e.Attribute("File") is XAttribute))
-			{
-				Godot.File file = new Godot.File();
+			Godot.File file = new Godot.File();
+			foreach (XElement songXML in XML.Element("Audio").Elements("Imf")?.Where(e => e.Attribute("File") is XAttribute))
 				if (file.Open(songXML.Attribute("File").Value, Godot.File.ModeFlags.Read) == Godot.Error.Ok && file.IsOpen())
 				{
 					byte[] bytes = file.GetBuffer((int)file.GetLen());
@@ -215,7 +213,6 @@ namespace WOLF3D.WOLF3DGame
 						Imf = Imf.ReadImf(new MemoryStream(bytes)),
 					});
 				}
-			}
 		}
 
 		public static ushort[] Walls { get; set; }
