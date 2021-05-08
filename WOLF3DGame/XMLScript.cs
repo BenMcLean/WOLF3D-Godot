@@ -122,7 +122,7 @@ namespace WOLF3D.WOLF3DGame
 				if (xml.Name.LocalName.Equals("Up", StringComparison.InvariantCultureIgnoreCase)
 					&& menuScreen.MenuItems?.Count is int count
 					&& count > 1)
-					menuScreen.SelectedItem = menuScreen.MenuItems[count - 1];
+					menuScreen.SelectedItem = menuScreen.MenuItems[count - 1]; // Select the last item on the new menu screen when scrolling up
 				if (Main.Room != Main.MenuRoom)
 					Main.Room.ChangeRoom(Main.MenuRoom);
 			}
