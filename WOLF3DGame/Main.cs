@@ -179,7 +179,6 @@ namespace WOLF3D.WOLF3DGame
 				Assets.LoadXML(Folder).InsertGameSelectionMenu()
 				);
 			Settings.Load();
-			StatusBar = new StatusBar();
 			Room = MenuRoom = new MenuRoom("_GameSelect0");
 		}
 
