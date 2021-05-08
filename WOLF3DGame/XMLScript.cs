@@ -113,6 +113,8 @@ namespace WOLF3D.WOLF3DGame
 				MenuRoom.Episode = episode;
 
 			// Actions
+			if (xml.Attribute("Action")?.Value.Equals("SelectGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
+				Main.SelectGame(xml.Attribute("Argument").Value);
 			if (xml.Attribute("Action")?.Value.Equals("Cancel", StringComparison.InvariantCultureIgnoreCase) ?? false)
 				Main.MenuRoom.MenuScreen.Cancel();
 			if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&

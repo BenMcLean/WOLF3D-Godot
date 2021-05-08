@@ -183,6 +183,15 @@ namespace WOLF3D.WOLF3DGame
 			Room = MenuRoom = new MenuRoom("_GameSelect0");
 		}
 
+		public static void SelectGame(string game)
+		{
+			Folder = System.IO.Path.GetDirectoryName(game);
+			Assets.Load();
+			Settings.Load();
+			StatusBar = new StatusBar();
+			Room = MenuRoom = new MenuRoom();
+		}
+
 		/// <summary>
 		/// Immediately quits, no questions asked
 		/// </summary>
