@@ -202,7 +202,7 @@ namespace WOLF3DModel
 			Array.Copy(texture, result, result.Length);
 			uint height = (uint)(texture.Length / width);
 			int Index(int x, int y) => x * (int)width + y;
-			List<uint> neighbors = new List<uint>();
+			List<uint> neighbors = new List<uint>(9);
 			void Add(int x, int y)
 			{
 				if (x >= 0 && y >= 0 && x < width && y < height
@@ -315,7 +315,7 @@ namespace WOLF3DModel
 			for (int x = 0; x < newXside; x += factor)
 			{
 				for (int y = 0; y < newYside; y += 4)
-					Array.Copy(squareTexture, x / factor * ySide + y / 4 / factor * 4, scaled, x * newYside + y, 4);
+					Array.Copy(squareTexture, x / factor * ySide + (y / factor & -4), scaled, x * newYside + y, 4); // (y / factor & -4) == (y / 4 / factor * 4)
 				for (int z = x + 1; z < x + factor; z++)
 					Array.Copy(scaled, x * newYside, scaled, z * newYside, newYside);
 			}
