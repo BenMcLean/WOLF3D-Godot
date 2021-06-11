@@ -312,9 +312,13 @@ namespace WOLF3DModel
 				newXside = xSide * factor,
 				newYside = ySide * factor;
 			byte[] scaled = new byte[squareTexture.Length * factor * factor];
-			for (int x = 0; x < newXside; x++)
+			for (int x = 0; x < newXside; x += factor)
+			{
 				for (int y = 0; y < newYside; y += 4)
 					Array.Copy(squareTexture, x / factor * ySide + y / 4 / factor * 4, scaled, x * newYside + y, 4);
+				for (int z = x + 1; z < x + factor; z++)
+					Array.Copy(scaled, x * newYside, scaled, z * newYside, newYside);
+			}
 			return scaled;
 		}
 
@@ -324,9 +328,13 @@ namespace WOLF3DModel
 			int side = (int)System.Math.Sqrt(squareTexture.Length),
 				newSide = side * factor;
 			uint[] scaled = new uint[squareTexture.Length * factor * factor];
-			for (int x = 0; x < newSide; x++)
+			for (int x = 0; x < newSide; x += factor)
+			{
 				for (int y = 0; y < newSide; y++)
 					scaled[x * newSide + y] = squareTexture[x / factor * side + y / factor];
+				for (int z = x + 1; z < x + factor; z++)
+					Array.Copy(scaled, x * newSide, scaled, z * newSide, newSide);
+			}
 			return scaled;
 		}
 
