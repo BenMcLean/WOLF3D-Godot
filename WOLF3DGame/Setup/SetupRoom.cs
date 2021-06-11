@@ -1,19 +1,22 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace WOLF3D.WOLF3DGame.Setup
 {
 	public class SetupRoom : Room
 	{
 		#region Data members
+		public static string Load = null;
 		private DosScreen DosScreen;
 
 		public enum LoadingState
 		{
 			READY,
 			ASK_PERMISSION,
-			GET_SHAREWARE
+			GET_SHAREWARE,
+			LOAD_GAME
 		};
 
 		private LoadingState state = LoadingState.READY;
@@ -31,6 +34,11 @@ namespace WOLF3D.WOLF3DGame.Setup
 							.WriteLine("Press any button to continue.");
 						break;
 					case LoadingState.GET_SHAREWARE:
+						if (OS.GetCmdlineArgs()
+							?.Where(e => !e.StartsWith("-") && !e.Contains("/") && !e.Contains(@"\"))
+							?.FirstOrDefault() is string load
+							&& System.IO.File.Exists(System.IO.Path.Combine(Main.Path, load, "game.xml")))
+							Load = load;
 						WriteLine("Installing Wolfenstein 3-D Shareware!");
 						try
 						{
@@ -41,8 +49,22 @@ namespace WOLF3D.WOLF3DGame.Setup
 							WriteLine(ex.GetType().Name + ": " + ex.Message + "\n" + ex.StackTrace);
 							break;
 						}
-						//Main.Folder = System.IO.Path.Combine(Main.Path, "WL1");
-						Main.Load();
+						State = LoadingState.LOAD_GAME;
+						break;
+					case LoadingState.LOAD_GAME:
+						GD.Print("\"" + string.Join("\",\"", OS.GetCmdlineArgs()) + "\"");
+						System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(Main.Load));
+						thread.IsBackground = true;
+						if (Load is string)
+						{
+							WriteLine("Loading \"" + Load + "\"...");
+							thread.Start(new object[] { Load });
+						}
+						else
+						{
+							WriteLine("Loading game selection menu...");
+							thread.Start();
+						}
 						break;
 				}
 			}
