@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using WOLF3D.WOLF3DGame.Menu;
 
 namespace WOLF3D.WOLF3DGame.Setup
@@ -216,10 +216,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 		public void LoadAssets()
 		{
 			WriteLine(Load is string ? "Loading \"" + Load + "\"..." : "Loading game selection menu...");
-			new System.Threading.Thread(new ThreadStart(LoadAssets2))
-			{
-				IsBackground = true,
-			}.Start();
+			Task.Run(LoadAssets2);
 		}
 
 		public static void LoadAssets2()

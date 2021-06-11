@@ -1,5 +1,5 @@
 ﻿using Godot;
-using System.Threading;
+using System.Threading.Tasks;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
@@ -46,15 +46,12 @@ namespace WOLF3D.WOLF3DGame.Action
 					},
 					Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
 				});
-				new System.Threading.Thread(new ThreadStart(ThreadProc))
-				{
-					IsBackground = true,
-				}.Start();
+				Task.Run(Loading);
 			}
 		}
 		public GameMap Map { get; set; }
 
-		public void ThreadProc()
+		public void Loading()
 		{
 			MenuRoom.LastPushedTile = 0;
 			if (Main.NextLevelStats != null)
