@@ -213,17 +213,16 @@ namespace WOLF3D.WOLF3DGame.Setup
 		#endregion Shareware
 
 		#region LoadAssets
-
-		private static System.Threading.Thread Thread;
 		public void LoadAssets()
 		{
-			Thread = new System.Threading.Thread(new ThreadStart(GameSelect));
-			Thread.IsBackground = true;
 			WriteLine(Load is string ? "Loading \"" + Load + "\"..." : "Loading game selection menu...");
-			Thread.Start();
+			new System.Threading.Thread(new ThreadStart(LoadAssets2))
+			{
+				IsBackground = true,
+			}.Start();
 		}
 
-		public static void GameSelect()
+		public static void LoadAssets2()
 		{
 			if (Load is string)
 			{

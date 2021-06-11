@@ -46,9 +46,10 @@ namespace WOLF3D.WOLF3DGame.Action
 					},
 					Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
 				});
-				System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(ThreadProc));
-				thread.IsBackground = true;
-				thread.Start();
+				new System.Threading.Thread(new ThreadStart(ThreadProc))
+				{
+					IsBackground = true,
+				}.Start();
 			}
 		}
 		public GameMap Map { get; set; }
