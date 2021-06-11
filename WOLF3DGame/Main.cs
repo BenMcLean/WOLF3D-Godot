@@ -92,6 +92,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
+		public static SetupRoom SetupRoom { get; set; }
 		public static Room Room
 		{
 			get => I.room;
@@ -169,30 +170,7 @@ namespace WOLF3D.WOLF3DGame
 			AddChild(SoundBlaster.OplPlayer);
 			AddChild(SoundBlaster.MidiPlayer);
 			AddChild(SoundBlaster.AudioStreamPlayer);
-			Room = new SetupRoom();
-		}
-
-		public static void Load()
-		{
-			Assets.Load(
-				Folder = System.IO.Path.Combine(Path, "WL1"),
-				Assets.LoadXML(Folder).InsertGameSelectionMenu()
-				);
-			Settings.Load();
-			Room = MenuRoom = new MenuRoom("_GameSelect0");
-		}
-
-		public static void SelectGame(string game)
-		{
-			Folder = System.IO.Path.GetDirectoryName(game);
-			Assets.Load();
-			Settings.Load();
-			StatusBar = new StatusBar();
-			MenuRoom = new MenuRoom();
-			if (Room is Room)
-				Room.ChangeRoom(MenuRoom);
-			else
-				Room = MenuRoom;
+			Room = SetupRoom = new SetupRoom();
 		}
 
 		/// <summary>

@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
+using WOLF3D.WOLF3DGame.Setup;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame
@@ -114,7 +115,10 @@ namespace WOLF3D.WOLF3DGame
 
 			// Actions
 			if (xml.Attribute("Action")?.Value.Equals("SelectGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
-				Main.SelectGame(xml.Attribute("Argument").Value);
+			{
+				SetupRoom.Load = xml.Attribute("Argument").Value;
+				Main.Room.ChangeRoom(Main.SetupRoom);
+			}
 			if (xml.Attribute("Action")?.Value.Equals("Cancel", StringComparison.InvariantCultureIgnoreCase) ?? false)
 				Main.MenuRoom.MenuScreen.Cancel();
 			if ((xml.Attribute("Action")?.Value.Equals("Menu", StringComparison.InvariantCultureIgnoreCase) ?? false) &&

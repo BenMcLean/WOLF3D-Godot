@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 using System.Threading;
+using WOLF3D.WOLF3DGame.Menu;
 
 namespace WOLF3D.WOLF3DGame.Setup
 {
@@ -16,7 +17,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 			READY,
 			ASK_PERMISSION,
 			GET_SHAREWARE,
-			LOAD_GAME
+			LOAD_ASSETS
 		};
 
 		private LoadingState state = LoadingState.READY;
@@ -35,9 +36,8 @@ namespace WOLF3D.WOLF3DGame.Setup
 						break;
 					case LoadingState.GET_SHAREWARE:
 						if (OS.GetCmdlineArgs()
-							?.Where(e => !e.StartsWith("-") && !e.Contains("/") && !e.Contains(@"\"))
-							?.FirstOrDefault() is string load
-							&& System.IO.File.Exists(System.IO.Path.Combine(Main.Path, load, "game.xml")))
+							?.Where(e => !e.StartsWith("-") && System.IO.File.Exists(e))
+							?.FirstOrDefault() is string load)
 							Load = load;
 						WriteLine("Installing Wolfenstein 3-D Shareware!");
 						try
@@ -49,22 +49,10 @@ namespace WOLF3D.WOLF3DGame.Setup
 							WriteLine(ex.GetType().Name + ": " + ex.Message + "\n" + ex.StackTrace);
 							break;
 						}
-						State = LoadingState.LOAD_GAME;
+						State = LoadingState.LOAD_ASSETS;
 						break;
-					case LoadingState.LOAD_GAME:
-						GD.Print("\"" + string.Join("\",\"", OS.GetCmdlineArgs()) + "\"");
-						System.Threading.Thread thread = new System.Threading.Thread(new ThreadStart(Main.Load));
-						thread.IsBackground = true;
-						if (Load is string)
-						{
-							WriteLine("Loading \"" + Load + "\"...");
-							thread.Start(new object[] { Load });
-						}
-						else
-						{
-							WriteLine("Loading game selection menu...");
-							thread.Start();
-						}
+					case LoadingState.LOAD_ASSETS:
+						LoadAssets();
 						break;
 				}
 			}
@@ -104,7 +92,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 				GetViewport().Arvr = true;
 		}
 
-		public override void _PhysicsProcess(float delta)
+		public override void _Process(float delta)
 		{
 			if (State == LoadingState.READY)
 				switch (OS.GetName())
@@ -159,6 +147,8 @@ namespace WOLF3D.WOLF3DGame.Setup
 			RightController.Connect("button_pressed", this, nameof(ButtonPressed));
 			Paused = false;
 			Main.Brightness = 1f;
+			if (State == LoadingState.LOAD_ASSETS)
+				LoadAssets();
 		}
 
 		public override void Exit()
@@ -221,5 +211,39 @@ namespace WOLF3D.WOLF3DGame.Setup
 
 		public static string WildCardToRegular(string value) => "^" + System.Text.RegularExpressions.Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
 		#endregion Shareware
+
+		#region LoadAssets
+
+		private static System.Threading.Thread Thread;
+		public void LoadAssets()
+		{
+			Thread = new System.Threading.Thread(new ThreadStart(GameSelect));
+			Thread.IsBackground = true;
+			WriteLine(Load is string ? "Loading \"" + Load + "\"..." : "Loading game selection menu...");
+			Thread.Start();
+		}
+
+		public static void GameSelect()
+		{
+			if (Load is string)
+			{
+				Main.Folder = System.IO.Path.GetDirectoryName(Load);
+				Assets.Load(Main.Folder, System.IO.Path.GetFileName(Load));
+				Settings.Load();
+				Main.StatusBar = new StatusBar();
+				Main.MenuRoom = new MenuRoom();
+			}
+			else
+			{
+				Assets.Load(
+					Main.Folder = System.IO.Path.Combine(Main.Path, "WL1"),
+					Assets.LoadXML(Main.Folder).InsertGameSelectionMenu()
+					);
+				Settings.Load();
+				Main.MenuRoom = new MenuRoom("_GameSelect0");
+			}
+			Main.Room = Main.MenuRoom;
+		}
+		#endregion LoadAssets
 	}
 }
