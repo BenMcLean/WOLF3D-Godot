@@ -159,7 +159,7 @@
       <EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
       <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;&gt;</EndString>
       <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
-      <Menu Name="Intro" Song="NAZI_NOR_MUS">
+      <Menu Name="Intro" BkgdColor="127" Song="NAZI_NOR_MUS">
         <Image Name="TITLEPIC" X="center" Y="center" />
         <MenuItems>
           <MenuItem Action="Menu" Argument="Main" />

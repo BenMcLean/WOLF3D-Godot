@@ -1,9 +1,5 @@
 ﻿using Godot;
-using System;
-using System.Linq;
-using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Action;
-using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -16,7 +12,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public static byte Difficulty { get; set; } = 1;
 
 		public MenuBody Body { get; set; }
-		public MenuScreen Menu
+		public MenuScreen MenuScreen
 		{
 			get => Body?.MenuScreen;
 			set
@@ -77,8 +73,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 				RightController.Disconnect("button_pressed", this, nameof(ButtonPressedRight));
 		}
 
-		public void ButtonPressedRight(int buttonIndex) => Body.MenuScreen.ButtonPressed(this, buttonIndex, true);
-		public void ButtonPressedLeft(int buttonIndex) => Body.MenuScreen.ButtonPressed(this, buttonIndex, false);
+		public void ButtonPressedRight(int buttonIndex) => MenuScreen.ButtonPressed(this, buttonIndex, true);
+		public void ButtonPressedLeft(int buttonIndex) => MenuScreen.ButtonPressed(this, buttonIndex, false);
 
 		public override void _PhysicsProcess(float delta)
 		{
@@ -123,13 +119,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 
 		public override void _Input(InputEvent @event)
 		{
-			if (!Paused) Body?.MenuScreen?.DoInput(@event);
-		}
-
-		public MenuScreen MenuScreen
-		{
-			get => Body?.MenuScreen;
-			set => Body.MenuScreen = value.OnSet();
+			if (!Paused) MenuScreen?.DoInput(@event);
 		}
 
 		public class MenuBody : StaticBody
@@ -199,7 +189,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public override void FinishedFadeIn()
 		{
 			base.FinishedFadeIn();
-			MenuScreen.FinishedFadeIn();
+			MenuScreen?.FinishedFadeIn();
 		}
 	}
 }

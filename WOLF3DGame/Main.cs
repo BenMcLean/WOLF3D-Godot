@@ -188,7 +188,11 @@ namespace WOLF3D.WOLF3DGame
 			Assets.Load();
 			Settings.Load();
 			StatusBar = new StatusBar();
-			Room = MenuRoom = new MenuRoom();
+			MenuRoom = new MenuRoom();
+			if (Room is Room)
+				Room.ChangeRoom(MenuRoom);
+			else
+				Room = MenuRoom;
 		}
 
 		/// <summary>

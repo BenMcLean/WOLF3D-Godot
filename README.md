@@ -37,7 +37,7 @@ Only small exerpts from the Wolfenstein 3-D source code were used in the creatio
 
 The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/Wolfenstein3dV14sw.ZIP) game data created by id Software and publichsed by Apogee is included under its original shareware redistribution permission from 1992. No other game data is included in official builds. Users supply their own game data to play anything else.
 
-[Godot](http://godot.org/) is under the [MIT licsense](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
+[Godot](http://godotengine.org/) is under the [MIT licsense](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
 
 [godot_openvr](https://github.com/GodotVR/godot_openvr) by Bastiaan Olij a.k.a. Mux213 is [MIT licensed](https://github.com/GodotVR/godot_openvr/blob/master/LICENSE). It uses the [OpenVR SDK](https://github.com/ValveSoftware/openvr) by Valve Software under the [BSD 3-Clause "New" or "Revised" License](https://github.com/ValveSoftware/openvr/blob/master/LICENSE).
 
