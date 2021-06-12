@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Threading.Tasks;
+using Techsola;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
@@ -46,7 +47,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					},
 					Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
 				});
-				Task.Run(Loading);
+				AmbientTasks.Add(Task.Run(Loading));
 			}
 		}
 		public GameMap Map { get; set; }

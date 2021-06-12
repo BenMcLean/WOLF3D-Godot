@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Techsola;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
@@ -17,9 +18,23 @@ namespace WOLF3D.WOLF3DGame
 			if (I != null)
 				throw new InvalidOperationException("Only one instance of Main is allowed!");
 			I = this;
+			AmbientTasks.BeginContext(ex => GlobalExceptionHandler(ex));
 		}
 		public static Main I { get; private set; } = null;
 		public static RNG RNG = new RNG();
+
+		public static void GlobalExceptionHandler(Exception ex)
+		{
+			string message = ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
+			Console.Error.WriteLine(message);
+			if (SetupRoom is SetupRoom)
+			{
+				SetupRoom.WriteLine(message);
+				SetupRoom.State = SetupRoom.LoadingState.EXCEPTION;
+				Room = SetupRoom;
+			}
+			if (!Android) throw ex; // Android just quits without showing exceptions. Don't want that.
+		}
 
 		/// <returns>a random number between 0-255 inclusive</returns>
 		public static int US_RndT() => RNG.Next(0, 256);

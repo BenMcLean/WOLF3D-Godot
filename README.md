@@ -47,6 +47,8 @@ The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/
 
 [Godot MIDI Player](https://bitbucket.org/arlez80/godot-midi-player/src/master/) by Yui Kinomoto is [MIT licensed](https://bitbucket.org/arlez80/godot-midi-player/src/master/LICENSE.txt).
 
+[AmbientTasks](https://github.com/Techsola/AmbientTasks) by Technology Solutions Associates is [MIT licensed](https://github.com/Techsola/AmbientTasks/blob/main/LICENSE.txt).
+
 "RNG.cs" contributed by [Tommy Ettinger](https://github.com/tommyettinger) was explicitly dedicated to the public domain.
 
 The "Bm437_IBM_VGA9" bitmap font is converted from [The Ultimate Oldschool PC Font Pack by VileR](https://int10h.org/oldschool-pc-fonts) under the [CC BY-SA 4.0 license](https://int10h.org/oldschool-pc-fonts/readme/#legal_stuff).

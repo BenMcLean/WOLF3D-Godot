@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Techsola;
 using WOLF3D.WOLF3DGame.Menu;
 
 namespace WOLF3D.WOLF3DGame.Setup
@@ -17,7 +18,8 @@ namespace WOLF3D.WOLF3DGame.Setup
 			READY,
 			ASK_PERMISSION,
 			GET_SHAREWARE,
-			LOAD_ASSETS
+			LOAD_ASSETS,
+			EXCEPTION
 		};
 
 		private LoadingState state = LoadingState.READY;
@@ -216,7 +218,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 		public void LoadAssets()
 		{
 			WriteLine(Load is string ? "Loading \"" + Load + "\"..." : "Loading game selection menu...");
-			Task.Run(LoadAssets2);
+			AmbientTasks.Add(Task.Run(LoadAssets2));
 		}
 
 		public static void LoadAssets2()
