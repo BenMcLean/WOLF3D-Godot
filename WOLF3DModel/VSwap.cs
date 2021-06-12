@@ -322,18 +322,20 @@ namespace WOLF3DModel
 			return scaled;
 		}
 
-		public static uint[] Scale(uint[] squareTexture, int factor)
+		public static uint[] Scale(uint[] texture, int factor, int width = 0)
 		{
-			if (factor == 1) return squareTexture;
-			int side = (int)System.Math.Sqrt(squareTexture.Length),
-				newSide = side * factor;
-			uint[] scaled = new uint[squareTexture.Length * factor * factor];
-			for (int x = 0; x < newSide; x += factor)
+			if (factor == 1) return texture;
+			int xSide = width == 0 ? (int)System.Math.Sqrt(texture.Length) : width,
+				ySide = width == 0 ? xSide : texture.Length / width,
+				newXside = xSide * factor,
+				newYside = ySide * factor;
+			uint[] scaled = new uint[texture.Length * factor * factor];
+			for (int x = 0; x < newXside; x += factor)
 			{
-				for (int y = 0; y < newSide; y++)
-					scaled[x * newSide + y] = squareTexture[x / factor * side + y / factor];
+				for (int y = 0; y < newYside; y++)
+					scaled[x * newYside + y] = texture[x / factor * ySide + y / factor];
 				for (int z = x + 1; z < x + factor; z++)
-					Array.Copy(scaled, x * newSide, scaled, z * newSide, newSide);
+					Array.Copy(scaled, x * newYside, scaled, z * newYside, newYside);
 			}
 			return scaled;
 		}
