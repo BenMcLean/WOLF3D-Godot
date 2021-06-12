@@ -304,18 +304,18 @@ namespace WOLF3DModel
 			return tiled;
 		}
 
-		public static byte[] Scale(byte[] squareTexture, int factor)
+		public static byte[] Scale(byte[] texture, int factor, int width = 0)
 		{
-			if (factor == 1) return squareTexture;
-			int xSide = (int)System.Math.Sqrt(squareTexture.Length / 4),
-				ySide = xSide * 4,
+			if (factor == 1) return texture;
+			int xSide = width == 0 ? (int)System.Math.Sqrt(texture.Length / 4) : width,
+				ySide = width == 0 ? xSide * 4 : texture.Length / width,
 				newXside = xSide * factor,
 				newYside = ySide * factor;
-			byte[] scaled = new byte[squareTexture.Length * factor * factor];
+			byte[] scaled = new byte[texture.Length * factor * factor];
 			for (int x = 0; x < newXside; x += factor)
 			{
 				for (int y = 0; y < newYside; y += 4)
-					Array.Copy(squareTexture, x / factor * ySide + (y / factor & -4), scaled, x * newYside + y, 4); // (y / factor & -4) == (y / 4 / factor * 4)
+					Array.Copy(texture, x / factor * ySide + (y / factor & -4), scaled, x * newYside + y, 4); // (y / factor & -4) == y / 4 / factor * 4
 				for (int z = x + 1; z < x + factor; z++)
 					Array.Copy(scaled, x * newYside, scaled, z * newYside, newYside);
 			}
@@ -377,5 +377,20 @@ namespace WOLF3DModel
 			}
 			return result;
 		}
+
+		/*
+		public static void Print<T>(T[] texture, int width = 0)
+		{
+			int xSide = width == 0 ? (int)System.Math.Sqrt(texture.Length / 4) : width,
+				ySide = width == 0 ? xSide * 4 : texture.Length / width;
+			for (int x = 0; x < xSide; x++)
+			{
+				for (int y = 0; y < ySide; y += 4)
+					for (int z = 0; z < 4; z++)
+						Console.Write(texture[x * ySide + y + z] + ", ");
+				Console.WriteLine();
+			}
+		}
+		*/
 	}
 }
