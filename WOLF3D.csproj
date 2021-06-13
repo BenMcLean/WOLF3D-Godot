@@ -74,6 +74,7 @@
     <Compile Include="WOLF3DGame\XMLScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="AmbientTasks\src\AmbientTasks\AmbientTasks.csproj" />
     <ProjectReference Include="NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj">
       <Project>{925dc152-4a05-49fe-a53e-6287b03634be}</Project>
       <Name>NScumm.Audio</Name>
