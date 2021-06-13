@@ -31,6 +31,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
 			{
 				Current = true,
+				Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),
 			});
 			ARVROrigin.AddChild(LeftController = new ARVRController()
 			{
