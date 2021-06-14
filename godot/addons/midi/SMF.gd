@@ -562,16 +562,19 @@ func write( smf, running_status:bool = false ):
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
 	stream.big_endian = true
 	
-	stream.put_utf8_string( "MThd" )
+	if stream.put_data( "MThd".to_ascii( ) ) != OK:
+		return null
+
 	stream.put_u32( 6 )
 	stream.put_u16( smf.format_type )
 	stream.put_u16( len( smf.tracks ) )
 	stream.put_u16( smf.timebase )
 
 	for t in smf.tracks:
-		self._write_track( stream, t, running_status )
+		if not self._write_track( stream, t, running_status ):
+			return null
 
-	return stream.get_partial_data( stream.get_available_bytes( ) )[1]
+	return stream.data_array
 
 """
 	トラックデータソート用
@@ -588,14 +591,18 @@ class TrackEventSorter:
 	@param	i
 """
 func _write_variable_int( stream:StreamPeerBuffer, i:int ):
+	var numbers:Array = []
+
 	while true:
 		var v:int = i & 0x7f
 		i >>= 7
-		if i != 0:
-			stream.put_u8( v | 0x80 )
-		else:
-			stream.put_u8( v )
+		numbers.append( v )
+		if i == 0:
 			break
+
+	for i in range( numbers.size( ) - 1 ):
+		stream.put_u8( numbers.pop_back( ) | 0x80 )
+	stream.put_u8( numbers.pop_back( ) )
 
 """
 	トラックデータを書き込む
@@ -603,7 +610,7 @@ func _write_variable_int( stream:StreamPeerBuffer, i:int ):
 	@param	track
 	@param	running_status
 """
-func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
+func _write_track( stream:StreamPeerBuffer, track, running_status:bool ) -> bool:
 	var events:Array = track.events.duplicate( )
 	events.sort_custom( TrackEventSorter, "sort" )
 
@@ -612,14 +619,15 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 	var time:int = 0
 	var last_event_type_seq:int = -2
 
-	for e in events:
+	for ec in events:
 		var event_omit:bool = false
 		var current_event_type:int = -1
-		self._write_variable_int( buf, e.time - time )
-		time = e.time
+		self._write_variable_int( buf, ec.time - time )
+		time = ec.time
+		var e = ec.event
 		match e.type:
 			MIDIEventType.note_off:
-				current_event_type = 0x80 | e.channel_number
+				current_event_type = 0x80 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
@@ -627,7 +635,7 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 				buf.put_u8( e.note )
 				buf.put_u8( e.velocity )
 			MIDIEventType.note_on:
-				current_event_type = 0x90 | e.channel_number
+				current_event_type = 0x90 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
@@ -635,7 +643,7 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 				buf.put_u8( e.note )
 				buf.put_u8( e.velocity )
 			MIDIEventType.polyphonic_key_pressure:
-				current_event_type = 0xA0 | e.channel_number
+				current_event_type = 0xA0 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
@@ -643,7 +651,7 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 				buf.put_u8( e.note )
 				buf.put_u8( e.value )
 			MIDIEventType.control_change:
-				current_event_type = 0xB0 | e.channel_number
+				current_event_type = 0xB0 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
@@ -651,21 +659,21 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 				buf.put_u8( e.number )
 				buf.put_u8( e.value )
 			MIDIEventType.program_change:
-				current_event_type = 0xC0 | e.channel_number
+				current_event_type = 0xC0 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
 					buf.put_u8( current_event_type )
 				buf.put_u8( e.number )
 			MIDIEventType.channel_pressure:
-				current_event_type = 0xD0 | e.channel_number
+				current_event_type = 0xD0 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
 					buf.put_u8( current_event_type )
 				buf.put_u8( e.value )
 			MIDIEventType.pitch_bend:
-				current_event_type = 0xE0 | e.channel_number
+				current_event_type = 0xE0 | ec.channel_number
 				if running_status:
 					event_omit = current_event_type == last_event_type_seq
 				if not event_omit:
@@ -677,12 +685,16 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 				current_event_type = -3
 		last_event_type_seq = current_event_type
 
-	var track_size:int = buf.get_available_bytes( )
-	stream.put_utf8_string( "MTrk" )
+	var track_size:int = buf.get_size( )
+	if stream.put_data( "MTrk".to_ascii( ) ) != OK:
+		push_error( "cant write track" )
+		return false
 	stream.put_u32( track_size )
-	if stream.put_data( buf.get_partial_data( track_size )[1] ) != OK:
-		push_error( "cant write tracksize" )
-		breakpoint
+	if stream.put_data( buf.data_array ) != OK:
+		push_error( "cant write track" )
+		return false
+
+	return true
 
 """
 	システムイベント書き込み
@@ -690,18 +702,19 @@ func _write_track( stream:StreamPeerBuffer, track, running_status:bool ):
 	@param	event
 """
 func _write_system_event( stream:StreamPeerBuffer, event ):
+	event = event.args
 	match event.type:
 		MIDISystemEventType.sys_ex:
 			stream.put_u8( 0xF0 )
+			self._write_variable_int( stream, event.data.size( ) + 1 )
 			stream.put_u8( event.manifacture_id )
-			self._write_variable_int( stream, len( event.data ) )
 			if stream.put_data( event.data ) != OK:
 				push_error( "cant write event data" )
 				breakpoint
 		MIDISystemEventType.divided_sys_ex:
 			stream.put_u8( 0xF7 )
+			self._write_variable_int( stream, event.data.size( ) + 1 )
 			stream.put_u8( event.manifacture_id )
-			self._write_variable_int( stream, len( event.data ) )
 			if stream.put_data( event.data ) != OK:
 				push_error( "cant write event data" )
 				breakpoint
@@ -709,49 +722,49 @@ func _write_system_event( stream:StreamPeerBuffer, event ):
 		MIDISystemEventType.text_event:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x01 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write text event" )
 				breakpoint
 		MIDISystemEventType.copyright:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x02 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write copyright text" )
 				breakpoint
 		MIDISystemEventType.track_name:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x03 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write track name text" )
 				breakpoint
 		MIDISystemEventType.instrument_name:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x04 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write instrument name" )
 				breakpoint
 		MIDISystemEventType.lyric:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x05 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write lyric text" )
 				breakpoint
 		MIDISystemEventType.marker:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x06 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) ) != OK:
 				push_error( "cant write marker text" )
 				breakpoint
 		MIDISystemEventType.cue_point:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x07 )
-			self._write_variable_int( stream, len( event.text ) )
+			self._write_variable_int( stream, event.text.to_ascii( ).size( ) )
 			if stream.put_data( event.text.to_ascii( ) )!= OK:
 				push_error( "cant write cue point" )
 				breakpoint
@@ -761,7 +774,7 @@ func _write_system_event( stream:StreamPeerBuffer, event ):
 			stream.put_u8( 0x20 )
 			stream.put_u8( 0x01 )
 			stream.put_u8( event.prefix )
-		MIDISystemEventType.midi_channel_port:
+		MIDISystemEventType.midi_port_prefix:
 			stream.put_u8( 0xFF )
 			stream.put_u8( 0x21 )
 			stream.put_u8( 0x01 )

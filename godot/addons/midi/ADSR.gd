@@ -171,11 +171,9 @@ func _update_volume( ) -> void:
 	var v:float = self.current_volume_db + linear2db( float( self.velocity ) / 127.0 )# + self.instrument.volume_db
 
 	if self.is_check_using_linked:
-		v = linear2db( db2linear( v ) / self.polyphony_count / 2.0 )
-		if v <= -144.0: v = -144.0
+		v = max( -144.0, linear2db( db2linear( v ) / self.polyphony_count / 2.0 ) )
 		self.volume_db = v
 		self.linked.volume_db = v
 	else:
-		v = linear2db( db2linear( v ) / self.polyphony_count )
-		if v <= -144.0: v = -144.0
+		v = max( -144.0, linear2db( db2linear( v ) / self.polyphony_count ) )
 		self.volume_db = v

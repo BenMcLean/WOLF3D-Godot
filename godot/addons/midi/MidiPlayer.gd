@@ -215,6 +215,8 @@ var reverb_power:float = 0.5
 var chorus_power:float = 0.7
 # 再生準備ができているか？
 var prepared_to_play:bool = false
+# AudioServerを初期化しているか？
+var is_audio_server_inited:bool = false
 # 
 var _previous_time:float
 
@@ -264,6 +266,7 @@ func _ready( ):
 			AudioServer.add_bus_effect( midi_channel_bus_idx, cae.ae_panner )
 			AudioServer.add_bus_effect( midi_channel_bus_idx, cae.ae_reverb )
 			self.channel_audio_effects.append( cae )
+	self.is_audio_server_inited = true
 
 	self.channel_status = []
 	for i in range( max_channel ):
@@ -274,6 +277,7 @@ func _ready( ):
 		self.channel_status.append( GodotMIDIPlayerChannelStatus.new( i, _bank, drum_track ) )
 
 	self.set_max_polyphony( self.max_polyphony )
+	self.set_volume_db( self.volume_db )
 
 	if self.playing:
 		self.play( )
@@ -535,6 +539,8 @@ func set_tempo( bpm:float ):
 """
 func set_volume_db( vdb:float ):
 	volume_db = vdb
+	if not self.is_audio_server_inited:
+		return
 	AudioServer.set_bus_volume_db( AudioServer.get_bus_index( self.midi_master_bus_name ), self.volume_db )
 
 """
