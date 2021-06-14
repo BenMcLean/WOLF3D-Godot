@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/touch_controller.dae-173498c575c00b5da5457c9fbea54cbe.scn"
+path="res://.import/left_hand_model.glb-0a7976d29b950727e5aeb313e66702cf.scn"
 
 [deps]
 
-source_file="res://addons/godot_ovrmobile/example_scenes/touch_controller.dae"
-dest_files=[ "res://.import/touch_controller.dae-173498c575c00b5da5457c9fbea54cbe.scn" ]
+source_file="res://addons/godot_ovrmobile/example_scenes/left_hand_model.glb"
+dest_files=[ "res://.import/left_hand_model.glb-0a7976d29b950727e5aeb313e66702cf.scn" ]
 
 [params]
 
@@ -16,8 +16,9 @@ nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
+nodes/use_legacy_names=true
 materials/location=1
-materials/storage=1
+materials/storage=0
 materials/keep_on_reimport=true
 meshes/compress=true
 meshes/ensure_tangents=true

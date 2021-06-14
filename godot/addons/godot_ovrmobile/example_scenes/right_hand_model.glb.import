@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/left_hand_model.glb-0a7976d29b950727e5aeb313e66702cf.scn"
+path="res://.import/right_hand_model.glb-5462a0aefd8dcabe7f35f5f18c012b18.scn"
 
 [deps]
 
-source_file="res://addons/godot_ovrmobile/example_scenes/left_hand_model.glb"
-dest_files=[ "res://.import/left_hand_model.glb-0a7976d29b950727e5aeb313e66702cf.scn" ]
+source_file="res://addons/godot_ovrmobile/example_scenes/right_hand_model.glb"
+dest_files=[ "res://.import/right_hand_model.glb-5462a0aefd8dcabe7f35f5f18c012b18.scn" ]
 
 [params]
 
@@ -16,6 +16,7 @@ nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
+nodes/use_legacy_names=true
 materials/location=1
 materials/storage=0
 materials/keep_on_reimport=true

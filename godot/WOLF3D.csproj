@@ -1,0 +1,16 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>WOLF3D</RootNamespace>
+    <AssemblyName>WOLF3D</AssemblyName>
+    <GodotProjectGeneratorVersion>1.0.7374.16792</GodotProjectGeneratorVersion>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AmbientTasks" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj" />
+    <ProjectReference Include="..\src\WOLF3DModel\WOLF3DModel.csproj" />
+  </ItemGroup>
+</Project>

@@ -365,5 +365,5 @@ export_presets.cfg
 # End of https://www.gitignore.io/api/godot,csharp
 
 # WOLF3D game files
-WOLF3D/*
+godot/WOLF3D/*
 ![Aa]ddons/*/[Bb]in/
