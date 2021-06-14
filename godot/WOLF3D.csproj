@@ -74,11 +74,11 @@
     <Compile Include="WOLF3DGame\XMLScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj">
+    <ProjectReference Include="..\NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj">
       <Project>{925dc152-4a05-49fe-a53e-6287b03634be}</Project>
       <Name>NScumm.Audio</Name>
     </ProjectReference>
-    <ProjectReference Include="WOLF3DModel\WOLF3DModel.csproj">
+    <ProjectReference Include="..\src\WOLF3DModel\WOLF3DModel.csproj">
       <Project>{bfc78344-d90c-4243-b8db-0bbddad9dfd1}</Project>
       <Name>WOLF3DModel</Name>
     </ProjectReference>
