@@ -25,7 +25,7 @@ namespace WOLF3D.WOLF3DGame
 
 		public static void GlobalExceptionHandler(Exception ex)
 		{
-			string message = ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
+			string message = DateTime.Now + ", " + ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
 			Console.Error.WriteLine(message);
 			if (SetupRoom is SetupRoom)
 			{
@@ -33,6 +33,11 @@ namespace WOLF3D.WOLF3DGame
 				SetupRoom.State = SetupRoom.LoadingState.EXCEPTION;
 				Room = SetupRoom;
 			}
+			try
+			{
+				System.IO.File.AppendAllText(System.IO.Path.Combine(Path, "exception.log"), message);
+			}
+			catch (Exception) { } // Writing to exception.log is an absolute last resort to capture what went wrong. Can't have it stopping the program if it fails to write.
 			if (!Android) throw ex; // Android just quits without showing exceptions. Don't want that.
 		}
 
