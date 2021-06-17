@@ -26,7 +26,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public Color? Color
 		{
 			get => Text?.Modulate;
-			set => Text.Modulate = value == null ? Assets.White : (Color)value;
+			set
+			{
+				if (Text is Sprite)
+					Text.Modulate = value == null ? Assets.White : (Color)value;
+			}
 		}
 
 		public Color TextColor { get; set; } = Assets.White;
@@ -44,18 +48,18 @@ namespace WOLF3D.WOLF3DGame.Menu
 					Selected = null;
 				else
 				{
-					ImageTexture texture = Assets.PicTextureSafe(
-							XML?.Attribute(PictureName)?.Value ??
-							Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute(PictureName)?.Value
-							);
-					Selected = new Sprite()
-					{
-						Texture = texture,
-						Position = new Vector2(
-							(Text?.Position.x ?? 0) - (Text?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2,
-							(Text?.Position.y ?? 0) - (Text?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 2
-							),
-					};
+					if (Assets.PicTextureSafe(
+								XML?.Attribute(PictureName)?.Value
+								?? Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute(PictureName)?.Value
+							) is Texture texture)
+						Selected = new Sprite()
+						{
+							Texture = texture,
+							Position = new Vector2(
+								(Text?.Position.x ?? 0) - (Text?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2,
+								(Text?.Position.y ?? 0) - (Text?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 2
+								),
+						};
 				}
 			}
 		}
@@ -81,15 +85,18 @@ namespace WOLF3D.WOLF3DGame.Menu
 			XML = xml;
 			TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : textColor ?? Assets.White;
 			SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : selectedColor ?? Assets.White;
-			ImageTexture texture = Assets.Text(font, text);
-			AddChild(Text = new Sprite()
+			if (!string.IsNullOrWhiteSpace(text))
 			{
-				Texture = texture,
-				Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
-			});
-			Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
-			Color = TextColor;
-			UpdateSelected();
+				ImageTexture texture = Assets.Text(font, text);
+				AddChild(Text = new Sprite()
+				{
+					Texture = texture,
+					Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
+				});
+				Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
+				Color = TextColor;
+				UpdateSelected();
+			}
 		}
 
 		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? TextColor = null, Color? SelectedColor = null)
