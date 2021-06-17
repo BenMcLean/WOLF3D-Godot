@@ -81,7 +81,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			XML = xml;
 			TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : textColor ?? Assets.White;
 			SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : selectedColor ?? Assets.White;
-			ImageTexture texture = Assets.Text(font, Name = text);
+			ImageTexture texture = Assets.Text(font, text);
 			AddChild(Text = new Sprite()
 			{
 				Texture = texture,
