@@ -109,7 +109,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				if (Main.InGameMatch(menuItem))
 					yield return new MenuItem(
 						uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-						menuItem.Attribute("Text")?.Value ?? "MenuItem",
+						menuItem.Attribute("Text")?.Value,
 						paddingX,
 						menuItem.Attribute("On")?.Value,
 						TextColor,
