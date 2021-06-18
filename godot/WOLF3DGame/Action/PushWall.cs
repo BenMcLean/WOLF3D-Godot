@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
@@ -46,13 +47,23 @@ namespace WOLF3D.WOLF3DGame.Action
 				Time += delta;
 				if (Time >= Seconds)
 				{
+					X = (ushort)(X + Direction.X * 2);
+					Z = (ushort)(Z + Direction.Z * 2);
 					GlobalTransform = new Transform(Basis.Identity, new Vector3(
-							(X + Direction.X * 2) * Assets.WallWidth,
+							X * Assets.WallWidth,
 							0f,
-							(Z + Direction.Z * 2) * Assets.WallWidth
+							Z * Assets.WallWidth
 						));
-					Level.SetPushWallAt((ushort)(X + Direction.X), (ushort)(Z + Direction.Z));
-					//TODO: Check for a "secret wall" tile on the destination square and reset the pushwall to its initial state on the new square if present. This should allow chaining secrets through the same wall: a technique supported in the original engine but only used in fan-made maps AFAIK.
+					Level.SetPushWallAt(X, Z);
+					// Check for a "secret wall" tile on the destination square and reset the pushwall to its initial state on the new square if present. This should allow chaining secrets through the same wall: a technique supported in the original engine but only used in fan-made maps AFAIK.
+					foreach (XElement pushXML in Assets.PushWall ?? Enumerable.Empty<XElement>())
+						if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber) && Level.Map.GetObjectData(X, Z) == pushNumber)
+						{
+							Time = 0f;
+							Halfway = false;
+							Pushed = false;
+							break;
+						}
 				}
 				else
 				{
