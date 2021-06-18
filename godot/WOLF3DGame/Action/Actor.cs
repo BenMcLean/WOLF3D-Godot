@@ -287,6 +287,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			if (Direction == null || Distance <= 0f)
 			{
+				Recenter();
 				if (dodge)
 					Direction = SelectDodgeDir();
 				else
@@ -338,7 +339,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
 						dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
 					int dist = Mathf.FloorToInt(dx > dy ? dx : dy);
-					if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < 16 / dist)
+					if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth))
 					{
 						if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
 							State = attackState;
@@ -349,6 +350,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			if (Direction == null || Distance <= 0f)
 			{
+				Recenter();
 				if (dodge)
 					Direction = SelectDodgeDir();
 				else
