@@ -275,7 +275,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					ChaseTimer -= Assets.Tic;
 					float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
 						dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
-					int dist = Mathf.FloorToInt(dx > dy ? dx : dy);
+					int dist = Assets.IntCoordinate(dx > dy ? dx : dy);
 					if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth) || Main.US_RndT() < 16 / dist)
 					{
 						if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
@@ -338,8 +338,8 @@ namespace WOLF3D.WOLF3DGame.Action
 					ChaseTimer -= Assets.Tic;
 					float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
 						dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z);
-					int dist = Mathf.FloorToInt(dx > dy ? dx : dy);
-					if (dist == 0 || (dist == 1 && Distance < Assets.WallWidth))
+					if ((dx > dy ? dx : dy) <= Assets.WallWidth)
+					//if (Position.DistanceTo(Main.ActionRoom.ARVRPlayer.Position) < Assets.WallWidth * 2)
 					{
 						if (Assets.States.TryGetValue(ActorXML?.Attribute("Attack")?.Value, out State attackState))
 							State = attackState;
