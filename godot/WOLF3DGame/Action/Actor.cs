@@ -238,7 +238,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					door.ActorPush();
 					Distance = -1f;
 				}
-				if (TryWalk() && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
+				if (TryWalk()) // && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
 				{
 					TileX = (ushort)(X + Direction.X);
 					TileZ = (ushort)(Z + Direction.Z);
@@ -301,7 +301,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					TileZ = (ushort)Z;
 					Distance = -1f;
 				}
-				else if (TryWalk() && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
+				else if (TryWalk())// && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
 				{
 					TileX = (ushort)(X + Direction.X);
 					TileZ = (ushort)(Z + Direction.Z);
@@ -363,7 +363,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					TileZ = (ushort)Z;
 					Distance = 0f;
 				}
-				else if (TryWalk() && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
+				else if (TryWalk())// && (Main.ActionRoom.ARVRPlayer.X != X + Direction.X || Main.ActionRoom.ARVRPlayer.Z != Z + Direction.Z)) // Prevent trapping the player in the destination square
 				{
 					TileX = (ushort)(X + Direction.X);
 					TileZ = (ushort)(Z + Direction.Z);

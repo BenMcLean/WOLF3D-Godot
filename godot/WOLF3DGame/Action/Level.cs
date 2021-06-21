@@ -176,10 +176,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		#endregion Pushing
 
 		#region Collision Detection
-		public Vector2 Walk(Vector2 here, Vector2 there)
+		public Vector2 PlayerWalk(Vector2 here, Vector2 there)
 		{
-			float x = TryWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
-			return new Vector2(x, TryWalk(new Vector2(x, there.y)) ? there.y : here.y);
+			float x = TryPlayerWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
+			return new Vector2(x, TryPlayerWalk(new Vector2(x, there.y)) ? there.y : here.y);
 		}
 
 		public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
@@ -195,7 +195,21 @@ namespace WOLF3D.WOLF3DGame.Action
 			: Assets.CenterSquare(here);
 
 
+		public bool TryPlayerWalk(Vector2 there, out Vector2 cant)
+		{
+			if (!Clipping)
+			{
+				cant = Vector2.Zero;
+				return true;
+			}
+			foreach (Direction8 direction in Direction8.Diagonals)
+				if (!TryPlayerWalkPoint(cant = there + direction.Vector2 * Assets.HeadDiagonal))
+					return false;
+			return TryPlayerWalkPoint(cant = there);
+		}
+
 		public bool TryWalk(Vector2 there, out Vector2 cant)
+
 		{
 			if (!Clipping)
 			{
@@ -208,14 +222,27 @@ namespace WOLF3D.WOLF3DGame.Action
 			return TryWalkPoint(cant = there);
 		}
 
+		public bool TryPlayerWalk(Vector2 there) => TryPlayerWalk(there, out _);
+
 		public bool TryWalk(Vector2 there) => TryWalk(there, out _);
 
+		public bool TryPlayerWalkPoint(Vector2 there) => TryPlayerWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
 		public bool TryWalkPoint(Vector2 there) => TryWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
-		public bool TryWalk(int x, int z) =>
+		public bool TryPlayerWalk(int x, int z) =>
 			Walls.IsNavigable(x, z)
 			&& (!(Doors[x][z] is Door door) || door.IsOpen)
-			&& !IsActorAt((ushort)x, (ushort)z)
 			&& !IsPushWallAt((ushort)x, (ushort)z);
+		public bool TryWalk(int x, int z) =>
+			TryPlayerWalk(x, z)
+			&& !IsActorAt((ushort)x, (ushort)z);
+		public bool TryPlayerWalk(Direction8 direction, int x, int z) =>
+			direction == null ?
+				TryPlayerWalk(x, z)
+				: ((direction.IsCardinal || (
+						TryPlayerWalk(x + direction.X, z)
+						&& TryPlayerWalk(x, z + direction.Z)
+					))
+					&& TryPlayerWalk(x + direction.X, z + direction.Z));
 		public bool TryWalk(Direction8 direction, int x, int z) =>
 			direction == null ?
 				TryWalk(x, z)
