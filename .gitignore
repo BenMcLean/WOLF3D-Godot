@@ -358,6 +358,7 @@ MigrationBackup/
 godot/.import/
 godot/export.cfg
 godot/export_presets.cfg
+godot/android/*
 
 # Mono-specific ignores
 godot/.mono/
