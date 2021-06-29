@@ -129,19 +129,19 @@ namespace WOLF3D.WOLF3DGame
 		}
 		private Room room = null;
 
-		public Node OpenVRConfig
+		public Node OpenXRConfig
 		{
-			get => openVRConfig;
+			get => openXRConfig;
 			set
 			{
-				if (openVRConfig != null)
-					RemoveChild(openVRConfig);
-				openVRConfig = value;
-				if (openVRConfig != null)
-					AddChild(openVRConfig);
+				if (openXRConfig != null)
+					RemoveChild(openXRConfig);
+				openXRConfig = value;
+				if (openXRConfig != null)
+					AddChild(openXRConfig);
 			}
 		}
-		private Node openVRConfig = null;
+		private Node openXRConfig = null;
 
 		public override void _Ready()
 		{
@@ -154,27 +154,22 @@ namespace WOLF3D.WOLF3DGame
 			AddChild(WorldEnvironment);
 			if (!OS.GetCmdlineArgs().Any(e => e.EndsWith("pancake", StringComparison.InvariantCultureIgnoreCase)))
 			{
-				//var openvr_config = preload("res://addons/godot-openvr/OpenVRConfig.gdns");
-				//if openvr_config:
-				//	print("Setup configuration")
-				//	openvr_config = openvr_config.new()
-
 				if (Platform == PlatformEnum.PC)
 					try
 					{
-						if (GD.Load<Script>("res://addons/godot-openvr/OpenVRConfig.gdns") is Script script)
+						if (GD.Load<Script>("res://addons/godot-openxr/OpenXRConfig.gdns") is Script script)
 						{
-							Node openVRConfig = new Node();
-							openVRConfig.SetScript(script);
-							OpenVRConfig = openVRConfig;
-							GD.Print("Initialized OpenVRConfig.");
+							Node openXRConfig = new Node();
+							openXRConfig.SetScript(script);
+							OpenXRConfig = openXRConfig;
+							GD.Print("Initialized OpenXRConfig.");
 						}
 					}
 					catch (Exception ex)
 					{
-						GD.Print("Failed to initialize OpenVRConfig.", ex.ToString());
+						GD.Print("Failed to initialize OpenXRConfig.", ex.ToString());
 					}
-				ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenVR");
+				ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenXR");
 				if (VR = ARVRInterface?.Initialize() ?? false)
 				{
 					GetViewport().Arvr = true;
