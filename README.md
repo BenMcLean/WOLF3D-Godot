@@ -20,7 +20,7 @@ Not to mention that I, of course, will not be censoring any of the swatztikas in
 
 # Building
 
-Currently works with Godot Engine v3.3.stable.mono.official.
+Currently works with Godot Engine v3.3.2.stable.mono.official.
 
 In your Android export preset for Oculus Quest, you need these settings:
 * `Options > Xr Features > XR Mode`: `Oculus Mobile VR`
@@ -39,7 +39,7 @@ The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/
 
 [Godot](http://godotengine.org/) is under the [MIT licsense](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
 
-[godot_openvr](https://github.com/GodotVR/godot_openvr) by Bastiaan Olij a.k.a. Mux213 is [MIT licensed](https://github.com/GodotVR/godot_openvr/blob/master/LICENSE). It uses the [OpenVR SDK](https://github.com/ValveSoftware/openvr) by Valve Software under the [BSD 3-Clause "New" or "Revised" License](https://github.com/ValveSoftware/openvr/blob/master/LICENSE).
+[godot_openxr](https://github.com/GodotVR/godot_openxr) by Bastiaan Olij a.k.a. Mux213 is [MIT licensed](https://github.com/GodotVR/godot_openxr/blob/master/LICENSE). It uses the [OpenXR SDK](https://github.com/KhronosGroup/OpenXR-SDK) by Khronos Group. [Choose a license](https://github.com/KhronosGroup/OpenXR-SDK/tree/master/LICENSES).
 
 [godot_oculus_mobile](https://github.com/GodotVR/godot_oculus_mobile) is [MIT licensed](https://github.com/GodotVR/godot_oculus_mobile/blob/master/LICENSE). It uses the [Oculus Mobile SDK](https://developer.oculus.com/downloads/package/oculus-mobile-sdk/) which is available under the [Oculus SDK License Agreement](https://developer.oculus.com/licenses/oculussdk/) which no human has ever actually read.
 
