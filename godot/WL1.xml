@@ -1,1571 +1,1571 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Game Name="Wolfenstein 3-D Shareware v1.4" Exe="WOLF3D.EXE" HighScores="CONFIG.WL1">
-  <VgaGraph VgaDict="VGADICT.WL1" VgaGraph="VGAGRAPH.WL1" VgaHead="VGAHEAD.WL1" LoadingPic="GETPSYCHEDPIC">
-    <Sizes Chunk="0" StartPics="3" NumPics="144" StartFont="1" NumFont="2" BitmapFonts="1" />
-    <Font Number="0" Chunk="1" Name="Small" />
-    <Font Number="1" Chunk="2" Name="Large" />
-    <Pic Number="0" Chunk="3" Name="H_BJPIC" />
-    <Pic Number="1" Chunk="4" Name="H_CASTLEPIC" />
-    <Pic Number="2" Chunk="5" Name="H_KEYBOARDPIC" />
-    <Pic Number="3" Chunk="6" Name="H_JOYPIC" />
-    <Pic Number="4" Chunk="7" Name="H_HEALPIC" />
-    <Pic Number="5" Chunk="8" Name="H_TREASUREPIC" />
-    <Pic Number="6" Chunk="9" Name="H_GUNPIC" />
-    <Pic Number="7" Chunk="10" Name="H_KEYPIC" />
-    <Pic Number="8" Chunk="11" Name="H_BLAZEPIC" />
-    <Pic Number="9" Chunk="12" Name="H_WEAPON1234PIC" />
-    <Pic Number="10" Chunk="13" Name="H_WOLFLOGOPIC" />
-    <Pic Number="11" Chunk="14" Name="H_VISAPIC" />
-    <Pic Number="12" Chunk="15" Name="H_MCPIC" />
-    <Pic Number="13" Chunk="16" Name="H_IDLOGOPIC" />
-    <Pic Number="14" Chunk="17" Name="H_TOPWINDOWPIC" />
-    <Pic Number="15" Chunk="18" Name="H_LEFTWINDOWPIC" />
-    <Pic Number="16" Chunk="19" Name="H_RIGHTWINDOWPIC" />
-    <Pic Number="17" Chunk="20" Name="H_BOTTOMINFOPIC" />
-    <Pic Number="18" Chunk="21" Name="H_SPEARADPIC" />
-    <Pic Number="19" Chunk="22" Name="C_OPTIONSPIC" />
-    <Pic Number="20" Chunk="23" Name="C_CURSOR1PIC" />
-    <Pic Number="21" Chunk="24" Name="C_CURSOR2PIC" />
-    <Pic Number="22" Chunk="25" Name="C_NOTSELECTEDPIC" />
-    <Pic Number="23" Chunk="26" Name="C_SELECTEDPIC" />
-    <Pic Number="24" Chunk="27" Name="C_FXTITLEPIC" />
-    <Pic Number="25" Chunk="28" Name="C_DIGITITLEPIC" />
-    <Pic Number="26" Chunk="29" Name="C_MUSICTITLEPIC" />
-    <Pic Number="27" Chunk="30" Name="C_MOUSELBACKPIC" />
-    <Pic Number="28" Chunk="31" Name="C_BABYMODEPIC" />
-    <Pic Number="29" Chunk="32" Name="C_EASYPIC" />
-    <Pic Number="30" Chunk="33" Name="C_NORMALPIC" />
-    <Pic Number="31" Chunk="34" Name="C_HARDPIC" />
-    <Pic Number="32" Chunk="35" Name="C_LOADSAVEDISKPIC" />
-    <Pic Number="33" Chunk="36" Name="C_DISKLOADING1PIC" />
-    <Pic Number="34" Chunk="37" Name="C_DISKLOADING2PIC" />
-    <Pic Number="35" Chunk="38" Name="C_CONTROLPIC" />
-    <Pic Number="36" Chunk="39" Name="C_CUSTOMIZEPIC" />
-    <Pic Number="37" Chunk="40" Name="C_LOADGAMEPIC" />
-    <Pic Number="38" Chunk="41" Name="C_SAVEGAMEPIC" />
-    <Pic Number="39" Chunk="42" Name="C_EPISODE1PIC" />
-    <Pic Number="40" Chunk="43" Name="C_EPISODE2PIC" />
-    <Pic Number="41" Chunk="44" Name="C_EPISODE3PIC" />
-    <Pic Number="42" Chunk="45" Name="C_EPISODE4PIC" />
-    <Pic Number="43" Chunk="46" Name="C_EPISODE5PIC" />
-    <Pic Number="44" Chunk="47" Name="C_EPISODE6PIC" />
-    <Pic Number="45" Chunk="48" Name="C_CODEPIC" />
-    <Pic Number="46" Chunk="49" Name="C_TIMECODEPIC" />
-    <Pic Number="47" Chunk="50" Name="C_LEVELPIC" />
-    <Pic Number="48" Chunk="51" Name="C_NAMEPIC" />
-    <Pic Number="49" Chunk="52" Name="C_SCOREPIC" />
-    <Pic Number="50" Chunk="53" Name="C_JOY1PIC" />
-    <Pic Number="51" Chunk="54" Name="C_JOY2PIC" />
-    <Pic Number="52" Chunk="55" Name="L_GUYPIC" />
-    <Space BitmapFont="0" Width="16" Height="16" Color="127" />
-    <Pic Number="53" Chunk="56" BitmapFont="0" Character=":" Name="L_COLONPIC" />
-    <Pic Number="54" Chunk="57" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
-    <Pic Number="55" Chunk="58" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
-    <Pic Number="56" Chunk="59" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
-    <Pic Number="57" Chunk="60" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
-    <Pic Number="58" Chunk="61" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
-    <Pic Number="59" Chunk="62" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
-    <Pic Number="60" Chunk="63" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
-    <Pic Number="61" Chunk="64" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
-    <Pic Number="62" Chunk="65" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
-    <Pic Number="63" Chunk="66" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
-    <Pic Number="64" Chunk="67" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
-    <Pic Number="65" Chunk="68" BitmapFont="0" Character="A" Name="L_APIC" />
-    <Pic Number="66" Chunk="69" BitmapFont="0" Character="B" Name="L_BPIC" />
-    <Pic Number="67" Chunk="70" BitmapFont="0" Character="C" Name="L_CPIC" />
-    <Pic Number="68" Chunk="71" BitmapFont="0" Character="D" Name="L_DPIC" />
-    <Pic Number="69" Chunk="72" BitmapFont="0" Character="E" Name="L_EPIC" />
-    <Pic Number="70" Chunk="73" BitmapFont="0" Character="F" Name="L_FPIC" />
-    <Pic Number="71" Chunk="74" BitmapFont="0" Character="G" Name="L_GPIC" />
-    <Pic Number="72" Chunk="75" BitmapFont="0" Character="H" Name="L_HPIC" />
-    <Pic Number="73" Chunk="76" BitmapFont="0" Character="I" Name="L_IPIC" />
-    <Pic Number="74" Chunk="77" BitmapFont="0" Character="J" Name="L_JPIC" />
-    <Pic Number="75" Chunk="78" BitmapFont="0" Character="K" Name="L_KPIC" />
-    <Pic Number="76" Chunk="79" BitmapFont="0" Character="L" Name="L_LPIC" />
-    <Pic Number="77" Chunk="80" BitmapFont="0" Character="M" Name="L_MPIC" />
-    <Pic Number="78" Chunk="81" BitmapFont="0" Character="N" Name="L_NPIC" />
-    <Pic Number="79" Chunk="82" BitmapFont="0" Character="O" Name="L_OPIC" />
-    <Pic Number="80" Chunk="83" BitmapFont="0" Character="P" Name="L_PPIC" />
-    <Pic Number="81" Chunk="84" BitmapFont="0" Character="Q" Name="L_QPIC" />
-    <Pic Number="82" Chunk="85" BitmapFont="0" Character="R" Name="L_RPIC" />
-    <Pic Number="83" Chunk="86" BitmapFont="0" Character="S" Name="L_SPIC" />
-    <Pic Number="84" Chunk="87" BitmapFont="0" Character="T" Name="L_TPIC" />
-    <Pic Number="85" Chunk="88" BitmapFont="0" Character="U" Name="L_UPIC" />
-    <Pic Number="86" Chunk="89" BitmapFont="0" Character="V" Name="L_VPIC" />
-    <Pic Number="87" Chunk="90" BitmapFont="0" Character="W" Name="L_WPIC" />
-    <Pic Number="88" Chunk="91" BitmapFont="0" Character="X" Name="L_XPIC" />
-    <Pic Number="89" Chunk="92" BitmapFont="0" Character="Y" Name="L_YPIC" />
-    <Pic Number="90" Chunk="93" BitmapFont="0" Character="Z" Name="L_ZPIC" />
-    <Pic Number="91" Chunk="94" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
-    <Pic Number="92" Chunk="95" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
-    <Pic Number="93" Chunk="96" Name="L_GUY2PIC" />
-    <Pic Number="94" Chunk="97" Name="L_BJWINSPIC" />
-    <Pic Number="95" Chunk="98" Name="STATUSBARPIC" />
-    <Pic Number="96" Chunk="99" Name="TITLEPIC" />
-    <Pic Number="97" Chunk="100" Name="PG13PIC" />
-    <Pic Number="98" Chunk="101" Name="CREDITSPIC" />
-    <Pic Number="99" Chunk="102" Name="HIGHSCORESPIC" />
-    <Pic Number="100" Chunk="103" Name="KNIFEPIC" />
-    <Pic Number="101" Chunk="104" Name="GUNPIC" />
-    <Pic Number="102" Chunk="105" Name="MACHINEGUNPIC" />
-    <Pic Number="103" Chunk="106" Name="GATLINGGUNPIC" />
-    <Pic Number="104" Chunk="107" Name="NOKEYPIC" />
-    <Pic Number="105" Chunk="108" Name="GOLDKEYPIC" />
-    <Pic Number="106" Chunk="109" Name="SILVERKEYPIC" />
-    <Pic Number="107" Chunk="110" Name="N_BLANKPIC" />
-    <Pic Number="108" Chunk="111" Name="N_0PIC" />
-    <Pic Number="109" Chunk="112" Name="N_1PIC" />
-    <Pic Number="110" Chunk="113" Name="N_2PIC" />
-    <Pic Number="111" Chunk="114" Name="N_3PIC" />
-    <Pic Number="112" Chunk="115" Name="N_4PIC" />
-    <Pic Number="113" Chunk="116" Name="N_5PIC" />
-    <Pic Number="114" Chunk="117" Name="N_6PIC" />
-    <Pic Number="115" Chunk="118" Name="N_7PIC" />
-    <Pic Number="116" Chunk="119" Name="N_8PIC" />
-    <Pic Number="117" Chunk="120" Name="N_9PIC" />
-    <Pic Number="118" Chunk="121" Name="FACE1APIC" />
-    <Pic Number="119" Chunk="122" Name="FACE1BPIC" />
-    <Pic Number="120" Chunk="123" Name="FACE1CPIC" />
-    <Pic Number="121" Chunk="124" Name="FACE2APIC" />
-    <Pic Number="122" Chunk="125" Name="FACE2BPIC" />
-    <Pic Number="123" Chunk="126" Name="FACE2CPIC" />
-    <Pic Number="124" Chunk="127" Name="FACE3APIC" />
-    <Pic Number="125" Chunk="128" Name="FACE3BPIC" />
-    <Pic Number="126" Chunk="129" Name="FACE3CPIC" />
-    <Pic Number="127" Chunk="130" Name="FACE4APIC" />
-    <Pic Number="128" Chunk="131" Name="FACE4BPIC" />
-    <Pic Number="129" Chunk="132" Name="FACE4CPIC" />
-    <Pic Number="130" Chunk="133" Name="FACE5APIC" />
-    <Pic Number="131" Chunk="134" Name="FACE5BPIC" />
-    <Pic Number="132" Chunk="135" Name="FACE5CPIC" />
-    <Pic Number="133" Chunk="136" Name="FACE6APIC" />
-    <Pic Number="134" Chunk="137" Name="FACE6BPIC" />
-    <Pic Number="135" Chunk="138" Name="FACE6CPIC" />
-    <Pic Number="136" Chunk="139" Name="FACE7APIC" />
-    <Pic Number="137" Chunk="140" Name="FACE7BPIC" />
-    <Pic Number="138" Chunk="141" Name="FACE7CPIC" />
-    <Pic Number="139" Chunk="142" Name="FACE8APIC" />
-    <Pic Number="140" Chunk="143" Name="GOTGATLINGPIC" />
-    <Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
-    <Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
-    <Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-    <Menus Start="Intro" Song="WONDERIN_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
-      <EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
-      <EndString>Chickening out...&#10;already?</EndString>
-      <EndString>Press N for more carnage.&#10;Press Y to be a weenie.</EndString>
-      <EndString>So, you think you can&#10;quit this easily, huh?</EndString>
-      <EndString>Press N to save the world.&#10;Press Y to abandon it in&#10;its hour of need.</EndString>
-      <EndString>Press N if you are brave.&#10;Press Y to cower in shame.</EndString>
-      <EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
-      <EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;&gt;</EndString>
-      <EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
-      <Menu Name="Intro" BkgdColor="127" Song="NAZI_NOR_MUS">
-        <Image Name="TITLEPIC" X="center" Y="center" />
-        <MenuItems>
-          <MenuItem Action="Menu" Argument="Main" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
-        <Image Name="C_OPTIONSPIC" X="center" Y="0" XBanner="0" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="72" StartY="56" PaddingX="28">
-          <MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
-          <MenuItem Text="Sound" Action="Menu" Argument="Sound" />
-          <MenuItem Text="Control" Action="Menu" Argument="Control" />
-          <MenuItem Text="Load Game" Action="Load" />
-          <MenuItem Text="Save Game" InGame="true" Action="Save" />
-          <MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
-          <MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
-          <MenuItem Text="Back to Game" InGame="true" Action="Resume" />
-          <MenuItem Text="Quit" Action="Quit" />
-        </MenuItems>
-        <Cancel InGame="false" Action="Quit" />
-        <Cancel InGame="true" Action="Resume" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
-      </Menu>
-      <Menu Name="Episodes" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23">
-        <PixelRect X="6" Y="19" Width="309" Height="165" Color="45" BordColor="44" Bord2Color="35" />
-        <Text String="Which episode to play?" X="center" Y="3" Color="71" />
-        <Image Name="C_EPISODE1PIC" X="40" Y="22" />
-        <Image Name="C_EPISODE2PIC" X="40" Y="49" />
-        <Image Name="C_EPISODE3PIC" X="40" Y="76" />
-        <Image Name="C_EPISODE4PIC" X="40" Y="103" />
-        <Image Name="C_EPISODE5PIC" X="40" Y="130" />
-        <Image Name="C_EPISODE6PIC" X="40" Y="157" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
-          <MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="1" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-          <MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-          <MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-          <MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-          <MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Main" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
-      </Menu>
-      <Menu Name="Difficulty" BkgdColor="41" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
-        <PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
-        <Text String="How tough are you?" X="center" Y="69" Color="71" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
-        <MenuItems StartX="51" StartY="101" PaddingX="28">
-          <MenuItem Text="Can I play, Daddy?" Difficulty="1" Action="NewGame" />
-          <MenuItem Text="Don't hurt me" Difficulty="2" Action="NewGame" />
-          <MenuItem Text="Bring 'em on!" Difficulty="3" Action="NewGame" />
-          <MenuItem Text="I am Death incarnate!" Difficulty="4" Action="NewGame" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Episodes" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
-      </Menu>
-      <Menu Name="Sound" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
-        <Image Name="C_FXTITLEPIC" X="center" Y="0" />
-        <PixelRect X="40" Y="17" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="41" StartY="21" PaddingX="55">
-          <MenuItem Text="None" On="FXMuted" SetFX="NONE" Action="Update" />
-          <MenuItem Text="Adlib/Sound Blaster" On="FXAdlib" SetFX="ADLIB" Action="Update" />
-        </MenuItems>
-        <Image Name="C_DIGITITLEPIC" X="center" Y="65" />
-        <Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
-        <PixelRect X="40" Y="82" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="41" StartY="86" PaddingX="55">
-          <MenuItem Text="None" On="DigiSoundMuted" SetDigiSound="NONE" Action="Update" />
-          <MenuItem Text="Sound Blaster" On="DigiSoundBlaster" SetDigiSound="SOUNDBLASTER" Action="Update" />
-        </MenuItems>
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <PixelRect X="40" Y="147" Width="250" Height="32" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="41" StartY="151" PaddingX="55">
-          <MenuItem Text="None" On="MusicMuted" SetMusic="NONE" Action="Update" />
-          <MenuItem Text="Adlib/Sound Blaster" On="MusicAdlib" SetMusic="ADLIB" Action="Update" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Main" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
-      </Menu>
-      <Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
-        <Image Name="C_CONTROLPIC" X="center" Y="0" XBanner="0" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <Text String="Select VR Mode:" X="center" Y="50" Color="71" />
-        <PixelRect X="3" Y="62" Width="317" Height="120" Color="45" BordColor="44" Bord2Color="35" />
-        <MenuItems StartX="3" StartY="64" PaddingX="52" PaddingY="14">
-          <MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." On="Roomscale" VRMode="Roomscale" Action="Update" />
-          <MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" On="FiveDOF" VRMode="FiveDOF" Action="Update" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Main" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
-      </Menu>
-      <Menu Name="Page1" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="QUICK COMMAND REFERENCE" X="16" Y="16" Color="126" />
-        <Text String="Arrows move. Ctrl shoots. Alt strafes.&#10;&#10;F1			Help&#10;F2			Save game (F8 for Quick save)&#10;F3			Load game (F9 for Quick load)&#10;F4			Sound menu&#10;F5			Resize view window&#10;F6			Controls menu&#10;F7			End Game&#10;F10		Exit to DOS&#10;&#10;Read on for more information." X="16" Y="36" />
-        <Text String="pg 1 of 41" X="212" Y="183" Color="79" />
-        <Down Action="Menu" Argument="Page2" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page2" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="TABLE OF CONTENTS" X="96" Y="36" Color="126" />
-        <Text String="STORY . . . . . . . . . . . . . 3&#10;CONTROLS . . . . . . . . . . 6&#10;ABOUT Id  . . . . . . . . . . 12&#10;ORDERING. . . . . . . . . . . 16&#10;MORE WOLFENSTEIN! . . . 19&#10;SOFTWARE CREATIONS    24&#10;FOREIGN ORDERS . . . . . 28" X="80" Y="66" />
-        <Text String="Id" X="119" Y="86" Color="124" />
-        <Text String="ORDERING" X="80" Y="96" Color="40" />
-        <Text String="SOFTWARE CREATIONS" X="79" Y="116" Color="109" />
-        <Text String="pg 2 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page1" />
-        <Down Action="Menu" Argument="Page3" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page3" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_WOLFLOGOPIC" X="76" Y="13" />
-        <Image Name="H_BJPIC" X="16" Y="66" />
-        <Text String="You stand over the guard's&#10;body, grabbing frantically&#10;for his gun. You're not&#10;sure if the other guards&#10;heard his muffled scream.&#10;Deep in the belly of a Nazi&#10;dungeon, you've only a&#10;knife, a gun, and your wits&#10;to aid your escape." X="118" Y="66" />
-        <Text String="pg 3 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page2" />
-        <Down Action="Menu" Argument="Page4" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page4" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_CASTLEPIC" X="16" Y="16" />
-        <Text String="Just a few weeks ago&#10;you were on a&#10;reconnaissance mission of&#10;extreme importance.&#10;You were to infiltrate&#10;the Nazi fortress and" X="136" Y="16" />
-        <Text String="find the plans for Operation Eisenfaust.&#10;Captured in your attempt, you were taken&#10;to their prison, and awaited your&#10;execution.  Only you know where the plans&#10;are kept, and the Allies will face a great&#10;defeat if you don't escape!  You must face&#10;the horrors of the prison keep known as&#10;Wolfenstein." X="16" Y="76" />
-        <Text String="pg 4 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page3" />
-        <Down Action="Menu" Argument="Page5" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page5" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_BLAZEPIC" X="16" Y="16" />
-        <Text String="Captain William J. &quot;B.J.&quot;&#10;Blazkowicz, you've got a&#10;gun and eight floors of&#10;hell to get through.&#10;Good luck!" X="144" Y="16" />
-        <Text String="Hey, if you make it, you'll have something&#10;to tell your grandkids about . . . .&#10;&#10;If you don't, at least you'll go out in a&#10;blaze of glory!" X="16" Y="106" />
-        <Text String="pg 5 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page4" />
-        <Down Action="Menu" Argument="Page6" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page6" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_JOYPIC" X="16" Y="16" />
-        <Text String="CONTROLS" X="88" Y="16" Color="126" />
-        <Text String="In Wolfenstein 3-D, you can use&#10;the keyboard, mouse, joystick,&#10;or Gravis PC Gamepad." X="88" Y="32" />
-        <Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
-        <Text String="Enter" X="57" Y="96" Color="110" />
-        <Text String="Esc" X="228" Y="96" Color="110" />
-        <Text String="pg 6 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page5" />
-        <Down Action="Menu" Argument="Page7" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page7" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_KEYBOARDPIC" X="16" Y="20" />
-        <Text String="Once you are in the&#10;game, use the arrow&#10;keys to move. Hold&#10;down Shift to run fast." X="144" Y="16" />
-        <Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
-        <Text String="Shift" X="181" Y="46" Color="110" />
-        <Text String="Ctrl" X="55" Y="66" Color="110" />
-        <Text String="Alt" X="42" Y="86" Color="110" />
-        <Text String="Space" X="56" Y="126" Color="110" />
-        <Text String="pg 7 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page6" />
-        <Down Action="Menu" Argument="Page8" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page8" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_JOYPIC" X="16" Y="16" />
-        <Text String="When using the mouse or&#10;joystick, use button 1 to shoot,&#10;button 2 to strafe." X="88" Y="16" />
-        <Text String="With a three-button mouse, use the third&#10;button to open doors.&#10;&#10;Gravis PC Gamepads have a fourth button,&#10;useful as a run button." X="16" Y="76" />
-        <Text String="pg 8 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page7" />
-        <Down Action="Menu" Argument="Page9" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page9" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_WEAPON1234PIC" X="104" Y="50" />
-        <Text String="Once you have more than one weapon, the&#10;keys 1-4 choose the weapons:&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Holding down the fire button is fun, but&#10;short bursts save bullets." X="16" Y="16" />
-        <Text String="pg 9 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page8" />
-        <Down Action="Menu" Argument="Page10" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page10" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_KEYPIC" X="16" Y="76" />
-        <Image Name="H_HEALPIC" X="8" Y="124" />
-        <Text String="Some walls in the prison can be pushed&#10;back to reveal hidden rooms. Hold down&#10;Space to push the wall in front of you.&#10;Just think of Space as the Use key. It will&#10;use doors, use elevators, and so on." X="16" Y="16" />
-        <Text String="There are locked doors in the castle&#10;that require either a gold or silver" X="56" Y="76" />
-        <Text String="key.  It will be somewhere on the floor&#10;you're on." X="16" Y="96" />
-        <Text String="If you find your health&#10;dropping, pick up some food" X="104" Y="126" />
-        <Text String="or first aid.  You'll find you're damaged&#10;more when shot at close range." X="16" Y="146" />
-        <Text String="pg 10 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page9" />
-        <Down Action="Menu" Argument="Page11" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page11" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_GUNPIC" X="16" Y="16" />
-        <Text String="Pick up the ammo left&#10;behind when you toast&#10;someone.  For instance,&#10;perforate an SS--free&#10;machine gun!" X="128" Y="16" />
-        <Text String="You get a free guy every 40,000 points,&#10;so collect those treasures! (You can have a&#10;maximum of nine lives.)&#10;&#10;When you get killed, you lose everything but&#10;your gun and start at the beginning of the&#10;floor you were on." X="16" Y="86" />
-        <Text String="pg 11 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page10" />
-        <Down Action="Menu" Argument="Page12" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page12" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
-        <Text String="ABOUT Id SOFTWARE" X="16" Y="16" Color="126" />
-        <Text String="Yes, that's Id, as in the id, ego, and&#10;superego in the psyche.  We think&#10;shareware is a fine alternative to the high&#10;prices of commercial vendors.  For under&#10;twelve dollars a game, you can get the&#10;hottest, fastest texture-mapped game&#10;available.  How can you beat that?" X="16" Y="36" />
-        <Text String="We'll answer that question in a&#10;few months. . . ." X="16" Y="116" Color="44" />
-        <Text String="Id" X="56" Y="16" Color="110" />
-        <Text String="pg 12 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page11" />
-        <Down Action="Menu" Argument="Page13" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page13" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
-        <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="PROGRAMMERS&#10;&#10;&#10;&#10;ARTIST&#10;&#10;&#10;CREATIVE DIRECTOR" X="16" Y="36" Color="110" />
-        <Text String="John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="46" />
-        <Text String="pg 13 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page12" />
-        <Down Action="Menu" Argument="Page14" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page14" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
-        <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="36" Color="110" />
-        <Text String="Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="46" />
-        <Text String="pg 14 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page13" />
-        <Down Action="Menu" Argument="Page15" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page15" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_IDLOGOPIC" X="240" Y="116" />
-        <Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-        <Text String="COMPOSER&#10;&#10;&#10;ADDITIONAL PROGRAMMING" X="16" Y="36" Color="110" />
-        <Text String="Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="46" />
-        <Text String="pg 15 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page14" />
-        <Down Action="Menu" Argument="Page16" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page16" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-        <Text String="Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="36" />
-        <Text String="Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="56" Color="46" />
-        <Text String="pg 16 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page15" />
-        <Down Action="Menu" Argument="Page17" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page17" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_VISAPIC" X="224" Y="50" />
-        <Image Name="H_MCPIC" X="224" Y="100" />
-        <Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-        <Text String="Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="36" />
-        <Text String="pg 17 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page16" />
-        <Down Action="Menu" Argument="Page18" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page18" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="ORDERING INFORMATION" X="16" Y="16" Color="126" />
-        <Text String="Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="36" />
-        <Text String="pg 18 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page17" />
-        <Down Action="Menu" Argument="Page19" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page19" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="ALSO AVAILABLE" X="16" Y="16" Color="126" />
-        <Text String="Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="36" />
-        <Text String="$20 + $4 S&amp;H" X="150" Y="106" />
-        <Text String="$50 + $4 S&amp;H" X="150" Y="116" />
-        <Text String="$10" X="150" Y="126" />
-        <Text String="Wolfenstein 3-D: the Nocturnal Missions!" X="16" Y="56" Color="110" />
-        <Text String="pg 19 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page18" />
-        <Down Action="Menu" Argument="Page20" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page20" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="WOLFENSTEIN HINT BOOK!" X="16" Y="16" Color="126" />
-        <Text String="If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="36" />
-        <Text String="Wolfenstein" X="212" Y="46" Color="110" />
-        <Text String="3-D Hint Book" X="16" Y="56" Color="110" />
-        <Text String="pg 20 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page19" />
-        <Down Action="Menu" Argument="Page21" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page21" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="NOCTURNAL MISSIONS (Wolf 1-3 Required)" X="16" Y="16" Color="126" />
-        <Text String="Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="46" />
-        <Text String="Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="36" Color="41" />
-        <Text String="pg 21 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page20" />
-        <Down Action="Menu" Argument="Page22" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page22" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="SPEAR OF DESTINY" X="16" Y="16" Color="126" />
-        <Text String="This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="36" />
-        <Text String="pg 22 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page21" />
-        <Down Action="Menu" Argument="Page23" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page23" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_SPEARADPIC" X="16" Y="16" />
-        <Text String="pg 23 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page22" />
-        <Down Action="Menu" Argument="Page24" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page24" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="USE YOUR FAX MACHINE TO ORDER!" X="16" Y="16" Color="126" />
-        <Text String="You can now use your FAX machine to&#10;order your favorite Apogee games quickly&#10;and easily.&#10;&#10;Simply print out the ORDER.FRM file, fill it&#10;out and FAX it to us for prompt&#10;processing.&#10;&#10;FAX Orders: (214) 278-4670" X="16" Y="36" />
-        <Text String="pg 24 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page23" />
-        <Down Action="Menu" Argument="Page25" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page25" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="THE OFFICIAL APOGEE BBS" X="16" Y="16" Color="126" />
-        <Text String="The SOFTWARE CREATIONS BBS is the home&#10;BBS for the latest Apogee games. Check&#10;out our FREE 'Apogee' file section for new&#10;releases and updates.&#10;&#10;BBS phone lines:&#10;		(508) 365-2359			2400 baud&#10;		(508) 368-4137			2400-14.4K USR&#10;		(508) 368-7036		2400-14.4k V.32&#10;&#10;Home of the Apogee BBS Network!&#10;A Major Multi-Line BBS." X="16" Y="36" />
-        <Text String="pg 25 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page24" />
-        <Down Action="Menu" Argument="Page26" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page26" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="APOGEE ON AMERICA ONLINE!" X="16" Y="16" Color="126" />
-        <Text String="America Online (AOL) is host of the Apogee&#10;Forum, where you can get new Apogee&#10;games. Use the Apogee message areas to&#10;talk and exchange ideas, comments and&#10;secrets with our designers and other&#10;players.  If you're already a member,&#10;after you log on, use the keyword&#10;&quot;Apogee&quot; (Ctrl-K) to go to the Apogee area.&#10;&#10;If you'd like to know how to join, please&#10;call toll free: 1-800-827-6364.  Please ask&#10;for extension 6131. You'll get the FREE&#10;startup kit." X="16" Y="36" />
-        <Text String="pg 26 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page25" />
-        <Down Action="Menu" Argument="Page27" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page27" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="WATCH OUT!" X="16" Y="16" Color="126" />
-        <Text String="Apogee now has their own official section&#10;on Exec-PC, the world's largest bulletin&#10;board. All the hottest new shareware&#10;games are there!&#10;&#10;Look in the section named &quot;Apogee Games&#10;Collection.&quot;  (Currently in file collection &quot;R&quot;.)&#10;&#10;Call (414) 789-4210 with your modem to&#10;join the fun on Exec-PC!" X="16" Y="36" />
-        <Text String="pg 27 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page26" />
-        <Down Action="Menu" Argument="Page28" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page28" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="FOREIGN CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="The following screens list our dealers&#10;outside the United States: Australia, Canada&#10;and the United Kingdom.  These are official&#10;Apogee dealers with the latest games and&#10;updates.&#10;&#10;If your country is not listed, you may&#10;order directly from Apogee by phone:&#10;&#10;											(214) 278-5655" X="16" Y="36" />
-        <Text String="pg 28 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page27" />
-        <Down Action="Menu" Argument="Page29" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page29" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="AUSTRALIAN CUSTOMERS (1 of 3)" X="16" Y="16" Color="126" />
-        <Text String="	BudgetWare&#10;	P.O. Box 496&#10;	Newtown, NSW  2042&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:&#10;	Toll free:&#10;	Fax:&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
-        <Text String="(02) 519-4233&#10;(008) 022-064&#10;(02) 516-4236" X="94" Y="106" />
-        <Text String="pg 29 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page28" />
-        <Down Action="Menu" Argument="Page30" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page30" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="AUSTRALIA (2 of 3)" X="16" Y="16" Color="126" />
-        <Text String="	Manaccom&#10;	9 Camford Str.&#10;	Milton, QLD  4064&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;	Phone:		(07) 368-2366&#10;	Toll free:				(008) 022-064&#10;	Fax:						(07) 369-7589&#10;	CompuServe:	71520,1475&#10;Use MasterCard, Visa, Bankcard, AmEx,&#10;cheques." X="16" Y="36" />
-        <Text String="pg 30 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page29" />
-        <Down Action="Menu" Argument="Page31" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page31" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="AUSTRALIA (3 of 3)" X="16" Y="16" Color="126" />
-        <Text String="	Vision Shareware&#10;	4/146 Greenhill Rd.&#10;	Parkside SA 5063&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;   					ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:						(08) 373-4469&#10;	Toll free:		(008) 807 486&#10;	Fax:						(08) 373-4482&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
-        <Text String="pg 31 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page30" />
-        <Down Action="Menu" Argument="Page32" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page32" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="CANADIAN CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="	Distant Markets&#10;	Box 1149&#10;	194 - 3803 Calgary Trail S.&#10;	Edmonton, Alb.  T6J 5M8&#10;	CANADA&#10;&#10;TRILOGY PRICE:	$47 Canadian.&#10;   					ALL SIX:	$70 Canadian.&#10;&#10;	Orders:			1-800-661-7383&#10;	Inquiries:	(403) 436-3009&#10;	Fax:					1-800-661-9756&#10;Use MasterCard, Visa or money orders." X="16" Y="36" />
-        <Text String="pg 32 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page31" />
-        <Down Action="Menu" Argument="Page33" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page33" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="UNITED KINGDOM CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:  		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
-        <Text String="pg 33 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page32" />
-        <Down Action="Menu" Argument="Page34" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page34" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="NEW ZEALAND CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="	PC-SIG New Zealand&#10;	P.O. Box 90088&#10;	Victoria Street West&#10;	Auckland, New Zealand&#10;&#10;TRILOGY PRICE:	$85 (including shipping, etc.)&#10;   					ALL SIX:	$120&#10;&#10;	Phone:		3600-500&#10;	Fax:	  	3600-800&#10;&#10;Use Visa, Mastercard, Amex, Diners." X="16" Y="36" />
-        <Text String="pg 34 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page33" />
-        <Down Action="Menu" Argument="Page35" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page35" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="DANISH CUSTOMERS" X="16" Y="16" Color="126" />
-        <Text String="	Prof. Shareware Danmark&#10;	Benlose Skel 4 G&#10;	DK-4100 Ringsted Denmark&#10;&#10;TRILOGY PRICE:	kr. 277,00 (includes shipping)&#10;   					ALL SIX:	kr. 390,00&#10;&#10;	Phone:		(+45) 53 51 90 42&#10;	Fax:  			(+45) 53 61 93 91&#10;Use Visa, Mastercard, cheques." X="16" Y="36" />
-        <Text String="pg 35 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page34" />
-        <Down Action="Menu" Argument="Page36" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page36" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="A FRIENDLY REMINDER" X="16" Y="16" Color="126" />
-        <Text String="Episode One is shareware.  The other five&#10;episodes are not: they are only available&#10;from Apogee or authorized dealers.  Please&#10;do not distribute episodes two through six.&#10;It's easy to do, but the next game will&#10;just cost more if you do it.&#10;&#10;Please report any illegal selling and&#10;distribution of this game to Apogee by&#10;calling 1-800-GAME123.  Or call the SPA&#10;Piracy Hotline: 1-800-388-PIR8." X="16" Y="36" />
-        <Text String="pg 36 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page35" />
-        <Down Action="Menu" Argument="Page37" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page37" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="ABOUT APOGEE" X="16" Y="16" Color="126" />
-        <Text String="Our goal is to establish Apogee as the&#10;leading distributor of commercial quality&#10;shareware games. With enthusiasm and&#10;dedication, we think our goal can be&#10;achieved.&#10;&#10;However,  we need your support.&#10;Shareware is not free software.&#10;&#10;We thank you in advance for your&#10;contribution to the growing shareware&#10;community. Your honesty pays . . . ." X="16" Y="36" />
-        <Text String="pg 37 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page36" />
-        <Down Action="Menu" Argument="Page38" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page38" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
-        <Text String="Here's some quotes from the Id guys:&#10;&#10;Adrian Carmack, Master of the Pixel:&#10;&quot;Okay, now for the CGA version . . . NOT!&quot;&#10;&#10;&#10;John Carmack, Technical Director:&#10;&quot;I just mapped video memory into User&#10;Address Space on my Color NeXTStation!&quot;" X="16" Y="36" />
-        <Text String="pg 38 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page37" />
-        <Down Action="Menu" Argument="Page39" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page39" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
-        <Text String="John Romero, Programming Director:&#10;&quot;I really need to work on my Total Time of&#10;5:20 for Episode One.  I was messing&#10;around too much in those rooms.&quot;&#10;&#10;&#10;Tom Hall, Creative Director:&#10;&quot;Ya don't bring a pistol to a machine gun&#10;fight.&quot;&#10;(Since I'm typing this, I'd like to plug John&#10;Blackwell's F.Godmom game. It's a great&#10;puzzle game.  Look for his new 4.0 version&#10;online!)" X="16" Y="36" />
-        <Text String="F.Godmom" X="86" Y="136" Color="41" />
-        <Text String="pg 39 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page38" />
-        <Down Action="Menu" Argument="Page40" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page40" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Text String="AUTO-BACKSCRATCHING" X="16" Y="16" Color="126" />
-        <Text String="Other Id games also available from Apogee:&#10;&#10;&#10;&quot;Invasion of the Vorticons&quot;: $30 for trilogy&#10;&#10;&quot;Goodbye, Galaxy!&quot;: $35 for two episodes&#10;&#10;&quot;Aliens Ate My BabySitter!&quot;: $35&#10;(That's our commercial game.)&#10;&#10;Super Keen Fun Pack: $90 (for all 6)&#10;&#10;Call 1-800-GAME123 for information." X="16" Y="36" />
-        <Text String="Commander Keen" X="16" Y="56" Color="41" />
-        <Text String="pg 40 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page39" />
-        <Down Action="Menu" Argument="Page41" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="Page41" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-        <Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-        <Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-        <Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-        <Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-        <Image Name="H_BLAZEPIC" X="16" Y="80" />
-        <Text String="CONCLUSION" X="16" Y="16" Color="126" />
-        <Text String="Thanks for playing Wolfenstein 3-D.  Please&#10;support Id's efforts in making ground-&#10;breaking software available at shareware&#10;prices." X="16" Y="36" />
-        <Text String="Now, go get 'em!&#10;&#10;(ESC to return to&#10;menu.)" X="142" Y="106" />
-        <Text String="pg 41 of 41" X="212" Y="183" Color="79" />
-        <Up Action="Menu" Argument="Page40" />
-        <Cancel Action="Menu" Argument="Main" />
-      </Menu>
-      <Menu Name="FloorComplete" Song="ENDLEVEL_MUS" BkgdColor="127">
-        <Image Name="L_GUYPIC" X="0" Y="16" />
-        <Text String="FLOOR" BitmapFont="0" X="112" Y="16" />
-        <Text String="1" BitmapFont="0" X="208" Y="16" />
-        <Text String="COMPLETE" BitmapFont="0" X="112" Y="32" />
-        <Text String="BONUS" BitmapFont="0" X="112" Y="56" />
-        <!--<Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />-->
-        <Text String=" TIME" BitmapFont="0" X="112" Y="80" />
-        <Timer Name="TIME" BitmapFont="0" X="208" Y="80" />
-        <Text String="  PAR" BitmapFont="0" X="112" Y="96" />
-        <Timer Name="PAR" BitmapFont="0" X="208" Y="96" />
-        <Text String="    KILL RATIO" BitmapFont="0" X="8" Y="112" />
-        <Counter Name="Kill" Digits="3" BitmapFont="0" X="248" Y="112" />
-        <Text String="%" BitmapFont="0" X="296" Y="112" />
-        <Text String="  SECRET RATIO" BitmapFont="0" X="8" Y="128" />
-        <Counter Name="Secret" Digits="3" BitmapFont="0" X="248" Y="128" />
-        <Text String="%" BitmapFont="0" X="296" Y="128" />
-        <Text String="TREASURE RATIO" BitmapFont="0" X="8" Y="144" />
-        <Counter Name="Treasure" Digits="3" BitmapFont="0" X="248" Y="144" />
-        <Text String="%" BitmapFont="0" X="296" Y="144" />
-        <StatusBar X="0" Y="160" />
-        <MenuItems>
-          <MenuItem Action="NextFloor" />
-        </MenuItems>
-        <Cancel Action="NextFloor" />
-      </Menu>
-    </Menus>
-    <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-      <Number Name="Difficulty" Init="1" />
-      <Number Name="Episode" Init="1" />
-      <Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
-      <Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
-      <Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
-      <Face X="134" Y="5" />
-      <Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
-      <Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
-      <Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-      <Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-      <Weapons X="256" Y="8">
-        <Weapon Number="0" Pic="KNIFEPIC" Init="1" />
-        <Weapon Number="1" Pic="GUNPIC" Init="1" />
-        <Weapon Number="2" Pic="MACHINEGUNPIC" />
-        <Weapon Number="3" Pic="GATLINGGUNPIC" />
-      </Weapons>
-    </StatusBar>
-  </VgaGraph>
-  <Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
-    <Map Number="0" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="00:01:30" Song="GETTHEM_MUS" />
-    <Map Number="1" Episode="1" Floor="2" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="SEARCHN_MUS" />
-    <Map Number="2" Episode="1" Floor="3" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="POW_MUS" />
-    <Map Number="3" Episode="1" Floor="4" Ground="25" Ceiling="29" Border="127" Par="00:03:30" Song="SUSPENSE_MUS" />
-    <Map Number="4" Episode="1" Floor="5" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="GETTHEM_MUS" />
-    <Map Number="5" Episode="1" Floor="6" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="SEARCHN_MUS" />
-    <Map Number="6" Episode="1" Floor="7" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="POW_MUS" />
-    <Map Number="7" Episode="1" Floor="8" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="SUSPENSE_MUS" />
-    <Map Number="8" Episode="1" Floor="9" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
-    <Map Number="9" Episode="1" Floor="10" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="2" />
-  </Maps>
-  <Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
-    <Sound Number="0" Name="HITWALLSND" />
-    <Sound Number="1" Name="SELECTWPNSND" />
-    <Sound Number="2" Name="SELECTITEMSND" />
-    <Sound Number="3" Name="HEARTBEATSND" />
-    <Sound Number="4" Name="MOVEGUN2SND" />
-    <Sound Number="5" Name="MOVEGUN1SND" />
-    <Sound Number="6" Name="NOWAYSND" />
-    <Sound Number="7" Name="NAZIHITPLAYERSND" />
-    <Sound Number="8" Name="FIRESND" />
-    <Sound Number="9" Name="PLAYERDEATHSND" />
-    <Sound Number="10" Name="DOGDEATHSND" />
-    <Sound Number="11" Name="ATKGATLINGSND" />
-    <Sound Number="12" Name="GETKEYSND" />
-    <Sound Number="13" Name="NOITEMSND" />
-    <Sound Number="14" Name="WALK1SND" />
-    <Sound Number="15" Name="WALK2SND" />
-    <Sound Number="16" Name="TAKEDAMAGESND" />
-    <Sound Number="17" Name="GAMEOVERSND" />
-    <Sound Number="18" Name="OPENDOORSND" />
-    <Sound Number="19" Name="CLOSEDOORSND" />
-    <Sound Number="20" Name="DONOTHINGSND" />
-    <Sound Number="21" Name="HALTSND" />
-    <Sound Number="22" Name="DEATHSCREAM2SND" />
-    <Sound Number="23" Name="ATKKNIFESND" />
-    <Sound Number="24" Name="ATKPISTOLSND" />
-    <Sound Number="25" Name="DEATHSCREAM3SND" />
-    <Sound Number="26" Name="ATKMACHINEGUNSND" />
-    <Sound Number="27" Name="HITENEMYSND" />
-    <Sound Number="28" Name="SHOOTDOORSND" />
-    <Sound Number="29" Name="DEATHSCREAM1SND" />
-    <Sound Number="30" Name="GETMACHINESND" />
-    <Sound Number="31" Name="GETAMMOSND" />
-    <Sound Number="32" Name="SHOOTSND" />
-    <Sound Number="33" Name="HEALTH1SND" />
-    <Sound Number="34" Name="HEALTH2SND" />
-    <Sound Number="35" Name="BONUS1SND" />
-    <Sound Number="36" Name="BONUS2SND" />
-    <Sound Number="37" Name="BONUS3SND" />
-    <Sound Number="38" Name="GETGATLINGSND" />
-    <Sound Number="39" Name="ESCPRESSEDSND" />
-    <Sound Number="40" Name="LEVELDONESND" />
-    <Sound Number="41" Name="DOGBARKSND" />
-    <Sound Number="42" Name="ENDBONUS1SND" />
-    <Sound Number="43" Name="ENDBONUS2SND" />
-    <Sound Number="44" Name="BONUS1UPSND" />
-    <Sound Number="45" Name="BONUS4SND" />
-    <Sound Number="46" Name="PUSHWALLSND" />
-    <Sound Number="47" Name="NOBONUSSND" />
-    <Sound Number="48" Name="PERCENT100SND" />
-    <Sound Number="49" Name="BOSSACTIVESND" />
-    <Sound Number="50" Name="MUTTISND" />
-    <Sound Number="51" Name="SCHUTZADSND" />
-    <Sound Number="52" Name="AHHHGSND" />
-    <Sound Number="53" Name="DIESND" />
-    <Sound Number="54" Name="EVASND" />
-    <Sound Number="55" Name="GUTENTAGSND" />
-    <Sound Number="56" Name="LEBENSND" />
-    <Sound Number="57" Name="SCHEISTSND" />
-    <Sound Number="58" Name="NAZIFIRESND" />
-    <Sound Number="59" Name="BOSSFIRESND" />
-    <Sound Number="60" Name="SSFIRESND" />
-    <Sound Number="61" Name="SLURPIESND" />
-    <Sound Number="62" Name="TOT_HUNDSND" />
-    <Sound Number="63" Name="MEINGOTTSND" />
-    <Sound Number="64" Name="SCHABBSHASND" />
-    <Sound Number="65" Name="HITLERHASND" />
-    <Sound Number="66" Name="SPIONSND" />
-    <Sound Number="67" Name="NEINSOVASSND" />
-    <Sound Number="68" Name="DOGATTACKSND" />
-    <Sound Number="69" Name="FLAMETHROWERSND" />
-    <Sound Number="70" Name="MECHSTEPSND" />
-    <Sound Number="71" Name="GOOBSSND" />
-    <Sound Number="72" Name="YEAHSND" />
-    <Sound Number="73" Name="DEATHSCREAM4SND" />
-    <Sound Number="74" Name="DEATHSCREAM5SND" />
-    <Sound Number="75" Name="DEATHSCREAM6SND" />
-    <Sound Number="76" Name="DEATHSCREAM7SND" />
-    <Sound Number="77" Name="DEATHSCREAM8SND" />
-    <Sound Number="78" Name="DEATHSCREAM9SND" />
-    <Sound Number="79" Name="DONNERSND" />
-    <Sound Number="80" Name="EINESND" />
-    <Sound Number="81" Name="ERLAUBENSND" />
-    <Sound Number="82" Name="KEINSND" />
-    <Sound Number="83" Name="MEINSND" />
-    <Sound Number="84" Name="ROSESND" />
-    <Sound Number="85" Name="MISSILEFIRESND" />
-    <Sound Number="86" Name="MISSILEHITSND" />
-    <Imf Number="0" Name="CORNER_MUS" />
-    <Imf Number="1" Name="DUNGEON_MUS" />
-    <Imf Number="2" Name="WARMARCH_MUS" />
-    <Imf Number="3" Name="GETTHEM_MUS" />
-    <Imf Number="4" Name="HEADACHE_MUS" />
-    <Imf Number="5" Name="HITLWLTZ_MUS" />
-    <Imf Number="6" Name="INTROCW3_MUS" />
-    <Imf Number="7" Name="NAZI_NOR_MUS" />
-    <Imf Number="8" Name="NAZI_OMI_MUS" />
-    <Imf Number="9" Name="POW_MUS" />
-    <Imf Number="10" Name="SALUTE_MUS" />
-    <Imf Number="11" Name="SEARCHN_MUS" />
-    <Imf Number="12" Name="SUSPENSE_MUS" />
-    <Imf Number="13" Name="VICTORS_MUS" />
-    <Imf Number="14" Name="WONDERIN_MUS" />
-    <Imf Number="15" Name="FUNKYOU_MUS" />
-    <Imf Number="16" Name="ENDLEVEL_MUS" />
-    <Imf Number="17" Name="GOINGAFT_MUS" />
-    <Imf Number="18" Name="PREGNANT_MUS" />
-    <Imf Number="19" Name="ULTIMATE_MUS" />
-    <Imf Number="20" Name="NAZI_RAP_MUS" />
-    <Imf Number="21" Name="ZEROHOUR_MUS" />
-    <Imf Number="22" Name="TWELFTH_MUS" />
-    <Imf Number="23" Name="ROSTER_MUS" />
-    <Imf Number="24" Name="URAHERO_MUS" />
-    <Imf Number="25" Name="VICMARCH_MUS" />
-    <Imf Number="26" Name="PACMAN_MUS" />
-  </Audio>
-  <VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8" MipMaps="true">
-    <Walls FloorCodeFirst="108" FloorCodeLast="143">
-      <Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
-      <Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
-      <Wall Number="3" Page="4" DarkSide="5" Name="Grey Brick with Flag" />
-      <Wall Number="4" Page="6" DarkSide="7" Name="Grey Brick with Hitler" />
-      <Wall Number="5" Page="8" DarkSide="9" Name="Cell" />
-      <Wall Number="6" Page="10" DarkSide="11" Name="Grey Brick with Eagle" />
-      <Wall Number="7" Page="12" DarkSide="13" Name="Cell with Skeleton" />
-      <Wall Number="8" Page="14" DarkSide="15" Name="Blue Brick 1" />
-      <Wall Number="9" Page="16" DarkSide="17" Name="Blue Brick 2" />
-      <Wall Number="10" Page="18" DarkSide="19" Name="Wood with Eagle" />
-      <Wall Number="11" Page="20" DarkSide="21" Name="Wood with Hitler" />
-      <Wall Number="12" Page="22" DarkSide="23" Name="Wood" />
-      <Wall Number="13" Page="24" DarkSide="25" Name="Entrance to Level" />
-      <Wall Number="14" Page="26" DarkSide="27" Name="Steel with Sign" />
-      <Wall Number="15" Page="28" DarkSide="29" Name="Steel" />
-      <Wall Number="16" Page="30" DarkSide="31" Name="Landscape" />
-      <Wall Number="17" Page="32" DarkSide="33" Name="Red Brick" />
-      <Wall Number="18" Page="34" DarkSide="35" Name="Red Brick with Swastika" />
-      <Wall Number="19" Page="36" DarkSide="37" Name="Purple" />
-      <Wall Number="20" Page="38" DarkSide="39" Name="Red Brick with Flag" />
-      <Elevator Number="21" Page="40" DarkSide="41" Activated="43" Direction="W" Action="Menu" Argument="FloorComplete" />
-      <Wall Number="22" Page="42" DarkSide="43" Name="Fake Elevator" />
-      <Wall Number="23" Page="44" DarkSide="45" Name="Wood with Iron Cross" />
-      <Wall Number="24" Page="46" DarkSide="47" Name="Dirty Brick 1" />
-      <Wall Number="25" Page="48" DarkSide="49" Name="Purple with Blood" />
-      <Wall Number="26" Page="50" DarkSide="51" Name="Dirty Brick 2" />
-      <Wall Number="27" Page="52" DarkSide="53" Name="Grey Brick 3" />
-      <Wall Number="28" Page="54" DarkSide="55" Name="Grey Brick with Sign" />
-      <Wall Number="50" Page="98" DarkSide="99" Name="Fake Door" />
-      <Wall Number="51" Page="100" DarkSide="101" Name="Door Frame" />
-      <DoorFrame Page="100" DarkSide="101" />
-      <Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
-      <Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
-      <Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
-      <Door Number="90" Page="99" Name="Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
-      <Ambush Number="106" Walk="true" Name="Deaf Guard" />
-      <Override Number="107" Floor="10" Name="Elevator to Secret Floor" />
-    </Walls>
-    <Sprite Page="106" Name="Demo" />
-    <Sprite Page="107" Name="DeathCam" />
-    <Objects>
-      <Start Number="19" Direction="E" Name="Start" />
-      <Start Number="20" Direction="N" Name="Start" />
-      <Start Number="21" Direction="W" Name="Start" />
-      <Start Number="22" Direction="S" Name="Start" />
-      <Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
-      <Billboard Number="24" Page="109" Name="Oil Drum" />
-      <Billboard Number="25" Page="110" Name="Table with Chairs" />
-      <Billboard Number="26" Page="111" Name="Floor Lamp" />
-      <Billboard Number="27" Page="112" Walk="true" Name="Chandalier" />
-      <Billboard Number="28" Page="113" Name="Hanging Skeleton" />
-      <Pickup Number="29" Page="114" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="4" Sound="HEALTH1SND" Name="Dog Food" />
-      <Billboard Number="30" Page="115" Name="White Column" />
-      <Billboard Number="31" Page="116" Name="Green Plant" />
-      <Billboard Number="32" Page="117" Walk="true" Name="Skeleton" />
-      <Billboard Number="33" Page="118" Name="Sink" />
-      <Billboard Number="34" Page="119" Name="Brown Plant" />
-      <Billboard Number="35" Page="120" Name="Vase" />
-      <Billboard Number="36" Page="121" Name="Table" />
-      <Billboard Number="37" Page="122" Walk="true" Name="Ceiling Light" />
-      <Billboard Number="38" Page="123" Walk="true" Name="Utensils (Brown)" />
-      <Billboard Number="39" Page="124" Name="Armor" />
-      <Billboard Number="40" Page="125" Name="Empty Cage" />
-      <Billboard Number="41" Page="126" Name="Cage with Skeleton" />
-      <Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
-      <Pickup Number="43" Page="128" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
-      <Pickup Number="44" Page="129" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
-      <Billboard Number="45" Page="130" Name="Bed" />
-      <Billboard Number="46" Page="131" Walk="true" Name="Basket" />
-      <Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />
-      <Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH2SND" Name="First Aid Kit" />
-      <Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
-      <Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Sound="GETMACHINESND" Name="Machine Gun">
-        <Effect AddTo="Ammo" Add="6" />
-      </Pickup>
-      <Pickup Number="51" Page="136" AddTo="Weapon3" Add="1" Sound="GETGATLINGSND" Name="Gatling Gun">
-        <Effect AddTo="Ammo" Add="6" />
-      </Pickup>
-      <Pickup Number="52" Page="137" Treasure="true" AddTo="Score" Add="100" Sound="BONUS1SND" Name="Cross" />
-      <Pickup Number="53" Page="138" Treasure="true" AddTo="Score" Add="500" Sound="BONUS2SND" Name="Chalice" />
-      <Pickup Number="54" Page="139" Treasure="true" AddTo="Score" Add="1000" Sound="BONUS3SND" Name="Chest of Jewels" />
-      <Pickup Number="55" Page="140" Treasure="true" AddTo="Score" Add="5000" Sound="BONUS4SND" Name="Crown" />
-      <Pickup Number="56" Page="141" AddTo="Lives" Add="1" Sound="BONUS1UPSND" Name="Extra Life">
-        <Effect AddTo="Ammo" Add="25" />
-        <Effect AddTo="Health" Add="100" />
-      </Pickup>
-      <Pickup Number="57" Page="142" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Bones with Blood" />
-      <Billboard Number="58" Page="143" Name="Barrel" />
-      <Billboard Number="59" Page="144" Name="Well with Water" />
-      <Billboard Number="60" Page="145" Name="Well" />
-      <Pickup Number="61" Page="146" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Pool of Blood" />
-      <Billboard Number="62" Page="147" Name="Flag" />
-      <Billboard Number="63" Page="148" Name="Aardwolf" />
-      <Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
-      <Billboard Number="65" Page="150" Walk="true" Name="Bones 3" />
-      <Billboard Number="66" Page="151" Walk="true" Name="Bones 4" />
-      <Billboard Number="67" Page="152" Walk="true" Name="Utensils (Blue)" />
-      <Billboard Number="68" Page="153" Name="Stove" />
-      <Billboard Number="69" Page="154" Name="Rack" />
-      <Billboard Number="70" Page="155" Name="Vines" />
-      <Turn Number="90" Direction="E" Name="Turn E" />
-      <Turn Number="91" Direction="NE" Name="Turn NE" />
-      <Turn Number="92" Direction="N" Name="Turn N" />
-      <Turn Number="93" Direction="NW" Name="Turn NW" />
-      <Turn Number="94" Direction="W" Name="Turn W" />
-      <Turn Number="95" Direction="SW" Name="Turn SW" />
-      <Turn Number="96" Direction="S" Name="Turn S" />
-      <Turn Number="97" Direction="SE" Name="Turn SE" />
-      <Pushwall Number="98" DigiSound="PUSHWALLSND" Name="Secret Door" />
-      <Trigger Number="99" Name="End Game Trigger" />
-      <Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
-      <Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="s_grdstand" />
-      <Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="s_grdstand" />
-      <Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="s_grdstand" />
-      <Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="s_grdpath1" />
-      <Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="s_grdpath1" />
-      <Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="s_grdpath1" />
-      <Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="s_grdpath1" />
-      <Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
-      <Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="s_ssstand" />
-      <Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="s_ssstand" />
-      <Spawn Number="128" Actor="SS" Direction="W" Difficulty="1" State="s_ssstand" />
-      <Spawn Number="129" Actor="SS" Direction="S" Difficulty="1" State="s_ssstand" />
-      <Spawn Number="130" Actor="SS" Direction="E" Difficulty="1" State="s_sspath1" />
-      <Spawn Number="131" Actor="SS" Direction="N" Difficulty="1" State="s_sspath1" />
-      <Spawn Number="132" Actor="SS" Direction="W" Difficulty="1" State="s_sspath1" />
-      <Spawn Number="133" Actor="SS" Direction="S" Difficulty="1" State="s_sspath1" />
-      <Spawn Number="138" Actor="Dog" Direction="E" Difficulty="1" State="s_dogpath1" />
-      <Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="s_dogpath1" />
-      <Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="s_dogpath1" />
-      <Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="s_dogpath1" />
-      <Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="s_grdstand" />
-      <Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="s_grdstand" />
-      <Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="s_grdstand" />
-      <Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="s_grdstand" />
-      <Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="s_grdpath1" />
-      <Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="s_grdpath1" />
-      <Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="s_grdpath1" />
-      <Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="s_grdpath1" />
-      <Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="s_ssstand" />
-      <Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="s_ssstand" />
-      <Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="s_ssstand" />
-      <Spawn Number="165" Actor="SS" Direction="S" Difficulty="3" State="s_ssstand" />
-      <Spawn Number="166" Actor="SS" Direction="E" Difficulty="3" State="s_sspath1" />
-      <Spawn Number="167" Actor="SS" Direction="N" Difficulty="3" State="s_sspath1" />
-      <Spawn Number="168" Actor="SS" Direction="W" Difficulty="3" State="s_sspath1" />
-      <Spawn Number="169" Actor="SS" Direction="S" Difficulty="3" State="s_sspath1" />
-      <Spawn Number="174" Actor="Dog" Direction="E" Difficulty="3" State="s_dogpath1" />
-      <Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="s_dogpath1" />
-      <Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="s_dogpath1" />
-      <Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="s_dogpath1" />
-      <Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="s_grdstand" />
-      <Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="s_grdstand" />
-      <Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="s_grdstand" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdstand" />
-      <Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="s_grdpath1" />
-      <Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="s_grdpath1" />
-      <Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="s_grdpath1" />
-      <Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdpath1" />
-      <Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="s_ssstand" />
-      <Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="s_ssstand" />
-      <Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="s_ssstand" />
-      <Spawn Number="201" Actor="SS" Direction="S" Difficulty="4" State="s_ssstand" />
-      <Spawn Number="202" Actor="SS" Direction="E" Difficulty="4" State="s_sspath1" />
-      <Spawn Number="203" Actor="SS" Direction="N" Difficulty="4" State="s_sspath1" />
-      <Spawn Number="204" Actor="SS" Direction="W" Difficulty="4" State="s_sspath1" />
-      <Spawn Number="205" Actor="SS" Direction="S" Difficulty="4" State="s_sspath1" />
-      <Spawn Number="210" Actor="Dog" Direction="E" Difficulty="4" State="s_dogpath1" />
-      <Spawn Number="211" Actor="Dog" Direction="N" Difficulty="4" State="s_dogpath1" />
-      <Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
-      <Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
-      <Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-      <Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" DigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" />
-      <State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
-      <State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath1s" />
-      <State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Speed="512" Next="s_grdpath2" />
-      <State Name="s_grdpath2" Rotate="true" Shape="172" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath3" />
-      <State Name="s_grdpath3" Rotate="true" Shape="180" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath3s" />
-      <State Name="s_grdpath3s" Rotate="true" Shape="180" Tics="5" Speed="512" Next="s_grdpath4" />
-      <State Name="s_grdpath4" Rotate="true" Shape="188" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath1" />
-      <State Name="s_grdpain" Shape="196" Tics="10" Speed="0" Next="s_grdchase1" />
-      <State Name="s_grdpain1" Shape="200" Tics="10" Speed="0" Next="s_grdchase1" />
-      <State Name="s_grdshoot1" Shape="202" Tics="20" Speed="0" Next="s_grdshoot2" />
-      <State Name="s_grdshoot2" Shape="203" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
-      <State Name="s_grdshoot3" Shape="204" Tics="20" Speed="0" DigiSound="ATKPISTOLSND" Next="s_grdchase1" />
-      <State Name="s_grdchase1" Rotate="true" Shape="164" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase1s" />
-      <State Name="s_grdchase1s" Rotate="true" Shape="164" Tics="3" Speed="1536" Next="s_grdchase2" />
-      <State Name="s_grdchase2" Rotate="true" Shape="172" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase3" />
-      <State Name="s_grdchase3" Rotate="true" Shape="180" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase3s" />
-      <State Name="s_grdchase3s" Rotate="true" Shape="180" Tics="3" Speed="1536" Next="s_grdchase4" />
-      <State Name="s_grdchase4" Rotate="true" Shape="188" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase1" />
-      <State Name="s_grddie1" Shape="197" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" DigiSound="DEATHSCREAM1SND,DEATHSCREAM2SND,DEATHSCREAM3SND" />
-      <State Name="s_grddie2" Shape="198" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
-      <State Name="s_grddie3" Shape="199" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-      <State Name="s_grddie4" Shape="201" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-      <Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" DigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" />
-      <State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
-      <State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
-      <State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
-      <State Name="s_dogpath3" Rotate="true" Shape="221" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath3s" />
-      <State Name="s_dogpath3s" Rotate="true" Shape="221" Tics="5" Speed="1500" Next="s_dogpath4" />
-      <State Name="s_dogpath4" Rotate="true" Shape="229" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath1" />
-      <State Name="s_dogjump1" Shape="241" Tics="10" Speed="0" Next="s_dogjump2" />
-      <State Name="s_dogjump2" Shape="242" Tics="10" Act="T_Bite" Speed="0" Next="s_dogjump3" />
-      <State Name="s_dogjump3" Shape="243" Tics="10" Speed="0" Next="s_dogjump4" />
-      <State Name="s_dogjump4" Shape="241" Tics="10" Speed="0" Next="s_dogjump5" />
-      <State Name="s_dogjump5" Shape="205" Tics="10" Speed="0" Next="s_dogchase1" />
-      <State Name="s_dogchase1" Rotate="true" Shape="205" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase1s" />
-      <State Name="s_dogchase1s" Rotate="true" Shape="205" Tics="3" Speed="3000" Next="s_dogchase2" />
-      <State Name="s_dogchase2" Rotate="true" Shape="213" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase3" />
-      <State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase3s" />
-      <State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Speed="3000" Next="s_dogchase4" />
-      <State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase1" />
-      <State Name="s_dogdie1" Shape="237" Tics="15" Speed="0" Next="s_dogdie2" Alive="false" Mark="false" />
-      <State Name="s_dogdie2" Shape="238" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
-      <State Name="s_dogdie3" Shape="239" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-      <State Name="s_dogdead" Shape="240" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-      <Actor Name="SS" HP="100,100,100,100" Reaction="1-43" DigiSound="SCHUTZADSND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" />
-      <State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Speed="0" Next="s_ssstand" />
-      <State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Speed="512" Next="s_sspath1s" />
-      <State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Speed="512" Next="s_sspath2" />
-      <State Name="s_sspath2" Rotate="true" Shape="260" Tics="15" Think="T_Path" Speed="512" Next="s_sspath3" />
-      <State Name="s_sspath3" Rotate="true" Shape="268" Tics="20" Think="T_Path" Speed="512" Next="s_sspath3s" />
-      <State Name="s_sspath3s" Rotate="true" Shape="268" Tics="5" Speed="512" Next="s_sspath4" />
-      <State Name="s_sspath4" Rotate="true" Shape="276" Tics="15" Think="T_Path" Speed="512" Next="s_sspath1" />
-      <State Name="s_sspain" Shape="284" Tics="10" Speed="0" Next="s_sschase1" />
-      <State Name="s_sspain1" Shape="288" Tics="10" Speed="0" Next="s_sschase1" />
-      <State Name="s_ssshoot1" Shape="290" Tics="20" Speed="0" Next="s_ssshoot2" />
-      <State Name="s_ssshoot2" Shape="292" Tics="20" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot3" />
-      <State Name="s_ssshoot3" Shape="291" Tics="10" Speed="0" Next="s_ssshoot4" />
-      <State Name="s_ssshoot4" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot5" />
-      <State Name="s_ssshoot5" Shape="291" Tics="10" Speed="0" Next="s_ssshoot6" />
-      <State Name="s_ssshoot6" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot7" />
-      <State Name="s_ssshoot7" Shape="291" Tics="10" Speed="0" Next="s_ssshoot8" />
-      <State Name="s_ssshoot8" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot9" />
-      <State Name="s_ssshoot9" Shape="291" Tics="10" Speed="0" Next="s_sschase1" />
-      <State Name="s_sschase1" Rotate="true" Shape="252" Tics="10" Think="T_Chase" Speed="2048" Next="s_sschase1s" />
-      <State Name="s_sschase1s" Rotate="true" Shape="252" Tics="3" Speed="2048" Next="s_sschase2" />
-      <State Name="s_sschase2" Rotate="true" Shape="260" Tics="8" Think="T_Chase" Speed="2048" Next="s_sschase3" />
-      <State Name="s_sschase3" Rotate="true" Shape="268" Tics="10" Think="T_Chase" Speed="2048" Next="s_sschase3s" />
-      <State Name="s_sschase3s" Rotate="true" Shape="268" Tics="3" Speed="2048" Next="s_sschase4" />
-      <State Name="s_sschase4" Rotate="true" Shape="276" Tics="8" Think="T_Chase" Speed="2048" Next="s_sschase1" />
-      <State Name="s_ssdie1" Shape="285" Tics="15" Speed="0" Next="s_ssdie2" Alive="false" Mark="false" DigiSound="LEBENSND" />
-      <State Name="s_ssdie2" Shape="286" Tics="15" Speed="0" Next="s_ssdie3" Alive="false" Mark="false" />
-      <State Name="s_ssdie3" Shape="287" Tics="15" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
-      <State Name="s_ssdie4" Shape="289" Tics="0" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
-      <Actor Name="Hans" HP="850,950,1050,1200" Reaction="1" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" />
-      <State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Speed="0" Next="s_bossstand" />
-      <State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase1s" />
-      <State Name="s_bosschase1s" Shape="402" Tics="3" Speed="512" Next="s_bosschase2" />
-      <State Name="s_bosschase2" Shape="403" Tics="8" Think="T_Chase" Speed="512" Next="s_bosschase3" />
-      <State Name="s_bosschase3" Shape="404" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase3s" />
-      <State Name="s_bosschase3s" Shape="404" Tics="3" Speed="512" Next="s_bosschase4" />
-      <State Name="s_bosschase4" Shape="405" Tics="8" Think="T_Chase" Speed="512" Next="s_bosschase1" />
-      <State Name="s_bossdie1" Shape="410" Tics="15" Speed="0" Next="s_bossdie2" Alive="false" />
-      <State Name="s_bossdie2" Shape="411" Tics="15" Speed="0" Next="s_bossdie3" Alive="false" Mark="false" />
-      <State Name="s_bossdie3" Shape="412" Tics="15" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
-      <State Name="s_bossdie4" Shape="409" Tics="0" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
-      <State Name="s_bossshoot1" Shape="406" Tics="30" Speed="0" Next="s_bossshoot2" />
-      <State Name="s_bossshoot2" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot3" />
-      <State Name="s_bossshoot3" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot4" />
-      <State Name="s_bossshoot4" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot5" />
-      <State Name="s_bossshoot5" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot6" />
-      <State Name="s_bossshoot6" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot7" />
-      <State Name="s_bossshoot7" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot8" />
-      <State Name="s_bossshoot8" Shape="406" Tics="10" Speed="0" Next="s_bosschase1" />
-      <Actor Name="BJ" Human="true" DigiSound="YEAHSND" >
-        <Animation Name="Standing" >
-          <Frame Number="0" Page="514" />
-        </Animation>
-        <Animation Name="Moving" Loop="true">
-          <Frame Number="0" Page="514" />
-          <Frame Number="1" Page="515" />
-          <Frame Number="2" Page="516" />
-          <Frame Number="3" Page="517" />
-        </Animation>
-        <Animation Name="Yeah" >
-          <Frame Number="0" Page="514" />
-          <Frame Number="1" Page="515" />
-          <Frame Number="2" Page="516" />
-          <Frame Number="3" Page="517" />
-          <Frame Number="4" Page="518" />
-          <Frame Number="5" Page="519" />
-          <Frame Number="6" Page="520" />
-          <Frame Number="7" Page="521" />
-        </Animation>
-        <Animation Name="Knife" >
-          <Frame Number="0" Page="522" />
-          <Frame Number="1" Page="523" />
-          <Frame Number="2" Page="524" />
-          <Frame Number="3" Page="525" />
-          <Frame Number="4" Page="526" />
-          <Frame Number="5" Page="522" />
-        </Animation>
-        <Animation Name="Pistol" >
-          <Frame Number="0" Page="527" />
-          <Frame Number="1" Page="528" />
-          <Frame Number="2" Page="529" />
-          <Frame Number="3" Page="530" />
-          <Frame Number="4" Page="531" />
-          <Frame Number="5" Page="527" />
-        </Animation>
-        <Animation Name="Machine Gun" >
-          <Frame Number="0" Page="537" />
-          <Frame Number="1" Page="538" />
-          <Frame Number="2" Page="539" />
-          <Frame Number="3" Page="540" />
-          <Frame Number="4" Page="541" />
-          <Frame Number="5" Page="537" />
-        </Animation>
-      </Actor>
-    </Objects>
-    <DigiSound Number="0" Name="HALTSND" />
-    <DigiSound Number="1" Name="DOGBARKSND" />
-    <DigiSound Number="2" Name="CLOSEDOORSND" />
-    <DigiSound Number="3" Name="OPENDOORSND" />
-    <DigiSound Number="4" Name="ATKMACHINEGUNSND" />
-    <DigiSound Number="5" Name="ATKPISTOLSND" />
-    <DigiSound Number="6" Name="ATKGATLINGSND" />
-    <DigiSound Number="7" Name="SCHUTZADSND" />
-    <DigiSound Number="8" Name="GUTENTAGSND" />
-    <DigiSound Number="9" Name="MUTTISND" />
-    <DigiSound Number="10" Name="BOSSFIRESND" />
-    <DigiSound Number="11" Name="SSFIRESND" />
-    <DigiSound Number="12" Name="DEATHSCREAM1SND" />
-    <DigiSound Number="13" Name="DEATHSCREAM2SND" />
-    <DigiSound Number="14" Name="TAKEDAMAGESND" />
-    <DigiSound Number="14" Name="DEATHSCREAM3SND" />
-    <DigiSound Number="15" Name="PUSHWALLSND" />
-    <DigiSound Number="20" Name="LEBENSND" />
-    <DigiSound Number="21" Name="NAZIFIRESND" />
-    <DigiSound Number="22" Name="SLURPIESND" />
-    <DigiSound Number="32" Name="YEAHSND" />
-  </VSwap>
-  <Palette>
-    JASC-PAL
-    0100
-    256
-    0 0 0
-    0 0 168
-    0 168 0
-    0 168 168
-    168 0 0
-    168 0 168
-    168 84 0
-    168 168 168
-    84 84 84
-    84 84 252
-    84 252 84
-    84 252 252
-    252 84 84
-    252 84 252
-    252 252 84
-    252 252 252
-    236 236 236
-    220 220 220
-    208 208 208
-    192 192 192
-    180 180 180
-    168 168 168
-    152 152 152
-    140 140 140
-    124 124 124
-    112 112 112
-    100 100 100
-    84 84 84
-    72 72 72
-    56 56 56
-    44 44 44
-    32 32 32
-    252 0 0
-    236 0 0
-    224 0 0
-    212 0 0
-    200 0 0
-    188 0 0
-    176 0 0
-    164 0 0
-    152 0 0
-    136 0 0
-    124 0 0
-    112 0 0
-    100 0 0
-    88 0 0
-    76 0 0
-    64 0 0
-    252 216 216
-    252 184 184
-    252 156 156
-    252 124 124
-    252 92 92
-    252 64 64
-    252 32 32
-    252 0 0
-    252 168 92
-    252 152 64
-    252 136 32
-    252 120 0
-    228 108 0
-    204 96 0
-    180 84 0
-    156 76 0
-    252 252 216
-    252 252 184
-    252 252 156
-    252 252 124
-    252 248 92
-    252 244 64
-    252 244 32
-    252 244 0
-    228 216 0
-    204 196 0
-    180 172 0
-    156 156 0
-    132 132 0
-    112 108 0
-    88 84 0
-    64 64 0
-    208 252 92
-    196 252 64
-    180 252 32
-    160 252 0
-    144 228 0
-    128 204 0
-    116 180 0
-    96 156 0
-    216 252 216
-    188 252 184
-    156 252 156
-    128 252 124
-    96 252 92
-    64 252 64
-    32 252 32
-    0 252 0
-    0 252 0
-    0 236 0
-    0 224 0
-    0 212 0
-    4 200 0
-    4 188 0
-    4 176 0
-    4 164 0
-    4 152 0
-    4 136 0
-    4 124 0
-    4 112 0
-    4 100 0
-    4 88 0
-    4 76 0
-    4 64 0
-    216 252 252
-    184 252 252
-    156 252 252
-    124 252 248
-    92 252 252
-    64 252 252
-    32 252 252
-    0 252 252
-    0 228 228
-    0 204 204
-    0 180 180
-    0 156 156
-    0 132 132
-    0 112 112
-    0 88 88
-    0 64 64
-    92 188 252
-    64 176 252
-    32 168 252
-    0 156 252
-    0 140 228
-    0 124 204
-    0 108 180
-    0 92 156
-    216 216 252
-    184 188 252
-    156 156 252
-    124 128 252
-    92 96 252
-    64 64 252
-    32 36 252
-    0 4 252
-    0 0 252
-    0 0 236
-    0 0 224
-    0 0 212
-    0 0 200
-    0 0 188
-    0 0 176
-    0 0 164
-    0 0 152
-    0 0 136
-    0 0 124
-    0 0 112
-    0 0 100
-    0 0 88
-    0 0 76
-    0 0 64
-    40 40 40
-    252 224 52
-    252 212 36
-    252 204 24
-    252 192 8
-    252 180 0
-    180 32 252
-    168 0 252
-    152 0 228
-    128 0 204
-    116 0 180
-    96 0 156
-    80 0 132
-    68 0 112
-    52 0 88
-    40 0 64
-    252 216 252
-    252 184 252
-    252 156 252
-    252 124 252
-    252 92 252
-    252 64 252
-    252 32 252
-    252 0 252
-    224 0 228
-    200 0 204
-    180 0 180
-    156 0 156
-    132 0 132
-    108 0 112
-    88 0 88
-    64 0 64
-    252 232 220
-    252 224 208
-    252 216 196
-    252 212 188
-    252 204 176
-    252 196 164
-    252 188 156
-    252 184 144
-    252 176 128
-    252 164 112
-    252 156 96
-    240 148 92
-    232 140 88
-    220 136 84
-    208 128 80
-    200 124 76
-    188 120 72
-    180 112 68
-    168 104 64
-    160 100 60
-    156 96 56
-    144 92 52
-    136 88 48
-    128 80 44
-    116 76 40
-    108 72 36
-    92 64 32
-    84 60 28
-    72 56 24
-    64 48 24
-    56 44 20
-    40 32 12
-    96 0 100
-    0 100 100
-    0 96 96
-    0 0 28
-    0 0 44
-    48 36 16
-    72 0 72
-    80 0 80
-    0 0 52
-    28 28 28
-    76 76 76
-    92 92 92
-    64 64 64
-    48 48 48
-    52 52 52
-    216 244 244
-    184 232 232
-    156 220 220
-    116 200 200
-    72 192 192
-    32 180 180
-    32 176 176
-    0 164 164
-    0 152 152
-    0 140 140
-    0 132 132
-    0 124 124
-    0 120 120
-    0 116 116
-    0 112 112
-    0 108 108
-    152 0 136
-  </Palette>
+	<VgaGraph VgaDict="VGADICT.WL1" VgaGraph="VGAGRAPH.WL1" VgaHead="VGAHEAD.WL1" LoadingPic="GETPSYCHEDPIC">
+		<Sizes Chunk="0" StartPics="3" NumPics="144" StartFont="1" NumFont="2" BitmapFonts="1" />
+		<Font Number="0" Chunk="1" Name="Small" />
+		<Font Number="1" Chunk="2" Name="Large" />
+		<Pic Number="0" Chunk="3" Name="H_BJPIC" />
+		<Pic Number="1" Chunk="4" Name="H_CASTLEPIC" />
+		<Pic Number="2" Chunk="5" Name="H_KEYBOARDPIC" />
+		<Pic Number="3" Chunk="6" Name="H_JOYPIC" />
+		<Pic Number="4" Chunk="7" Name="H_HEALPIC" />
+		<Pic Number="5" Chunk="8" Name="H_TREASUREPIC" />
+		<Pic Number="6" Chunk="9" Name="H_GUNPIC" />
+		<Pic Number="7" Chunk="10" Name="H_KEYPIC" />
+		<Pic Number="8" Chunk="11" Name="H_BLAZEPIC" />
+		<Pic Number="9" Chunk="12" Name="H_WEAPON1234PIC" />
+		<Pic Number="10" Chunk="13" Name="H_WOLFLOGOPIC" />
+		<Pic Number="11" Chunk="14" Name="H_VISAPIC" />
+		<Pic Number="12" Chunk="15" Name="H_MCPIC" />
+		<Pic Number="13" Chunk="16" Name="H_IDLOGOPIC" />
+		<Pic Number="14" Chunk="17" Name="H_TOPWINDOWPIC" />
+		<Pic Number="15" Chunk="18" Name="H_LEFTWINDOWPIC" />
+		<Pic Number="16" Chunk="19" Name="H_RIGHTWINDOWPIC" />
+		<Pic Number="17" Chunk="20" Name="H_BOTTOMINFOPIC" />
+		<Pic Number="18" Chunk="21" Name="H_SPEARADPIC" />
+		<Pic Number="19" Chunk="22" Name="C_OPTIONSPIC" />
+		<Pic Number="20" Chunk="23" Name="C_CURSOR1PIC" />
+		<Pic Number="21" Chunk="24" Name="C_CURSOR2PIC" />
+		<Pic Number="22" Chunk="25" Name="C_NOTSELECTEDPIC" />
+		<Pic Number="23" Chunk="26" Name="C_SELECTEDPIC" />
+		<Pic Number="24" Chunk="27" Name="C_FXTITLEPIC" />
+		<Pic Number="25" Chunk="28" Name="C_DIGITITLEPIC" />
+		<Pic Number="26" Chunk="29" Name="C_MUSICTITLEPIC" />
+		<Pic Number="27" Chunk="30" Name="C_MOUSELBACKPIC" />
+		<Pic Number="28" Chunk="31" Name="C_BABYMODEPIC" />
+		<Pic Number="29" Chunk="32" Name="C_EASYPIC" />
+		<Pic Number="30" Chunk="33" Name="C_NORMALPIC" />
+		<Pic Number="31" Chunk="34" Name="C_HARDPIC" />
+		<Pic Number="32" Chunk="35" Name="C_LOADSAVEDISKPIC" />
+		<Pic Number="33" Chunk="36" Name="C_DISKLOADING1PIC" />
+		<Pic Number="34" Chunk="37" Name="C_DISKLOADING2PIC" />
+		<Pic Number="35" Chunk="38" Name="C_CONTROLPIC" />
+		<Pic Number="36" Chunk="39" Name="C_CUSTOMIZEPIC" />
+		<Pic Number="37" Chunk="40" Name="C_LOADGAMEPIC" />
+		<Pic Number="38" Chunk="41" Name="C_SAVEGAMEPIC" />
+		<Pic Number="39" Chunk="42" Name="C_EPISODE1PIC" />
+		<Pic Number="40" Chunk="43" Name="C_EPISODE2PIC" />
+		<Pic Number="41" Chunk="44" Name="C_EPISODE3PIC" />
+		<Pic Number="42" Chunk="45" Name="C_EPISODE4PIC" />
+		<Pic Number="43" Chunk="46" Name="C_EPISODE5PIC" />
+		<Pic Number="44" Chunk="47" Name="C_EPISODE6PIC" />
+		<Pic Number="45" Chunk="48" Name="C_CODEPIC" />
+		<Pic Number="46" Chunk="49" Name="C_TIMECODEPIC" />
+		<Pic Number="47" Chunk="50" Name="C_LEVELPIC" />
+		<Pic Number="48" Chunk="51" Name="C_NAMEPIC" />
+		<Pic Number="49" Chunk="52" Name="C_SCOREPIC" />
+		<Pic Number="50" Chunk="53" Name="C_JOY1PIC" />
+		<Pic Number="51" Chunk="54" Name="C_JOY2PIC" />
+		<Pic Number="52" Chunk="55" Name="L_GUYPIC" />
+		<Space BitmapFont="0" Width="16" Height="16" Color="127" />
+		<Pic Number="53" Chunk="56" BitmapFont="0" Character=":" Name="L_COLONPIC" />
+		<Pic Number="54" Chunk="57" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
+		<Pic Number="55" Chunk="58" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
+		<Pic Number="56" Chunk="59" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
+		<Pic Number="57" Chunk="60" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
+		<Pic Number="58" Chunk="61" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
+		<Pic Number="59" Chunk="62" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
+		<Pic Number="60" Chunk="63" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
+		<Pic Number="61" Chunk="64" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
+		<Pic Number="62" Chunk="65" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
+		<Pic Number="63" Chunk="66" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
+		<Pic Number="64" Chunk="67" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
+		<Pic Number="65" Chunk="68" BitmapFont="0" Character="A" Name="L_APIC" />
+		<Pic Number="66" Chunk="69" BitmapFont="0" Character="B" Name="L_BPIC" />
+		<Pic Number="67" Chunk="70" BitmapFont="0" Character="C" Name="L_CPIC" />
+		<Pic Number="68" Chunk="71" BitmapFont="0" Character="D" Name="L_DPIC" />
+		<Pic Number="69" Chunk="72" BitmapFont="0" Character="E" Name="L_EPIC" />
+		<Pic Number="70" Chunk="73" BitmapFont="0" Character="F" Name="L_FPIC" />
+		<Pic Number="71" Chunk="74" BitmapFont="0" Character="G" Name="L_GPIC" />
+		<Pic Number="72" Chunk="75" BitmapFont="0" Character="H" Name="L_HPIC" />
+		<Pic Number="73" Chunk="76" BitmapFont="0" Character="I" Name="L_IPIC" />
+		<Pic Number="74" Chunk="77" BitmapFont="0" Character="J" Name="L_JPIC" />
+		<Pic Number="75" Chunk="78" BitmapFont="0" Character="K" Name="L_KPIC" />
+		<Pic Number="76" Chunk="79" BitmapFont="0" Character="L" Name="L_LPIC" />
+		<Pic Number="77" Chunk="80" BitmapFont="0" Character="M" Name="L_MPIC" />
+		<Pic Number="78" Chunk="81" BitmapFont="0" Character="N" Name="L_NPIC" />
+		<Pic Number="79" Chunk="82" BitmapFont="0" Character="O" Name="L_OPIC" />
+		<Pic Number="80" Chunk="83" BitmapFont="0" Character="P" Name="L_PPIC" />
+		<Pic Number="81" Chunk="84" BitmapFont="0" Character="Q" Name="L_QPIC" />
+		<Pic Number="82" Chunk="85" BitmapFont="0" Character="R" Name="L_RPIC" />
+		<Pic Number="83" Chunk="86" BitmapFont="0" Character="S" Name="L_SPIC" />
+		<Pic Number="84" Chunk="87" BitmapFont="0" Character="T" Name="L_TPIC" />
+		<Pic Number="85" Chunk="88" BitmapFont="0" Character="U" Name="L_UPIC" />
+		<Pic Number="86" Chunk="89" BitmapFont="0" Character="V" Name="L_VPIC" />
+		<Pic Number="87" Chunk="90" BitmapFont="0" Character="W" Name="L_WPIC" />
+		<Pic Number="88" Chunk="91" BitmapFont="0" Character="X" Name="L_XPIC" />
+		<Pic Number="89" Chunk="92" BitmapFont="0" Character="Y" Name="L_YPIC" />
+		<Pic Number="90" Chunk="93" BitmapFont="0" Character="Z" Name="L_ZPIC" />
+		<Pic Number="91" Chunk="94" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
+		<Pic Number="92" Chunk="95" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
+		<Pic Number="93" Chunk="96" Name="L_GUY2PIC" />
+		<Pic Number="94" Chunk="97" Name="L_BJWINSPIC" />
+		<Pic Number="95" Chunk="98" Name="STATUSBARPIC" />
+		<Pic Number="96" Chunk="99" Name="TITLEPIC" />
+		<Pic Number="97" Chunk="100" Name="PG13PIC" />
+		<Pic Number="98" Chunk="101" Name="CREDITSPIC" />
+		<Pic Number="99" Chunk="102" Name="HIGHSCORESPIC" />
+		<Pic Number="100" Chunk="103" Name="KNIFEPIC" />
+		<Pic Number="101" Chunk="104" Name="GUNPIC" />
+		<Pic Number="102" Chunk="105" Name="MACHINEGUNPIC" />
+		<Pic Number="103" Chunk="106" Name="GATLINGGUNPIC" />
+		<Pic Number="104" Chunk="107" Name="NOKEYPIC" />
+		<Pic Number="105" Chunk="108" Name="GOLDKEYPIC" />
+		<Pic Number="106" Chunk="109" Name="SILVERKEYPIC" />
+		<Pic Number="107" Chunk="110" Name="N_BLANKPIC" />
+		<Pic Number="108" Chunk="111" Name="N_0PIC" />
+		<Pic Number="109" Chunk="112" Name="N_1PIC" />
+		<Pic Number="110" Chunk="113" Name="N_2PIC" />
+		<Pic Number="111" Chunk="114" Name="N_3PIC" />
+		<Pic Number="112" Chunk="115" Name="N_4PIC" />
+		<Pic Number="113" Chunk="116" Name="N_5PIC" />
+		<Pic Number="114" Chunk="117" Name="N_6PIC" />
+		<Pic Number="115" Chunk="118" Name="N_7PIC" />
+		<Pic Number="116" Chunk="119" Name="N_8PIC" />
+		<Pic Number="117" Chunk="120" Name="N_9PIC" />
+		<Pic Number="118" Chunk="121" Name="FACE1APIC" />
+		<Pic Number="119" Chunk="122" Name="FACE1BPIC" />
+		<Pic Number="120" Chunk="123" Name="FACE1CPIC" />
+		<Pic Number="121" Chunk="124" Name="FACE2APIC" />
+		<Pic Number="122" Chunk="125" Name="FACE2BPIC" />
+		<Pic Number="123" Chunk="126" Name="FACE2CPIC" />
+		<Pic Number="124" Chunk="127" Name="FACE3APIC" />
+		<Pic Number="125" Chunk="128" Name="FACE3BPIC" />
+		<Pic Number="126" Chunk="129" Name="FACE3CPIC" />
+		<Pic Number="127" Chunk="130" Name="FACE4APIC" />
+		<Pic Number="128" Chunk="131" Name="FACE4BPIC" />
+		<Pic Number="129" Chunk="132" Name="FACE4CPIC" />
+		<Pic Number="130" Chunk="133" Name="FACE5APIC" />
+		<Pic Number="131" Chunk="134" Name="FACE5BPIC" />
+		<Pic Number="132" Chunk="135" Name="FACE5CPIC" />
+		<Pic Number="133" Chunk="136" Name="FACE6APIC" />
+		<Pic Number="134" Chunk="137" Name="FACE6BPIC" />
+		<Pic Number="135" Chunk="138" Name="FACE6CPIC" />
+		<Pic Number="136" Chunk="139" Name="FACE7APIC" />
+		<Pic Number="137" Chunk="140" Name="FACE7BPIC" />
+		<Pic Number="138" Chunk="141" Name="FACE7CPIC" />
+		<Pic Number="139" Chunk="142" Name="FACE8APIC" />
+		<Pic Number="140" Chunk="143" Name="GOTGATLINGPIC" />
+		<Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
+		<Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
+		<Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
+		<Menus Start="Intro" Song="WONDERIN_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
+			<EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
+			<EndString>Chickening out...&#10;already?</EndString>
+			<EndString>Press N for more carnage.&#10;Press Y to be a weenie.</EndString>
+			<EndString>So, you think you can&#10;quit this easily, huh?</EndString>
+			<EndString>Press N to save the world.&#10;Press Y to abandon it in&#10;its hour of need.</EndString>
+			<EndString>Press N if you are brave.&#10;Press Y to cower in shame.</EndString>
+			<EndString>Heroes, press N.&#10;Wimps, press Y.</EndString>
+			<EndString>You are at an intersection.&#10;A sign says, 'Press Y to quit.'&#10;&gt;</EndString>
+			<EndString>For guns and glory, press N.&#10;For work and worry, press Y.</EndString>
+			<Menu Name="Intro" BkgdColor="127" Song="NAZI_NOR_MUS">
+				<Image Name="TITLEPIC" X="center" Y="center" />
+				<MenuItems>
+					<MenuItem Action="Menu" Argument="Main" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+				<Image Name="C_OPTIONSPIC" X="center" Y="0" XBanner="0" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
+				<MenuItems StartX="72" StartY="56" PaddingX="28">
+					<MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
+					<MenuItem Text="Sound" Action="Menu" Argument="Sound" />
+					<MenuItem Text="Control" Action="Menu" Argument="Control" />
+					<MenuItem Text="Load Game" Action="Load" />
+					<MenuItem Text="Save Game" InGame="true" Action="Save" />
+					<MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
+					<MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
+					<MenuItem Text="Back to Game" InGame="true" Action="Resume" />
+					<MenuItem Text="Quit" Action="Quit" />
+				</MenuItems>
+				<Cancel InGame="false" Action="Quit" />
+				<Cancel InGame="true" Action="Resume" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+			</Menu>
+			<Menu Name="Episodes" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23">
+				<PixelRect X="6" Y="19" Width="309" Height="165" Color="45" BordColor="44" Bord2Color="35" />
+				<Text String="Which episode to play?" X="center" Y="3" Color="71" />
+				<Image Name="C_EPISODE1PIC" X="40" Y="22" />
+				<Image Name="C_EPISODE2PIC" X="40" Y="49" />
+				<Image Name="C_EPISODE3PIC" X="40" Y="76" />
+				<Image Name="C_EPISODE4PIC" X="40" Y="103" />
+				<Image Name="C_EPISODE5PIC" X="40" Y="130" />
+				<Image Name="C_EPISODE6PIC" X="40" Y="157" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
+					<MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="1" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+					<MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+					<MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+					<MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+					<MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+			</Menu>
+			<Menu Name="Difficulty" BkgdColor="41" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
+				<PixelRect X="45" Y="90" Width="245" Height="67" Color="45" BordColor="44" Bord2Color="35" />
+				<Text String="How tough are you?" X="center" Y="69" Color="71" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
+				<MenuItems StartX="51" StartY="101" PaddingX="28">
+					<MenuItem Text="Can I play, Daddy?" Difficulty="1" Action="NewGame" />
+					<MenuItem Text="Don't hurt me" Difficulty="2" Action="NewGame" />
+					<MenuItem Text="Bring 'em on!" Difficulty="3" Action="NewGame" />
+					<MenuItem Text="I am Death incarnate!" Difficulty="4" Action="NewGame" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Episodes" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+			</Menu>
+			<Menu Name="Sound" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
+				<Image Name="C_FXTITLEPIC" X="center" Y="0" />
+				<PixelRect X="40" Y="17" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
+				<MenuItems StartX="41" StartY="21" PaddingX="55">
+					<MenuItem Text="None" On="FXMuted" SetFX="NONE" Action="Update" />
+					<MenuItem Text="Adlib/Sound Blaster" On="FXAdlib" SetFX="ADLIB" Action="Update" />
+				</MenuItems>
+				<Image Name="C_DIGITITLEPIC" X="center" Y="65" />
+				<Image Name="C_MUSICTITLEPIC" X="center" Y="130" />
+				<PixelRect X="40" Y="82" Width="250" Height="45" Color="45" BordColor="44" Bord2Color="35" />
+				<MenuItems StartX="41" StartY="86" PaddingX="55">
+					<MenuItem Text="None" On="DigiSoundMuted" SetDigiSound="NONE" Action="Update" />
+					<MenuItem Text="Sound Blaster" On="DigiSoundBlaster" SetDigiSound="SOUNDBLASTER" Action="Update" />
+				</MenuItems>
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<PixelRect X="40" Y="147" Width="250" Height="32" Color="45" BordColor="44" Bord2Color="35" />
+				<MenuItems StartX="41" StartY="151" PaddingX="55">
+					<MenuItem Text="None" On="MusicMuted" SetMusic="NONE" Action="Update" />
+					<MenuItem Text="Adlib/Sound Blaster" On="MusicAdlib" SetMusic="ADLIB" Action="Update" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+			</Menu>
+			<Menu Name="Control" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43" >
+				<Image Name="C_CONTROLPIC" X="center" Y="0" XBanner="0" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Text String="Select VR Mode:" X="center" Y="50" Color="71" />
+				<PixelRect X="3" Y="62" Width="317" Height="120" Color="45" BordColor="44" Bord2Color="35" />
+				<MenuItems StartX="3" StartY="64" PaddingX="52" PaddingY="14">
+					<MenuItem Text="&quot;Roomscale&quot;&#10;This is normal VR." On="Roomscale" VRMode="Roomscale" Action="Update" />
+					<MenuItem Text="&quot;Five Degrees Of Freedom&quot;&#10;Ignores height.&#10;Good for seated play!" On="FiveDOF" VRMode="FiveDOF" Action="Update" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+			</Menu>
+			<Menu Name="Page1" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="QUICK COMMAND REFERENCE" X="16" Y="16" Color="126" />
+				<Text String="Arrows move. Ctrl shoots. Alt strafes.&#10;&#10;F1			Help&#10;F2			Save game (F8 for Quick save)&#10;F3			Load game (F9 for Quick load)&#10;F4			Sound menu&#10;F5			Resize view window&#10;F6			Controls menu&#10;F7			End Game&#10;F10		Exit to DOS&#10;&#10;Read on for more information." X="16" Y="36" />
+				<Text String="pg 1 of 41" X="212" Y="183" Color="79" />
+				<Down Action="Menu" Argument="Page2" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page2" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="TABLE OF CONTENTS" X="96" Y="36" Color="126" />
+				<Text String="STORY . . . . . . . . . . . . . 3&#10;CONTROLS . . . . . . . . . . 6&#10;ABOUT Id  . . . . . . . . . . 12&#10;ORDERING. . . . . . . . . . . 16&#10;MORE WOLFENSTEIN! . . . 19&#10;SOFTWARE CREATIONS    24&#10;FOREIGN ORDERS . . . . . 28" X="80" Y="66" />
+				<Text String="Id" X="119" Y="86" Color="124" />
+				<Text String="ORDERING" X="80" Y="96" Color="40" />
+				<Text String="SOFTWARE CREATIONS" X="79" Y="116" Color="109" />
+				<Text String="pg 2 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page1" />
+				<Down Action="Menu" Argument="Page3" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page3" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_WOLFLOGOPIC" X="76" Y="13" />
+				<Image Name="H_BJPIC" X="16" Y="66" />
+				<Text String="You stand over the guard's&#10;body, grabbing frantically&#10;for his gun. You're not&#10;sure if the other guards&#10;heard his muffled scream.&#10;Deep in the belly of a Nazi&#10;dungeon, you've only a&#10;knife, a gun, and your wits&#10;to aid your escape." X="118" Y="66" />
+				<Text String="pg 3 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page2" />
+				<Down Action="Menu" Argument="Page4" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page4" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_CASTLEPIC" X="16" Y="16" />
+				<Text String="Just a few weeks ago&#10;you were on a&#10;reconnaissance mission of&#10;extreme importance.&#10;You were to infiltrate&#10;the Nazi fortress and" X="136" Y="16" />
+				<Text String="find the plans for Operation Eisenfaust.&#10;Captured in your attempt, you were taken&#10;to their prison, and awaited your&#10;execution.  Only you know where the plans&#10;are kept, and the Allies will face a great&#10;defeat if you don't escape!  You must face&#10;the horrors of the prison keep known as&#10;Wolfenstein." X="16" Y="76" />
+				<Text String="pg 4 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page3" />
+				<Down Action="Menu" Argument="Page5" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page5" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_BLAZEPIC" X="16" Y="16" />
+				<Text String="Captain William J. &quot;B.J.&quot;&#10;Blazkowicz, you've got a&#10;gun and eight floors of&#10;hell to get through.&#10;Good luck!" X="144" Y="16" />
+				<Text String="Hey, if you make it, you'll have something&#10;to tell your grandkids about . . . .&#10;&#10;If you don't, at least you'll go out in a&#10;blaze of glory!" X="16" Y="106" />
+				<Text String="pg 5 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page4" />
+				<Down Action="Menu" Argument="Page6" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page6" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_JOYPIC" X="16" Y="16" />
+				<Text String="CONTROLS" X="88" Y="16" Color="126" />
+				<Text String="In Wolfenstein 3-D, you can use&#10;the keyboard, mouse, joystick,&#10;or Gravis PC Gamepad." X="88" Y="32" />
+				<Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
+				<Text String="Enter" X="57" Y="96" Color="110" />
+				<Text String="Esc" X="228" Y="96" Color="110" />
+				<Text String="pg 6 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page5" />
+				<Down Action="Menu" Argument="Page7" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page7" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_KEYBOARDPIC" X="16" Y="20" />
+				<Text String="Once you are in the&#10;game, use the arrow&#10;keys to move. Hold&#10;down Shift to run fast." X="144" Y="16" />
+				<Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
+				<Text String="Shift" X="181" Y="46" Color="110" />
+				<Text String="Ctrl" X="55" Y="66" Color="110" />
+				<Text String="Alt" X="42" Y="86" Color="110" />
+				<Text String="Space" X="56" Y="126" Color="110" />
+				<Text String="pg 7 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page6" />
+				<Down Action="Menu" Argument="Page8" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page8" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_JOYPIC" X="16" Y="16" />
+				<Text String="When using the mouse or&#10;joystick, use button 1 to shoot,&#10;button 2 to strafe." X="88" Y="16" />
+				<Text String="With a three-button mouse, use the third&#10;button to open doors.&#10;&#10;Gravis PC Gamepads have a fourth button,&#10;useful as a run button." X="16" Y="76" />
+				<Text String="pg 8 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page7" />
+				<Down Action="Menu" Argument="Page9" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page9" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_WEAPON1234PIC" X="104" Y="50" />
+				<Text String="Once you have more than one weapon, the&#10;keys 1-4 choose the weapons:&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Holding down the fire button is fun, but&#10;short bursts save bullets." X="16" Y="16" />
+				<Text String="pg 9 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page8" />
+				<Down Action="Menu" Argument="Page10" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page10" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_KEYPIC" X="16" Y="76" />
+				<Image Name="H_HEALPIC" X="8" Y="124" />
+				<Text String="Some walls in the prison can be pushed&#10;back to reveal hidden rooms. Hold down&#10;Space to push the wall in front of you.&#10;Just think of Space as the Use key. It will&#10;use doors, use elevators, and so on." X="16" Y="16" />
+				<Text String="There are locked doors in the castle&#10;that require either a gold or silver" X="56" Y="76" />
+				<Text String="key.  It will be somewhere on the floor&#10;you're on." X="16" Y="96" />
+				<Text String="If you find your health&#10;dropping, pick up some food" X="104" Y="126" />
+				<Text String="or first aid.  You'll find you're damaged&#10;more when shot at close range." X="16" Y="146" />
+				<Text String="pg 10 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page9" />
+				<Down Action="Menu" Argument="Page11" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page11" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_GUNPIC" X="16" Y="16" />
+				<Text String="Pick up the ammo left&#10;behind when you toast&#10;someone.  For instance,&#10;perforate an SS--free&#10;machine gun!" X="128" Y="16" />
+				<Text String="You get a free guy every 40,000 points,&#10;so collect those treasures! (You can have a&#10;maximum of nine lives.)&#10;&#10;When you get killed, you lose everything but&#10;your gun and start at the beginning of the&#10;floor you were on." X="16" Y="86" />
+				<Text String="pg 11 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page10" />
+				<Down Action="Menu" Argument="Page12" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page12" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
+				<Text String="ABOUT Id SOFTWARE" X="16" Y="16" Color="126" />
+				<Text String="Yes, that's Id, as in the id, ego, and&#10;superego in the psyche.  We think&#10;shareware is a fine alternative to the high&#10;prices of commercial vendors.  For under&#10;twelve dollars a game, you can get the&#10;hottest, fastest texture-mapped game&#10;available.  How can you beat that?" X="16" Y="36" />
+				<Text String="We'll answer that question in a&#10;few months. . . ." X="16" Y="116" Color="44" />
+				<Text String="Id" X="56" Y="16" Color="110" />
+				<Text String="pg 12 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page11" />
+				<Down Action="Menu" Argument="Page13" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page13" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
+				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
+				<Text String="PROGRAMMERS&#10;&#10;&#10;&#10;ARTIST&#10;&#10;&#10;CREATIVE DIRECTOR" X="16" Y="36" Color="110" />
+				<Text String="John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="46" />
+				<Text String="pg 13 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page12" />
+				<Down Action="Menu" Argument="Page14" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page14" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
+				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
+				<Text String="MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="36" Color="110" />
+				<Text String="Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="46" />
+				<Text String="pg 14 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page13" />
+				<Down Action="Menu" Argument="Page15" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page15" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
+				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
+				<Text String="COMPOSER&#10;&#10;&#10;ADDITIONAL PROGRAMMING" X="16" Y="36" Color="110" />
+				<Text String="Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="46" />
+				<Text String="pg 15 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page14" />
+				<Down Action="Menu" Argument="Page16" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page16" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
+				<Text String="Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="36" />
+				<Text String="Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="56" Color="46" />
+				<Text String="pg 16 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page15" />
+				<Down Action="Menu" Argument="Page17" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page17" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_VISAPIC" X="224" Y="50" />
+				<Image Name="H_MCPIC" X="224" Y="100" />
+				<Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
+				<Text String="Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="36" />
+				<Text String="pg 17 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page16" />
+				<Down Action="Menu" Argument="Page18" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page18" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="ORDERING INFORMATION" X="16" Y="16" Color="126" />
+				<Text String="Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="36" />
+				<Text String="pg 18 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page17" />
+				<Down Action="Menu" Argument="Page19" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page19" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="ALSO AVAILABLE" X="16" Y="16" Color="126" />
+				<Text String="Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="36" />
+				<Text String="$20 + $4 S&amp;H" X="150" Y="106" />
+				<Text String="$50 + $4 S&amp;H" X="150" Y="116" />
+				<Text String="$10" X="150" Y="126" />
+				<Text String="Wolfenstein 3-D: the Nocturnal Missions!" X="16" Y="56" Color="110" />
+				<Text String="pg 19 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page18" />
+				<Down Action="Menu" Argument="Page20" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page20" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="WOLFENSTEIN HINT BOOK!" X="16" Y="16" Color="126" />
+				<Text String="If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="36" />
+				<Text String="Wolfenstein" X="212" Y="46" Color="110" />
+				<Text String="3-D Hint Book" X="16" Y="56" Color="110" />
+				<Text String="pg 20 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page19" />
+				<Down Action="Menu" Argument="Page21" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page21" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="NOCTURNAL MISSIONS (Wolf 1-3 Required)" X="16" Y="16" Color="126" />
+				<Text String="Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="46" />
+				<Text String="Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="36" Color="41" />
+				<Text String="pg 21 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page20" />
+				<Down Action="Menu" Argument="Page22" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page22" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="SPEAR OF DESTINY" X="16" Y="16" Color="126" />
+				<Text String="This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="36" />
+				<Text String="pg 22 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page21" />
+				<Down Action="Menu" Argument="Page23" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page23" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_SPEARADPIC" X="16" Y="16" />
+				<Text String="pg 23 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page22" />
+				<Down Action="Menu" Argument="Page24" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page24" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="USE YOUR FAX MACHINE TO ORDER!" X="16" Y="16" Color="126" />
+				<Text String="You can now use your FAX machine to&#10;order your favorite Apogee games quickly&#10;and easily.&#10;&#10;Simply print out the ORDER.FRM file, fill it&#10;out and FAX it to us for prompt&#10;processing.&#10;&#10;FAX Orders: (214) 278-4670" X="16" Y="36" />
+				<Text String="pg 24 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page23" />
+				<Down Action="Menu" Argument="Page25" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page25" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="THE OFFICIAL APOGEE BBS" X="16" Y="16" Color="126" />
+				<Text String="The SOFTWARE CREATIONS BBS is the home&#10;BBS for the latest Apogee games. Check&#10;out our FREE 'Apogee' file section for new&#10;releases and updates.&#10;&#10;BBS phone lines:&#10;		(508) 365-2359			2400 baud&#10;		(508) 368-4137			2400-14.4K USR&#10;		(508) 368-7036		2400-14.4k V.32&#10;&#10;Home of the Apogee BBS Network!&#10;A Major Multi-Line BBS." X="16" Y="36" />
+				<Text String="pg 25 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page24" />
+				<Down Action="Menu" Argument="Page26" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page26" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="APOGEE ON AMERICA ONLINE!" X="16" Y="16" Color="126" />
+				<Text String="America Online (AOL) is host of the Apogee&#10;Forum, where you can get new Apogee&#10;games. Use the Apogee message areas to&#10;talk and exchange ideas, comments and&#10;secrets with our designers and other&#10;players.  If you're already a member,&#10;after you log on, use the keyword&#10;&quot;Apogee&quot; (Ctrl-K) to go to the Apogee area.&#10;&#10;If you'd like to know how to join, please&#10;call toll free: 1-800-827-6364.  Please ask&#10;for extension 6131. You'll get the FREE&#10;startup kit." X="16" Y="36" />
+				<Text String="pg 26 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page25" />
+				<Down Action="Menu" Argument="Page27" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page27" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="WATCH OUT!" X="16" Y="16" Color="126" />
+				<Text String="Apogee now has their own official section&#10;on Exec-PC, the world's largest bulletin&#10;board. All the hottest new shareware&#10;games are there!&#10;&#10;Look in the section named &quot;Apogee Games&#10;Collection.&quot;  (Currently in file collection &quot;R&quot;.)&#10;&#10;Call (414) 789-4210 with your modem to&#10;join the fun on Exec-PC!" X="16" Y="36" />
+				<Text String="pg 27 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page26" />
+				<Down Action="Menu" Argument="Page28" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page28" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="FOREIGN CUSTOMERS" X="16" Y="16" Color="126" />
+				<Text String="The following screens list our dealers&#10;outside the United States: Australia, Canada&#10;and the United Kingdom.  These are official&#10;Apogee dealers with the latest games and&#10;updates.&#10;&#10;If your country is not listed, you may&#10;order directly from Apogee by phone:&#10;&#10;											(214) 278-5655" X="16" Y="36" />
+				<Text String="pg 28 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page27" />
+				<Down Action="Menu" Argument="Page29" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page29" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="AUSTRALIAN CUSTOMERS (1 of 3)" X="16" Y="16" Color="126" />
+				<Text String="	BudgetWare&#10;	P.O. Box 496&#10;	Newtown, NSW  2042&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:&#10;	Toll free:&#10;	Fax:&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
+				<Text String="(02) 519-4233&#10;(008) 022-064&#10;(02) 516-4236" X="94" Y="106" />
+				<Text String="pg 29 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page28" />
+				<Down Action="Menu" Argument="Page30" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page30" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="AUSTRALIA (2 of 3)" X="16" Y="16" Color="126" />
+				<Text String="	Manaccom&#10;	9 Camford Str.&#10;	Milton, QLD  4064&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;	Phone:		(07) 368-2366&#10;	Toll free:				(008) 022-064&#10;	Fax:						(07) 369-7589&#10;	CompuServe:	71520,1475&#10;Use MasterCard, Visa, Bankcard, AmEx,&#10;cheques." X="16" Y="36" />
+				<Text String="pg 30 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page29" />
+				<Down Action="Menu" Argument="Page31" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page31" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="AUSTRALIA (3 of 3)" X="16" Y="16" Color="126" />
+				<Text String="	Vision Shareware&#10;	4/146 Greenhill Rd.&#10;	Parkside SA 5063&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;   					ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:						(08) 373-4469&#10;	Toll free:		(008) 807 486&#10;	Fax:						(08) 373-4482&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
+				<Text String="pg 31 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page30" />
+				<Down Action="Menu" Argument="Page32" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page32" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="CANADIAN CUSTOMERS" X="16" Y="16" Color="126" />
+				<Text String="	Distant Markets&#10;	Box 1149&#10;	194 - 3803 Calgary Trail S.&#10;	Edmonton, Alb.  T6J 5M8&#10;	CANADA&#10;&#10;TRILOGY PRICE:	$47 Canadian.&#10;   					ALL SIX:	$70 Canadian.&#10;&#10;	Orders:			1-800-661-7383&#10;	Inquiries:	(403) 436-3009&#10;	Fax:					1-800-661-9756&#10;Use MasterCard, Visa or money orders." X="16" Y="36" />
+				<Text String="pg 32 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page31" />
+				<Down Action="Menu" Argument="Page33" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page33" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="UNITED KINGDOM CUSTOMERS" X="16" Y="16" Color="126" />
+				<Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:  		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
+				<Text String="pg 33 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page32" />
+				<Down Action="Menu" Argument="Page34" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page34" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="NEW ZEALAND CUSTOMERS" X="16" Y="16" Color="126" />
+				<Text String="	PC-SIG New Zealand&#10;	P.O. Box 90088&#10;	Victoria Street West&#10;	Auckland, New Zealand&#10;&#10;TRILOGY PRICE:	$85 (including shipping, etc.)&#10;   					ALL SIX:	$120&#10;&#10;	Phone:		3600-500&#10;	Fax:	  	3600-800&#10;&#10;Use Visa, Mastercard, Amex, Diners." X="16" Y="36" />
+				<Text String="pg 34 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page33" />
+				<Down Action="Menu" Argument="Page35" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page35" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="DANISH CUSTOMERS" X="16" Y="16" Color="126" />
+				<Text String="	Prof. Shareware Danmark&#10;	Benlose Skel 4 G&#10;	DK-4100 Ringsted Denmark&#10;&#10;TRILOGY PRICE:	kr. 277,00 (includes shipping)&#10;   					ALL SIX:	kr. 390,00&#10;&#10;	Phone:		(+45) 53 51 90 42&#10;	Fax:  			(+45) 53 61 93 91&#10;Use Visa, Mastercard, cheques." X="16" Y="36" />
+				<Text String="pg 35 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page34" />
+				<Down Action="Menu" Argument="Page36" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page36" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="A FRIENDLY REMINDER" X="16" Y="16" Color="126" />
+				<Text String="Episode One is shareware.  The other five&#10;episodes are not: they are only available&#10;from Apogee or authorized dealers.  Please&#10;do not distribute episodes two through six.&#10;It's easy to do, but the next game will&#10;just cost more if you do it.&#10;&#10;Please report any illegal selling and&#10;distribution of this game to Apogee by&#10;calling 1-800-GAME123.  Or call the SPA&#10;Piracy Hotline: 1-800-388-PIR8." X="16" Y="36" />
+				<Text String="pg 36 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page35" />
+				<Down Action="Menu" Argument="Page37" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page37" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="ABOUT APOGEE" X="16" Y="16" Color="126" />
+				<Text String="Our goal is to establish Apogee as the&#10;leading distributor of commercial quality&#10;shareware games. With enthusiasm and&#10;dedication, we think our goal can be&#10;achieved.&#10;&#10;However,  we need your support.&#10;Shareware is not free software.&#10;&#10;We thank you in advance for your&#10;contribution to the growing shareware&#10;community. Your honesty pays . . . ." X="16" Y="36" />
+				<Text String="pg 37 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page36" />
+				<Down Action="Menu" Argument="Page38" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page38" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
+				<Text String="Here's some quotes from the Id guys:&#10;&#10;Adrian Carmack, Master of the Pixel:&#10;&quot;Okay, now for the CGA version . . . NOT!&quot;&#10;&#10;&#10;John Carmack, Technical Director:&#10;&quot;I just mapped video memory into User&#10;Address Space on my Color NeXTStation!&quot;" X="16" Y="36" />
+				<Text String="pg 38 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page37" />
+				<Down Action="Menu" Argument="Page39" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page39" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
+				<Text String="John Romero, Programming Director:&#10;&quot;I really need to work on my Total Time of&#10;5:20 for Episode One.  I was messing&#10;around too much in those rooms.&quot;&#10;&#10;&#10;Tom Hall, Creative Director:&#10;&quot;Ya don't bring a pistol to a machine gun&#10;fight.&quot;&#10;(Since I'm typing this, I'd like to plug John&#10;Blackwell's F.Godmom game. It's a great&#10;puzzle game.  Look for his new 4.0 version&#10;online!)" X="16" Y="36" />
+				<Text String="F.Godmom" X="86" Y="136" Color="41" />
+				<Text String="pg 39 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page38" />
+				<Down Action="Menu" Argument="Page40" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page40" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Text String="AUTO-BACKSCRATCHING" X="16" Y="16" Color="126" />
+				<Text String="Other Id games also available from Apogee:&#10;&#10;&#10;&quot;Invasion of the Vorticons&quot;: $30 for trilogy&#10;&#10;&quot;Goodbye, Galaxy!&quot;: $35 for two episodes&#10;&#10;&quot;Aliens Ate My BabySitter!&quot;: $35&#10;(That's our commercial game.)&#10;&#10;Super Keen Fun Pack: $90 (for all 6)&#10;&#10;Call 1-800-GAME123 for information." X="16" Y="36" />
+				<Text String="Commander Keen" X="16" Y="56" Color="41" />
+				<Text String="pg 40 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page39" />
+				<Down Action="Menu" Argument="Page41" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="Page41" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
+				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
+				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
+				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
+				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
+				<Image Name="H_BLAZEPIC" X="16" Y="80" />
+				<Text String="CONCLUSION" X="16" Y="16" Color="126" />
+				<Text String="Thanks for playing Wolfenstein 3-D.  Please&#10;support Id's efforts in making ground-&#10;breaking software available at shareware&#10;prices." X="16" Y="36" />
+				<Text String="Now, go get 'em!&#10;&#10;(ESC to return to&#10;menu.)" X="142" Y="106" />
+				<Text String="pg 41 of 41" X="212" Y="183" Color="79" />
+				<Up Action="Menu" Argument="Page40" />
+				<Cancel Action="Menu" Argument="Main" />
+			</Menu>
+			<Menu Name="FloorComplete" Song="ENDLEVEL_MUS" BkgdColor="127">
+				<Image Name="L_GUYPIC" X="0" Y="16" />
+				<Text String="FLOOR" BitmapFont="0" X="112" Y="16" />
+				<Text String="1" BitmapFont="0" X="208" Y="16" />
+				<Text String="COMPLETE" BitmapFont="0" X="112" Y="32" />
+				<Text String="BONUS" BitmapFont="0" X="112" Y="56" />
+				<!--<Counter Name="Bonus" Digits="5" BitmapFont="0" X="208" Y="56" />-->
+				<Text String=" TIME" BitmapFont="0" X="112" Y="80" />
+				<Timer Name="TIME" BitmapFont="0" X="208" Y="80" />
+				<Text String="  PAR" BitmapFont="0" X="112" Y="96" />
+				<Timer Name="PAR" BitmapFont="0" X="208" Y="96" />
+				<Text String="    KILL RATIO" BitmapFont="0" X="8" Y="112" />
+				<Counter Name="Kill" Digits="3" BitmapFont="0" X="248" Y="112" />
+				<Text String="%" BitmapFont="0" X="296" Y="112" />
+				<Text String="  SECRET RATIO" BitmapFont="0" X="8" Y="128" />
+				<Counter Name="Secret" Digits="3" BitmapFont="0" X="248" Y="128" />
+				<Text String="%" BitmapFont="0" X="296" Y="128" />
+				<Text String="TREASURE RATIO" BitmapFont="0" X="8" Y="144" />
+				<Counter Name="Treasure" Digits="3" BitmapFont="0" X="248" Y="144" />
+				<Text String="%" BitmapFont="0" X="296" Y="144" />
+				<StatusBar X="0" Y="160" />
+				<MenuItems>
+					<MenuItem Action="NextFloor" />
+				</MenuItems>
+				<Cancel Action="NextFloor" />
+			</Menu>
+		</Menus>
+		<StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+			<Number Name="Difficulty" Init="1" />
+			<Number Name="Episode" Init="1" />
+			<Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
+			<Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
+			<Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
+			<Face X="134" Y="5" />
+			<Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
+			<Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
+			<Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Weapons X="256" Y="8">
+				<Weapon Number="0" Pic="KNIFEPIC" Init="1" />
+				<Weapon Number="1" Pic="GUNPIC" Init="1" />
+				<Weapon Number="2" Pic="MACHINEGUNPIC" />
+				<Weapon Number="3" Pic="GATLINGGUNPIC" />
+			</Weapons>
+		</StatusBar>
+	</VgaGraph>
+	<Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
+		<Map Number="0" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="00:01:30" Song="GETTHEM_MUS" />
+		<Map Number="1" Episode="1" Floor="2" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="SEARCHN_MUS" />
+		<Map Number="2" Episode="1" Floor="3" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="POW_MUS" />
+		<Map Number="3" Episode="1" Floor="4" Ground="25" Ceiling="29" Border="127" Par="00:03:30" Song="SUSPENSE_MUS" />
+		<Map Number="4" Episode="1" Floor="5" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="GETTHEM_MUS" />
+		<Map Number="5" Episode="1" Floor="6" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="SEARCHN_MUS" />
+		<Map Number="6" Episode="1" Floor="7" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="POW_MUS" />
+		<Map Number="7" Episode="1" Floor="8" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="SUSPENSE_MUS" />
+		<Map Number="8" Episode="1" Floor="9" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
+		<Map Number="9" Episode="1" Floor="10" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="2" />
+	</Maps>
+	<Audio AudioHead="AUDIOHED.WL1" AudioT="AUDIOT.WL1" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
+		<Sound Number="0" Name="HITWALLSND" />
+		<Sound Number="1" Name="SELECTWPNSND" />
+		<Sound Number="2" Name="SELECTITEMSND" />
+		<Sound Number="3" Name="HEARTBEATSND" />
+		<Sound Number="4" Name="MOVEGUN2SND" />
+		<Sound Number="5" Name="MOVEGUN1SND" />
+		<Sound Number="6" Name="NOWAYSND" />
+		<Sound Number="7" Name="NAZIHITPLAYERSND" />
+		<Sound Number="8" Name="FIRESND" />
+		<Sound Number="9" Name="PLAYERDEATHSND" />
+		<Sound Number="10" Name="DOGDEATHSND" />
+		<Sound Number="11" Name="ATKGATLINGSND" />
+		<Sound Number="12" Name="GETKEYSND" />
+		<Sound Number="13" Name="NOITEMSND" />
+		<Sound Number="14" Name="WALK1SND" />
+		<Sound Number="15" Name="WALK2SND" />
+		<Sound Number="16" Name="TAKEDAMAGESND" />
+		<Sound Number="17" Name="GAMEOVERSND" />
+		<Sound Number="18" Name="OPENDOORSND" />
+		<Sound Number="19" Name="CLOSEDOORSND" />
+		<Sound Number="20" Name="DONOTHINGSND" />
+		<Sound Number="21" Name="HALTSND" />
+		<Sound Number="22" Name="DEATHSCREAM2SND" />
+		<Sound Number="23" Name="ATKKNIFESND" />
+		<Sound Number="24" Name="ATKPISTOLSND" />
+		<Sound Number="25" Name="DEATHSCREAM3SND" />
+		<Sound Number="26" Name="ATKMACHINEGUNSND" />
+		<Sound Number="27" Name="HITENEMYSND" />
+		<Sound Number="28" Name="SHOOTDOORSND" />
+		<Sound Number="29" Name="DEATHSCREAM1SND" />
+		<Sound Number="30" Name="GETMACHINESND" />
+		<Sound Number="31" Name="GETAMMOSND" />
+		<Sound Number="32" Name="SHOOTSND" />
+		<Sound Number="33" Name="HEALTH1SND" />
+		<Sound Number="34" Name="HEALTH2SND" />
+		<Sound Number="35" Name="BONUS1SND" />
+		<Sound Number="36" Name="BONUS2SND" />
+		<Sound Number="37" Name="BONUS3SND" />
+		<Sound Number="38" Name="GETGATLINGSND" />
+		<Sound Number="39" Name="ESCPRESSEDSND" />
+		<Sound Number="40" Name="LEVELDONESND" />
+		<Sound Number="41" Name="DOGBARKSND" />
+		<Sound Number="42" Name="ENDBONUS1SND" />
+		<Sound Number="43" Name="ENDBONUS2SND" />
+		<Sound Number="44" Name="BONUS1UPSND" />
+		<Sound Number="45" Name="BONUS4SND" />
+		<Sound Number="46" Name="PUSHWALLSND" />
+		<Sound Number="47" Name="NOBONUSSND" />
+		<Sound Number="48" Name="PERCENT100SND" />
+		<Sound Number="49" Name="BOSSACTIVESND" />
+		<Sound Number="50" Name="MUTTISND" />
+		<Sound Number="51" Name="SCHUTZADSND" />
+		<Sound Number="52" Name="AHHHGSND" />
+		<Sound Number="53" Name="DIESND" />
+		<Sound Number="54" Name="EVASND" />
+		<Sound Number="55" Name="GUTENTAGSND" />
+		<Sound Number="56" Name="LEBENSND" />
+		<Sound Number="57" Name="SCHEISTSND" />
+		<Sound Number="58" Name="NAZIFIRESND" />
+		<Sound Number="59" Name="BOSSFIRESND" />
+		<Sound Number="60" Name="SSFIRESND" />
+		<Sound Number="61" Name="SLURPIESND" />
+		<Sound Number="62" Name="TOT_HUNDSND" />
+		<Sound Number="63" Name="MEINGOTTSND" />
+		<Sound Number="64" Name="SCHABBSHASND" />
+		<Sound Number="65" Name="HITLERHASND" />
+		<Sound Number="66" Name="SPIONSND" />
+		<Sound Number="67" Name="NEINSOVASSND" />
+		<Sound Number="68" Name="DOGATTACKSND" />
+		<Sound Number="69" Name="FLAMETHROWERSND" />
+		<Sound Number="70" Name="MECHSTEPSND" />
+		<Sound Number="71" Name="GOOBSSND" />
+		<Sound Number="72" Name="YEAHSND" />
+		<Sound Number="73" Name="DEATHSCREAM4SND" />
+		<Sound Number="74" Name="DEATHSCREAM5SND" />
+		<Sound Number="75" Name="DEATHSCREAM6SND" />
+		<Sound Number="76" Name="DEATHSCREAM7SND" />
+		<Sound Number="77" Name="DEATHSCREAM8SND" />
+		<Sound Number="78" Name="DEATHSCREAM9SND" />
+		<Sound Number="79" Name="DONNERSND" />
+		<Sound Number="80" Name="EINESND" />
+		<Sound Number="81" Name="ERLAUBENSND" />
+		<Sound Number="82" Name="KEINSND" />
+		<Sound Number="83" Name="MEINSND" />
+		<Sound Number="84" Name="ROSESND" />
+		<Sound Number="85" Name="MISSILEFIRESND" />
+		<Sound Number="86" Name="MISSILEHITSND" />
+		<Imf Number="0" Name="CORNER_MUS" />
+		<Imf Number="1" Name="DUNGEON_MUS" />
+		<Imf Number="2" Name="WARMARCH_MUS" />
+		<Imf Number="3" Name="GETTHEM_MUS" />
+		<Imf Number="4" Name="HEADACHE_MUS" />
+		<Imf Number="5" Name="HITLWLTZ_MUS" />
+		<Imf Number="6" Name="INTROCW3_MUS" />
+		<Imf Number="7" Name="NAZI_NOR_MUS" />
+		<Imf Number="8" Name="NAZI_OMI_MUS" />
+		<Imf Number="9" Name="POW_MUS" />
+		<Imf Number="10" Name="SALUTE_MUS" />
+		<Imf Number="11" Name="SEARCHN_MUS" />
+		<Imf Number="12" Name="SUSPENSE_MUS" />
+		<Imf Number="13" Name="VICTORS_MUS" />
+		<Imf Number="14" Name="WONDERIN_MUS" />
+		<Imf Number="15" Name="FUNKYOU_MUS" />
+		<Imf Number="16" Name="ENDLEVEL_MUS" />
+		<Imf Number="17" Name="GOINGAFT_MUS" />
+		<Imf Number="18" Name="PREGNANT_MUS" />
+		<Imf Number="19" Name="ULTIMATE_MUS" />
+		<Imf Number="20" Name="NAZI_RAP_MUS" />
+		<Imf Number="21" Name="ZEROHOUR_MUS" />
+		<Imf Number="22" Name="TWELFTH_MUS" />
+		<Imf Number="23" Name="ROSTER_MUS" />
+		<Imf Number="24" Name="URAHERO_MUS" />
+		<Imf Number="25" Name="VICMARCH_MUS" />
+		<Imf Number="26" Name="PACMAN_MUS" />
+	</Audio>
+	<VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8" MipMaps="true">
+		<Walls FloorCodeFirst="108" FloorCodeLast="143">
+			<Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
+			<Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
+			<Wall Number="3" Page="4" DarkSide="5" Name="Grey Brick with Flag" />
+			<Wall Number="4" Page="6" DarkSide="7" Name="Grey Brick with Hitler" />
+			<Wall Number="5" Page="8" DarkSide="9" Name="Cell" />
+			<Wall Number="6" Page="10" DarkSide="11" Name="Grey Brick with Eagle" />
+			<Wall Number="7" Page="12" DarkSide="13" Name="Cell with Skeleton" />
+			<Wall Number="8" Page="14" DarkSide="15" Name="Blue Brick 1" />
+			<Wall Number="9" Page="16" DarkSide="17" Name="Blue Brick 2" />
+			<Wall Number="10" Page="18" DarkSide="19" Name="Wood with Eagle" />
+			<Wall Number="11" Page="20" DarkSide="21" Name="Wood with Hitler" />
+			<Wall Number="12" Page="22" DarkSide="23" Name="Wood" />
+			<Wall Number="13" Page="24" DarkSide="25" Name="Entrance to Level" />
+			<Wall Number="14" Page="26" DarkSide="27" Name="Steel with Sign" />
+			<Wall Number="15" Page="28" DarkSide="29" Name="Steel" />
+			<Wall Number="16" Page="30" DarkSide="31" Name="Landscape" />
+			<Wall Number="17" Page="32" DarkSide="33" Name="Red Brick" />
+			<Wall Number="18" Page="34" DarkSide="35" Name="Red Brick with Swastika" />
+			<Wall Number="19" Page="36" DarkSide="37" Name="Purple" />
+			<Wall Number="20" Page="38" DarkSide="39" Name="Red Brick with Flag" />
+			<Elevator Number="21" Page="40" DarkSide="41" Activated="43" Direction="W" Action="Menu" Argument="FloorComplete" />
+			<Wall Number="22" Page="42" DarkSide="43" Name="Fake Elevator" />
+			<Wall Number="23" Page="44" DarkSide="45" Name="Wood with Iron Cross" />
+			<Wall Number="24" Page="46" DarkSide="47" Name="Dirty Brick 1" />
+			<Wall Number="25" Page="48" DarkSide="49" Name="Purple with Blood" />
+			<Wall Number="26" Page="50" DarkSide="51" Name="Dirty Brick 2" />
+			<Wall Number="27" Page="52" DarkSide="53" Name="Grey Brick 3" />
+			<Wall Number="28" Page="54" DarkSide="55" Name="Grey Brick with Sign" />
+			<Wall Number="50" Page="98" DarkSide="99" Name="Fake Door" />
+			<Wall Number="51" Page="100" DarkSide="101" Name="Door Frame" />
+			<DoorFrame Page="100" DarkSide="101" />
+			<Wall Number="52" Page="102" DarkSide="103" Name="Fake Elevator Again" />
+			<Wall Number="53" Page="104" DarkSide="105" Name="Fake Locked Door" />
+			<Wall Number="85" Page="42" DarkSide="43" Name="Elevator Wall" />
+			<Door Number="90" Page="99" Name="Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="91" Page="98" Name="Door (N/S)" Direction ="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="92" Page="104" Name="Door (Gold Key - E/W)" Direction="W" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="93" Page="105" Name="Door (Gold Key - N/S)" Direction="S" If="Gold Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="94" Page="104" Name="Door (Silver Key - E/W)" Direction="W" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="95" Page="105" Name="Door (Silver Key - N/S)" Direction="S" If="Silver Key" GreaterThan="0" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="100" Page="103" Name="Elevator Door (E/W)" Direction="W" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Door Number="101" Page="102" Name="Elevator Door (N/S)" Direction="S" OpenDigiSound="OPENDOORSND" CloseDigiSound="CLOSEDOORSND" />
+			<Ambush Number="106" Walk="true" Name="Deaf Guard" />
+			<Override Number="107" Floor="10" Name="Elevator to Secret Floor" />
+		</Walls>
+		<Sprite Page="106" Name="Demo" />
+		<Sprite Page="107" Name="DeathCam" />
+		<Objects>
+			<Start Number="19" Direction="E" Name="Start" />
+			<Start Number="20" Direction="N" Name="Start" />
+			<Start Number="21" Direction="W" Name="Start" />
+			<Start Number="22" Direction="S" Name="Start" />
+			<Billboard Number="23" Page="108" Walk="true" Name="Pool of Water" />
+			<Billboard Number="24" Page="109" Name="Oil Drum" />
+			<Billboard Number="25" Page="110" Name="Table with Chairs" />
+			<Billboard Number="26" Page="111" Name="Floor Lamp" />
+			<Billboard Number="27" Page="112" Walk="true" Name="Chandalier" />
+			<Billboard Number="28" Page="113" Name="Hanging Skeleton" />
+			<Pickup Number="29" Page="114" Walk="true" If="Health" LessThan="100" AddTo="Health" Add="4" Sound="HEALTH1SND" Name="Dog Food" />
+			<Billboard Number="30" Page="115" Name="White Column" />
+			<Billboard Number="31" Page="116" Name="Green Plant" />
+			<Billboard Number="32" Page="117" Walk="true" Name="Skeleton" />
+			<Billboard Number="33" Page="118" Name="Sink" />
+			<Billboard Number="34" Page="119" Name="Brown Plant" />
+			<Billboard Number="35" Page="120" Name="Vase" />
+			<Billboard Number="36" Page="121" Name="Table" />
+			<Billboard Number="37" Page="122" Walk="true" Name="Ceiling Light" />
+			<Billboard Number="38" Page="123" Walk="true" Name="Utensils (Brown)" />
+			<Billboard Number="39" Page="124" Name="Armor" />
+			<Billboard Number="40" Page="125" Name="Empty Cage" />
+			<Billboard Number="41" Page="126" Name="Cage with Skeleton" />
+			<Billboard Number="42" Page="127" Walk="true" Name="Bones 1" />
+			<Pickup Number="43" Page="128" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Name="Gold Key" />
+			<Pickup Number="44" Page="129" AddTo="Silver Key" Add="1" Sound="GETKEYSND" Name="Silver Key" />
+			<Billboard Number="45" Page="130" Name="Bed" />
+			<Billboard Number="46" Page="131" Walk="true" Name="Basket" />
+			<Pickup Number="47" Page="132" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Food" />
+			<Pickup Number="48" Page="133" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH2SND" Name="First Aid Kit" />
+			<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Name="Ammo" />
+			<Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Sound="GETMACHINESND" Name="Machine Gun">
+				<Effect AddTo="Ammo" Add="6" />
+			</Pickup>
+			<Pickup Number="51" Page="136" AddTo="Weapon3" Add="1" Sound="GETGATLINGSND" Name="Gatling Gun">
+				<Effect AddTo="Ammo" Add="6" />
+			</Pickup>
+			<Pickup Number="52" Page="137" Treasure="true" AddTo="Score" Add="100" Sound="BONUS1SND" Name="Cross" />
+			<Pickup Number="53" Page="138" Treasure="true" AddTo="Score" Add="500" Sound="BONUS2SND" Name="Chalice" />
+			<Pickup Number="54" Page="139" Treasure="true" AddTo="Score" Add="1000" Sound="BONUS3SND" Name="Chest of Jewels" />
+			<Pickup Number="55" Page="140" Treasure="true" AddTo="Score" Add="5000" Sound="BONUS4SND" Name="Crown" />
+			<Pickup Number="56" Page="141" Treasure="true" AddTo="Lives" Add="1" Sound="BONUS1UPSND" Name="Extra Life">
+				<Effect AddTo="Ammo" Add="25" />
+				<Effect AddTo="Health" Add="100" />
+			</Pickup>
+			<Pickup Number="57" Page="142" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Bones with Blood" />
+			<Billboard Number="58" Page="143" Name="Barrel" />
+			<Billboard Number="59" Page="144" Name="Well with Water" />
+			<Billboard Number="60" Page="145" Name="Well" />
+			<Pickup Number="61" Page="146" If="Health" LessThan="12" AddTo="Health" Add="1" DigiSound="SLURPIESND" Name="Pool of Blood" />
+			<Billboard Number="62" Page="147" Name="Flag" />
+			<Billboard Number="63" Page="148" Name="Aardwolf" />
+			<Billboard Number="64" Page="149" Walk="true" Name="Bones 2" />
+			<Billboard Number="65" Page="150" Walk="true" Name="Bones 3" />
+			<Billboard Number="66" Page="151" Walk="true" Name="Bones 4" />
+			<Billboard Number="67" Page="152" Walk="true" Name="Utensils (Blue)" />
+			<Billboard Number="68" Page="153" Name="Stove" />
+			<Billboard Number="69" Page="154" Name="Rack" />
+			<Billboard Number="70" Page="155" Name="Vines" />
+			<Turn Number="90" Direction="E" Name="Turn E" />
+			<Turn Number="91" Direction="NE" Name="Turn NE" />
+			<Turn Number="92" Direction="N" Name="Turn N" />
+			<Turn Number="93" Direction="NW" Name="Turn NW" />
+			<Turn Number="94" Direction="W" Name="Turn W" />
+			<Turn Number="95" Direction="SW" Name="Turn SW" />
+			<Turn Number="96" Direction="S" Name="Turn S" />
+			<Turn Number="97" Direction="SE" Name="Turn SE" />
+			<Pushwall Number="98" DigiSound="PUSHWALLSND" Name="Secret Door" />
+			<Trigger Number="99" Name="End Game Trigger" />
+			<Spawn Number="108" Actor="Guard" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="109" Actor="Guard" Direction="N" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="110" Actor="Guard" Direction="W" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="111" Actor="Guard" Direction="S" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="112" Actor="Guard" Direction="E" Difficulty="1" State="s_grdpath1" />
+			<Spawn Number="113" Actor="Guard" Direction="N" Difficulty="1" State="s_grdpath1" />
+			<Spawn Number="114" Actor="Guard" Direction="W" Difficulty="1" State="s_grdpath1" />
+			<Spawn Number="115" Actor="Guard" Direction="S" Difficulty="1" State="s_grdpath1" />
+			<Billboard Number="124" Page="201" Walk="true" Name="Dead Guard" />
+			<Spawn Number="126" Actor="SS" Direction="E" Difficulty="1" State="s_ssstand" />
+			<Spawn Number="127" Actor="SS" Direction="N" Difficulty="1" State="s_ssstand" />
+			<Spawn Number="128" Actor="SS" Direction="W" Difficulty="1" State="s_ssstand" />
+			<Spawn Number="129" Actor="SS" Direction="S" Difficulty="1" State="s_ssstand" />
+			<Spawn Number="130" Actor="SS" Direction="E" Difficulty="1" State="s_sspath1" />
+			<Spawn Number="131" Actor="SS" Direction="N" Difficulty="1" State="s_sspath1" />
+			<Spawn Number="132" Actor="SS" Direction="W" Difficulty="1" State="s_sspath1" />
+			<Spawn Number="133" Actor="SS" Direction="S" Difficulty="1" State="s_sspath1" />
+			<Spawn Number="138" Actor="Dog" Direction="E" Difficulty="1" State="s_dogpath1" />
+			<Spawn Number="139" Actor="Dog" Direction="N" Difficulty="1" State="s_dogpath1" />
+			<Spawn Number="140" Actor="Dog" Direction="W" Difficulty="1" State="s_dogpath1" />
+			<Spawn Number="141" Actor="Dog" Direction="S" Difficulty="1" State="s_dogpath1" />
+			<Spawn Number="144" Actor="Guard" Direction="E" Difficulty="3" State="s_grdstand" />
+			<Spawn Number="145" Actor="Guard" Direction="N" Difficulty="3" State="s_grdstand" />
+			<Spawn Number="146" Actor="Guard" Direction="W" Difficulty="3" State="s_grdstand" />
+			<Spawn Number="147" Actor="Guard" Direction="S" Difficulty="3" State="s_grdstand" />
+			<Spawn Number="148" Actor="Guard" Direction="E" Difficulty="3" State="s_grdpath1" />
+			<Spawn Number="149" Actor="Guard" Direction="N" Difficulty="3" State="s_grdpath1" />
+			<Spawn Number="150" Actor="Guard" Direction="W" Difficulty="3" State="s_grdpath1" />
+			<Spawn Number="151" Actor="Guard" Direction="S" Difficulty="3" State="s_grdpath1" />
+			<Spawn Number="162" Actor="SS" Direction="E" Difficulty="3" State="s_ssstand" />
+			<Spawn Number="163" Actor="SS" Direction="N" Difficulty="3" State="s_ssstand" />
+			<Spawn Number="164" Actor="SS" Direction="W" Difficulty="3" State="s_ssstand" />
+			<Spawn Number="165" Actor="SS" Direction="S" Difficulty="3" State="s_ssstand" />
+			<Spawn Number="166" Actor="SS" Direction="E" Difficulty="3" State="s_sspath1" />
+			<Spawn Number="167" Actor="SS" Direction="N" Difficulty="3" State="s_sspath1" />
+			<Spawn Number="168" Actor="SS" Direction="W" Difficulty="3" State="s_sspath1" />
+			<Spawn Number="169" Actor="SS" Direction="S" Difficulty="3" State="s_sspath1" />
+			<Spawn Number="174" Actor="Dog" Direction="E" Difficulty="3" State="s_dogpath1" />
+			<Spawn Number="175" Actor="Dog" Direction="N" Difficulty="3" State="s_dogpath1" />
+			<Spawn Number="176" Actor="Dog" Direction="W" Difficulty="3" State="s_dogpath1" />
+			<Spawn Number="177" Actor="Dog" Direction="S" Difficulty="3" State="s_dogpath1" />
+			<Spawn Number="180" Actor="Guard" Direction="E" Difficulty="4" State="s_grdstand" />
+			<Spawn Number="181" Actor="Guard" Direction="N" Difficulty="4" State="s_grdstand" />
+			<Spawn Number="182" Actor="Guard" Direction="W" Difficulty="4" State="s_grdstand" />
+			<Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdstand" />
+			<Spawn Number="183" Actor="Guard" Direction="E" Difficulty="4" State="s_grdpath1" />
+			<Spawn Number="183" Actor="Guard" Direction="N" Difficulty="4" State="s_grdpath1" />
+			<Spawn Number="183" Actor="Guard" Direction="W" Difficulty="4" State="s_grdpath1" />
+			<Spawn Number="183" Actor="Guard" Direction="S" Difficulty="4" State="s_grdpath1" />
+			<Spawn Number="198" Actor="SS" Direction="E" Difficulty="4" State="s_ssstand" />
+			<Spawn Number="199" Actor="SS" Direction="N" Difficulty="4" State="s_ssstand" />
+			<Spawn Number="200" Actor="SS" Direction="W" Difficulty="4" State="s_ssstand" />
+			<Spawn Number="201" Actor="SS" Direction="S" Difficulty="4" State="s_ssstand" />
+			<Spawn Number="202" Actor="SS" Direction="E" Difficulty="4" State="s_sspath1" />
+			<Spawn Number="203" Actor="SS" Direction="N" Difficulty="4" State="s_sspath1" />
+			<Spawn Number="204" Actor="SS" Direction="W" Difficulty="4" State="s_sspath1" />
+			<Spawn Number="205" Actor="SS" Direction="S" Difficulty="4" State="s_sspath1" />
+			<Spawn Number="210" Actor="Dog" Direction="E" Difficulty="4" State="s_dogpath1" />
+			<Spawn Number="211" Actor="Dog" Direction="N" Difficulty="4" State="s_dogpath1" />
+			<Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
+			<Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
+			<Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
+			<Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" DigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" />
+			<State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
+			<State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath1s" />
+			<State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Speed="512" Next="s_grdpath2" />
+			<State Name="s_grdpath2" Rotate="true" Shape="172" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath3" />
+			<State Name="s_grdpath3" Rotate="true" Shape="180" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath3s" />
+			<State Name="s_grdpath3s" Rotate="true" Shape="180" Tics="5" Speed="512" Next="s_grdpath4" />
+			<State Name="s_grdpath4" Rotate="true" Shape="188" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath1" />
+			<State Name="s_grdpain" Shape="196" Tics="10" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdpain1" Shape="200" Tics="10" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdshoot1" Shape="202" Tics="20" Speed="0" Next="s_grdshoot2" />
+			<State Name="s_grdshoot2" Shape="203" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
+			<State Name="s_grdshoot3" Shape="204" Tics="20" Speed="0" DigiSound="ATKPISTOLSND" Next="s_grdchase1" />
+			<State Name="s_grdchase1" Rotate="true" Shape="164" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase1s" />
+			<State Name="s_grdchase1s" Rotate="true" Shape="164" Tics="3" Speed="1536" Next="s_grdchase2" />
+			<State Name="s_grdchase2" Rotate="true" Shape="172" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase3" />
+			<State Name="s_grdchase3" Rotate="true" Shape="180" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase3s" />
+			<State Name="s_grdchase3s" Rotate="true" Shape="180" Tics="3" Speed="1536" Next="s_grdchase4" />
+			<State Name="s_grdchase4" Rotate="true" Shape="188" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase1" />
+			<State Name="s_grddie1" Shape="197" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" DigiSound="DEATHSCREAM1SND,DEATHSCREAM2SND,DEATHSCREAM3SND" />
+			<State Name="s_grddie2" Shape="198" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
+			<State Name="s_grddie3" Shape="199" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
+			<State Name="s_grddie4" Shape="201" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
+			<Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" DigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" />
+			<State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
+			<State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
+			<State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
+			<State Name="s_dogpath3" Rotate="true" Shape="221" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath3s" />
+			<State Name="s_dogpath3s" Rotate="true" Shape="221" Tics="5" Speed="1500" Next="s_dogpath4" />
+			<State Name="s_dogpath4" Rotate="true" Shape="229" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath1" />
+			<State Name="s_dogjump1" Shape="241" Tics="10" Speed="0" Next="s_dogjump2" />
+			<State Name="s_dogjump2" Shape="242" Tics="10" Act="T_Bite" Speed="0" Next="s_dogjump3" />
+			<State Name="s_dogjump3" Shape="243" Tics="10" Speed="0" Next="s_dogjump4" />
+			<State Name="s_dogjump4" Shape="241" Tics="10" Speed="0" Next="s_dogjump5" />
+			<State Name="s_dogjump5" Shape="205" Tics="10" Speed="0" Next="s_dogchase1" />
+			<State Name="s_dogchase1" Rotate="true" Shape="205" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase1s" />
+			<State Name="s_dogchase1s" Rotate="true" Shape="205" Tics="3" Speed="3000" Next="s_dogchase2" />
+			<State Name="s_dogchase2" Rotate="true" Shape="213" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase3" />
+			<State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase3s" />
+			<State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Speed="3000" Next="s_dogchase4" />
+			<State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase1" />
+			<State Name="s_dogdie1" Shape="237" Tics="15" Speed="0" Next="s_dogdie2" Alive="false" Mark="false" />
+			<State Name="s_dogdie2" Shape="238" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
+			<State Name="s_dogdie3" Shape="239" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
+			<State Name="s_dogdead" Shape="240" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
+			<Actor Name="SS" HP="100,100,100,100" Reaction="1-43" DigiSound="SCHUTZADSND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" />
+			<State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Speed="0" Next="s_ssstand" />
+			<State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Speed="512" Next="s_sspath1s" />
+			<State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Speed="512" Next="s_sspath2" />
+			<State Name="s_sspath2" Rotate="true" Shape="260" Tics="15" Think="T_Path" Speed="512" Next="s_sspath3" />
+			<State Name="s_sspath3" Rotate="true" Shape="268" Tics="20" Think="T_Path" Speed="512" Next="s_sspath3s" />
+			<State Name="s_sspath3s" Rotate="true" Shape="268" Tics="5" Speed="512" Next="s_sspath4" />
+			<State Name="s_sspath4" Rotate="true" Shape="276" Tics="15" Think="T_Path" Speed="512" Next="s_sspath1" />
+			<State Name="s_sspain" Shape="284" Tics="10" Speed="0" Next="s_sschase1" />
+			<State Name="s_sspain1" Shape="288" Tics="10" Speed="0" Next="s_sschase1" />
+			<State Name="s_ssshoot1" Shape="290" Tics="20" Speed="0" Next="s_ssshoot2" />
+			<State Name="s_ssshoot2" Shape="292" Tics="20" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot3" />
+			<State Name="s_ssshoot3" Shape="291" Tics="10" Speed="0" Next="s_ssshoot4" />
+			<State Name="s_ssshoot4" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot5" />
+			<State Name="s_ssshoot5" Shape="291" Tics="10" Speed="0" Next="s_ssshoot6" />
+			<State Name="s_ssshoot6" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot7" />
+			<State Name="s_ssshoot7" Shape="291" Tics="10" Speed="0" Next="s_ssshoot8" />
+			<State Name="s_ssshoot8" Shape="292" Tics="10" Act="T_Shoot" DigiSound="SSFIRESND" Speed="0" Next="s_ssshoot9" />
+			<State Name="s_ssshoot9" Shape="291" Tics="10" Speed="0" Next="s_sschase1" />
+			<State Name="s_sschase1" Rotate="true" Shape="252" Tics="10" Think="T_Chase" Speed="2048" Next="s_sschase1s" />
+			<State Name="s_sschase1s" Rotate="true" Shape="252" Tics="3" Speed="2048" Next="s_sschase2" />
+			<State Name="s_sschase2" Rotate="true" Shape="260" Tics="8" Think="T_Chase" Speed="2048" Next="s_sschase3" />
+			<State Name="s_sschase3" Rotate="true" Shape="268" Tics="10" Think="T_Chase" Speed="2048" Next="s_sschase3s" />
+			<State Name="s_sschase3s" Rotate="true" Shape="268" Tics="3" Speed="2048" Next="s_sschase4" />
+			<State Name="s_sschase4" Rotate="true" Shape="276" Tics="8" Think="T_Chase" Speed="2048" Next="s_sschase1" />
+			<State Name="s_ssdie1" Shape="285" Tics="15" Speed="0" Next="s_ssdie2" Alive="false" Mark="false" DigiSound="LEBENSND" />
+			<State Name="s_ssdie2" Shape="286" Tics="15" Speed="0" Next="s_ssdie3" Alive="false" Mark="false" />
+			<State Name="s_ssdie3" Shape="287" Tics="15" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
+			<State Name="s_ssdie4" Shape="289" Tics="0" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
+			<Actor Name="Hans" HP="850,950,1050,1200" Reaction="1" DigiSound="GUTENTAGSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" />
+			<State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Speed="0" Next="s_bossstand" />
+			<State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase1s" />
+			<State Name="s_bosschase1s" Shape="402" Tics="3" Speed="512" Next="s_bosschase2" />
+			<State Name="s_bosschase2" Shape="403" Tics="8" Think="T_Chase" Speed="512" Next="s_bosschase3" />
+			<State Name="s_bosschase3" Shape="404" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase3s" />
+			<State Name="s_bosschase3s" Shape="404" Tics="3" Speed="512" Next="s_bosschase4" />
+			<State Name="s_bosschase4" Shape="405" Tics="8" Think="T_Chase" Speed="512" Next="s_bosschase1" />
+			<State Name="s_bossdie1" Shape="410" Tics="15" Speed="0" Next="s_bossdie2" Alive="false" />
+			<State Name="s_bossdie2" Shape="411" Tics="15" Speed="0" Next="s_bossdie3" Alive="false" Mark="false" />
+			<State Name="s_bossdie3" Shape="412" Tics="15" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
+			<State Name="s_bossdie4" Shape="409" Tics="0" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
+			<State Name="s_bossshoot1" Shape="406" Tics="30" Speed="0" Next="s_bossshoot2" />
+			<State Name="s_bossshoot2" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot3" />
+			<State Name="s_bossshoot3" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot4" />
+			<State Name="s_bossshoot4" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot5" />
+			<State Name="s_bossshoot5" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot6" />
+			<State Name="s_bossshoot6" Shape="407" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot7" />
+			<State Name="s_bossshoot7" Shape="408" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot8" />
+			<State Name="s_bossshoot8" Shape="406" Tics="10" Speed="0" Next="s_bosschase1" />
+			<Actor Name="BJ" Human="true" DigiSound="YEAHSND" >
+				<Animation Name="Standing" >
+					<Frame Number="0" Page="514" />
+				</Animation>
+				<Animation Name="Moving" Loop="true">
+					<Frame Number="0" Page="514" />
+					<Frame Number="1" Page="515" />
+					<Frame Number="2" Page="516" />
+					<Frame Number="3" Page="517" />
+				</Animation>
+				<Animation Name="Yeah" >
+					<Frame Number="0" Page="514" />
+					<Frame Number="1" Page="515" />
+					<Frame Number="2" Page="516" />
+					<Frame Number="3" Page="517" />
+					<Frame Number="4" Page="518" />
+					<Frame Number="5" Page="519" />
+					<Frame Number="6" Page="520" />
+					<Frame Number="7" Page="521" />
+				</Animation>
+				<Animation Name="Knife" >
+					<Frame Number="0" Page="522" />
+					<Frame Number="1" Page="523" />
+					<Frame Number="2" Page="524" />
+					<Frame Number="3" Page="525" />
+					<Frame Number="4" Page="526" />
+					<Frame Number="5" Page="522" />
+				</Animation>
+				<Animation Name="Pistol" >
+					<Frame Number="0" Page="527" />
+					<Frame Number="1" Page="528" />
+					<Frame Number="2" Page="529" />
+					<Frame Number="3" Page="530" />
+					<Frame Number="4" Page="531" />
+					<Frame Number="5" Page="527" />
+				</Animation>
+				<Animation Name="Machine Gun" >
+					<Frame Number="0" Page="537" />
+					<Frame Number="1" Page="538" />
+					<Frame Number="2" Page="539" />
+					<Frame Number="3" Page="540" />
+					<Frame Number="4" Page="541" />
+					<Frame Number="5" Page="537" />
+				</Animation>
+			</Actor>
+		</Objects>
+		<DigiSound Number="0" Name="HALTSND" />
+		<DigiSound Number="1" Name="DOGBARKSND" />
+		<DigiSound Number="2" Name="CLOSEDOORSND" />
+		<DigiSound Number="3" Name="OPENDOORSND" />
+		<DigiSound Number="4" Name="ATKMACHINEGUNSND" />
+		<DigiSound Number="5" Name="ATKPISTOLSND" />
+		<DigiSound Number="6" Name="ATKGATLINGSND" />
+		<DigiSound Number="7" Name="SCHUTZADSND" />
+		<DigiSound Number="8" Name="GUTENTAGSND" />
+		<DigiSound Number="9" Name="MUTTISND" />
+		<DigiSound Number="10" Name="BOSSFIRESND" />
+		<DigiSound Number="11" Name="SSFIRESND" />
+		<DigiSound Number="12" Name="DEATHSCREAM1SND" />
+		<DigiSound Number="13" Name="DEATHSCREAM2SND" />
+		<DigiSound Number="14" Name="TAKEDAMAGESND" />
+		<DigiSound Number="14" Name="DEATHSCREAM3SND" />
+		<DigiSound Number="15" Name="PUSHWALLSND" />
+		<DigiSound Number="20" Name="LEBENSND" />
+		<DigiSound Number="21" Name="NAZIFIRESND" />
+		<DigiSound Number="22" Name="SLURPIESND" />
+		<DigiSound Number="32" Name="YEAHSND" />
+	</VSwap>
+	<Palette>
+		JASC-PAL
+		0100
+		256
+		0 0 0
+		0 0 168
+		0 168 0
+		0 168 168
+		168 0 0
+		168 0 168
+		168 84 0
+		168 168 168
+		84 84 84
+		84 84 252
+		84 252 84
+		84 252 252
+		252 84 84
+		252 84 252
+		252 252 84
+		252 252 252
+		236 236 236
+		220 220 220
+		208 208 208
+		192 192 192
+		180 180 180
+		168 168 168
+		152 152 152
+		140 140 140
+		124 124 124
+		112 112 112
+		100 100 100
+		84 84 84
+		72 72 72
+		56 56 56
+		44 44 44
+		32 32 32
+		252 0 0
+		236 0 0
+		224 0 0
+		212 0 0
+		200 0 0
+		188 0 0
+		176 0 0
+		164 0 0
+		152 0 0
+		136 0 0
+		124 0 0
+		112 0 0
+		100 0 0
+		88 0 0
+		76 0 0
+		64 0 0
+		252 216 216
+		252 184 184
+		252 156 156
+		252 124 124
+		252 92 92
+		252 64 64
+		252 32 32
+		252 0 0
+		252 168 92
+		252 152 64
+		252 136 32
+		252 120 0
+		228 108 0
+		204 96 0
+		180 84 0
+		156 76 0
+		252 252 216
+		252 252 184
+		252 252 156
+		252 252 124
+		252 248 92
+		252 244 64
+		252 244 32
+		252 244 0
+		228 216 0
+		204 196 0
+		180 172 0
+		156 156 0
+		132 132 0
+		112 108 0
+		88 84 0
+		64 64 0
+		208 252 92
+		196 252 64
+		180 252 32
+		160 252 0
+		144 228 0
+		128 204 0
+		116 180 0
+		96 156 0
+		216 252 216
+		188 252 184
+		156 252 156
+		128 252 124
+		96 252 92
+		64 252 64
+		32 252 32
+		0 252 0
+		0 252 0
+		0 236 0
+		0 224 0
+		0 212 0
+		4 200 0
+		4 188 0
+		4 176 0
+		4 164 0
+		4 152 0
+		4 136 0
+		4 124 0
+		4 112 0
+		4 100 0
+		4 88 0
+		4 76 0
+		4 64 0
+		216 252 252
+		184 252 252
+		156 252 252
+		124 252 248
+		92 252 252
+		64 252 252
+		32 252 252
+		0 252 252
+		0 228 228
+		0 204 204
+		0 180 180
+		0 156 156
+		0 132 132
+		0 112 112
+		0 88 88
+		0 64 64
+		92 188 252
+		64 176 252
+		32 168 252
+		0 156 252
+		0 140 228
+		0 124 204
+		0 108 180
+		0 92 156
+		216 216 252
+		184 188 252
+		156 156 252
+		124 128 252
+		92 96 252
+		64 64 252
+		32 36 252
+		0 4 252
+		0 0 252
+		0 0 236
+		0 0 224
+		0 0 212
+		0 0 200
+		0 0 188
+		0 0 176
+		0 0 164
+		0 0 152
+		0 0 136
+		0 0 124
+		0 0 112
+		0 0 100
+		0 0 88
+		0 0 76
+		0 0 64
+		40 40 40
+		252 224 52
+		252 212 36
+		252 204 24
+		252 192 8
+		252 180 0
+		180 32 252
+		168 0 252
+		152 0 228
+		128 0 204
+		116 0 180
+		96 0 156
+		80 0 132
+		68 0 112
+		52 0 88
+		40 0 64
+		252 216 252
+		252 184 252
+		252 156 252
+		252 124 252
+		252 92 252
+		252 64 252
+		252 32 252
+		252 0 252
+		224 0 228
+		200 0 204
+		180 0 180
+		156 0 156
+		132 0 132
+		108 0 112
+		88 0 88
+		64 0 64
+		252 232 220
+		252 224 208
+		252 216 196
+		252 212 188
+		252 204 176
+		252 196 164
+		252 188 156
+		252 184 144
+		252 176 128
+		252 164 112
+		252 156 96
+		240 148 92
+		232 140 88
+		220 136 84
+		208 128 80
+		200 124 76
+		188 120 72
+		180 112 68
+		168 104 64
+		160 100 60
+		156 96 56
+		144 92 52
+		136 88 48
+		128 80 44
+		116 76 40
+		108 72 36
+		92 64 32
+		84 60 28
+		72 56 24
+		64 48 24
+		56 44 20
+		40 32 12
+		96 0 100
+		0 100 100
+		0 96 96
+		0 0 28
+		0 0 44
+		48 36 16
+		72 0 72
+		80 0 80
+		0 0 52
+		28 28 28
+		76 76 76
+		92 92 92
+		64 64 64
+		48 48 48
+		52 52 52
+		216 244 244
+		184 232 232
+		156 220 220
+		116 200 200
+		72 192 192
+		32 180 180
+		32 176 176
+		0 164 164
+		0 152 152
+		0 140 140
+		0 132 132
+		0 124 124
+		0 120 120
+		0 116 116
+		0 112 112
+		0 108 108
+		152 0 136
+	</Palette>
 </Game>
