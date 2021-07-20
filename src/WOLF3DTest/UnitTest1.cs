@@ -21,7 +21,8 @@ namespace WOLF3DTest
 			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.MostlySquared);
 			byte[] bin = new byte[bounds.Width * 4 * bounds.Height];
 			foreach (PackingRectangle rectangle in rectangles)
-				bin.DrawInsert((int)rectangle.X, (int)rectangle.Y, vSwap.Pages[rectangle.Id], vSwap.TileSqrt, (int)bounds.Width);
+				bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.Pages[rectangle.Id], vSwap.TileSqrt, (int)bounds.Width)
+					.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.TileSqrt, vSwap.TileSqrt, (int)bounds.Width);
 			Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bin, (int)bounds.Width, (int)bounds.Height)
 						.SaveAsPng("output.png");
 		}
@@ -30,7 +31,7 @@ namespace WOLF3DTest
 		{
 			for (int i = 0; i < vSwap.SoundPage; i++)
 				if (vSwap.Pages[i] != null)
-					yield return new PackingRectangle(0, 0, vSwap.TileSqrt, vSwap.TileSqrt, i);
+					yield return new PackingRectangle(0, 0, vSwap.TileSqrt + 2u, vSwap.TileSqrt + 2u, i);
 		}
 
 		public static XElement LoadXML(string folder, string file = "game.xml")

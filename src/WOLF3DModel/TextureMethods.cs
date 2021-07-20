@@ -169,6 +169,30 @@ namespace WOLF3DModel
 						Array.Copy(insert, y2 + x1, texture, y1 + x1, 4);
 			return texture;
 		}
+		public static byte[] DrawPadding(this byte[] texture, int x, int y, int areaWidth, int areaHeight, int width = 0)
+		{
+			if (areaHeight < 1) areaHeight = areaWidth;
+			int xSide = (width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width) << 2,
+				ySide = (width < 1 ? xSide : texture.Length / width) >> 2,
+				x4 = x * 4,
+				offset = y > 0 ? (y - 1) * xSide + x4 : x4,
+				stop = Math.Min((y + areaHeight) * xSide + x4, texture.Length),
+				areaWidth4 = areaWidth << 2;
+			if (x4 > xSide || offset > texture.Length)
+				return texture;
+			if (y > 0)
+				Array.Copy(texture, offset + xSide, texture, offset, Math.Min(areaWidth4, xSide - x4));
+			if (y + areaHeight < ySide)
+				Array.Copy(texture, stop - xSide, texture, stop, Math.Min(areaWidth4, xSide - x4));
+			//for (int y1 = Math.Max(x4, yOffset - xSide + x4); y1 < yStop; y1 += xSide)
+			//{
+			//	if (x > 0)
+			//		Array.Copy(texture, y1, texture, y1 - 4, 4);
+			//	if (x4 + areaWidth4 < xSide)
+			//		Array.Copy(texture, y1 + areaWidth4, texture, y1 + areaWidth4 + 4, 4);
+			//}
+			return texture;
+		}
 		#endregion Drawing
 		#region Rotation
 		/// <summary>
