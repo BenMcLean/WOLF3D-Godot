@@ -184,13 +184,13 @@ namespace WOLF3DModel
 				Array.Copy(texture, offset + xSide, texture, offset, Math.Min(areaWidth4, xSide - x4));
 			if (y + areaHeight < ySide)
 				Array.Copy(texture, stop - xSide, texture, stop, Math.Min(areaWidth4, xSide - x4));
-			//for (int y1 = Math.Max(x4, yOffset - xSide + x4); y1 < yStop; y1 += xSide)
-			//{
-			//	if (x > 0)
-			//		Array.Copy(texture, y1, texture, y1 - 4, 4);
-			//	if (x4 + areaWidth4 < xSide)
-			//		Array.Copy(texture, y1 + areaWidth4, texture, y1 + areaWidth4 + 4, 4);
-			//}
+			for (int y1 = Math.Max(x4, offset); y1 <= stop; y1 += xSide)
+			{
+				if (x > 0)
+					Array.Copy(texture, y1, texture, y1 - 4, 4);
+				if (x4 + areaWidth4 < xSide)
+					Array.Copy(texture, y1 + areaWidth4 - 4, texture, y1 + areaWidth4, 4);
+			}
 			return texture;
 		}
 		#endregion Drawing
