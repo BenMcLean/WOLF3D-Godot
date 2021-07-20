@@ -47,6 +47,8 @@ The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/
 
 [Godot MIDI Player](https://bitbucket.org/arlez80/godot-midi-player/src/master/) by Yui Kinomoto is [MIT licensed](https://bitbucket.org/arlez80/godot-midi-player/src/master/LICENSE.txt).
 
+[RectpackSharp](https://github.com/ThomasMiz/RectpackSharp) by ThomasMiz is [MIT licensed](https://github.com/ThomasMiz/RectpackSharp/blob/main/LICENSE).
+
 [AmbientTasks](https://github.com/Techsola/AmbientTasks) by Technology Solutions Associates is [MIT licensed](https://github.com/Techsola/AmbientTasks/blob/main/LICENSE.txt).
 
 "RNG.cs" contributed by [Tommy Ettinger](https://github.com/tommyettinger) was explicitly dedicated to the public domain.
