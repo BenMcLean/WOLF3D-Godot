@@ -169,6 +169,16 @@ namespace WOLF3DModel
 						Array.Copy(insert, y2 + x1, texture, y1 + x1, 4);
 			return texture;
 		}
+		/// <summary>
+		/// Draws 1 pixel wide padding around the outside of a rectangular area by copying pixels from the edges of the area
+		/// </summary>
+		/// <param name="texture">raw rgba8888 pixel data to be modified</param>
+		/// <param name="x">upper left corner of area</param>
+		/// <param name="y">upper left corner of area</param>
+		/// <param name="areaWidth">width of area</param>
+		/// <param name="areaHeight">height of area or 0 to assume square area</param>
+		/// <param name="width">width of texture or 0 to assume square texture</param>
+		/// <returns>same texture with padding drawn</returns>
 		public static byte[] DrawPadding(this byte[] texture, int x, int y, int areaWidth, int areaHeight, int width = 0)
 		{
 			if (areaHeight < 1) areaHeight = areaWidth;
