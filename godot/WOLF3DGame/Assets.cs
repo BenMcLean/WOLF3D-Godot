@@ -267,10 +267,10 @@ namespace WOLF3D.WOLF3DGame
 					Palettes[x] = new Color[VSwap.Palettes[x].Length];
 					for (uint y = 0; y < Palettes[x].Length; y++)
 						Palettes[x][y] = Color.Color8(
-								VSwap.R(VSwap.Palettes[x][y]),
-								VSwap.G(VSwap.Palettes[x][y]),
-								VSwap.B(VSwap.Palettes[x][y]),
-								VSwap.A(VSwap.Palettes[x][y])
+								VSwap.Palettes[x][y].R(),
+								VSwap.Palettes[x][y].G(),
+								VSwap.Palettes[x][y].B(),
+								VSwap.Palettes[x][y].A()
 							);
 				}
 				VSwapTextures = new ImageTexture[VSwap.SoundPage];
@@ -288,7 +288,7 @@ namespace WOLF3D.WOLF3DGame
 					if (VSwap.Pages[i] != null)
 					{
 						Godot.Image image = new Image();
-						image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Scale(VSwap.Pages[i], scale));
+						image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Pages[i].Upscale(scale, scale));
 						VSwapTextures[i] = new ImageTexture();
 						VSwapTextures[i].CreateFromImage(image, textureFlags);
 						VSwapMaterials[i] = new SpatialMaterial()

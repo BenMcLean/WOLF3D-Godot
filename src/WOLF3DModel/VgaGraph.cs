@@ -135,7 +135,7 @@ namespace WOLF3DModel
 		public Font[] Fonts { get; set; }
 		public byte[][] Pics { get; set; }
 		public ushort[][] Sizes { get; set; }
-		public uint[][] Palettes { get; set; }
+		public int[][] Palettes { get; set; }
 
 		public VgaGraph(Stream vgaHead, Stream vgaGraph, Stream dictionary, XElement xml) : this(SplitFile(ParseHead(vgaHead), vgaGraph, Load16BitPairs(dictionary)), xml)
 		{ }
@@ -154,7 +154,8 @@ namespace WOLF3DModel
 			uint startPics = (uint)XML.Element("Sizes").Attribute("StartPics");
 			Pics = new byte[(uint)XML.Element("Sizes").Attribute("NumPics")][];
 			for (uint i = 0; i < Pics.Length; i++)
-				Pics[i] = VSwap.Index2ByteArray(Deplanify(file[startPics + i], Sizes[i][0]), Palettes[PaletteNumber(i, xml)]);
+				Pics[i] = Deplanify(file[startPics + i], Sizes[i][0])
+					.Index2ByteArray(Palettes[PaletteNumber(i, xml)]);
 		}
 
 		public static uint PaletteNumber(uint picNumber, XElement xml) =>
