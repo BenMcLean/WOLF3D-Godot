@@ -692,6 +692,20 @@ namespace WOLF3DModel
 		public static byte B(this int color) => (byte)(color >> 8);
 		public static byte A(this int color) => (byte)color;
 		public static int Color(byte r, byte g, byte b, byte a) => r << 24 | g << 16 | b << 8 | a;
+		/// <summary>
+		/// Compute power of two greater than or equal to `n`
+		/// </summary>
+		public static uint FindNextPowerOf2(uint n)
+		{
+			n--; // decrement `n` (to handle the case when `n` itself is a power of 2)
+				 // set all bits after the last set bit
+			n |= n >> 1;
+			n |= n >> 2;
+			n |= n >> 4;
+			n |= n >> 8;
+			n |= n >> 16;
+			return ++n; // increment `n` and return
+		}
 		/// <param name="index">Palette indexes (one byte per pixel)</param>
 		/// <param name="palette">256 rgba8888 color values</param>
 		/// <returns>rgba8888 texture (four bytes per pixel)</returns>
