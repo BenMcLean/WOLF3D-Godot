@@ -203,6 +203,59 @@ namespace WOLF3DModel
 			}
 			return texture;
 		}
+		/// <summary>
+		/// Draws a texture onto a different texture and then draws 1 pixel wide padding around the outside of it by copying pixels from the edges
+		/// </summary>
+		/// <param name="texture">raw rgba8888 pixel data to be modified</param>
+		/// <param name="x">upper left corner of where to insert</param>
+		/// <param name="y">upper left corner of where to insert</param>
+		/// <param name="insert">raw rgba888 pixel data to insert</param>
+		/// <param name="insertWidth">width of insert or 0 to assume square texture</param>
+		/// <param name="width">width of texture or 0 to assume square texture</param>
+		/// <returns>same texture with padded insert drawn</returns>
+		public static byte[] DrawPaddedInsert(this byte[] texture, int x, int y, byte[] insert, int insertWidth = 0, int width = 0)
+		{
+			int insertX = 0, insertY = 0;
+			if (x < 0)
+			{
+				insertX = -x;
+				insertX <<= 2;
+				x = 0;
+			}
+			if (y < 0)
+			{
+				insertY = -y;
+				y = 0;
+			}
+			int xSide = (width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width) << 2;
+			x <<= 2; // x *= 4;
+			if (x > xSide) return texture;
+			int insertXside = (insertWidth < 1 ? (int)Math.Sqrt(insert.Length >> 2) : insertWidth) << 2,
+				actualInsertXside = (x + insertXside > xSide ? xSide - x : insertXside) - insertX,
+				ySide = (width < 1 ? xSide : texture.Length / width) >> 2;
+			if (y > ySide) return texture;
+			if (xSide == insertXside && x == 0 && insertX == 0)
+				Array.Copy(insert, insertY * insertXside, texture, y * xSide, Math.Min(insert.Length - insertY * insertXside + insertX, texture.Length - y * xSide));
+			else
+				for (int y1 = y * xSide + x, y2 = insertY * insertXside + insertX; y1 < texture.Length && y2 < insert.Length; y1 += xSide, y2 += insertXside)
+					Array.Copy(insert, y2, texture, y1, actualInsertXside);
+			int insertHeight = insert.Length / insertXside,
+				offset = y > 0 ? (y - 1) * xSide + x : x,
+				stop = Math.Min((y + insertHeight) * xSide + x, texture.Length);
+			if (offset > texture.Length) return texture;
+			if (y > 0)
+				Array.Copy(texture, offset + xSide, texture, offset, Math.Min(insertXside, xSide - x));
+			if (y + insertHeight < ySide)
+				Array.Copy(texture, stop - xSide, texture, stop, Math.Min(insertXside, xSide - x));
+			for (int y1 = Math.Max(x, offset); y1 <= stop; y1 += xSide)
+			{
+				if (x > 0)
+					Array.Copy(texture, y1, texture, y1 - 4, 4);
+				if (x + insertXside < xSide)
+					Array.Copy(texture, y1 + insertXside - 4, texture, y1 + insertXside, 4);
+			}
+			return texture;
+		}
 		#endregion Drawing
 		#region Rotation
 		/// <summary>
