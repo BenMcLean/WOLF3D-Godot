@@ -21,6 +21,12 @@ namespace WOLF3D.WOLF3DGame.Action
 		private bool flashing = false;
 		public IFadeCamera FadeCamera { get; set; }
 		public FadeCameraController() => Name = "FadeCameraController";
+		public FadeCameraController Flash(Godot.Color color)
+		{
+			Color = color;
+			Flashing = true;
+			return this;
+		}
 		public override void _Process(float delta)
 		{
 			if (FadeCamera == null || !Flashing) return;

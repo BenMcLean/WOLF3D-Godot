@@ -1,487 +1,487 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
-  <VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d" LoadingPic="GETPSYCHEDPIC">
-    <Sizes Chunk="0" StartPics="3" NumPics="123" StartFont="1" NumFont="2" BitmapFonts="1" />
-    <Font Number="0" Chunk="1" Name="Small" />
-    <Font Number="1" Chunk="2" Name="Large" />
-    <Pic Number="0" Chunk="3" Name="H_TOPWINDOWPIC" />
-    <Pic Number="1" Chunk="4" Name="H_LEFTWINDOWPIC" />
-    <Pic Number="2" Chunk="5" Name="H_RIGHTWINDOWPIC" />
-    <Pic Number="3" Chunk="6" Name="H_BOTTOMINFOPIC" />
-    <Pic Number="4" Chunk="7" Name="C_OPTIONSPIC" />
-    <Pic Number="5" Chunk="8" Name="C_CURSOR1PIC" />
-    <Pic Number="6" Chunk="9" Name="C_CURSOR2PIC" />
-    <Pic Number="7" Chunk="10" Name="C_NOTSELECTEDPIC" />
-    <Pic Number="8" Chunk="11" Name="C_SELECTEDPIC" />
-    <Pic Number="9" Chunk="12" Name="C_FXTITLEPIC" />
-    <Pic Number="10" Chunk="13" Name="C_DIGITITLEPIC" />
-    <Pic Number="11" Chunk="14" Name="C_MUSICTITLEPIC" />
-    <Pic Number="12" Chunk="15" Name="C_MOUSELBACKPIC" />
-    <Pic Number="13" Chunk="16" Name="C_DISKLOADING1PIC" />
-    <Pic Number="14" Chunk="17" Name="C_DISKLOADING2PIC" />
-    <Pic Number="15" Chunk="18" Name="C_DISKLOADING3PIC" />
-    <Pic Number="16" Chunk="19" Name="C_DISKLOADING4PIC" />
-    <Pic Number="17" Chunk="20" Name="C_CONTROLPIC" />
-    <Pic Number="18" Chunk="21" Name="C_BABYMODEPIC" />
-    <Pic Number="19" Chunk="22" Name="C_EASYPIC" />
-    <Pic Number="20" Chunk="23" Name="C_NORMALPIC" />
-    <Pic Number="21" Chunk="24" Name="C_HARDPIC" />
-    <Pic Number="22" Chunk="25" Name="C_CUSTOMIZEPIC" />
-    <Pic Number="23" Chunk="26" Name="C_LOADGAMEPIC" />
-    <Pic Number="24" Chunk="27" Name="C_SAVEGAMEPIC" />
-    <Pic Number="25" Chunk="28" Name="C_EPISODE1PIC" />
-    <Pic Number="26" Chunk="29" Name="C_EPISODE2PIC" />
-    <Pic Number="27" Chunk="30" Name="C_EPISODE3PIC" />
-    <Pic Number="28" Chunk="31" Name="C_EPISODE4PIC" />
-    <Pic Number="29" Chunk="32" Name="C_EPISODE5PIC" />
-    <Pic Number="30" Chunk="33" Name="C_EPISODE6PIC" />
-    <Pic Number="31" Chunk="34" Name="C_LEVELPIC" />
-    <Pic Number="32" Chunk="35" Name="C_NAMEPIC" />
-    <Pic Number="33" Chunk="36" Name="C_SCOREPIC" />
-    <Pic Number="34" Chunk="37" Name="C_JOY1PIC" />
-    <Pic Number="35" Chunk="38" Name="C_JOY2PIC" />
-    <Pic Number="36" Chunk="39" Name="L_GUYPIC" />
-    <Pic Number="37" Chunk="40" Name="L_GUY2PIC" />
-    <Pic Number="38" Chunk="41" Name="L_BJWINSPIC" />
-    <Pic Number="39" Chunk="42" BitmapFont="0" Character=":" Name="L_COLONPIC" />
-    <Pic Number="40" Chunk="43" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
-    <Pic Number="41" Chunk="44" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
-    <Pic Number="42" Chunk="45" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
-    <Pic Number="43" Chunk="46" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
-    <Pic Number="44" Chunk="47" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
-    <Pic Number="45" Chunk="48" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
-    <Pic Number="46" Chunk="49" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
-    <Pic Number="47" Chunk="50" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
-    <Pic Number="48" Chunk="51" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
-    <Pic Number="49" Chunk="52" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
-    <Pic Number="50" Chunk="53" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
-    <Pic Number="51" Chunk="54" BitmapFont="0" Character="-" Name="L_MINUSPIC" />
-    <Pic Number="52" Chunk="55" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
-    <Pic Number="53" Chunk="56" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
-    <Pic Number="54" Chunk="57" Name="Y_NUM0PIC" />
-    <Pic Number="55" Chunk="58" Name="Y_NUM1PIC" />
-    <Pic Number="56" Chunk="59" Name="Y_NUM2PIC" />
-    <Pic Number="57" Chunk="60" Name="Y_NUM3PIC" />
-    <Pic Number="58" Chunk="61" Name="Y_NUM4PIC" />
-    <Pic Number="59" Chunk="62" Name="Y_NUM5PIC" />
-    <Pic Number="60" Chunk="63" Name="Y_NUM6PIC" />
-    <Pic Number="61" Chunk="64" Name="Y_NUM7PIC" />
-    <Pic Number="62" Chunk="65" Name="Y_NUM8PIC" />
-    <Pic Number="63" Chunk="66" Name="Y_NUM9PIC" />
-    <Pic Number="64" Chunk="67" Name="W_BONUSPIC" />
-    <Pic Number="65" Chunk="68" Name="W_PERFECTPIC" />
-    <Pic Number="66" Chunk="69" Name="W_RATINGPIC" />
-    <Pic Number="67" Chunk="70" Name="W_LEVELPIC" />
-    <Pic Number="68" Chunk="71" Name="W_FLOORPIC" />
-    <Pic Number="69" Chunk="72" Name="W_FINISHPIC" />
-    <Pic Number="70" Chunk="73" Name="W_KILLSPIC" />
-    <Pic Number="71" Chunk="74" Name="W_TREASURESPIC" />
-    <Pic Number="72" Chunk="75" Name="W_SECRETSPIC" />
-    <Pic Number="73" Chunk="76" Name="W_TIMEPIC" />
-    <Pic Number="74" Chunk="77" Name="W_PARPIC" />
-    <Pic Number="75" Chunk="78" Name="W_SECRETPIC" />
-    <Pic Number="76" Chunk="79" Name="STATUSBARPIC" />
-    <Pic Number="77" Chunk="80" Name="TITLEPIC" Palette="1" />
-    <Pic Number="78" Chunk="81" Name="FAMILYAPIC" Palette="1" />
-    <Pic Number="79" Chunk="82" Name="COPYRIGHTPIC" Palette="1" />
-    <Pic Number="80" Chunk="83" Name="HIGHSCORESPIC" />
-    <Pic Number="81" Chunk="84" Name="NOKEYPIC" />
-    <Pic Number="82" Chunk="85" Name="GOLDKEYPIC" />
-    <Pic Number="83" Chunk="86" Name="SILVERKEYPIC" />
-    <Pic Number="84" Chunk="87" Name="N_BLANKPIC" />
-    <Pic Number="85" Chunk="88" Name="N_0PIC" />
-    <Pic Number="86" Chunk="89" Name="N_1PIC" />
-    <Pic Number="87" Chunk="90" Name="N_2PIC" />
-    <Pic Number="88" Chunk="91" Name="N_3PIC" />
-    <Pic Number="89" Chunk="92" Name="N_4PIC" />
-    <Pic Number="90" Chunk="93" Name="N_5PIC" />
-    <Pic Number="91" Chunk="94" Name="N_6PIC" />
-    <Pic Number="92" Chunk="95" Name="N_7PIC" />
-    <Pic Number="93" Chunk="96" Name="N_8PIC" />
-    <Pic Number="94" Chunk="97" Name="N_9PIC" />
-    <Pic Number="95" Chunk="98" Name="FACE1APIC" />
-    <Pic Number="96" Chunk="99" Name="FACE1BPIC" />
-    <Pic Number="97" Chunk="100" Name="FACE1CPIC" />
-    <Pic Number="98" Chunk="101" Name="FACE2APIC" />
-    <Pic Number="99" Chunk="102" Name="FACE2BPIC" />
-    <Pic Number="100" Chunk="103" Name="FACE2CPIC" />
-    <Pic Number="101" Chunk="104" Name="FACE3APIC" />
-    <Pic Number="102" Chunk="105" Name="FACE3BPIC" />
-    <Pic Number="103" Chunk="106" Name="FACE3CPIC" />
-    <Pic Number="104" Chunk="107" Name="FACE4APIC" />
-    <Pic Number="105" Chunk="108" Name="FACE4BPIC" />
-    <Pic Number="106" Chunk="109" Name="FACE4CPIC" />
-    <Pic Number="107" Chunk="110" Name="FACE5APIC" />
-    <Pic Number="108" Chunk="111" Name="FACE5BPIC" />
-    <Pic Number="109" Chunk="112" Name="FACE5CPIC" />
-    <Pic Number="110" Chunk="113" Name="FACE6APIC" />
-    <Pic Number="111" Chunk="114" Name="FACE6BPIC" />
-    <Pic Number="112" Chunk="115" Name="FACE6CPIC" />
-    <Pic Number="113" Chunk="116" Name="FACE7APIC" />
-    <Pic Number="114" Chunk="117" Name="FACE7BPIC" />
-    <Pic Number="115" Chunk="118" Name="FACE7CPIC" />
-    <Pic Number="116" Chunk="119" Name="FACE8APIC" />
-    <Pic Number="117" Chunk="120" Name="GODMODEFACE1PIC" />
-    <Pic Number="118" Chunk="121" Name="GODMODEFACE2PIC" />
-    <Pic Number="119" Chunk="122" Name="GODMODEFACE3PIC" />
-    <Pic Number="120" Chunk="123" Name="GOTGATLINGPIC" />
-    <Pic Number="121" Chunk="124" Name="PAUSEDPIC" />
-    <Pic Number="122" Chunk="125" Name="GETPSYCHEDPIC" />
-    <Pic Number="123" Chunk="128" Name="ORDERSCREEN" />
-    <Pic Number="124" Chunk="129" Name="ERRORSCREEN" />
-    <Pic Number="125" Chunk="130" Name="T_HELPART" />
-    <Pic Number="126" Chunk="131" Name="T_DEMO0" />
-    <Pic Number="127" Chunk="132" Name="T_DEMO1" />
-    <Pic Number="128" Chunk="133" Name="T_DEMO2" />
-    <Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1">
-      <!-- Classic game end strings -->
-      <EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
-      <EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>
-      <EndString>Are a few hungry animals&#10;too tough for you?&#10;Press Y to Quit.</EndString>
-      <EndString>Giving up so soon?&#10;Press Y to Quit.</EndString>
-      <EndString>Be sure to take your&#10;umbrella, it's wet out there.&#10;Press Y to Quit.</EndString>
-      <EndString>You're going to let&#10;those animals run free?&#10;Press Y to Quit.</EndString>
-      <EndString>Did the animals wear&#10;you out?&#10;Press Y to Quit.</EndString>
-      <EndString>Are you monkeying around or&#10;do you really want to quit?&#10;Press Y to Quit.</EndString>
-      <EndString>The animals might get&#10;hungry if you're gone&#10;too long!&#10;Press Y to Quit.</EndString>
-      <!-- Additional end strings I made up just for fun -->
-      <EndString>For Evolution, press Y.&#10;For more Intelligent&#10;Design, press N.</EndString>
-      <EndString>Press N to feed more&#10;hungry animals.&#10;Press Y to let them&#10;STARVE!</EndString>
-      <EndString>What was your Flood plan?&#10;Press N for Ark.&#10;Press Y for umbrella.</EndString>
-      <EndString>You know the food&#10;Noah throws is&#10;drugged, right?&#10;Press N to keep&#10;playing or Y to&#10;Just Say No.</EndString>
-      <EndString>Flood almost over?&#10;Press N for more rain.&#10;Press Y to find the&#10;Rainbow Connection.</EndString>
-      <EndString>Press N to calm down&#10;more goats or Y to&#10;let them eat your&#10;sandals.</EndString>
-      <Menu Name="Title" Font="1" Song="NOAH02_MUS" >
-        <Image Name="TITLEPIC" X="center" Y="center" />
-        <MenuItems>
-          <MenuItem Action="Menu" Argument="Main" />
-        </MenuItems>
-      </Menu>
-      <Menu Name="Main" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
-        <Image Name="C_OPTIONSPIC" X="center" Y="0" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <PixelRect X="68" Y="52" Width="179" Height="130" Color="221" BordColor="219" Bord2Color="215" />
-        <MenuItems StartX="72" StartY="56" PaddingX="28">
-          <MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
-          <MenuItem Text="Sound" Action="Menu" Argument="Sound" />
-          <MenuItem Text="Control" Action="Menu" Argument="Control" />
-          <MenuItem Text="Load Game" Action="Load" />
-          <MenuItem Text="Save Game" InGame="true" Action="Save" />
-          <MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
-          <MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
-          <MenuItem Text="Back to Game" InGame="true" Action="Resume" />
-          <MenuItem Text="Quit" Action="Quit" />
-        </MenuItems>
-        <Cancel InGame="false" Action="Quit" />
-        <Cancel InGame="true" Action="Resume" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
-      </Menu>
-      <Menu Name="Episodes" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
-        <PixelRect X="6" Y="19" Width="309" Height="165" Color="221" BordColor="219" Bord2Color="215" />
-        <Text String="Which episode to play?" X="center" Y="3" Color="15" />
-        <Image Name="C_EPISODE1PIC" X="40" Y="22" />
-        <Image Name="C_EPISODE2PIC" X="40" Y="49" />
-        <Image Name="C_EPISODE3PIC" X="40" Y="76" />
-        <Image Name="C_EPISODE4PIC" X="40" Y="103" />
-        <Image Name="C_EPISODE5PIC" X="40" Y="130" />
-        <Image Name="C_EPISODE6PIC" X="40" Y="157" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
-          <MenuItem Text="Carl the Camel&#10;Start at level 1-1" Episode="1" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Ginny the Giraffe&#10;Start at level 2-1" Episode="2" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Melvin the Monkey&#10;Start at level 3-1" Episode="3" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Kerry the Kangaroo&#10;Start at level 4-1" Episode="4" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Ernie the Elephant&#10;Start at level 5-1" Episode="5" Action="Menu" Argument="Difficulty" />
-          <MenuItem Text="Burt the Bear&#10;Start at level 6-1" Episode="6" Action="Menu" Argument="Difficulty" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Main" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
-      </Menu>
-      <Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" Song="NOAH01_MUS" >
-        <PixelRect X="45" Y="90" Width="245" Height="67" Color="221" BordColor="219" Bord2Color="215" />
-        <Text String="How tough are you?" X="center" Y="69" Color="15" />
-        <Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-        <Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
-        <MenuItems StartX="51" StartY="101" PaddingX="28">
-          <MenuItem Text="Super Easy" Difficulty="1" Action="NewGame" />
-          <MenuItem Text="Easy" Difficulty="2" Action="NewGame" />
-          <MenuItem Text="Normal" Difficulty="3" Action="NewGame" />
-          <MenuItem Text="Hard" Difficulty="4" Action="NewGame" />
-        </MenuItems>
-        <Cancel Action="Menu" Argument="Episodes" />
-        <Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
-      </Menu>
-    </Menus>
-    <StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-      <Number Name="Difficulty" Init="1" />
-      <Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
-      <Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
-      <Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
-      <Number Name="Lives" X="126" Y="16" Digits="2" Init="3" Max="9" />
-      <Face X="152" Y="4" />
-      <Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
-      <Number Name="Feed" X="240" Y="16" Digits="2" Init="7" Max="299" />
-      <Number Name="Yellow Key" X="256" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-      <Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-      <Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
-    </StatusBar>
-  </VgaGraph>
-  <Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
-    <!-- e1 -->
-    <Map Number="0" Episode="1" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="00:30" Song="NOAH01_MUS" />
-    <Map Number="1" Episode="1" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:00" Song="NOAH02_MUS" />
-    <Map Number="2" Episode="1" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:00" Song="NOAH07_MUS" />
-    <!-- e2 -->
-    <Map Number="3" Episode="2" Floor="1" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:00" Song="NOAH03_MUS" />
-    <Map Number="4" Episode="2" Floor="2" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:45" Song="NOAH01_MUS" />
-    <Map Number="5" Episode="2" Floor="3" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:30" Song="NOAH02_MUS" />
-    <Map Number="6" Episode="2" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:45" Song="NOAH07_MUS" />
-    <!-- e3 -->
-    <Map Number="7" Episode="3" Floor="1" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:45" Song="NOAH04_MUS" />
-    <Map Number="8" Episode="3" Floor="2" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:00" Song="NOAH03_MUS" />
-    <Map Number="9" Episode="3" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:15" Song="NOAH01_MUS" />
-    <Map Number="10" Episode="3" Floor="4" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:00" Song="NOAH07_MUS" />
-    <Map Number="11" Episode="3" Floor="5" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:00" Song="NOAH09_MUS" />
-    <!-- e4 -->
-    <Map Number="12" Episode="4" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:30" Song="NOAH06_MUS" />
-    <Map Number="13" Episode="4" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" Song="NOAH04_MUS" />
-    <Map Number="14" Episode="4" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="04:00" Song="NOAH02_MUS" />
-    <Map Number="15" Episode="4" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:15" Song="NOAH03_MUS" />
-    <Map Number="16" Episode="4" Floor="5" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:30" Song="NOAH07_MUS" />
-    <!-- e5 -->
-    <Map Number="17" Episode="5" Floor="1" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:30" Song="NOAH08_MUS" />
-    <Map Number="18" Episode="5" Floor="2" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:45" Song="NOAH01_MUS" />
-    <Map Number="19" Episode="5" Floor="3" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:00" Song="NOAH06_MUS" />
-    <Map Number="20" Episode="5" Floor="4" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:30" Song="NOAH04_MUS" />
-    <Map Number="21" Episode="5" Floor="5" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:00" Song="NOAH10_MUS" />
-    <Map Number="22" Episode="5" Floor="6" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" Song="NOAH07_MUS" />
-    <!-- e6 -->
-    <Map Number="23" Episode="6" Floor="1" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:45" Song="NOAH11_MUS" />
-    <Map Number="24" Episode="6" Floor="2" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:00" Song="NOAH02_MUS" />
-    <Map Number="25" Episode="6" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:00" Song="NOAH03_MUS" />
-    <Map Number="26" Episode="6" Floor="4" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:30" Song="NOAH08_MUS" />
-    <Map Number="27" Episode="6" Floor="5" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:30" Song="NOAH06_MUS" />
-    <Map Number="28" Episode="6" Floor="6" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:11" Song="NOAH07_MUS" />
-    <Map Number="29" Episode="6" Floor="7" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:30" Song="NOAH09_MUS" />
-    <Map Number="30" Episode="6" Floor="8" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Song="NOAH02_MUS" />
-  </Maps>
-  <Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
-    <Sound Number="0" Name="D_ANTLPESND" />
-    <Sound Number="1" Name="D_BEARSND" />
-    <Sound Number="2" Name="D_BONUSSND" />
-    <Sound Number="3" Name="D_CAMELSND" />
-    <Sound Number="4" Name="D_CLOSDRSND" />
-    <Sound Number="5" Name="D_COCHITSND" />
-    <Sound Number="6" Name="D_COCTHRSND" />
-    <Sound Number="7" Name="D_DBITESND" />
-    <Sound Number="8" Name="D_EATSND" />
-    <Sound Number="9" Name="D_EDIESND" />
-    <Sound Number="10" Name="D_ELPHNTSND" />
-    <Sound Number="11" Name="D_EXTRASND" />
-    <Sound Number="12" Name="D_GATLINSND" />
-    <Sound Number="13" Name="D_GIRAFESND" />
-    <Sound Number="14" Name="D_GOATSND" />
-    <Sound Number="15" Name="D_GUNSHTSND" />
-    <Sound Number="16" Name="D_INCSND" />
-    <Sound Number="17" Name="D_KANGROSND" />
-    <Sound Number="18" Name="D_KEYSND" />
-    <Sound Number="19" Name="D_KNIFESND" />
-    <Sound Number="20" Name="D_MONKEYSND" />
-    <Sound Number="21" Name="D_MSTEPSND" />
-    <Sound Number="22" Name="D_OPENDRSND" />
-    <Sound Number="23" Name="D_OSTRCHSND" />
-    <Sound Number="24" Name="D_OXSND" />
-    <Sound Number="25" Name="D_PAINSND" />
-    <Sound Number="26" Name="D_PDIESND" />
-    <Sound Number="27" Name="NOBONUSSND" />
-    <Sound Number="28" Name="D_PWALLSND" />
-    <Sound Number="29" Name="D_SHEEPSND" />
-    <Sound Number="30" Name="D_SLING2SND" />
-    <Sound Number="31" Name="D_SPITSND" />
-    <Sound Number="32" Name="D_WATHITSND" />
-    <Sound Number="33" Name="D_WATTHRSND" />
-    <Sound Number="34" Name="NOWAYSND" />
-    <Sound Number="35" Name="ESCPRESSEDSND" />
-    <Sound Number="36" Name="MOVEGUN1SND" />
-    <Sound Number="37" Name="MOVEGUN2SND" />
-    <Sound Number="38" Name="HITWALLSND" />
-    <Sound Number="39" Name="SHOOTSND" />
-    <Sound Number="40" Name="SHOOTDOORSND" />
-    <Sound Number="41" Name="PERCENT100SND" />
-    <Sound Number="42" Name="ENDBONUS1SND" />
-    <Sound Number="43" Name="ENDBONUS2SND" />
-    <MIDI Number="0" Name="NOAH01_MUS" />
-    <MIDI Number="1" Name="NOAH02_MUS" />
-    <MIDI Number="2" Name="NOAH03_MUS" />
-    <MIDI Number="3" Name="NOAH04_MUS" />
-    <MIDI Number="4" Name="NOAH05_MUS" />
-    <MIDI Number="5" Name="NOAH06_MUS" />
-    <MIDI Number="6" Name="NOAH07_MUS" />
-    <MIDI Number="7" Name="NOAH08_MUS" />
-    <MIDI Number="8" Name="NOAH09_MUS" />
-    <MIDI Number="9" Name="NOAH10_MUS" />
-    <MIDI Number="10" Name="NOAH11_MUS" />
-  </Audio>
-  <VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
-    <Walls FloorCodeFirst="108" FloorCodeLast="143">
-      <Wall Number="1" Page="0" DarkSide="1" Name="Wood wall 1" />
-      <Wall Number="2" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
-      <Wall Number="3" Page="4" DarkSide="5" Name="Yellow curtain" />
-      <Wall Number="4" Page="6" DarkSide="7" Name="Monkey portrait" />
-      <Wall Number="5" Page="8" DarkSide="9" Name="Log wall" />
-      <Wall Number="6" Page="10" DarkSide="11" Name="Noah portrait" />
-      <Wall Number="7" Page="12" DarkSide="13" Name="Red curtain" />
-      <Wall Number="8" Page="14" DarkSide="15" Name="Duck portrait" />
-      <Wall Number="9" Page="16" DarkSide="17" Name="Silvery with wood" />
-      <Wall Number="10" Page="18" DarkSide="19" Name="Broken wooden kennel" />
-      <Wall Number="11" Page="20" DarkSide="21" Name="Silvery wall" />
-      <Wall Number="12" Page="22" DarkSide="23" Name="Broken kennel" />
-      <Wall Number="13" Page="24" DarkSide="25" Name="Wooden panel" />
-      <Wall Number="14" Page="26" DarkSide="27" Name="Large cabinet" />
-      <Elevator Number="15" Page="28" DarkSide="29" Direction="W" Action="NextFloor" Name="EW=Stairs/NS=Brick" />
-      <Wall Number="16" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
-      <Wall Number="17" Page="32" DarkSide="33" Name="Entry panel" />
-      <Wall Number="18" Page="34" DarkSide="35" Name="Naamah portrait" />
-      <Wall Number="19" Page="36" DarkSide="37" Name="Checkered wall 1" />
-      <Wall Number="20" Page="38" DarkSide="39" Name="Checkered w pennant" />
-      <Wall Number="21" Page="40" DarkSide="41" Name="Grey brick wall" />
-      <Wall Number="22" Page="42" DarkSide="43" Name="Blue curtain" />
-      <Wall Number="23" Page="44" DarkSide="45" Name="Light wood panel" />
-      <Wall Number="24" Page="46" DarkSide="47" Name="Chalkboard" />
-      <Wall Number="25" Page="48" DarkSide="49" Name="Yellow wall" />
-      <Wall Number="26" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
-      <Wall Number="27" Page="52" DarkSide="53" Name="Red wall" />
-      <Wall Number="28" Page="54" DarkSide="55" Name="Small cabinets" />
-      <Wall Number="29" Page="56" DarkSide="57" Name="Purple wall" />
-      <Wall Number="30" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
-      <Wall Number="31" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
-      <Wall Number="33" Page="0" DarkSide="1" Name="Wood wall 1" />
-      <Wall Number="34" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
-      <Wall Number="35" Page="4" DarkSide="5" Name="Yellow curtain" />
-      <Wall Number="36" Page="6" DarkSide="7" Name="Monkey portrait" />
-      <Wall Number="37" Page="8" DarkSide="9" Name="Log wall" />
-      <Wall Number="38" Page="10" DarkSide="11" Name="Noah portrait" />
-      <Wall Number="39" Page="12" DarkSide="13" Name="Red curtain" />
-      <Wall Number="40" Page="14" DarkSide="15" Name="Duck portrait" />
-      <Wall Number="41" Page="16" DarkSide="17" Name="Silvery with wood" />
-      <Wall Number="42" Page="18" DarkSide="19" Name="Broken wooden kennel" />
-      <Wall Number="43" Page="20" DarkSide="21" Name="Silvery wall" />
-      <Wall Number="44" Page="22" DarkSide="23" Name="Broken kennel" />
-      <Wall Number="45" Page="24" DarkSide="25" Name="Wooden panel" />
-      <Wall Number="46" Page="26" DarkSide="27" Name="Large cabinet" />
-      <Elevator Number="47" Page="28" DarkSide="29" Direction="W" Action="NextFloor"  Name="EW=Stairs/NS=Brick" />
-      <Wall Number="48" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
-      <Wall Number="49" Page="32" DarkSide="33" Name="Entry panel" />
-      <Wall Number="50" Page="34" DarkSide="35" Name="Naamah portrait" />
-      <Wall Number="51" Page="36" DarkSide="37" Name="Checkered wall 1" />
-      <Wall Number="52" Page="38" DarkSide="39" Name="Checkered w pennant" />
-      <Wall Number="53" Page="40" DarkSide="41" Name="Grey brick wall" />
-      <Wall Number="54" Page="42" DarkSide="43" Name="Blue curtain" />
-      <Wall Number="55" Page="44" DarkSide="45" Name="Light wood panel" />
-      <Wall Number="56" Page="46" DarkSide="47" Name="Chalkboard" />
-      <Wall Number="57" Page="48" DarkSide="49" Name="Yellow wall" />
-      <Wall Number="58" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
-      <Wall Number="59" Page="52" DarkSide="53" Name="Red wall" />
-      <Wall Number="60" Page="54" DarkSide="55" Name="Small cabinets" />
-      <Wall Number="61" Page="56" DarkSide="57" Name="Purple wall" />
-      <Wall Number="62" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
-      <Wall Number="63" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
-      <DoorFrame Page="62" DarkSide="62" />
-      <Wall Number="65" Page="0" DarkSide="1" Name="Wood wall 1" />
-      <Wall Number="66" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
-      <Wall Number="67" Page="4" DarkSide="5" Name="Yellow curtain" />
-      <Wall Number="68" Page="6" DarkSide="7" Name="Monkey portrait" />
-      <Wall Number="69" Page="8" DarkSide="9" Name="Log wall" />
-      <Wall Number="70" Page="10" DarkSide="11" Name="Noah portrait" />
-      <Wall Number="71" Page="12" DarkSide="13" Name="Red curtain" />
-      <Wall Number="72" Page="14" DarkSide="15" Name="Duck portrait" />
-      <Wall Number="73" Page="16" DarkSide="17" Name="Silvery with wood" />
-      <Wall Number="74" Page="18" DarkSide="19" Name="Broken wooden kennel" />
-      <Wall Number="75" Page="20" DarkSide="21" Name="Silvery wall" />
-      <Wall Number="76" Page="22" DarkSide="23" Name="Broken kennel" />
-      <Wall Number="77" Page="24" DarkSide="25" Name="Wooden panel" />
-      <Wall Number="78" Page="26" DarkSide="27" Name="Large cabinet" />
-      <Elevator Number="79" Page="28" DarkSide="29" Direction="W" Action="NextFloor" Name="EW=Stairs/NS=Brick" />
-      <Wall Number="80" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
-      <Wall Number="81" Page="32" DarkSide="33" Name="Entry panel" />
-      <Wall Number="82" Page="34" DarkSide="35" Name="Naamah portrait" />
-      <Wall Number="83" Page="36" DarkSide="37" Name="Checkered wall 1" />
-      <Wall Number="84" Page="38" DarkSide="39" Name="Checkered w pennant" />
-      <Wall Number="85" Page="40" DarkSide="41" Name="Grey brick wall" />
-      <Wall Number="86" Page="42" DarkSide="43" Name="Blue curtain" />
-      <Wall Number="87" Page="44" DarkSide="45" Name="Light wood panel" />
-      <Wall Number="88" Page="46" DarkSide="47" Name="Chalkboard" />
-      <Wall Number="89" Page="56" DarkSide="57" Name="Map background/Fake: NS=Str/EW=Lock" />
-      <Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
-      <Wall Number="98" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
-      <Wall Number="99" Page="4" DarkSide="5" Name="Yellow curtain" />
-      <Wall Number="100" Page="6" DarkSide="7" Name="Monkey portrait" />
-      <Wall Number="101" Page="8" DarkSide="9" Name="Log wall" />
-      <Wall Number="102" Page="10" DarkSide="11" Name="Noah portrait" />
-      <Wall Number="103" Page="12" DarkSide="13" Name="Red curtain" />
-      <Wall Number="104" Page="14" DarkSide="15" Name="Duck portrait" />
-      <Wall Number="105" Page="16" DarkSide="17" Name="Silvery with wood" />
-      <Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
-      <Ambush Number="107" Name="Passive animal floor" />
-    </Walls>
-    <Tile Page="63" Name="Ground" />
-    <Tile Page="64" Name="Ceiling" />
-    <Sprite Page="71" Name="Demo" />
-    <Objects>
-      <Start Number="19" Direction="E" Name="Start" />
-      <Start Number="20" Direction="N" Name="Start" />
-      <Start Number="21" Direction="W" Name="Start" />
-      <Start Number="22" Direction="S" Name="Start" />
-      <Billboard Number="23" Page="72" Walk="true" Name="Water puddle 1" />
-      <Billboard Number="24" Page="73" Name="Water bucket" />
-      <Billboard Number="25" Page="74" Name="Table" />
-      <Billboard Number="26" Page="75" Name="Barrel" />
-      <Billboard Number="27" Page="76" Walk="true" Name="Debris" />
-      <Billboard Number="28" Page="77" Walk="true" Name="Question scroll -- maybe?" />
-      <Billboard Number="29" Page="78" Name="Feed bucket" />
-      <Billboard Number="30" Page="79" Name="Column 1" />
-      <Billboard Number="31" Page="80" Name="Slender column" />
-      <Billboard Number="32" Page="81" Name="Bird cage" />
-      <Billboard Number="33" Page="82" Name="Water pitcher" />
-      <Billboard Number="34" Page="83" Walk="true" Name="Water puddle 2" />
-      <Billboard Number="35" Page="84" Walk="true" Name="Overhead post" />
-      <Billboard Number="36" Page="85" Walk="true" Name="Chandelier" />
-      <Billboard Number="37" Page="86" Name="Water trough" />
-      <Billboard Number="38" Page="87" Name="Candle" />
-      <Pickup Number="39" Page="88" AddTo="Yellow Key" Add="1" DigiSound="D_KEYSND" Sound="D_KEYSND" Name="Yellow Key" />
-      <Pickup Number="40" Page="89" AddTo="Blue Key" Add="1" DigiSound="D_KEYSND" Sound="D_KEYSND" Name="Blue Key" />
-      <Pickup Number="41" Page="90" AddTo="Feed" Add="6" Name="Feed carrying bag" />
-      <Pickup Number="42" Page="91" If="Feed" AddTo="Feed" Add="5" Name="Feed trough" />
-      <Pickup Number="43" Page="92" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Name="Small band-aid" />
-      <Pickup Number="44" Page="93" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH1SND" Name="Large band-aid" />
-      <Pickup Number="45" Page="94" If="Feed" AddTo="Feed" Add="5" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Name="Feed" />
-      <Billboard Number="46" Page="95" Walk="true" Name="Slingshot 2" />
-      <Billboard Number="47" Page="96" Walk="true" Name="Slingshot 3" />
-      <Pickup Number="48" Page="97" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Name="Banana" />
-      <Pickup Number="49" Page="98" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Name="Red apple" />
-      <Pickup Number="50" Page="99" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Name="Grapes" />
-      <Pickup Number="51" Page="100" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Name="Peach" />
-      <Billboard Number="52" Page="101" Walk="true" Name="One Up/Extra Life" />
-      <Billboard Number="53" Page="102" Name="Cage" />
-      <Billboard Number="54" Page="103" Name="Column 2" />
-      <Billboard Number="55" Page="104" Walk="true" Name="Slingshot 4" />
-      <Billboard Number="56" Page="105" Walk="true" Name="Cantaloupe" />
-      <Billboard Number="57" Page="106" Walk="true" Name="Slingshot 5" />
-      <Billboard Number="58" Page="107" Walk="true" Name="Watermelons" />
-      <Billboard Number="59" Page="108" Walk="true" Name="Map" />
-      <Pushwall Number="98" DigiSound="D_PWALLSND" RepeatDigiSound="8" Name="Secret Door" />
-      <!-- 99 is "Secret Door Path" -->
-      <Pickup Number="100" Action="NextFloor" Name="Next level trigger" />
-      <Override Number="101" Floor="10" Name="Elevator to Secret Floor" />
-      <Pickup Number="101" Action="NextFloor" Name="Secret level trigger" />
-      <!--
+	<VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d" LoadingPic="GETPSYCHEDPIC">
+		<Sizes Chunk="0" StartPics="3" NumPics="123" StartFont="1" NumFont="2" BitmapFonts="1" />
+		<Font Number="0" Chunk="1" Name="Small" />
+		<Font Number="1" Chunk="2" Name="Large" />
+		<Pic Number="0" Chunk="3" Name="H_TOPWINDOWPIC" />
+		<Pic Number="1" Chunk="4" Name="H_LEFTWINDOWPIC" />
+		<Pic Number="2" Chunk="5" Name="H_RIGHTWINDOWPIC" />
+		<Pic Number="3" Chunk="6" Name="H_BOTTOMINFOPIC" />
+		<Pic Number="4" Chunk="7" Name="C_OPTIONSPIC" />
+		<Pic Number="5" Chunk="8" Name="C_CURSOR1PIC" />
+		<Pic Number="6" Chunk="9" Name="C_CURSOR2PIC" />
+		<Pic Number="7" Chunk="10" Name="C_NOTSELECTEDPIC" />
+		<Pic Number="8" Chunk="11" Name="C_SELECTEDPIC" />
+		<Pic Number="9" Chunk="12" Name="C_FXTITLEPIC" />
+		<Pic Number="10" Chunk="13" Name="C_DIGITITLEPIC" />
+		<Pic Number="11" Chunk="14" Name="C_MUSICTITLEPIC" />
+		<Pic Number="12" Chunk="15" Name="C_MOUSELBACKPIC" />
+		<Pic Number="13" Chunk="16" Name="C_DISKLOADING1PIC" />
+		<Pic Number="14" Chunk="17" Name="C_DISKLOADING2PIC" />
+		<Pic Number="15" Chunk="18" Name="C_DISKLOADING3PIC" />
+		<Pic Number="16" Chunk="19" Name="C_DISKLOADING4PIC" />
+		<Pic Number="17" Chunk="20" Name="C_CONTROLPIC" />
+		<Pic Number="18" Chunk="21" Name="C_BABYMODEPIC" />
+		<Pic Number="19" Chunk="22" Name="C_EASYPIC" />
+		<Pic Number="20" Chunk="23" Name="C_NORMALPIC" />
+		<Pic Number="21" Chunk="24" Name="C_HARDPIC" />
+		<Pic Number="22" Chunk="25" Name="C_CUSTOMIZEPIC" />
+		<Pic Number="23" Chunk="26" Name="C_LOADGAMEPIC" />
+		<Pic Number="24" Chunk="27" Name="C_SAVEGAMEPIC" />
+		<Pic Number="25" Chunk="28" Name="C_EPISODE1PIC" />
+		<Pic Number="26" Chunk="29" Name="C_EPISODE2PIC" />
+		<Pic Number="27" Chunk="30" Name="C_EPISODE3PIC" />
+		<Pic Number="28" Chunk="31" Name="C_EPISODE4PIC" />
+		<Pic Number="29" Chunk="32" Name="C_EPISODE5PIC" />
+		<Pic Number="30" Chunk="33" Name="C_EPISODE6PIC" />
+		<Pic Number="31" Chunk="34" Name="C_LEVELPIC" />
+		<Pic Number="32" Chunk="35" Name="C_NAMEPIC" />
+		<Pic Number="33" Chunk="36" Name="C_SCOREPIC" />
+		<Pic Number="34" Chunk="37" Name="C_JOY1PIC" />
+		<Pic Number="35" Chunk="38" Name="C_JOY2PIC" />
+		<Pic Number="36" Chunk="39" Name="L_GUYPIC" />
+		<Pic Number="37" Chunk="40" Name="L_GUY2PIC" />
+		<Pic Number="38" Chunk="41" Name="L_BJWINSPIC" />
+		<Pic Number="39" Chunk="42" BitmapFont="0" Character=":" Name="L_COLONPIC" />
+		<Pic Number="40" Chunk="43" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
+		<Pic Number="41" Chunk="44" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
+		<Pic Number="42" Chunk="45" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
+		<Pic Number="43" Chunk="46" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
+		<Pic Number="44" Chunk="47" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
+		<Pic Number="45" Chunk="48" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
+		<Pic Number="46" Chunk="49" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
+		<Pic Number="47" Chunk="50" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
+		<Pic Number="48" Chunk="51" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
+		<Pic Number="49" Chunk="52" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
+		<Pic Number="50" Chunk="53" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
+		<Pic Number="51" Chunk="54" BitmapFont="0" Character="-" Name="L_MINUSPIC" />
+		<Pic Number="52" Chunk="55" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
+		<Pic Number="53" Chunk="56" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
+		<Pic Number="54" Chunk="57" Name="Y_NUM0PIC" />
+		<Pic Number="55" Chunk="58" Name="Y_NUM1PIC" />
+		<Pic Number="56" Chunk="59" Name="Y_NUM2PIC" />
+		<Pic Number="57" Chunk="60" Name="Y_NUM3PIC" />
+		<Pic Number="58" Chunk="61" Name="Y_NUM4PIC" />
+		<Pic Number="59" Chunk="62" Name="Y_NUM5PIC" />
+		<Pic Number="60" Chunk="63" Name="Y_NUM6PIC" />
+		<Pic Number="61" Chunk="64" Name="Y_NUM7PIC" />
+		<Pic Number="62" Chunk="65" Name="Y_NUM8PIC" />
+		<Pic Number="63" Chunk="66" Name="Y_NUM9PIC" />
+		<Pic Number="64" Chunk="67" Name="W_BONUSPIC" />
+		<Pic Number="65" Chunk="68" Name="W_PERFECTPIC" />
+		<Pic Number="66" Chunk="69" Name="W_RATINGPIC" />
+		<Pic Number="67" Chunk="70" Name="W_LEVELPIC" />
+		<Pic Number="68" Chunk="71" Name="W_FLOORPIC" />
+		<Pic Number="69" Chunk="72" Name="W_FINISHPIC" />
+		<Pic Number="70" Chunk="73" Name="W_KILLSPIC" />
+		<Pic Number="71" Chunk="74" Name="W_TREASURESPIC" />
+		<Pic Number="72" Chunk="75" Name="W_SECRETSPIC" />
+		<Pic Number="73" Chunk="76" Name="W_TIMEPIC" />
+		<Pic Number="74" Chunk="77" Name="W_PARPIC" />
+		<Pic Number="75" Chunk="78" Name="W_SECRETPIC" />
+		<Pic Number="76" Chunk="79" Name="STATUSBARPIC" />
+		<Pic Number="77" Chunk="80" Name="TITLEPIC" Palette="1" />
+		<Pic Number="78" Chunk="81" Name="FAMILYAPIC" Palette="1" />
+		<Pic Number="79" Chunk="82" Name="COPYRIGHTPIC" Palette="1" />
+		<Pic Number="80" Chunk="83" Name="HIGHSCORESPIC" />
+		<Pic Number="81" Chunk="84" Name="NOKEYPIC" />
+		<Pic Number="82" Chunk="85" Name="GOLDKEYPIC" />
+		<Pic Number="83" Chunk="86" Name="SILVERKEYPIC" />
+		<Pic Number="84" Chunk="87" Name="N_BLANKPIC" />
+		<Pic Number="85" Chunk="88" Name="N_0PIC" />
+		<Pic Number="86" Chunk="89" Name="N_1PIC" />
+		<Pic Number="87" Chunk="90" Name="N_2PIC" />
+		<Pic Number="88" Chunk="91" Name="N_3PIC" />
+		<Pic Number="89" Chunk="92" Name="N_4PIC" />
+		<Pic Number="90" Chunk="93" Name="N_5PIC" />
+		<Pic Number="91" Chunk="94" Name="N_6PIC" />
+		<Pic Number="92" Chunk="95" Name="N_7PIC" />
+		<Pic Number="93" Chunk="96" Name="N_8PIC" />
+		<Pic Number="94" Chunk="97" Name="N_9PIC" />
+		<Pic Number="95" Chunk="98" Name="FACE1APIC" />
+		<Pic Number="96" Chunk="99" Name="FACE1BPIC" />
+		<Pic Number="97" Chunk="100" Name="FACE1CPIC" />
+		<Pic Number="98" Chunk="101" Name="FACE2APIC" />
+		<Pic Number="99" Chunk="102" Name="FACE2BPIC" />
+		<Pic Number="100" Chunk="103" Name="FACE2CPIC" />
+		<Pic Number="101" Chunk="104" Name="FACE3APIC" />
+		<Pic Number="102" Chunk="105" Name="FACE3BPIC" />
+		<Pic Number="103" Chunk="106" Name="FACE3CPIC" />
+		<Pic Number="104" Chunk="107" Name="FACE4APIC" />
+		<Pic Number="105" Chunk="108" Name="FACE4BPIC" />
+		<Pic Number="106" Chunk="109" Name="FACE4CPIC" />
+		<Pic Number="107" Chunk="110" Name="FACE5APIC" />
+		<Pic Number="108" Chunk="111" Name="FACE5BPIC" />
+		<Pic Number="109" Chunk="112" Name="FACE5CPIC" />
+		<Pic Number="110" Chunk="113" Name="FACE6APIC" />
+		<Pic Number="111" Chunk="114" Name="FACE6BPIC" />
+		<Pic Number="112" Chunk="115" Name="FACE6CPIC" />
+		<Pic Number="113" Chunk="116" Name="FACE7APIC" />
+		<Pic Number="114" Chunk="117" Name="FACE7BPIC" />
+		<Pic Number="115" Chunk="118" Name="FACE7CPIC" />
+		<Pic Number="116" Chunk="119" Name="FACE8APIC" />
+		<Pic Number="117" Chunk="120" Name="GODMODEFACE1PIC" />
+		<Pic Number="118" Chunk="121" Name="GODMODEFACE2PIC" />
+		<Pic Number="119" Chunk="122" Name="GODMODEFACE3PIC" />
+		<Pic Number="120" Chunk="123" Name="GOTGATLINGPIC" />
+		<Pic Number="121" Chunk="124" Name="PAUSEDPIC" />
+		<Pic Number="122" Chunk="125" Name="GETPSYCHEDPIC" />
+		<Pic Number="123" Chunk="128" Name="ORDERSCREEN" />
+		<Pic Number="124" Chunk="129" Name="ERRORSCREEN" />
+		<Pic Number="125" Chunk="130" Name="T_HELPART" />
+		<Pic Number="126" Chunk="131" Name="T_DEMO0" />
+		<Pic Number="127" Chunk="132" Name="T_DEMO1" />
+		<Pic Number="128" Chunk="133" Name="T_DEMO2" />
+		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1">
+			<!-- Classic game end strings -->
+			<EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
+			<EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>
+			<EndString>Are a few hungry animals&#10;too tough for you?&#10;Press Y to Quit.</EndString>
+			<EndString>Giving up so soon?&#10;Press Y to Quit.</EndString>
+			<EndString>Be sure to take your&#10;umbrella, it's wet out there.&#10;Press Y to Quit.</EndString>
+			<EndString>You're going to let&#10;those animals run free?&#10;Press Y to Quit.</EndString>
+			<EndString>Did the animals wear&#10;you out?&#10;Press Y to Quit.</EndString>
+			<EndString>Are you monkeying around or&#10;do you really want to quit?&#10;Press Y to Quit.</EndString>
+			<EndString>The animals might get&#10;hungry if you're gone&#10;too long!&#10;Press Y to Quit.</EndString>
+			<!-- Additional end strings I made up just for fun -->
+			<EndString>For Evolution, press Y.&#10;For more Intelligent&#10;Design, press N.</EndString>
+			<EndString>Press N to feed more&#10;hungry animals.&#10;Press Y to let them&#10;STARVE!</EndString>
+			<EndString>What was your Flood plan?&#10;Press N for Ark.&#10;Press Y for umbrella.</EndString>
+			<EndString>You know the food&#10;Noah throws is&#10;drugged, right?&#10;Press N to keep&#10;playing or Y to&#10;Just Say No.</EndString>
+			<EndString>Flood almost over?&#10;Press N for more rain.&#10;Press Y to find the&#10;Rainbow Connection.</EndString>
+			<EndString>Press N to calm down&#10;more goats or Y to&#10;let them eat your&#10;sandals.</EndString>
+			<Menu Name="Title" Font="1" Song="NOAH02_MUS" >
+				<Image Name="TITLEPIC" X="center" Y="center" />
+				<MenuItems>
+					<MenuItem Action="Menu" Argument="Main" />
+				</MenuItems>
+			</Menu>
+			<Menu Name="Main" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
+				<Image Name="C_OPTIONSPIC" X="center" Y="0" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<PixelRect X="68" Y="52" Width="179" Height="130" Color="221" BordColor="219" Bord2Color="215" />
+				<MenuItems StartX="72" StartY="56" PaddingX="28">
+					<MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
+					<MenuItem Text="Sound" Action="Menu" Argument="Sound" />
+					<MenuItem Text="Control" Action="Menu" Argument="Control" />
+					<MenuItem Text="Load Game" Action="Load" />
+					<MenuItem Text="Save Game" InGame="true" Action="Save" />
+					<MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
+					<MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
+					<MenuItem Text="Back to Game" InGame="true" Action="Resume" />
+					<MenuItem Text="Quit" Action="Quit" />
+				</MenuItems>
+				<Cancel InGame="false" Action="Quit" />
+				<Cancel InGame="true" Action="Resume" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+			</Menu>
+			<Menu Name="Episodes" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
+				<PixelRect X="6" Y="19" Width="309" Height="165" Color="221" BordColor="219" Bord2Color="215" />
+				<Text String="Which episode to play?" X="center" Y="3" Color="15" />
+				<Image Name="C_EPISODE1PIC" X="40" Y="22" />
+				<Image Name="C_EPISODE2PIC" X="40" Y="49" />
+				<Image Name="C_EPISODE3PIC" X="40" Y="76" />
+				<Image Name="C_EPISODE4PIC" X="40" Y="103" />
+				<Image Name="C_EPISODE5PIC" X="40" Y="130" />
+				<Image Name="C_EPISODE6PIC" X="40" Y="157" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
+					<MenuItem Text="Carl the Camel&#10;Start at level 1-1" Episode="1" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Ginny the Giraffe&#10;Start at level 2-1" Episode="2" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Melvin the Monkey&#10;Start at level 3-1" Episode="3" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Kerry the Kangaroo&#10;Start at level 4-1" Episode="4" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Ernie the Elephant&#10;Start at level 5-1" Episode="5" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Burt the Bear&#10;Start at level 6-1" Episode="6" Action="Menu" Argument="Difficulty" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
+			</Menu>
+			<Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" Song="NOAH01_MUS" >
+				<PixelRect X="45" Y="90" Width="245" Height="67" Color="221" BordColor="219" Bord2Color="215" />
+				<Text String="How tough are you?" X="center" Y="69" Color="15" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
+				<MenuItems StartX="51" StartY="101" PaddingX="28">
+					<MenuItem Text="Super Easy" Difficulty="1" Action="NewGame" />
+					<MenuItem Text="Easy" Difficulty="2" Action="NewGame" />
+					<MenuItem Text="Normal" Difficulty="3" Action="NewGame" />
+					<MenuItem Text="Hard" Difficulty="4" Action="NewGame" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Episodes" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+			</Menu>
+		</Menus>
+		<StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+			<Number Name="Difficulty" Init="1" />
+			<Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
+			<Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
+			<Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
+			<Number Name="Lives" X="126" Y="16" Digits="2" Init="3" Max="9" />
+			<Face X="152" Y="4" />
+			<Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
+			<Number Name="Feed" X="240" Y="16" Digits="2" Init="7" Max="299" />
+			<Number Name="Yellow Key" X="256" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
+		</StatusBar>
+	</VgaGraph>
+	<Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
+		<!-- e1 -->
+		<Map Number="0" Episode="1" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="00:30" Song="NOAH01_MUS" />
+		<Map Number="1" Episode="1" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:00" Song="NOAH02_MUS" />
+		<Map Number="2" Episode="1" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:00" Song="NOAH07_MUS" />
+		<!-- e2 -->
+		<Map Number="3" Episode="2" Floor="1" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:00" Song="NOAH03_MUS" />
+		<Map Number="4" Episode="2" Floor="2" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:45" Song="NOAH01_MUS" />
+		<Map Number="5" Episode="2" Floor="3" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:30" Song="NOAH02_MUS" />
+		<Map Number="6" Episode="2" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="01:45" Song="NOAH07_MUS" />
+		<!-- e3 -->
+		<Map Number="7" Episode="3" Floor="1" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:45" Song="NOAH04_MUS" />
+		<Map Number="8" Episode="3" Floor="2" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:00" Song="NOAH03_MUS" />
+		<Map Number="9" Episode="3" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:15" Song="NOAH01_MUS" />
+		<Map Number="10" Episode="3" Floor="4" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="01:00" Song="NOAH07_MUS" />
+		<Map Number="11" Episode="3" Floor="5" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:00" Song="NOAH09_MUS" />
+		<!-- e4 -->
+		<Map Number="12" Episode="4" Floor="1" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:30" Song="NOAH06_MUS" />
+		<Map Number="13" Episode="4" Floor="2" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:30" Song="NOAH04_MUS" />
+		<Map Number="14" Episode="4" Floor="3" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="04:00" Song="NOAH02_MUS" />
+		<Map Number="15" Episode="4" Floor="4" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="02:15" Song="NOAH03_MUS" />
+		<Map Number="16" Episode="4" Floor="5" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:30" Song="NOAH07_MUS" />
+		<!-- e5 -->
+		<Map Number="17" Episode="5" Floor="1" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:30" Song="NOAH08_MUS" />
+		<Map Number="18" Episode="5" Floor="2" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="02:45" Song="NOAH01_MUS" />
+		<Map Number="19" Episode="5" Floor="3" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:00" Song="NOAH06_MUS" />
+		<Map Number="20" Episode="5" Floor="4" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:30" Song="NOAH04_MUS" />
+		<Map Number="21" Episode="5" Floor="5" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:00" Song="NOAH10_MUS" />
+		<Map Number="22" Episode="5" Floor="6" Ground="212" GroundTile="63" Ceiling="220" CeilingTile="64" Border="218" Par="03:00" Song="NOAH07_MUS" />
+		<!-- e6 -->
+		<Map Number="23" Episode="6" Floor="1" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:45" Song="NOAH11_MUS" />
+		<Map Number="24" Episode="6" Floor="2" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:00" Song="NOAH02_MUS" />
+		<Map Number="25" Episode="6" Floor="3" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="03:00" Song="NOAH03_MUS" />
+		<Map Number="26" Episode="6" Floor="4" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="01:30" Song="NOAH08_MUS" />
+		<Map Number="27" Episode="6" Floor="5" Ground="212" GroundTile="67" Ceiling="220" CeilingTile="68" Border="218" Par="02:30" Song="NOAH06_MUS" />
+		<Map Number="28" Episode="6" Floor="6" Ground="212" GroundTile="65" Ceiling="220" CeilingTile="66" Border="218" Par="03:11" Song="NOAH07_MUS" />
+		<Map Number="29" Episode="6" Floor="7" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:30" Song="NOAH09_MUS" />
+		<Map Number="30" Episode="6" Floor="8" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Song="NOAH02_MUS" />
+	</Maps>
+	<Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
+		<Sound Number="0" Name="D_ANTLPESND" />
+		<Sound Number="1" Name="D_BEARSND" />
+		<Sound Number="2" Name="D_BONUSSND" />
+		<Sound Number="3" Name="D_CAMELSND" />
+		<Sound Number="4" Name="D_CLOSDRSND" />
+		<Sound Number="5" Name="D_COCHITSND" />
+		<Sound Number="6" Name="D_COCTHRSND" />
+		<Sound Number="7" Name="D_DBITESND" />
+		<Sound Number="8" Name="D_EATSND" />
+		<Sound Number="9" Name="D_EDIESND" />
+		<Sound Number="10" Name="D_ELPHNTSND" />
+		<Sound Number="11" Name="D_EXTRASND" />
+		<Sound Number="12" Name="D_GATLINSND" />
+		<Sound Number="13" Name="D_GIRAFESND" />
+		<Sound Number="14" Name="D_GOATSND" />
+		<Sound Number="15" Name="D_GUNSHTSND" />
+		<Sound Number="16" Name="D_INCSND" />
+		<Sound Number="17" Name="D_KANGROSND" />
+		<Sound Number="18" Name="D_KEYSND" />
+		<Sound Number="19" Name="D_KNIFESND" />
+		<Sound Number="20" Name="D_MONKEYSND" />
+		<Sound Number="21" Name="D_MSTEPSND" />
+		<Sound Number="22" Name="D_OPENDRSND" />
+		<Sound Number="23" Name="D_OSTRCHSND" />
+		<Sound Number="24" Name="D_OXSND" />
+		<Sound Number="25" Name="D_PAINSND" />
+		<Sound Number="26" Name="D_PDIESND" />
+		<Sound Number="27" Name="NOBONUSSND" />
+		<Sound Number="28" Name="D_PWALLSND" />
+		<Sound Number="29" Name="D_SHEEPSND" />
+		<Sound Number="30" Name="D_SLING2SND" />
+		<Sound Number="31" Name="D_SPITSND" />
+		<Sound Number="32" Name="D_WATHITSND" />
+		<Sound Number="33" Name="D_WATTHRSND" />
+		<Sound Number="34" Name="NOWAYSND" />
+		<Sound Number="35" Name="ESCPRESSEDSND" />
+		<Sound Number="36" Name="MOVEGUN1SND" />
+		<Sound Number="37" Name="MOVEGUN2SND" />
+		<Sound Number="38" Name="HITWALLSND" />
+		<Sound Number="39" Name="SHOOTSND" />
+		<Sound Number="40" Name="SHOOTDOORSND" />
+		<Sound Number="41" Name="PERCENT100SND" />
+		<Sound Number="42" Name="ENDBONUS1SND" />
+		<Sound Number="43" Name="ENDBONUS2SND" />
+		<MIDI Number="0" Name="NOAH01_MUS" />
+		<MIDI Number="1" Name="NOAH02_MUS" />
+		<MIDI Number="2" Name="NOAH03_MUS" />
+		<MIDI Number="3" Name="NOAH04_MUS" />
+		<MIDI Number="4" Name="NOAH05_MUS" />
+		<MIDI Number="5" Name="NOAH06_MUS" />
+		<MIDI Number="6" Name="NOAH07_MUS" />
+		<MIDI Number="7" Name="NOAH08_MUS" />
+		<MIDI Number="8" Name="NOAH09_MUS" />
+		<MIDI Number="9" Name="NOAH10_MUS" />
+		<MIDI Number="10" Name="NOAH11_MUS" />
+	</Audio>
+	<VSwap Name="vswap.n3d" Sqrt="64" Scale="8" MipMaps="true">
+		<Walls FloorCodeFirst="108" FloorCodeLast="143">
+			<Wall Number="1" Page="0" DarkSide="1" Name="Wood wall 1" />
+			<Wall Number="2" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+			<Wall Number="3" Page="4" DarkSide="5" Name="Yellow curtain" />
+			<Wall Number="4" Page="6" DarkSide="7" Name="Monkey portrait" />
+			<Wall Number="5" Page="8" DarkSide="9" Name="Log wall" />
+			<Wall Number="6" Page="10" DarkSide="11" Name="Noah portrait" />
+			<Wall Number="7" Page="12" DarkSide="13" Name="Red curtain" />
+			<Wall Number="8" Page="14" DarkSide="15" Name="Duck portrait" />
+			<Wall Number="9" Page="16" DarkSide="17" Name="Silvery with wood" />
+			<Wall Number="10" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+			<Wall Number="11" Page="20" DarkSide="21" Name="Silvery wall" />
+			<Wall Number="12" Page="22" DarkSide="23" Name="Broken kennel" />
+			<Wall Number="13" Page="24" DarkSide="25" Name="Wooden panel" />
+			<Wall Number="14" Page="26" DarkSide="27" Name="Large cabinet" />
+			<Elevator Number="15" Page="28" DarkSide="29" Direction="W" Action="NextFloor" Name="EW=Stairs/NS=Brick" />
+			<Wall Number="16" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+			<Wall Number="17" Page="32" DarkSide="33" Name="Entry panel" />
+			<Wall Number="18" Page="34" DarkSide="35" Name="Naamah portrait" />
+			<Wall Number="19" Page="36" DarkSide="37" Name="Checkered wall 1" />
+			<Wall Number="20" Page="38" DarkSide="39" Name="Checkered w pennant" />
+			<Wall Number="21" Page="40" DarkSide="41" Name="Grey brick wall" />
+			<Wall Number="22" Page="42" DarkSide="43" Name="Blue curtain" />
+			<Wall Number="23" Page="44" DarkSide="45" Name="Light wood panel" />
+			<Wall Number="24" Page="46" DarkSide="47" Name="Chalkboard" />
+			<Wall Number="25" Page="48" DarkSide="49" Name="Yellow wall" />
+			<Wall Number="26" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
+			<Wall Number="27" Page="52" DarkSide="53" Name="Red wall" />
+			<Wall Number="28" Page="54" DarkSide="55" Name="Small cabinets" />
+			<Wall Number="29" Page="56" DarkSide="57" Name="Purple wall" />
+			<Wall Number="30" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
+			<Wall Number="31" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
+			<Wall Number="33" Page="0" DarkSide="1" Name="Wood wall 1" />
+			<Wall Number="34" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+			<Wall Number="35" Page="4" DarkSide="5" Name="Yellow curtain" />
+			<Wall Number="36" Page="6" DarkSide="7" Name="Monkey portrait" />
+			<Wall Number="37" Page="8" DarkSide="9" Name="Log wall" />
+			<Wall Number="38" Page="10" DarkSide="11" Name="Noah portrait" />
+			<Wall Number="39" Page="12" DarkSide="13" Name="Red curtain" />
+			<Wall Number="40" Page="14" DarkSide="15" Name="Duck portrait" />
+			<Wall Number="41" Page="16" DarkSide="17" Name="Silvery with wood" />
+			<Wall Number="42" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+			<Wall Number="43" Page="20" DarkSide="21" Name="Silvery wall" />
+			<Wall Number="44" Page="22" DarkSide="23" Name="Broken kennel" />
+			<Wall Number="45" Page="24" DarkSide="25" Name="Wooden panel" />
+			<Wall Number="46" Page="26" DarkSide="27" Name="Large cabinet" />
+			<Elevator Number="47" Page="28" DarkSide="29" Direction="W" Action="NextFloor"  Name="EW=Stairs/NS=Brick" />
+			<Wall Number="48" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+			<Wall Number="49" Page="32" DarkSide="33" Name="Entry panel" />
+			<Wall Number="50" Page="34" DarkSide="35" Name="Naamah portrait" />
+			<Wall Number="51" Page="36" DarkSide="37" Name="Checkered wall 1" />
+			<Wall Number="52" Page="38" DarkSide="39" Name="Checkered w pennant" />
+			<Wall Number="53" Page="40" DarkSide="41" Name="Grey brick wall" />
+			<Wall Number="54" Page="42" DarkSide="43" Name="Blue curtain" />
+			<Wall Number="55" Page="44" DarkSide="45" Name="Light wood panel" />
+			<Wall Number="56" Page="46" DarkSide="47" Name="Chalkboard" />
+			<Wall Number="57" Page="48" DarkSide="49" Name="Yellow wall" />
+			<Wall Number="58" Page="50" DarkSide="51" Name="Fruit shelf cabinet" />
+			<Wall Number="59" Page="52" DarkSide="53" Name="Red wall" />
+			<Wall Number="60" Page="54" DarkSide="55" Name="Small cabinets" />
+			<Wall Number="61" Page="56" DarkSide="57" Name="Purple wall" />
+			<Wall Number="62" Page="58" DarkSide="59" Name="Fake: NS=Lk/EW=Unlok" />
+			<Wall Number="63" Page="60" DarkSide="61" Name="Fake: NS=Str/EW=Lock" />
+			<DoorFrame Page="62" DarkSide="62" />
+			<Wall Number="65" Page="0" DarkSide="1" Name="Wood wall 1" />
+			<Wall Number="66" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+			<Wall Number="67" Page="4" DarkSide="5" Name="Yellow curtain" />
+			<Wall Number="68" Page="6" DarkSide="7" Name="Monkey portrait" />
+			<Wall Number="69" Page="8" DarkSide="9" Name="Log wall" />
+			<Wall Number="70" Page="10" DarkSide="11" Name="Noah portrait" />
+			<Wall Number="71" Page="12" DarkSide="13" Name="Red curtain" />
+			<Wall Number="72" Page="14" DarkSide="15" Name="Duck portrait" />
+			<Wall Number="73" Page="16" DarkSide="17" Name="Silvery with wood" />
+			<Wall Number="74" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+			<Wall Number="75" Page="20" DarkSide="21" Name="Silvery wall" />
+			<Wall Number="76" Page="22" DarkSide="23" Name="Broken kennel" />
+			<Wall Number="77" Page="24" DarkSide="25" Name="Wooden panel" />
+			<Wall Number="78" Page="26" DarkSide="27" Name="Large cabinet" />
+			<Elevator Number="79" Page="28" DarkSide="29" Direction="W" Action="NextFloor" Name="EW=Stairs/NS=Brick" />
+			<Wall Number="80" Page="30" DarkSide="31" Name="Outside: NS=Dy/EW=Nt" />
+			<Wall Number="81" Page="32" DarkSide="33" Name="Entry panel" />
+			<Wall Number="82" Page="34" DarkSide="35" Name="Naamah portrait" />
+			<Wall Number="83" Page="36" DarkSide="37" Name="Checkered wall 1" />
+			<Wall Number="84" Page="38" DarkSide="39" Name="Checkered w pennant" />
+			<Wall Number="85" Page="40" DarkSide="41" Name="Grey brick wall" />
+			<Wall Number="86" Page="42" DarkSide="43" Name="Blue curtain" />
+			<Wall Number="87" Page="44" DarkSide="45" Name="Light wood panel" />
+			<Wall Number="88" Page="46" DarkSide="47" Name="Chalkboard" />
+			<Wall Number="89" Page="56" DarkSide="57" Name="Map background/Fake: NS=Str/EW=Lock" />
+			<Door Number="90" Page="58" Name="Unlocked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="91" Page="58" Name="Unlocked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="92" Page="59" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="93" Page="59" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="94" Page="60" Name="Locked door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="95" Page="60" Name="Locked door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="96" Page="61" Name="Stairway door-E/W" Direction="W" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Door Number="97" Page="61" Name="Stairway door-N/S" Direction="S" OpenDigiSound="D_OPENDRSND" CloseDigiSound="D_CLOSDRSND" />
+			<Wall Number="98" Page="2" DarkSide="3" Name="Wood wall 2 mossy" />
+			<Wall Number="99" Page="4" DarkSide="5" Name="Yellow curtain" />
+			<Wall Number="100" Page="6" DarkSide="7" Name="Monkey portrait" />
+			<Wall Number="101" Page="8" DarkSide="9" Name="Log wall" />
+			<Wall Number="102" Page="10" DarkSide="11" Name="Noah portrait" />
+			<Wall Number="103" Page="12" DarkSide="13" Name="Red curtain" />
+			<Wall Number="104" Page="14" DarkSide="15" Name="Duck portrait" />
+			<Wall Number="105" Page="16" DarkSide="17" Name="Silvery with wood" />
+			<Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
+			<Ambush Number="107" Name="Passive animal floor" />
+		</Walls>
+		<Tile Page="63" Name="Ground" />
+		<Tile Page="64" Name="Ceiling" />
+		<Sprite Page="71" Name="Demo" />
+		<Objects>
+			<Start Number="19" Direction="E" Name="Start" />
+			<Start Number="20" Direction="N" Name="Start" />
+			<Start Number="21" Direction="W" Name="Start" />
+			<Start Number="22" Direction="S" Name="Start" />
+			<Billboard Number="23" Page="72" Walk="true" Name="Water puddle 1" />
+			<Billboard Number="24" Page="73" Name="Water bucket" />
+			<Billboard Number="25" Page="74" Name="Table" />
+			<Billboard Number="26" Page="75" Name="Barrel" />
+			<Billboard Number="27" Page="76" Walk="true" Name="Debris" />
+			<Billboard Number="28" Page="77" Walk="true" Name="Question scroll -- maybe?" />
+			<Billboard Number="29" Page="78" Name="Feed bucket" />
+			<Billboard Number="30" Page="79" Name="Column 1" />
+			<Billboard Number="31" Page="80" Name="Slender column" />
+			<Billboard Number="32" Page="81" Name="Bird cage" />
+			<Billboard Number="33" Page="82" Name="Water pitcher" />
+			<Billboard Number="34" Page="83" Walk="true" Name="Water puddle 2" />
+			<Billboard Number="35" Page="84" Walk="true" Name="Overhead post" />
+			<Billboard Number="36" Page="85" Walk="true" Name="Chandelier" />
+			<Billboard Number="37" Page="86" Name="Water trough" />
+			<Billboard Number="38" Page="87" Name="Candle" />
+			<Pickup Number="39" Page="88" AddTo="Yellow Key" Add="1" DigiSound="D_KEYSND" Sound="D_KEYSND" Flash="#FFFF00" Name="Yellow Key" />
+			<Pickup Number="40" Page="89" AddTo="Blue Key" Add="1" DigiSound="D_KEYSND" Sound="D_KEYSND" Flash="#FFFF00" Name="Blue Key" />
+			<Pickup Number="41" Page="90" AddTo="Feed" Add="6" Name="Feed carrying bag" />
+			<Pickup Number="42" Page="91" If="Feed" AddTo="Feed" Add="5" Flash="#FFFF00" Name="Feed trough" />
+			<Pickup Number="43" Page="92" If="Health" LessThan="100" AddTo="Health" Add="10" Sound="HEALTH1SND" Flash="#FFFF00" Name="Small band-aid" />
+			<Pickup Number="44" Page="93" If="Health" LessThan="100" AddTo="Health" Add="25" Sound="HEALTH1SND" Flash="#FFFF00" Name="Large band-aid" />
+			<Pickup Number="45" Page="94" If="Feed" AddTo="Feed" Add="5" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Flash="#FFFF00" Name="Feed" />
+			<Billboard Number="46" Page="95" Walk="true" Flash="#FFFF00" Name="Slingshot 2" />
+			<Billboard Number="47" Page="96" Walk="true" Flash="#FFFF00" Name="Slingshot 3" />
+			<Pickup Number="48" Page="97" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Flash="#FFFF00" Name="Banana" />
+			<Pickup Number="49" Page="98" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Flash="#FFFF00" Name="Red apple" />
+			<Pickup Number="50" Page="99" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Flash="#FFFF00" Name="Grapes" />
+			<Pickup Number="51" Page="100" AddTo="Fruit" Add="1" DigiSound="D_BONUSSND" Sound="D_BONUSSND" Flash="#FFFF00" Name="Peach" />
+			<Billboard Number="52" Page="101" Walk="true" Flash="#FFFF00" Name="One Up/Extra Life" />
+			<Billboard Number="53" Page="102" Name="Cage" />
+			<Billboard Number="54" Page="103" Name="Column 2" />
+			<Billboard Number="55" Page="104" Walk="true" Name="Slingshot 4" />
+			<Billboard Number="56" Page="105" Walk="true" Name="Cantaloupe" />
+			<Billboard Number="57" Page="106" Walk="true" Name="Slingshot 5" />
+			<Billboard Number="58" Page="107" Walk="true" Name="Watermelons" />
+			<Billboard Number="59" Page="108" Walk="true" Name="Map" />
+			<Pushwall Number="98" DigiSound="D_PWALLSND" RepeatDigiSound="8" Name="Secret Door" />
+			<!-- 99 is "Secret Door Path" -->
+			<Pickup Number="100" Action="NextFloor" Name="Next level trigger" />
+			<Override Number="101" Floor="10" Name="Elevator to Secret Floor" />
+			<Pickup Number="101" Action="NextFloor" Name="Secret level trigger" />
+			<!--
 108=10,158,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
 109=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
 110=10,241,000C00000C0C000C000C00CCCCC00C000C00C000C00C000C0,Antelope
@@ -499,562 +499,562 @@
 131=B1,322,00000000E000E000EEE000EEEEE000EEE000E000E00000000,Boss: Carl Camel
 134=B1,343,0000000030003000333000333330003330003000300000000,Boss: Kerry Kangaroo
 135=B1,366,0000000070007000777000777770007770007000700000000,Boss: Ernie Elephant  
-    -->
-    </Objects>
-    <DigiSound Number="0" Name="D_ANTLPESND" />
-    <DigiSound Number="1" Name="D_BEARSND" />
-    <DigiSound Number="2" Name="D_BONUSSND" />
-    <DigiSound Number="3" Name="D_CAMELSND" />
-    <DigiSound Number="4" Name="D_CLOSDRSND" />
-    <DigiSound Number="5" Name="D_COCHITSND" />
-    <DigiSound Number="6" Name="D_COCTHRSND" />
-    <DigiSound Number="7" Name="D_DBITESND" />
-    <DigiSound Number="8" Name="D_EATSND" />
-    <DigiSound Number="9" Name="D_EDIESND" />
-    <DigiSound Number="10" Name="D_ELPHNTSND" />
-    <DigiSound Number="11" Name="D_EXTRASND" />
-    <DigiSound Number="12" Name="D_GATLINSND" />
-    <DigiSound Number="13" Name="D_GIRAFESND" />
-    <DigiSound Number="14" Name="D_GOATSND" />
-    <DigiSound Number="15" Name="D_GUNSHTSND" />
-    <DigiSound Number="16" Name="D_INCSND" />
-    <DigiSound Number="17" Name="D_KANGROSND" />
-    <DigiSound Number="18" Name="D_KEYSND" />
-    <DigiSound Number="19" Name="D_KNIFESND" />
-    <DigiSound Number="20" Name="D_MONKEYSND" />
-    <DigiSound Number="21" Name="D_MSTEPSND" />
-    <DigiSound Number="22" Name="D_OPENDRSND" />
-    <DigiSound Number="23" Name="D_OSTRCHSND" />
-    <DigiSound Number="24" Name="D_OXSND" />
-    <DigiSound Number="25" Name="D_PAINSND" />
-    <DigiSound Number="26" Name="D_PDIESND" />
-    <DigiSound Number="27" Name="D_PWALLSND" />
-    <DigiSound Number="28" Name="D_SHEEPSND" />
-    <DigiSound Number="29" Name="D_SLING2SND" />
-    <DigiSound Number="30" Name="D_SPITSND" />
-    <DigiSound Number="31" Name="D_WATHITSND" />
-    <DigiSound Number="32" Name="D_WATTHRSND" />
-  </VSwap>
-  <Palette>
-    JASC-PAL
-    0100
-    256
-    0 0 0
-    0 0 28
-    0 0 60
-    0 0 92
-    0 0 124
-    0 0 156
-    0 0 188
-    0 0 220
-    0 0 252
-    32 32 252
-    68 68 252
-    104 104 252
-    140 140 252
-    176 176 252
-    212 212 252
-    252 252 252
-    0 0 0
-    0 0 168
-    0 168 0
-    0 168 168
-    156 0 0
-    168 0 168
-    168 84 0
-    168 168 168
-    84 84 84
-    84 84 252
-    84 252 84
-    84 252 252
-    240 80 80
-    252 84 252
-    252 252 84
-    252 252 252
-    236 236 236
-    220 220 220
-    208 208 208
-    192 192 192
-    180 180 180
-    168 168 168
-    152 152 152
-    140 140 140
-    124 124 124
-    112 112 112
-    100 100 100
-    84 84 84
-    72 72 72
-    56 56 56
-    44 44 44
-    32 32 32
-    164 0 0
-    152 0 0
-    140 0 0
-    128 0 0
-    116 0 0
-    108 0 0
-    96 0 0
-    84 0 0
-    72 0 0
-    64 0 0
-    52 0 0
-    40 0 0
-    28 0 0
-    16 0 0
-    8 0 0
-    0 0 0
-    252 0 0
-    236 0 0
-    224 0 0
-    212 0 0
-    200 0 0
-    188 0 0
-    176 0 0
-    164 0 0
-    252 168 92
-    252 152 64
-    252 136 32
-    252 120 0
-    228 108 0
-    204 96 0
-    180 84 0
-    156 76 0
-    252 252 0
-    236 236 0
-    224 224 0
-    212 212 0
-    196 196 0
-    184 184 0
-    172 172 0
-    156 156 0
-    144 144 0
-    132 132 0
-    116 116 0
-    104 104 0
-    92 92 0
-    76 76 0
-    64 64 0
-    52 52 0
-    252 252 0
-    224 236 0
-    200 224 0
-    176 208 0
-    152 196 0
-    132 180 0
-    112 168 0
-    96 156 0
-    0 252 0
-    0 236 0
-    0 220 0
-    0 208 0
-    0 192 0
-    4 180 0
-    4 164 0
-    4 152 0
-    4 152 0
-    20 140 0
-    36 132 0
-    52 120 0
-    60 112 0
-    68 100 0
-    76 92 0
-    80 80 0
-    72 64 0
-    60 48 0
-    52 32 0
-    40 20 0
-    32 8 0
-    24 4 0
-    12 0 0
-    4 0 0
-    216 252 252
-    184 252 252
-    156 252 252
-    124 252 248
-    92 252 252
-    64 252 252
-    32 252 252
-    0 252 252
-    0 228 228
-    0 204 204
-    0 180 180
-    0 156 156
-    0 132 132
-    0 112 112
-    0 88 88
-    0 64 64
-    92 188 252
-    64 176 252
-    32 168 252
-    0 156 252
-    0 140 228
-    0 124 204
-    0 108 180
-    216 216 252
-    184 188 252
-    156 156 252
-    124 128 252
-    92 96 252
-    64 64 252
-    32 36 252
-    0 4 252
-    0 0 252
-    0 0 236
-    0 0 224
-    0 0 212
-    0 0 200
-    0 0 188
-    0 0 176
-    0 0 164
-    0 0 152
-    0 0 136
-    0 0 124
-    0 0 112
-    0 0 100
-    0 0 88
-    0 0 76
-    0 0 64
-    116 0 180
-    96 0 156
-    80 0 132
-    68 0 112
-    52 0 88
-    40 0 64
-    252 0 252
-    224 0 228
-    200 0 204
-    180 0 180
-    156 0 156
-    132 0 132
-    108 0 112
-    88 0 88
-    64 0 64
-    252 232 220
-    252 224 208
-    252 216 196
-    252 212 188
-    252 204 176
-    252 196 164
-    252 188 156
-    252 184 144
-    252 176 128
-    252 164 112
-    252 156 96
-    240 148 92
-    232 140 88
-    220 136 84
-    208 128 80
-    200 124 76
-    188 120 72
-    180 112 68
-    168 104 64
-    160 100 60
-    156 96 56
-    144 92 52
-    136 88 48
-    128 80 44
-    116 76 40
-    108 72 36
-    92 64 32
-    84 60 28
-    72 56 24
-    64 48 24
-    56 44 20
-    40 32 12
-    64 64 64
-    48 48 48
-    52 52 52
-    216 244 244
-    184 232 232
-    156 220 220
-    116 200 200
-    72 192 192
-    32 180 180
-    32 176 176
-    0 164 164
-    0 152 152
-    0 140 140
-    0 124 124
-    0 120 120
-    0 116 116
-    0 108 108
-    152 0 136
-    0 0 0
-    28 28 28
-    56 56 56
-    88 88 88
-    120 120 120
-    184 184 184
-    240 176 32
-    244 92 12
-    220 0 0
-    132 80 48
-    192 116 72
-    236 124 28
-    232 160 116
-    236 184 152
-    236 216 204
-    252 252 252
-  </Palette>
-  <Palette>
-    JASC-PAL
-    0100
-    256
-    0 0 0
-    0 0 0
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    240 0 0
-    0 0 0
-    92 92 92
-    156 156 156
-    252 252 252
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    0 0 0
-    232 232 232
-    252 252 204
-    252 204 204
-    204 204 204
-    204 204 204
-    152 204 204
-    152 204 152
-    100 204 152
-    100 152 152
-    148 148 148
-    152 152 152
-    152 152 100
-    204 124 72
-    204 100 48
-    204 100 0
-    188 76 0
-    176 72 0
-    152 48 0
-    152 100 0
-    100 100 0
-    48 100 0
-    48 140 0
-    48 152 0
-    100 152 0
-    100 152 48
-    100 100 48
-    100 100 100
-    100 100 100
-    100 48 100
-    100 48 48
-    100 48 0
-    100 0 0
-    100 0 48
-    72 0 72
-    48 0 48
-    0 0 48
-    0 0 0
-    0 0 0
-    0 0 0
-    0 0 0
-    0 48 0
-    0 100 0
-    0 48 48
-    48 48 48
-    48 48 100
-    48 0 100
-    0 0 100
-    48 48 152
-    48 100 152
-    0 100 204
-    0 152 252
-    0 204 252
-    100 204 252
-    204 100 152
-    204 100 100
-    228 148 96
-    204 152 48
-    204 152 0
-    200 200 0
-    252 152 0
-    252 204 48
-    252 204 100
-    252 252 100
-    252 252 48
-    252 252 0
-    252 252 152
-    252 152 152
-    152 100 48
-    152 48 48
-    152 0 48
-    204 0 48
-    252 0 48
-    252 0 0
-    252 48 0
-    204 48 0
-    204 0 0
-    100 0 100
-    252 252 252
-    0 0 204
-    48 152 48
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    92 188 252
-    64 176 252
-    32 168 252
-    0 156 252
-    0 140 228
-    0 124 204
-    0 108 180
-    88 180 228
-    36 76 0
-    40 128 40
-    36 116 0
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    164 0 164
-    0 140 0
-    28 28 28
-    56 56 56
-    88 88 88
-    120 120 120
-    184 184 184
-    240 176 32
-    244 92 12
-    248 0 0
-    132 80 48
-    192 116 72
-    236 124 28
-    232 160 116
-    236 184 152
-    236 216 204
-    252 252 252
-  </Palette>
+	-->
+		</Objects>
+		<DigiSound Number="0" Name="D_ANTLPESND" />
+		<DigiSound Number="1" Name="D_BEARSND" />
+		<DigiSound Number="2" Name="D_BONUSSND" />
+		<DigiSound Number="3" Name="D_CAMELSND" />
+		<DigiSound Number="4" Name="D_CLOSDRSND" />
+		<DigiSound Number="5" Name="D_COCHITSND" />
+		<DigiSound Number="6" Name="D_COCTHRSND" />
+		<DigiSound Number="7" Name="D_DBITESND" />
+		<DigiSound Number="8" Name="D_EATSND" />
+		<DigiSound Number="9" Name="D_EDIESND" />
+		<DigiSound Number="10" Name="D_ELPHNTSND" />
+		<DigiSound Number="11" Name="D_EXTRASND" />
+		<DigiSound Number="12" Name="D_GATLINSND" />
+		<DigiSound Number="13" Name="D_GIRAFESND" />
+		<DigiSound Number="14" Name="D_GOATSND" />
+		<DigiSound Number="15" Name="D_GUNSHTSND" />
+		<DigiSound Number="16" Name="D_INCSND" />
+		<DigiSound Number="17" Name="D_KANGROSND" />
+		<DigiSound Number="18" Name="D_KEYSND" />
+		<DigiSound Number="19" Name="D_KNIFESND" />
+		<DigiSound Number="20" Name="D_MONKEYSND" />
+		<DigiSound Number="21" Name="D_MSTEPSND" />
+		<DigiSound Number="22" Name="D_OPENDRSND" />
+		<DigiSound Number="23" Name="D_OSTRCHSND" />
+		<DigiSound Number="24" Name="D_OXSND" />
+		<DigiSound Number="25" Name="D_PAINSND" />
+		<DigiSound Number="26" Name="D_PDIESND" />
+		<DigiSound Number="27" Name="D_PWALLSND" />
+		<DigiSound Number="28" Name="D_SHEEPSND" />
+		<DigiSound Number="29" Name="D_SLING2SND" />
+		<DigiSound Number="30" Name="D_SPITSND" />
+		<DigiSound Number="31" Name="D_WATHITSND" />
+		<DigiSound Number="32" Name="D_WATTHRSND" />
+	</VSwap>
+	<Palette>
+		JASC-PAL
+		0100
+		256
+		0 0 0
+		0 0 28
+		0 0 60
+		0 0 92
+		0 0 124
+		0 0 156
+		0 0 188
+		0 0 220
+		0 0 252
+		32 32 252
+		68 68 252
+		104 104 252
+		140 140 252
+		176 176 252
+		212 212 252
+		252 252 252
+		0 0 0
+		0 0 168
+		0 168 0
+		0 168 168
+		156 0 0
+		168 0 168
+		168 84 0
+		168 168 168
+		84 84 84
+		84 84 252
+		84 252 84
+		84 252 252
+		240 80 80
+		252 84 252
+		252 252 84
+		252 252 252
+		236 236 236
+		220 220 220
+		208 208 208
+		192 192 192
+		180 180 180
+		168 168 168
+		152 152 152
+		140 140 140
+		124 124 124
+		112 112 112
+		100 100 100
+		84 84 84
+		72 72 72
+		56 56 56
+		44 44 44
+		32 32 32
+		164 0 0
+		152 0 0
+		140 0 0
+		128 0 0
+		116 0 0
+		108 0 0
+		96 0 0
+		84 0 0
+		72 0 0
+		64 0 0
+		52 0 0
+		40 0 0
+		28 0 0
+		16 0 0
+		8 0 0
+		0 0 0
+		252 0 0
+		236 0 0
+		224 0 0
+		212 0 0
+		200 0 0
+		188 0 0
+		176 0 0
+		164 0 0
+		252 168 92
+		252 152 64
+		252 136 32
+		252 120 0
+		228 108 0
+		204 96 0
+		180 84 0
+		156 76 0
+		252 252 0
+		236 236 0
+		224 224 0
+		212 212 0
+		196 196 0
+		184 184 0
+		172 172 0
+		156 156 0
+		144 144 0
+		132 132 0
+		116 116 0
+		104 104 0
+		92 92 0
+		76 76 0
+		64 64 0
+		52 52 0
+		252 252 0
+		224 236 0
+		200 224 0
+		176 208 0
+		152 196 0
+		132 180 0
+		112 168 0
+		96 156 0
+		0 252 0
+		0 236 0
+		0 220 0
+		0 208 0
+		0 192 0
+		4 180 0
+		4 164 0
+		4 152 0
+		4 152 0
+		20 140 0
+		36 132 0
+		52 120 0
+		60 112 0
+		68 100 0
+		76 92 0
+		80 80 0
+		72 64 0
+		60 48 0
+		52 32 0
+		40 20 0
+		32 8 0
+		24 4 0
+		12 0 0
+		4 0 0
+		216 252 252
+		184 252 252
+		156 252 252
+		124 252 248
+		92 252 252
+		64 252 252
+		32 252 252
+		0 252 252
+		0 228 228
+		0 204 204
+		0 180 180
+		0 156 156
+		0 132 132
+		0 112 112
+		0 88 88
+		0 64 64
+		92 188 252
+		64 176 252
+		32 168 252
+		0 156 252
+		0 140 228
+		0 124 204
+		0 108 180
+		216 216 252
+		184 188 252
+		156 156 252
+		124 128 252
+		92 96 252
+		64 64 252
+		32 36 252
+		0 4 252
+		0 0 252
+		0 0 236
+		0 0 224
+		0 0 212
+		0 0 200
+		0 0 188
+		0 0 176
+		0 0 164
+		0 0 152
+		0 0 136
+		0 0 124
+		0 0 112
+		0 0 100
+		0 0 88
+		0 0 76
+		0 0 64
+		116 0 180
+		96 0 156
+		80 0 132
+		68 0 112
+		52 0 88
+		40 0 64
+		252 0 252
+		224 0 228
+		200 0 204
+		180 0 180
+		156 0 156
+		132 0 132
+		108 0 112
+		88 0 88
+		64 0 64
+		252 232 220
+		252 224 208
+		252 216 196
+		252 212 188
+		252 204 176
+		252 196 164
+		252 188 156
+		252 184 144
+		252 176 128
+		252 164 112
+		252 156 96
+		240 148 92
+		232 140 88
+		220 136 84
+		208 128 80
+		200 124 76
+		188 120 72
+		180 112 68
+		168 104 64
+		160 100 60
+		156 96 56
+		144 92 52
+		136 88 48
+		128 80 44
+		116 76 40
+		108 72 36
+		92 64 32
+		84 60 28
+		72 56 24
+		64 48 24
+		56 44 20
+		40 32 12
+		64 64 64
+		48 48 48
+		52 52 52
+		216 244 244
+		184 232 232
+		156 220 220
+		116 200 200
+		72 192 192
+		32 180 180
+		32 176 176
+		0 164 164
+		0 152 152
+		0 140 140
+		0 124 124
+		0 120 120
+		0 116 116
+		0 108 108
+		152 0 136
+		0 0 0
+		28 28 28
+		56 56 56
+		88 88 88
+		120 120 120
+		184 184 184
+		240 176 32
+		244 92 12
+		220 0 0
+		132 80 48
+		192 116 72
+		236 124 28
+		232 160 116
+		236 184 152
+		236 216 204
+		252 252 252
+	</Palette>
+	<Palette>
+		JASC-PAL
+		0100
+		256
+		0 0 0
+		0 0 0
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		240 0 0
+		0 0 0
+		92 92 92
+		156 156 156
+		252 252 252
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		0 0 0
+		232 232 232
+		252 252 204
+		252 204 204
+		204 204 204
+		204 204 204
+		152 204 204
+		152 204 152
+		100 204 152
+		100 152 152
+		148 148 148
+		152 152 152
+		152 152 100
+		204 124 72
+		204 100 48
+		204 100 0
+		188 76 0
+		176 72 0
+		152 48 0
+		152 100 0
+		100 100 0
+		48 100 0
+		48 140 0
+		48 152 0
+		100 152 0
+		100 152 48
+		100 100 48
+		100 100 100
+		100 100 100
+		100 48 100
+		100 48 48
+		100 48 0
+		100 0 0
+		100 0 48
+		72 0 72
+		48 0 48
+		0 0 48
+		0 0 0
+		0 0 0
+		0 0 0
+		0 0 0
+		0 48 0
+		0 100 0
+		0 48 48
+		48 48 48
+		48 48 100
+		48 0 100
+		0 0 100
+		48 48 152
+		48 100 152
+		0 100 204
+		0 152 252
+		0 204 252
+		100 204 252
+		204 100 152
+		204 100 100
+		228 148 96
+		204 152 48
+		204 152 0
+		200 200 0
+		252 152 0
+		252 204 48
+		252 204 100
+		252 252 100
+		252 252 48
+		252 252 0
+		252 252 152
+		252 152 152
+		152 100 48
+		152 48 48
+		152 0 48
+		204 0 48
+		252 0 48
+		252 0 0
+		252 48 0
+		204 48 0
+		204 0 0
+		100 0 100
+		252 252 252
+		0 0 204
+		48 152 48
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		92 188 252
+		64 176 252
+		32 168 252
+		0 156 252
+		0 140 228
+		0 124 204
+		0 108 180
+		88 180 228
+		36 76 0
+		40 128 40
+		36 116 0
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		164 0 164
+		0 140 0
+		28 28 28
+		56 56 56
+		88 88 88
+		120 120 120
+		184 184 184
+		240 176 32
+		244 92 12
+		248 0 0
+		132 80 48
+		192 116 72
+		236 124 28
+		232 160 116
+		236 184 152
+		236 216 204
+		252 252 252
+	</Palette>
 </Game>
