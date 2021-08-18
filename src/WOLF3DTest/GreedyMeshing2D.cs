@@ -4,8 +4,22 @@ using System.Text;
 
 namespace WOLF3DTest
 {
-	public class GreedyMeshing2D
+	public static class GreedyMeshing2D
 	{
+		public delegate bool GreedyMeshing2DLookup(int x, int y);
+		public readonly struct GreedyMeshing2DRect
+		{
+			public readonly int X;
+			public readonly int Y;
+			public readonly int Width;
+			public readonly int Height;
+		}
+		//public static IEnumerable<GreedyMeshing2DRect> GreedyMeshing2D(int width, int height, GreedyMeshing2DLookup lookup)
+		//{
+		//	bool[][] grid = new bool[width][];
+		//	for (int i = 0; i < width; i++)
+		//		grid[i] = new bool[height];
+
 		/*
 static func is_range_equal(row: Array, xmin: int, xmax: int, val) -> bool:
 	for x in range(xmin, xmax):
@@ -30,7 +44,7 @@ static func greedy_2d(grid: Array) -> Array:
 			var rx = x + 1
 			while rx < len(row) and row[rx] == c:
 				rx += 1
-			
+
 			var ry = y + 1
 			while ry < len(grid) and is_range_equal(grid[ry], x, rx, c):
 				ry += 1
@@ -44,5 +58,6 @@ static func greedy_2d(grid: Array) -> Array:
 
 	return quads
 		*/
+		//}
 	}
 }
