@@ -390,6 +390,53 @@ namespace WOLF3D.WOLF3DGame.Action
 		public static void T_Shoot(Actor actor, float delta = 0f) => actor.T_Shoot(delta);
 		public Actor T_Shoot(float delta = 0f)
 		{
+			//int	dx,dy,dist;
+			//int	hitchance,damage;
+
+			//hitchance = 128;
+
+			//if (!areabyplayer[ob->areanumber])
+			//	return;
+
+			//if (!CheckLine (ob))			// player is behind a wall
+
+			//dx = abs(ob->tilex - player->tilex);
+			//dy = abs(ob->tiley - player->tiley);
+			//dist = dx>dy ? dx:dy;
+
+			//// *** ALPHA RESTORATION ***
+			//#if (GAMEVER_WOLFREV > GV_WR_WL920312)
+			//if (ob->obclass == ssobj || ob->obclass == bossobj)
+			//	dist = dist*2/3;					// ss are better shots
+			//#endif
+
+			//if (thrustspeed >= RUNSPEED)
+			//{
+			//	if (ob->flags&FL_VISABLE)
+			//		hitchance = 160-dist*16;		// player can see to dodge
+			//	else
+			//		hitchance = 160-dist*8;
+			//}
+			//else
+			//{
+			//	if (ob->flags&FL_VISABLE)
+			//		hitchance = 256-dist*16;		// player can see to dodge
+			//	else
+			//		hitchance = 256-dist*8;
+			//}
+
+			//// see if the shot was a hit
+
+			//if (US_RndT()<hitchance)
+			//{
+			//	if (dist<2)
+			//		damage = US_RndT()>>2;
+			//	else if (dist<4)
+			//		damage = US_RndT()>>3;
+			//	else
+			//		damage = US_RndT()>>4;
+
+			//	TakeDamage (damage,ob);
 			return this;
 		}
 		#endregion StateDelegates
