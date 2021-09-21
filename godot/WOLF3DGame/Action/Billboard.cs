@@ -35,7 +35,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		private ushort? page = null;
 		public XElement Serialize()
 		{
-			XElement e = new XElement(XName.Get("Billboard"));
+			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("Page"), Page);
 			e.SetAttributeValue(XName.Get("X"), Transform.origin.x);
 			e.SetAttributeValue(XName.Get("Z"), Transform.origin.z);
