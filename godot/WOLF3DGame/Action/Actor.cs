@@ -4,123 +4,12 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Actor : Billboard, ISpeaker
+	public class Actor : Billboard, ISpeaker, ISavable
 	{
+		#region objstruct
 		public XElement ActorXML;
 		public int ArrayIndex { get; set; }
 		public MeshInstance DebugFloor;
-
-		public Actor(XElement spawn) : base()
-		{
-			XML = spawn;
-			Name = XML?.Attribute("Actor")?.Value;
-			if (!string.IsNullOrWhiteSpace(Name))
-			{
-				CollisionShape.Name = "Collision " + Name;
-				ActorXML = Assets.XML.Element("VSwap")?.Element("Objects").Elements("Actor").Where(e => e.Attribute("Name")?.Value?.Equals(Name, System.StringComparison.InvariantCultureIgnoreCase) ?? false).FirstOrDefault();
-				Ambush = ActorXML.IsTrue("Ambush");
-			}
-			Direction = Direction8.From(XML?.Attribute("Direction")?.Value);
-			AddChild(Speaker = new AudioStreamPlayer3D()
-			{
-				Name = Name + " speaker",
-				Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),
-				Bus = "3D",
-			});
-			State = Assets.States[XML?.Attribute("State")?.Value];
-			AddChild(DebugFloor = new MeshInstance()
-			{
-				Name = Name + " Debug Floor",
-				Mesh = new QuadMesh()
-				{
-					Size = new Vector2(Assets.WallWidth, Assets.WallWidth),
-				},
-				MaterialOverride = new SpatialMaterial()
-				{
-					AlbedoColor = Color.Color8(255, 0, 0, 128),
-					FlagsUnshaded = true,
-					FlagsDoNotReceiveShadows = true,
-					FlagsDisableAmbientLight = true,
-					FlagsTransparent = true,
-					ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-					ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-					AnisotropyEnabled = true,
-					RenderPriority = 1,
-				},
-				Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
-			});
-		}
-
-		public override void _Process(float delta)
-		{
-			base._Process(delta);
-
-			DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
-
-			if (!Main.Room.Paused)
-			{
-				if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
-					Main.ActionRoom.Level.SetActorAt(TileX, TileZ);
-
-				Seconds += delta;
-				if (Seconds > State.Seconds)
-					State = State.Next;
-
-				if (NewState)
-				{
-					NewState = false;
-					if (!Settings.DigiSoundMuted
-						&& State?.XML?.Attribute("DigiSound")?.Value is string digiSound
-						&& Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
-						Play = audioStreamSample;
-					State?.Act?.Invoke(this, delta); // Act methods are called once per state
-				}
-
-				State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
-				if (Visible && State != null
-					&& State.Shape is short shape
-					&& (ushort)(shape + (State.Rotate ?
-					Direction8.Modulus(
-						Direction8.AngleToPoint(
-							GlobalTransform.origin,
-							GetViewport().GetCamera().GlobalTransform.origin
-						).MirrorZ + (Direction ?? 0),
-						8)
-					: 0)) is ushort newFrame
-					&& newFrame != Page)
-					Page = newFrame;
-
-				// START DEBUGGING
-				/*
-				if (!State.Alive && SightPlayer())
-				{
-					if (!Settings.DigiSoundMuted
-	&& ActorXML?.Attribute("DigiSound")?.Value is string digiSound
-	&& Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
-						Play = audioStreamSample;
-					if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
-						State = chase;
-				}
-				*/
-				// END DEBUGGING
-
-				if (State.Mark)
-					Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
-			}
-		}
-
-		public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
-			&& Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
-			&& floorCode >= Assets.FloorCodeFirst
-			&& floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
-			(ushort)(floorCode - Assets.FloorCodeFirst)
-			: (ushort?)null;
-
-		public float GetReaction() => GetReaction(ActorXML);
-
-		public static float GetReaction(XElement xElement) => xElement?.Attribute("Reaction")?.Value is string reaction ? Assets.TicsToSeconds((int)Assets.GetUInt(reaction)) : 0f;
-
-		#region objstruct
 		//typedef struct objstruct
 		//{
 		//    activetype active;
@@ -198,7 +87,160 @@ namespace WOLF3D.WOLF3DGame.Action
 		//}
 		//objtype;
 		#endregion objstruct
+		public Actor(XElement xml) : base(xml)
+		{
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
+			if (XML?.Attribute("Actor")?.Value is string actorName)
+			{
+				Name = actorName;
+				CollisionShape.Name = "Collision " + actorName;
+				ActorXML = Assets.XML.Element("VSwap")?.Element("Objects").Elements("Actor").Where(e => e.Attribute("Name")?.Value?.Equals(actorName, System.StringComparison.InvariantCultureIgnoreCase) ?? false).First();
+				Ambush = ActorXML.IsTrue("Ambush");
+			}
+			Direction = Direction8.From(xml.Attribute("Direction")?.Value);
+			AddChild(Speaker = new AudioStreamPlayer3D()
+			{
+				Name = Name + " speaker",
+				Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),
+				Bus = "3D",
+			});
+			State = Assets.States[xml.Attribute("State")?.Value];
+			if (short.TryParse(xml.Attribute("Tics")?.Value, out short tics))
+				Tics = tics;
+			if (float.TryParse(xml.Attribute("Seconds")?.Value, out float seconds))
+				Seconds = seconds;
+			if (float.TryParse(xml.Attribute("ChaseTimer")?.Value, out float chaseTimer))
+				ChaseTimer = chaseTimer;
+			if (bool.TryParse(xml.Attribute("NewState")?.Value, out bool newState))
+				NewState = newState;
+			if (bool.TryParse(xml.Attribute("NeverMark")?.Value, out bool neverMark))
+				NeverMark = neverMark;
+			if (bool.TryParse(xml.Attribute("AttackMode")?.Value, out bool attackMode))
+				AttackMode = attackMode;
+			if (bool.TryParse(xml.Attribute("Ambush")?.Value, out bool ambush))
+				Ambush = ambush;
+			if (float.TryParse(xml.Attribute("Distance")?.Value, out float distance))
+				Distance = distance;
+			if (ushort.TryParse(xml.Attribute("TileX")?.Value, out ushort tileX))
+				TileX = tileX;
+			if (ushort.TryParse(xml.Attribute("TileZ")?.Value, out ushort tileZ))
+				TileZ = tileZ;
+			if (ushort.TryParse(xml.Attribute("HitPoints")?.Value, out ushort hitPoints))
+				HitPoints = hitPoints;
+			if (float.TryParse(xml.Attribute("ReactionTime")?.Value, out float reactionTime))
+				ReactionTime = reactionTime;
+			if (float.TryParse(xml.Attribute("ReactionTimer")?.Value, out float reactionTimer))
+				ReactionTimer = reactionTimer;
+			AddChild(DebugFloor = new MeshInstance()
+			{
+				Name = Name + " Debug Floor",
+				Mesh = new QuadMesh()
+				{
+					Size = new Vector2(Assets.WallWidth, Assets.WallWidth),
+				},
+				MaterialOverride = new SpatialMaterial()
+				{
+					AlbedoColor = Color.Color8(255, 0, 0, 128),
+					FlagsUnshaded = true,
+					FlagsDoNotReceiveShadows = true,
+					FlagsDisableAmbientLight = true,
+					FlagsTransparent = true,
+					ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+					ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+					AnisotropyEnabled = true,
+					RenderPriority = 1,
+				},
+				Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
+			});
+		}
+		public override XElement Serialize()
+		{
+			XElement e = base.Serialize();
+			e.Name = XName.Get(GetType().Name);
+			e.SetAttributeValue(XName.Get("Direction"), Direction.ShortName);
+			e.SetAttributeValue(XName.Get("Tics"), Tics);
+			e.SetAttributeValue(XName.Get("Seconds"), Seconds);
+			e.SetAttributeValue(XName.Get("ChaseTimer"), ChaseTimer);
+			e.SetAttributeValue(XName.Get("State"), State.Name);
+			e.SetAttributeValue(XName.Get("NewState"), NewState);
+			e.SetAttributeValue(XName.Get("Shootable"), Shootable);
+			e.SetAttributeValue(XName.Get("NeverMark"), NeverMark);
+			e.SetAttributeValue(XName.Get("AttackMode"), AttackMode);
+			e.SetAttributeValue(XName.Get("FirstAttack"), FirstAttack);
+			e.SetAttributeValue(XName.Get("Ambush"), Ambush);
+			e.SetAttributeValue(XName.Get("Distance"), Distance);
+			e.SetAttributeValue(XName.Get("TileX"), TileX);
+			e.SetAttributeValue(XName.Get("TileZ"), TileZ);
+			e.SetAttributeValue(XName.Get("HitPoints"), HitPoints);
+			e.SetAttributeValue(XName.Get("ReactionTime"), ReactionTime);
+			e.SetAttributeValue(XName.Get("ReactionTimer"), ReactionTimer);
+			return e;
+		}
+		public override void _Process(float delta)
+		{
+			base._Process(delta);
 
+			DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
+
+			if (!Main.Room.Paused)
+			{
+				if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
+					Main.ActionRoom.Level.SetActorAt(TileX, TileZ);
+
+				Seconds += delta;
+				if (Seconds > State.Seconds)
+					State = State.Next;
+
+				if (NewState)
+				{
+					NewState = false;
+					if (!Settings.DigiSoundMuted
+						&& State?.XML?.Attribute("DigiSound")?.Value is string digiSound
+						&& Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
+						Play = audioStreamSample;
+					State?.Act?.Invoke(this, delta); // Act methods are called once per state
+				}
+
+				State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
+				if (Visible && State != null
+					&& State.Shape is short shape
+					&& (ushort)(shape + (State.Rotate ?
+					Direction8.Modulus(
+						Direction8.AngleToPoint(
+							GlobalTransform.origin,
+							GetViewport().GetCamera().GlobalTransform.origin
+						).MirrorZ + (Direction ?? 0),
+						8)
+					: 0)) is ushort newFrame
+					&& newFrame != Page)
+					Page = newFrame;
+
+				// START DEBUGGING
+				/*
+				if (!State.Alive && SightPlayer())
+				{
+					if (!Settings.DigiSoundMuted
+	&& ActorXML?.Attribute("DigiSound")?.Value is string digiSound
+	&& Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
+						Play = audioStreamSample;
+					if (Assets.States.TryGetValue(ActorXML?.Attribute("Chase")?.Value, out State chase))
+						State = chase;
+				}
+				*/
+				// END DEBUGGING
+
+				if (State.Mark)
+					Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
+			}
+		}
+		public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
+			&& Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
+			&& floorCode >= Assets.FloorCodeFirst
+			&& floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
+			(ushort)(floorCode - Assets.FloorCodeFirst)
+			: (ushort?)null;
+		public float GetReaction() => GetReaction(ActorXML);
+		public static float GetReaction(XElement xElement) => xElement?.Attribute("Reaction")?.Value is string reaction ? Assets.TicsToSeconds((int)Assets.GetUInt(reaction)) : 0f;
 		#region ISpeaker
 		public AudioStreamPlayer3D Speaker { get; private set; }
 		public AudioStreamSample Play
@@ -440,7 +482,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			return this;
 		}
 		#endregion StateDelegates
-
 		/// <summary>
 		/// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
 		/// </summary>
@@ -599,7 +640,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			// 	ob->dir = nodir;
 			return null;
 		}
-
 		/// <summary>
 		/// As SelectDodgeDir, but doesn't try to dodge
 		/// </summary>

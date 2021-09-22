@@ -7,15 +7,12 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ushort X { get; set; } = 0;
 		public ushort Z { get; set; } = 0;
 		protected readonly MeshInstance[] Sides = new MeshInstance[4];
-
 		/// <param name="cardinal">Cardinal direction</param>
 		/// <returns>Index corresponding to that direction in Sides</returns>
 		public static uint DirectionIndex(Direction8 cardinal) => cardinal.Value >> 1;
-
 		/// <param name="side">Array index from Sides</param>
 		/// <returns>Cardinal direction that side is facing</returns>
 		public static Direction8 Cardinal(uint side) => Direction8.From(side << 1);
-
 		public FourWalls(ushort wall, ushort darkSide)
 		{
 			Name = "FourWalls";

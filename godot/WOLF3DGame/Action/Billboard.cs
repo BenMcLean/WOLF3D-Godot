@@ -33,7 +33,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		private ushort? page = null;
-		public XElement Serialize()
+		public virtual XElement Serialize()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("Page"), Page);
@@ -63,7 +63,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public Billboard(XElement xml) : this()
 		{
-			if (xml?.Attribute("Name")?.Value is string name && !string.IsNullOrWhiteSpace(name))
+			if (xml?.Attribute("Name")?.Value is string name)
 			{
 				Name = name;
 				CollisionShape.Name = "Collision " + name;

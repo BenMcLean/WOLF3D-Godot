@@ -9,7 +9,6 @@ namespace WOLF3D.WOLF3DGame.Action
 {
 	public class LoadingRoom : Room
 	{
-
 		public LoadingRoom(GameMap map)
 		{
 			Name = "LoadingRoom for map " + map.Number;
@@ -51,7 +50,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		public GameMap Map { get; set; }
-
 		public void Loading()
 		{
 			MenuRoom.LastPushedTile = 0;
@@ -65,7 +63,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			Main.ActionRoom = new ActionRoom(Map);
 			ChangeRoom(Main.ActionRoom);
 		}
-
 		public override void Enter()
 		{
 			base.Enter();
@@ -76,7 +73,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;
 		}
-
 		public override void _Process(float delta)
 		{
 			if (Paused)
