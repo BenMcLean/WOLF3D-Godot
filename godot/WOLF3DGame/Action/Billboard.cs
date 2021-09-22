@@ -33,7 +33,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		private ushort? page = null;
-		public virtual XElement Serialize()
+		public virtual XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("Page"), Page);

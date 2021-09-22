@@ -7,6 +7,6 @@ namespace WOLF3D.WOLF3DGame.Action
 	/// </summary>
 	public interface ISavable
 	{
-		XElement Serialize();
+		XElement Save();
 	}
 }

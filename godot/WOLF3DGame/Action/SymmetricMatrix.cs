@@ -64,7 +64,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				rows.Add(string.Join(separator, row));
 			return string.Join(rowSeparator ?? separator, rows);
 		}
-		public XElement Serialize()
+		public XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("Data"), ToString());

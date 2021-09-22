@@ -153,9 +153,9 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
 			});
 		}
-		public override XElement Serialize()
+		public override XElement Save()
 		{
-			XElement e = base.Serialize();
+			XElement e = base.Save();
 			e.Name = XName.Get(GetType().Name);
 			e.SetAttributeValue(XName.Get("Direction"), Direction.ShortName);
 			e.SetAttributeValue(XName.Get("Tics"), Tics);
