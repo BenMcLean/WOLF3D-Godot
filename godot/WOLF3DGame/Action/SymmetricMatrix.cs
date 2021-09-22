@@ -44,8 +44,18 @@ namespace WOLF3D.WOLF3DGame.Action
 					Data[x - 1][y] = value;
 			}
 		}
-		public static ushort CalcSize(ushort n) => (ushort)(n * (n + 1) / 2);
-		public static ushort CalcSizeReversed(ushort s) => (ushort)Math.Floor(Math.Sqrt(2u * s));
+		/// <summary>
+		/// Calculates the number of values stored in a SymmetricMatrix from the number of rows.
+		/// </summary>
+		/// <param name="rows">How many rows</param>
+		/// <returns>How many values are stored</returns>
+		public static ushort CalcSize(ushort rows) => (ushort)(rows * (rows + 1) / 2);
+		/// <summary>
+		/// Calculates the number of rows in a SymmetricMatrix from the number of values stored.
+		/// </summary>
+		/// <param name="size">How many values are stored</param>
+		/// <returns>How many rows</returns>
+		public static ushort CalcSizeReversed(ushort size) => (ushort)Math.Floor(Math.Sqrt(2u * size));
 		public override string ToString() => ToString(",");
 		public string ToString(string separator, string rowSeparator = null)
 		{
