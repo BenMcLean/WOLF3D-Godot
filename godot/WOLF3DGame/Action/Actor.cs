@@ -111,14 +111,10 @@ namespace WOLF3D.WOLF3DGame.Action
 				Seconds = seconds;
 			if (float.TryParse(xml.Attribute("ChaseTimer")?.Value, out float chaseTimer))
 				ChaseTimer = chaseTimer;
-			if (bool.TryParse(xml.Attribute("NewState")?.Value, out bool newState))
-				NewState = newState;
-			if (bool.TryParse(xml.Attribute("NeverMark")?.Value, out bool neverMark))
-				NeverMark = neverMark;
-			if (bool.TryParse(xml.Attribute("AttackMode")?.Value, out bool attackMode))
-				AttackMode = attackMode;
-			if (bool.TryParse(xml.Attribute("Ambush")?.Value, out bool ambush))
-				Ambush = ambush;
+			NewState = xml.IsTrue("NewState");
+			NeverMark = xml.IsTrue("NeverMark");
+			AttackMode = xml.IsTrue("AttackMode");
+			Ambush = xml.IsTrue("Ambush");
 			if (float.TryParse(xml.Attribute("Distance")?.Value, out float distance))
 				Distance = distance;
 			if (ushort.TryParse(xml.Attribute("TileX")?.Value, out ushort tileX))
@@ -155,7 +151,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public override XElement Save()
 		{
-			XElement e = base.Save();
+			XElement e = base.Save(); // Billboard
 			e.Name = XName.Get(GetType().Name);
 			e.SetAttributeValue(XName.Get("Direction"), Direction.ShortName);
 			e.SetAttributeValue(XName.Get("Tics"), Tics);

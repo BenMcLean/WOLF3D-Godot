@@ -2,14 +2,14 @@
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Pickup : Billboard
+	public class Pickup : Billboard, ISavable
 	{
 		public bool Treasure = false;
 		public Godot.Color? Flash = null;
 		public Pickup(XElement xml) : base(xml)
 		{
-			Treasure = XML.IsTrue("Treasure");
-			if (XML.Attribute("Flash")?.Value is string flash
+			Treasure = xml.IsTrue("Treasure");
+			if (xml.Attribute("Flash")?.Value is string flash
 				&& new Godot.Color(flash) is Godot.Color color)
 				Flash = color;
 		}
@@ -18,6 +18,14 @@ namespace WOLF3D.WOLF3DGame.Action
 			base._Process(delta); // Billboard
 			if (!Main.Room.Paused)
 				Main.ActionRoom.Pickup(this);
+		}
+		public override XElement Save()
+		{
+			XElement e = base.Save(); // Billboard
+			e.Name = XName.Get(GetType().Name);
+			e.SetAttributeValue(XName.Get("Treasure"), Treasure);
+			e.SetAttributeValue(XName.Get("Flash"), Flash.ToString());
+			return e;
 		}
 	}
 }

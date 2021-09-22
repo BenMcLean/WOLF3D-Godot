@@ -17,10 +17,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			get => DoorCollider.Transform.origin.x * OpeningSeconds / Assets.WallWidth;
 			set => DoorCollider.Transform = new Transform(Basis.Identity, new Vector3(value / OpeningSeconds * Assets.WallWidth, 0f, 0f));
 		}
-
 		public enum DoorEnum { CLOSED, OPENING, OPEN, CLOSING }
 		public DoorEnum NextState() => NextState(State);
-
 		public static DoorEnum NextState(DoorEnum s) =>
 			s == DoorEnum.CLOSED ? DoorEnum.OPENING
 			: s == DoorEnum.OPENING ? DoorEnum.OPEN
@@ -92,7 +90,6 @@ namespace WOLF3D.WOLF3DGame.Action
 		public bool IsClosed => State == DoorEnum.CLOSED;
 		public bool IsClosing => State == DoorEnum.CLOSING;
 		public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
-
 		public Door(Material material, ushort x, ushort z, bool western)
 		{
 			X = x;
@@ -138,13 +135,11 @@ namespace WOLF3D.WOLF3DGame.Action
 			});
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
 		}
-
 		public bool GatesEnabled
 		{
 			get => !PlusGate.Disabled || !MinusGate.Disabled;
 			set => PlusGate.Disabled = MinusGate.Disabled = !value;
 		}
-
 		public static Door[][] Doors(GameMap map, Level level = null)
 		{
 			XElement door;
@@ -179,7 +174,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			return doors;
 		}
-
 		public Door SetFloorCodes(GameMap map)
 		{
 			ushort? FloorCode(int floorCode) => floorCode >= 0 && floorCode < Assets.FloorCodes ? (ushort?)floorCode : null;
@@ -187,7 +181,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			FloorCodeMinus = FloorCode(map.GetMapData((ushort)(X - Direction.X), (ushort)(Z - Direction.Z)) - Assets.FloorCodeFirst);
 			return this;
 		}
-
 		public override void _PhysicsProcess(float delta)
 		{
 			if (!Main.Room.Paused)
@@ -216,9 +209,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 		}
-
 		public DoorEnum Pushed => PushedState(State);
-
 		public override bool Push(Direction8 direction)
 		{
 			if (XMLScript.Run(XML, this))
@@ -228,14 +219,12 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			return false;
 		}
-
 		public bool ActorPush()
 		{
 			if (State != ActorPushed())
 				State = ActorPushed();
 			return true;
 		}
-
 		#region ISpeaker
 		public AudioStreamSample Play
 		{
@@ -265,7 +254,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 		}
-
 		public AudioStreamPlayer3D Speaker { get; private set; }
 		#endregion ISpeaker
 	}
