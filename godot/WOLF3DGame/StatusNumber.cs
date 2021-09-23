@@ -3,15 +3,22 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame
 {
-	public class StatusNumber : Node2D
+	public class StatusNumber : Node2D, ISavable
 	{
 		public XElement XML { get; set; }
-
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("Value"), Value);
+			e.SetAttributeValue(XName.Get("Digits"), Digits);
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			return e;
+		}
 		public StatusNumber(XElement xml) : this(
 			uint.TryParse(xml?.Attribute("Digits")?.Value, out uint digits) ? digits : 0
 			)
 		{
-			XML = xml;
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 			Position = new Vector2(
 				float.TryParse(XML?.Attribute("X")?.Value, out float x) ? x : 0,
 				float.TryParse(XML?.Attribute("Y")?.Value, out float y) ? y : 0

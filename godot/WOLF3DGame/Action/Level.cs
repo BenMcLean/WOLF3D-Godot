@@ -46,7 +46,6 @@ namespace WOLF3D.WOLF3DGame.Action
 						PushWallAt[x][z] = 0;
 			return this;
 		}
-
 		public readonly ArrayList Actors = new ArrayList();
 		private readonly int[][] ActorAt;
 		public bool IsActorAt(ushort x, ushort z) => x < ActorAt.Length && z < ActorAt[x].Length && ActorAt[x][z] != 0;
@@ -72,10 +71,8 @@ namespace WOLF3D.WOLF3DGame.Action
 						ActorAt[x][z] = 0;
 			return this;
 		}
-
 		public SymmetricMatrix FloorCodes = new SymmetricMatrix(Assets.FloorCodes);
 		public static bool Clipping { get; set; } = true;
-
 		#endregion Data Members
 
 		#region Loading
