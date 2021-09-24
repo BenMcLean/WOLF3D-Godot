@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -6,10 +7,11 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Door : Pushable, ISpeaker
+	public class Door : Pushable, ISpeaker, ISavable
 	{
 		public const float OpeningSeconds = 64f / Assets.TicsPerSecond; // It takes 64 tics to open a door in Wolfenstein 3-D.
 		public const float OpenSeconds = 300f / Assets.TicsPerSecond; // Doors stay open for 300 tics before checking if time to close in Wolfenstein 3-D.
+		#region Data
 		public XElement XML { get; set; }
 		public float Progress { get; set; } = 0;
 		public float Slide
@@ -75,9 +77,19 @@ namespace WOLF3D.WOLF3DGame.Action
 		private DoorEnum state = DoorEnum.CLOSED;
 		public bool Moving => State == DoorEnum.OPENING || State == DoorEnum.CLOSING;
 		public bool Western { get; private set; } = true;
-		public Direction8 Direction => Western ? Direction8.WEST : Direction8.SOUTH;
+		public Direction8 Direction
+		{
+			get => Western ? Direction8.WEST : Direction8.SOUTH;
+			private set => Western = value.Z > 0;
+		}
 		public ushort X { get; private set; } = 0;
 		public ushort Z { get; private set; } = 0;
+		public ushort Page
+		{
+			get => page;
+			set => DoorMesh.MaterialOverride = Assets.VSwapMaterials[page = value];
+		}
+		private ushort page;
 		public CollisionShape DoorCollider { get; private set; }
 		public MeshInstance DoorMesh { get; private set; }
 		public CollisionShape PlusGate { get; private set; }
@@ -85,12 +97,50 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ushort? FloorCodePlus { get; set; } = 0;
 		public ushort? FloorCodeMinus { get; set; } = 0;
 		public Level Level { get; set; } = null;
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("X"), X);
+			e.SetAttributeValue(XName.Get("Z"), Z);
+			e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
+			e.SetAttributeValue(XName.Get("Page"), Page);
+			e.SetAttributeValue(XName.Get("State"), Enum.GetName(typeof(DoorEnum), State));
+			e.SetAttributeValue(XName.Get("Progress"), Progress);
+			e.SetAttributeValue(XName.Get("Slide"), Slide);
+			e.SetAttributeValue(XName.Get("FloorCodePlus"), FloorCodePlus);
+			e.SetAttributeValue(XName.Get("FloorCodeMinus"), FloorCodeMinus);
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			return e;
+		}
+		#endregion Data
 		public bool IsOpen => State == DoorEnum.OPEN;
 		public bool IsOpening => State == DoorEnum.OPENING;
 		public bool IsClosed => State == DoorEnum.CLOSED;
 		public bool IsClosing => State == DoorEnum.CLOSING;
-		public Door(Material material, ushort x, ushort z, bool western, Level level) : this(material, x, z, western) => Level = level;
-		public Door(Material material, ushort x, ushort z, bool western)
+		public Door(XElement xml, Level level) : this(xml) => Level = level;
+		public Door(XElement xml)
+		{
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
+			Set(
+				(uint)XML.Attribute("Page"),
+				(ushort)(uint)XML.Attribute("X"),
+				(ushort)(uint)XML.Attribute("Z"),
+				Direction8.From(XML.Attribute("Direction")) == Direction8.WEST
+				);
+			if (Enum.TryParse(xml.Attribute("State")?.Value, out DoorEnum state))
+				State = state;
+			if (float.TryParse(xml.Attribute("Progress")?.Value, out float progress))
+				Progress = progress;
+			if (float.TryParse(xml.Attribute("Slide")?.Value, out float slide))
+				Slide = slide;
+			if (ushort.TryParse(xml.Attribute("FloorCodePlus")?.Value, out ushort floorCodePlus))
+				FloorCodePlus = floorCodePlus;
+			if (ushort.TryParse(xml.Attribute("FloorCodeMinus")?.Value, out ushort floorCodeMinus))
+				FloorCodeMinus = floorCodeMinus;
+		}
+		public Door(uint page, ushort x, ushort z, bool western, Level level) : this(page, x, z, western) => Level = level;
+		public Door(uint page, ushort x, ushort z, bool western) => Set(page, x, z, western);
+		private Door Set(uint page, ushort x, ushort z, bool western)
 		{
 			X = x;
 			Z = z;
@@ -112,9 +162,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			DoorCollider.AddChild(DoorMesh = new MeshInstance()
 			{
 				Name = (Western ? "West" : "South") + " door mesh instance at [" + x + ", " + z + "]",
-				MaterialOverride = material,
 				Mesh = Assets.WallMesh,
 			});
+			Page = (ushort)page;
 			DoorCollider.AddChild(Speaker = new AudioStreamPlayer3D()
 			{
 				Name = (Western ? "West" : "South") + " door speaker at [" + x + ", " + z + "]",
@@ -134,6 +184,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -Assets.HalfWallWidth)),
 			});
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
+			return this;
 		}
 		public bool GatesEnabled
 		{
@@ -153,7 +204,7 @@ namespace WOLF3D.WOLF3DGame.Action
 								 select e).FirstOrDefault()) != null)
 						doors[x][z] = level == null ?
 							new Door(
-								Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+								(uint)door.Attribute("Page"),
 								x,
 								z,
 								Direction8.From(door.Attribute("Direction")) == Direction8.WEST
@@ -162,7 +213,7 @@ namespace WOLF3D.WOLF3DGame.Action
 								XML = door,
 							}.SetFloorCodes(map)
 							: new Door(
-								Assets.VSwapMaterials[(uint)door.Attribute("Page")],
+								(uint)door.Attribute("Page"),
 								x,
 								z,
 								Direction8.From(door.Attribute("Direction")) == Direction8.WEST,
@@ -209,6 +260,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 		}
+		#region IPushable
 		public DoorEnum Pushed => PushedState(State);
 		public override bool Push(Direction8 direction)
 		{
@@ -225,6 +277,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				State = ActorPushed();
 			return true;
 		}
+		#endregion IPushable
 		#region ISpeaker
 		public AudioStreamSample Play
 		{
