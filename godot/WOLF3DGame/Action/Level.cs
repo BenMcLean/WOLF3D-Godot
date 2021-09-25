@@ -44,6 +44,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						PushWallAt[x][z] = 0;
 			return this;
 		}
+		public readonly ArrayList Pickups = new ArrayList();
 		public readonly ArrayList Actors = new ArrayList();
 		private readonly int[][] ActorAt;
 		public bool IsActorAt(ushort x, ushort z) => x < ActorAt.Length && z < ActorAt[x].Length && ActorAt[x][z] != 0;
@@ -74,11 +75,16 @@ namespace WOLF3D.WOLF3DGame.Action
 		public XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("MapNumber"), Map.Number);
 			e.SetAttributeValue(XName.Get("Time"), Time);
-			Godot.Collections.Array children = GetChildren();
-			for (int i = 0; i < children.Count; i++)
-				if (children[i] is ISavable savable)
-					e.Add(savable.Save());
+			foreach (Door door in GetDoors())
+				e.Add(door.Save());
+			foreach (PushWall pushWall in PushWalls)
+				e.Add(pushWall.Save());
+			foreach (Pickup pickup in Pickups)
+				e.Add(pickup.Save());
+			foreach (Actor actor in Actors)
+				e.Add(actor.Save());
 			return e;
 		}
 		#endregion Data Members
@@ -88,11 +94,9 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			Name = "Level \"" + map.Name + "\"";
 			AddChild(Walls = new Walls(map));
-
 			Doors = Door.Doors(Map, this);
 			foreach (Door door in GetDoors())
 				AddChild(door);
-
 			PushWallAt = new int[Map.Width][];
 			ActorAt = new int[Map.Width][];
 			for (ushort x = 0; x < Map.Width; x++)
@@ -100,7 +104,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				PushWallAt[x] = new int[Map.Depth];
 				ActorAt[x] = new int[Map.Depth];
 			}
-
 			foreach (XElement pushXML in Assets.PushWall ?? Enumerable.Empty<XElement>())
 				if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
 					for (ushort x = 0; x < Map.Width; x++)
@@ -123,7 +126,6 @@ namespace WOLF3D.WOLF3DGame.Action
 								SetPushWallAt(x, z, pushWall);
 								AddChild(pushWall);
 							}
-
 			List<ushort> ambushes = new List<ushort>();
 			foreach (XElement xAmbush in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Ambush") ?? XElement.EmptySequence)
 				if (ushort.TryParse(xAmbush.Attribute("Number")?.Value, out ushort ambush))
@@ -137,6 +139,8 @@ namespace WOLF3D.WOLF3DGame.Action
 					if (ambushes.Contains(Map.GetMapData((ushort)actor.X, (ushort)actor.Z)))
 						actor.Ambush = true;
 				}
+				else if (billboard is Pickup pickup)
+					Pickups.Add(pickup);
 			}
 		}
 		#endregion Loading

@@ -194,6 +194,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (pickup.Flash is Godot.Color color)
 					ARVRPlayer.FadeCameraController.Flash(color);
 				Level.RemoveChild(pickup);
+				Level.Pickups.Remove(pickup);
 				return true;
 			}
 			return false;
