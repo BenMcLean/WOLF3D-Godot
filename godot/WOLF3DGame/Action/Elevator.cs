@@ -3,24 +3,35 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Elevator : FourWalls
+	public class Elevator : FourWalls, ISavable
 	{
-		public XElement XML;
+		#region Data
+		public XElement XML { get; set; }
 		public Direction8 Direction { get; set; } = null;
 		public bool Pushed { get; set; } = false;
-
-		public Elevator(XElement xml) : base(
-			(ushort)(uint)xml.Attribute("Page"),
-			ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
-			)
+		public override XElement Save()
 		{
-			XML = xml;
-			if (xml?.Attribute("Name")?.Value is string name)
+			XElement e = base.Save(); // FourWalls
+			e.Name = XName.Get(GetType().Name);
+			e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
+			e.SetAttributeValue(XName.Get("Pushed"), Pushed);
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			return e;
+		}
+		#endregion Data
+		public Elevator(XElement xml)
+		{
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
+			Set(
+				(ushort)(uint)xml.Attribute("Page"),
+				ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
+				);
+			if (XML?.Attribute("Name")?.Value is string name)
 				Name = name;
 			if (xml?.Attribute("Direction")?.Value is string direction)
 				Direction = Direction8.From(direction);
+			Pushed = xml.IsTrue("Pushed");
 		}
-
 		public override bool Push(Direction8 direction)
 		{
 			if (Direction == null || Direction == direction || Direction.Opposite == direction)
