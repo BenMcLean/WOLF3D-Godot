@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class ARVRPlayer : Spatial, ITarget
+	public class ARVRPlayer : Spatial, ITarget, ISavable
 	{
 		public ARVROrigin ARVROrigin { get; set; }
 		public FadeCamera ARVRCamera { get; set; }
@@ -23,7 +24,6 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 		public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallHeight, 0f);
-
 		public ARVRPlayer()
 		{
 			Name = "ARVRPlayer";
@@ -59,11 +59,9 @@ namespace WOLF3D.WOLF3DGame.Action
 				FadeCamera = FadeCamera,
 			});
 		}
-
 		public static float Strength(float input) =>
 			Mathf.Abs(input) < Assets.DeadZone ? 0f
 			: (Mathf.Abs(input) - Assets.DeadZone) / (1f - Assets.DeadZone) * Mathf.Sign(input);
-
 		public override void _PhysicsProcess(float delta)
 		{
 			#region Walking
@@ -219,9 +217,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			#endregion Pushing
 		}
-
 		private readonly Godot.Collections.Array exclude = new Godot.Collections.Array();
-
 		public override void _Input(InputEvent @event)
 		{
 			base._Input(@event);
@@ -248,23 +244,18 @@ namespace WOLF3D.WOLF3DGame.Action
 					Rotate(Vector3.Down, motion.Relative.x * Settings.MouseYSensitivity / 180f);
 				}
 		}
-
 		public bool Shooting { get; set; } = false;
 		public bool Pushing { get; set; } = false;
-
 		public float Height => Settings.Roomscale ?
 			0f
 			: Assets.HalfWallHeight - ARVRCamera.Transform.origin.y;
-
 		public Vector2 ARVROriginPosition => Assets.Vector2(ARVROrigin.GlobalTransform.origin);
 		public Vector2 ARVRCameraPosition => Assets.Vector2(ARVRCamera.GlobalTransform.origin);
 		public Vector2 ARVRCameraDirection => -Assets.Vector2(ARVRCamera.GlobalTransform.basis.z).Normalized();
 		public Vector2 ARVRCameraMovement => ARVRCameraPosition - Assets.Vector2(GlobalTransform.origin);
-
 		public static Vector3 ARVRControllerDirection(Basis basis) => -basis.z.Rotated(basis.x.Normalized(), -(Main.VR && Main.PC ? Mathf.Pi * 3f / 16f : 0f)).Normalized();
 		public Vector3 LeftControllerDirection => ARVRControllerDirection(LeftController.GlobalTransform.basis);
 		public Vector3 RightControllerDirection => ARVRControllerDirection(RightController.GlobalTransform.basis);
-
 		public Actor LeftTarget { get; set; } = null;
 		public Actor RightTarget { get; set; } = null;
 		public Actor Target(bool left = true) => left ? LeftTarget : RightTarget;
@@ -278,7 +269,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			return this;
 		}
 		public ARVRPlayer SetTarget(int which, Actor billboard = null) => SetTarget(which == 0, billboard);
-
 		public bool IsIn(Vector2 vector2) => IsInLocal(vector2 - Position);
 		public bool IsIn(float x, float y) => IsInLocal(x - Position.x, y - Position.y);
 		public bool IsInLocal(Vector2 vector2) => IsInLocal(vector2.x, vector2.y);
@@ -303,13 +293,11 @@ namespace WOLF3D.WOLF3DGame.Action
 		public bool StandingOnOverride =>
 			Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
 			&& (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Any(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort value) && value == floorCode) ?? false);
-
 		public void Enter()
 		{
 			if (Main.Pancake)
 				PancakeCamera.Current = true;
 		}
-
 		public Vector2 GlobalPosition
 		{
 			get => Assets.Vector2(GlobalTransform.origin);
@@ -322,5 +310,12 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public int X => Assets.IntCoordinate(GlobalTransform.origin.x);
 		public int Z => Assets.IntCoordinate(GlobalTransform.origin.z);
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("X"), Transform.origin.x);
+			e.SetAttributeValue(XName.Get("Z"), Transform.origin.z);
+			return e;
+		}
 	}
 }
