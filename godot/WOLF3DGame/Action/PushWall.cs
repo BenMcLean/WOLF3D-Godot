@@ -4,20 +4,54 @@ using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class PushWall : FourWalls, ISpeaker
+	public class PushWall : FourWalls, ISpeaker, ISavable
 	{
 		public const float Seconds = 128f / 70f; // It takes 128 tics for a pushwall to fully open in Wolfenstein 3-D.
 		public const float HalfSeconds = Seconds / 2f;
-
+		#region Data
 		public XElement XML { get; set; } = null;
 		public int ArrayIndex { get; set; }
-		public PushWall(XElement xml) : base(
-			(ushort)(uint)xml.Attribute("Page"),
-			ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
-			)
+		public float? RepeatDigiSound = null;
+		public float SinceRepeatDigiSound = 0f;
+		public float Time = 0f;
+		public bool Halfway = false;
+		public bool Pushed
+		{
+			get => pushed;
+			set
+			{
+				pushed = value;
+				Play = Sound;
+			}
+		}
+		private bool pushed = false;
+		public Level Level { get; set; } = null;
+		public Direction8 Direction { get; set; }
+		public override XElement Save()
+		{
+			XElement e = base.Save(); // FourWalls
+			e.Name = XName.Get(GetType().Name);
+			e.SetAttributeValue(XName.Get("Time"), Time);
+			e.SetAttributeValue(XName.Get("Halfway"), Halfway);
+			e.SetAttributeValue(XName.Get("Pushed"), Pushed);
+			e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
+			if (RepeatDigiSound is float)
+			{
+				e.SetAttributeValue(XName.Get("RepeatDigiSound"), RepeatDigiSound);
+				e.SetAttributeValue(XName.Get("SinceRepeatDigiSound"), SinceRepeatDigiSound);
+			}
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			return e;
+		}
+		#endregion Data
+		public PushWall(XElement xml)
 		{
 			Name = "Pushwall";
-			XML = xml;
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
+			Set(
+				(ushort)(uint)xml.Attribute("Page"),
+				ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
+				);
 			AddChild(Speaker = new AudioStreamPlayer3D()
 			{
 				Name = "Pushwall speaker",
@@ -25,7 +59,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				Bus = "3D",
 			});
 		}
-
 		public override bool Push(Direction8 direction)
 		{
 			if (Pushed
@@ -37,9 +70,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			Level.SetPushWallAt((ushort)(X + direction.X * 2), (ushort)(Z + direction.Z * 2), this);
 			return Pushed = true;
 		}
-
 		public bool PushWallOpen(int x, int z) => Level.Walls.IsNavigable(x, z) && !Level.IsPushWallAt((ushort)x, (ushort)z);
-
 		public override void _Process(float delta)
 		{
 			if (!Main.Room.Paused && Pushed == true && Time < Seconds)
@@ -90,24 +121,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 		}
-
-		public float? RepeatDigiSound = null;
-		public float SinceRepeatDigiSound = 0f;
-		public float Time = 0f;
-		public bool Halfway = false;
-		public bool Pushed
-		{
-			get => pushed;
-			set
-			{
-				pushed = value;
-				Play = Sound;
-			}
-		}
-		private bool pushed = false;
-
-		public Level Level { get; set; } = null;
-		public Direction8 Direction { get; set; }
+		#region ISpeaker
 		public AudioStreamPlayer3D Speaker { get; private set; }
 		public AudioStreamSample Play
 		{
@@ -120,5 +134,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		public AudioStreamSample Sound { get; set; } = null;
+		#endregion ISpeaker
 	}
 }
