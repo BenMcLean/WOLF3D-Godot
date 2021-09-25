@@ -1,5 +1,4 @@
 ﻿using Godot;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,12 +10,11 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Level : Spatial
+	public class Level : Spatial, ISavable
 	{
 		#region Data Members
 		public GameMap Map => Walls.Map;
 		public float Time { get; set; } = 0f;
-		public DateTime? Unpaused { get; private set; } = null;
 		public Walls Walls { get; private set; }
 
 		public Door[][] Doors { get; private set; }
@@ -73,6 +71,16 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public SymmetricMatrix FloorCodes = new SymmetricMatrix(Assets.FloorCodes);
 		public static bool Clipping { get; set; } = true;
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("Time"), Time);
+			Godot.Collections.Array children = GetChildren();
+			for (int i = 0; i < children.Count; i++)
+				if (children[i] is ISavable savable)
+					e.Add(savable.Save());
+			return e;
+		}
 		#endregion Data Members
 
 		#region Loading
