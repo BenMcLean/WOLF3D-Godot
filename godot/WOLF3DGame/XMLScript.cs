@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using Godot;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
@@ -26,7 +28,6 @@ namespace WOLF3D.WOLF3DGame
 				Run(child, target);
 			return false;
 		}
-
 		private static bool Conditional(XElement xml, ITarget target = null)
 		{
 			if (!ConditionalOne(xml, target))
@@ -36,7 +37,6 @@ namespace WOLF3D.WOLF3DGame
 					return false;
 			return true;
 		}
-
 		private static bool ConditionalOne(XElement xml, ITarget target = null) =>
 			!(xml?.Attribute("If")?.Value is string stat)
 				|| string.IsNullOrWhiteSpace(stat)
@@ -72,11 +72,9 @@ namespace WOLF3D.WOLF3DGame
 || statusNumber.Max > maxGreater
 			)
 			);
-
 		private static void Effect(XElement xml, ITarget target = null)
 		{
 			SoundBlaster.Play(xml);
-
 			// Status effects
 			if (xml?.Attribute("SetMaxOf")?.Value is string setMaxOfString
 				&& !string.IsNullOrWhiteSpace(setMaxOfString)
@@ -98,7 +96,6 @@ namespace WOLF3D.WOLF3DGame
 				&& Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
 				&& uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
 				statusNumber.Value += add;
-
 			// Menu effects
 			if (xml == null || !Main.InGameMatch(xml))
 				return;
@@ -112,7 +109,6 @@ namespace WOLF3D.WOLF3DGame
 				Settings.SetMusic(m);
 			if (byte.TryParse(xml.Attribute("Episode")?.Value, out byte episode))
 				MenuRoom.Episode = episode;
-
 			// Actions
 			if (xml.Attribute("Action")?.Value.Equals("SelectGame", StringComparison.InvariantCultureIgnoreCase) ?? false)
 			{
@@ -158,6 +154,8 @@ namespace WOLF3D.WOLF3DGame
 			}
 			if (xml.Attribute("Action")?.Value.Equals("Resume", StringComparison.InvariantCultureIgnoreCase) ?? false)
 				Main.Room.ChangeRoom(Main.ActionRoom);
+			if (xml.Attribute("Action")?.Value.Equals("Save", StringComparison.InvariantCultureIgnoreCase) ?? false)
+				Save();
 			if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
 			{
 				Main.MenuRoom.MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? Main.RNG.RandomElement(Assets.EndStrings));
@@ -165,6 +163,12 @@ namespace WOLF3D.WOLF3DGame
 				Main.MenuRoom.MenuScreen.Modal.YesNo = true;
 			}
 			return;
+		}
+		public static void Save()
+		{
+			string file = System.IO.Path.Combine(Main.Folder, "SAVEGAM0.SAV");
+			GD.Print("Saving to \"" + file + "\".");
+			Main.ActionRoom.Save().Save(file);
 		}
 	}
 }

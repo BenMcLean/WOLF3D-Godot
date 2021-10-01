@@ -34,7 +34,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			e.SetAttributeValue(XName.Get("Time"), Time);
 			e.SetAttributeValue(XName.Get("Halfway"), Halfway);
 			e.SetAttributeValue(XName.Get("Pushed"), Pushed);
-			e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
+			if (Direction is Direction8)
+				e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
 			if (RepeatDigiSound is float)
 			{
 				e.SetAttributeValue(XName.Get("RepeatDigiSound"), RepeatDigiSound);
