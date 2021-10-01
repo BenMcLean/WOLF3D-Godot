@@ -46,7 +46,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					},
 					Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
 				});
-				AmbientTasks.Add(Task.Run(Loading));
 			}
 		}
 		public GameMap Map { get; set; }
@@ -72,6 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				&& Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;
+			AmbientTasks.Add(Task.Run(Loading));
 		}
 		public override void _Process(float delta)
 		{
