@@ -34,8 +34,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public byte Difficulty { get; set; }
 		public byte Episode { get; set; }
 		public GameMap Map => Level.Map;
-
-		public ActionRoom(GameMap map)
+		private ActionRoom()
 		{
 			Name = "ActionRoom";
 			AddChild(ARVRPlayer = new ARVRPlayer());
@@ -67,11 +66,18 @@ namespace WOLF3D.WOLF3DGame.Action
 				},
 				Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
 			});
-
+		}
+		public ActionRoom(GameMap map) : this()
+		{
 			AddChild(Level = new Level(map));
 			ARVRPlayer.GlobalTransform = Assets.StartTransform(map);
 		}
-
+		public ActionRoom(XElement xml) : this()
+		{
+			AddChild(Level = new Level(xml.Element("Level")));
+			XElement arvrPlayer = xml.Element("ARVRPlayer");
+			ARVRPlayer.GlobalTransform = new Transform(ARVRPlayer.Transform.basis, new Vector3((float)arvrPlayer.Attribute("X"), 0f, (float)arvrPlayer.Attribute("Z")));
+		}
 		public override void _Ready()
 		{
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));

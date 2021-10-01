@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Techsola;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
@@ -9,10 +10,8 @@ namespace WOLF3D.WOLF3DGame.Action
 {
 	public class LoadingRoom : Room
 	{
-		public LoadingRoom(GameMap map)
+		private LoadingRoom()
 		{
-			Name = "LoadingRoom for map " + map.Number;
-			Map = map;
 			AddChild(ARVROrigin = new ARVROrigin());
 			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
 			{
@@ -48,18 +47,38 @@ namespace WOLF3D.WOLF3DGame.Action
 				});
 			}
 		}
+		public LoadingRoom(GameMap map) : this()
+		{
+			Map = map;
+			Name = "LoadingRoom for map " + Map.Number;
+		}
+		public LoadingRoom(XElement xml) : this()
+		{
+			XML = xml;
+			Map = Assets.Maps[(int)xml.Element("Level").Attribute("MapNumber")];
+			Name = "LoadingRoom for map " + Map.Number;
+		}
 		public GameMap Map { get; set; }
+		public XElement XML { get; set; }
 		public void Loading()
 		{
 			MenuRoom.LastPushedTile = 0;
-			if (Main.NextLevelStats != null)
+			if (XML is null)
 			{
-				Main.StatusBar.Set(Main.NextLevelStats);
-				Main.NextLevelStats = null;
+				if (Main.NextLevelStats != null)
+				{
+					Main.StatusBar.Set(Main.NextLevelStats);
+					Main.NextLevelStats = null;
+				}
+				Main.StatusBar["Episode"].Value = Map.Episode;
+				Main.StatusBar["Floor"].Value = Map.Floor;
+				Main.ActionRoom = new ActionRoom(Map);
 			}
-			Main.StatusBar["Episode"].Value = Map.Episode;
-			Main.StatusBar["Floor"].Value = Map.Floor;
-			Main.ActionRoom = new ActionRoom(Map);
+			else
+			{
+				Main.StatusBar = new StatusBar(XML.Element("StarusBar"));
+				Main.ActionRoom = new ActionRoom(XML);
+			}
 			ChangeRoom(Main.ActionRoom);
 		}
 		public override void Enter()
