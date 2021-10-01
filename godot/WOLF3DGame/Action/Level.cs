@@ -90,6 +90,45 @@ namespace WOLF3D.WOLF3DGame.Action
 		#endregion Data Members
 
 		#region Loading
+		public Level(XElement xml)
+		{
+			AddChild(Walls = new Walls(Assets.Maps[(int)xml.Attribute("MapNumber")]));
+			Name = "Level \"" + Map.Name + "\"";
+			FloorCodes = new SymmetricMatrix(xml.Element("SymmetricMatrix"));
+			Doors = new Door[Map.Width][];
+			PushWallAt = new int[Map.Width][];
+			ActorAt = new int[Map.Width][];
+			for (ushort x = 0; x < Map.Width; x++)
+			{
+				Doors[x] = new Door[Map.Depth];
+				PushWallAt[x] = new int[Map.Depth];
+				ActorAt[x] = new int[Map.Depth];
+			}
+			foreach (XElement xDoor in xml.Elements("Door"))
+				Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor).SetFloorCodes(Map);
+			foreach (XElement xPushWall in xml.Elements("PushWall"))
+			{
+				PushWall pushWall = new PushWall(xPushWall);
+				pushWall.ArrayIndex = PushWalls.Add(pushWall);
+				SetPushWallAt(pushWall.X, pushWall.Z, pushWall);
+				// TODO: handle saving and loading cases where pushwalls have multiple tiles marked
+				AddChild(pushWall);
+			}
+			foreach (XElement xPickup in xml.Elements("Pickup"))
+			{
+				Pickup pickup = new Pickup(xPickup);
+				Pickups.Add(pickup);
+				AddChild(pickup);
+			}
+			foreach (XElement xActor in xml.Elements("Actor"))
+			{
+				Actor actor = new Actor(xActor);
+				actor.ArrayIndex = Actors.Add(actor);
+				if (!actor.NeverMark && actor.State.Mark)
+					SetActorAt(actor.TileX, actor.TileZ, actor);
+				AddChild(actor);
+			}
+		}
 		public Level(GameMap map, byte difficulty = 4)
 		{
 			Name = "Level \"" + map.Name + "\"";

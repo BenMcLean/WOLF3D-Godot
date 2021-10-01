@@ -24,6 +24,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 		public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallHeight, 0f);
+		public ARVRPlayer(XElement xml) : this()
+		{
+			Transform = new Transform(Transform.basis, new Vector3((float)xml.Attribute("X"), 0f, (float)xml.Attribute("Z")));
+		}
 		public ARVRPlayer()
 		{
 			Name = "ARVRPlayer";

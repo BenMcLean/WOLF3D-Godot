@@ -7,7 +7,7 @@ using System;
 
 namespace WOLF3D.WOLF3DGame
 {
-	public class StatusBar : Viewport, IDictionary<string, StatusNumber>, ICollection<KeyValuePair<string, StatusNumber>>, IEnumerable<KeyValuePair<string, StatusNumber>>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<string, StatusNumber>, IReadOnlyCollection<KeyValuePair<string, StatusNumber>>
+	public class StatusBar : Viewport, IDictionary<string, StatusNumber>, ICollection<KeyValuePair<string, StatusNumber>>, IEnumerable<KeyValuePair<string, StatusNumber>>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<string, StatusNumber>, IReadOnlyCollection<KeyValuePair<string, StatusNumber>>, ISavable
 	{
 		public XElement XML { get; set; }
 		public StatusBar() : this(Assets.XML?.Element("VgaGraph")?.Element("StatusBar")) { }
@@ -17,7 +17,7 @@ namespace WOLF3D.WOLF3DGame
 			Disable3d = true;
 			RenderTargetClearMode = ClearMode.OnlyNextFrame;
 			RenderTargetVFlip = true;
-			XML = xml;
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 			ImageTexture pic = Assets.PicTextureSafe(XML?.Attribute("Pic")?.Value);
 			Size = pic?.GetSize() ?? Vector2.Zero;
 			if (pic != null)
@@ -27,28 +27,35 @@ namespace WOLF3D.WOLF3DGame
 					Texture = pic,
 					Position = Size / 2f,
 				});
-			foreach (XElement number in XML?.Elements("Number") ?? Enumerable.Empty<XElement>())
+			foreach (XElement number in xml?.Elements("Number") ?? Enumerable.Empty<XElement>())
 				Add(new StatusNumber(number));
 		}
-
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get(GetType().Name));
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			foreach (KeyValuePair<string, StatusNumber> pair in this)
+			{
+				XElement save = pair.Value.Save();
+				save.SetAttributeValue(XName.Get("Name"), pair.Key);
+				e.Add(save);
+			}
+			return e;
+		}
 		private readonly Dictionary<string, StatusNumber> StatusNumbers = new Dictionary<string, StatusNumber>();
-		public void Add(StatusNumber statusNumber) => Add(statusNumber.Name, statusNumber);
-
+		public void Add(StatusNumber statusNumber) => Add(statusNumber.StatusNumberName, statusNumber);
 		public void Add(string key, StatusNumber value)
 		{
 			AddChild(value);
 			StatusNumbers.Add(key, value);
 		}
-
 		public void Clear()
 		{
 			foreach (StatusNumber statusNumber in Values)
 				RemoveChild(statusNumber);
 			StatusNumbers.Clear();
 		}
-
 		public void Remove(string key) => TryRemove(key);
-
 		public bool TryRemove(string key)
 		{
 			if (StatusNumbers.TryGetValue(key, out StatusNumber statusNumber))
@@ -58,51 +65,40 @@ namespace WOLF3D.WOLF3DGame
 			}
 			return false;
 		}
-
 		bool IDictionary<string, StatusNumber>.Remove(string key) => TryRemove(key);
-
 		public void Add(KeyValuePair<string, StatusNumber> item) => Add(item.Key, item.Value);
-
 		public bool Remove(KeyValuePair<string, StatusNumber> item) => TryRemove(item.Key);
-
 		public void Add(object key, object value)
 		{
 			if (key is string @string && value is StatusNumber statusNumber)
 				Add(@string, statusNumber);
 		}
-
 		public void Remove(object key)
 		{
 			if (key is string @string)
 				TryRemove(@string);
 		}
-
 		public object this[object key]
 		{
 			get => ((IDictionary)StatusNumbers)[key];
 			set => Add(key, value);
 		}
-
 		public StatusNumber this[string key]
 		{
 			get => ((IDictionary<string, StatusNumber>)StatusNumbers)[key];
 			set => Add(key, value);
 		}
-
 		public StatusNumber.Stat? Stat(string key) => TryGetValue(key, out StatusNumber statusNumber) ? statusNumber.GetStat() : (StatusNumber.Stat?)null;
-
 		public IEnumerable<StatusNumber.Stat> GetStats()
 		{
 			foreach (StatusNumber statusNumber in StatusNumbers.Values)
 				yield return statusNumber.GetStat();
 		}
-
 		public IEnumerable<StatusNumber.Stat> NextLevelStats()
 		{
 			foreach (StatusNumber statusNumber in StatusNumbers.Values)
 				yield return statusNumber.GetNextLevelStat();
 		}
-
 		public StatusBar Set(IEnumerable<StatusNumber.Stat> stats)
 		{
 			foreach (StatusNumber.Stat stat in stats)
@@ -110,7 +106,6 @@ namespace WOLF3D.WOLF3DGame
 					statusNumber.Set(stat);
 			return this;
 		}
-
 		#region IDictionary boilerplate
 		public bool ContainsKey(string key) => ((IDictionary<string, StatusNumber>)StatusNumbers).ContainsKey(key);
 		public bool TryGetValue(string key, out StatusNumber value) => ((IDictionary<string, StatusNumber>)StatusNumbers).TryGetValue(key, out value);

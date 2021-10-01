@@ -1,10 +1,11 @@
 using Godot;
 using WOLF3DModel;
 using WOLF3D.WOLF3DGame.OPL;
+using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class ActionRoom : Room
+	public class ActionRoom : Room, ISavable
 	{
 		public override ARVROrigin ARVROrigin
 		{
@@ -221,5 +222,15 @@ namespace WOLF3D.WOLF3DGame.Action
 		public MeshInstance RightTarget { get; set; }
 		public MeshInstance Target(bool left) => left ? LeftTarget : RightTarget;
 		public MeshInstance Target(int which) => Target(which == 0);
+		public XElement Save()
+		{
+			XElement e = new XElement(XName.Get("SaveGame"));
+			e.SetAttributeValue(XName.Get("Difficulty"), Difficulty);
+			e.SetAttributeValue(XName.Get("Episode"), Episode);
+			e.Add(ARVRPlayer.Save());
+			e.Add(Main.StatusBar.Save());
+			e.Add(Level.Save());
+			return e;
+		}
 	}
 }
