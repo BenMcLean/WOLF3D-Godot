@@ -156,6 +156,8 @@ namespace WOLF3D.WOLF3DGame
 				Main.Room.ChangeRoom(Main.ActionRoom);
 			if (xml.Attribute("Action")?.Value.Equals("Save", StringComparison.InvariantCultureIgnoreCase) ?? false)
 				Save();
+			if (xml.Attribute("Action")?.Value.Equals("Load", StringComparison.InvariantCultureIgnoreCase) ?? false)
+				Load();
 			if (xml.Attribute("Action")?.Value.Equals("Quit", StringComparison.InvariantCultureIgnoreCase) ?? false)
 			{
 				Main.MenuRoom.MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? Main.RNG.RandomElement(Assets.EndStrings));
@@ -169,6 +171,12 @@ namespace WOLF3D.WOLF3DGame
 			string file = System.IO.Path.Combine(Main.Folder, "SAVEGAM0.SAV");
 			GD.Print("Saving to \"" + file + "\".");
 			Main.ActionRoom.Save().Save(file);
+		}
+		public static void Load()
+		{
+			string file = System.IO.Path.Combine(Main.Folder, "SAVEGAM0.SAV");
+			GD.Print("Loading from \"" + file + "\".");
+			Main.MenuRoom.ChangeRoom(new LoadingRoom(XElement.Load(file)));
 		}
 	}
 }

@@ -76,7 +76,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			else
 			{
-				Main.StatusBar = new StatusBar(XML.Element("StarusBar"));
+				foreach (XElement stat in XML.Element("StarusBar").Elements("Number"))
+					Main.StatusBar[stat.Attribute("Name").Value].Set(stat);
 				Main.ActionRoom = new ActionRoom(XML);
 			}
 			ChangeRoom(Main.ActionRoom);

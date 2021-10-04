@@ -82,28 +82,23 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 			ARVRPlayer.RightController.Connect("button_pressed", this, nameof(ButtonPressed));
-
 			AddChild(Line3D = new Line3D()
 			{
 				Name = "Line3D",
 				Color = Color.Color8(255, 0, 0, 255),
 			});
-
 			AddChild(LeftTarget = new MeshInstance()
 			{
 				Name = "LeftTarget",
 				Mesh = TargetMesh,
 			});
-
 			AddChild(RightTarget = new MeshInstance()
 			{
 				Name = "RightTarget",
 				Mesh = TargetMesh,
 			});
 		}
-
 		public static Vector3 BillboardRotation { get; set; }
-
 		public override void _PhysicsProcess(float delta)
 		{
 			if (Paused)
@@ -113,7 +108,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				&& camera.GlobalTransform is Transform globalTransform)
 				BillboardRotation = new Vector3(0f, globalTransform.basis.GetEuler().y, 0f);
 		}
-
 		public override void _Input(InputEvent @event)
 		{
 			if (@event.IsActionPressed("toggle_fullscreen"))
@@ -139,7 +133,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					}
 			}
 		}
-
 		public void ButtonPressed(int buttonIndex)
 		{
 			if (buttonIndex == (int)JoystickList.OculusAx)
@@ -147,7 +140,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (buttonIndex == (int)JoystickList.OculusBy)
 				ChangeRoom(new LoadingRoom((GameMap)Assets.NextMap(Level.Map)));
 		}
-
 		public void Print()
 		{
 			GD.Print("Left joystick: {" + ARVRPlayer.LeftController.GetJoystickAxis(0) + ", " + ARVRPlayer.LeftController.GetJoystickAxis(1) + "} Right joystick: " + ARVRPlayer.RightController.GetJoystickAxis(0) + ", " + ARVRPlayer.RightController.GetJoystickAxis(1) + "}");
@@ -160,7 +152,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			//        .Append("] ");
 			//GD.Print(stringBuilder.Append("}").ToString());
 		}
-
 		public ActionRoom PlayASound()
 		{
 			AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer()
@@ -172,7 +163,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			audioStreamPlayer.Play();
 			return this;
 		}
-
 		public override void Enter()
 		{
 			base.Enter();
@@ -186,14 +176,12 @@ namespace WOLF3D.WOLF3DGame.Action
 				Input.SetMouseMode(Input.MouseMode.Captured);
 			ARVRPlayer.Enter();
 		}
-
 		public override void Exit()
 		{
 			base.Exit();
 			Main.NextLevelStats = Main.StatusBar.NextLevelStats();
 			Input.SetMouseMode(Input.MouseMode.Hidden);
 		}
-
 		public bool Pickup(Pickup pickup)
 		{
 			if (pickup.IsIn(ARVRPlayer.Position) && XMLScript.Run(pickup.XML, pickup))
@@ -206,7 +194,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			return false;
 		}
-
 		public readonly static SphereMesh TargetMesh = new SphereMesh()
 		{
 			ResourceName = "Target",
@@ -223,7 +210,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
 			},
 		};
-
 		public MeshInstance LeftTarget { get; set; }
 		public MeshInstance RightTarget { get; set; }
 		public MeshInstance Target(bool left) => left ? LeftTarget : RightTarget;

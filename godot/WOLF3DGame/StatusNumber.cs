@@ -146,11 +146,18 @@ namespace WOLF3D.WOLF3DGame
 		};
 		public StatusNumber Set(Stat stat)
 		{
-			Name = stat.Name;
+			Name = StatusNumberName = stat.Name;
 			Max = stat.Max;
 			Value = stat.Value;
 			Visible = stat.Visible;
 			return this;
 		}
+		public StatusNumber Set(XElement xml) => Set(new Stat()
+		{
+			Name = xml.Attribute("Name").Value,
+			Max = (uint)xml.Attribute("Max"),
+			Value = (uint)xml.Attribute("Value"),
+			Visible = !xml.IsFalse("Visible"),
+		});
 	}
 }
