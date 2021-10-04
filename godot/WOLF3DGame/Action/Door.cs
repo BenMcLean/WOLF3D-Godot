@@ -122,10 +122,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 			Set(
-				(uint)XML.Attribute("Page"),
-				(ushort)(uint)XML.Attribute("X"),
-				(ushort)(uint)XML.Attribute("Z"),
-				Direction8.From(XML.Attribute("Direction")) == Direction8.WEST
+				(uint)xml.Attribute("Page"),
+				(ushort)(uint)xml.Attribute("X"),
+				(ushort)(uint)xml.Attribute("Z"),
+				Direction8.From(xml.Attribute("Direction")) == Direction8.WEST
 				);
 			if (Enum.TryParse(xml.Attribute("State")?.Value, out DoorEnum state))
 				State = state;
