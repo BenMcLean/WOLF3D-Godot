@@ -106,7 +106,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				ActorAt[x] = new int[Map.Depth];
 			}
 			foreach (XElement xDoor in xml.Elements("Door"))
-				Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor).SetFloorCodes(Map);
+				AddChild(Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor) { Level = this, }.SetFloorCodes(Map));
 			foreach (XElement xPushWall in xml.Elements("PushWall"))
 			{
 				PushWall pushWall = new PushWall(xPushWall);

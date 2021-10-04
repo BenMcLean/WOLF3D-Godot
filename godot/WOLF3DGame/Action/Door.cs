@@ -122,13 +122,12 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 			Set(
-				(uint)xml.Attribute("Page"),
+				(ushort)(uint)xml.Attribute("Page"),
 				(ushort)(uint)xml.Attribute("X"),
 				(ushort)(uint)xml.Attribute("Z"),
 				Direction8.From(xml.Attribute("Direction")) == Direction8.WEST
 				);
-			if (Enum.TryParse(xml.Attribute("State")?.Value, out DoorEnum state))
-				State = state;
+			State = (DoorEnum)Enum.Parse(typeof(DoorEnum), xml.Attribute("State").Value, true);
 			if (float.TryParse(xml.Attribute("Progress")?.Value, out float progress))
 				Progress = progress;
 			if (float.TryParse(xml.Attribute("Slide")?.Value, out float slide))
@@ -138,9 +137,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (ushort.TryParse(xml.Attribute("FloorCodeMinus")?.Value, out ushort floorCodeMinus))
 				FloorCodeMinus = floorCodeMinus;
 		}
-		public Door(uint page, ushort x, ushort z, bool western, Level level) : this(page, x, z, western) => Level = level;
-		public Door(uint page, ushort x, ushort z, bool western) => Set(page, x, z, western);
-		private Door Set(uint page, ushort x, ushort z, bool western)
+		public Door(ushort page, ushort x, ushort z, bool western, Level level) : this(page, x, z, western) => Level = level;
+		public Door(ushort page, ushort x, ushort z, bool western) => Set(page, x, z, western);
+		private Door Set(ushort page, ushort x, ushort z, bool western)
 		{
 			X = x;
 			Z = z;
@@ -204,7 +203,7 @@ namespace WOLF3D.WOLF3DGame.Action
 								 select e).FirstOrDefault()) != null)
 						doors[x][z] = level == null ?
 							new Door(
-								(uint)door.Attribute("Page"),
+								(ushort)(uint)door.Attribute("Page"),
 								x,
 								z,
 								Direction8.From(door.Attribute("Direction")) == Direction8.WEST
@@ -213,7 +212,7 @@ namespace WOLF3D.WOLF3DGame.Action
 								XML = door,
 							}.SetFloorCodes(map)
 							: new Door(
-								(uint)door.Attribute("Page"),
+								(ushort)(uint)door.Attribute("Page"),
 								x,
 								z,
 								Direction8.From(door.Attribute("Direction")) == Direction8.WEST,
