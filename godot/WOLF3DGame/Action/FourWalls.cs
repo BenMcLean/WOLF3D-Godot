@@ -36,7 +36,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("X"), X);
 			e.SetAttributeValue(XName.Get("Z"), Z);
-			e.SetAttributeValue(XName.Get("Wall"), Wall);
+			e.SetAttributeValue(XName.Get("Page"), Wall);
 			e.SetAttributeValue(XName.Get("DarkSide"), DarkSide);
 			return e;
 		}

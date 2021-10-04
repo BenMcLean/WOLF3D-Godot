@@ -24,7 +24,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			XElement e = base.Save(); // Billboard
 			e.Name = XName.Get(GetType().Name);
 			e.SetAttributeValue(XName.Get("Treasure"), Treasure);
-			e.SetAttributeValue(XName.Get("Flash"), Flash.ToString());
+			if (Flash is Godot.Color flash)
+				e.SetAttributeValue(XName.Get("Flash"), flash.ToHtml());
 			return e;
 		}
 	}

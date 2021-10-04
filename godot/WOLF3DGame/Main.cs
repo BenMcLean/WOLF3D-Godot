@@ -22,7 +22,6 @@ namespace WOLF3D.WOLF3DGame
 		}
 		public static Main I { get; private set; } = null;
 		public static RNG RNG = new RNG();
-
 		public static void GlobalExceptionHandler(Exception ex)
 		{
 			string message = DateTime.Now + ", " + ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
@@ -40,10 +39,8 @@ namespace WOLF3D.WOLF3DGame
 			catch (Exception) { } // Writing to exception.log is an absolute last resort to capture what went wrong. Can't have it stopping the program if it fails to write.
 			if (!Android) throw ex; // Android just quits without showing exceptions. Don't want that.
 		}
-
 		/// <returns>a random number between 0-255 inclusive</returns>
 		public static int US_RndT() => RNG.Next(0, 256);
-
 		public enum PlatformEnum
 		{
 			ANDROID, PC
@@ -58,7 +55,6 @@ namespace WOLF3D.WOLF3DGame
 			get => !VR;
 			set => VR = !value;
 		}
-
 		/// <summary>
 		/// The WOLF3D root folder
 		/// </summary>
@@ -81,7 +77,6 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private StatusBar statusBar;
-
 		public static bool InGame => ActionRoom != null;
 		public static bool InGameMatch(XElement xElement) =>
 			xElement?.Attribute("InGame") == null ||
@@ -109,7 +104,6 @@ namespace WOLF3D.WOLF3DGame
 			get => WorldEnvironment.Environment.BackgroundColor;
 			set => WorldEnvironment.Environment.BackgroundColor = value;
 		}
-
 		public static ActionRoom ActionRoom { get; set; }
 		public static MenuRoom MenuRoom { get; set; }
 		public static SetupRoom SetupRoom { get; set; }
@@ -142,7 +136,6 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private Node openXRConfig = null;
-
 		public override void _Ready()
 		{
 			Input.SetMouseMode(Input.MouseMode.Hidden);
@@ -181,13 +174,11 @@ namespace WOLF3D.WOLF3DGame
 			}
 			else
 				GD.Print("Skipping ARVRInterface initialization because of PANCAKE command parameter.");
-
 			AddChild(SoundBlaster.OplPlayer);
 			AddChild(SoundBlaster.MidiPlayer);
 			AddChild(SoundBlaster.AudioStreamPlayer);
 			Room = SetupRoom = new SetupRoom();
 		}
-
 		/// <summary>
 		/// Immediately quits, no questions asked
 		/// </summary>
@@ -196,7 +187,6 @@ namespace WOLF3D.WOLF3DGame
 			I.GetTree().Quit();
 			System.Environment.Exit(0);
 		}
-
 		public static void End()
 		{
 			Settings.Load();
