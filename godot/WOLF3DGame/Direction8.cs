@@ -227,11 +227,10 @@ namespace WOLF3D.WOLF3DGame
 		public static Direction8 From(string @string) =>
 			int.TryParse(@string, out int result) ?
 				From(result)
-				: (from v in Values
-				   where string.Equals(v.ShortName, @string, StringComparison.InvariantCultureIgnoreCase)
-				   || string.Equals(v.Name, @string, StringComparison.InvariantCultureIgnoreCase)
-				   select v).FirstOrDefault();
-
+				: Values.Where(v =>
+					string.Equals(v.ShortName, @string, StringComparison.InvariantCultureIgnoreCase)
+					|| string.Equals(v.Name, @string, StringComparison.InvariantCultureIgnoreCase)
+				).FirstOrDefault();
 		public static Direction8 Combine(params Direction8[] directions)
 		{
 			if (directions == null || directions.Length < 1)
@@ -249,7 +248,6 @@ namespace WOLF3D.WOLF3DGame
 					return direction;
 			return null;
 		}
-
 		public static IEnumerable<Direction8> RandomOrder(params Direction8[] excluded) => RandomOrder(Main.RNG, excluded);
 		public static IEnumerable<Direction8> RandomOrder(RNG rng, params Direction8[] excluded)
 		{
@@ -263,5 +261,6 @@ namespace WOLF3D.WOLF3DGame
 				directions.Remove(direction);
 			}
 		}
+		public override string ToString() => ShortName;
 	}
 }
