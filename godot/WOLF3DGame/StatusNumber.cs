@@ -9,7 +9,7 @@ namespace WOLF3D.WOLF3DGame
 		public string StatusNumberName = null;
 		public XElement Save()
 		{
-			XElement e = new XElement(XName.Get(GetType().Name));
+			XElement e = new XElement(XName.Get("Number"));
 			e.SetAttributeValue(XName.Get("Name"), StatusNumberName);
 			e.SetAttributeValue(XName.Get("Value"), Value);
 			e.SetAttributeValue(XName.Get("Max"), Max);

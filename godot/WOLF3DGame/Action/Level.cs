@@ -77,6 +77,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("MapNumber"), Map.Number);
 			e.SetAttributeValue(XName.Get("Time"), Time);
+			e.Add(FloorCodes.Save());
 			foreach (Door door in GetDoors())
 				e.Add(door.Save());
 			foreach (PushWall pushWall in PushWalls)
