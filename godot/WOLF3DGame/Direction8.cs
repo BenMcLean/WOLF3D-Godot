@@ -88,7 +88,6 @@ namespace WOLF3D.WOLF3DGame
 		public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
 		public static readonly ReadOnlyCollection<Direction8> Cardinals = Array.AsReadOnly(new Direction8[] { WEST, NORTH, EAST, SOUTH });
 		public static readonly ReadOnlyCollection<Direction8> Diagonals = Array.AsReadOnly(new Direction8[] { NORTHWEST, NORTHEAST, SOUTHEAST, SOUTHWEST });
-
 		public uint Value { get; private set; }
 		public int X { get; private set; }
 		public const int Y = 0;
@@ -176,12 +175,9 @@ namespace WOLF3D.WOLF3DGame
 		public static Direction8 CardinalToPoint(Vector3 a, Vector3 b) => CardinalToPoint(a.x, a.z, b.x, b.z);
 		public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
 		public static Direction8 CardinalToPoint(float x, float y) => CardinalToPoint(0f, 0f, x, y);
-
 		public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
 		public static Direction8 CardinalToPoint(float x1, float y1, float x2, float y2) => CardinalFromAngle(Mathf.Atan2(y1 - y2, x1 - x2));
-
 		public Basis Basis => new Basis(Vector3.Up, Angle).Orthonormalized();
-
 		public bool InSight(Vector3 a, Vector3 b, float halfFOV = Assets.QuarterPi) => InSight(a.x, a.z, b.x, b.z, halfFOV);
 		public bool InSight(Vector2 a, Vector2 b, float halfFOV = Assets.QuarterPi) => InSight(a.x, a.y, b.x, b.y, halfFOV);
 		public bool InSight(float x1, float y1, float x2, float y2, float halfFOV = Assets.QuarterPi) => InSight(Mathf.Atan2(y1 - y2, x1 - x2), halfFOV);
@@ -191,14 +187,12 @@ namespace WOLF3D.WOLF3DGame
 			float newAngle = (Angle + Mathf.Tau) % Mathf.Tau;
 			return ((angle - newAngle + Mathf.Tau) % Mathf.Tau <= halfFOV || (newAngle - angle + Mathf.Tau) % Mathf.Tau <= halfFOV);
 		}
-
 		public static Direction8 FromAxis(Vector3.Axis? axis) =>
 			axis == Godot.Vector3.Axis.X ?
 			SOUTH
 			: axis == Godot.Vector3.Axis.Z ?
 			WEST
 			: null;
-
 		public static Direction8 FromAngle(Transform transform) => FromAngle(transform.basis);
 		public static Direction8 FromAngle(Basis basis) => FromAngle(basis.GetEuler().y);
 		public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
@@ -257,8 +251,8 @@ namespace WOLF3D.WOLF3DGame
 			while (directions.Count > 0)
 			{
 				Direction8 direction = directions[rng.Next(0, directions.Count)];
-				yield return direction;
 				directions.Remove(direction);
+				yield return direction;
 			}
 		}
 		public override string ToString() => ShortName;
