@@ -34,8 +34,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		public virtual XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
-			e.SetAttributeValue(XName.Get("X"), X);
-			e.SetAttributeValue(XName.Get("Z"), Z);
+			e.SetAttributeValue(XName.Get("X"), Transform.origin.x);
+			e.SetAttributeValue(XName.Get("Z"), Transform.origin.z);
+			e.SetAttributeValue(XName.Get("TileX"), X);
+			e.SetAttributeValue(XName.Get("TileZ"), Z);
 			e.SetAttributeValue(XName.Get("Page"), Wall);
 			e.SetAttributeValue(XName.Get("DarkSide"), DarkSide);
 			return e;
@@ -47,6 +49,16 @@ namespace WOLF3D.WOLF3DGame.Action
 		/// <param name="side">Array index from Sides</param>
 		/// <returns>Cardinal direction that side is facing</returns>
 		public static Direction8 Cardinal(uint side) => Direction8.From(side << 1);
+		protected FourWalls(XElement xml)
+		{
+			Set((ushort)(uint)xml.Attribute("Page"), ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page"));
+			if (ushort.TryParse(xml.Attribute("TileX")?.Value, out ushort tileX))
+				X = tileX;
+			if (ushort.TryParse(xml.Attribute("TileZ")?.Value, out ushort tileZ))
+				Z = tileZ;
+			if (float.TryParse(xml.Attribute("X")?.Value, out float x) && float.TryParse(xml.Attribute("Z")?.Value, out float z))
+				Transform = new Transform(Basis.Identity, new Vector3(x, 0f, z));
+		}
 		protected FourWalls Set(ushort wall, ushort darkSide)
 		{
 			Name = "FourWalls";

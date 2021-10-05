@@ -19,13 +19,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			return e;
 		}
 		#endregion Data
-		public Elevator(XElement xml)
+		public Elevator(XElement xml) : base(xml)
 		{
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
-			Set(
-				(ushort)(uint)xml.Attribute("Page"),
-				ushort.TryParse(xml.Attribute("DarkSide")?.Value, out ushort d) ? d : (ushort)(uint)xml.Attribute("Page")
-				);
 			if (XML?.Attribute("Name")?.Value is string name)
 				Name = name;
 			if (xml?.Attribute("Direction")?.Value is string direction)
