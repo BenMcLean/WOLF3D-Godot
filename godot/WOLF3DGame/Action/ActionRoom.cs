@@ -70,13 +70,13 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ActionRoom(GameMap map) : this()
 		{
 			AddChild(Level = new Level(map));
-			ARVRPlayer.GlobalTransform = Assets.StartTransform(map);
+			ARVRPlayer.Transform = Assets.StartTransform(map);
 		}
 		public ActionRoom(XElement xml) : this()
 		{
 			AddChild(Level = new Level(xml.Element("Level")));
 			XElement arvrPlayer = xml.Element("ARVRPlayer");
-			ARVRPlayer.GlobalTransform = new Transform(ARVRPlayer.Transform.basis, new Vector3((float)arvrPlayer.Attribute("X"), 0f, (float)arvrPlayer.Attribute("Z")));
+			ARVRPlayer.Transform = new Transform(ARVRPlayer.Transform.basis, new Vector3((float)arvrPlayer.Attribute("X"), 0f, (float)arvrPlayer.Attribute("Z")));
 		}
 		public override void _Ready()
 		{

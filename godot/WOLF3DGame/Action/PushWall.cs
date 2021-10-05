@@ -1,4 +1,6 @@
 ﻿using Godot;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -41,7 +43,8 @@ namespace WOLF3D.WOLF3DGame.Action
 				e.SetAttributeValue(XName.Get("RepeatDigiSound"), RepeatDigiSound);
 				e.SetAttributeValue(XName.Get("SinceRepeatDigiSound"), SinceRepeatDigiSound);
 			}
-			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
+			if (string.Join(",", Level.PushWallMarked(this).Select(t => t.Item1 + "," + t.Item2)) is string joined)
+				e.SetAttributeValue(XName.Get("Marked"), joined);
 			return e;
 		}
 		#endregion Data
@@ -59,15 +62,15 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override bool Push(Direction8 direction)
 		{
 			if (Pushed
-				|| !PushWallOpen(X + direction.X, Z + direction.Z)
-				|| !PushWallOpen(X + direction.X * 2, Z + direction.Z * 2))
+				|| !IsPushWallOpen(X + direction.X, Z + direction.Z)
+				|| !IsPushWallOpen(X + direction.X * 2, Z + direction.Z * 2))
 				return false;
 			Direction = direction;
 			Level.SetPushWallAt((ushort)(X + direction.X), (ushort)(Z + direction.Z), this);
 			Level.SetPushWallAt((ushort)(X + direction.X * 2), (ushort)(Z + direction.Z * 2), this);
 			return Pushed = true;
 		}
-		public bool PushWallOpen(int x, int z) => Level.Walls.IsNavigable(x, z) && !Level.IsPushWallAt((ushort)x, (ushort)z);
+		public bool IsPushWallOpen(int x, int z) => Level.Walls.IsNavigable(x, z) && !Level.IsPushWallAt((ushort)x, (ushort)z);
 		public override void _Process(float delta)
 		{
 			if (!Main.Room.Paused && Pushed == true && Time < Seconds)

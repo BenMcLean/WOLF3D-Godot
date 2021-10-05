@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +42,14 @@ namespace WOLF3D.WOLF3DGame.Action
 					if (PushWallAt[x][z] == index + 1)
 						PushWallAt[x][z] = 0;
 			return this;
+		}
+		public IEnumerable<Tuple<int, int>> PushWallMarked(PushWall pushWall) => PushWallMarked(pushWall.ArrayIndex);
+		public IEnumerable<Tuple<int, int>> PushWallMarked(int index)
+		{
+			for (ushort x = 0; x < PushWallAt.Length; x++)
+				for (ushort z = 0; z < PushWallAt[x].Length; z++)
+					if (PushWallAt[x][z] == index + 1)
+						yield return new Tuple<int, int>(x, z);
 		}
 		public readonly ArrayList Pickups = new ArrayList();
 		public readonly ArrayList Actors = new ArrayList();
@@ -111,8 +120,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				PushWall pushWall = new PushWall(xPushWall);
 				pushWall.ArrayIndex = PushWalls.Add(pushWall);
-				SetPushWallAt(pushWall.X, pushWall.Z, pushWall);
-				// TODO: handle saving and loading cases where pushwalls have multiple tiles marked
+				foreach (Tuple<int, int> tuple in xPushWall.Attribute("Marked").IntPairs())
+					SetPushWallAt((ushort)tuple.Item1, (ushort)tuple.Item2, pushWall);
 				AddChild(pushWall);
 			}
 			foreach (XElement xPickup in xml.Elements("Pickup"))

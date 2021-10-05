@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -28,5 +29,23 @@ namespace WOLF3D.WOLF3DGame
 			: @string.IndexOf(Environment.NewLine, StringComparison.CurrentCulture) is int index && index >= 0 ?
 				@string.Substring(0, index)
 				: @string;
+		public static IEnumerable<Tuple<int, int>> IntPairs(this XAttribute input) => IntPairs(input?.Value);
+		public static IEnumerable<Tuple<int, int>> IntPairs(this string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+				throw new InvalidDataException("Can't get pairs from \"" + input + "\".");
+			string[] inputs = input.Split(',');
+			for (int i = 0; i < inputs.Length; i += 2)
+				yield return new Tuple<int, int>(int.Parse(inputs[i]), int.Parse(inputs[i + 1]));
+		}
+		public static IEnumerable<Tuple<float, float>> FloatPairs(this XAttribute input) => FloatPairs(input?.Value);
+		public static IEnumerable<Tuple<float, float>> FloatPairs(this string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+				throw new InvalidDataException("Can't get pairs from \"" + input + "\".");
+			string[] inputs = input.Split(',');
+			for (int i = 0; i < inputs.Length; i += 2)
+				yield return new Tuple<float, float>(float.Parse(inputs[i]), float.Parse(inputs[i + 1]));
+		}
 	}
 }
