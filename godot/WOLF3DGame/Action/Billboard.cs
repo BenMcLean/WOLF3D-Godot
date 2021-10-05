@@ -75,38 +75,50 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transform = new Transform(Transform.basis, new Vector3(x, 0f, z));
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 		}
-		public static Billboard[] Billboards(GameMap map, byte difficulty = 4)
+		public static IEnumerable<Billboard> Billboards(GameMap map, byte difficulty = 4, bool scenery = true)
 		{
 			XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects");
 			if (objects == null)
 				throw new NullReferenceException("objects was null!");
-			List<Billboard> billboards = new List<Billboard>();
 			for (uint i = 0; i < map.ObjectData.Length; i++)
-				if (objects?.Elements("Billboard")
+				if (scenery && objects?.Elements("Billboard")
 					?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
 					?.FirstOrDefault() is XElement bx && bx != null)
-					billboards.Add(new Billboard(bx)
+					yield return new Billboard(bx)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
-					});
+					};
 				else if (objects?.Elements("Pickup")
 						?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
 						?.FirstOrDefault() is XElement px && px != null)
-					billboards.Add(new Pickup(px)
+					yield return new Pickup(px)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
-					});
+					};
 				else if (Assets.Spawn.Where(
 					e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
 					).FirstOrDefault() is XElement spawn
 					&& spawn != null
 					&& (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
 							)
-					billboards.Add(new Actor(spawn)
+					yield return new Actor(spawn)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
-					});
-			return billboards.ToArray();
+					};
+		}
+		public static IEnumerable<Billboard> Scenery(GameMap map)
+		{
+			XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects");
+			if (objects == null)
+				throw new NullReferenceException("objects was null!");
+			for (uint i = 0; i < map.ObjectData.Length; i++)
+				if (objects?.Elements("Billboard")
+					?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
+					?.FirstOrDefault() is XElement bx && bx != null)
+					yield return new Billboard(bx)
+					{
+						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
+					};
 		}
 		#endregion Constructors
 		public bool IsHit(Vector3 vector3) => IsHitLocal(ToLocal(vector3));

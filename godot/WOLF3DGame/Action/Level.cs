@@ -16,9 +16,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public GameMap Map => Walls.Map;
 		public float Time { get; set; } = 0f;
 		public Walls Walls { get; private set; }
-
 		public Door[][] Doors { get; private set; }
-
 		public readonly ArrayList PushWalls = new ArrayList();
 		private readonly int[][] PushWallAt;
 		public bool IsPushWallAt(ushort x, ushort z) => x < PushWallAt.Length && z < PushWallAt[x].Length && PushWallAt[x][z] != 0;
@@ -96,6 +94,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			AddChild(Walls = new Walls(Assets.Maps[(int)xml.Attribute("MapNumber")]));
 			Name = "Level \"" + Map.Name + "\"";
 			FloorCodes = new SymmetricMatrix(xml.Element("SymmetricMatrix"));
+			foreach (Billboard billboard in Billboard.Scenery(Map))
+				AddChild(billboard);
 			Doors = new Door[Map.Width][];
 			PushWallAt = new int[Map.Width][];
 			ActorAt = new int[Map.Width][];
