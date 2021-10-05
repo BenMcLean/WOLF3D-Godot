@@ -83,14 +83,14 @@ namespace WOLF3D.WOLF3DGame.Action
 			for (uint i = 0; i < map.ObjectData.Length; i++)
 				if (scenery && objects?.Elements("Billboard")
 					?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
-					?.FirstOrDefault() is XElement bx && bx != null)
+					?.FirstOrDefault() is XElement bx)
 					yield return new Billboard(bx)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
 					};
 				else if (objects?.Elements("Pickup")
 						?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
-						?.FirstOrDefault() is XElement px && px != null)
+						?.FirstOrDefault() is XElement px)
 					yield return new Pickup(px)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
@@ -98,7 +98,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				else if (Assets.Spawn.Where(
 					e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort @ushort) && @ushort == map.ObjectData[i]
 					).FirstOrDefault() is XElement spawn
-					&& spawn != null
 					&& (!byte.TryParse(spawn.Attribute("Difficulty")?.Value, out byte @byte) || @byte <= difficulty)
 							)
 					yield return new Actor(spawn)
@@ -114,7 +113,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			for (uint i = 0; i < map.ObjectData.Length; i++)
 				if (objects?.Elements("Billboard")
 					?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
-					?.FirstOrDefault() is XElement bx && bx != null)
+					?.FirstOrDefault() is XElement bx)
 					yield return new Billboard(bx)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
