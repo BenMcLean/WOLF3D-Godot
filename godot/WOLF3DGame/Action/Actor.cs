@@ -9,7 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		#region objstruct
 		public XElement ActorXML;
 		public int ArrayIndex { get; set; }
-		public MeshInstance DebugFloor;
+		//public MeshInstance DebugFloor;
 		//typedef struct objstruct
 		//{
 		//    activetype active;
@@ -71,18 +71,15 @@ namespace WOLF3D.WOLF3DGame.Action
 		//    int viewx;
 		//    unsigned viewheight;
 		//    fixed transx, transy;        // in global coord
-
 		//    int angle;
 		//    int hitpoints;
 		public ushort HitPoints = 0;
 		//    long speed;
 		public uint ActorSpeed => State.ActorSpeed;
 		public float Speed => State.Speed;
-
 		//    int temp1, temp2, temp3;
 		public float ReactionTime = 0f;
 		public float ReactionTimer = 0f;
-
 		//    struct objstruct    *next,*prev;
 		//}
 		//objtype;
@@ -127,27 +124,27 @@ namespace WOLF3D.WOLF3DGame.Action
 				ReactionTime = reactionTime;
 			if (float.TryParse(xml.Attribute("ReactionTimer")?.Value, out float reactionTimer))
 				ReactionTimer = reactionTimer;
-			AddChild(DebugFloor = new MeshInstance()
-			{
-				Name = Name + " Debug Floor",
-				Mesh = new QuadMesh()
-				{
-					Size = new Vector2(Assets.WallWidth, Assets.WallWidth),
-				},
-				MaterialOverride = new SpatialMaterial()
-				{
-					AlbedoColor = Color.Color8(255, 0, 0, 128),
-					FlagsUnshaded = true,
-					FlagsDoNotReceiveShadows = true,
-					FlagsDisableAmbientLight = true,
-					FlagsTransparent = true,
-					ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-					ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-					AnisotropyEnabled = true,
-					RenderPriority = 1,
-				},
-				Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
-			});
+			//AddChild(DebugFloor = new MeshInstance()
+			//{
+			//	Name = Name + " Debug Floor",
+			//	Mesh = new QuadMesh()
+			//	{
+			//		Size = new Vector2(Assets.WallWidth, Assets.WallWidth),
+			//	},
+			//	MaterialOverride = new SpatialMaterial()
+			//	{
+			//		AlbedoColor = Color.Color8(255, 0, 0, 128),
+			//		FlagsUnshaded = true,
+			//		FlagsDoNotReceiveShadows = true,
+			//		FlagsDisableAmbientLight = true,
+			//		FlagsTransparent = true,
+			//		ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+			//		ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+			//		AnisotropyEnabled = true,
+			//		RenderPriority = 1,
+			//	},
+			//	Transform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3(0f, Assets.PixelHeight, 0f)),
+			//});
 		}
 		public override XElement Save()
 		{
@@ -175,18 +172,14 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void _Process(float delta)
 		{
 			base._Process(delta);
-
-			DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
-
+			//DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
 			if (!Main.Room.Paused)
 			{
 				if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
 					Main.ActionRoom.Level.SetActorAt(TileX, TileZ);
-
 				Seconds += delta;
 				if (Seconds > State.Seconds)
 					State = State.Next;
-
 				if (NewState)
 				{
 					NewState = false;
@@ -196,7 +189,6 @@ namespace WOLF3D.WOLF3DGame.Action
 						Play = audioStreamSample;
 					State?.Act?.Invoke(this, delta); // Act methods are called once per state
 				}
-
 				State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
 				if (Visible && State != null
 					&& State.Shape is short shape
