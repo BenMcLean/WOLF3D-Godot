@@ -23,18 +23,15 @@ namespace WOLF3D.WOLF3DGame.Action
 		public bool IsTransparent(int x, int z) =>
 			x >= 0 && z >= 0 && x < Transparent.Length && z < Transparent[x].Length
 			&& Transparent[x][z];
-
 		public CollisionShape Ground { get; private set; }
 		public MeshInstance GroundMesh { get; private set; }
 		public CollisionShape Ceiling { get; private set; }
 		public MeshInstance CeilingMesh { get; private set; }
 		public List<Elevator> Elevators = new List<Elevator>();
-
 		public Walls(GameMap map)
 		{
 			Name = "Walls for map \"" + map.Name + "\"";
 			Map = map;
-
 			Navigable = new bool[Map.Width][];
 			Transparent = new bool[Map.Width][];
 			for (ushort x = 0; x < Map.Width; x++)
@@ -47,7 +44,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					Transparent[x][z] = Assets.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
 				}
 			}
-
 			// realWalls replaces pushwalls with floors.
 			ushort[] realWalls = new ushort[map.MapData.Length];
 			Array.Copy(map.MapData, realWalls, realWalls.Length);
@@ -55,7 +51,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (Assets.PushWalls.Contains(Map.ObjectData[i]))
 					realWalls[i] = Assets.FloorCodeFirst;
 			ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
-
 			AddChild(Ground = new CollisionShape()
 			{
 				Name = "Ground",
@@ -156,7 +151,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					RenderPriority = 1,
 				},
 			});
-
 			XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Element("DoorFrame");
 			if (doorFrameX == null)
 				throw new NullReferenceException("Could not find \"DoorFrame\" tag in walls!");
@@ -216,7 +210,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 		}
-
 		/// <summary>
 		/// "Of course Momma's gonna help build the wall." - Pink Floyd
 		/// </summary>
