@@ -118,7 +118,10 @@ namespace WOLF3D.WOLF3DGame.Action
 				AddChild(Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor) { Level = this, }.SetFloorCodes(Map));
 			foreach (XElement xPushWall in xml.Elements("PushWall"))
 			{
-				PushWall pushWall = new PushWall(xPushWall);
+				PushWall pushWall = new PushWall(xPushWall)
+				{
+					Level = this,
+				};
 				pushWall.ArrayIndex = PushWalls.Add(pushWall);
 				foreach (Tuple<int, int> tuple in xPushWall.Attribute("Marked").IntPairs())
 					SetPushWallAt((ushort)tuple.Item1, (ushort)tuple.Item2, pushWall);
