@@ -118,7 +118,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				AddChild(Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor) { Level = this, }.SetFloorCodes(Map));
 			foreach (XElement xPushWall in xml.Elements("PushWall"))
 			{
-				PushWall pushWall = new PushWall(xPushWall)
+				PushWall pushWall = new PushWall(xPushWall, XElement.Parse(xPushWall.Attribute("WallXML").Value))
 				{
 					Level = this,
 				};
@@ -162,13 +162,13 @@ namespace WOLF3D.WOLF3DGame.Action
 						for (ushort z = 0; z < Map.Depth; z++)
 							if (Map.GetObjectData(x, z) == pushNumber)
 							{
-								PushWall pushWall = new PushWall(Assets.Wall(Map.GetMapData(x, z)))
+								PushWall pushWall = new PushWall(pushXML, Assets.Wall(Map.GetMapData(x, z)))
 								{
 									Name = "Pushwall starting at " + x + ", " + z,
 									Level = this,
 									X = x,
 									Z = z,
-									GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
+									Transform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0f, z * Assets.WallWidth)),
 								};
 								pushWall.ArrayIndex = PushWalls.Add(pushWall);
 								SetPushWallAt(x, z, pushWall);

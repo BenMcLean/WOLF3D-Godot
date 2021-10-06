@@ -9,6 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public const float Seconds = 128f / 70f; // It takes 128 tics for a pushwall to fully open in Wolfenstein 3-D.
 		public const float HalfSeconds = Seconds / 2f;
 		#region Data
+		public XElement WallXML { get; set; } = null;
 		public XElement XML { get; set; } = null;
 		public int ArrayIndex { get; set; }
 		public float? RepeatDigiSound = null;
@@ -40,14 +41,22 @@ namespace WOLF3D.WOLF3DGame.Action
 				e.SetAttributeValue(XName.Get("SinceRepeatDigiSound"), SinceRepeatDigiSound);
 			if (string.Join(",", Level.PushWallMarked(this).Select(t => t.Item1 + "," + t.Item2)) is string joined)
 				e.SetAttributeValue(XName.Get("Marked"), joined);
+			e.SetAttributeValue(XName.Get("WallXML"), WallXML.ToString());
 			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
 			return e;
 		}
 		#endregion Data
-		public PushWall(XElement xml) : base(xml)
+		public PushWall(XElement xml, XElement wallXML) : base(wallXML)
 		{
 			Name = "Pushwall";
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
+			WallXML = wallXML;
+			if (ushort.TryParse(xml.Attribute("TileX")?.Value, out ushort tileX))
+				X = tileX;
+			if (ushort.TryParse(xml.Attribute("TileZ")?.Value, out ushort tileZ))
+				Z = tileZ;
+			if (float.TryParse(xml.Attribute("X")?.Value, out float x) && float.TryParse(xml.Attribute("Z")?.Value, out float z))
+				Transform = new Transform(Basis.Identity, new Vector3(x, 0f, z));
 			if (Assets.DigiSoundSafe(XML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
 				Sound = sound;
 			if (xml.Attribute("Direction")?.Value is string direction)
