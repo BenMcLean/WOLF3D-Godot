@@ -1,6 +1,4 @@
 ﻿using Godot;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -42,13 +40,14 @@ namespace WOLF3D.WOLF3DGame.Action
 				e.SetAttributeValue(XName.Get("SinceRepeatDigiSound"), SinceRepeatDigiSound);
 			if (string.Join(",", Level.PushWallMarked(this).Select(t => t.Item1 + "," + t.Item2)) is string joined)
 				e.SetAttributeValue(XName.Get("Marked"), joined);
+			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
 			return e;
 		}
 		#endregion Data
 		public PushWall(XElement xml) : base(xml)
 		{
 			Name = "Pushwall";
-			XML = xml.Attribute("XML")?.Value is string b ? XElement.Parse(b) : xml;
+			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
 			if (Assets.DigiSoundSafe(XML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
 				Sound = sound;
 			if (xml.Attribute("Direction")?.Value is string direction)
