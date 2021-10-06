@@ -170,10 +170,6 @@ namespace WOLF3D.WOLF3DGame.Action
 									Z = z,
 									GlobalTransform = new Transform(Basis.Identity, new Vector3(x * Assets.WallWidth, 0, z * Assets.WallWidth)),
 								};
-								if (Assets.DigiSoundSafe(pushXML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
-									pushWall.Sound = sound;
-								if (ushort.TryParse(pushXML.Attribute("RepeatDigiSound")?.Value, out ushort repeatDigiSound))
-									pushWall.RepeatDigiSound = Assets.TicsToSeconds(repeatDigiSound);
 								pushWall.ArrayIndex = PushWalls.Add(pushWall);
 								SetPushWallAt(x, z, pushWall);
 								AddChild(pushWall);

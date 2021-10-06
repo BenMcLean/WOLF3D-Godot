@@ -39,10 +39,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (Direction is Direction8)
 				e.SetAttributeValue(XName.Get("Direction"), Direction.ToString());
 			if (RepeatDigiSound is float)
-			{
-				e.SetAttributeValue(XName.Get("RepeatDigiSound"), RepeatDigiSound);
 				e.SetAttributeValue(XName.Get("SinceRepeatDigiSound"), SinceRepeatDigiSound);
-			}
 			if (string.Join(",", Level.PushWallMarked(this).Select(t => t.Item1 + "," + t.Item2)) is string joined)
 				e.SetAttributeValue(XName.Get("Marked"), joined);
 			return e;
@@ -52,6 +49,18 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			Name = "Pushwall";
 			XML = xml.Attribute("XML")?.Value is string b ? XElement.Parse(b) : xml;
+			if (Assets.DigiSoundSafe(XML.Attribute("DigiSound")?.Value) is AudioStreamSample sound)
+				Sound = sound;
+			if (xml.Attribute("Direction")?.Value is string direction)
+				Direction = Direction8.From(direction);
+			if (float.TryParse(xml.Attribute("Time")?.Value, out float time))
+				Time = time;
+			Halfway = xml.IsTrue("Halfway");
+			pushed = xml.IsTrue("Pushed");
+			if (ushort.TryParse(XML.Attribute("RepeatDigiSound")?.Value, out ushort repeatDigiSound))
+				RepeatDigiSound = Assets.TicsToSeconds(repeatDigiSound);
+			if (float.TryParse(xml.Attribute("SinceRepeatDigiSound")?.Value, out float sinceRepeatDigiSound))
+				SinceRepeatDigiSound = sinceRepeatDigiSound;
 			AddChild(Speaker = new AudioStreamPlayer3D()
 			{
 				Name = "Pushwall speaker",
