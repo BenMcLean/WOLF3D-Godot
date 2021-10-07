@@ -79,6 +79,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			AddChild(Level = new Level(xml.Element("Level")));
 			Name = "ActionRoom " + Level.Map.Name;
 			ARVRPlayer.Set(xml.Element("ARVRPlayer"));
+			if (xml.Attribute("RNG")?.Value is string stateCode)
+				Main.RNG.StateCode = stateCode;
 		}
 		public override void _Ready()
 		{
@@ -223,6 +225,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			e.SetAttributeValue(XName.Get("Name"), Level.Map.Name + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
 			e.SetAttributeValue(XName.Get("Difficulty"), Difficulty);
 			e.SetAttributeValue(XName.Get("Episode"), Episode);
+			e.SetAttributeValue(XName.Get("RNG"), Main.RNG.StateCode);
 			e.Add(ARVRPlayer.Save());
 			e.Add(Main.StatusBar.Save());
 			e.Add(Level.Save());
