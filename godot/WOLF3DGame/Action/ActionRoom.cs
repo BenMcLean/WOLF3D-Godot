@@ -2,6 +2,7 @@ using Godot;
 using WOLF3DModel;
 using WOLF3D.WOLF3DGame.OPL;
 using System.Xml.Linq;
+using System;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -217,6 +218,8 @@ namespace WOLF3D.WOLF3DGame.Action
 		public XElement Save()
 		{
 			XElement e = new XElement(XName.Get("SaveGame"));
+			TimeSpan time = TimeSpan.FromSeconds(Level.Time);
+			e.SetAttributeValue(XName.Get("Name"), Level.Map.Name + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
 			e.SetAttributeValue(XName.Get("Difficulty"), Difficulty);
 			e.SetAttributeValue(XName.Get("Episode"), Episode);
 			e.Add(ARVRPlayer.Save());
