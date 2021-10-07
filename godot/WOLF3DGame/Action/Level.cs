@@ -96,7 +96,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			return e;
 		}
 		#endregion Data Members
-
 		#region Loading
 		public Level(XElement xml)
 		{
@@ -192,9 +191,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		#endregion Loading
-
 		#region Doors
-
 		public IEnumerable<Door> GetDoors()
 		{
 			for (uint x = 0; x < Doors.Length; x++)
@@ -204,7 +201,6 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
 		#endregion Doors
-
 		#region Pushing
 		public bool Push(Vector2 where)
 		{
@@ -231,16 +227,13 @@ namespace WOLF3D.WOLF3DGame.Action
 			return push;
 		}
 		#endregion Pushing
-
 		#region Collision Detection
 		public Vector2 PlayerWalk(Vector2 here, Vector2 there)
 		{
 			float x = TryPlayerWalk(new Vector2(there.x, here.y)) ? there.x : here.x;
 			return new Vector2(x, TryPlayerWalk(new Vector2(x, there.y)) ? there.y : here.y);
 		}
-
 		public static float ToTheEdgeFromFloat(float here, int move) => move == 0 ? here : ToTheEdge(Assets.IntCoordinate(here), move);
-
 		/// <summary>
 		/// "Close to the edge, down by a river" - Yes
 		/// </summary>
@@ -250,8 +243,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			: move < 0 ?
 			Assets.FloatCoordinate(here) + Assets.HeadXZ + float.Epsilon
 			: Assets.CenterSquare(here);
-
-
 		public bool TryPlayerWalk(Vector2 there, out Vector2 cant)
 		{
 			if (!Clipping)
@@ -264,7 +255,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					return false;
 			return TryPlayerWalkPoint(cant = there);
 		}
-
 		public bool TryWalk(Vector2 there, out Vector2 cant)
 
 		{
@@ -278,11 +268,8 @@ namespace WOLF3D.WOLF3DGame.Action
 					return false;
 			return TryWalkPoint(cant = there);
 		}
-
 		public bool TryPlayerWalk(Vector2 there) => TryPlayerWalk(there, out _);
-
 		public bool TryWalk(Vector2 there) => TryWalk(there, out _);
-
 		public bool TryPlayerWalkPoint(Vector2 there) => TryPlayerWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
 		public bool TryWalkPoint(Vector2 there) => TryWalk(Assets.IntCoordinate(there.x), Assets.IntCoordinate(there.y)) && !IsInsideMarkedActor(there.x, there.y);
 		public bool TryPlayerWalk(int x, int z) =>
@@ -308,27 +295,22 @@ namespace WOLF3D.WOLF3DGame.Action
 						&& TryWalk(x, z + direction.Z)
 					))
 					&& TryWalk(x + direction.X, z + direction.Z));
-
 		public bool CanCloseDoor(int x, int z) =>
 			Walls.IsNavigable(x, z)
 			&& !IsActorAt((ushort)x, (ushort)z)
 			&& !IsPushWallAt((ushort)x, (ushort)z)
 			&& !(Main.ActionRoom.ARVRPlayer.X == x && Main.ActionRoom.ARVRPlayer.Z == z)
 			&& !IsInsideActor(Assets.CenterSquare(x), Assets.CenterSquare(z));
-
 		public bool TryClose(ushort x, ushort z) =>
 			x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
-
 		public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
 		public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth || TryClose(x, z);
-
 		public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
 		public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
 		public bool IsTransparent(int x, int z) =>
 			Walls.IsTransparent(x, z)
 			&& (!(Doors[x][z] is Door door) || !door.IsClosed)
 			&& !IsPushWallAt((ushort)x, (ushort)z);
-
 		/// <returns>if the specified map coordinates are adjacent to a floor</returns>
 		public bool IsByFloor(ushort x, ushort z)
 		{
@@ -342,9 +324,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						return true;
 			return false;
 		}
-
 		public bool IsInsideActor(float x, float z) => InsideActor(x, z) != null;
-
 		public Actor InsideActor(float x, float z)
 		{
 			foreach (Actor actor in Actors)
@@ -352,9 +332,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					return actor;
 			return null;
 		}
-
 		public bool IsInsideMarkedActor(float x, float z) => InsideMarkedActor(x, z) != null;
-
 		public Actor InsideMarkedActor(float x, float z)
 		{
 			foreach (Actor actor in Actors)
@@ -362,7 +340,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					return actor;
 			return null;
 		}
-
 		public List<ushort> Occupied => SquaresOccupied(Main.ActionRoom.ARVRPlayer.Position);
 		public List<ushort> SquaresOccupied(Vector3 vector3) => SquaresOccupied(Assets.Vector2(vector3));
 		public List<ushort> SquaresOccupied(Vector2 vector2)
@@ -384,31 +361,22 @@ namespace WOLF3D.WOLF3DGame.Action
 			return list;
 		}
 		#endregion Collision Detection
-
 		public static ushort WallTexture(ushort cell) =>
 			ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
-
 		/// <summary>
 		/// "If you only knew the power of the Dark Side." - Darth Vader
 		/// </summary>
 		public static ushort DarkSide(ushort cell) =>
 			ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallTexture(cell);
-
 		public static IEnumerable<XElement> XWall(ushort cell) =>
-			from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements() ?? Enumerable.Empty<XElement>()
-			where (uint)e.Attribute("Number") == cell
-			select e;
-
+			Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements()
+			?.Where(e => (uint)e.Attribute("Number") == cell);
 		public static IEnumerable<XElement> XDoor(ushort cell) =>
-			from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
-			where (uint)e.Attribute("Number") == cell
-			select e;
-
+			Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
+			?.Where(e => (uint)e.Attribute("Number") == cell);
 		public static ushort DoorTexture(ushort cell) =>
 			(ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
-
 		public bool CheckLine(float ax, float ay, float bx, float by) => CheckLine(Assets.IntCoordinate(ax), Assets.IntCoordinate(ay), Assets.IntCoordinate(bx), Assets.IntCoordinate(by));
-
 		/// <summary>
 		/// trace a line to check for blocking tiles (corners)
 		/// </summary>
@@ -435,7 +403,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			return true;
 		}
-
 		public override void _Process(float delta)
 		{
 			base._Process(delta);
