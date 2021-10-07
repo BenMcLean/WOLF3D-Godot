@@ -16,7 +16,6 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private bool paused = true;
-
 		public virtual void OnPause() { }
 		public virtual void OnUnpause() { }
 		public virtual ARVROrigin ARVROrigin { get; set; }
@@ -40,7 +39,6 @@ namespace WOLF3D.WOLF3DGame
 			Main.Brightness = 1f;
 			Paused = false;
 		}
-
 		public static bool IsVRButton(int buttonIndex)
 		{
 			switch (buttonIndex)
@@ -57,12 +55,9 @@ namespace WOLF3D.WOLF3DGame
 					return false;
 			}
 		}
-
 		public virtual Room NewRoom { get; set; } = null;
-
 		public const float FadeSeconds = 0.5f;
 		public float FadeProgress = 0f;
-
 		public virtual void ChangeRoom(Room room)
 		{
 			Paused = true;
@@ -70,7 +65,6 @@ namespace WOLF3D.WOLF3DGame
 			FadeProgress = 0f;
 			NewRoom = room;
 		}
-
 		public virtual void PausedProcess(float delta)
 		{
 			FadeProgress += delta;

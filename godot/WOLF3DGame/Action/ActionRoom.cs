@@ -186,6 +186,13 @@ namespace WOLF3D.WOLF3DGame.Action
 			Main.NextLevelStats = Main.StatusBar.NextLevelStats();
 			Input.SetMouseMode(Input.MouseMode.Hidden);
 		}
+		public ActionRoom Screenshot(string path = null)
+		{
+			Godot.Image image = ARVRPlayer.ARVRCamera.GetViewport().GetTexture().GetData();
+			image.FlipY();
+			image.SavePng(path ?? System.IO.Path.Combine(Main.Folder, "screenshot.png"));
+			return this;
+		}
 		public bool Pickup(Pickup pickup)
 		{
 			if (pickup.IsIn(ARVRPlayer.Position) && XMLScript.Run(pickup.XML, pickup))
