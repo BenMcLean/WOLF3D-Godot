@@ -24,9 +24,17 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public ARVRController OtherController(ARVRController aRVRController) => aRVRController == LeftController ? RightController : LeftController;
 		public static readonly Vector3 PancakeCameraOrigin = new Vector3(0f, Assets.HalfWallHeight, 0f);
-		public ARVRPlayer(XElement xml) : this()
+		public ARVRPlayer(XElement xml) : this() => Set(xml);
+		public ARVRPlayer Set(XElement xml)
 		{
-			Transform = new Transform(Transform.basis, new Vector3((float)xml.Attribute("X"), 0f, (float)xml.Attribute("Z")));
+			GD.Print(xml.ToString());
+			Transform = new Transform(
+				float.TryParse(xml.Attribute("YRotation")?.Value, out float yRotation) ?
+					new Basis(Vector3.Up, yRotation)
+					: Basis.Identity,
+				new Vector3((float)xml.Attribute("X"), 0f, (float)xml.Attribute("Z"))
+				);
+			return this;
 		}
 		public ARVRPlayer()
 		{
@@ -319,6 +327,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			XElement e = new XElement(XName.Get(GetType().Name));
 			e.SetAttributeValue(XName.Get("X"), Transform.origin.x);
 			e.SetAttributeValue(XName.Get("Z"), Transform.origin.z);
+			e.SetAttributeValue(XName.Get("YRotation"), Transform.basis.GetEuler().y);
 			return e;
 		}
 	}

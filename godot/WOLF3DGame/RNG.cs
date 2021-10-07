@@ -52,11 +52,9 @@ namespace WOLF3D.WOLF3DGame
 		private const double doubleDivisor = 1.0 / (1L << 53);
 		private const float floatDivisor = 1.0f / (1 << 24);
 		private static readonly Random localRNG = new Random();
-
 		private ulong stateB;
 		public ulong StateA { get; set; }
 		public ulong StateB { get => stateB; set => stateB = (value | 1UL); }
-
 		public string StateCode
 		{
 			get => $"{StateA:X16}{StateB:X16}";
@@ -70,7 +68,6 @@ namespace WOLF3D.WOLF3DGame
 				StateB = ulong.Parse(value.Substring(16, 32), System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
 			}
 		}
-
 		/// <summary>
 		/// Creates a new RNG using a static System.Random to generate two seed values.
 		/// </summary>
@@ -80,48 +77,38 @@ namespace WOLF3D.WOLF3DGame
 				(ulong)(localRNG.NextDouble() * 0x10000000000000UL)
 					^ (ulong)(localRNG.NextDouble() * 2.0 * 0x8000000000000000UL))
 		{ }
-
 		public RNG(int seed) : this((ulong)seed, Randomize((ulong)seed)) { }
-
 		public RNG(long seed) : this((ulong)seed, Randomize((ulong)seed)) { }
-
 		public RNG(ulong seed) : this(seed, Randomize(seed)) { }
-
 		public RNG(ulong seedA, ulong seedB)
 		{
 			StateA = seedA;
 			StateB = seedB;
 		}
-
 		public int NextBits(int bits)
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (int)((z ^ z >> 26 ^ z >> 6) >> 64 - bits);
 		}
-
 		public ulong NextULong()
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return z ^ z >> 26 ^ z >> 6;
 		}
-
 		public long NextLong()
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (long)(z ^ z >> 26 ^ z >> 6);
 		}
-
-
 		/// <summary>
 		/// Produces a copy of this that, if next() and/or NextLong() are called on this object and the
 		/// copy, both will generate the same sequence of random numbers from the point copy() was called. This just need to
 		/// copy the state so it isn't shared, usually, and produce a new value with the same exact state.
 		/// </summary>
 		public RNG(RNG rng) : this(rng.StateA, rng.StateB) { }
-
 		/// <summary>
 		/// Can return any int, positive or negative, of any size permissible in a 32-bit signed integer.
 		/// </summary>
@@ -138,7 +125,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (uint)(z ^ z >> 26 ^ z >> 6);
 		}
-
 		/// <summary>
 		/// Exclusive on the outer bound.  The inner bound is 0.
 		/// If the bound is negative, this returns 0 but still advances the state normally.
@@ -157,7 +143,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (uint)(bound * ((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL) >> 32);
 		}
-
 		/// <summary>
 		/// Exclusive on the outer bound.  The inner bound is 0.
 		/// The bound can be negative, which makes this produce either a negative int or 0.
@@ -172,7 +157,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (int)((bound * (long)((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		/// <summary>
 		/// Gets what the previous call to NextSignedInt(int) would have produced, given the same
 		/// state, and rolls back the state further so the next call to this will go earlier.
@@ -187,7 +171,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (int)((bound * (long)((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		public ulong NextULong(ulong bound)
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
@@ -211,7 +194,6 @@ namespace WOLF3D.WOLF3DGame
 			// 64-bit product + two 32-bit values
 			return p11 + (middle >> 32) + (p01 >> 32);
 		}
-
 		/// <summary>
 		/// Exclusive on bound (which may be positive or negative), with an inner bound of 0.
 		/// If the bound is negative, this returns 0 but still advances the state normally.
@@ -224,7 +206,6 @@ namespace WOLF3D.WOLF3DGame
 		/// <param name="bound">the outer exclusive bound; can be positive or negative</param>
 		/// <returns>a random long between 0 (inclusive) and bound (exclusive)</returns>
 		public long NextLong(long bound) => (long)NextULong((ulong)Math.Max(0L, bound));
-
 		/// <summary>
 		/// Exclusive on bound (which may be positive or negative), with an inner bound of 0.
 		/// If bound is negative this returns a negative long; if bound is positive this returns a positive long. The bound
@@ -242,7 +223,6 @@ namespace WOLF3D.WOLF3DGame
 			long sign = bound >> 63;
 			return (long)(NextULong((ulong)(sign == -1L ? -bound : bound))) + sign ^ sign; // cheaper "times the sign" when you already have the sign.
 		}
-
 		/// <summary>
 		/// Gets a uniform random double in the range [0.0,1.0)
 		/// </summary>
@@ -253,7 +233,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return ((z ^ z >> 26 ^ z >> 6) & 0x1FFFFFFFFFFFFFUL) * doubleDivisor;
 		}
-
 		/// <summary>
 		/// Gets a uniform random double in the range [0.0,outer) given a positive parameter outer. If outer
 		/// is negative, it will be the (exclusive) lower bound and 0.0 will be the (inclusive) upper bound.
@@ -266,7 +245,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return ((z ^ z >> 26 ^ z >> 6) & 0x1FFFFFFFFFFFFFUL) * doubleDivisor * outer;
 		}
-
 		/// <summary>
 		/// Gets a uniform random float in the range [0.0,1.0)
 		/// </summary>
@@ -277,14 +255,12 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return ((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFUL) * floatDivisor;
 		}
-
 		public float NextFloat(float outer)
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return ((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFUL) * floatDivisor * outer;
 		}
-
 		/// <summary>
 		/// Gets a random value, true or false.
 		/// Calls NextLong() once.
@@ -295,7 +271,6 @@ namespace WOLF3D.WOLF3DGame
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			return (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL) < 0x8000000000000000UL;
 		}
-
 		/// <summary>
 		/// Given a byte array as a parameter, this will fill the array with random bytes (modifying it
 		/// in-place). Calls NextULong() {@code Math.ceil(bytes.length / 8.0)} times.
@@ -314,9 +289,7 @@ namespace WOLF3D.WOLF3DGame
 				for (ulong bits = NextULong(); n-- != 0; bits >>= 8) bytes[--i] = (byte)bits;
 			}
 		}
-
 		public override string ToString() => $"RNG with state (0x{StateA:X16}UL,0x{StateB:X16}UL)";
-
 		/// <summary>
 		/// Fast static randomizing method that takes its state as a parameter; state is expected to change between calls to
 		/// this. It is recommended that you use {@code RNG.determine(++state)} or {@code RNG.determine(--state)}
@@ -346,7 +319,6 @@ namespace WOLF3D.WOLF3DGame
 			state *= 0x1C69B3F74AC4AE35UL;
 			return state ^ state >> 27;
 		}
-
 		/// <summary>
 		/// High-quality static randomizing method that takes its state as a parameter; state is expected to change between
 		/// calls to this. It is suggested that you use {@code RNG.randomize(++state)} or
@@ -367,7 +339,6 @@ namespace WOLF3D.WOLF3DGame
 		/// <returns>any long</returns>
 		public static ulong Randomize(ulong state) =>
 			(state = ((state = (state ^ (state << 41 | state >> 23) ^ (state << 17 | state >> 47) ^ 0xD1B54A32D192ED03L) * 0xAEF17502108EF2D9L) ^ state >> 43 ^ state >> 31 ^ state >> 23) * 0xDB4F0B9175AE2165L) ^ state >> 28;
-
 		/// <summary>
 		/// Fast static randomizing method that takes its state as a parameter and limits output to an int between 0
 		/// (inclusive) and bound (exclusive); state is expected to change between calls to this. It is recommended that you
@@ -399,7 +370,6 @@ namespace WOLF3D.WOLF3DGame
 			state *= 0x1C69B3F74AC4AE35UL;
 			return (int)(((ulong)bound * ((state ^ state >> 27) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		/// <summary>
 		/// High-quality static randomizing method that takes its state as a parameter and limits output to an int between 0
 		/// (inclusive) and bound (exclusive); state is expected to change between calls to this. It is suggested that you
@@ -425,7 +395,6 @@ namespace WOLF3D.WOLF3DGame
 		/// <returns>an int between 0 (inclusive) and bound (exclusive)</returns>
 		public static int RandomizeBounded(ulong state, int bound) =>
 			(int)(((ulong)bound * (((state = ((state = (state ^ (state << 41 | state >> 23) ^ (state << 17 | state >> 47) ^ 0xD1B54A32D192ED03L) * 0xAEF17502108EF2D9L) ^ state >> 43 ^ state >> 31 ^ state >> 23) * 0xDB4F0B9175AE2165L) ^ state >> 28) & 0xFFFFFFFFL)) >> 32);
-
 		/// <summary>
 		/// Returns a random float that is deterministic based on state; if state is the same on two calls to this, this will
 		/// return the same float. This is expected to be called with a changing variable, e.g.
@@ -458,7 +427,6 @@ namespace WOLF3D.WOLF3DGame
 			state *= 0x1C69B3F74AC4AE35UL;
 			return (state >> 40) * floatDivisor;
 		}
-
 		/// <summary>
 		/// Returns a random float that is deterministic based on state; if state is the same on two calls to this, this will
 		/// return the same float. This is expected to be called with a changing variable, e.g.
@@ -484,7 +452,6 @@ namespace WOLF3D.WOLF3DGame
 		/// <returns>a pseudo-random float between 0f (inclusive) and 1f (exclusive), determined by {@code state}</returns>
 		public static float RandomizeFloat(ulong state) =>
 			(((state = (state ^ (state << 41 | state >> 23) ^ (state << 17 | state >> 47) ^ 0xD1B54A32D192ED03L) * 0xAEF17502108EF2D9L) ^ state >> 43 ^ state >> 31 ^ state >> 23) * 0xDB4F0B9175AE2165L >> 40) * floatDivisor;
-
 		/// <summary>
 		/// Returns a random double that is deterministic based on state; if state is the same on two calls to this, this
 		/// will return the same float. This is expected to be called with a changing variable, e.g.
@@ -517,7 +484,6 @@ namespace WOLF3D.WOLF3DGame
 			state *= 0x1C69B3F74AC4AE35UL;
 			return ((state ^ state >> 27) & 0x1FFFFFFFFFFFFFL) * doubleDivisor;
 		}
-
 		/// <summary>
 		/// Returns a random double that is deterministic based on state; if state is the same on two calls to this, this
 		/// will return the same float. This is expected to be called with a changing variable, e.g.
@@ -544,12 +510,9 @@ namespace WOLF3D.WOLF3DGame
 		/// <returns>a pseudo-random double between 0.0 (inclusive) and 1.0 (exclusive), determined by {@code state}</returns>
 		public static double RandomizeDouble(ulong state) =>
 		   (((state = ((state = (state ^ (state << 41 | state >> 23) ^ (state << 17 | state >> 47) ^ 0xD1B54A32D192ED03L) * 0xAEF17502108EF2D9L) ^ state >> 43 ^ state >> 31 ^ state >> 23) * 0xDB4F0B9175AE2165L) ^ state >> 28) & 0x1FFFFFFFFFFFFFL) * doubleDivisor;
-
-
 		public int NextInt(int min, int max) => min + NextSignedInt(max - min);
 		public long NextLong(long min, long max) => min + NextSignedLong(max - min);
 		public double NextDouble(double min, double max) => min + NextDouble(max - min);
-
 		/// <summary>
 		/// Retrieves a random element from the given non-empty IEnumerable.
 		/// This is fastest when working with arrays, generic IList implementations, and IndexedSet s.
@@ -573,21 +536,18 @@ namespace WOLF3D.WOLF3DGame
 			}
 			return default;
 		}
-
 		private static void Swap<T>(ref T a, ref T b)
 		{
 			T temp = a;
 			a = b;
 			b = temp;
 		}
-
 		private static void Swap<T>(ref List<T> list, int a, int b)
 		{
 			T temp = list[a];
 			list[a] = list[b];
 			list[b] = temp;
 		}
-
 		public T[] Shuffle<T>(T[] elements)
 		{
 			if (elements is null)
@@ -719,7 +679,6 @@ namespace WOLF3D.WOLF3DGame
 			return dest;
 
 		}
-
 		public int PreviousBits(int bits)
 		{
 			ulong s = StateA;
@@ -729,7 +688,6 @@ namespace WOLF3D.WOLF3DGame
 			return (int)((z ^ z >> 26 ^ z >> 6) >> 64 - bits);
 
 		}
-
 		public long PreviousLong()
 		{
 			ulong s = StateA;
@@ -738,7 +696,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (long)(z ^ z >> 26 ^ z >> 6);
 		}
-
 		public ulong PreviousULong()
 		{
 			ulong s = StateA;
@@ -747,7 +704,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return z ^ z >> 26 ^ z >> 6;
 		}
-
 		public int PreviousInt()
 		{
 			ulong s = StateA;
@@ -756,7 +712,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (int)(z ^ z >> 26 ^ z >> 6);
 		}
-
 		public uint PreviousUInt()
 		{
 			ulong s = StateA;
@@ -765,7 +720,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (uint)(z ^ z >> 26 ^ z >> 6);
 		}
-
 		public int PreviousInt(int bound)
 		{
 			ulong s = StateA;
@@ -774,7 +728,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (int)((Math.Max(0, bound) * (long)((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		public uint PreviousUInt(uint bound)
 		{
 			ulong s = StateA;
@@ -783,9 +736,7 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return (uint)(bound * ((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL) >> 32);
 		}
-
 		public long PreviousLong(long bound) => (long)PreviousULong((ulong)Math.Max(0L, bound));
-
 		public ulong PreviousULong(ulong bound)
 		{
 			ulong s = StateA;
@@ -810,7 +761,6 @@ namespace WOLF3D.WOLF3DGame
 			// 64-bit product + two 32-bit values
 			return p11 + (middle >> 32) + (p01 >> 32);
 		}
-
 		public bool PreviousBoolean()
 		{
 			ulong s = StateA;
@@ -819,7 +769,6 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return z < 0x8000000000000000UL;
 		}
-
 		public double PreviousDouble()
 		{
 			ulong s = StateA;
@@ -828,9 +777,7 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return ((z ^ z >> 26 ^ z >> 6) & 0x1FFFFFFFFFFFFFUL) * doubleDivisor;
 		}
-
 		public double PreviousDouble(double outer) => PreviousDouble() * outer;
-
 		public float PreviousFloat()
 		{
 			ulong s = StateA;
@@ -839,19 +786,14 @@ namespace WOLF3D.WOLF3DGame
 			StateB -= 0x9E3779B97F4A7C16UL;
 			return ((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFUL) * floatDivisor;
 		}
-
 		public float PreviousFloat(float outer) => PreviousFloat() * outer;
-
 		public long PreviousSignedLong(long bound)
 		{
 			long sign = bound >> 63;
 			return (long)(PreviousULong((ulong)(sign == -1L ? -bound : bound))) + sign ^ sign; // cheaper "times the sign" when you already have the sign.
 		}
-
 		public int PreviousInt(int min, int max) => min + PreviousInt(max - min);
-
 		public long PreviousLong(long min, long max) => min + PreviousLong(max - min);
-
 		public double PreviousDouble(double min, double max) => min + PreviousDouble(max - min);
 		public T PreviousRandomElement<T>(IEnumerable<T> enumerable)
 		{
@@ -873,7 +815,6 @@ namespace WOLF3D.WOLF3DGame
 					return default;
 			}
 		}
-
 		public T[] ReverseShuffle<T>(T[] elements)
 		{
 			if (elements is null)
@@ -886,7 +827,6 @@ namespace WOLF3D.WOLF3DGame
 			ReverseShuffleInPlace(array);
 			return array;
 		}
-
 		public T[] ReverseShuffle<T>(T[] elements, T[] dest)
 		{
 			if (elements is null)
@@ -905,9 +845,7 @@ namespace WOLF3D.WOLF3DGame
 			ReverseShuffleInPlace(dest);
 			return dest;
 		}
-
 		public List<T> ReverseShuffle<T>(IEnumerable<T> elements) => ReverseShuffleInPlace(new List<T>(elements));
-
 		public List<T> ReverseShuffle<T>(IEnumerable<T> elements, List<T> dest)
 		{
 			if (dest == null)
@@ -916,7 +854,6 @@ namespace WOLF3D.WOLF3DGame
 				dest.AddRange(elements);
 			return ReverseShuffleInPlace(dest);
 		}
-
 		public T[] ReverseRandomPortion<T>(T[] elements, T[] dest)
 		{
 			if (elements is null || dest is null)
@@ -935,7 +872,6 @@ namespace WOLF3D.WOLF3DGame
 			}
 			return dest;
 		}
-
 		/// <summary>
 		/// Gets a ulong that identifies which stream of numbers this generator is producing; this stream identifier is always
 		/// an odd ulong and won't change by generating numbers. It is determined at construction and will usually (not
@@ -966,21 +902,18 @@ namespace WOLF3D.WOLF3DGame
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (int)(z ^ z >> 26 ^ z >> 6) & 0x7FFFFFFF;
 		}
-
 		public override int Next(int maxValue)
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return (int)((Math.Max(0, maxValue) * (long)((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		public override int Next(int minValue, int maxValue)
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
 			ulong z = (s ^ s >> 31) * (StateB += 0x9E3779B97F4A7C16UL);
 			return minValue + (int)((Math.Max(0, maxValue - minValue) * (long)((z ^ z >> 26 ^ z >> 6) & 0xFFFFFFFFUL)) >> 32);
 		}
-
 		protected override double Sample()
 		{
 			ulong s = (StateA += 0xC6BC279692B5C323UL);
