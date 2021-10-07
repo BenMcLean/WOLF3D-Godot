@@ -31,10 +31,9 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ARVRPlayer ARVRPlayer { get; set; }
 		public Level Level { get; set; } = null;
 		public static Line3D Line3D { get; set; }
-		public ushort NextMap => (ushort)(Map.Number + 1 >= Assets.Maps.Length ? 0 : Map.Number + 1);
+		public ushort NextMap => (ushort)(Level.Map.Number + 1 >= Assets.Maps.Length ? 0 : Level.Map.Number + 1);
 		public byte Difficulty { get; set; }
 		public byte Episode { get; set; }
-		public GameMap Map => Level.Map;
 		private ActionRoom()
 		{
 			Name = "ActionRoom";
@@ -170,9 +169,9 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void Enter()
 		{
 			base.Enter();
-			Main.Color = Assets.Palettes[0][Map.Border];
+			Main.Color = Assets.Palettes[0][Level.Map.Border];
 			if (!Settings.MusicMuted
-				&& Map.Song is string songName
+				&& Level.Map.Song is string songName
 				&& Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;
@@ -229,7 +228,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			XElement e = new XElement(XName.Get("SaveGame"));
 			TimeSpan time = TimeSpan.FromSeconds(Level.Time);
-			e.SetAttributeValue(XName.Get("Name"), Level.Map.Name + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
+			e.SetAttributeValue(XName.Get("Name"), (string.IsNullOrWhiteSpace(Level.Map.Name) ? "E" + Episode + "M" + Level.Map.Number : Level.Map.Name) + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
 			e.SetAttributeValue(XName.Get("Difficulty"), Difficulty);
 			e.SetAttributeValue(XName.Get("Episode"), Episode);
 			e.SetAttributeValue(XName.Get("RNG"), Main.RNG.StateCode);

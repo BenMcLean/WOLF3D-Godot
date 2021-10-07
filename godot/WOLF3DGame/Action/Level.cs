@@ -224,7 +224,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
 				SoundBlaster.Adl = sound;
 			if (push)
-				MenuRoom.LastPushedTile = Main.ActionRoom.Map.GetMapData(
+				MenuRoom.LastPushedTile = Main.ActionRoom.Level.Map.GetMapData(
 					(uint)Main.ActionRoom.ARVRPlayer.X,
 					(uint)Main.ActionRoom.ARVRPlayer.Z
 					); // This is used to find override tiles to change the elevator destination

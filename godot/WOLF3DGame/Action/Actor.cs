@@ -258,8 +258,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (Direction == null || Distance <= 0f)
 			{
 				Recenter();
-				if (Main.ActionRoom.Map.WithinMap(X, Z)
-					&& Assets.Turns.TryGetValue(Main.ActionRoom.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
+				if (Main.ActionRoom.Level.Map.WithinMap(X, Z)
+					&& Assets.Turns.TryGetValue(Main.ActionRoom.Level.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
 					Direction = direction;
 				if (Direction == null)
 					return this; // All movement is blocked
