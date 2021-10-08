@@ -103,12 +103,20 @@ namespace WOLF3D.WOLF3DGame.Menu
 			string text = xml.Attribute("Text")?.Value is string t && !string.IsNullOrWhiteSpace(t) ? t : string.Empty;
 			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
 			ImageTexture texture = Assets.Text(font, text);
+			uint textWidth = (uint)texture.GetWidth();
+			if (textWidth % 2 > 0) textWidth++;
 			AddChild(Text = new Sprite()
 			{
 				Texture = texture,
-				Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
+				Position = new Vector2((textWidth / 2) + xPadding, texture.GetHeight() / 2),
 			});
-			Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
+			if (PixelRect is Target2D target2D)
+			{
+				Offset = target2D.Position + target2D.Offset;
+				Size = target2D.Size;
+			}
+			else
+				Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
 			Color = TextColor;
 			UpdateSelected();
 		}
