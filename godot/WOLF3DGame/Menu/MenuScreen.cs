@@ -18,7 +18,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			Position = OffScreen,
 		};
-
 		public XElement XML { get; set; }
 		public VgaGraph.Font Font { get; set; }
 		public Modal Modal
@@ -36,7 +35,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private Modal modal = null;
-
 		public Modal.QuestionEnum? Question { get; set; } = null;
 		public Color Color
 		{
@@ -51,7 +49,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public Sprite Cursor { get; set; }
 		public ImageTexture[] Difficulties { get; set; }
 		public Sprite Difficulty { get; set; }
-
 		public MenuScreen()
 		{
 			Name = "MenuScreen";
@@ -65,7 +62,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				RectSize = Size,
 			});
 		}
-
 		public MenuScreen(XElement menu) : this()
 		{
 			Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
@@ -250,11 +246,9 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Selection = uint.TryParse(XML.Attribute("Default")?.Value, out uint selection) ? (int)selection : 0;
 			AddChild(Crosshairs);
 		}
-
 		public readonly List<MenuItem> MenuItems = new List<MenuItem>();
 		public readonly List<Target2D> ExtraItems = new List<Target2D>();
 		public readonly List<Counter> Counters = new List<Counter>();
-
 		public const float BlinkRate = 0.5f;
 		public float Blink = 0f;
 		public int CursorSprite
@@ -268,7 +262,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private int cursorSprite = 0;
-
 		public int Selection
 		{
 			get => selection;
@@ -308,7 +301,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private int selection = 0;
-
 		public MenuItem SelectedItem
 		{
 			get => MenuItems == null || MenuItems.Count <= Selection ? null : MenuItems[Selection];
@@ -323,7 +315,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 					}
 			}
 		}
-
 		public Vector2 Position { get; set; } = Vector2.Zero;
 		public Vector2 GlobalPosition { get; set; } = Vector2.Zero;
 		public Vector2 Offset { get; set; } = Vector2.Zero;
@@ -349,7 +340,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
 		public virtual bool IsWithin(float x, float y, float distance) =>
 			Math.Abs(Width / 2 - x) < distance && Math.Abs(Height / 2 - y) < distance;
-
 		public override void _Process(float delta)
 		{
 			Blink += delta;
@@ -366,7 +356,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 						break;
 					}
 		}
-
 		public MenuScreen Update()
 		{
 			if (MenuItems != null)
@@ -374,7 +363,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 					menuItem.UpdateSelected();
 			return this;
 		}
-
 		public void DoInput(InputEvent @event)
 		{
 			if (Modal == null && MenuItems != null)
@@ -396,7 +384,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			else if (@event.IsActionPressed("ui_cancel"))
 				Cancel();
 		}
-
 		public Target2D GetExtraItem()
 		{
 			foreach (Target2D target in ExtraItems)
@@ -404,7 +391,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 					return target;
 			return null;
 		}
-
 		public MenuScreen Accept()
 		{
 			if (Modal == null)
@@ -426,7 +412,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				Modal = null;
 			return this;
 		}
-
 		public MenuScreen Cancel()
 		{
 			if (Modal != null)
@@ -435,7 +420,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				XMLScript.Run(cancel);
 			return this;
 		}
-
 		public MenuScreen AddModal(string @string = "", ushort padding = 0)
 		{
 			RemoveChild(Crosshairs);
@@ -449,7 +433,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			AddChild(Crosshairs);
 			return this;
 		}
-
 		public MenuScreen Yes()
 		{
 			switch (Question)
@@ -464,7 +447,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Modal = null;
 			return this;
 		}
-
 		public MenuScreen ButtonPressed(MenuRoom menuRoom, int buttonIndex, bool right = false)
 		{
 			if (!Room.IsVRButton(buttonIndex))
@@ -484,7 +466,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 			return this;
 		}
-
 		public MenuScreen OnSet()
 		{
 			Main.Color = Color;
@@ -503,7 +484,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				}
 			return this;
 		}
-
 		public void FinishedFadeIn()
 		{
 			if (Counters.Count > 0)

@@ -22,7 +22,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private Sprite selected = null;
-
 		public Color? Color
 		{
 			get => Text?.Modulate;
@@ -30,12 +29,12 @@ namespace WOLF3D.WOLF3DGame.Menu
 			{
 				if (Text is Sprite)
 					Text.Modulate = value == null ? Assets.White : (Color)value;
+				if (PixelRect is PixelRect)
+					PixelRect.NWColor = PixelRect.SEColor = Text.Modulate;
 			}
 		}
-
 		public Color TextColor { get; set; } = Assets.White;
 		public Color SelectedColor { get; set; } = Assets.White;
-
 		public bool? IsSelected
 		{
 			get => isSelected;
@@ -64,11 +63,19 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private bool? isSelected = null;
-
 		public string PictureName => IsSelected == null ? null : (IsSelected ?? false) ? "Selected" : "NotSelected";
-
 		public string Condition { get; set; } = null;
-
+		public PixelRect PixelRect
+		{
+			get => pixelRect;
+			set
+			{
+				if (pixelRect != null)
+					RemoveChild(pixelRect);
+				AddChild(pixelRect = value);
+			}
+		}
+		private PixelRect pixelRect = null;
 		public MenuItem UpdateSelected()
 		{
 			if (string.IsNullOrWhiteSpace(Condition))
@@ -77,16 +84,16 @@ namespace WOLF3D.WOLF3DGame.Menu
 				IsSelected = (bool)propertyInfo.GetValue(null, null);
 			return this;
 		}
-
-		public MenuItem(VgaGraph.Font font, string text = "", uint xPadding = 0, string condition = null, Color? textColor = null, Color? selectedColor = null, XElement xml = null)
+		public MenuItem(XElement xml, VgaGraph.Font? defaultFont = null, uint xPadding = 0, Color? defaultTextColor = null, Color? defaultSelectedColor = null)
 		{
-			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
-			Condition = condition;
 			XML = xml;
-			TextColor = byte.TryParse(XML?.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : textColor ?? Assets.White;
-			SelectedColor = byte.TryParse(XML.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : selectedColor ?? Assets.White;
-			if (!string.IsNullOrWhiteSpace(text))
+			Condition = xml.Attribute("On")?.Value;
+			VgaGraph.Font font = uint.TryParse(xml.Attribute("Font")?.Value, out uint result) ? Assets.Font(result) : defaultFont ?? Assets.Font(0);
+			TextColor = byte.TryParse(xml.Attribute("TextColor")?.Value, out byte textColor) ? Assets.Palettes[0][textColor] : defaultTextColor ?? Assets.White;
+			SelectedColor = byte.TryParse(xml.Attribute("SelectedColor")?.Value, out byte selectedColor) ? Assets.Palettes[0][selectedColor] : defaultSelectedColor ?? Assets.White;
+			if (xml.Attribute("Text")?.Value is string text && !string.IsNullOrWhiteSpace(text))
 			{
+				Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
 				ImageTexture texture = Assets.Text(font, text);
 				AddChild(Text = new Sprite()
 				{
@@ -98,7 +105,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				UpdateSelected();
 			}
 		}
-
 		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? TextColor = null, Color? SelectedColor = null)
 		{
 			if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
@@ -115,13 +121,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 			foreach (XElement menuItem in menuItems.Elements("MenuItem"))
 				if (Main.InGameMatch(menuItem))
 					yield return new MenuItem(
+						menuItem,
 						uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-						menuItem.Attribute("Text")?.Value,
 						paddingX,
-						menuItem.Attribute("On")?.Value,
 						TextColor,
-						SelectedColor,
-						menuItem
+						SelectedColor
 						)
 					{
 						Position = new Vector2(

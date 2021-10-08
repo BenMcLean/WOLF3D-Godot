@@ -44,7 +44,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			});
 		}
 		public PixelRect(XElement xElement) : this() => Set(xElement);
-
 		public PixelRect Set(XElement xElement)
 		{
 			if (uint.TryParse(xElement.Attribute("BordColor")?.Value, out uint bordColor))
