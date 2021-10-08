@@ -259,12 +259,21 @@
 				<Image Name="C_LOADGAMEPIC" X="center" Y="0" XBanner="0" />
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="45" BordColor="44" Bord2Color="35" />
-				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="4">
+				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
 					<MenuItem Text="Save Game 0" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 1" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 2" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 3" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 4" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 5" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 6" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 7" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 8" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
+					<MenuItem Text="Save Game 9" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="282" BoxHeight="12" />
 				</MenuItems>
 				<!--<PixelRect X="36" Y="55" Width="274" Height="11" Color="45" BordColor="23" Bord2Color="23" />-->
 				<Cancel Action="Menu" Argument="Main" />
-				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="0" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
 			</Menu>
 			<Menu Name="Page1" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
 				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
