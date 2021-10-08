@@ -101,6 +101,14 @@ namespace WOLF3D.WOLF3DGame.Menu
 					Position = new Vector2(xPadding + (int.TryParse(xml.Attribute("BoxX")?.Value, out int x) ? x : 0f), int.TryParse(xml.Attribute("BoxY")?.Value, out int y) ? y : 0f),
 				};
 			string text = xml.Attribute("Text")?.Value is string t && !string.IsNullOrWhiteSpace(t) ? t : string.Empty;
+			if (((xml.Attribute("Action")?.Value?.Equals("Save", System.StringComparison.InvariantCultureIgnoreCase) ?? false)
+				|| (xml.Attribute("Action")?.Value?.Equals("Load", System.StringComparison.InvariantCultureIgnoreCase) ?? false)
+				) && xml.Attribute("Argument")?.Value is string argument
+				&& System.IO.Path.Combine(Main.Folder, argument) is string file
+				&& System.IO.File.Exists(file)
+				&& XElement.Load(file) is XElement saveGame
+				&& saveGame.Attribute("Name")?.Value is string name)
+				text = name;
 			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
 			ImageTexture texture = Assets.Text(font, text);
 			uint textWidth = (uint)texture.GetWidth();
