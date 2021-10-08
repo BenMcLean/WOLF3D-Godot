@@ -75,50 +75,49 @@ namespace WOLF3D.WOLF3DGame.Menu
 				Color = Assets.Palettes[0][bkgdColor];
 			TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : Assets.White;
 			SelectedColor = byte.TryParse(menu.Attribute("SelectedColor")?.Value, out byte sColor) ? Assets.Palettes[0][sColor] : Assets.White;
-			foreach (XElement pixelRect in menu.Elements("PixelRect") ?? Enumerable.Empty<XElement>())
-				if (Main.InGameMatch(pixelRect))
-					AddChild(new PixelRect(pixelRect));
-			foreach (XElement image in menu.Elements("Image") ?? Enumerable.Empty<XElement>())
-				if (Main.InGameMatch(image))
+			foreach (XElement e in menu.Elements()?.Where(e => Main.InGameMatch(e)))
+				if (e.Name.LocalName.Equals("PixelRect", StringComparison.InvariantCultureIgnoreCase))
+					AddChild(new PixelRect(e));
+				else if (e.Name.LocalName.Equals("Image", StringComparison.InvariantCultureIgnoreCase))
 				{
-					ImageTexture texture = Assets.PicTexture(image.Attribute("Name").Value);
-					if (image.Attribute("XBanner") != null)
+					ImageTexture texture = Assets.PicTexture(e.Attribute("Name").Value);
+					if (e.Attribute("XBanner") != null)
 						AddChild(new Sprite()
 						{
 							Texture = texture,
 							RegionEnabled = true,
 							RegionRect = new Rect2(
 								new Vector2(
-									uint.TryParse(image.Attribute("XBanner")?.Value, out uint x) ? x : 0,
+									uint.TryParse(e.Attribute("XBanner")?.Value, out uint x) ? x : 0,
 									0f
 									),
 								new Vector2(1, texture.GetSize().y)
 								),
 							Position = new Vector2(Width + 1f, texture.GetSize().y / 2f +
-								(float.TryParse(image.Attribute("Y")?.Value, out float y) ? y : 0)
+								(float.TryParse(e.Attribute("Y")?.Value, out float y) ? y : 0)
 							),
 							Scale = new Vector2(Width + 1f, 1f),
 						});
 					Vector2 position = new Vector2(
-							image.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+							e.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
 							Width / 2
-							: (float)image.Attribute("X") + texture.GetWidth() / 2f,
-							image.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+							: (float)e.Attribute("X") + texture.GetWidth() / 2f,
+							e.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
 							Height / 2
-							: (float)image.Attribute("Y") + texture.GetHeight() / 2f
+							: (float)e.Attribute("Y") + texture.GetHeight() / 2f
 							);
 					AddChild(new Sprite()
 					{
-						Name = "Image " + image.Attribute("Name").Value,
+						Name = "Image " + e.Attribute("Name").Value,
 						Texture = texture,
 						Position = position,
 					});
-					if (image.Attribute("Action")?.Value is string action && !string.IsNullOrWhiteSpace(action))
+					if (e.Attribute("Action")?.Value is string action && !string.IsNullOrWhiteSpace(action))
 					{
 						Target2D target = new Target2D()
 						{
-							Name = "Target " + image.Attribute("Name").Value,
-							XML = image,
+							Name = "Target " + e.Attribute("Name").Value,
+							XML = e,
 							Position = new Vector2(
 								position.x - texture.GetWidth() / 2f,
 								position.y - texture.GetHeight() / 2f
@@ -129,45 +128,47 @@ namespace WOLF3D.WOLF3DGame.Menu
 						AddChild(target);
 					}
 				}
-			foreach (XElement text in menu.Elements("Text").Where(e => Main.InGameMatch(e)) ?? Enumerable.Empty<XElement>())
-				if (ushort.TryParse(text.Attribute("BitmapFont")?.Value, out ushort fontNumber))
+				else if (e.Name.LocalName.Equals("Text", StringComparison.InvariantCultureIgnoreCase))
 				{
-					Label label = new Label()
+					if (ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort fontNumber))
 					{
-						Name = "Text",
-						Text = text.Attribute("String").Value,
-						RectPosition = new Vector2(
-							uint.TryParse(text.Attribute("X")?.Value, out uint x) ? x : 0,
-							uint.TryParse(text.Attribute("Y")?.Value, out uint y) ? y : 0
-							),
-					};
-					label.AddFontOverride("font", Assets.BitmapFonts[fontNumber]);
-					AddChild(label);
-				}
-				else
-				{
-					ImageTexture texture = Assets.Text(
-						uint.TryParse(text.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
-						text.Attribute("String").Value,
-						ushort.TryParse(text.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
-						);
-					AddChild(new Sprite()
+						Label label = new Label()
+						{
+							Name = "Text",
+							Text = e.Attribute("String").Value,
+							RectPosition = new Vector2(
+								uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
+								uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
+								),
+						};
+						label.AddFontOverride("font", Assets.BitmapFonts[fontNumber]);
+						AddChild(label);
+					}
+					else
 					{
-						Texture = texture,
-						Position = new Vector2(
-										text.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-										Width / 2
-										: ((uint.TryParse(text.Attribute("X")?.Value, out uint x) ?
-										x
-										: 0) + texture.GetWidth() / 2),
-										text.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-										Height / 2
-										: ((uint.TryParse(text.Attribute("Y")?.Value, out uint y) ?
-										y
-										: 0) + texture.GetHeight() / 2)
-										),
-						Modulate = uint.TryParse(text.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
-					});
+						ImageTexture texture = Assets.Text(
+							uint.TryParse(e.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
+							e.Attribute("String").Value,
+							ushort.TryParse(e.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
+							);
+						AddChild(new Sprite()
+						{
+							Texture = texture,
+							Position = new Vector2(
+											e.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+											Width / 2
+											: ((uint.TryParse(e.Attribute("X")?.Value, out uint x) ?
+											x
+											: 0) + texture.GetWidth() / 2),
+											e.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+											Height / 2
+											: ((uint.TryParse(e.Attribute("Y")?.Value, out uint y) ?
+											y
+											: 0) + texture.GetHeight() / 2)
+											),
+							Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
+						});
+					}
 				}
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
 				if (Main.InGameMatch(menuItems))
