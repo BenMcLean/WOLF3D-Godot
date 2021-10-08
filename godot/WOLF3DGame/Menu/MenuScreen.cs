@@ -94,10 +94,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 									),
 								new Vector2(1, texture.GetSize().y)
 								),
-							Position = new Vector2(Width, texture.GetSize().y / 2f +
+							Position = new Vector2(Width + 1f, texture.GetSize().y / 2f +
 								(float.TryParse(image.Attribute("Y")?.Value, out float y) ? y : 0)
 							),
-							Scale = new Vector2(Width, 1f),
+							Scale = new Vector2(Width + 1f, 1f),
 						});
 					Vector2 position = new Vector2(
 							image.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
