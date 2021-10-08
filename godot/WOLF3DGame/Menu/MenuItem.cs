@@ -91,19 +91,26 @@ namespace WOLF3D.WOLF3DGame.Menu
 			VgaGraph.Font font = uint.TryParse(xml.Attribute("Font")?.Value, out uint result) ? Assets.Font(result) : defaultFont ?? Assets.Font(0);
 			TextColor = byte.TryParse(xml.Attribute("TextColor")?.Value, out byte textColor) ? Assets.Palettes[0][textColor] : defaultTextColor ?? Assets.White;
 			SelectedColor = byte.TryParse(xml.Attribute("SelectedColor")?.Value, out byte selectedColor) ? Assets.Palettes[0][selectedColor] : defaultSelectedColor ?? Assets.White;
-			if (xml.Attribute("Text")?.Value is string text && !string.IsNullOrWhiteSpace(text))
-			{
-				Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
-				ImageTexture texture = Assets.Text(font, text);
-				AddChild(Text = new Sprite()
+			if (uint.TryParse(xml.Attribute("BoxColor")?.Value, out uint boxColor))
+				PixelRect = new PixelRect()
 				{
-					Texture = texture,
-					Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
-				});
-				Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
-				Color = TextColor;
-				UpdateSelected();
-			}
+					Color = Assets.Palettes[0][boxColor],
+					NWColor = TextColor,
+					SEColor = TextColor,
+					Size = new Vector2((uint)xml.Attribute("BoxWidth"), (uint)xml.Attribute("BoxHeight")),
+					Position = new Vector2(xPadding + (int.TryParse(xml.Attribute("BoxX")?.Value, out int x) ? x : 0f), int.TryParse(xml.Attribute("BoxY")?.Value, out int y) ? y : 0f),
+				};
+			string text = xml.Attribute("Text")?.Value is string t && !string.IsNullOrWhiteSpace(t) ? t : string.Empty;
+			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
+			ImageTexture texture = Assets.Text(font, text);
+			AddChild(Text = new Sprite()
+			{
+				Texture = texture,
+				Position = new Vector2(texture.GetWidth() / 2 + xPadding, texture.GetHeight() / 2),
+			});
+			Size = new Vector2(xPadding + texture.GetWidth(), texture.GetHeight());
+			Color = TextColor;
+			UpdateSelected();
 		}
 		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, VgaGraph.Font font, Color? TextColor = null, Color? SelectedColor = null)
 		{
