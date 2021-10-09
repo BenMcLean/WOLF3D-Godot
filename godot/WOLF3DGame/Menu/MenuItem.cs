@@ -8,6 +8,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
 	public class MenuItem : Target2D
 	{
+		public VgaGraph.Font Font { get; set; }
 		public Sprite Text { get; set; }
 		public Sprite Selected
 		{
@@ -88,7 +89,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			XML = xml;
 			Condition = xml.Attribute("On")?.Value;
-			VgaGraph.Font font = uint.TryParse(xml.Attribute("Font")?.Value, out uint result) ? Assets.Font(result) : defaultFont ?? Assets.Font(0);
+			Font = uint.TryParse(xml.Attribute("Font")?.Value, out uint result) ? Assets.Font(result) : defaultFont ?? Assets.Font(0);
 			TextColor = byte.TryParse(xml.Attribute("TextColor")?.Value, out byte textColor) ? Assets.Palettes[0][textColor] : defaultTextColor ?? Assets.White;
 			SelectedColor = byte.TryParse(xml.Attribute("SelectedColor")?.Value, out byte selectedColor) ? Assets.Palettes[0][selectedColor] : defaultSelectedColor ?? Assets.White;
 			if (uint.TryParse(xml.Attribute("BoxColor")?.Value, out uint boxColor))
@@ -110,10 +111,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 				&& saveGame.Attribute("Name")?.Value is string name)
 				text = name.FirstLine().Trim();
 			if (PixelRect is PixelRect)
-				while (text.Length > 1 && font.CalcWidthLine(text) > PixelRect.Size.x - 4)
+				while (text.Length > 1 && Font.CalcWidthLine(text) > PixelRect.Size.x - 4)
 					text = text.Substring(0, text.Length - 1);
 			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
-			ImageTexture texture = Assets.Text(font, text);
+			ImageTexture texture = Assets.Text(Font, text);
 			uint textWidth = (uint)texture.GetWidth();
 			if (textWidth % 2 > 0) textWidth++;
 			AddChild(Text = new Sprite()
