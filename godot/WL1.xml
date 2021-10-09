@@ -1183,7 +1183,12 @@
 			<Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
 			<Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
 			<Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-			<Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" />
+			<Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" >
+				<Effect AddTo="Score" Add="100" />
+				<PlaceItem>
+					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Flash="#FFFF00" Name="Ammo" />
+				</PlaceItem>
+			</Actor>
 			<State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
 			<State Name="s_grdpath1" Rotate="true" Shape="164" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath1s" />
 			<State Name="s_grdpath1s" Rotate="true" Shape="164" Tics="5" Speed="512" Next="s_grdpath2" />

@@ -19,8 +19,10 @@ namespace WOLF3D.WOLF3DGame
 			{
 				Effect(xml, target);
 				foreach (XElement child in xml.Elements())
-					if (!"And".Equals(child.Name?.LocalName)
-						&& !"Else".Equals(child.Name?.LocalName))
+					if ("PlaceItem".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase))
+						Main.ActionRoom.Level.PlaceItem(child.Elements().First(), target);
+					else if (!"And".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase)
+							&& !"Else".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase))
 						Run(child, target);
 				return true;
 			}

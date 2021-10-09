@@ -103,6 +103,8 @@ namespace WOLF3D.WOLF3DGame.Action
 					yield return new Actor(spawn)
 					{
 						GlobalTransform = new Transform(Basis.Identity, new Vector3(Assets.CenterSquare(map.X(i)), 0f, Assets.CenterSquare(map.Z(i)))),
+						TileX = map.X(i),
+						TileZ = map.Z(i),
 					};
 		}
 		public static IEnumerable<Billboard> Scenery(GameMap map)

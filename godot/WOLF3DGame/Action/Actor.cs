@@ -202,7 +202,6 @@ namespace WOLF3D.WOLF3DGame.Action
 					: 0)) is ushort newFrame
 					&& newFrame != Page)
 					Page = newFrame;
-
 				// START DEBUGGING
 				/*
 				if (!State.Alive && SightPlayer())
@@ -216,7 +215,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 				*/
 				// END DEBUGGING
-
 				if (State.Mark)
 					Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
 			}
@@ -242,7 +240,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 		}
 		#endregion ISpeaker
-
 		#region StateDelegates
 		public static void T_Stand(Actor actor, float delta = 0f) => actor.T_Stand(delta);
 		public Actor T_Stand(float delta = 0f)
@@ -424,7 +421,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			//int	hitchance,damage;
 
 			//hitchance = 128;
-
 			//if (!areabyplayer[ob->areanumber])
 			//	return;
 
@@ -739,10 +735,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			// 	ob->dir = nodir;		// can't move
 			return null;
 		}
-
 		public bool TryWalk() => TryWalk(Direction);
 		public bool TryWalk(Direction8 direction) => Main.ActionRoom.Level.TryWalk(direction, X, Z);
-
 		public Direction8 RandomDirection(params Direction8[] excluded)
 		{
 			foreach (Direction8 direction in Direction8.RandomOrder(excluded))
@@ -750,20 +744,18 @@ namespace WOLF3D.WOLF3DGame.Action
 					return direction;
 			return null;
 		}
-
 		public Actor Recenter()
 		{
 			GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0f, Assets.CenterSquare(Z)));
 			return this;
 		}
-
 		public Actor Kill()
 		{
 			if (State.Alive && Assets.States.TryGetValue(ActorXML?.Attribute("Death")?.Value, out State deathState))
 				State = deathState;
+			XMLScript.Run(ActorXML, this);
 			return this;
 		}
-
 		public bool CheckChase(float delta = 0f)
 		{
 			if (SightPlayer(delta))
@@ -783,9 +775,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			}
 			return false;
 		}
-
 		public const float MinSight = 2f / 3f * Assets.WallWidth;
-
 		public bool SightPlayer(float delta = 0f)
 		{
 			// I've decided to omit checking for "An actor in ATTACKMODE called SightPlayer!"
@@ -798,7 +788,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			else return false;
 			return CheckSight();
 		}
-
 		public bool CheckSight()
 		{
 			// don't bother tracing a line if the area isn't connected to the player's
@@ -816,7 +805,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				return false;
 			return CheckLine();
 		}
-
 		public bool CheckLine() => Main.ActionRoom.Level.CheckLine(
 			Transform.origin.x,
 			Transform.origin.z,

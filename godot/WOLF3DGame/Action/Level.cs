@@ -411,5 +411,26 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (!Main.ActionRoom.Paused)
 				Time += delta;
 		}
+		public Level PlaceItem(XElement xml, ITarget target)
+		{
+			Pickup pickup = target is Actor actor ?
+				new Pickup(xml)
+				{
+					Transform = new Transform(
+						actor.Transform.basis,
+						new Vector3(Assets.CenterSquare(actor.TileX), 0f, Assets.CenterSquare(actor.TileZ))
+						),
+				}
+				: new Pickup(xml)
+				{
+					Transform = new Transform(
+						Basis.Identity,
+						new Vector3(target.Position.x, 0f, target.Position.y)
+						),
+				};
+			AddChild(pickup);
+			Pickups.Add(pickup);
+			return this;
+		}
 	}
 }
