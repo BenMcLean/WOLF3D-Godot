@@ -38,9 +38,7 @@ namespace WOLF3D.WOLF3DGame
 			return true;
 		}
 		private static bool ConditionalOne(XElement xml, ITarget target = null) =>
-			(!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability)
-			|| Main.RNG.NextFloat() <= probability)
-			&& (!(xml?.Attribute("If")?.Value is string stat)
+			(!(xml?.Attribute("If")?.Value is string stat)
 				|| string.IsNullOrWhiteSpace(stat)
 				|| !Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
 			|| (
@@ -73,7 +71,8 @@ namespace WOLF3D.WOLF3DGame
 			!uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
 				|| statusNumber.Max > maxGreater
 			)
-			));
+			)) && (!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability)
+			|| Main.RNG.NextFloat() <= probability);
 		private static void Effect(XElement xml, ITarget target = null)
 		{
 			SoundBlaster.Play(xml);
