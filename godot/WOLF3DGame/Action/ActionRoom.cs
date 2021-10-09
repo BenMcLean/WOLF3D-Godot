@@ -78,8 +78,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			AddChild(Level = new Level(xml.Element("Level")));
 			Name = "ActionRoom " + Level.Map.Name;
 			ARVRPlayer.Set(xml.Element("ARVRPlayer"));
-			//if (xml.Attribute("RNG")?.Value is string stateCode)
-			//	Main.RNG.StateCode = stateCode;
+			if (xml.Attribute("RNG")?.Value is string stateCode)
+				Main.RNG.StateCode = stateCode;
 		}
 		public override void _Ready()
 		{

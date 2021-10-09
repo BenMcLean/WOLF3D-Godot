@@ -65,7 +65,7 @@ namespace WOLF3D.WOLF3DGame
 					value = ""; //the following ulong.Parse() will throw a sensible exception
 				}
 				StateA = ulong.Parse(value.Substring(0, 16), System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
-				StateB = ulong.Parse(value.Substring(16, 32), System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+				StateB = ulong.Parse(value.Substring(16, 16), System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
 			}
 		}
 		/// <summary>
