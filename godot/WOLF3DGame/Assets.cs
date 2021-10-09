@@ -211,7 +211,6 @@ namespace WOLF3D.WOLF3DGame
 			else using (FileStream xmlStream = new FileStream(path, FileMode.Open))
 					return XElement.Load(xmlStream);
 		}
-
 		public static XElement XML { get; set; }
 		public static GameMap[] Maps { get; set; }
 		public static AudioT AudioT
