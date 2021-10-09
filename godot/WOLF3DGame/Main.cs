@@ -24,16 +24,16 @@ namespace WOLF3D.WOLF3DGame
 		public static RNG RNG = new RNG();
 		public static void GlobalExceptionHandler(Exception ex)
 		{
-			string message = DateTime.Now + ", " + ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
-			Console.Error.WriteLine(message);
-			if (SetupRoom is SetupRoom)
-			{
-				SetupRoom.WriteLine(message);
-				SetupRoom.State = SetupRoom.LoadingState.EXCEPTION;
-				Room = SetupRoom;
-			}
 			try
 			{
+				string message = DateTime.Now + ", " + ex.GetType().Name + ": \"" + ex.Message + "\"" + System.Environment.NewLine + ex.StackTrace;
+				Console.Error.WriteLine(message);
+				if (SetupRoom is SetupRoom)
+				{
+					SetupRoom.WriteLine(message);
+					SetupRoom.State = SetupRoom.LoadingState.EXCEPTION;
+					Room = SetupRoom;
+				}
 				System.IO.File.AppendAllText(System.IO.Path.Combine(Path, "exception.log"), message);
 			}
 			catch (Exception) { } // Writing to exception.log is an absolute last resort to capture what went wrong. Can't have it stopping the program if it fails to write.
