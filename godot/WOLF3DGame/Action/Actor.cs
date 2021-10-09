@@ -769,7 +769,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (SightPlayer(delta))
 			{
 				if (!Settings.DigiSoundMuted
-					&& ActorXML?.Attribute("DigiSound")?.Value is string digiSound
+					&& ActorXML?.Attribute("AlertDigiSound")?.Value is string digiSound
 					&& Assets.DigiSoundSafe(digiSound) is AudioStreamSample audioStreamSample)
 					Play = audioStreamSample;
 				if (Direction8.AngleToPoint(GlobalTransform.origin, Main.ActionRoom.ARVRPlayer.GlobalTransform.origin) is Direction8 towardsPlayer
