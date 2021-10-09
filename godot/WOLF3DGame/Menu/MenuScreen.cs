@@ -396,7 +396,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 			if (Modal == null)
 			{
 				if (GetExtraItem() is Target2D target && target != null)
+				{
 					XMLScript.Run(target.XML);
+					if (target is MenuItem menuItem)
+						menuItem.UpdateText();
+				}
 				else if (SelectedItem is MenuItem selected && selected != null)
 				{
 					if (selected.XML.Attribute("SelectSound") is XAttribute selectSound && selectSound != null && !string.IsNullOrWhiteSpace(selectSound.Value))
@@ -404,6 +408,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					else if (Assets.SelectSound != null)
 						SoundBlaster.Adl = Assets.SelectSound;
 					XMLScript.Run(selected.XML);
+					selected.UpdateText();
 				}
 			}
 			else if (Modal.Answer)

@@ -7,10 +7,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 	{
 		public ARVRController ActiveController { get; set; }
 		public ARVRController InactiveController => ActiveController == RightController ? LeftController : RightController;
-
 		public static byte Episode { get; set; } = 1;
 		public static byte Difficulty { get; set; } = 1;
-
 		public MenuBody Body { get; set; }
 		public MenuScreen MenuScreen
 		{
@@ -21,9 +19,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					Body.MenuScreen = value;
 			}
 		}
-
 		public MenuRoom(string menuName = null) : this(Assets.Menu(menuName ?? Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Start")?.Value ?? "Main")) { }
-
 		public MenuRoom(MenuScreen menuScreen)
 		{
 			Name = "MenuRoom";
@@ -56,7 +52,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 				Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -1.5f)),
 			});
 		}
-
 		public override void Enter()
 		{
 			base.Enter();
@@ -64,7 +59,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			LeftController.Connect("button_pressed", this, nameof(ButtonPressedLeft));
 			RightController.Connect("button_pressed", this, nameof(ButtonPressedRight));
 		}
-
 		public override void Exit()
 		{
 			base.Exit();
@@ -73,10 +67,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 			if (RightController.IsConnected("button_pressed", this, nameof(ButtonPressedRight)))
 				RightController.Disconnect("button_pressed", this, nameof(ButtonPressedRight));
 		}
-
 		public void ButtonPressedRight(int buttonIndex) => MenuScreen.ButtonPressed(this, buttonIndex, true);
 		public void ButtonPressedLeft(int buttonIndex) => MenuScreen.ButtonPressed(this, buttonIndex, false);
-
 		public override void _PhysicsProcess(float delta)
 		{
 			if (Paused)
@@ -91,7 +83,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 						-ARVRCamera.Transform.origin.z
 					)
 				);
-
 				if (Main.VR)
 				{
 					Godot.Collections.Dictionary CastRay(ARVRController controller) => GetWorld()
@@ -117,12 +108,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 				}
 			}
 		}
-
 		public override void _Input(InputEvent @event)
 		{
 			if (!Paused) MenuScreen?.DoInput(@event);
 		}
-
 		public class MenuBody : StaticBody
 		{
 			public const float Width = Assets.WallWidth;
@@ -145,7 +134,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			private MenuScreen menuScreen = null;
 			public CollisionShape Shape { get; private set; }
 			public MeshInstance MeshInstance { get; private set; }
-
 			public MenuBody(MenuScreen menuScreen)
 			{
 				Name = "MenuBody";
@@ -173,9 +161,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				});
 				MenuScreen = menuScreen;
 			}
-
 			public bool Target(Vector3? position = null) => position is Vector3 vector3 ? TargetLocal(ToLocal(vector3)) : TargetLocal();
-
 			public bool TargetLocal(Vector3? localPosition = null) =>
 				MenuScreen == null ? false
 				: MenuScreen.IsIn(localPosition == null ? MenuScreen.OffScreen
@@ -184,9 +170,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 						 MenuScreen.Height - (((Vector3)localPosition).y - Assets.HalfWallHeight + Height / 2f) / Height * MenuScreen.Height
 					  ));
 		}
-
 		public static ushort LastPushedTile { get; set; } = 0;
-
 		public override void FinishedFadeIn()
 		{
 			base.FinishedFadeIn();
