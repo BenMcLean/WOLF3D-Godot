@@ -283,7 +283,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
 				if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
 				{
-					GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+					Transform = new Transform(Transform.basis, newPosition);
 					Distance -= move;
 				}
 			}
@@ -346,7 +346,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
 				if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
 				{
-					GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+					Transform = new Transform(GlobalTransform.basis, newPosition);
 					Distance -= move;
 				}
 			}
