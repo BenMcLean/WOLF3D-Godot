@@ -108,7 +108,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 				&& System.IO.File.Exists(file)
 				&& XElement.Load(file) is XElement saveGame
 				&& saveGame.Attribute("Name")?.Value is string name)
-				text = name;
+				text = name.FirstLine().Trim();
+			if (PixelRect is PixelRect)
+				while (text.Length > 1 && font.CalcWidthLine(text) > PixelRect.Size.x - 4)
+					text = text.Substring(0, text.Length - 1);
 			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
 			ImageTexture texture = Assets.Text(font, text);
 			uint textWidth = (uint)texture.GetWidth();
