@@ -114,7 +114,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				while (text.Length > 1 && Font.CalcWidthLine(text) > PixelRect.Size.x - 4)
 					text = text.Substring(0, text.Length - 1);
 			Name = text.FirstLine() is string firstLine ? firstLine : "MenuItem";
-			ImageTexture texture = Assets.Text(Font, text);
+			ImageTexture texture = Assets.Text(Font, string.IsNullOrWhiteSpace(text) ? " " : text);
 			uint textWidth = (uint)texture.GetWidth();
 			if (textWidth % 2 > 0) textWidth++;
 			AddChild(Text = new Sprite()
