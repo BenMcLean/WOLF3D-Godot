@@ -346,7 +346,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
 				if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
 				{
-					Transform = new Transform(GlobalTransform.basis, newPosition);
+					Transform = new Transform(Transform.basis, newPosition);
 					Distance -= move;
 				}
 			}
@@ -408,7 +408,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Vector3 newPosition = GlobalTransform.origin + Assets.Vector3(Direction + move);
 				if (!Main.ActionRoom.ARVRPlayer.IsWithin(newPosition.x, newPosition.z, Assets.HalfWallWidth))
 				{
-					GlobalTransform = new Transform(GlobalTransform.basis, newPosition);
+					Transform = new Transform(Transform.basis, newPosition);
 					Distance -= move;
 				}
 			}
@@ -746,7 +746,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public Actor Recenter()
 		{
-			GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(Assets.CenterSquare(X), 0f, Assets.CenterSquare(Z)));
+			Transform = new Transform(Transform.basis, new Vector3(Assets.CenterSquare(X), 0f, Assets.CenterSquare(Z)));
 			return this;
 		}
 		public Actor Kill()
