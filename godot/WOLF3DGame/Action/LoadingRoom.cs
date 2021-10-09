@@ -92,6 +92,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;
 			AmbientTasks.Add(Task.Run(Loading));
+			//Loading();
 		}
 		public override void _Process(float delta)
 		{

@@ -169,7 +169,7 @@
 			<Menu Name="Main" BkgdColor="41" Font="1" SelectedColor="19" TextColor="23" DisabledColor="43">
 				<Image Name="C_OPTIONSPIC" X="center" Y="0" XBanner="0" />
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
-				<PixelRect X="68" Y="52" Width="179" Height="130" Color="45" BordColor="44" Bord2Color="35" />
+				<PixelRect X="68" Y="52" Width="179" Height="136" Color="45" BordColor="44" Bord2Color="35" />
 				<MenuItems StartX="72" StartY="56" PaddingX="28">
 					<MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
 					<MenuItem Text="Sound" Action="Menu" Argument="Sound" />
