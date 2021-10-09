@@ -101,6 +101,8 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			AddChild(Walls = new Walls(Assets.Maps[(int)xml.Attribute("MapNumber")]));
 			Name = "Level \"" + Map.Name + "\"";
+			if (float.TryParse(xml.Attribute("Time")?.Value, out float time))
+				Time = time;
 			FloorCodes = new SymmetricMatrix(xml.Element("SymmetricMatrix"));
 			foreach (Billboard billboard in Billboard.Scenery(Map))
 				AddChild(billboard);
