@@ -52,6 +52,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				TextSprite = new Sprite()
 				{
 					Texture = texture,
+					Modulate = TextColor,
 					Position = new Vector2((textWidth / 2) + XPadding, texture.GetHeight() / 2),
 				};
 				if (PixelRect is Target2D target2D)
@@ -88,9 +89,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 			set
 			{
 				if (TextSprite is Sprite)
+				{
 					TextSprite.Modulate = value == null ? Assets.White : (Color)value;
-				if (PixelRect is PixelRect)
-					PixelRect.NWColor = PixelRect.SEColor = TextSprite.Modulate;
+					if (PixelRect is PixelRect)
+						PixelRect.NWColor = PixelRect.SEColor = TextSprite.Modulate;
+				}
 			}
 		}
 		public Color TextColor { get; set; } = Assets.White;
