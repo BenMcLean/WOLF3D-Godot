@@ -118,7 +118,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 						{
 							Texture = texture,
 							Position = new Vector2(
-								(TextSprite?.Position.x ?? 0) - (TextSprite?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2,
+								(TextSprite?.Position.x ?? 0) - (TextSprite?.Texture?.GetWidth() ?? 0) / 2 - (texture?.GetWidth() ?? 0) / 2 - 2,
 								(TextSprite?.Position.y ?? 0) - (TextSprite?.Texture?.GetHeight() ?? 0) / 2 + (texture?.GetHeight() ?? 0) / 2 + 2
 								),
 						};
