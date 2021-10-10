@@ -1278,7 +1278,11 @@
 			<State Name="s_ssdie2" Shape="286" Tics="15" Speed="0" Next="s_ssdie3" Alive="false" Mark="false" />
 			<State Name="s_ssdie3" Shape="287" Tics="15" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
 			<State Name="s_ssdie4" Shape="289" Tics="0" Speed="0" Next="s_ssdie4" Alive="false" Mark="false" />
-			<Actor Name="Hans" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="GUTENTAGSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" />
+			<Actor Name="Hans" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="GUTENTAGSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" >
+				<PlaceItem>
+					<Pickup Number="43" Page="128" AddTo="Gold Key" Add="1" Sound="GETKEYSND" Flash="#FFFF00" Name="Gold Key" />
+				</PlaceItem>
+			</Actor>
 			<State Name="s_bossstand" Shape="406" Tics="0" Think="T_Stand" Speed="0" Next="s_bossstand" />
 			<State Name="s_bosschase1" Shape="402" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase1s" />
 			<State Name="s_bosschase1s" Shape="402" Tics="3" Speed="512" Next="s_bosschase2" />
