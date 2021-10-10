@@ -1,46 +1,31 @@
-using NUnit.Framework;
-using RectpackSharp;
-using SixLabors.ImageSharp;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Xml.Linq;
-using WOLF3DModel;
 
 namespace WOLF3DTest
 {
-	public class Tests
+	public class UnitTest1
 	{
-		public const string Folder = "../../../../../godot/WOLF3D/WL1/";
-
+		public Dictionary<string, uint> Stuff = new Dictionary<string, uint>();
 		[Test]
-		public void Test1()
+		public void Test()
 		{
-			VSwap vSwap = VSwap.Load(Folder, LoadXML(Folder));
-			PackingRectangle[] rectangles = PackingRectangles(vSwap).ToArray();
-			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.MostlySquared);
-			int atlasSize = (int)TextureMethods.FindNextPowerOf2(bounds.BiggerSide);
-			byte[] bin = new byte[atlasSize * 4 * atlasSize];
-			foreach (PackingRectangle rectangle in rectangles)
-				bin.DrawPaddedInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.Pages[rectangle.Id], vSwap.TileSqrt, atlasSize);
-			Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bin, atlasSize, atlasSize)
-						.SaveAsPng("output.png");
+			XElement lessThan1 = XElement.Parse("<Condition If=\"Stuff\" LessThan=\"1\" />"),
+				greaterThan0 = XElement.Parse("<Condition If=\"Stuff\" GreaterThan=\"0\" />");
+			Assert.IsTrue(ConditionalOne(XElement.Parse("<NoConditions/>")));
+			Stuff["Stuff"] = 0;
+			Assert.IsTrue(ConditionalOne(lessThan1));
+			Assert.IsFalse(ConditionalOne(greaterThan0));
+			Stuff["Stuff"] = 1;
+			Assert.IsFalse(ConditionalOne(lessThan1));
+			Assert.IsTrue(ConditionalOne(greaterThan0));
 		}
-
-		public IEnumerable<PackingRectangle> PackingRectangles(VSwap vSwap)
-		{
-			for (int i = 0; i < vSwap.SoundPage; i++)
-				if (vSwap.Pages[i] != null)
-					yield return new PackingRectangle(0, 0, vSwap.TileSqrt + 2u, vSwap.TileSqrt + 2u, i);
-		}
-
-		public static XElement LoadXML(string folder, string file = "game.xml")
-		{
-			string path = System.IO.Path.Combine(folder, file);
-			if (!System.IO.Directory.Exists(folder) || !System.IO.File.Exists(path))
-				return null;
-			else using (FileStream xmlStream = new FileStream(path, FileMode.Open))
-					return XElement.Load(xmlStream);
-		}
+		public bool ConditionalOne(XElement xml) =>
+			!(xml?.Attribute("If")?.Value is string stat
+			&& !string.IsNullOrWhiteSpace(stat)
+			&& Stuff[stat] is uint statusNumber)
+			|| ((!uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals) || statusNumber == equals)
+			&& (!uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less) || statusNumber < less)
+			&& (!uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater) || statusNumber > greater));
 	}
 }

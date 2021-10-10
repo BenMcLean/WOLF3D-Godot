@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Godot;
@@ -21,60 +20,42 @@ namespace WOLF3D.WOLF3DGame
 				foreach (XElement child in xml.Elements())
 					if ("PlaceItem".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase))
 						Main.ActionRoom.Level.PlaceItem(child.Elements().First(), target);
-					else if (!"And".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase)
-							&& !"Else".Equals(child.Name?.LocalName, StringComparison.InvariantCultureIgnoreCase))
+					else if (!"And".Equals(child.Name?.LocalName)
+							&& !"Else".Equals(child.Name?.LocalName))
 						Run(child, target);
 				return true;
 			}
-			foreach (XElement child in xml.Elements("Else"))
-				Run(child, target);
-			return false;
+			else
+			{
+				if (target is Actor actor)
+					GD.Print("Negative on " + actor.Name);
+				foreach (XElement child in xml.Elements("Else"))
+					Run(child, target);
+				return false;
+			}
 		}
 		private static bool Conditional(XElement xml, ITarget target = null)
 		{
 			if (!ConditionalOne(xml, target))
 				return false;
-			foreach (XElement and in xml?.Elements("And") ?? Enumerable.Empty<XElement>())
+			foreach (XElement and in xml?.Elements("And"))
 				if (!ConditionalOne(and, target))
 					return false;
 			return true;
 		}
 		private static bool ConditionalOne(XElement xml, ITarget target = null) =>
-			(!(xml?.Attribute("If")?.Value is string stat)
-				|| string.IsNullOrWhiteSpace(stat)
-				|| !Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
-			|| (
-			(
-			!uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals)
-				|| statusNumber.Value == equals
-			)
-			&&
-			(
-			!uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less)
-				|| statusNumber.Value < less
-			)
-			&&
-			(
-			!uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater)
-				|| statusNumber.Value > greater
-			)
-			&&
-			(
-			!uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals)
-				|| statusNumber.Max == maxEquals
-			)
-			&&
-			(
-			!uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess)
-				|| statusNumber.Max < maxLess
-			)
-			&&
-			(
-			!uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater)
-				|| statusNumber.Max > maxGreater
-			)
-			)) && (!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability)
-			|| Main.RNG.NextFloat() <= probability);
+				(!(Main.StatusBar is StatusBar statusBar
+					&& xml?.Attribute("If")?.Value is string stat
+					&& !string.IsNullOrWhiteSpace(stat)
+					&& statusBar.TryGetValue(stat, out StatusNumber statusNumber))
+				|| ((!uint.TryParse(xml?.Attribute("Equals")?.Value, out uint equals) || statusNumber.Value == equals)
+					&& (!uint.TryParse(xml?.Attribute("LessThan")?.Value, out uint less) || statusNumber.Value < less)
+					&& (!uint.TryParse(xml?.Attribute("GreaterThan")?.Value, out uint greater) || statusNumber.Value > greater)
+					&& (!uint.TryParse(xml?.Attribute("MaxEquals")?.Value, out uint maxEquals) || statusNumber.Max == maxEquals)
+					&& (!uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess) || statusNumber.Max < maxLess)
+					&& (!uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater) || statusNumber.Max > maxGreater)
+					))
+				&& (!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability) || Main.RNG.NextFloat() > probability);
 		private static void Effect(XElement xml, ITarget target = null)
 		{
 			SoundBlaster.Play(xml);

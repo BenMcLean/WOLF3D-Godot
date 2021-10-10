@@ -866,11 +866,15 @@
 			<Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
 			<Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
 			<Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Weapon0" Init="1" Max="1" />
+			<Number Name="Weapon1" Init="1" Max="1" />
+			<Number Name="Weapon2" Init="0" Max="1" />
+			<Number Name="Weapon3" Init="0" Max="1" />
 			<Weapons X="256" Y="8">
 				<Weapon Number="0" Pic="KNIFEPIC" Init="1" />
 				<Weapon Number="1" Pic="GUNPIC" Init="1" />
-				<Weapon Number="2" Pic="MACHINEGUNPIC" />
-				<Weapon Number="3" Pic="GATLINGGUNPIC" />
+				<Weapon Number="2" Pic="MACHINEGUNPIC" Init="0" />
+				<Weapon Number="3" Pic="GATLINGGUNPIC" Init="0" />
 			</Weapons>
 		</StatusBar>
 	</VgaGraph>
@@ -1183,10 +1187,9 @@
 			<Spawn Number="212" Actor="Dog" Direction="W" Difficulty="4" State="s_dogpath1" />
 			<Spawn Number="213" Actor="Dog" Direction="S" Difficulty="4" State="s_dogpath1" />
 			<Spawn Number="214" Actor="Hans" Direction="S" State="s_bossstand" />
-			<Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" >
-				<Effect AddTo="Score" Add="100" />
+			<Actor Name="Guard" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
 				<PlaceItem>
-					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="8" Sound="GETAMMOSND" Flash="#FFFF00" Name="Ammo" />
+					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
 				</PlaceItem>
 			</Actor>
 			<State Name="s_grdstand" Rotate="true" Shape="156" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
@@ -1211,7 +1214,7 @@
 			<State Name="s_grddie2" Shape="198" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
 			<State Name="s_grddie3" Shape="199" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
 			<State Name="s_grddie4" Shape="201" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-			<Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" />
+			<Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" AddTo="Score" Add="200" />
 			<State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
 			<State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
 			<State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
@@ -1233,7 +1236,20 @@
 			<State Name="s_dogdie2" Shape="238" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
 			<State Name="s_dogdie3" Shape="239" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
 			<State Name="s_dogdead" Shape="240" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-			<Actor Name="SS" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="SCHUTZADSND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" />
+			<Actor Name="SS" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="SCHUTZADSND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" AddTo="Score" Add="200" >
+				<Condition If="Weapon2" LessThan="1" >
+					<PlaceItem>
+						<Pickup Number="50" Page="135" AddTo="Weapon2" Add="1" Sound="GETMACHINESND" Flash="#FFFF00" Name="Machine Gun">
+							<Effect AddTo="Ammo" Add="6" />
+						</Pickup>
+					</PlaceItem>
+					<Else>
+						<PlaceItem>
+							<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
+						</PlaceItem>
+					</Else>
+				</Condition>
+			</Actor>
 			<State Name="s_ssstand" Rotate="true" Shape="244" Tics="0" Think="T_Stand" Speed="0" Next="s_ssstand" />
 			<State Name="s_sspath1" Rotate="true" Shape="252" Tics="20" Think="T_Path" Speed="512" Next="s_sspath1s" />
 			<State Name="s_sspath1s" Rotate="true" Shape="252" Tics="5" Speed="512" Next="s_sspath2" />
