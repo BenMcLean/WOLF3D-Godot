@@ -235,7 +235,8 @@ namespace WOLF3D.WOLF3DGame.Setup
 			{
 				Assets.Load(
 					Main.Folder = System.IO.Path.Combine(Main.Path, "WL1"),
-					Assets.LoadXML(Main.Folder).InsertGameSelectionMenu()
+					Assets.LoadXML(Main.Folder).InsertGameSelectionMenu(),
+					true
 					);
 				Settings.Load();
 				Main.MenuRoom = new MenuRoom("_GameSelect0");

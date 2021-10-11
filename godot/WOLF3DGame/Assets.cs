@@ -151,36 +151,47 @@ namespace WOLF3D.WOLF3DGame
 			FloorCodeFirst = 0;
 			FloorCodes = 0;
 		}
-		public static void Load(string folder, XElement xml)
+		public static void Load(string folder, XElement xml, bool limitedLoad = false)
 		{
 			Clear();
 			XML = xml;
-			if (XML.Element("VSwap") != null)
+			if (!limitedLoad && XML.Element("VSwap") != null)
 				VSwap = VSwap.Load(folder, XML);
-			if (XML.Element("Maps") != null)
+			else
+				SetPalettes(VSwap.LoadPalettes(xml).ToArray());
+			if (!limitedLoad && XML.Element("Maps") != null)
 				Maps = GameMap.Load(folder, XML);
 			if (XML.Element("Audio") != null)
 				AudioT = AudioT.Load(folder, XML);
 			if (XML.Element("VgaGraph") != null)
 				VgaGraph = VgaGraph.Load(folder, XML);
-			Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
-			Doors = XML.Element("VSwap")?.Element("Walls")?.Elements("Door")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
-			Elevators = XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
-			PushWalls = PushWall?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+			if (!limitedLoad)
+			{
+				Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
+				Doors = XML.Element("VSwap")?.Element("Walls")?.Elements("Door")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+				Elevators = XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+				PushWalls = PushWall?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+			}
 			States.Clear();
-			foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
-				States.Add(xState.Attribute("Name").Value, new State(xState));
-			foreach (State state in States.Values)
-				if (state.XML.Attribute("Next")?.Value is string next)
-					state.Next = States[next];
-			Turns.Clear();
-			foreach (XElement xTurn in XML?.Element("VSwap")?.Element("Objects")?.Elements("Turn") ?? Enumerable.Empty<XElement>())
-				Turns.Add((ushort)(int)xTurn.Attribute("Number"), Direction8.From(xTurn.Attribute("Direction")));
+			if (!limitedLoad)
+			{
+				foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
+					States.Add(xState.Attribute("Name").Value, new State(xState));
+				foreach (State state in States.Values)
+					if (state.XML.Attribute("Next")?.Value is string next)
+						state.Next = States[next];
+				Turns.Clear();
+				foreach (XElement xTurn in XML?.Element("VSwap")?.Element("Objects")?.Elements("Turn") ?? Enumerable.Empty<XElement>())
+					Turns.Add((ushort)(int)xTurn.Attribute("Number"), Direction8.From(xTurn.Attribute("Direction")));
+			}
 			EndStrings = XML?.Element("VgaGraph")?.Element("Menus")?.Elements("EndString")?.Select(a => a.Value)?.ToArray() ?? new string[] { "Sure you want to quit? Y/N" };
-			if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeFirst")?.Value, out ushort floorCodeFirst))
-				FloorCodeFirst = floorCodeFirst;
-			if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
-				FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
+			if (!limitedLoad)
+			{
+				if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeFirst")?.Value, out ushort floorCodeFirst))
+					FloorCodeFirst = floorCodeFirst;
+				if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
+					FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
+			}
 			// Load "extra" IMF/WLF files not included in AudioT
 			Godot.File file = new Godot.File();
 			foreach (XElement songXML in XML.Element("Audio").Elements("Imf")?.Where(e => e.Attribute("File") is XAttribute))
@@ -231,24 +242,28 @@ namespace WOLF3D.WOLF3DGame
 		private static AudioT audioT;
 		public static Adl SelectSound { get; set; }
 		public static Adl ScrollSound { get; set; }
+		public static void SetPalettes(int[][] palettes)
+		{
+			Palettes = new Color[palettes.Length][];
+			for (uint x = 0; x < Palettes.Length; x++)
+			{
+				Palettes[x] = new Color[palettes[x].Length];
+				for (uint y = 0; y < Palettes[x].Length; y++)
+					Palettes[x][y] = Color.Color8(
+							palettes[x][y].R(),
+							palettes[x][y].G(),
+							palettes[x][y].B(),
+							palettes[x][y].A()
+						);
+			}
+		}
 		public static VSwap VSwap
 		{
 			get => vswap;
 			set
 			{
 				vswap = value;
-				Palettes = new Color[VSwap.Palettes.Length][];
-				for (uint x = 0; x < Palettes.Length; x++)
-				{
-					Palettes[x] = new Color[VSwap.Palettes[x].Length];
-					for (uint y = 0; y < Palettes[x].Length; y++)
-						Palettes[x][y] = Color.Color8(
-								VSwap.Palettes[x][y].R(),
-								VSwap.Palettes[x][y].G(),
-								VSwap.Palettes[x][y].B(),
-								VSwap.Palettes[x][y].A()
-							);
-				}
+				SetPalettes(VSwap.Palettes);
 				VSwapTextures = new ImageTexture[VSwap.SoundPage];
 				VSwapMaterials = new SpatialMaterial[VSwapTextures.Length];
 				int scale = ushort.TryParse(XML?.Element("VSwap")?.Attribute("Scale")?.Value, out ushort shortScale) ? shortScale : 1;
