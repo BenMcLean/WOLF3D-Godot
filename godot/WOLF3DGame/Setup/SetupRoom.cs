@@ -12,7 +12,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 		#region Data members
 		public static string Load = null;
 		private DosScreen DosScreen;
-
 		public enum LoadingState
 		{
 			READY,
@@ -21,7 +20,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 			LOAD_ASSETS,
 			EXCEPTION
 		};
-
 		private LoadingState state = LoadingState.READY;
 		public LoadingState State
 		{
@@ -60,7 +58,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 			}
 		}
 		#endregion Data members
-
 		#region Godot
 		public SetupRoom()
 		{
@@ -87,13 +84,11 @@ namespace WOLF3D.WOLF3DGame.Setup
 			WriteLine("Platform detected: " + OS.GetName())
 				.WriteLine("VR mode: " + Main.VR);
 		}
-
 		public override void _Ready()
 		{
 			if (Main.ARVRInterface != null && Main.ARVRInterface.Initialize())
 				GetViewport().Arvr = true;
 		}
-
 		public override void _Process(float delta)
 		{
 			if (State == LoadingState.READY)
@@ -108,7 +103,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 				}
 		}
 		#endregion Godot
-
 		#region Android
 		public static bool PermissionsGranted =>
 			OS.GetGrantedPermissions() is string[] permissions &&
@@ -116,7 +110,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 			permissions.Contains("android.permission.READ_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase) &&
 			permissions.Contains("android.permission.WRITE_EXTERNAL_STORAGE", StringComparer.InvariantCultureIgnoreCase);
 		#endregion Android
-
 		#region VR
 		public void ButtonPressed(int buttonIndex)
 		{
@@ -131,7 +124,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 						break;
 				}
 		}
-
 		public SetupRoom WriteLine(string message)
 		{
 			GD.Print(message);
@@ -139,7 +131,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 			return this;
 		}
 		#endregion VR
-
 		#region Room
 		public override void Enter()
 		{
@@ -152,7 +143,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 			if (State == LoadingState.LOAD_ASSETS)
 				LoadAssets();
 		}
-
 		public override void Exit()
 		{
 			base.Exit();
@@ -162,7 +152,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 				RightController.Disconnect("button_pressed", this, nameof(ButtonPressed));
 		}
 		#endregion Room
-
 		#region Shareware
 		public void Shareware()
 		{
@@ -183,7 +172,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 				res.Copy(System.IO.Path.Combine("res://", file), xml);
 				Godot.GD.Print("Copied \"" + file + "\" to \"" + xml + "\".");
 			}
-
 			if (!System.IO.File.Exists(System.IO.Path.Combine(Main.Path, "WL1", "WOLF3D.EXE")))
 			{
 				// I'm including a complete and unmodified copy of Wolfenstein 3-D Shareware v1.4 retrieved from https://archive.org/download/Wolfenstein3d/Wolfenstein3dV14sw.ZIP in this game's resources which is used not only to play the shareware levels but also to render the game selection menu.
@@ -198,7 +186,6 @@ namespace WOLF3D.WOLF3DGame.Setup
 				System.IO.File.Delete(zip);
 			}
 		}
-
 		public static System.Collections.Generic.IEnumerable<string> ListFiles(string path = null, string filter = "*.*")
 		{
 			filter = WildCardToRegular(filter);
@@ -210,17 +197,14 @@ namespace WOLF3D.WOLF3DGame.Setup
 					yield return file;
 			dir.ListDirEnd();
 		}
-
 		public static string WildCardToRegular(string value) => "^" + System.Text.RegularExpressions.Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
 		#endregion Shareware
-
 		#region LoadAssets
 		public void LoadAssets()
 		{
 			WriteLine(Load is string ? "Loading \"" + Load + "\"..." : "Loading game selection menu...");
 			AmbientTasks.Add(Task.Run(LoadAssets2));
 		}
-
 		public static void LoadAssets2()
 		{
 			if (Load is string)

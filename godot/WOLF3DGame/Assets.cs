@@ -164,6 +164,8 @@ namespace WOLF3D.WOLF3DGame
 			{
 				if (XML.Element("VSwap") != null)
 					VSwap = VSwap.Load(folder, XML);
+				else
+					SetPalettes(VSwap.LoadPalettes(xml).ToArray());
 				if (XML.Element("Maps") != null)
 					Maps = GameMap.Load(folder, XML);
 				Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
@@ -450,9 +452,9 @@ namespace WOLF3D.WOLF3DGame
 	Font(uint.TryParse(XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0);
 		public static string[] EndStrings;
 		public static MenuScreen Menu(string name) =>
-			(XML?.Element("VgaGraph")?.Element("Menus")?.Elements("Menu") ?? Enumerable.Empty<XElement>())
-			.Where(e => e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false)
-			.FirstOrDefault() is XElement screen && screen != null ?
+			XML?.Element("VgaGraph")?.Element("Menus")?.Elements("Menu")
+			?.Where(e => e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false)
+			?.FirstOrDefault() is XElement screen && screen != null ?
 				new MenuScreen(screen)
 				: null;
 		public static string WallName(ushort wall) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")

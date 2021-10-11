@@ -16,7 +16,6 @@ namespace WOLF3DModel
 					ushort.TryParse(xml?.Element("VSwap")?.Attribute("Sqrt")?.Value, out ushort tileSqrt) ? tileSqrt : (ushort)64
 					);
 		}
-
 		public int[][] Palettes { get; set; }
 		public byte[][] Pages { get; set; }
 		public byte[][] DigiSounds { get; set; }
@@ -24,9 +23,7 @@ namespace WOLF3DModel
 		public ushort NumPages { get; set; }
 		public int SoundPage => Pages.Length;
 		public ushort TileSqrt { get; set; }
-
 		public byte[] Sprite(ushort number) => Pages[SpritePage + number];
-
 		public static uint GetOffset(ushort x, ushort y, ushort tileSqrt = 64) => (uint)((tileSqrt * y + x) * 4);
 		public uint GetOffset(ushort x, ushort y) => GetOffset(x, y, TileSqrt);
 		public byte GetR(ushort page, ushort x, ushort y) => Pages[page][GetOffset(x, y)];
@@ -40,7 +37,6 @@ namespace WOLF3DModel
 			&& GetOffset(x, y) + 3 is uint offset
 			&& offset < Pages[page].Length
 			&& Pages[page][offset] > 128);
-
 		public VSwap(XElement xml, int[][] palettes, Stream stream, ushort tileSqrt = 64)
 		{
 			Palettes = palettes;
@@ -53,7 +49,6 @@ namespace WOLF3DModel
 				NumPages = binaryReader.ReadUInt16();
 				SpritePage = binaryReader.ReadUInt16();
 				Pages = new byte[binaryReader.ReadUInt16()][]; // SoundPage
-
 				uint[] pageOffsets = new uint[NumPages];
 				uint dataStart = 0;
 				for (ushort i = 0; i < pageOffsets.Length; i++)
@@ -67,7 +62,6 @@ namespace WOLF3DModel
 				ushort[] pageLengths = new ushort[NumPages];
 				for (ushort i = 0; i < pageLengths.Length; i++)
 					pageLengths[i] = binaryReader.ReadUInt16();
-
 				ushort page;
 				// read in walls
 				for (page = 0; page < SpritePage; page++)
@@ -80,7 +74,6 @@ namespace WOLF3DModel
 								wall[TileSqrt * row + col] = (byte)stream.ReadByte();
 						Pages[page] = wall.Index2ByteArray(palettes[PaletteNumber(page, xml)]);
 					}
-
 				// read in sprites
 				for (; page < Pages.Length; page++)
 					if (pageOffsets[page] > 0)
@@ -116,21 +109,17 @@ namespace WOLF3DModel
 						}
 						Pages[page] = TransparentBorder(sprite.Index2IntArray(palettes[PaletteNumber(page, xml)])).Int2ByteArray();
 					}
-
 				// read in digisounds
 				byte[] soundData = new byte[stream.Length - pageOffsets[Pages.Length]];
 				stream.Seek(pageOffsets[Pages.Length], 0);
 				stream.Read(soundData, 0, soundData.Length);
-
 				uint start = pageOffsets[NumPages - 1] - pageOffsets[Pages.Length];
 				ushort[][] soundTable;
 				using (MemoryStream memoryStream = new MemoryStream(soundData, (int)start, soundData.Length - (int)start))
 					soundTable = VgaGraph.Load16BitPairs(memoryStream);
-
 				uint numDigiSounds = 0;
 				while (numDigiSounds < soundTable.Length && soundTable[numDigiSounds][1] > 0)
 					numDigiSounds++;
-
 				DigiSounds = new byte[numDigiSounds][];
 				for (uint sound = 0; sound < DigiSounds.Length; sound++)
 					if (soundTable[sound][1] > 0 && pageOffsets[Pages.Length + soundTable[sound][0]] > 0)
@@ -142,20 +131,17 @@ namespace WOLF3DModel
 					}
 			}
 		}
-
 		public static uint PaletteNumber(uint pageNumber, XElement xml) =>
 			xml?.Element("VSwap")?.Descendants()?.Where(
 				e => uint.TryParse(e.Attribute("Page")?.Value, out uint page) && page == pageNumber
 				)?.Select(e => uint.TryParse(e.Attribute("Palette")?.Value, out uint palette) ? palette : 0)
 			?.FirstOrDefault() ?? 0;
-
 		public static IEnumerable<int[]> LoadPalettes(XElement xml)
 		{
 			foreach (XElement xPalette in xml.Elements("Palette"))
 				using (MemoryStream palette = new MemoryStream(Encoding.ASCII.GetBytes(xPalette.Value)))
 					yield return TextureMethods.LoadPalette(palette);
 		}
-
 		public static int[] TransparentBorder(int[] texture, int width = 0)
 		{
 			if (width == 0)
