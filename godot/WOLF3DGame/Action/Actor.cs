@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -419,23 +420,28 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			//int	dx,dy,dist;
 			//int	hitchance,damage;
-
+			uint damage;
 			//hitchance = 128;
+			float hitchance = 0.5f;
 			//if (!areabyplayer[ob->areanumber])
 			//	return;
-
 			//if (!CheckLine (ob))			// player is behind a wall
-
+			//	return;
+			if (!CheckFloorCode || !CheckLine())
+				return this;
 			//dx = abs(ob->tilex - player->tilex);
 			//dy = abs(ob->tiley - player->tiley);
 			//dist = dx>dy ? dx:dy;
-
+			float dx = Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x),
+				dy = Mathf.Abs(Transform.origin.z - Main.ActionRoom.ARVRPlayer.Transform.origin.z),
+				dist = Math.Max(dx, dy);
 			//// *** ALPHA RESTORATION ***
 			//#if (GAMEVER_WOLFREV > GV_WR_WL920312)
 			//if (ob->obclass == ssobj || ob->obclass == bossobj)
 			//	dist = dist*2/3;					// ss are better shots
 			//#endif
-
+			if (float.TryParse(XML.Attribute("DistMultiplier")?.Value, out float distMultiplier))
+				dist *= distMultiplier;
 			//if (thrustspeed >= RUNSPEED)
 			//{
 			//	if (ob->flags&FL_VISABLE)
@@ -788,13 +794,16 @@ namespace WOLF3D.WOLF3DGame.Action
 			else return false;
 			return CheckSight();
 		}
+		public bool CheckFloorCode => !(
+			FloorCode is ushort floorCode
+			&& Main.ActionRoom.ARVRPlayer.FloorCode is ushort playerFloorCode
+			&& floorCode != playerFloorCode
+			&& Main.ActionRoom.Level.FloorCodes[floorCode, playerFloorCode] < 1
+			);
 		public bool CheckSight()
 		{
 			// don't bother tracing a line if the area isn't connected to the player's
-			if (FloorCode is ushort floorCode
-				&& Main.ActionRoom.ARVRPlayer.FloorCode is ushort playerFloorCode
-				&& floorCode != playerFloorCode
-				&& Main.ActionRoom.Level.FloorCodes[floorCode, playerFloorCode] < 1)
+			if (!CheckFloorCode)
 				return false;
 			// if the player is real close, sight is automatic
 			if (Mathf.Abs(Transform.origin.x - Main.ActionRoom.ARVRPlayer.Transform.origin.x) < MinSight

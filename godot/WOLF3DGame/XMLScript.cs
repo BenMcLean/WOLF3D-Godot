@@ -27,8 +27,6 @@ namespace WOLF3D.WOLF3DGame
 			}
 			else
 			{
-				if (target is Actor actor)
-					GD.Print("Negative on " + actor.Name);
 				foreach (XElement child in xml.Elements("Else"))
 					Run(child, target);
 				return false;
@@ -55,7 +53,7 @@ namespace WOLF3D.WOLF3DGame
 					&& (!uint.TryParse(xml?.Attribute("MaxLessThan")?.Value, out uint maxLess) || statusNumber.Max < maxLess)
 					&& (!uint.TryParse(xml?.Attribute("MaxGreaterThan")?.Value, out uint maxGreater) || statusNumber.Max > maxGreater)
 					))
-				&& (!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability) || Main.RNG.NextFloat() > probability);
+				&& (!float.TryParse(xml?.Attribute("Probability")?.Value, out float probability) || Main.RNG.NextFloat() <= probability);
 		private static void Effect(XElement xml, ITarget target = null)
 		{
 			SoundBlaster.Play(xml);
@@ -80,6 +78,11 @@ namespace WOLF3D.WOLF3DGame
 				&& Main.StatusBar.TryGetValue(stat, out StatusNumber statusNumber)
 				&& uint.TryParse(xml?.Attribute("Add")?.Value, out uint add))
 				statusNumber.Value += add;
+			if (xml?.Attribute("SubtractFrom")?.Value is string subtractFrom
+				&& !string.IsNullOrWhiteSpace(subtractFrom)
+				&& Main.StatusBar.TryGetValue(subtractFrom, out StatusNumber subtractFromNumber)
+				&& uint.TryParse(xml?.Attribute("Subtract")?.Value, out uint subtract))
+				subtractFromNumber.Value -= subtract;
 			// Menu effects
 			if (xml == null || !Main.InGameMatch(xml))
 				return;

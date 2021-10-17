@@ -22,13 +22,11 @@ namespace WOLF3D.WOLF3DGame
 				Transform = new Transform(Basis.Identity, Vector3.Forward),
 			};
 		}
-
 		public Color Color
 		{
 			get => (Color)((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).GetShaderParam("color");
 			set => ((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).SetShaderParam("color", value);
 		}
-
 		public MeshInstance Veil
 		{
 			get => veil;

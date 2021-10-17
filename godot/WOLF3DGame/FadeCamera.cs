@@ -21,7 +21,6 @@ void fragment() {
 }
 ",
 		};
-
 		public FadeCamera()
 		{
 			Name = "FadeCamera";
@@ -40,13 +39,11 @@ void fragment() {
 				Transform = new Transform(Basis.Identity, Vector3.Forward),
 			};
 		}
-
 		public Color Color
 		{
 			get => (Color)((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).GetShaderParam("color");
 			set => ((ShaderMaterial)((QuadMesh)Veil.Mesh).Material).SetShaderParam("color", value);
 		}
-
 		public MeshInstance Veil
 		{
 			get => veil;
