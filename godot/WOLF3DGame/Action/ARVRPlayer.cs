@@ -305,6 +305,16 @@ namespace WOLF3D.WOLF3DGame.Action
 		public bool StandingOnOverride =>
 			Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
 			&& (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Any(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort value) && value == floorCode) ?? false);
+		public bool Running => false; // TODO
+		public bool InSight(Vector3 target, float halfFOV = Assets.QuarterPi) => InSight(target.x, target.z, halfFOV);
+		public bool InSight(Vector2 target, float halfFOV = Assets.QuarterPi) => InSight(target.x, target.y, halfFOV);
+		public bool InSight(float x, float y, float halfFOV = Assets.QuarterPi) => InSight(Mathf.Atan2(Position.y - y, Position.x - x), halfFOV);
+		public bool InSight(float angle, float halfFOV = Assets.QuarterPi)
+		{
+			angle = (angle + Mathf.Tau) % Mathf.Tau;
+			float newAngle = (ARVRCameraDirection.Angle() + Mathf.Tau) % Mathf.Tau;
+			return ((angle - newAngle + Mathf.Tau) % Mathf.Tau <= halfFOV || (newAngle - angle + Mathf.Tau) % Mathf.Tau <= halfFOV);
+		}
 		public void Enter()
 		{
 			if (Main.Pancake)

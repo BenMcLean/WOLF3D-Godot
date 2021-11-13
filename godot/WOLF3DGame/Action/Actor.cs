@@ -456,6 +456,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			//	else
 			//		hitchance = 256-dist*8;
 			//}
+			//bool visible = 
+			if (Main.ActionRoom.ARVRPlayer.Running)
+			{ }
 
 			//// see if the shot was a hit
 
