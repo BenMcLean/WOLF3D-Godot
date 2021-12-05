@@ -165,8 +165,8 @@
 					<MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
 					<MenuItem Text="Sound" Action="Menu" Argument="Sound" />
 					<MenuItem Text="Control" Action="Menu" Argument="Control" />
-					<MenuItem Text="Load Game" Action="Load" />
-					<MenuItem Text="Save Game" InGame="true" Action="Save" />
+					<MenuItem Text="Load Game" Action="Menu" Argument="Load" />
+					<MenuItem Text="Save Game" InGame="true" Action="Menu" Argument="Save" />
 					<MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
 					<MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
 					<MenuItem Text="Back to Game" InGame="true" Action="Resume" />
@@ -210,6 +210,44 @@
 				</MenuItems>
 				<Cancel Action="Menu" Argument="Episodes" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
+			</Menu>
+			<Menu Name="Load" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
+				<Image Name="C_LOADGAMEPIC" X="center" Y="0" XBanner="0" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<PixelRect X="2" Y="50" Width="316" Height="140" Color="221" BordColor="219" Bord2Color="215" />
+				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM0.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM1.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM2.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM3.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM4.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM5.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM6.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM7.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM8.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM9.N3D" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
+			</Menu>
+			<Menu Name="Save" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
+				<Image Name="C_SAVEGAMEPIC" X="center" Y="0" XBanner="0" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<PixelRect X="2" Y="50" Width="316" Height="140" Color="221" BordColor="219" Bord2Color="215" />
+				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM0.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM1.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM2.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM3.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM4.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM5.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM6.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM7.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM8.N3D" />
+					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM9.N3D" />
+				</MenuItems>
+				<Cancel Action="Menu" Argument="Main" />
+				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
 			</Menu>
 		</Menus>
 		<StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
