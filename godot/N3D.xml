@@ -159,7 +159,7 @@
 			</Menu>
 			<Menu Name="Main" BkgdColor="217" Font="1" SelectedColor="197" TextColor="204" DisabledColor="219" Song="NOAH01_MUS" >
 				<Image Name="C_OPTIONSPIC" X="center" Y="0" />
-				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<PixelRect X="68" Y="52" Width="179" Height="130" Color="221" BordColor="219" Bord2Color="215" />
 				<MenuItems StartX="72" StartY="56" PaddingX="28">
 					<MenuItem Text="New Game" Action="Menu" Argument="Episodes" />
@@ -185,7 +185,7 @@
 				<Image Name="C_EPISODE4PIC" X="40" Y="103" />
 				<Image Name="C_EPISODE5PIC" X="40" Y="130" />
 				<Image Name="C_EPISODE6PIC" X="40" Y="157" />
-				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
 					<MenuItem Text="Carl the Camel&#10;Start at level 1-1" Episode="1" Action="Menu" Argument="Difficulty" />
 					<MenuItem Text="Ginny the Giraffe&#10;Start at level 2-1" Episode="2" Action="Menu" Argument="Difficulty" />
@@ -200,7 +200,7 @@
 			<Menu Name="Difficulty" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="1" SelectedColor="197" TextColor="204" Song="NOAH01_MUS" >
 				<PixelRect X="45" Y="90" Width="245" Height="67" Color="221" BordColor="219" Bord2Color="215" />
 				<Text String="How tough are you?" X="center" Y="69" Color="15" />
-				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<Difficulty X="233" Y="107" Difficulty1="C_BABYMODEPIC" Difficulty2="C_EASYPIC" Difficulty3="C_NORMALPIC" Difficulty4="C_HARDPIC" />
 				<MenuItems StartX="51" StartY="101" PaddingX="28">
 					<MenuItem Text="Super Easy" Difficulty="1" Action="NewGame" />
@@ -213,7 +213,7 @@
 			</Menu>
 			<Menu Name="Load" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
 				<Image Name="C_LOADGAMEPIC" X="center" Y="0" XBanner="0" />
-				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="221" BordColor="219" Bord2Color="215" />
 				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
 					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM0.N3D" />
@@ -232,7 +232,7 @@
 			</Menu>
 			<Menu Name="Save" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
 				<Image Name="C_SAVEGAMEPIC" X="center" Y="0" XBanner="0" />
-				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
+				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="221" BordColor="219" Bord2Color="215" />
 				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
 					<MenuItem Text="                    - empty -" BoxColor="221" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM0.N3D" />
