@@ -520,24 +520,24 @@
 			<Override Number="101" Floor="10" Name="Elevator to Secret Floor" />
 			<Pickup Number="101" Action="NextFloor" Name="Secret level trigger" />
 			<!--
-108=10,158,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
-109=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
-110=10,241,000C00000C0C000C000C00CCCCC00C000C00C000C00C000C0,Antelope
-111=10,161,0088800080008008000000800000080088008000800088800,Billy goat
-112=10,281,0777700070007007000700777700070007007000700777700,Bull
-113=B1,322,00000000E000E000EEE000EEEEE000EEE000E000E00000000,Boss: Carl Camel
-114=B1,357,0000000060006000666000666660006660006000600000000,Boss: Melvin Monkey
-115=B1,332,00000000C000C000CCC000CCCCC000CCC000C000C00000000,Boss: Ginny Giraffe
-118=B1,383,00000000F000F000FFF000FFFFF000FFF000F000F00000000,Boss: Burt Bear
-126=10,121,0FFFF000F000F00F000F00FFFF000F000F00F000F00F000F0,White ram
-127=10,201,00BBB000B000B00B000B00B000B00B000B00B000B000BBB00,Ostrich
-128=10,241,000C00000C0C000C000C00CCCCC00C000C00C000C00C000C0,Antelope
-129=10,161,0088800080008008000000800000080088008000800088800,Billy goat
-130=10,281,0777700070007007000700777700070007007000700777700,Bull
-131=B1,322,00000000E000E000EEE000EEEEE000EEE000E000E00000000,Boss: Carl Camel
-134=B1,343,0000000030003000333000333330003330003000300000000,Boss: Kerry Kangaroo
-135=B1,366,0000000070007000777000777770007770007000700000000,Boss: Ernie Elephant  
-	-->
+			<Spawn Number="108" Actor="White ram" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="109" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="110" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="111" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="112" Actor="Bull" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="113" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="114" Actor="Boss: Melvin Monkey" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="115" Actor="Boss: Ginny Giraffe" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="118" Actor="Boss: Burt Bear" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="126" Actor="White ram" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="127" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="128" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="129" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="130" Actor="Bull" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="131" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
+			-->
 		</Objects>
 		<DigiSound Number="0" Name="D_ANTLPESND" />
 		<DigiSound Number="1" Name="D_BEARSND" />
