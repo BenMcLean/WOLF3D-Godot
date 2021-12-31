@@ -1213,27 +1213,27 @@
 			<State Name="s_grddie3" Shape="SPR_GRD_DIE_3" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
 			<State Name="s_grddie4" Shape="SPR_GRD_DEAD" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
 			<Actor Name="Dog" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="DOGBARKSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" AddTo="Score" Add="200" />
-			<State Name="s_dogpath1" Rotate="true" Shape="205" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
-			<State Name="s_dogpath1s" Rotate="true" Shape="205" Tics="5" Speed="1500" Next="s_dogpath2" />
-			<State Name="s_dogpath2" Rotate="true" Shape="213" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
-			<State Name="s_dogpath3" Rotate="true" Shape="221" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath3s" />
-			<State Name="s_dogpath3s" Rotate="true" Shape="221" Tics="5" Speed="1500" Next="s_dogpath4" />
-			<State Name="s_dogpath4" Rotate="true" Shape="229" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath1" />
-			<State Name="s_dogjump1" Shape="241" Tics="10" Speed="0" Next="s_dogjump2" />
-			<State Name="s_dogjump2" Shape="242" Tics="10" Act="T_Bite" Speed="0" Next="s_dogjump3" />
-			<State Name="s_dogjump3" Shape="243" Tics="10" Speed="0" Next="s_dogjump4" />
-			<State Name="s_dogjump4" Shape="241" Tics="10" Speed="0" Next="s_dogjump5" />
-			<State Name="s_dogjump5" Shape="205" Tics="10" Speed="0" Next="s_dogchase1" />
-			<State Name="s_dogchase1" Rotate="true" Shape="205" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase1s" />
-			<State Name="s_dogchase1s" Rotate="true" Shape="205" Tics="3" Speed="3000" Next="s_dogchase2" />
-			<State Name="s_dogchase2" Rotate="true" Shape="213" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase3" />
-			<State Name="s_dogchase3" Rotate="true" Shape="221" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase3s" />
-			<State Name="s_dogchase3s" Rotate="true" Shape="221" Tics="3" Speed="3000" Next="s_dogchase4" />
-			<State Name="s_dogchase4" Rotate="true" Shape="229" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase1" />
-			<State Name="s_dogdie1" Shape="237" Tics="15" Speed="0" Next="s_dogdie2" Alive="false" Mark="false" />
-			<State Name="s_dogdie2" Shape="238" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
-			<State Name="s_dogdie3" Shape="239" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-			<State Name="s_dogdead" Shape="240" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
+			<State Name="s_dogpath1" Rotate="true" Shape="SPR_DOG_W1_1" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
+			<State Name="s_dogpath1s" Rotate="true" Shape="SPR_DOG_W1_1" Tics="5" Speed="1500" Next="s_dogpath2" />
+			<State Name="s_dogpath2" Rotate="true" Shape="SPR_DOG_W2_1" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
+			<State Name="s_dogpath3" Rotate="true" Shape="SPR_DOG_W3_1" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath3s" />
+			<State Name="s_dogpath3s" Rotate="true" Shape="SPR_DOG_W3_1" Tics="5" Speed="1500" Next="s_dogpath4" />
+			<State Name="s_dogpath4" Rotate="true" Shape="SPR_DOG_W4_1" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath1" />
+			<State Name="s_dogjump1" Shape="SPR_DOG_JUMP1" Tics="10" Speed="0" Next="s_dogjump2" />
+			<State Name="s_dogjump2" Shape="SPR_DOG_JUMP2" Tics="10" Act="T_Bite" Speed="0" Next="s_dogjump3" />
+			<State Name="s_dogjump3" Shape="SPR_DOG_JUMP3" Tics="10" Speed="0" Next="s_dogjump4" />
+			<State Name="s_dogjump4" Shape="SPR_DOG_JUMP1" Tics="10" Speed="0" Next="s_dogjump5" />
+			<State Name="s_dogjump5" Shape="SPR_DOG_W1_1" Tics="10" Speed="0" Next="s_dogchase1" />
+			<State Name="s_dogchase1" Rotate="true" Shape="SPR_DOG_W1_1" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase1s" />
+			<State Name="s_dogchase1s" Rotate="true" Shape="SPR_DOG_W1_1" Tics="3" Speed="3000" Next="s_dogchase2" />
+			<State Name="s_dogchase2" Rotate="true" Shape="SPR_DOG_W2_1" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase3" />
+			<State Name="s_dogchase3" Rotate="true" Shape="SPR_DOG_W3_1" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase3s" />
+			<State Name="s_dogchase3s" Rotate="true" Shape="SPR_DOG_W3_1" Tics="3" Speed="3000" Next="s_dogchase4" />
+			<State Name="s_dogchase4" Rotate="true" Shape="SPR_DOG_W4_1" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase1" />
+			<State Name="s_dogdie1" Shape="SPR_DOG_DIE_1" Tics="15" Speed="0" Next="s_dogdie2" Alive="false" Mark="false" />
+			<State Name="s_dogdie2" Shape="SPR_DOG_DIE_2" Tics="15" Speed="0" Next="s_dogdie3" Alive="false" Mark="false" />
+			<State Name="s_dogdie3" Shape="SPR_DOG_DIE_3" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
+			<State Name="s_dogdead" Shape="SPR_DOG_DEAD" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
 			<Actor Name="SS" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="SCHUTZADSND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" AddTo="Score" Add="200" >
 				<Condition If="Weapon2" LessThan="1" >
 					<PlaceItem>
