@@ -1488,6 +1488,17 @@
 			<Sprite Page="290" Name="SPR_SS_SHOOT1" />
 			<Sprite Page="291" Name="SPR_SS_SHOOT2" />
 			<Sprite Page="292" Name="SPR_SS_SHOOT3" />
+			<Sprite Page="402" Name="SPR_BOSS_W1" />
+			<Sprite Page="403" Name="SPR_BOSS_W2" />
+			<Sprite Page="404" Name="SPR_BOSS_W3" />
+			<Sprite Page="405" Name="SPR_BOSS_W4" />
+			<Sprite Page="406" Name="SPR_BOSS_SHOOT1" />
+			<Sprite Page="407" Name="SPR_BOSS_SHOOT2" />
+			<Sprite Page="408" Name="SPR_BOSS_SHOOT3" />
+			<Sprite Page="409" Name="SPR_BOSS_DEAD" />
+			<Sprite Page="410" Name="SPR_BOSS_DIE1" />
+			<Sprite Page="411" Name="SPR_BOSS_DIE2" />
+			<Sprite Page="412" Name="SPR_BOSS_W1" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="HALTSND" />
