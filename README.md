@@ -61,7 +61,7 @@ The "Bm437_IBM_VGA9" bitmap font is converted from [The Ultimate Oldschool PC Fo
 
 This is my (Ben McLean's) pet project, but I have received much help that I need to thank people for.
 
-First of all, [this is mind-blowing](https://bitbucket.org/NY00123/gamesrc-ver-recreation/). I still have a hard time believing tbat anything so awesome could ever exist.
+First of all, [this is mind-blowing](https://bitbucket.org/gamesrc-ver-recreation/wolf3d/). I still have a hard time believing tbat anything so awesome could ever exist.
 
 Second, Valéry Sablonnière has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
 

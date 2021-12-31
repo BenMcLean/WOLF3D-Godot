@@ -1053,8 +1053,6 @@
 			<Ambush Number="106" Walk="true" Name="Deaf Guard" />
 			<Override Number="107" Floor="10" Name="Elevator to Secret Floor" />
 		</Walls>
-		<Sprite Page="106" Name="Demo" />
-		<Sprite Page="107" Name="DeathCam" />
 		<Objects>
 			<Start Number="19" Direction="E" Name="Start" />
 			<Start Number="20" Direction="N" Name="Start" />
@@ -1350,90 +1348,121 @@
 			</Actor>
 			-->
 		</Objects>
-		<Sprite Page="156" Name="SPR_GRD_S_1" />
-		<Sprite Page="157" Name="SPR_GRD_S_2" />
-		<Sprite Page="158" Name="SPR_GRD_S_3" />
-		<Sprite Page="159" Name="SPR_GRD_S_4" />
-		<Sprite Page="160" Name="SPR_GRD_S_5" />
-		<Sprite Page="161" Name="SPR_GRD_S_6" />
-		<Sprite Page="162" Name="SPR_GRD_S_7" />
-		<Sprite Page="163" Name="SPR_GRD_S_8" />
-		<Sprite Page="164" Name="SPR_GRD_W1_1" />
-		<Sprite Page="165" Name="SPR_GRD_W1_2" />
-		<Sprite Page="166" Name="SPR_GRD_W1_3" />
-		<Sprite Page="167" Name="SPR_GRD_W1_4" />
-		<Sprite Page="168" Name="SPR_GRD_W1_5" />
-		<Sprite Page="169" Name="SPR_GRD_W1_6" />
-		<Sprite Page="170" Name="SPR_GRD_W1_7" />
-		<Sprite Page="171" Name="SPR_GRD_W1_8" />
-		<Sprite Page="172" Name="SPR_GRD_W2_1" />
-		<Sprite Page="173" Name="SPR_GRD_W2_2" />
-		<Sprite Page="174" Name="SPR_GRD_W2_3" />
-		<Sprite Page="175" Name="SPR_GRD_W2_4" />
-		<Sprite Page="176" Name="SPR_GRD_W2_5" />
-		<Sprite Page="177" Name="SPR_GRD_W2_6" />
-		<Sprite Page="178" Name="SPR_GRD_W2_7" />
-		<Sprite Page="179" Name="SPR_GRD_W2_8" />
-		<Sprite Page="180" Name="SPR_GRD_W3_1" />
-		<Sprite Page="181" Name="SPR_GRD_W3_2" />
-		<Sprite Page="182" Name="SPR_GRD_W3_3" />
-		<Sprite Page="183" Name="SPR_GRD_W3_4" />
-		<Sprite Page="184" Name="SPR_GRD_W3_5" />
-		<Sprite Page="185" Name="SPR_GRD_W3_6" />
-		<Sprite Page="186" Name="SPR_GRD_W3_7" />
-		<Sprite Page="187" Name="SPR_GRD_W3_8" />
-		<Sprite Page="188" Name="SPR_GRD_W4_1" />
-		<Sprite Page="189" Name="SPR_GRD_W4_2" />
-		<Sprite Page="190" Name="SPR_GRD_W4_3" />
-		<Sprite Page="191" Name="SPR_GRD_W4_4" />
-		<Sprite Page="192" Name="SPR_GRD_W4_5" />
-		<Sprite Page="193" Name="SPR_GRD_W4_6" />
-		<Sprite Page="194" Name="SPR_GRD_W4_7" />
-		<Sprite Page="195" Name="SPR_GRD_W4_8" />
-		<Sprite Page="196" Name="SPR_GRD_PAIN_1" />
-		<Sprite Page="197" Name="SPR_GRD_DIE_1" />
-		<Sprite Page="198" Name="SPR_GRD_DIE_2" />
-		<Sprite Page="199" Name="SPR_GRD_DIE_3" />
-		<Sprite Page="200" Name="SPR_GRD_PAIN_2" />
-		<Sprite Page="201" Name="SPR_GRD_DEAD" />
-		<Sprite Page="202" Name="SPR_GRD_SHOOT1" />
-		<Sprite Page="203" Name="SPR_GRD_SHOOT2" />
-		<Sprite Page="204" Name="SPR_GRD_SHOOT3" />
-
-		<!--
-		SPR_DOG_W1_1,SPR_DOG_W1_2,SPR_DOG_W1_3,SPR_DOG_W1_4,
-		SPR_DOG_W1_5,SPR_DOG_W1_6,SPR_DOG_W1_7,SPR_DOG_W1_8,
-
-		SPR_DOG_W2_1,SPR_DOG_W2_2,SPR_DOG_W2_3,SPR_DOG_W2_4,
-		SPR_DOG_W2_5,SPR_DOG_W2_6,SPR_DOG_W2_7,SPR_DOG_W2_8,
-
-		SPR_DOG_W3_1,SPR_DOG_W3_2,SPR_DOG_W3_3,SPR_DOG_W3_4,
-		SPR_DOG_W3_5,SPR_DOG_W3_6,SPR_DOG_W3_7,SPR_DOG_W3_8,
-
-		SPR_DOG_W4_1,SPR_DOG_W4_2,SPR_DOG_W4_3,SPR_DOG_W4_4,
-		SPR_DOG_W4_5,SPR_DOG_W4_6,SPR_DOG_W4_7,SPR_DOG_W4_8,
-		-->
-		<DigiSound Number="0" Name="HALTSND" />
-		<DigiSound Number="1" Name="DOGBARKSND" />
-		<DigiSound Number="2" Name="CLOSEDOORSND" />
-		<DigiSound Number="3" Name="OPENDOORSND" />
-		<DigiSound Number="4" Name="ATKMACHINEGUNSND" />
-		<DigiSound Number="5" Name="ATKPISTOLSND" />
-		<DigiSound Number="6" Name="ATKGATLINGSND" />
-		<DigiSound Number="7" Name="SCHUTZADSND" />
-		<DigiSound Number="8" Name="GUTENTAGSND" />
-		<DigiSound Number="9" Name="MUTTISND" />
-		<DigiSound Number="10" Name="BOSSFIRESND" />
-		<DigiSound Number="11" Name="SSFIRESND" />
-		<DigiSound Number="12" Name="DEATHSCREAM1SND" />
-		<DigiSound Number="13" Name="DEATHSCREAM2SND" />
-		<DigiSound Number="14" Name="TAKEDAMAGESND" />
-		<DigiSound Number="14" Name="DEATHSCREAM3SND" />
-		<DigiSound Number="15" Name="PUSHWALLSND" />
-		<DigiSound Number="20" Name="LEBENSND" />
-		<DigiSound Number="21" Name="NAZIFIRESND" />
-		<DigiSound Number="22" Name="SLURPIESND" />
-		<DigiSound Number="32" Name="YEAHSND" />
+		<Sprites>
+			<Sprite Page="106" Name="Demo" />
+			<Sprite Page="107" Name="DeathCam" />
+			<Sprite Page="156" Name="SPR_GRD_S_1" />
+			<Sprite Page="157" Name="SPR_GRD_S_2" />
+			<Sprite Page="158" Name="SPR_GRD_S_3" />
+			<Sprite Page="159" Name="SPR_GRD_S_4" />
+			<Sprite Page="160" Name="SPR_GRD_S_5" />
+			<Sprite Page="161" Name="SPR_GRD_S_6" />
+			<Sprite Page="162" Name="SPR_GRD_S_7" />
+			<Sprite Page="163" Name="SPR_GRD_S_8" />
+			<Sprite Page="164" Name="SPR_GRD_W1_1" />
+			<Sprite Page="165" Name="SPR_GRD_W1_2" />
+			<Sprite Page="166" Name="SPR_GRD_W1_3" />
+			<Sprite Page="167" Name="SPR_GRD_W1_4" />
+			<Sprite Page="168" Name="SPR_GRD_W1_5" />
+			<Sprite Page="169" Name="SPR_GRD_W1_6" />
+			<Sprite Page="170" Name="SPR_GRD_W1_7" />
+			<Sprite Page="171" Name="SPR_GRD_W1_8" />
+			<Sprite Page="172" Name="SPR_GRD_W2_1" />
+			<Sprite Page="173" Name="SPR_GRD_W2_2" />
+			<Sprite Page="174" Name="SPR_GRD_W2_3" />
+			<Sprite Page="175" Name="SPR_GRD_W2_4" />
+			<Sprite Page="176" Name="SPR_GRD_W2_5" />
+			<Sprite Page="177" Name="SPR_GRD_W2_6" />
+			<Sprite Page="178" Name="SPR_GRD_W2_7" />
+			<Sprite Page="179" Name="SPR_GRD_W2_8" />
+			<Sprite Page="180" Name="SPR_GRD_W3_1" />
+			<Sprite Page="181" Name="SPR_GRD_W3_2" />
+			<Sprite Page="182" Name="SPR_GRD_W3_3" />
+			<Sprite Page="183" Name="SPR_GRD_W3_4" />
+			<Sprite Page="184" Name="SPR_GRD_W3_5" />
+			<Sprite Page="185" Name="SPR_GRD_W3_6" />
+			<Sprite Page="186" Name="SPR_GRD_W3_7" />
+			<Sprite Page="187" Name="SPR_GRD_W3_8" />
+			<Sprite Page="188" Name="SPR_GRD_W4_1" />
+			<Sprite Page="189" Name="SPR_GRD_W4_2" />
+			<Sprite Page="190" Name="SPR_GRD_W4_3" />
+			<Sprite Page="191" Name="SPR_GRD_W4_4" />
+			<Sprite Page="192" Name="SPR_GRD_W4_5" />
+			<Sprite Page="193" Name="SPR_GRD_W4_6" />
+			<Sprite Page="194" Name="SPR_GRD_W4_7" />
+			<Sprite Page="195" Name="SPR_GRD_W4_8" />
+			<Sprite Page="196" Name="SPR_GRD_PAIN_1" />
+			<Sprite Page="197" Name="SPR_GRD_DIE_1" />
+			<Sprite Page="198" Name="SPR_GRD_DIE_2" />
+			<Sprite Page="199" Name="SPR_GRD_DIE_3" />
+			<Sprite Page="200" Name="SPR_GRD_PAIN_2" />
+			<Sprite Page="201" Name="SPR_GRD_DEAD" />
+			<Sprite Page="202" Name="SPR_GRD_SHOOT1" />
+			<Sprite Page="203" Name="SPR_GRD_SHOOT2" />
+			<Sprite Page="204" Name="SPR_GRD_SHOOT3" />
+			<Sprite Page="205" Name="SPR_DOG_W1_1" />
+			<Sprite Page="206" Name="SPR_DOG_W1_2" />
+			<Sprite Page="207" Name="SPR_DOG_W1_3" />
+			<Sprite Page="208" Name="SPR_DOG_W1_4" />
+			<Sprite Page="209" Name="SPR_DOG_W1_5" />
+			<Sprite Page="210" Name="SPR_DOG_W1_6" />
+			<Sprite Page="211" Name="SPR_DOG_W1_7" />
+			<Sprite Page="212" Name="SPR_DOG_W1_8" />
+			<Sprite Page="213" Name="SPR_DOG_W2_1" />
+			<Sprite Page="214" Name="SPR_DOG_W2_2" />
+			<Sprite Page="215" Name="SPR_DOG_W2_3" />
+			<Sprite Page="216" Name="SPR_DOG_W2_4" />
+			<Sprite Page="217" Name="SPR_DOG_W2_5" />
+			<Sprite Page="218" Name="SPR_DOG_W2_6" />
+			<Sprite Page="219" Name="SPR_DOG_W2_7" />
+			<Sprite Page="220" Name="SPR_DOG_W2_8" />
+			<Sprite Page="221" Name="SPR_DOG_W3_1" />
+			<Sprite Page="222" Name="SPR_DOG_W3_2" />
+			<Sprite Page="223" Name="SPR_DOG_W3_3" />
+			<Sprite Page="224" Name="SPR_DOG_W3_4" />
+			<Sprite Page="225" Name="SPR_DOG_W3_5" />
+			<Sprite Page="226" Name="SPR_DOG_W3_6" />
+			<Sprite Page="227" Name="SPR_DOG_W3_7" />
+			<Sprite Page="228" Name="SPR_DOG_W3_8" />
+			<Sprite Page="229" Name="SPR_DOG_W4_1" />
+			<Sprite Page="230" Name="SPR_DOG_W4_2" />
+			<Sprite Page="231" Name="SPR_DOG_W4_3" />
+			<Sprite Page="232" Name="SPR_DOG_W4_4" />
+			<Sprite Page="233" Name="SPR_DOG_W4_5" />
+			<Sprite Page="234" Name="SPR_DOG_W4_6" />
+			<Sprite Page="235" Name="SPR_DOG_W4_7" />
+			<Sprite Page="236" Name="SPR_DOG_W4_8" />
+			<Sprite Page="237" Name="SPR_DOG_DIE_1" />
+			<Sprite Page="238" Name="SPR_DOG_DIE_2" />
+			<Sprite Page="239" Name="SPR_DOG_DIE_3" />
+			<Sprite Page="240" Name="SPR_DOG_DEAD" />
+			<Sprite Page="241" Name="SPR_DOG_JUMP1" />
+			<Sprite Page="242" Name="SPR_DOG_JUMP2" />
+			<Sprite Page="243" Name="SPR_DOG_JUMP3" />
+		</Sprites>
+		<DigiSounds>
+			<DigiSound Number="0" Name="HALTSND" />
+			<DigiSound Number="1" Name="DOGBARKSND" />
+			<DigiSound Number="2" Name="CLOSEDOORSND" />
+			<DigiSound Number="3" Name="OPENDOORSND" />
+			<DigiSound Number="4" Name="ATKMACHINEGUNSND" />
+			<DigiSound Number="5" Name="ATKPISTOLSND" />
+			<DigiSound Number="6" Name="ATKGATLINGSND" />
+			<DigiSound Number="7" Name="SCHUTZADSND" />
+			<DigiSound Number="8" Name="GUTENTAGSND" />
+			<DigiSound Number="9" Name="MUTTISND" />
+			<DigiSound Number="10" Name="BOSSFIRESND" />
+			<DigiSound Number="11" Name="SSFIRESND" />
+			<DigiSound Number="12" Name="DEATHSCREAM1SND" />
+			<DigiSound Number="13" Name="DEATHSCREAM2SND" />
+			<DigiSound Number="14" Name="TAKEDAMAGESND" />
+			<DigiSound Number="14" Name="DEATHSCREAM3SND" />
+			<DigiSound Number="15" Name="PUSHWALLSND" />
+			<DigiSound Number="20" Name="LEBENSND" />
+			<DigiSound Number="21" Name="NAZIFIRESND" />
+			<DigiSound Number="22" Name="SLURPIESND" />
+			<DigiSound Number="32" Name="YEAHSND" />
+		</DigiSounds>
 	</VSwap>
 	<Palette>
 		JASC-PAL
