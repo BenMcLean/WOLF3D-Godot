@@ -401,6 +401,13 @@ namespace WOLF3D.WOLF3DGame
 		public static ImageTexture StatusBarBlank;
 		public static ImageTexture[] StatusBarDigits;
 		public static BitmapFont[] BitmapFonts;
+		public static short? Shape(string @string) =>
+			short.TryParse(@string, out short shape) ? shape :
+			short.TryParse(XML?.Element("VSwap")?.Element("Sprites")?.Elements("Sprite")
+				?.Where(e => e.Attribute("Name")?.Value?.Equals(@string, StringComparison.InvariantCultureIgnoreCase) ?? false)
+				?.FirstOrDefault()?.Attribute("Page")?.Value, out shape) ?
+				shape
+				: (short?)null;
 		public static AudioStreamSample DigiSound(string name) =>
 			DigiSoundSafe(name) ?? throw new InvalidDataException("DigiSound not found: \"" + name + "\"");
 		public static AudioStreamSample DigiSoundSafe(string name) => DigiOneSoundSafe(name is string && name.Contains(',') ? name.Split(',').Random() : name);
@@ -408,7 +415,7 @@ namespace WOLF3D.WOLF3DGame
 			uint.TryParse(name, out uint index) && index < DigiSounds.Length ?
 			DigiSounds[index]
 			: uint.TryParse((
-			from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
+			from e in XML?.Element("VSwap")?.Element("DigiSounds")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
 			where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
 			select e.Attribute("Number")?.Value).FirstOrDefault(),
 			out uint result) && result < DigiSounds.Length ?

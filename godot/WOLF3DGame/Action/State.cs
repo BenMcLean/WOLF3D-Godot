@@ -40,7 +40,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (XML.Attribute("Name")?.Value is string name)
 					Name = name;
 				Rotate = XML.IsTrue("Rotate");
-				if (short.TryParse(XML.Attribute("Shape")?.Value, out short shape))
+				if (Assets.Shape(XML.Attribute("Shape")?.Value) is short shape)
 				{
 					Shape = shape;
 					if (ushort.TryParse(XML.Attribute("SpeakerHeight")?.Value, out ushort speakerHeight))
