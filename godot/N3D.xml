@@ -469,9 +469,6 @@
 			<Wall Number="106" Page="18" DarkSide="19" Name="Broken wooden kennel" />
 			<Ambush Number="107" Name="Passive animal floor" />
 		</Walls>
-		<Tile Page="63" Name="Ground" />
-		<Tile Page="64" Name="Ceiling" />
-		<Sprite Page="71" Name="Demo" />
 		<Objects>
 			<Start Number="19" Direction="E" Name="Start" />
 			<Start Number="20" Direction="N" Name="Start" />
@@ -546,39 +543,46 @@
 				-->
 			</Actor>
 		</Objects>
-		<DigiSound Number="0" Name="D_ANTLPESND" />
-		<DigiSound Number="1" Name="D_BEARSND" />
-		<DigiSound Number="2" Name="D_BONUSSND" />
-		<DigiSound Number="3" Name="D_CAMELSND" />
-		<DigiSound Number="4" Name="D_CLOSDRSND" />
-		<DigiSound Number="5" Name="D_COCHITSND" />
-		<DigiSound Number="6" Name="D_COCTHRSND" />
-		<DigiSound Number="7" Name="D_DBITESND" />
-		<DigiSound Number="8" Name="D_EATSND" />
-		<DigiSound Number="9" Name="D_EDIESND" />
-		<DigiSound Number="10" Name="D_ELPHNTSND" />
-		<DigiSound Number="11" Name="D_EXTRASND" />
-		<DigiSound Number="12" Name="D_GATLINSND" />
-		<DigiSound Number="13" Name="D_GIRAFESND" />
-		<DigiSound Number="14" Name="D_GOATSND" />
-		<DigiSound Number="15" Name="D_GUNSHTSND" />
-		<DigiSound Number="16" Name="D_INCSND" />
-		<DigiSound Number="17" Name="D_KANGROSND" />
-		<DigiSound Number="18" Name="D_KEYSND" />
-		<DigiSound Number="19" Name="D_KNIFESND" />
-		<DigiSound Number="20" Name="D_MONKEYSND" />
-		<DigiSound Number="21" Name="D_MSTEPSND" />
-		<DigiSound Number="22" Name="D_OPENDRSND" />
-		<DigiSound Number="23" Name="D_OSTRCHSND" />
-		<DigiSound Number="24" Name="D_OXSND" />
-		<DigiSound Number="25" Name="D_PAINSND" />
-		<DigiSound Number="26" Name="D_PDIESND" />
-		<DigiSound Number="27" Name="D_PWALLSND" />
-		<DigiSound Number="28" Name="D_SHEEPSND" />
-		<DigiSound Number="29" Name="D_SLING2SND" />
-		<DigiSound Number="30" Name="D_SPITSND" />
-		<DigiSound Number="31" Name="D_WATHITSND" />
-		<DigiSound Number="32" Name="D_WATTHRSND" />
+		<Sprites>
+			<Sprite Page="63" Name="Ground" />
+			<Sprite Page="64" Name="Ceiling" />
+			<Sprite Page="71" Name="Demo" />
+		</Sprites>
+		<DigiSounds>
+			<DigiSound Number="0" Name="D_ANTLPESND" />
+			<DigiSound Number="1" Name="D_BEARSND" />
+			<DigiSound Number="2" Name="D_BONUSSND" />
+			<DigiSound Number="3" Name="D_CAMELSND" />
+			<DigiSound Number="4" Name="D_CLOSDRSND" />
+			<DigiSound Number="5" Name="D_COCHITSND" />
+			<DigiSound Number="6" Name="D_COCTHRSND" />
+			<DigiSound Number="7" Name="D_DBITESND" />
+			<DigiSound Number="8" Name="D_EATSND" />
+			<DigiSound Number="9" Name="D_EDIESND" />
+			<DigiSound Number="10" Name="D_ELPHNTSND" />
+			<DigiSound Number="11" Name="D_EXTRASND" />
+			<DigiSound Number="12" Name="D_GATLINSND" />
+			<DigiSound Number="13" Name="D_GIRAFESND" />
+			<DigiSound Number="14" Name="D_GOATSND" />
+			<DigiSound Number="15" Name="D_GUNSHTSND" />
+			<DigiSound Number="16" Name="D_INCSND" />
+			<DigiSound Number="17" Name="D_KANGROSND" />
+			<DigiSound Number="18" Name="D_KEYSND" />
+			<DigiSound Number="19" Name="D_KNIFESND" />
+			<DigiSound Number="20" Name="D_MONKEYSND" />
+			<DigiSound Number="21" Name="D_MSTEPSND" />
+			<DigiSound Number="22" Name="D_OPENDRSND" />
+			<DigiSound Number="23" Name="D_OSTRCHSND" />
+			<DigiSound Number="24" Name="D_OXSND" />
+			<DigiSound Number="25" Name="D_PAINSND" />
+			<DigiSound Number="26" Name="D_PDIESND" />
+			<DigiSound Number="27" Name="D_PWALLSND" />
+			<DigiSound Number="28" Name="D_SHEEPSND" />
+			<DigiSound Number="29" Name="D_SLING2SND" />
+			<DigiSound Number="30" Name="D_SPITSND" />
+			<DigiSound Number="31" Name="D_WATHITSND" />
+			<DigiSound Number="32" Name="D_WATTHRSND" />
+		</DigiSounds>
 	</VSwap>
 	<Palette>
 		JASC-PAL
