@@ -538,6 +538,13 @@
 			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
+			<Actor Name="White ram" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
+				<!--{true,SPR_GRD_W1_1,0,T_Stand,NULL,&s_grdstand}
+				<PlaceItem>
+					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
+				</PlaceItem>
+				-->
+			</Actor>
 		</Objects>
 		<DigiSound Number="0" Name="D_ANTLPESND" />
 		<DigiSound Number="1" Name="D_BEARSND" />
