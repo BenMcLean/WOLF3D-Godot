@@ -1288,16 +1288,16 @@
 			<State Name="s_bosschase3" Shape="SPR_BOSS_W3" Tics="10" Think="T_Chase" Speed="512" Next="s_bosschase3s" />
 			<State Name="s_bosschase3s" Shape="SPR_BOSS_W3" Tics="3" Speed="512" Next="s_bosschase4" />
 			<State Name="s_bosschase4" Shape="SPR_BOSS_W4" Tics="8" Think="T_Chase" Speed="512" Next="s_bosschase1" />
-			<State Name="s_bossdie1" Shape="SPR_BOSS_DIE1" Tics="15" Speed="0" Next="s_bossdie2" Alive="false" />
+			<State Name="s_bossdie1" Shape="SPR_BOSS_DIE1" Tics="15" Speed="0" DigiSound="MUTTISND" Next="s_bossdie2" Alive="false" />
 			<State Name="s_bossdie2" Shape="SPR_BOSS_DIE2" Tics="15" Speed="0" Next="s_bossdie3" Alive="false" Mark="false" />
 			<State Name="s_bossdie3" Shape="SPR_BOSS_DIE3" Tics="15" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
 			<State Name="s_bossdie4" Shape="SPR_BOSS_DEAD" Tics="0" Speed="0" Next="s_bossdie4" Alive="false" Mark="false" />
 			<State Name="s_bossshoot1" Shape="SPR_BOSS_SHOOT1" Tics="30" Speed="0" Next="s_bossshoot2" />
-			<State Name="s_bossshoot2" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot3" />
+			<State Name="s_bossshoot2" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" DigiSound="BOSSFIRESND" Next="s_bossshoot3" />
 			<State Name="s_bossshoot3" Shape="SPR_BOSS_SHOOT3" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot4" />
-			<State Name="s_bossshoot4" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot5" />
+			<State Name="s_bossshoot4" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" DigiSound="BOSSFIRESND" Next="s_bossshoot5" />
 			<State Name="s_bossshoot5" Shape="SPR_BOSS_SHOOT3" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot6" />
-			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot7" />
+			<State Name="s_bossshoot6" DigiSound="BOSSFIRESND" Shape="SPR_BOSS_SHOOT2" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot7" />
 			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tics="10" Speed="0" Act="T_Shoot" Next="s_bossshoot8" />
 			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tics="10" Speed="0" Next="s_bosschase1" />
 			<!--
