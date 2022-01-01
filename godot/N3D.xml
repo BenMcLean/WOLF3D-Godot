@@ -627,6 +627,46 @@
 			<Sprite Page="198" Name="SPR_DOG_DIE_2" />
 			<Sprite Page="199" Name="SPR_DOG_DEAD" />
 			<Sprite Page="200" Name="SPR_DOG_DEAD2" />
+			<Sprite Page="201" Name="SPR_OFC_W1_1" />
+			<Sprite Page="202" Name="SPR_OFC_W1_2" />
+			<Sprite Page="203" Name="SPR_OFC_W1_3" />
+			<Sprite Page="204" Name="SPR_OFC_W1_4" />
+			<Sprite Page="205" Name="SPR_OFC_W1_5" />
+			<Sprite Page="206" Name="SPR_OFC_W1_6" />
+			<Sprite Page="207" Name="SPR_OFC_W1_7" />
+			<Sprite Page="208" Name="SPR_OFC_W1_8" />
+			<Sprite Page="209" Name="SPR_OFC_W2_1" />
+			<Sprite Page="210" Name="SPR_OFC_W2_2" />
+			<Sprite Page="211" Name="SPR_OFC_W2_3" />
+			<Sprite Page="212" Name="SPR_OFC_W2_4" />
+			<Sprite Page="213" Name="SPR_OFC_W2_5" />
+			<Sprite Page="214" Name="SPR_OFC_W2_6" />
+			<Sprite Page="215" Name="SPR_OFC_W2_7" />
+			<Sprite Page="216" Name="SPR_OFC_W2_8" />
+			<Sprite Page="217" Name="SPR_OFC_W3_1" />
+			<Sprite Page="218" Name="SPR_OFC_W3_2" />
+			<Sprite Page="219" Name="SPR_OFC_W3_3" />
+			<Sprite Page="220" Name="SPR_OFC_W3_4" />
+			<Sprite Page="221" Name="SPR_OFC_W3_5" />
+			<Sprite Page="222" Name="SPR_OFC_W3_6" />
+			<Sprite Page="223" Name="SPR_OFC_W3_7" />
+			<Sprite Page="224" Name="SPR_OFC_W3_8" />
+			<Sprite Page="225" Name="SPR_OFC_W4_1" />
+			<Sprite Page="226" Name="SPR_OFC_W4_2" />
+			<Sprite Page="227" Name="SPR_OFC_W4_3" />
+			<Sprite Page="228" Name="SPR_OFC_W4_4" />
+			<Sprite Page="229" Name="SPR_OFC_W4_5" />
+			<Sprite Page="230" Name="SPR_OFC_W4_6" />
+			<Sprite Page="231" Name="SPR_OFC_W4_7" />
+			<Sprite Page="232" Name="SPR_OFC_W4_8" />
+			<Sprite Page="233" Name="SPR_OFC_SHOOT1" />
+			<Sprite Page="234" Name="SPR_OFC_SHOOT2" />
+			<Sprite Page="235" Name="SPR_OFC_SHOOT3" />
+			<Sprite Page="236" Name="SPR_OFC_DEAD" />
+			<Sprite Page="237" Name="SPR_OFC_PAIN" />
+			<Sprite Page="238" Name="SPR_OFC_DIE_1" />
+			<Sprite Page="239" Name="SPR_OFC_DIE_2" />
+			<Sprite Page="240" Name="SPR_OFC_DEAD2" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
