@@ -520,7 +520,9 @@
 			<!--
 			<Spawn Number="109" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="110" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="111" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
+			-->
+			<Spawn Number="111" Actor="Billy goat" Direction="E" Difficulty="1" State="s_dogpath1" />
+			<!--
 			<Spawn Number="112" Actor="Bull" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="113" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="114" Actor="Boss: Melvin Monkey" Direction="E" Difficulty="1" State="s_grdstand" />
@@ -531,7 +533,9 @@
 			<!--
 			<Spawn Number="127" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="128" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="129" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
+			-->
+			<Spawn Number="129" Actor="Billy goat" Direction="E" Difficulty="1" State="s_dogpath1" />
+			<!--
 			<Spawn Number="130" Actor="Bull" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="131" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
@@ -551,7 +555,7 @@
 			<State Name="s_grdpath3" Rotate="true" Shape="SPR_GRD_W3_1" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath3s" />
 			<State Name="s_grdpath3s" Rotate="true" Shape="SPR_GRD_W3_1" Tics="5" Speed="512" Next="s_grdpath4" />
 			<State Name="s_grdpath4" Rotate="true" Shape="SPR_GRD_W4_1" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath1" />
-			<State Name="s_grdpain" Shape="SPR_GRD_PAIN_1" Tics="10" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdpain" Shape="SPR_GRD_PAIN" Tics="10" Speed="0" Next="s_grdchase1" />
 			<State Name="s_grdpain1" Shape="SPR_GRD_PAIN" Tics="10" Speed="0" Next="s_grdchase1" />
 			<State Name="s_grdshoot1" Shape="SPR_GRD_SHOOT1" Tics="20" Speed="0" Next="s_grdshoot2" />
 			<State Name="s_grdshoot2" Shape="SPR_GRD_SHOOT2" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
@@ -562,10 +566,32 @@
 			<State Name="s_grdchase3" Rotate="true" Shape="SPR_GRD_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase3s" />
 			<State Name="s_grdchase3s" Rotate="true" Shape="SPR_GRD_W3_1" Tics="3" Speed="1536" Next="s_grdchase4" />
 			<State Name="s_grdchase4" Rotate="true" Shape="SPR_GRD_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase1" />
-			<State Name="s_grddie1" Shape="SPR_GRD_DIE_1" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" />
-			<State Name="s_grddie2" Shape="SPR_GRD_DIE_2" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
-			<State Name="s_grddie3" Shape="SPR_GRD_DIE_3" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
-			<State Name="s_grddie4" Shape="SPR_GRD_DEAD" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
+			<State Name="s_grddie1" Shape="SPR_GRD_PAIN" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" />
+			<State Name="s_grddie2" Shape="SPR_GRD_DIE_1" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
+			<State Name="s_grddie3" Shape="SPR_GRD_DIE_2" Tics="15" Speed="0" Next="s_grddead" Alive="false" Mark="false" />
+			<State Name="s_grddead" Shape="SPR_GRD_DEAD" Tics="55" Speed="0" Next="s_grddead2" Alive="false" Mark="false" />
+			<State Name="s_grddead2" Shape="SPR_GRD_DEAD2" Tics="55" Speed="0" Next="s_grddead" Alive="false" Mark="false" />
+			<Actor Name="Billy goat" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="D_GOATSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" AddTo="Score" Add="200" />
+			<State Name="s_dogpath1" Rotate="true" Shape="SPR_DOG_W1_1" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
+			<State Name="s_dogpath1s" Rotate="true" Shape="SPR_DOG_W1_1" Tics="5" Speed="1500" Next="s_dogpath2" />
+			<State Name="s_dogpath2" Rotate="true" Shape="SPR_DOG_W2_1" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
+			<State Name="s_dogpath3" Rotate="true" Shape="SPR_DOG_W3_1" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath3s" />
+			<State Name="s_dogpath3s" Rotate="true" Shape="SPR_DOG_W3_1" Tics="5" Speed="1500" Next="s_dogpath4" />
+			<State Name="s_dogpath4" Rotate="true" Shape="SPR_DOG_W4_1" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath1" />
+			<State Name="s_dogjump1" Shape="SPR_DOG_JUMP1" Tics="10" Speed="0" Next="s_dogjump2" />
+			<State Name="s_dogjump2" Shape="SPR_DOG_JUMP2" Tics="10" Speed="0" Next="s_dogjump3" />
+			<State Name="s_dogjump3" Shape="SPR_DOG_JUMP3" Tics="10" Act="T_Bite" Speed="0" Next="s_dogjump4" />
+			<State Name="s_dogjump4" Shape="SPR_DOG_JUMP4" Tics="10" Act="T_Bite" Speed="0" Next="s_dogchase1" />
+			<State Name="s_dogchase1" Rotate="true" Shape="SPR_DOG_W1_1" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase1s" />
+			<State Name="s_dogchase1s" Rotate="true" Shape="SPR_DOG_W1_1" Tics="3" Speed="3000" Next="s_dogchase2" />
+			<State Name="s_dogchase2" Rotate="true" Shape="SPR_DOG_W2_1" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase3" />
+			<State Name="s_dogchase3" Rotate="true" Shape="SPR_DOG_W3_1" Tics="10" Think="T_DogChase" Speed="3000" Next="s_dogchase3s" />
+			<State Name="s_dogchase3s" Rotate="true" Shape="SPR_DOG_W3_1" Tics="3" Speed="3000" Next="s_dogchase4" />
+			<State Name="s_dogchase4" Rotate="true" Shape="SPR_DOG_W4_1" Tics="8" Think="T_DogChase" Speed="3000" Next="s_dogchase1" />
+			<State Name="s_dogdie1" Shape="SPR_DOG_DIE_1" Tics="15" Speed="0" Next="s_dogdie2" Alive="false" Mark="false" />
+			<State Name="s_dogdie2" Shape="SPR_DOG_DIE_2" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
+			<State Name="s_dogdead" Shape="SPR_DOG_DEAD" Tics="55" Speed="0" Next="s_dogdead2" Alive="false" Mark="false" />
+			<State Name="s_dogdead2" Shape="SPR_DOG_DEAD2" Tics="55" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
