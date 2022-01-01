@@ -825,6 +825,36 @@
 			<Sprite Page="396" Name="SPR_HITLER_SHOOT1" />
 			<Sprite Page="397" Name="SPR_HITLER_SHOOT2" />
 			<Sprite Page="398" Name="SPR_HITLER_SHOOT3" />
+			<Sprite Page="399" Name="SPR_KNIFEREADY" />
+			<Sprite Page="400" Name="SPR_KNIFEATK1" />
+			<Sprite Page="401" Name="SPR_KNIFEATK2" />
+			<Sprite Page="402" Name="SPR_KNIFEATK3" />
+			<Sprite Page="403" Name="SPR_KNIFEATK4" />
+			<Sprite Page="404" Name="SPR_PISTOLREADY" />
+			<Sprite Page="405" Name="SPR_PISTOLATK1" />
+			<Sprite Page="406" Name="SPR_PISTOLATK2" />
+			<Sprite Page="407" Name="SPR_PISTOLATK3" />
+			<Sprite Page="408" Name="SPR_PISTOLATK4" />
+			<Sprite Page="409" Name="SPR_MACHINEGUNREADY" />
+			<Sprite Page="410" Name="SPR_MACHINEGUNATK1" />
+			<Sprite Page="411" Name="SPR_MACHINEGUNATK2" />
+			<Sprite Page="412" Name="MACHINEGUNATK3" />
+			<Sprite Page="413" Name="SPR_MACHINEGUNATK4" />
+			<Sprite Page="414" Name="SPR_CHAINREADY" />
+			<Sprite Page="415" Name="SPR_CHAINATK1" />
+			<Sprite Page="416" Name="SPR_CHAINATK2" />
+			<Sprite Page="417" Name="SPR_CHAINATK3" />
+			<Sprite Page="418" Name="SPR_CHAINATK4" />
+			<Sprite Page="419" Name="SPR_CANTAREADY" />
+			<Sprite Page="420" Name="SPR_CANTAATK1" />
+			<Sprite Page="421" Name="SPR_CANTAATK2" />
+			<Sprite Page="422" Name="SPR_CANTAATK3" />
+			<Sprite Page="423" Name="SPR_CANTAATK4" />
+			<Sprite Page="424" Name="SPR_WATERREADY" />
+			<Sprite Page="425" Name="SPR_WATERATK1" />
+			<Sprite Page="426" Name="SPR_WATERATK2" />
+			<Sprite Page="427" Name="SPR_WATERATK3" />
+			<Sprite Page="428" Name="SPR_WATERATK4" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
