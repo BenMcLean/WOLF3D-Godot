@@ -707,6 +707,46 @@
 			<Sprite Page="278" Name="SPR_SS_DIE_1" />
 			<Sprite Page="279" Name="SPR_SS_DIE_2" />
 			<Sprite Page="280" Name="SPR_SS_DEAD2" />
+			<Sprite Page="281" Name="SPR_MUT_W1_1" />
+			<Sprite Page="282" Name="SPR_MUT_W1_2" />
+			<Sprite Page="283" Name="SPR_MUT_W1_3" />
+			<Sprite Page="284" Name="SPR_MUT_W1_4" />
+			<Sprite Page="285" Name="SPR_MUT_W1_5" />
+			<Sprite Page="286" Name="SPR_MUT_W1_6" />
+			<Sprite Page="287" Name="SPR_MUT_W1_7" />
+			<Sprite Page="288" Name="SPR_MUT_W1_8" />
+			<Sprite Page="289" Name="SPR_MUT_W2_1" />
+			<Sprite Page="290" Name="SPR_MUT_W2_2" />
+			<Sprite Page="291" Name="SPR_MUT_W2_3" />
+			<Sprite Page="292" Name="SPR_MUT_W2_4" />
+			<Sprite Page="293" Name="SPR_MUT_W2_5" />
+			<Sprite Page="294" Name="SPR_MUT_W2_6" />
+			<Sprite Page="295" Name="SPR_MUT_W2_7" />
+			<Sprite Page="296" Name="SPR_MUT_W2_8" />
+			<Sprite Page="297" Name="SPR_MUT_W3_1" />
+			<Sprite Page="298" Name="SPR_MUT_W3_2" />
+			<Sprite Page="299" Name="SPR_MUT_W3_3" />
+			<Sprite Page="300" Name="SPR_MUT_W3_4" />
+			<Sprite Page="301" Name="SPR_MUT_W3_5" />
+			<Sprite Page="302" Name="SPR_MUT_W3_6" />
+			<Sprite Page="303" Name="SPR_MUT_W3_7" />
+			<Sprite Page="304" Name="SPR_MUT_W3_8" />
+			<Sprite Page="305" Name="SPR_MUT_W4_1" />
+			<Sprite Page="306" Name="SPR_MUT_W4_2" />
+			<Sprite Page="307" Name="SPR_MUT_W4_3" />
+			<Sprite Page="308" Name="SPR_MUT_W4_4" />
+			<Sprite Page="309" Name="SPR_MUT_W4_5" />
+			<Sprite Page="310" Name="SPR_MUT_W4_6" />
+			<Sprite Page="311" Name="SPR_MUT_W4_7" />
+			<Sprite Page="312" Name="SPR_MUT_W4_8" />
+			<Sprite Page="313" Name="SPR_MUT_SHOOT1" />
+			<Sprite Page="314" Name="SPR_MUT_SHOOT2" />
+			<Sprite Page="315" Name="SPR_MUT_SHOOT3" />
+			<Sprite Page="316" Name="SPR_MUT_DEAD" />
+			<Sprite Page="317" Name="SPR_MUT_PAIN" />
+			<Sprite Page="318" Name="SPR_MUT_DIE_1" />
+			<Sprite Page="319" Name="SPR_MUT_DIE_2" />
+			<Sprite Page="320" Name="SPR_MUT_DEAD2" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
