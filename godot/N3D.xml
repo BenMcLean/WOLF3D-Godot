@@ -747,6 +747,17 @@
 			<Sprite Page="318" Name="SPR_MUT_DIE_1" />
 			<Sprite Page="319" Name="SPR_MUT_DIE_2" />
 			<Sprite Page="320" Name="SPR_MUT_DEAD2" />
+			<Sprite Page="321" Name="SPR_BOSS_W1" />
+			<Sprite Page="322" Name="SPR_BOSS_W2" />
+			<Sprite Page="323" Name="SPR_BOSS_W3" />
+			<Sprite Page="324" Name="SPR_BOSS_W4" />
+			<Sprite Page="325" Name="SPR_BOSS_DIE1" />
+			<Sprite Page="326" Name="SPR_BOSS_DIE2" />
+			<Sprite Page="327" Name="SPR_BOSS_DEAD" />
+			<Sprite Page="328" Name="SPR_BOSS_DEAD2" />
+			<Sprite Page="329" Name="SPR_BOSS_SHOOT1" />
+			<Sprite Page="330" Name="SPR_BOSS_SHOOT2" />
+			<Sprite Page="331" Name="SPR_BOSS_SHOOT3" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
