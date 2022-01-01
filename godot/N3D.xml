@@ -516,8 +516,8 @@
 			<Pickup Number="100" Action="NextFloor" Name="Next level trigger" />
 			<Override Number="101" Floor="10" Name="Elevator to Secret Floor" />
 			<Pickup Number="101" Action="NextFloor" Name="Secret level trigger" />
-			<!--
 			<Spawn Number="108" Actor="White ram" Direction="E" Difficulty="1" State="s_grdstand" />
+			<!--
 			<Spawn Number="109" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="110" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="111" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
@@ -526,7 +526,9 @@
 			<Spawn Number="114" Actor="Boss: Melvin Monkey" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="115" Actor="Boss: Ginny Giraffe" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="118" Actor="Boss: Burt Bear" Direction="E" Difficulty="1" State="s_grdstand" />
+			-->
 			<Spawn Number="126" Actor="White ram" Direction="E" Difficulty="1" State="s_grdstand" />
+			<!--
 			<Spawn Number="127" Actor="Ostrich" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="128" Actor="Antelope" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="129" Actor="Billy goat" Direction="E" Difficulty="1" State="s_grdstand" />
@@ -535,13 +537,35 @@
 			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
-			<Actor Name="White ram" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="HALTSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
+			<Actor Name="White ram" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="D_GOATSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
 				<!--{true,SPR_GRD_W1_1,0,T_Stand,NULL,&s_grdstand}
 				<PlaceItem>
 					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
 				</PlaceItem>
 				-->
 			</Actor>
+			<State Name="s_grdstand" Rotate="true" Shape="SPR_GRD_W1_1" Tics="0" Think="T_Stand" Speed="0" Next="s_grdstand" />
+			<State Name="s_grdpath1" Rotate="true" Shape="SPR_GRD_W1_1" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath1s" />
+			<State Name="s_grdpath1s" Rotate="true" Shape="SPR_GRD_W1_1" Tics="5" Speed="512" Next="s_grdpath2" />
+			<State Name="s_grdpath2" Rotate="true" Shape="SPR_GRD_W2_1" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath3" />
+			<State Name="s_grdpath3" Rotate="true" Shape="SPR_GRD_W3_1" Tics="20" Think="T_Path" Speed="512" Next="s_grdpath3s" />
+			<State Name="s_grdpath3s" Rotate="true" Shape="SPR_GRD_W3_1" Tics="5" Speed="512" Next="s_grdpath4" />
+			<State Name="s_grdpath4" Rotate="true" Shape="SPR_GRD_W4_1" Tics="15" Think="T_Path" Speed="512" Next="s_grdpath1" />
+			<State Name="s_grdpain" Shape="SPR_GRD_PAIN_1" Tics="10" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdpain1" Shape="SPR_GRD_PAIN" Tics="10" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdshoot1" Shape="SPR_GRD_SHOOT1" Tics="20" Speed="0" Next="s_grdshoot2" />
+			<State Name="s_grdshoot2" Shape="SPR_GRD_SHOOT2" Tics="20" Act="T_Shoot" Speed="0" Next="s_grdshoot3" />
+			<State Name="s_grdshoot3" Shape="SPR_GRD_SHOOT3" Tics="20" Speed="0" Next="s_grdchase1" />
+			<State Name="s_grdchase1" Rotate="true" Shape="SPR_GRD_W1_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase1s" />
+			<State Name="s_grdchase1s" Rotate="true" Shape="SPR_GRD_W1_1" Tics="3" Speed="1536" Next="s_grdchase2" />
+			<State Name="s_grdchase2" Rotate="true" Shape="SPR_GRD_W2_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase3" />
+			<State Name="s_grdchase3" Rotate="true" Shape="SPR_GRD_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase3s" />
+			<State Name="s_grdchase3s" Rotate="true" Shape="SPR_GRD_W3_1" Tics="3" Speed="1536" Next="s_grdchase4" />
+			<State Name="s_grdchase4" Rotate="true" Shape="SPR_GRD_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase1" />
+			<State Name="s_grddie1" Shape="SPR_GRD_DIE_1" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" />
+			<State Name="s_grddie2" Shape="SPR_GRD_DIE_2" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
+			<State Name="s_grddie3" Shape="SPR_GRD_DIE_3" Tics="15" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
+			<State Name="s_grddie4" Shape="SPR_GRD_DEAD" Tics="0" Speed="0" Next="s_grddie4" Alive="false" Mark="false" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
