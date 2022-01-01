@@ -667,6 +667,46 @@
 			<Sprite Page="238" Name="SPR_OFC_DIE_1" />
 			<Sprite Page="239" Name="SPR_OFC_DIE_2" />
 			<Sprite Page="240" Name="SPR_OFC_DEAD2" />
+			<Sprite Page="241" Name="SPR_SS_W1_1" />
+			<Sprite Page="242" Name="SPR_SS_W1_2" />
+			<Sprite Page="243" Name="SPR_SS_W1_3" />
+			<Sprite Page="244" Name="SPR_SS_W1_4" />
+			<Sprite Page="245" Name="SPR_SS_W1_5" />
+			<Sprite Page="246" Name="SPR_SS_W1_6" />
+			<Sprite Page="247" Name="SPR_SS_W1_7" />
+			<Sprite Page="248" Name="SPR_SS_W1_8" />
+			<Sprite Page="249" Name="SPR_SS_W2_1" />
+			<Sprite Page="250" Name="SPR_SS_W2_2" />
+			<Sprite Page="251" Name="SPR_SS_W2_3" />
+			<Sprite Page="252" Name="SPR_SS_W2_4" />
+			<Sprite Page="253" Name="SPR_SS_W2_5" />
+			<Sprite Page="254" Name="SPR_SS_W2_6" />
+			<Sprite Page="255" Name="SPR_SS_W2_7" />
+			<Sprite Page="256" Name="SPR_SS_W2_8" />
+			<Sprite Page="257" Name="SPR_SS_W3_1" />
+			<Sprite Page="258" Name="SPR_SS_W3_2" />
+			<Sprite Page="259" Name="SPR_SS_W3_3" />
+			<Sprite Page="260" Name="SPR_SS_W3_4" />
+			<Sprite Page="261" Name="SPR_SS_W3_5" />
+			<Sprite Page="262" Name="SPR_SS_W3_6" />
+			<Sprite Page="263" Name="SPR_SS_W3_7" />
+			<Sprite Page="264" Name="SPR_SS_W3_8" />
+			<Sprite Page="265" Name="SPR_SS_W4_1" />
+			<Sprite Page="266" Name="SPR_SS_W4_2" />
+			<Sprite Page="267" Name="SPR_SS_W4_3" />
+			<Sprite Page="268" Name="SPR_SS_W4_4" />
+			<Sprite Page="269" Name="SPR_SS_W4_5" />
+			<Sprite Page="270" Name="SPR_SS_W4_6" />
+			<Sprite Page="271" Name="SPR_SS_W4_7" />
+			<Sprite Page="272" Name="SPR_SS_W4_8" />
+			<Sprite Page="273" Name="SPR_SS_SHOOT1" />
+			<Sprite Page="274" Name="SPR_SS_SHOOT2" />
+			<Sprite Page="275" Name="SPR_SS_SHOOT3" />
+			<Sprite Page="276" Name="SPR_SS_DEAD" />
+			<Sprite Page="277" Name="SPR_SS_PAIN" />
+			<Sprite Page="278" Name="SPR_SS_DIE_1" />
+			<Sprite Page="279" Name="SPR_SS_DIE_2" />
+			<Sprite Page="280" Name="SPR_SS_DEAD2" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
