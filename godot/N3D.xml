@@ -547,6 +547,46 @@
 			<Sprite Page="63" Name="Ground" />
 			<Sprite Page="64" Name="Ceiling" />
 			<Sprite Page="71" Name="Demo" />
+			<Sprite Page="121" Name="SPR_GRD_W1_1" />
+			<Sprite Page="122" Name="SPR_GRD_W1_2" />
+			<Sprite Page="123" Name="SPR_GRD_W1_3" />
+			<Sprite Page="124" Name="SPR_GRD_W1_4" />
+			<Sprite Page="125" Name="SPR_GRD_W1_5" />
+			<Sprite Page="126" Name="SPR_GRD_W1_6" />
+			<Sprite Page="127" Name="SPR_GRD_W1_7" />
+			<Sprite Page="128" Name="SPR_GRD_W1_8" />
+			<Sprite Page="129" Name="SPR_GRD_W2_1" />
+			<Sprite Page="130" Name="SPR_GRD_W2_2" />
+			<Sprite Page="131" Name="SPR_GRD_W2_3" />
+			<Sprite Page="132" Name="SPR_GRD_W2_4" />
+			<Sprite Page="133" Name="SPR_GRD_W2_5" />
+			<Sprite Page="134" Name="SPR_GRD_W2_6" />
+			<Sprite Page="135" Name="SPR_GRD_W2_7" />
+			<Sprite Page="136" Name="SPR_GRD_W2_8" />
+			<Sprite Page="137" Name="SPR_GRD_W3_1" />
+			<Sprite Page="138" Name="SPR_GRD_W3_2" />
+			<Sprite Page="139" Name="SPR_GRD_W3_3" />
+			<Sprite Page="140" Name="SPR_GRD_W3_4" />
+			<Sprite Page="141" Name="SPR_GRD_W3_5" />
+			<Sprite Page="142" Name="SPR_GRD_W3_6" />
+			<Sprite Page="143" Name="SPR_GRD_W3_7" />
+			<Sprite Page="144" Name="SPR_GRD_W3_8" />
+			<Sprite Page="145" Name="SPR_GRD_W4_1" />
+			<Sprite Page="146" Name="SPR_GRD_W4_2" />
+			<Sprite Page="147" Name="SPR_GRD_W4_3" />
+			<Sprite Page="148" Name="SPR_GRD_W4_4" />
+			<Sprite Page="149" Name="SPR_GRD_W4_5" />
+			<Sprite Page="150" Name="SPR_GRD_W4_6" />
+			<Sprite Page="151" Name="SPR_GRD_W4_7" />
+			<Sprite Page="152" Name="SPR_GRD_W4_8" />
+			<Sprite Page="153" Name="SPR_GRD_SHOOT1" />
+			<Sprite Page="154" Name="SPR_GRD_SHOOT2" />
+			<Sprite Page="155" Name="SPR_GRD_SHOOT3" />
+			<Sprite Page="156" Name="SPR_GRD_DEAD" />
+			<Sprite Page="157" Name="SPR_GRD_PAIN" />
+			<Sprite Page="158" Name="SPR_GRD_DIE_1" />
+			<Sprite Page="159" Name="SPR_GRD_DIE_2" />
+			<Sprite Page="160" Name="SPR_GRD_DEAD2" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
