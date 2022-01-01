@@ -758,6 +758,73 @@
 			<Sprite Page="329" Name="SPR_BOSS_SHOOT1" />
 			<Sprite Page="330" Name="SPR_BOSS_SHOOT2" />
 			<Sprite Page="331" Name="SPR_BOSS_SHOOT3" />
+			<Sprite Page="332" Name="SPR_GRETEL_W1" />
+			<Sprite Page="333" Name="SPR_GRETEL_W2" />
+			<Sprite Page="334" Name="SPR_GRETEL_W3" />
+			<Sprite Page="335" Name="SPR_GRETEL_W4" />
+			<Sprite Page="336" Name="SPR_GRETEL_DIE1" />
+			<Sprite Page="337" Name="SPR_GRETEL_DIE2" />
+			<Sprite Page="338" Name="SPR_GRETEL_DEAD" />
+			<Sprite Page="339" Name="SPR_GRETEL_DEAD2" />
+			<Sprite Page="340" Name="SPR_GRETEL_SHOOT1" />
+			<Sprite Page="341" Name="SPR_GRETEL_SHOOT2" />
+			<Sprite Page="342" Name="SPR_GRETEL_SHOOT3" />
+			<Sprite Page="343" Name="SPR_GIFT_W1" />
+			<Sprite Page="344" Name="SPR_GIFT_W2" />
+			<Sprite Page="345" Name="SPR_GIFT_W3" />
+			<Sprite Page="346" Name="SPR_GIFT_W4" />
+			<Sprite Page="347" Name="SPR_GIFT_DIE1" />
+			<Sprite Page="348" Name="SPR_GIFT_DIE2" />
+			<Sprite Page="349" Name="SPR_GIFT_DEAD" />
+			<Sprite Page="350" Name="SPR_GIFT_DEAD2" />
+			<Sprite Page="351" Name="SPR_GIFT_SHOOT1" />
+			<Sprite Page="352" Name="SPR_GIFT_SHOOT2" />
+			<Sprite Page="353" Name="SPR_GIFT_SHOOT3" />
+			<Sprite Page="354" Name="SPR_GIFT_SHOOT4" />
+			<Sprite Page="355" Name="SPR_SCHABB_W1" />
+			<Sprite Page="356" Name="SPR_SCHABB_W2" />
+			<Sprite Page="357" Name="SPR_SCHABB_W3" />
+			<Sprite Page="358" Name="SPR_SCHABB_W4" />
+			<Sprite Page="359" Name="SPR_SCHABB_DIE1" />
+			<Sprite Page="360" Name="SPR_SCHABB_DIE2" />
+			<Sprite Page="361" Name="SPR_SCHABB_DEAD" />
+			<Sprite Page="362" Name="SPR_SCHABB_DEAD2" />
+			<Sprite Page="363" Name="SPR_SCHABB_SHOOT1" />
+			<Sprite Page="364" Name="SPR_SCHABB_SHOOT2" />
+			<Sprite Page="365" Name="SPR_FAT_W1" />
+			<Sprite Page="366" Name="SPR_FAT_W2" />
+			<Sprite Page="367" Name="SPR_FAT_W3" />
+			<Sprite Page="368" Name="SPR_FAT_W4" />
+			<Sprite Page="369" Name="SPR_FAT_DIE1" />
+			<Sprite Page="370" Name="SPR_FAT_DIE2" />
+			<Sprite Page="371" Name="SPR_FAT_DEAD" />
+			<Sprite Page="372" Name="SPR_FAT_DEAD2" />
+			<Sprite Page="373" Name="SPR_FAT_SHOOT1" />
+			<Sprite Page="374" Name="SPR_FAT_SHOOT2" />
+			<Sprite Page="375" Name="SPR_FAT_SHOOT3" />
+			<Sprite Page="376" Name="SPR_FAT_SHOOT4" />
+			<Sprite Page="377" Name="SPR_MECHA_W1" />
+			<Sprite Page="378" Name="SPR_MECHA_W2" />
+			<Sprite Page="379" Name="SPR_MECHA_W3" />
+			<Sprite Page="380" Name="SPR_MECHA_W4" />
+			<Sprite Page="381" Name="SPR_MECHA_DIE1" />
+			<Sprite Page="382" Name="SPR_MECHA_DIE2" />
+			<Sprite Page="383" Name="SPR_MECHA_DIE3" />
+			<Sprite Page="384" Name="SPR_MECHA_DEAD" />
+			<Sprite Page="385" Name="SPR_MECHA_SHOOT1" />
+			<Sprite Page="386" Name="SPR_MECHA_SHOOT2" />
+			<Sprite Page="387" Name="SPR_MECHA_SHOOT3" />
+			<Sprite Page="388" Name="SPR_HITLER_W1" />
+			<Sprite Page="389" Name="SPR_HITLER_W2" />
+			<Sprite Page="390" Name="SPR_HITLER_W3" />
+			<Sprite Page="391" Name="SPR_HITLER_W4" />
+			<Sprite Page="392" Name="SPR_HITLER_DIE1" />
+			<Sprite Page="393" Name="SPR_HITLER_DIE2" />
+			<Sprite Page="394" Name="SPR_HITLER_DEAD" />
+			<Sprite Page="395" Name="SPR_HITLER_DEAD2" />
+			<Sprite Page="396" Name="SPR_HITLER_SHOOT1" />
+			<Sprite Page="397" Name="SPR_HITLER_SHOOT2" />
+			<Sprite Page="398" Name="SPR_HITLER_SHOOT3" />
 		</Sprites>
 		<DigiSounds>
 			<DigiSound Number="0" Name="D_ANTLPESND" />
