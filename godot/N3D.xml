@@ -616,6 +616,30 @@
 			<State Name="s_ofcdie3" Shape="SPR_OFC_DIE_2" Tics="11" Next="s_ofcdead" Alive="false" Mark="false" />
 			<State Name="s_ofcdead" Shape="SPR_OFC_DEAD" Tics="55" Next="s_ofcdead2" Alive="false" Mark="false" />
 			<State Name="s_ofcdead2" Shape="SPR_OFC_DEAD2" Tics="55" Next="s_ofcdead" Alive="false" Mark="false" />
+			<!-- TODO Actor tag for Bull (mutant) -->
+			<State Name="s_mutstand" Rotate="true" Shape="SPR_MUT_W1_1" Tics="0" Think="T_Stand" Next="s_mutstand" />
+			<State Name="s_mutpath1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="20" Think="T_Path" Next="s_mutpath1s" />
+			<State Name="s_mutpath1s" Rotate="true" Shape="SPR_MUT_W1_1" Tics="5" Next="s_mutpath2" />
+			<State Name="s_mutpath2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="15" Think="T_Path" Next="s_mutpath3" />
+			<State Name="s_mutpath3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="20" Think="T_Path" Next="s_mutpath3s" />
+			<State Name="s_mutpath3s" Rotate="true" Shape="SPR_MUT_W3_1" Tics="5" Next="s_mutpath4" />
+			<State Name="s_mutpath4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="15" Think="T_Path" Next="s_mutpath1" />
+			<State Name="s_mutpain" Shape="SPR_MUT_PAIN" Tics="10" Next="s_mutchase1" />
+			<State Name="s_mutpain1" Shape="SPR_MUT_PAIN" Tics="10" Next="s_mutchase1" />
+			<State Name="s_mutshoot1" Shape="SPR_MUT_SHOOT1" Tics="6" Act="T_Shoot" Next="s_mutshoot2" />
+			<State Name="s_mutshoot2" Shape="SPR_MUT_SHOOT2" Tics="30" Act="T_Shoot" Next="s_mutshoot3" />
+			<State Name="s_mutshoot3" Shape="SPR_MUT_SHOOT3" Tics="20" Next="s_mutchase1" />
+			<State Name="s_mutchase1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="10" Think="T_Chase" Next="s_mutchase1s" />
+			<State Name="s_mutchase1s" Rotate="true" Shape="SPR_MUT_W1_1" Tics="3" Next="s_mutchase2" />
+			<State Name="s_mutchase2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="8" Think="T_Chase" Next="s_mutchase3" />
+			<State Name="s_mutchase3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="10" Think="T_Chase" Next="s_mutchase3s" />
+			<State Name="s_mutchase3s" Rotate="true" Shape="SPR_MUT_W3_1" Tics="3" Next="s_mutchase4" />
+			<State Name="s_mutchase4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="8" Think="T_Chase" Next="s_mutchase1" />
+			<State Name="s_mutdie1" Shape="SPR_MUT_PAIN" Tics="7" Next="s_mutdie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_mutdie2" Shape="SPR_MUT_DIE_1" Tics="7" Next="s_mutdie3" Alive="false" Mark="false" />
+			<State Name="s_mutdie3" Shape="SPR_MUT_DIE_2" Tics="7" Next="s_mutdead" Alive="false" Mark="false" />
+			<State Name="s_mutdead" Shape="SPR_MUT_DEAD" Tics="55" Next="s_mutdead2" Alive="false" Mark="false" />
+			<State Name="s_mutdead2" Shape="SPR_MUT_DEAD2" Tics="55" Next="s_mutdead" Alive="false" Mark="false" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
