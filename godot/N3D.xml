@@ -542,7 +542,7 @@
 			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
 			<Actor Name="White ram" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="D_GOATSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
-				<!--{true,SPR_GRD_W1_1,0,T_Stand,NULL,&s_grdstand}
+				<!--
 				<PlaceItem>
 					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
 				</PlaceItem>
@@ -640,6 +640,36 @@
 			<State Name="s_mutdie3" Shape="SPR_MUT_DIE_2" Tics="7" Next="s_mutdead" Alive="false" Mark="false" />
 			<State Name="s_mutdead" Shape="SPR_MUT_DEAD" Tics="55" Next="s_mutdead2" Alive="false" Mark="false" />
 			<State Name="s_mutdead2" Shape="SPR_MUT_DEAD2" Tics="55" Next="s_mutdead" Alive="false" Mark="false" />
+			<!-- TODO Actor tag for Antelope (SS) -->
+			<State Name="s_ssstand" Rotate="true" Shape="SPR_SS_W1_1" Tics="0" Think="T_Stand" Next="s_ssstand" />
+			<State Name="s_sspath1" Rotate="true" Shape="SPR_SS_W1_1" Tics="20" Think="T_Path" Next="s_sspath1s" />
+			<State Name="s_sspath1s" Rotate="true" Shape="SPR_SS_W1_1" Tics="5" Next="s_sspath2" />
+			<State Name="s_sspath2" Rotate="true" Shape="SPR_SS_W2_1" Tics="15" Think="T_Path" Next="s_sspath3" />
+			<State Name="s_sspath3" Rotate="true" Shape="SPR_SS_W3_1" Tics="20" Think="T_Path" Next="s_sspath3s" />
+			<State Name="s_sspath3s" Rotate="true" Shape="SPR_SS_W3_1" Tics="5" Next="s_sspath4" />
+			<State Name="s_sspath4" Rotate="true" Shape="SPR_SS_W4_1" Tics="15" Think="T_Path" Next="s_sspath1" />
+			<State Name="s_sspain" Shape="SPR_SS_PAIN" Tics="10" Next="s_sschase1" />
+			<State Name="s_sspain1" Shape="SPR_SS_PAIN" Tics="10" Next="s_sschase1" />
+			<State Name="s_ssshoot1" Shape="SPR_SS_SHOOT1" Tics="20" Next="s_ssshoot2" />
+			<State Name="s_ssshoot2" Shape="SPR_SS_SHOOT2" Tics="20" Act="T_Shoot" Next="s_ssshoot3" />
+			<State Name="s_ssshoot3" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_ssshoot4" />
+			<State Name="s_ssshoot4" Shape="SPR_SS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_ssshoot5" />
+			<State Name="s_ssshoot5" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_ssshoot6" />
+			<State Name="s_ssshoot6" Shape="SPR_SS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_ssshoot7" />
+			<State Name="s_ssshoot7" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_ssshoot8" />
+			<State Name="s_ssshoot8" Shape="SPR_SS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_ssshoot9" />
+			<State Name="s_ssshoot9" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_sschase1" />
+			<State Name="s_sschase1" Rotate="true" Shape="SPR_SS_W1_1" Tics="10" Think="T_Chase" Next="s_sschase1s" />
+			<State Name="s_sschase1s" Rotate="true" Shape="SPR_SS_W1_1" Tics="3" Next="s_sschase2" />
+			<State Name="s_sschase2" Rotate="true" Shape="SPR_SS_W2_1" Tics="8" Think="T_Chase" Next="s_sschase3" />
+			<State Name="s_sschase3" Rotate="true" Shape="SPR_SS_W3_1" Tics="10" Think="T_Chase" Next="s_sschase3s" />
+			<State Name="s_sschase3s" Rotate="true" Shape="SPR_SS_W3_1" Tics="3" Next="s_sschase4" />
+			<State Name="s_sschase4" Rotate="true" Shape="SPR_SS_W4_1" Tics="8" Think="T_Chase" Next="s_sschase1" />
+			<State Name="s_ssdie1" Shape="SPR_SS_PAIN" Tics="15" Next="s_ssdie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_ssdie2" Shape="SPR_SS_DIE_1" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
+			<State Name="s_ssdie3" Shape="SPR_SS_DIE_2" Tics="15" Next="s_ssdead" Alive="false" Mark="false" />
+			<State Name="s_ssdead" Shape="SPR_SS_DEAD" Tics="55" Next="s_ssdead2" Alive="false" Mark="false" />
+			<State Name="s_ssdead2" Shape="SPR_SS_DEAD2" Tics="55" Next="s_ssdead" Alive="false" Mark="false" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
