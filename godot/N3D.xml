@@ -720,6 +720,22 @@
 			<State Name="s_gretelshoot6" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot7" />
 			<State Name="s_gretelshoot7" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot8" />
 			<State Name="s_gretelshoot8" Shape="SPR_GRETEL_SHOOT1" Tics="10" Next="s_gretelchase1" />
+			<!-- TODO: Actor tag for Melvin the Monkey (Schabbs) -->
+			<State Name="s_schabbstand" Shape="SPR_SCHABB_W1" Tics="0" Think="T_Stand" Next="s_schabbstand" />
+			<State Name="s_schabbchase1" Shape="SPR_SCHABB_W1" Tics="10" Think="T_Schabb" Next="s_schabbchase1s" />
+			<State Name="s_schabbchase1s" Shape="SPR_SCHABB_W1" Tics="3" Next="s_schabbchase2" />
+			<State Name="s_schabbchase2" Shape="SPR_SCHABB_W2" Tics="8" Think="T_Schabb" Next="s_schabbchase3" />
+			<State Name="s_schabbchase3" Shape="SPR_SCHABB_W3" Tics="10" Think="T_Schabb" Next="s_schabbchase3s" />
+			<State Name="s_schabbchase3s" Shape="SPR_SCHABB_W3" Tics="3" Next="s_schabbchase4" />
+			<State Name="s_schabbchase4" Shape="SPR_SCHABB_W4" Tics="8" Think="T_Schabb" Next="s_schabbchase1" />
+			<State Name="s_schabbdie1" Shape="SPR_SCHABB_W1" Tics="10" Next="s_schabbdie2" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_schabbdie2" Shape="SPR_SCHABB_DIE1" Tics="10" Next="s_schabbdie3" Alive="false" Mark="false" />
+			<State Name="s_schabbdie3" Shape="SPR_SCHABB_DIE2" Tics="10" Next="s_schabbdead" Alive="false" Mark="false" />
+			<State Name="s_schabbdead" Shape="SPR_SCHABB_DEAD" Tics="55" Next="s_schabbdead2" Alive="false" Mark="false" />
+			<State Name="s_schabbdead2" Shape="SPR_SCHABB_DEAD2" Tics="55" Next="s_schabbdead" Alive="false" Mark="false" />
+			<State Name="s_schabbshoot1" Shape="SPR_SCHABB_SHOOT1" Tics="20" Next="s_schabbshoot2" />
+			<State Name="s_schabbshoot2" Shape="SPR_SCHABB_SHOOT2" Tics="20" Act="T_SchabbThrow" Next="s_schabbchase1" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />

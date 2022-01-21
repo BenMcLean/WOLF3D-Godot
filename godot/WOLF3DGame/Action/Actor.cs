@@ -474,6 +474,10 @@ namespace WOLF3D.WOLF3DGame.Action
 			//	TakeDamage (damage,ob);
 			return this;
 		}
+		public static void T_Schabb(Actor actor, float delta = 0f) => actor.T_Schabb(delta);
+		public Actor T_Schabb(float delta = 0f) => this;
+		public static void T_SchabbThrow(Actor actor, float delta = 0f) => actor.T_SchabbThrow(delta);
+		public Actor T_SchabbThrow(float delta = 0f) => this;
 		#endregion StateDelegates
 		/// <summary>
 		/// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
