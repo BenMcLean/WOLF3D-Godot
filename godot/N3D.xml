@@ -541,7 +541,7 @@
 			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
-			<Actor Name="White ram" HP="25,25,25,25" Reaction="1-64" AlertDigiSound="D_GOATSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
+			<Actor Name="White ram" HP="6,6,6,6" Reaction="1-64" AlertDigiSound="D_GOATSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
 				<!--
 				<PlaceItem>
 					<Pickup Number="49" Page="134" If="Ammo" LessThan="99" AddTo="Ammo" Add="4" Sound="GETAMMOSND" Flash="#FFFF00" Name="bo_clip2" />
@@ -572,7 +572,8 @@
 			<State Name="s_grddie3" Shape="SPR_GRD_DIE_2" Tics="15" Speed="0" Next="s_grddead" Alive="false" Mark="false" />
 			<State Name="s_grddead" Shape="SPR_GRD_DEAD" Tics="55" Speed="0" Next="s_grddead2" Alive="false" Mark="false" />
 			<State Name="s_grddead2" Shape="SPR_GRD_DEAD2" Tics="55" Speed="0" Next="s_grddead" Alive="false" Mark="false" />
-			<Actor Name="Billy goat" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="D_GOATSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" AddTo="Score" Add="200" />
+			<Actor Name="Goat" HP="1,1,1,1" Reaction="1-32" AlertDigiSound="D_GOATSND" Chase="s_dogchase1" Attack="s_dogjump1" Death="s_dogdie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Goat -->
 			<State Name="s_dogpath1" Rotate="true" Shape="SPR_DOG_W1_1" Tics="20" Think="T_Path" Speed="1500" Next="s_dogpath1s" />
 			<State Name="s_dogpath1s" Rotate="true" Shape="SPR_DOG_W1_1" Tics="5" Speed="1500" Next="s_dogpath2" />
 			<State Name="s_dogpath2" Rotate="true" Shape="SPR_DOG_W2_1" Tics="15" Think="T_Path" Speed="1500" Next="s_dogpath3" />
@@ -593,8 +594,8 @@
 			<State Name="s_dogdie2" Shape="SPR_DOG_DIE_2" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
 			<State Name="s_dogdead" Shape="SPR_DOG_DEAD" Tics="55" Speed="0" Next="s_dogdead2" Alive="false" Mark="false" />
 			<State Name="s_dogdead2" Shape="SPR_DOG_DEAD2" Tics="55" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-			<Actor Name="Ostrich" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="D_OSTRCHSND" Chase="s_ofcchase1" Attack="s_ofcshoot1" Death="s_ofcdie1" AddTo="Score" Add="200" />
-			<!-- TODO get accurate Ostrich stats -->
+			<Actor Name="Ostrich" HP="12,12,12,12" Reaction="1-43" AlertDigiSound="D_OSTRCHSND" Chase="s_ofcchase1" Attack="s_ofcshoot1" Death="s_ofcdie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Ostrich -->
 			<State Name="s_ofcstand" Rotate="true" Shape="SPR_OFC_W1_1" Tics="0" Think="T_Stand" Next="s_ofcstand" />
 			<State Name="s_ofcpath1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="20" Think="T_Path" Next="s_ofcpath1s" />
 			<State Name="s_ofcpath1s" Rotate="true" Shape="SPR_OFC_W1_1" Tics="5" Next="s_ofcpath2" />
@@ -619,7 +620,8 @@
 			<State Name="s_ofcdie3" Shape="SPR_OFC_DIE_2" Tics="11" Next="s_ofcdead" Alive="false" Mark="false" />
 			<State Name="s_ofcdead" Shape="SPR_OFC_DEAD" Tics="55" Next="s_ofcdead2" Alive="false" Mark="false" />
 			<State Name="s_ofcdead2" Shape="SPR_OFC_DEAD2" Tics="55" Next="s_ofcdead" Alive="false" Mark="false" />
-			<!-- TODO Actor tag for Bull (mutant) -->
+			<Actor Name="Ox" HP="18,18,18,18" Reaction="1-43" AlertDigiSound="D_OXSND" Chase="s_mutchase1" Attack="s_mutshoot1" Death="s_mutdie1" AddTo="Score" Add="200" />
+			<!-- TODO Correct death effects for Ox (mutant) -->
 			<State Name="s_mutstand" Rotate="true" Shape="SPR_MUT_W1_1" Tics="0" Think="T_Stand" Next="s_mutstand" />
 			<State Name="s_mutpath1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="20" Think="T_Path" Next="s_mutpath1s" />
 			<State Name="s_mutpath1s" Rotate="true" Shape="SPR_MUT_W1_1" Tics="5" Next="s_mutpath2" />
@@ -644,7 +646,8 @@
 			<State Name="s_mutdie3" Shape="SPR_MUT_DIE_2" Tics="7" Next="s_mutdead" Alive="false" Mark="false" />
 			<State Name="s_mutdead" Shape="SPR_MUT_DEAD" Tics="55" Next="s_mutdead2" Alive="false" Mark="false" />
 			<State Name="s_mutdead2" Shape="SPR_MUT_DEAD2" Tics="55" Next="s_mutdead" Alive="false" Mark="false" />
-			<!-- TODO Actor tag for Antelope (SS) -->
+			<Actor Name="Antelope" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_ANTLPESND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Antelope (SS) -->
 			<State Name="s_ssstand" Rotate="true" Shape="SPR_SS_W1_1" Tics="0" Think="T_Stand" Next="s_ssstand" />
 			<State Name="s_sspath1" Rotate="true" Shape="SPR_SS_W1_1" Tics="20" Think="T_Path" Next="s_sspath1s" />
 			<State Name="s_sspath1s" Rotate="true" Shape="SPR_SS_W1_1" Tics="5" Next="s_sspath2" />
