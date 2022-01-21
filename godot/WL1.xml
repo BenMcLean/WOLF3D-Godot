@@ -1349,8 +1349,8 @@
 			-->
 		</Objects>
 		<Sprites>
-			<Sprite Page="106" Name="Demo" />
-			<Sprite Page="107" Name="DeathCam" />
+			<Sprite Page="106" Name="SPR_DEMO" />
+			<Sprite Page="107" Name="SPR_DEATHCAM" />
 			<Sprite Page="156" Name="SPR_GRD_S_1" />
 			<Sprite Page="157" Name="SPR_GRD_S_2" />
 			<Sprite Page="158" Name="SPR_GRD_S_3" />

@@ -566,7 +566,8 @@
 			<State Name="s_grdchase3" Rotate="true" Shape="SPR_GRD_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_grdchase3s" />
 			<State Name="s_grdchase3s" Rotate="true" Shape="SPR_GRD_W3_1" Tics="3" Speed="1536" Next="s_grdchase4" />
 			<State Name="s_grdchase4" Rotate="true" Shape="SPR_GRD_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_grdchase1" />
-			<State Name="s_grddie1" Shape="SPR_GRD_PAIN" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_grddie1" Shape="SPR_GRD_PAIN" Tics="15" Speed="0" Next="s_grddie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
 			<State Name="s_grddie2" Shape="SPR_GRD_DIE_1" Tics="15" Speed="0" Next="s_grddie3" Alive="false" Mark="false" />
 			<State Name="s_grddie3" Shape="SPR_GRD_DIE_2" Tics="15" Speed="0" Next="s_grddead" Alive="false" Mark="false" />
 			<State Name="s_grddead" Shape="SPR_GRD_DEAD" Tics="55" Speed="0" Next="s_grddead2" Alive="false" Mark="false" />
@@ -592,7 +593,8 @@
 			<State Name="s_dogdie2" Shape="SPR_DOG_DIE_2" Tics="15" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
 			<State Name="s_dogdead" Shape="SPR_DOG_DEAD" Tics="55" Speed="0" Next="s_dogdead2" Alive="false" Mark="false" />
 			<State Name="s_dogdead2" Shape="SPR_DOG_DEAD2" Tics="55" Speed="0" Next="s_dogdead" Alive="false" Mark="false" />
-			<Actor Name="Ostrich" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="D_OSTRCHSND" Chase="s_ofcchase1" Attack="s_ofcshoot1" Death="s_ofcdie1" AddTo="Score" Add="200" /> <!-- TODO get accurate Ostrich stats -->
+			<Actor Name="Ostrich" HP="100,100,100,100" Reaction="1-43" AlertDigiSound="D_OSTRCHSND" Chase="s_ofcchase1" Attack="s_ofcshoot1" Death="s_ofcdie1" AddTo="Score" Add="200" />
+			<!-- TODO get accurate Ostrich stats -->
 			<State Name="s_ofcstand" Rotate="true" Shape="SPR_OFC_W1_1" Tics="0" Think="T_Stand" Next="s_ofcstand" />
 			<State Name="s_ofcpath1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="20" Think="T_Path" Next="s_ofcpath1s" />
 			<State Name="s_ofcpath1s" Rotate="true" Shape="SPR_OFC_W1_1" Tics="5" Next="s_ofcpath2" />
@@ -611,7 +613,8 @@
 			<State Name="s_ofcchase3" Rotate="true" Shape="SPR_OFC_W3_1" Tics="10" Think="T_Chase" Next="s_ofcchase3s" />
 			<State Name="s_ofcchase3s" Rotate="true" Shape="SPR_OFC_W3_1" Tics="3" Next="s_ofcchase4" />
 			<State Name="s_ofcchase4" Rotate="true" Shape="SPR_OFC_W4_1" Tics="8" Think="T_Chase" Next="s_ofcchase1" />
-			<State Name="s_ofcdie1" Shape="SPR_OFC_PAIN" Tics="11" Next="s_ofcdie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_ofcdie1" Shape="SPR_OFC_PAIN" Tics="11" Next="s_ofcdie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
 			<State Name="s_ofcdie2" Shape="SPR_OFC_DIE_1" Tics="11" Next="s_ofcdie3" Alive="false" Mark="false" />
 			<State Name="s_ofcdie3" Shape="SPR_OFC_DIE_2" Tics="11" Next="s_ofcdead" Alive="false" Mark="false" />
 			<State Name="s_ofcdead" Shape="SPR_OFC_DEAD" Tics="55" Next="s_ofcdead2" Alive="false" Mark="false" />
@@ -635,7 +638,8 @@
 			<State Name="s_mutchase3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="10" Think="T_Chase" Next="s_mutchase3s" />
 			<State Name="s_mutchase3s" Rotate="true" Shape="SPR_MUT_W3_1" Tics="3" Next="s_mutchase4" />
 			<State Name="s_mutchase4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="8" Think="T_Chase" Next="s_mutchase1" />
-			<State Name="s_mutdie1" Shape="SPR_MUT_PAIN" Tics="7" Next="s_mutdie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_mutdie1" Shape="SPR_MUT_PAIN" Tics="7" Next="s_mutdie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
 			<State Name="s_mutdie2" Shape="SPR_MUT_DIE_1" Tics="7" Next="s_mutdie3" Alive="false" Mark="false" />
 			<State Name="s_mutdie3" Shape="SPR_MUT_DIE_2" Tics="7" Next="s_mutdead" Alive="false" Mark="false" />
 			<State Name="s_mutdead" Shape="SPR_MUT_DEAD" Tics="55" Next="s_mutdead2" Alive="false" Mark="false" />
@@ -665,7 +669,8 @@
 			<State Name="s_sschase3" Rotate="true" Shape="SPR_SS_W3_1" Tics="10" Think="T_Chase" Next="s_sschase3s" />
 			<State Name="s_sschase3s" Rotate="true" Shape="SPR_SS_W3_1" Tics="3" Next="s_sschase4" />
 			<State Name="s_sschase4" Rotate="true" Shape="SPR_SS_W4_1" Tics="8" Think="T_Chase" Next="s_sschase1" />
-			<State Name="s_ssdie1" Shape="SPR_SS_PAIN" Tics="15" Next="s_ssdie2" Alive="false" Mark="false" /> <!-- TODO A_DeathScream -->
+			<State Name="s_ssdie1" Shape="SPR_SS_PAIN" Tics="15" Next="s_ssdie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
 			<State Name="s_ssdie2" Shape="SPR_SS_DIE_1" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
 			<State Name="s_ssdie3" Shape="SPR_SS_DIE_2" Tics="15" Next="s_ssdead" Alive="false" Mark="false" />
 			<State Name="s_ssdead" Shape="SPR_SS_DEAD" Tics="55" Next="s_ssdead2" Alive="false" Mark="false" />
@@ -674,7 +679,7 @@
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
 			<Sprite Page="64" Name="Ceiling" />
-			<Sprite Page="71" Name="Demo" />
+			<Sprite Page="71" Name="SPR_DEMO" />
 			<Sprite Page="121" Name="SPR_GRD_W1_1" />
 			<Sprite Page="122" Name="SPR_GRD_W1_2" />
 			<Sprite Page="123" Name="SPR_GRD_W1_3" />
