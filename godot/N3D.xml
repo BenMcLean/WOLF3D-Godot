@@ -736,6 +736,25 @@
 			<State Name="s_schabbdead2" Shape="SPR_SCHABB_DEAD2" Tics="55" Next="s_schabbdead" Alive="false" Mark="false" />
 			<State Name="s_schabbshoot1" Shape="SPR_SCHABB_SHOOT1" Tics="20" Next="s_schabbshoot2" />
 			<State Name="s_schabbshoot2" Shape="SPR_SCHABB_SHOOT2" Tics="20" Act="T_SchabbThrow" Next="s_schabbchase1" />
+			<!-- TODO: Actor tag for Kangaroo (Gift) -->
+			<State Name="s_giftstand" Shape="SPR_GIFT_W1" Tics="0" Think="T_Stand" Next="s_giftstand" />
+			<State Name="s_giftchase1" Shape="SPR_GIFT_W1" Tics="10" Think="T_Gift" Next="s_giftchase1s" />
+			<State Name="s_giftchase1s" Shape="SPR_GIFT_W1" Tics="3" Next="s_giftchase2" />
+			<State Name="s_giftchase2" Shape="SPR_GIFT_W2" Tics="8" Think="T_Gift" Next="s_giftchase3" />
+			<State Name="s_giftchase3" Shape="SPR_GIFT_W3" Tics="10" Think="T_Gift" Next="s_giftchase3s" />
+			<State Name="s_giftchase3s" Shape="SPR_GIFT_W3" Tics="3" Next="s_giftchase4" />
+			<State Name="s_giftchase4" Shape="SPR_GIFT_W4" Tics="8" Think="T_Gift" Next="s_giftchase1" />
+			<State Name="s_giftdie1" Shape="SPR_GIFT_W1" Tics="1" Next="s_giftdie2" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_giftdie2" Shape="SPR_GIFT_W1" Tics="10" Next="s_giftdie3" />
+			<State Name="s_giftdie3" Shape="SPR_GIFT_DIE1" Tics="10" Next="s_giftdie4" />
+			<State Name="s_giftdie4" Shape="SPR_GIFT_DIE2" Tics="10" Next="s_giftdead" />
+			<State Name="s_giftdead" Shape="SPR_GIFT_DEAD" Tics="55" Next="s_giftdead2" />
+			<State Name="s_giftdead2" Shape="SPR_GIFT_DEAD2" Tics="55" Next="s_giftdead" />
+			<State Name="s_giftshoot1" Shape="SPR_GIFT_SHOOT1" Tics="10" Next="s_giftshoot2" />
+			<State Name="s_giftshoot2" Shape="SPR_GIFT_SHOOT2" Tics="10" Next="s_giftshoot3" />
+			<State Name="s_giftshoot3" Shape="SPR_GIFT_SHOOT3" Tics="10" Next="s_giftshoot4" />
+			<State Name="s_giftshoot4" Shape="SPR_GIFT_SHOOT4" Tics="10" Act="T_GiftThrow" Next="s_giftchase1" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />

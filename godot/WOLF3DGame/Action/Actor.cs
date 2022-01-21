@@ -478,6 +478,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		public Actor T_Schabb(float delta = 0f) => this;
 		public static void T_SchabbThrow(Actor actor, float delta = 0f) => actor.T_SchabbThrow(delta);
 		public Actor T_SchabbThrow(float delta = 0f) => this;
+		public static void T_Gift(Actor actor, float delta = 0f) => actor.T_Gift(delta);
+		public Actor T_Gift(float delta = 0f) => this;
+		public static void T_GiftThrow(Actor actor, float delta = 0f) => actor.T_GiftThrow(delta);
+		public Actor T_GiftThrow(float delta = 0f) => this;
 		#endregion StateDelegates
 		/// <summary>
 		/// Attempts to choose and initiate a movement for ob that sends it towards the player while dodging
