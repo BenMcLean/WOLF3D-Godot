@@ -699,6 +699,27 @@
 			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot7" />
 			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot8" />
 			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tice="10" Next="s_bosschase1" />
+			<!-- TODO Actor tag for Giraffe (Gretel) -->
+			<State Name="s_gretelstand" Shape="SPR_GRETEL_W1" Tics="0" Think="T_Stand" Next="s_gretelstand" />
+			<State Name="s_gretelchase1" Shape="SPR_GRETEL_W1" Tics="10" Think="T_Chase" Next="s_gretelchase1s" />
+			<State Name="s_gretelchase1s" Shape="SPR_GRETEL_W1" Tics="3" Next="s_gretelchase2" />
+			<State Name="s_gretelchase2" Shape="SPR_GRETEL_W2" Tics="8" Think="T_Chase" Next="s_gretelchase3" />
+			<State Name="s_gretelchase3" Shape="SPR_GRETEL_W3" Tics="10" Think="T_Chase" Next="s_gretelchase3s" />
+			<State Name="s_gretelchase3s" Shape="SPR_GRETEL_W3" Tics="3" Next="s_gretelchase4" />
+			<State Name="s_gretelchase4" Shape="SPR_GRETEL_W4" Tics="8" Think="T_Chase" Next="s_gretelchase1" />
+			<State Name="s_greteldie1" Shape="SPR_GRETEL_DIE1" Tics="15" Next="s_greteldie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_greteldie2" Shape="SPR_GRETEL_DIE2" Tics="15" Next="s_greteldead" Alive="false" Mark="false" />
+			<State Name="s_greteldead" Shape="SPR_GRETEL_DEAD" Tics="55" Next="s_greteldead2" Alive="false" Mark="false" />
+			<State Name="s_greteldead2" Shape="SPR_GRETEL_DEAD2" Tics="55" Next="s_greteldead" Alive="false" Mark="false" />
+			<State Name="s_gretelshoot1" Shape="SPR_GRETEL_SHOOT1" Tics="30" Next="s_gretelshoot2" />
+			<State Name="s_gretelshoot2" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot3" />
+			<State Name="s_gretelshoot3" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot4" />
+			<State Name="s_gretelshoot4" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot5" />
+			<State Name="s_gretelshoot5" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot6" />
+			<State Name="s_gretelshoot6" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot7" />
+			<State Name="s_gretelshoot7" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot8" />
+			<State Name="s_gretelshoot8" Shape="SPR_GRETEL_SHOOT1" Tics="10" Next="s_gretelchase1" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
