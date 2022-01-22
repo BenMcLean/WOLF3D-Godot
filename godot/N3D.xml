@@ -759,6 +759,27 @@
 			<State Name="s_giftshoot2" Shape="SPR_GIFT_SHOOT2" Tics="10" Next="s_giftshoot3" />
 			<State Name="s_giftshoot3" Shape="SPR_GIFT_SHOOT3" Tics="10" Next="s_giftshoot4" />
 			<State Name="s_giftshoot4" Shape="SPR_GIFT_SHOOT4" Tics="10" Act="T_GiftThrow" Next="s_giftchase1" />
+			<!-- TODO make actor tag for Ernie the Elephant (Fat) -->
+			<State Name="s_fatstand" Shape="SPR_FAT_W1" Tics="0" Think="T_Stand" Next="s_fatstand" />
+			<State Name="s_fatchase1" Shape="SPR_FAT_W1" Tics="10" Think="T_Fat" Next="s_fatchase1s" />
+			<State Name="s_fatchase1s" Shape="SPR_FAT_W1" Tics="3" Next="s_fatchase2" />
+			<State Name="s_fatchase2" Shape="SPR_FAT_W2" Tics="8" Think="T_Fat" Next="s_fatchase3" />
+			<State Name="s_fatchase3" Shape="SPR_FAT_W3" Tics="10" Think="T_Fat" Next="s_fatchase3s" />
+			<State Name="s_fatchase3s" Shape="SPR_FAT_W3" Tics="3" Next="s_fatchase4" />
+			<State Name="s_fatchase4" Shape="SPR_FAT_W4" Tics="8" Think="T_Fat" Next="s_fatchase1" />
+			<State Name="s_fatdie1" Shape="SPR_FAT_W1" Tics="1" Next="s_fatdie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_fatdie2" Shape="SPR_FAT_W1" Tics="10" Next="s_fatdie3" Alive="false" Mark="false" />
+			<State Name="s_fatdie3" Shape="SPR_FAT_DIE1" Tics="10" Next="s_fatdie4" Alive="false" Mark="false" />
+			<State Name="s_fatdie4" Shape="SPR_FAT_DIE2" Tics="10" Next="s_fatdead" Alive="false" Mark="false" />
+			<State Name="s_fatdead" Shape="SPR_FAT_DEAD" Tics="55" Next="s_fatdead2" Alive="false" Mark="false" />
+			<State Name="s_fatdead2" Shape="SPR_FAT_DEAD2" Tics="55" Next="s_fatdead" Alive="false" Mark="false" />
+			<State Name="s_fatshoot1" Shape="SPR_FAT_SHOOT1" Tics="30" Next="s_fatshoot2" />
+			<State Name="s_fatshoot2" Shape="SPR_FAT_SHOOT2" Tics="10" Act="T_GiftThrow" Next="s_fatshoot3" />
+			<State Name="s_fatshoot3" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot4" />
+			<State Name="s_fatshoot4" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatshoot5" />
+			<State Name="s_fatshoot5" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot6" />
+			<State Name="s_fatshoot6" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatchase1" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
