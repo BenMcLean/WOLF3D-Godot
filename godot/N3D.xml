@@ -524,10 +524,10 @@
 			<Spawn Number="111" Actor="Goat" Direction="E" Difficulty="1" State="s_dogpath1" />
 			<!--
 			<Spawn Number="112" Actor="Ox" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="113" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="114" Actor="Boss: Melvin Monkey" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="115" Actor="Boss: Ginny Giraffe" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="118" Actor="Boss: Burt Bear" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="113" Actor="Carl the Camel" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="114" Actor="Melvin the Monkey" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="115" Actor="Ginny the Giraffe" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="118" Actor="Burt the Bear" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
 			<Spawn Number="126" Actor="White ram" Direction="E" Difficulty="1" State="s_grdstand" />
 			<Spawn Number="127" Actor="Ostrich" Direction="E" Difficulty="1" State="s_ofcstand" />
@@ -537,9 +537,9 @@
 			<Spawn Number="129" Actor="Goat" Direction="E" Difficulty="1" State="s_dogpath1" />
 			<!--
 			<Spawn Number="130" Actor="Ox" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="131" Actor="Boss: Carl Camel" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="134" Actor="Boss: Kerry Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
-			<Spawn Number="135" Actor="Boss: Ernie Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="131" Actor="Carl the Camel" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="134" Actor="Kerry the Kangaroo" Direction="E" Difficulty="1" State="s_grdstand" />
+			<Spawn Number="135" Actor="Ernie the Elephant" Direction="E" Difficulty="1" State="s_grdstand" />
 			-->
 			<Actor Name="White ram" HP="6,6,6,6" Reaction="1-64" AlertDigiSound="D_GOATSND" Chase="s_grdchase1" Attack="s_grdshoot1" Death="s_grddie1" AddTo="Score" Add="100" >
 				<!--
@@ -678,7 +678,7 @@
 			<State Name="s_ssdie3" Shape="SPR_SS_DIE_2" Tics="15" Next="s_ssdead" Alive="false" Mark="false" />
 			<State Name="s_ssdead" Shape="SPR_SS_DEAD" Tics="55" Next="s_ssdead2" Alive="false" Mark="false" />
 			<State Name="s_ssdead2" Shape="SPR_SS_DEAD2" Tics="55" Next="s_ssdead" Alive="false" Mark="false" />
-			<Actor Name="Boss: Carl Camel" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="D_CAMELSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" />
+			<Actor Name="Carl the Camel" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="D_CAMELSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" />
 			<!-- TODO: Correct death effects for Carl (Hans) -->
 			<State Name="s_bossstand" Shape="SPR_BOSS_W1" Tice="0" Think="T_Stand" Next="s_bossstand" />
 			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tice="10" Think="T_Chase" Next="s_bosschase1s" />
@@ -700,7 +700,7 @@
 			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot7" />
 			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot8" />
 			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tice="10" Next="s_bosschase1" />
-			<Actor Name="Giraffe" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_GIRAFESND" Chase="s_gretelchase1" Attack="s_gretelshoot1" Death="s_greteldie1" AddTo="Score" Add="200" />
+			<Actor Name="Ginny the Giraffe" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_GIRAFESND" Chase="s_gretelchase1" Attack="s_gretelshoot1" Death="s_greteldie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Giraffe (Gretel) -->
 			<State Name="s_gretelstand" Shape="SPR_GRETEL_W1" Tics="0" Think="T_Stand" Next="s_gretelstand" />
 			<State Name="s_gretelchase1" Shape="SPR_GRETEL_W1" Tics="10" Think="T_Chase" Next="s_gretelchase1s" />
@@ -722,7 +722,7 @@
 			<State Name="s_gretelshoot6" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot7" />
 			<State Name="s_gretelshoot7" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot8" />
 			<State Name="s_gretelshoot8" Shape="SPR_GRETEL_SHOOT1" Tics="10" Next="s_gretelchase1" />
-			<Actor Name="Boss: Melvin Monkey" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_MONKEYSND" Chase="s_schabbchase1" Attack="s_schabbshoot1" Death="s_schabbdie1" AddTo="Score" Add="200" />
+			<Actor Name="Melvin the Monkey" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_MONKEYSND" Chase="s_schabbchase1" Attack="s_schabbshoot1" Death="s_schabbdie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Melvin the Monkey (Schabbs) -->
 			<State Name="s_schabbstand" Shape="SPR_SCHABB_W1" Tics="0" Think="T_Stand" Next="s_schabbstand" />
 			<State Name="s_schabbchase1" Shape="SPR_SCHABB_W1" Tics="10" Think="T_Schabb" Next="s_schabbchase1s" />
@@ -739,7 +739,7 @@
 			<State Name="s_schabbdead2" Shape="SPR_SCHABB_DEAD2" Tics="55" Next="s_schabbdead" Alive="false" Mark="false" />
 			<State Name="s_schabbshoot1" Shape="SPR_SCHABB_SHOOT1" Tics="20" Next="s_schabbshoot2" />
 			<State Name="s_schabbshoot2" Shape="SPR_SCHABB_SHOOT2" Tics="20" Act="T_SchabbThrow" Next="s_schabbchase1" />
-			<Actor Name="Kangaroo" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_KANGROSND" Chase="s_giftchase1" Attack="s_giftshoot1" Death="s_giftdie1" AddTo="Score" Add="200" />
+			<Actor Name="Kerry the Kangaroo" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_KANGROSND" Chase="s_giftchase1" Attack="s_giftshoot1" Death="s_giftdie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Kangaroo (Gift) -->
 			<State Name="s_giftstand" Shape="SPR_GIFT_W1" Tics="0" Think="T_Stand" Next="s_giftstand" />
 			<State Name="s_giftchase1" Shape="SPR_GIFT_W1" Tics="10" Think="T_Gift" Next="s_giftchase1s" />
@@ -759,7 +759,7 @@
 			<State Name="s_giftshoot2" Shape="SPR_GIFT_SHOOT2" Tics="10" Next="s_giftshoot3" />
 			<State Name="s_giftshoot3" Shape="SPR_GIFT_SHOOT3" Tics="10" Next="s_giftshoot4" />
 			<State Name="s_giftshoot4" Shape="SPR_GIFT_SHOOT4" Tics="10" Act="T_GiftThrow" Next="s_giftchase1" />
-			<Actor Name="Boss: Ernie the Elephant" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_ELPHNTSND" Chase="s_fatchase1" Attack="s_fatshoot1" Death="s_fatdie1" AddTo="Score" Add="200" />
+			<Actor Name="Ernie the Elephant" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_ELPHNTSND" Chase="s_fatchase1" Attack="s_fatshoot1" Death="s_fatdie1" AddTo="Score" Add="200" />
 			<!-- TODO Correct death effects for Ernie the Elephant (Fat) -->
 			<State Name="s_fatstand" Shape="SPR_FAT_W1" Tics="0" Think="T_Stand" Next="s_fatstand" />
 			<State Name="s_fatchase1" Shape="SPR_FAT_W1" Tics="10" Think="T_Fat" Next="s_fatchase1s" />
@@ -781,6 +781,7 @@
 			<State Name="s_fatshoot4" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatshoot5" />
 			<State Name="s_fatshoot5" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot6" />
 			<State Name="s_fatshoot6" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatchase1" />
+			<!-- Burt the Bear (Hitler) -->
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
