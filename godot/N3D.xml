@@ -678,7 +678,8 @@
 			<State Name="s_ssdie3" Shape="SPR_SS_DIE_2" Tics="15" Next="s_ssdead" Alive="false" Mark="false" />
 			<State Name="s_ssdead" Shape="SPR_SS_DEAD" Tics="55" Next="s_ssdead2" Alive="false" Mark="false" />
 			<State Name="s_ssdead2" Shape="SPR_SS_DEAD2" Tics="55" Next="s_ssdead" Alive="false" Mark="false" />
-			<!-- TODO: Actor tag for Carl (Hans) -->
+			<Actor Name="Boss: Carl Camel" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="D_CAMELSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" />
+			<!-- TODO: Correct death effects for Carl (Hans) -->
 			<State Name="s_bossstand" Shape="SPR_BOSS_W1" Tice="0" Think="T_Stand" Next="s_bossstand" />
 			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tice="10" Think="T_Chase" Next="s_bosschase1s" />
 			<State Name="s_bosschase1s" Shape="SPR_BOSS_W1" Tice="3" Next="s_bosschase2" />
@@ -699,7 +700,8 @@
 			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot7" />
 			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot8" />
 			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tice="10" Next="s_bosschase1" />
-			<!-- TODO Actor tag for Giraffe (Gretel) -->
+			<Actor Name="Giraffe" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_GIRAFESND" Chase="s_gretelchase1" Attack="s_gretelshoot1" Death="s_greteldie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Giraffe (Gretel) -->
 			<State Name="s_gretelstand" Shape="SPR_GRETEL_W1" Tics="0" Think="T_Stand" Next="s_gretelstand" />
 			<State Name="s_gretelchase1" Shape="SPR_GRETEL_W1" Tics="10" Think="T_Chase" Next="s_gretelchase1s" />
 			<State Name="s_gretelchase1s" Shape="SPR_GRETEL_W1" Tics="3" Next="s_gretelchase2" />
@@ -720,7 +722,8 @@
 			<State Name="s_gretelshoot6" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot7" />
 			<State Name="s_gretelshoot7" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot8" />
 			<State Name="s_gretelshoot8" Shape="SPR_GRETEL_SHOOT1" Tics="10" Next="s_gretelchase1" />
-			<!-- TODO: Actor tag for Melvin the Monkey (Schabbs) -->
+			<Actor Name="Boss: Melvin Monkey" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_MONKEYSND" Chase="s_schabbchase1" Attack="s_schabbshoot1" Death="s_schabbdie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Melvin the Monkey (Schabbs) -->
 			<State Name="s_schabbstand" Shape="SPR_SCHABB_W1" Tics="0" Think="T_Stand" Next="s_schabbstand" />
 			<State Name="s_schabbchase1" Shape="SPR_SCHABB_W1" Tics="10" Think="T_Schabb" Next="s_schabbchase1s" />
 			<State Name="s_schabbchase1s" Shape="SPR_SCHABB_W1" Tics="3" Next="s_schabbchase2" />
@@ -736,7 +739,8 @@
 			<State Name="s_schabbdead2" Shape="SPR_SCHABB_DEAD2" Tics="55" Next="s_schabbdead" Alive="false" Mark="false" />
 			<State Name="s_schabbshoot1" Shape="SPR_SCHABB_SHOOT1" Tics="20" Next="s_schabbshoot2" />
 			<State Name="s_schabbshoot2" Shape="SPR_SCHABB_SHOOT2" Tics="20" Act="T_SchabbThrow" Next="s_schabbchase1" />
-			<!-- TODO: Actor tag for Kangaroo (Gift) -->
+			<Actor Name="Kangaroo" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_KANGROSND" Chase="s_giftchase1" Attack="s_giftshoot1" Death="s_giftdie1" AddTo="Score" Add="200" />
+			<!-- TODO: Correct death effects for Kangaroo (Gift) -->
 			<State Name="s_giftstand" Shape="SPR_GIFT_W1" Tics="0" Think="T_Stand" Next="s_giftstand" />
 			<State Name="s_giftchase1" Shape="SPR_GIFT_W1" Tics="10" Think="T_Gift" Next="s_giftchase1s" />
 			<State Name="s_giftchase1s" Shape="SPR_GIFT_W1" Tics="3" Next="s_giftchase2" />
