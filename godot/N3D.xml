@@ -759,7 +759,8 @@
 			<State Name="s_giftshoot2" Shape="SPR_GIFT_SHOOT2" Tics="10" Next="s_giftshoot3" />
 			<State Name="s_giftshoot3" Shape="SPR_GIFT_SHOOT3" Tics="10" Next="s_giftshoot4" />
 			<State Name="s_giftshoot4" Shape="SPR_GIFT_SHOOT4" Tics="10" Act="T_GiftThrow" Next="s_giftchase1" />
-			<!-- TODO make actor tag for Ernie the Elephant (Fat) -->
+			<Actor Name="Boss: Ernie the Elephant" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_ELPHNTSND" Chase="s_fatchase1" Attack="s_fatshoot1" Death="s_fatdie1" AddTo="Score" Add="200" />
+			<!-- TODO Correct death effects for Ernie the Elephant (Fat) -->
 			<State Name="s_fatstand" Shape="SPR_FAT_W1" Tics="0" Think="T_Stand" Next="s_fatstand" />
 			<State Name="s_fatchase1" Shape="SPR_FAT_W1" Tics="10" Think="T_Fat" Next="s_fatchase1s" />
 			<State Name="s_fatchase1s" Shape="SPR_FAT_W1" Tics="3" Next="s_fatchase2" />
