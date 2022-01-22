@@ -781,7 +781,51 @@
 			<State Name="s_fatshoot4" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatshoot5" />
 			<State Name="s_fatshoot5" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot6" />
 			<State Name="s_fatshoot6" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatchase1" />
-			<!-- Burt the Bear (Hitler) -->
+			<!-- TODO make actor tag for Burt the Bear (Mecha/Hitler) -->
+			<State Name="s_mechastand" Shape="SPR_MECHA_W1" Tics="0" Think="T_Stand" Next="s_mechastand" />
+			<State Name="s_mechachase1" Shape="SPR_MECHA_W1" Tics="10" Think="T_Chase" Next="s_mechachase1s" />
+			<!-- TODO A_MechaSound -->
+			<State Name="s_mechachase1s" Shape="SPR_MECHA_W1" Tics="6" Next="s_mechachase2" />
+			<State Name="s_mechachase2" Shape="SPR_MECHA_W2" Tics="8" Think="T_Chase" Next="s_mechachase3" />
+			<State Name="s_mechachase3" Shape="SPR_MECHA_W3" Tics="10" Think="T_Chase" Next="s_mechachase3s" />
+			<!-- TODO A_MechaSound -->
+			<State Name="s_mechachase3s" Shape="SPR_MECHA_W3" Tics="6" Next="s_mechachase4" />
+			<State Name="s_mechachase4" Shape="SPR_MECHA_W4" Tics="8" Think="T_Chase" Next="s_mechachase1" />
+			<State Name="s_mechadie1" Shape="SPR_MECHA_DIE1" Tics="10" Next="s_mechadie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_mechadie2" Shape="SPR_MECHA_DIE2" Tics="10" Next="s_mechadie3" Alive="false" Mark="false" />
+			<State Name="s_mechadie3" Shape="SPR_MECHA_DIE3" Tics="10" Next="s_mechadie4" Alive="false" Mark="false" />
+			<!-- TODO A_HitlerMorph -->
+			<State Name="s_mechadie4" Shape="SPR_MECHA_DEAD" Tics="0" Next="s_mechadie4" Alive="false" Mark="false" />
+			<State Name="s_mechashoot1" Shape="SPR_MECHA_SHOOT1" Tics="30" Next="s_mechashoot2" />
+			<State Name="s_mechashoot2" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechashoot3" />
+			<State Name="s_mechashoot3" Shape="SPR_MECHA_SHOOT3" Tics="10" Act="T_Shoot" Next="s_mechashoot4" />
+			<State Name="s_mechashoot4" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechashoot5" />
+			<State Name="s_mechashoot5" Shape="SPR_MECHA_SHOOT3" Tics="10" Act="T_Shoot" Next="s_mechashoot6" />
+			<State Name="s_mechashoot6" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechachase1" />
+			<State Name="s_hitlerchase1" Shape="SPR_HITLER_W1" Tics="6" Think="T_Chase" Next="s_hitlerchase1s" />
+			<State Name="s_hitlerchase1s" Shape="SPR_HITLER_W1" Tics="4" Next="s_hitlerchase2" />
+			<State Name="s_hitlerchase2" Shape="SPR_HITLER_W2" Tics="2" Think="T_Chase" Next="s_hitlerchase3" />
+			<State Name="s_hitlerchase3" Shape="SPR_HITLER_W3" Tics="6" Think="T_Chase" Next="s_hitlerchase3s" />
+			<State Name="s_hitlerchase3s" Shape="SPR_HITLER_W3" Tics="4" Next="s_hitlerchase4" />
+			<State Name="s_hitlerchase4" Shape="SPR_HITLER_W4" Tics="2" Think="T_Chase" Next="s_hitlerchase1" />
+			<State Name="s_hitlerdie1" Shape="SPR_HITLER_W1" Tics="1" Next="s_hitlerdie2" Alive="false" Mark="false" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_hitlerdie2" Shape="SPR_HITLER_W1" Tics="15" Next="s_hitlerdie3" Alive="false" Mark="false" />
+			<State Name="s_hitlerdie3" Shape="SPR_HITLER_DIE1" Tics="15" Next="s_hitlerdie4" Alive="false" Mark="false" />
+			<!-- TODO A_Slurpie -->
+			<State Name="s_hitlerdie4" Shape="SPR_HITLER_DIE2" Tics="15" Next="s_hitlerdie5" Alive="false" Mark="false" />
+			<State Name="s_hitlerdie5" Shape="SPR_HITLER_DEAD" Tics="55" Next="s_hitlerdie6" Alive="false" Mark="false" />
+			<State Name="s_hitlerdie6" Shape="SPR_HITLER_DEAD2" Tics="55" Next="s_hitlerdead" Alive="false" Mark="false" />
+			<!-- TODO A_StartDeathCam -->
+			<State Name="s_hitlerdead" Shape="SPR_HITLER_DEAD" Tics="55" Next="s_hitlerdead2" Alive="false" Mark="false" />
+			<State Name="s_hitlerdead2" Shape="SPR_HITLER_DEAD2" Tics="55" Next="s_hitlerdead" Alive="false" Mark="false" />
+			<State Name="s_hitlershoot1" Shape="SPR_HITLER_SHOOT1" Tics="30" Next="s_hitlershoot2" />
+			<State Name="s_hitlershoot2" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlershoot3" />
+			<State Name="s_hitlershoot3" Shape="SPR_HITLER_SHOOT3" Tics="10" Act="T_Shoot" Next="s_hitlershoot4" />
+			<State Name="s_hitlershoot4" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlershoot5" />
+			<State Name="s_hitlershoot5" Shape="SPR_HITLER_SHOOT3" Tics="10" Act="T_Shoot" Next="s_hitlershoot6" />
+			<State Name="s_hitlershoot6" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlerchase1" />
 		</Objects>
 		<Sprites>
 			<Sprite Page="63" Name="Ground" />
