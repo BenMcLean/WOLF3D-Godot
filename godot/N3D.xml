@@ -781,7 +781,8 @@
 			<State Name="s_fatshoot4" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatshoot5" />
 			<State Name="s_fatshoot5" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot6" />
 			<State Name="s_fatshoot6" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatchase1" />
-			<!-- TODO make actor tag for Burt the Bear (Mecha/Hitler) -->
+			<Actor Name="Burt the Bear" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_BEARSND" Chase="s_mechachase1" Attack="s_mechashoot1" Death="s_mechadie1" AddTo="Score" Add="200" />
+			<!-- TODO correct death effects for Burt the Bear (Mecha/Hitler) -->
 			<State Name="s_mechastand" Shape="SPR_MECHA_W1" Tics="0" Think="T_Stand" Next="s_mechastand" />
 			<State Name="s_mechachase1" Shape="SPR_MECHA_W1" Tics="10" Think="T_Chase" Next="s_mechachase1s" />
 			<!-- TODO A_MechaSound -->
