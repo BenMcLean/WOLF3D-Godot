@@ -589,23 +589,23 @@
 			<Actor Name="Ostrich" HP="12,12,12,12" Reaction="1-43" AlertDigiSound="D_OSTRCHSND" Chase="s_ofcchase1" Attack="s_ofcshoot1" Death="s_ofcdie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Ostrich -->
 			<State Name="s_ofcstand" Rotate="true" Shape="SPR_OFC_W1_1" Tics="0" Think="T_Stand" Next="s_ofcstand" />
-			<State Name="s_ofcpath1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="20" Think="T_Path" Next="s_ofcpath1s" />
+			<State Name="s_ofcpath1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="20" Think="T_Path" Speed="512" Next="s_ofcpath1s" />
 			<State Name="s_ofcpath1s" Rotate="true" Shape="SPR_OFC_W1_1" Tics="5" Next="s_ofcpath2" />
-			<State Name="s_ofcpath2" Rotate="true" Shape="SPR_OFC_W2_1" Tics="15" Think="T_Path" Next="s_ofcpath3" />
-			<State Name="s_ofcpath3" Rotate="true" Shape="SPR_OFC_W3_1" Tics="20" Think="T_Path" Next="s_ofcpath3s" />
+			<State Name="s_ofcpath2" Rotate="true" Shape="SPR_OFC_W2_1" Tics="15" Think="T_Path" Speed="512" Next="s_ofcpath3" />
+			<State Name="s_ofcpath3" Rotate="true" Shape="SPR_OFC_W3_1" Tics="20" Think="T_Path" Speed="512" Next="s_ofcpath3s" />
 			<State Name="s_ofcpath3s" Rotate="true" Shape="SPR_OFC_W3_1" Tics="5" Next="s_ofcpath4" />
-			<State Name="s_ofcpath4" Rotate="true" Shape="SPR_OFC_W4_1" Tics="15" Think="T_Path" Next="s_ofcpath1" />
+			<State Name="s_ofcpath4" Rotate="true" Shape="SPR_OFC_W4_1" Tics="15" Think="T_Path" Speed="512" Next="s_ofcpath1" />
 			<State Name="s_ofcpain" Shape="SPR_OFC_PAIN" Tics="10" Next="s_ofcchase1" />
 			<State Name="s_ofcpain1" Shape="SPR_OFC_PAIN" Tics="10" Next="s_ofcchase1" />
 			<State Name="s_ofcshoot1" Shape="SPR_OFC_SHOOT1" Tics="6" Next="s_ofcshoot2" />
 			<State Name="s_ofcshoot2" Shape="SPR_OFC_SHOOT2" Tics="20" Act="T_Shoot" Next="s_ofcshoot3" />
 			<State Name="s_ofcshoot3" Shape="SPR_OFC_SHOOT3" Tics="10" Next="s_ofcchase1" />
-			<State Name="s_ofcchase1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="10" Think="T_Chase" Next="s_ofcchase1s" />
+			<State Name="s_ofcchase1" Rotate="true" Shape="SPR_OFC_W1_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_ofcchase1s" />
 			<State Name="s_ofcchase1s" Rotate="true" Shape="SPR_OFC_W1_1" Tics="3" Next="s_ofcchase2" />
-			<State Name="s_ofcchase2" Rotate="true" Shape="SPR_OFC_W2_1" Tics="8" Think="T_Chase" Next="s_ofcchase3" />
-			<State Name="s_ofcchase3" Rotate="true" Shape="SPR_OFC_W3_1" Tics="10" Think="T_Chase" Next="s_ofcchase3s" />
+			<State Name="s_ofcchase2" Rotate="true" Shape="SPR_OFC_W2_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_ofcchase3" />
+			<State Name="s_ofcchase3" Rotate="true" Shape="SPR_OFC_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_ofcchase3s" />
 			<State Name="s_ofcchase3s" Rotate="true" Shape="SPR_OFC_W3_1" Tics="3" Next="s_ofcchase4" />
-			<State Name="s_ofcchase4" Rotate="true" Shape="SPR_OFC_W4_1" Tics="8" Think="T_Chase" Next="s_ofcchase1" />
+			<State Name="s_ofcchase4" Rotate="true" Shape="SPR_OFC_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_ofcchase1" />
 			<State Name="s_ofcdie1" Shape="SPR_OFC_PAIN" Tics="11" Next="s_ofcdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_ofcdie2" Shape="SPR_OFC_DIE_1" Tics="11" Next="s_ofcdie3" Alive="false" Mark="false" />
@@ -615,23 +615,23 @@
 			<Actor Name="Ox" HP="18,18,18,18" Reaction="1-43" AlertDigiSound="D_OXSND" Chase="s_mutchase1" Attack="s_mutshoot1" Death="s_mutdie1" AddTo="Score" Add="200" />
 			<!-- TODO Correct death effects for Ox (mutant) -->
 			<State Name="s_mutstand" Rotate="true" Shape="SPR_MUT_W1_1" Tics="0" Think="T_Stand" Next="s_mutstand" />
-			<State Name="s_mutpath1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="20" Think="T_Path" Next="s_mutpath1s" />
+			<State Name="s_mutpath1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="20" Think="T_Path" Speed="512" Next="s_mutpath1s" />
 			<State Name="s_mutpath1s" Rotate="true" Shape="SPR_MUT_W1_1" Tics="5" Next="s_mutpath2" />
-			<State Name="s_mutpath2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="15" Think="T_Path" Next="s_mutpath3" />
-			<State Name="s_mutpath3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="20" Think="T_Path" Next="s_mutpath3s" />
+			<State Name="s_mutpath2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="15" Think="T_Path" Speed="512" Next="s_mutpath3" />
+			<State Name="s_mutpath3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="20" Think="T_Path" Speed="512" Next="s_mutpath3s" />
 			<State Name="s_mutpath3s" Rotate="true" Shape="SPR_MUT_W3_1" Tics="5" Next="s_mutpath4" />
-			<State Name="s_mutpath4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="15" Think="T_Path" Next="s_mutpath1" />
+			<State Name="s_mutpath4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="15" Think="T_Path" Speed="512" Next="s_mutpath1" />
 			<State Name="s_mutpain" Shape="SPR_MUT_PAIN" Tics="10" Next="s_mutchase1" />
 			<State Name="s_mutpain1" Shape="SPR_MUT_PAIN" Tics="10" Next="s_mutchase1" />
 			<State Name="s_mutshoot1" Shape="SPR_MUT_SHOOT1" Tics="6" Act="T_Shoot" Next="s_mutshoot2" />
 			<State Name="s_mutshoot2" Shape="SPR_MUT_SHOOT2" Tics="30" Act="T_Shoot" Next="s_mutshoot3" />
 			<State Name="s_mutshoot3" Shape="SPR_MUT_SHOOT3" Tics="20" Next="s_mutchase1" />
-			<State Name="s_mutchase1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="10" Think="T_Chase" Next="s_mutchase1s" />
+			<State Name="s_mutchase1" Rotate="true" Shape="SPR_MUT_W1_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_mutchase1s" />
 			<State Name="s_mutchase1s" Rotate="true" Shape="SPR_MUT_W1_1" Tics="3" Next="s_mutchase2" />
-			<State Name="s_mutchase2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="8" Think="T_Chase" Next="s_mutchase3" />
-			<State Name="s_mutchase3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="10" Think="T_Chase" Next="s_mutchase3s" />
+			<State Name="s_mutchase2" Rotate="true" Shape="SPR_MUT_W2_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_mutchase3" />
+			<State Name="s_mutchase3" Rotate="true" Shape="SPR_MUT_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_mutchase3s" />
 			<State Name="s_mutchase3s" Rotate="true" Shape="SPR_MUT_W3_1" Tics="3" Next="s_mutchase4" />
-			<State Name="s_mutchase4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="8" Think="T_Chase" Next="s_mutchase1" />
+			<State Name="s_mutchase4" Rotate="true" Shape="SPR_MUT_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_mutchase1" />
 			<State Name="s_mutdie1" Shape="SPR_MUT_PAIN" Tics="7" Next="s_mutdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_mutdie2" Shape="SPR_MUT_DIE_1" Tics="7" Next="s_mutdie3" Alive="false" Mark="false" />
@@ -641,12 +641,12 @@
 			<Actor Name="Antelope" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_ANTLPESND" Chase="s_sschase1" Attack="s_ssshoot1" Death="s_ssdie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Antelope (SS) -->
 			<State Name="s_ssstand" Rotate="true" Shape="SPR_SS_W1_1" Tics="0" Think="T_Stand" Next="s_ssstand" />
-			<State Name="s_sspath1" Rotate="true" Shape="SPR_SS_W1_1" Tics="20" Think="T_Path" Next="s_sspath1s" />
+			<State Name="s_sspath1" Rotate="true" Shape="SPR_SS_W1_1" Tics="20" Think="T_Path" Speed="512" Next="s_sspath1s" />
 			<State Name="s_sspath1s" Rotate="true" Shape="SPR_SS_W1_1" Tics="5" Next="s_sspath2" />
-			<State Name="s_sspath2" Rotate="true" Shape="SPR_SS_W2_1" Tics="15" Think="T_Path" Next="s_sspath3" />
-			<State Name="s_sspath3" Rotate="true" Shape="SPR_SS_W3_1" Tics="20" Think="T_Path" Next="s_sspath3s" />
+			<State Name="s_sspath2" Rotate="true" Shape="SPR_SS_W2_1" Tics="15" Think="T_Path" Speed="512" Next="s_sspath3" />
+			<State Name="s_sspath3" Rotate="true" Shape="SPR_SS_W3_1" Tics="20" Think="T_Path" Speed="512" Next="s_sspath3s" />
 			<State Name="s_sspath3s" Rotate="true" Shape="SPR_SS_W3_1" Tics="5" Next="s_sspath4" />
-			<State Name="s_sspath4" Rotate="true" Shape="SPR_SS_W4_1" Tics="15" Think="T_Path" Next="s_sspath1" />
+			<State Name="s_sspath4" Rotate="true" Shape="SPR_SS_W4_1" Tics="15" Think="T_Path" Speed="512" Next="s_sspath1" />
 			<State Name="s_sspain" Shape="SPR_SS_PAIN" Tics="10" Next="s_sschase1" />
 			<State Name="s_sspain1" Shape="SPR_SS_PAIN" Tics="10" Next="s_sschase1" />
 			<State Name="s_ssshoot1" Shape="SPR_SS_SHOOT1" Tics="20" Next="s_ssshoot2" />
@@ -658,12 +658,12 @@
 			<State Name="s_ssshoot7" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_ssshoot8" />
 			<State Name="s_ssshoot8" Shape="SPR_SS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_ssshoot9" />
 			<State Name="s_ssshoot9" Shape="SPR_SS_SHOOT3" Tics="10" Next="s_sschase1" />
-			<State Name="s_sschase1" Rotate="true" Shape="SPR_SS_W1_1" Tics="10" Think="T_Chase" Next="s_sschase1s" />
+			<State Name="s_sschase1" Rotate="true" Shape="SPR_SS_W1_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_sschase1s" />
 			<State Name="s_sschase1s" Rotate="true" Shape="SPR_SS_W1_1" Tics="3" Next="s_sschase2" />
-			<State Name="s_sschase2" Rotate="true" Shape="SPR_SS_W2_1" Tics="8" Think="T_Chase" Next="s_sschase3" />
-			<State Name="s_sschase3" Rotate="true" Shape="SPR_SS_W3_1" Tics="10" Think="T_Chase" Next="s_sschase3s" />
+			<State Name="s_sschase2" Rotate="true" Shape="SPR_SS_W2_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_sschase3" />
+			<State Name="s_sschase3" Rotate="true" Shape="SPR_SS_W3_1" Tics="10" Think="T_Chase" Speed="1536" Next="s_sschase3s" />
 			<State Name="s_sschase3s" Rotate="true" Shape="SPR_SS_W3_1" Tics="3" Next="s_sschase4" />
-			<State Name="s_sschase4" Rotate="true" Shape="SPR_SS_W4_1" Tics="8" Think="T_Chase" Next="s_sschase1" />
+			<State Name="s_sschase4" Rotate="true" Shape="SPR_SS_W4_1" Tics="8" Think="T_Chase" Speed="1536" Next="s_sschase1" />
 			<State Name="s_ssdie1" Shape="SPR_SS_PAIN" Tics="15" Next="s_ssdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_ssdie2" Shape="SPR_SS_DIE_1" Tics="15" Next="s_ssdie3" Alive="false" Mark="false" />
@@ -673,12 +673,12 @@
 			<Actor Name="Carl the Camel" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="D_CAMELSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" />
 			<!-- TODO: Correct death effects for Carl (Hans) -->
 			<State Name="s_bossstand" Shape="SPR_BOSS_W1" Tice="0" Think="T_Stand" Next="s_bossstand" />
-			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tice="10" Think="T_Chase" Next="s_bosschase1s" />
+			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tice="10" Think="T_Chase" Speed="1536" Next="s_bosschase1s" />
 			<State Name="s_bosschase1s" Shape="SPR_BOSS_W1" Tice="3" Next="s_bosschase2" />
-			<State Name="s_bosschase2" Shape="SPR_BOSS_W2" Tice="8" Think="T_Chase" Next="s_bosschase3" />
-			<State Name="s_bosschase3" Shape="SPR_BOSS_W3" Tice="10" Think="T_Chase" Next="s_bosschase3s" />
+			<State Name="s_bosschase2" Shape="SPR_BOSS_W2" Tice="8" Think="T_Chase" Speed="1536" Next="s_bosschase3" />
+			<State Name="s_bosschase3" Shape="SPR_BOSS_W3" Tice="10" Think="T_Chase" Speed="1536" Next="s_bosschase3s" />
 			<State Name="s_bosschase3s" Shape="SPR_BOSS_W3" Tice="3" Next="s_bosschase4" />
-			<State Name="s_bosschase4" Shape="SPR_BOSS_W4" Tice="8" Think="T_Chase" Next="s_bosschase1" />
+			<State Name="s_bosschase4" Shape="SPR_BOSS_W4" Tice="8" Think="T_Chase" Speed="1536" Next="s_bosschase1" />
 			<State Name="s_bossdie1" Shape="SPR_BOSS_DIE1" Tice="15" Next="s_bossdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_bossdie2" Shape="SPR_BOSS_DIE2" Tice="15" Next="s_bossdead" Alive="false" Mark="false" />
@@ -695,12 +695,12 @@
 			<Actor Name="Ginny the Giraffe" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_GIRAFESND" Chase="s_gretelchase1" Attack="s_gretelshoot1" Death="s_greteldie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Giraffe (Gretel) -->
 			<State Name="s_gretelstand" Shape="SPR_GRETEL_W1" Tics="0" Think="T_Stand" Next="s_gretelstand" />
-			<State Name="s_gretelchase1" Shape="SPR_GRETEL_W1" Tics="10" Think="T_Chase" Next="s_gretelchase1s" />
+			<State Name="s_gretelchase1" Shape="SPR_GRETEL_W1" Tics="10" Think="T_Chase" Speed="1536" Next="s_gretelchase1s" />
 			<State Name="s_gretelchase1s" Shape="SPR_GRETEL_W1" Tics="3" Next="s_gretelchase2" />
-			<State Name="s_gretelchase2" Shape="SPR_GRETEL_W2" Tics="8" Think="T_Chase" Next="s_gretelchase3" />
-			<State Name="s_gretelchase3" Shape="SPR_GRETEL_W3" Tics="10" Think="T_Chase" Next="s_gretelchase3s" />
+			<State Name="s_gretelchase2" Shape="SPR_GRETEL_W2" Tics="8" Think="T_Chase" Speed="1536" Next="s_gretelchase3" />
+			<State Name="s_gretelchase3" Shape="SPR_GRETEL_W3" Tics="10" Think="T_Chase" Speed="1536" Next="s_gretelchase3s" />
 			<State Name="s_gretelchase3s" Shape="SPR_GRETEL_W3" Tics="3" Next="s_gretelchase4" />
-			<State Name="s_gretelchase4" Shape="SPR_GRETEL_W4" Tics="8" Think="T_Chase" Next="s_gretelchase1" />
+			<State Name="s_gretelchase4" Shape="SPR_GRETEL_W4" Tics="8" Think="T_Chase" Speed="1536" Next="s_gretelchase1" />
 			<State Name="s_greteldie1" Shape="SPR_GRETEL_DIE1" Tics="15" Next="s_greteldie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_greteldie2" Shape="SPR_GRETEL_DIE2" Tics="15" Next="s_greteldead" Alive="false" Mark="false" />
@@ -776,14 +776,14 @@
 			<Actor Name="Burt the Bear" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_BEARSND" Chase="s_mechachase1" Attack="s_mechashoot1" Death="s_mechadie1" AddTo="Score" Add="200" />
 			<!-- TODO correct death effects for Burt the Bear (Mecha/Hitler) -->
 			<State Name="s_mechastand" Shape="SPR_MECHA_W1" Tics="0" Think="T_Stand" Next="s_mechastand" />
-			<State Name="s_mechachase1" Shape="SPR_MECHA_W1" Tics="10" Think="T_Chase" Next="s_mechachase1s" />
+			<State Name="s_mechachase1" Shape="SPR_MECHA_W1" Tics="10" Think="T_Chase" Speed="1536" Next="s_mechachase1s" />
 			<!-- TODO A_MechaSound -->
 			<State Name="s_mechachase1s" Shape="SPR_MECHA_W1" Tics="6" Next="s_mechachase2" />
-			<State Name="s_mechachase2" Shape="SPR_MECHA_W2" Tics="8" Think="T_Chase" Next="s_mechachase3" />
-			<State Name="s_mechachase3" Shape="SPR_MECHA_W3" Tics="10" Think="T_Chase" Next="s_mechachase3s" />
+			<State Name="s_mechachase2" Shape="SPR_MECHA_W2" Tics="8" Think="T_Chase" Speed="1536" Next="s_mechachase3" />
+			<State Name="s_mechachase3" Shape="SPR_MECHA_W3" Tics="10" Think="T_Chase" Speed="1536" Next="s_mechachase3s" />
 			<!-- TODO A_MechaSound -->
 			<State Name="s_mechachase3s" Shape="SPR_MECHA_W3" Tics="6" Next="s_mechachase4" />
-			<State Name="s_mechachase4" Shape="SPR_MECHA_W4" Tics="8" Think="T_Chase" Next="s_mechachase1" />
+			<State Name="s_mechachase4" Shape="SPR_MECHA_W4" Tics="8" Think="T_Chase" Speed="1536" Next="s_mechachase1" />
 			<State Name="s_mechadie1" Shape="SPR_MECHA_DIE1" Tics="10" Next="s_mechadie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_mechadie2" Shape="SPR_MECHA_DIE2" Tics="10" Next="s_mechadie3" Alive="false" Mark="false" />
@@ -796,12 +796,12 @@
 			<State Name="s_mechashoot4" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechashoot5" />
 			<State Name="s_mechashoot5" Shape="SPR_MECHA_SHOOT3" Tics="10" Act="T_Shoot" Next="s_mechashoot6" />
 			<State Name="s_mechashoot6" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechachase1" />
-			<State Name="s_hitlerchase1" Shape="SPR_HITLER_W1" Tics="6" Think="T_Chase" Next="s_hitlerchase1s" />
+			<State Name="s_hitlerchase1" Shape="SPR_HITLER_W1" Tics="6" Think="T_Chase" Speed="1536" Next="s_hitlerchase1s" />
 			<State Name="s_hitlerchase1s" Shape="SPR_HITLER_W1" Tics="4" Next="s_hitlerchase2" />
-			<State Name="s_hitlerchase2" Shape="SPR_HITLER_W2" Tics="2" Think="T_Chase" Next="s_hitlerchase3" />
-			<State Name="s_hitlerchase3" Shape="SPR_HITLER_W3" Tics="6" Think="T_Chase" Next="s_hitlerchase3s" />
+			<State Name="s_hitlerchase2" Shape="SPR_HITLER_W2" Tics="2" Think="T_Chase" Speed="1536" Next="s_hitlerchase3" />
+			<State Name="s_hitlerchase3" Shape="SPR_HITLER_W3" Tics="6" Think="T_Chase" Speed="1536" Next="s_hitlerchase3s" />
 			<State Name="s_hitlerchase3s" Shape="SPR_HITLER_W3" Tics="4" Next="s_hitlerchase4" />
-			<State Name="s_hitlerchase4" Shape="SPR_HITLER_W4" Tics="2" Think="T_Chase" Next="s_hitlerchase1" />
+			<State Name="s_hitlerchase4" Shape="SPR_HITLER_W4" Tics="2" Think="T_Chase" Speed="1536" Next="s_hitlerchase1" />
 			<State Name="s_hitlerdie1" Shape="SPR_HITLER_W1" Tics="1" Next="s_hitlerdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
 			<State Name="s_hitlerdie2" Shape="SPR_HITLER_W1" Tics="15" Next="s_hitlerdie3" Alive="false" Mark="false" />
