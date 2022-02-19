@@ -209,7 +209,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					VerticalCheck(x, z);
 				}
 			}
-			//System.IO.File.WriteAllText(Map.Name + ".csv", string.Join(System.Environment.NewLine, Navigable.Select(row => string.Join(",", row.Select(@bool => @bool ? "0" : "1")))));
+			//System.IO.File.WriteAllText(Map.Name + ".csv", string.Join(System.Environment.NewLine, Transparent.Select(row => string.Join(",", row.Select(@bool => @bool ? "0" : "1")))));
 		}
 		/// <summary>
 		/// "Of course Momma's gonna help build the wall." - Pink Floyd
