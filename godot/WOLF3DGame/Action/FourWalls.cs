@@ -9,6 +9,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ushort X { get; set; } = 0;
 		public ushort Z { get; set; } = 0;
 		protected readonly MeshInstance[] Sides = new MeshInstance[4];
+		public CollisionShape CollisionShape { get; protected set; }
 		public ushort Wall
 		{
 			get => wall;
@@ -62,16 +63,17 @@ namespace WOLF3D.WOLF3DGame.Action
 		protected FourWalls Set(ushort wall, ushort darkSide)
 		{
 			Name = "FourWalls";
-			CollisionShape shape;
-			AddChild(shape = Walls.BuildWall(darkSide, true, 0, 0)); // West
-			Sides[DirectionIndex(Direction8.WEST)] = (MeshInstance)shape.GetChild(0);
-			AddChild(shape = Walls.BuildWall(wall, false, 0, 0, true)); // North
-			Sides[DirectionIndex(Direction8.NORTH)] = (MeshInstance)shape.GetChild(0);
-			AddChild(shape = Walls.BuildWall(darkSide, true, 0, -1, true)); // East
-			Sides[DirectionIndex(Direction8.EAST)] = (MeshInstance)shape.GetChild(0);
-			AddChild(shape = Walls.BuildWall(wall, false, 1, 0)); // South
-			Sides[DirectionIndex(Direction8.SOUTH)] = (MeshInstance)shape.GetChild(0);
+			AddChild(Sides[DirectionIndex(Direction8.WEST)] = Walls.BuildWallMeshOnly(darkSide, true, 0, 0)); // West
+			AddChild(Sides[DirectionIndex(Direction8.NORTH)] = Walls.BuildWallMeshOnly(wall, false, 0, 0, true)); // North
+			AddChild(Sides[DirectionIndex(Direction8.EAST)] = Walls.BuildWallMeshOnly(darkSide, true, 0, -1, true)); // East
+			AddChild(Sides[DirectionIndex(Direction8.SOUTH)] = Walls.BuildWallMeshOnly(wall, false, 1, 0)); // South
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
+			AddChild(CollisionShape = new CollisionShape()
+			{
+				Name = "FourWalls CollisionShape at [" + X + ", " + Z + "]",
+				Shape = Assets.BoxShape,
+				Transform = new Transform(Basis.Identity, new Vector3(Assets.HalfWallWidth, Assets.HalfWallHeight, Assets.HalfWallWidth)),
+			});
 			this.wall = wall;
 			this.darkSide = darkSide;
 			return this;

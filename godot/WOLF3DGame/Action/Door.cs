@@ -173,7 +173,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				Name = (Western ? "West" : "South") + " door CollisionShape at [" + x + ", " + z + "]",
 				Shape = Assets.BoxShape,
-				Transform = new Transform(Basis.Identity, Vector3.Zero),
 			});
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
 			return this;
