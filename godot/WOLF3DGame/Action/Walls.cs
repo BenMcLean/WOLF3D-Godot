@@ -164,9 +164,9 @@ namespace WOLF3D.WOLF3DGame.Action
 						Extents = new Vector3(width * Assets.HalfWallWidth, Assets.HalfWallHeight, depth * Assets.HalfWallWidth),
 					},
 					Transform = new Transform(Basis.Identity, new Vector3(
-						Assets.CenterSquare(x),
+						Assets.FloatCoordinate(x) + width * Assets.HalfWallWidth,
 						Assets.HalfWallHeight,
-						Assets.CenterSquare(z)
+						Assets.FloatCoordinate(z) + depth * Assets.HalfWallWidth
 						)),
 				});
 				wall.AddChild(new MeshInstance()
