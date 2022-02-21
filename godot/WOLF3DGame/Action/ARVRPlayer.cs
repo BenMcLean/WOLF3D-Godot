@@ -152,6 +152,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			#endregion Walking
 
 			#region Shooting
+			// TODO: Stop shooting from inside walls with IntersectPoint https://docs.godotengine.org/en/3.4/classes/class_physicsdirectspacestate.html#class-physicsdirectspacestate-method-intersect-point
 			if (!Main.Room.Paused)
 				for (int control = 0; control < 2; control++)
 				{
