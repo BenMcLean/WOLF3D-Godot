@@ -18,7 +18,7 @@ namespace WOLF3D.WOLF3DGame
 			if (I != null)
 				throw new InvalidOperationException("Only one instance of Main is allowed!");
 			I = this;
-			AmbientTasks.BeginContext(ex => GlobalExceptionHandler(ex));
+			//AmbientTasks.BeginContext(ex => GlobalExceptionHandler(ex));
 		}
 		public static Main I { get; private set; } = null;
 		public static RNG RNG = new RNG();

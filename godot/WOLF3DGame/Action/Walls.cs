@@ -51,12 +51,13 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (Assets.PushWalls.Contains(Map.ObjectData[i]))
 					realWalls[i] = Assets.FloorCodeFirst;
 			ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
+
 			AddChild(Ground = new CollisionShape()
 			{
 				Name = "Ground",
 				Shape = new BoxShape()
 				{
-					Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
+					Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight),
 				},
 				Transform = new Transform(
 					new Basis(Vector3.Right, Mathf.Pi / 2f).Rotated(Vector3.Up, Mathf.Pi / 2f).Orthonormalized(),
@@ -106,7 +107,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Name = "Ceiling",
 				Shape = new BoxShape()
 				{
-					Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight)
+					Extents = new Vector3(Map.Width * Assets.HalfWallWidth, Map.Depth * Assets.HalfWallWidth, Assets.PixelHeight),
 				},
 				Transform = new Transform(
 					new Basis(Vector3.Right, Mathf.Pi / 2f).Rotated(Vector3.Up, Mathf.Pi / 2f).Orthonormalized(),
@@ -151,6 +152,87 @@ namespace WOLF3D.WOLF3DGame.Action
 					RenderPriority = 1,
 				},
 			});
+
+			void method()
+			{
+				int x = 0, z = 0, width = 1, depth = 1;
+				CollisionShape wall;
+				AddChild(wall = new CollisionShape()
+				{
+					Name = "Wall CollisionShape at " + x + ", " + z,
+					Shape = new BoxShape()
+					{
+						Extents = new Vector3(width * Assets.HalfWallWidth, Assets.HalfWallHeight, depth * Assets.HalfWallWidth),
+					},
+					Transform = new Transform(Basis.Identity, new Vector3(
+						Assets.CenterSquare(x),
+						Assets.HalfWallHeight,
+						Assets.CenterSquare(z)
+						)),
+				});
+				wall.AddChild(new MeshInstance()
+				{
+					Name = "Wall MeshInstance at " + x + ", " + z,
+					//Transform = new Transform(Basis.Identity,
+					//new Vector3(width * Assets.HalfWallWidth, 0, depth * Assets.HalfWallWidth)),
+					Mesh = new CubeMesh()
+					{
+						Size = new Vector3(width * Assets.WallWidth, Assets.WallHeight, depth * Assets.WallWidth),
+					},
+					MaterialOverride = new SpatialMaterial()
+					{
+						AlbedoColor = Color.Color8(0, 0, 255, 64),
+						FlagsUnshaded = true,
+						FlagsDoNotReceiveShadows = true,
+						FlagsDisableAmbientLight = true,
+						FlagsTransparent = true,
+						ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+						ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+						AnisotropyEnabled = true,
+						RenderPriority = 1,
+					},
+				});
+			}
+			method();
+
+			//foreach (MapRect mapRect in MapRect.MapRects(Transparent))
+			//{
+			//	CollisionShape wall;
+			//	AddChild(wall = new CollisionShape()
+			//	{
+			//		Name = "Wall CollisionShape at " + mapRect.X + ", " + mapRect.Z,
+			//		Shape = new BoxShape()
+			//		{
+			//			Extents = new Vector3(mapRect.Width * Assets.WallWidth, Assets.WallHeight, mapRect.Depth * Assets.WallWidth),
+			//		},
+			//		Transform = new Transform(Basis.Identity, new Vector3(
+			//			Assets.FloatCoordinate(mapRect.X),
+			//			Assets.HalfWallHeight,
+			//			Assets.FloatCoordinate(mapRect.Z)
+			//			)),
+			//	});
+			//	wall.AddChild(new MeshInstance()
+			//	{
+			//		Name = "Wall MeshInstance at " + mapRect.X + ", " + mapRect.Z,
+			//		Mesh = new CubeMesh()
+			//		{
+			//			Size = new Vector3(mapRect.Width * Assets.WallWidth, Assets.WallHeight, mapRect.Depth * Assets.WallWidth),
+			//		},
+			//		MaterialOverride = new SpatialMaterial()
+			//		{
+			//			AlbedoColor = Color.Color8(255, 0, 0, 64),
+			//			FlagsUnshaded = true,
+			//			FlagsDoNotReceiveShadows = true,
+			//			FlagsDisableAmbientLight = true,
+			//			FlagsTransparent = true,
+			//			ParamsCullMode = SpatialMaterial.CullMode.Disabled,
+			//			ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+			//			AnisotropyEnabled = true,
+			//			RenderPriority = 1,
+			//		},
+			//	});
+			//}
+			return;
 			XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Element("DoorFrame");
 			if (doorFrameX == null)
 				throw new NullReferenceException("Could not find \"DoorFrame\" tag in walls!");
@@ -160,17 +242,17 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ushort wall;
 				if (x < map.Width - 1 && Assets.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
-					AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
+					AddChild(BuildWallMeshOnly(Level.WallTexture(wall), false, x + 1, z, true));
 				if (x > 0 && Assets.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
-					AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
+					AddChild(BuildWallMeshOnly(Level.WallTexture(wall), false, x, z));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
 				ushort wall;
 				if (z > 0 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
-					AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
+					AddChild(BuildWallMeshOnly(Level.DarkSide(wall), true, x, z - 1));
 				if (z < map.Depth - 1 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
-					AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
+					AddChild(BuildWallMeshOnly(Level.DarkSide(wall), true, x, z, true));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
@@ -179,15 +261,15 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					if (here % 2 == 0) // Even numbered doors are vertical
 					{
-						AddChild(BuildWall(doorFrame, false, x + 1, z, true));
-						AddChild(BuildWall(doorFrame, false, x, z));
+						AddChild(BuildWallMeshOnly(doorFrame, false, x + 1, z, true));
+						AddChild(BuildWallMeshOnly(doorFrame, false, x, z));
 						VerticalCheck(x, z);
 						//AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
 					}
 					else // Odd numbered doors are horizontal
 					{
-						AddChild(BuildWall(darkFrame, true, x, z - 1));
-						AddChild(BuildWall(darkFrame, true, x, z, true));
+						AddChild(BuildWallMeshOnly(darkFrame, true, x, z - 1));
+						AddChild(BuildWallMeshOnly(darkFrame, true, x, z, true));
 						HorizontalCheck(x, z);
 						//AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
 					}
@@ -239,5 +321,22 @@ namespace WOLF3D.WOLF3DGame.Action
 			});
 			return result;
 		}
+		public static MeshInstance BuildWallMeshOnly(ushort wall, bool westernWall, int x, int z, bool flipH = false) =>
+			new MeshInstance()
+			{
+				Name = (westernWall ? "West" : "South") + " wall mesh instance at [" + x + ", " + z + "]",
+				MaterialOverride = Assets.VSwapMaterials[wall],
+				Mesh = Assets.WallMesh,
+				Transform = new Transform(
+					westernWall ?
+						flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
+						: flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
+					new Vector3(
+							westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
+							Assets.HalfWallHeight,
+							westernWall ? Assets.FloatCoordinate(z + 1) : Assets.CenterSquare(z)
+						)
+					),
+			};
 	}
 }

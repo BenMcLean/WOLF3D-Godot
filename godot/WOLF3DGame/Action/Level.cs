@@ -78,7 +78,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			return this;
 		}
 		public SymmetricMatrix FloorCodes = new SymmetricMatrix(Assets.FloorCodes);
-		public static bool Clipping { get; set; } = true;
+		public static bool Clipping { get; set; } = false;
 		public XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
