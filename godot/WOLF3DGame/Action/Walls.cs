@@ -51,7 +51,6 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (Assets.PushWalls.Contains(Map.ObjectData[i]))
 					realWalls[i] = Assets.FloorCodeFirst;
 			ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
-
 			AddChild(Ground = new CollisionShape()
 			{
 				Name = "Ground",
@@ -155,7 +154,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
 			void method()
 			{
-				int x = 0, z = 0, width = 1, depth = 1;
+				int x = 59, z = 63 - 34, width = 1, depth = 1;
 				CollisionShape wall;
 				AddChild(wall = new CollisionShape()
 				{
