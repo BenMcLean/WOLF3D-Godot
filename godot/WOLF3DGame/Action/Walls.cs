@@ -151,46 +151,20 @@ namespace WOLF3D.WOLF3DGame.Action
 					RenderPriority = 1,
 				},
 			});
-			CollisionShape WallCollisionShape(int x, int z, int width, int depth)
-			{
-				CollisionShape wall = new CollisionShape()
+			foreach (MapRect mapRect in MapRect.MapRects(Transparent))
+				AddChild(new CollisionShape()
 				{
-					Name = "Wall CollisionShape at " + x + ", " + z,
+					Name = "Wall CollisionShape at " + mapRect.X + ", " + mapRect.Z,
 					Shape = new BoxShape()
 					{
-						Extents = new Vector3(width * Assets.HalfWallWidth, Assets.HalfWallHeight, depth * Assets.HalfWallWidth),
+						Extents = new Vector3(mapRect.Width * Assets.HalfWallWidth, Assets.HalfWallHeight, mapRect.Depth * Assets.HalfWallWidth),
 					},
 					Transform = new Transform(Basis.Identity, new Vector3(
-						Assets.FloatCoordinate(x) + width * Assets.HalfWallWidth,
+						Assets.FloatCoordinate(mapRect.X) + mapRect.Width * Assets.HalfWallWidth,
 						Assets.HalfWallHeight,
-						Assets.FloatCoordinate(z) + depth * Assets.HalfWallWidth
+						Assets.FloatCoordinate(mapRect.Z) + mapRect.Depth * Assets.HalfWallWidth
 						)),
-				};
-				wall.AddChild(new MeshInstance()
-				{
-					Name = "Wall MeshInstance at " + x + ", " + z,
-					Mesh = new CubeMesh()
-					{
-						Size = new Vector3(width * Assets.WallWidth, Assets.WallHeight, depth * Assets.WallWidth),
-					},
-					MaterialOverride = new SpatialMaterial()
-					{
-						AlbedoColor = Color.Color8(0, 0, 255, 64),
-						FlagsUnshaded = true,
-						FlagsDoNotReceiveShadows = true,
-						FlagsDisableAmbientLight = true,
-						FlagsTransparent = true,
-						ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-						ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-						AnisotropyEnabled = true,
-						RenderPriority = 1,
-					},
 				});
-				return wall;
-			}
-			foreach (MapRect mapRect in MapRect.MapRects(Transparent))
-				AddChild(WallCollisionShape(Map.X((ushort)mapRect.X), Map.Z((ushort)mapRect.Z), mapRect.Width, mapRect.Depth));
-			return;
 			XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Element("DoorFrame");
 			if (doorFrameX == null)
 				throw new NullReferenceException("Could not find \"DoorFrame\" tag in walls!");
