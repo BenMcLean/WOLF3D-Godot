@@ -174,17 +174,17 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ushort wall;
 				if (x < map.Width - 1 && Assets.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
-					AddChild(BuildWallMeshOnly(Level.WallTexture(wall), false, x + 1, z, true));
+					AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
 				if (x > 0 && Assets.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
-					AddChild(BuildWallMeshOnly(Level.WallTexture(wall), false, x, z));
+					AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
 				ushort wall;
 				if (z > 0 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
-					AddChild(BuildWallMeshOnly(Level.DarkSide(wall), true, x, z - 1));
+					AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
 				if (z < map.Depth - 1 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
-					AddChild(BuildWallMeshOnly(Level.DarkSide(wall), true, x, z, true));
+					AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
@@ -193,15 +193,15 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					if (here % 2 == 0) // Even numbered doors are vertical
 					{
-						AddChild(BuildWallMeshOnly(doorFrame, false, x + 1, z, true));
-						AddChild(BuildWallMeshOnly(doorFrame, false, x, z));
+						AddChild(BuildWall(doorFrame, false, x + 1, z, true));
+						AddChild(BuildWall(doorFrame, false, x, z));
 						VerticalCheck(x, z);
 						//AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
 					}
 					else // Odd numbered doors are horizontal
 					{
-						AddChild(BuildWallMeshOnly(darkFrame, true, x, z - 1));
-						AddChild(BuildWallMeshOnly(darkFrame, true, x, z, true));
+						AddChild(BuildWall(darkFrame, true, x, z - 1));
+						AddChild(BuildWall(darkFrame, true, x, z, true));
 						HorizontalCheck(x, z);
 						//AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
 					}
@@ -228,32 +228,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		/// <summary>
 		/// "Of course Momma's gonna help build the wall." - Pink Floyd
 		/// </summary>
-		public static CollisionShape BuildWall(ushort wall, bool westernWall, int x, int z, bool flipH = false)
-		{
-			CollisionShape result = new CollisionShape()
-			{
-				Name = (westernWall ? "West" : "South") + " wall shape at [" + x + ", " + z + "]: " + Assets.WallName(wall),
-				Transform = new Transform(
-					westernWall ?
-						flipH ? Direction8.SOUTH.Basis : Direction8.NORTH.Basis
-						: flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
-					new Vector3(
-							westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
-							Assets.HalfWallHeight,
-							westernWall ? Assets.FloatCoordinate(z + 1) : Assets.CenterSquare(z)
-						)
-					),
-				Shape = Assets.WallShape,
-			};
-			result.AddChild(new MeshInstance()
-			{
-				Name = (westernWall ? "West" : "South") + " wall mesh instance at [" + x + ", " + z + "]",
-				MaterialOverride = Assets.VSwapMaterials[wall],
-				Mesh = Assets.WallMesh,
-			});
-			return result;
-		}
-		public static MeshInstance BuildWallMeshOnly(ushort wall, bool westernWall, int x, int z, bool flipH = false) =>
+		public static MeshInstance BuildWall(ushort wall, bool westernWall, int x, int z, bool flipH = false) =>
 			new MeshInstance()
 			{
 				Name = (westernWall ? "West" : "South") + " wall mesh instance at [" + x + ", " + z + "]",
