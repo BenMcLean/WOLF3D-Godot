@@ -59,6 +59,5 @@ namespace WOLF3D.WOLF3DGame.Action
 						return true;
 			return false;
 		}
-
 	}
 }

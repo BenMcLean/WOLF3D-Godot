@@ -151,12 +151,9 @@ namespace WOLF3D.WOLF3DGame.Action
 					RenderPriority = 1,
 				},
 			});
-
-			void method()
+			CollisionShape WallCollisionShape(int x, int z, int width, int depth)
 			{
-				int x = 59, z = 63 - 34, width = 1, depth = 1;
-				CollisionShape wall;
-				AddChild(wall = new CollisionShape()
+				CollisionShape wall = new CollisionShape()
 				{
 					Name = "Wall CollisionShape at " + x + ", " + z,
 					Shape = new BoxShape()
@@ -168,12 +165,10 @@ namespace WOLF3D.WOLF3DGame.Action
 						Assets.HalfWallHeight,
 						Assets.FloatCoordinate(z) + depth * Assets.HalfWallWidth
 						)),
-				});
+				};
 				wall.AddChild(new MeshInstance()
 				{
 					Name = "Wall MeshInstance at " + x + ", " + z,
-					//Transform = new Transform(Basis.Identity,
-					//new Vector3(width * Assets.HalfWallWidth, 0, depth * Assets.HalfWallWidth)),
 					Mesh = new CubeMesh()
 					{
 						Size = new Vector3(width * Assets.WallWidth, Assets.WallHeight, depth * Assets.WallWidth),
@@ -191,46 +186,10 @@ namespace WOLF3D.WOLF3DGame.Action
 						RenderPriority = 1,
 					},
 				});
+				return wall;
 			}
-			method();
-
-			//foreach (MapRect mapRect in MapRect.MapRects(Transparent))
-			//{
-			//	CollisionShape wall;
-			//	AddChild(wall = new CollisionShape()
-			//	{
-			//		Name = "Wall CollisionShape at " + mapRect.X + ", " + mapRect.Z,
-			//		Shape = new BoxShape()
-			//		{
-			//			Extents = new Vector3(mapRect.Width * Assets.WallWidth, Assets.WallHeight, mapRect.Depth * Assets.WallWidth),
-			//		},
-			//		Transform = new Transform(Basis.Identity, new Vector3(
-			//			Assets.FloatCoordinate(mapRect.X),
-			//			Assets.HalfWallHeight,
-			//			Assets.FloatCoordinate(mapRect.Z)
-			//			)),
-			//	});
-			//	wall.AddChild(new MeshInstance()
-			//	{
-			//		Name = "Wall MeshInstance at " + mapRect.X + ", " + mapRect.Z,
-			//		Mesh = new CubeMesh()
-			//		{
-			//			Size = new Vector3(mapRect.Width * Assets.WallWidth, Assets.WallHeight, mapRect.Depth * Assets.WallWidth),
-			//		},
-			//		MaterialOverride = new SpatialMaterial()
-			//		{
-			//			AlbedoColor = Color.Color8(255, 0, 0, 64),
-			//			FlagsUnshaded = true,
-			//			FlagsDoNotReceiveShadows = true,
-			//			FlagsDisableAmbientLight = true,
-			//			FlagsTransparent = true,
-			//			ParamsCullMode = SpatialMaterial.CullMode.Disabled,
-			//			ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-			//			AnisotropyEnabled = true,
-			//			RenderPriority = 1,
-			//		},
-			//	});
-			//}
+			foreach (MapRect mapRect in MapRect.MapRects(Transparent))
+				AddChild(WallCollisionShape(Map.X((ushort)mapRect.X), Map.Z((ushort)mapRect.Z), mapRect.Width, mapRect.Depth));
 			return;
 			XElement doorFrameX = Assets.XML?.Element("VSwap")?.Element("Walls")?.Element("DoorFrame");
 			if (doorFrameX == null)
@@ -290,7 +249,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					VerticalCheck(x, z);
 				}
 			}
-			//System.IO.File.WriteAllText(Map.Name + ".csv", string.Join(System.Environment.NewLine, Transparent.Select(row => string.Join(",", row.Select(@bool => @bool ? "0" : "1")))));
+			//System.IO.File.WriteAllText(Map.Name + ".csv", string.Join(System.Environment.NewLine, Transparent.Select(row => string.Join(",", row.Select(@bool => @bool ? "0" : "1").Reverse()))));
 		}
 		/// <summary>
 		/// "Of course Momma's gonna help build the wall." - Pink Floyd
