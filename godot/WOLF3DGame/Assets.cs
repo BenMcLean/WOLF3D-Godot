@@ -80,7 +80,7 @@ namespace WOLF3D.WOLF3DGame
 		};
 		public static readonly BoxShape BoxShape = new BoxShape()
 		{
-			Extents = new Vector3(WallWidth, WallHeight, WallWidth),
+			Extents = new Vector3(HalfWallWidth, HalfWallHeight, HalfWallWidth),
 		};
 		public static readonly Vector3 Rotate90 = new Vector3(0, Godot.Mathf.Pi / 2f, 0);
 		/// <summary>

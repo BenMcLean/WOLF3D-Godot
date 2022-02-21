@@ -71,7 +71,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						Level.FloorCodes[plus, minus]++;
 					else if (old == DoorEnum.CLOSING && state == DoorEnum.CLOSED)
 						Level.FloorCodes[plus, minus]--;
-				GatesEnabled = state == DoorEnum.CLOSED;
+				CollisionEnabled = state == DoorEnum.CLOSED;
 			}
 		}
 		private DoorEnum state = DoorEnum.CLOSED;
@@ -92,8 +92,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		private ushort page;
 		public CollisionShape DoorCollider { get; private set; }
 		public MeshInstance DoorMesh { get; private set; }
-		public CollisionShape PlusGate { get; private set; }
-		public CollisionShape MinusGate { get; private set; }
+		public CollisionShape CollisionShape { get; private set; }
 		public ushort? FloorCodePlus { get; set; } = 0;
 		public ushort? FloorCodeMinus { get; set; } = 0;
 		public Level Level { get; set; } = null;
@@ -170,25 +169,19 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transform = new Transform(Basis.Identity, new Vector3(-Assets.HalfWallWidth, 0f, 0f)),
 				Bus = "3D",
 			});
-			AddChild(PlusGate = new CollisionShape()
+			AddChild(CollisionShape = new CollisionShape()
 			{
-				Name = (Western ? "West" : "South") + " +zgate shape at [" + x + ", " + z + "]",
-				Shape = Assets.WallShape,
-				Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, Assets.HalfWallWidth)),
-			});
-			AddChild(MinusGate = new CollisionShape()
-			{
-				Name = (Western ? "West" : "South") + " -zgate shape at [" + x + ", " + z + "]",
-				Shape = Assets.WallShape,
-				Transform = new Transform(Basis.Identity, new Vector3(0f, 0f, -Assets.HalfWallWidth)),
+				Name = (Western ? "West" : "South") + " door CollisionShape at [" + x + ", " + z + "]",
+				Shape = Assets.BoxShape,
+				Transform = new Transform(Basis.Identity, Vector3.Zero),
 			});
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
 			return this;
 		}
-		public bool GatesEnabled
+		public bool CollisionEnabled
 		{
-			get => !PlusGate.Disabled || !MinusGate.Disabled;
-			set => PlusGate.Disabled = MinusGate.Disabled = !value;
+			get => !CollisionShape.Disabled;
+			set => CollisionShape.Disabled = !value;
 		}
 		public static Door[][] Doors(GameMap map, Level level = null)
 		{
