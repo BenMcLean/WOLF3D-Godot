@@ -20,7 +20,7 @@ Not to mention that I, of course, will not be censoring any of the swatztikas in
 
 # Building
 
-Currently works with Godot Engine v3.3.2.stable.mono.official.
+Currently works with Godot Engine v3.4.2.stable.mono.official.
 
 In your Android export preset for Oculus Quest, you need these settings:
 * `Options > Xr Features > XR Mode`: `Oculus Mobile VR`
