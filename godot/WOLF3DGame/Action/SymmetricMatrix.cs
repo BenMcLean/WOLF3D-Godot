@@ -12,6 +12,7 @@ namespace WOLF3D.WOLF3DGame.Action
 	/// </summary>
 	public class SymmetricMatrix : ISavable
 	{
+		#region SymmetricMatrix
 		private short[][] Data;
 		public SymmetricMatrix(ushort size) => Size = size;
 		public ushort Size
@@ -44,6 +45,8 @@ namespace WOLF3D.WOLF3DGame.Action
 					Data[x - 1][y] = value;
 			}
 		}
+		#endregion SymmetricMatrix
+		#region ISavable
 		/// <summary>
 		/// Calculates the number of values stored in a SymmetricMatrix from the number of rows.
 		/// </summary>
@@ -83,6 +86,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			for (ushort row = 0; row < Size; row++)
 				Array.Copy(other.Data[row], Data[row], Data[row].Length);
 		}
+		#endregion ISavable
+		#region Output
 		public List<ushort> FloorCodes(params ushort[] floorCodes)
 		{
 			List<ushort> results = new List<ushort>();
@@ -101,5 +106,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			return results;
 		}
 		public bool IsConnected(ushort a, ushort b) => this[a, b] > 0 || FloorCodes(a).Contains(b);
+		#endregion Output
 	}
 }
