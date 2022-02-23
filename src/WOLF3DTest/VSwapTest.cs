@@ -18,10 +18,11 @@ namespace WOLF3DTest
 			VSwap vSwap = VSwap.Load(Folder, LoadXML(Folder));
 			PackingRectangle[] rectangles = PackingRectangles(vSwap).ToArray();
 			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.MostlySquared);
-			int atlasSize = (int)TextureMethods.FindNextPowerOf2(bounds.BiggerSide);
+			int atlasSize = (int)TextureMethods.NextPowerOf2(bounds.BiggerSide);
 			byte[] bin = new byte[atlasSize * 4 * atlasSize];
 			foreach (PackingRectangle rectangle in rectangles)
-				bin.DrawPaddedInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.Pages[rectangle.Id], vSwap.TileSqrt, atlasSize);
+				bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.Pages[rectangle.Id], vSwap.TileSqrt, atlasSize)
+					.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, vSwap.TileSqrt, vSwap.TileSqrt, atlasSize);
 			Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bin, atlasSize, atlasSize)
 						.SaveAsPng("output.png");
 		}
