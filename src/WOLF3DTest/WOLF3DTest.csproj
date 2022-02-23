@@ -11,11 +11,11 @@
         <PackageReference Include="NUnit" Version="3.13.1" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="coverlet.collector" Version="3.0.2" />
+        <PackageReference Include="RectpackSharp" Version="1.0.2" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\RectpackSharp\RectpackSharp\RectpackSharp.csproj" />
         <ProjectReference Include="..\WOLF3DModel\WOLF3DModel.csproj" />
     </ItemGroup>
 

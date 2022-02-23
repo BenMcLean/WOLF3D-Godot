@@ -1,6 +1,3 @@
 [submodule "NScumm.Audio"]
 	path = NScumm.Audio
 	url = https://github.com/BenMcLean/NScumm.Audio.git
-[submodule "RectpackSharp"]
-	path = RectpackSharp
-	url = https://github.com/BenMcLean/RectpackSharp.git
