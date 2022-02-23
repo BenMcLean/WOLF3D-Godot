@@ -13,7 +13,7 @@ namespace WOLF3DTest
 	{
 		public const string Folder = "../../../../../godot/WOLF3D/WL1/";
 		[Test]
-		public void Test1()
+		public void PackAtlas()
 		{
 			XElement xml = LoadXML(Folder);
 			VSwap vSwap = VSwap.Load(Folder, xml);

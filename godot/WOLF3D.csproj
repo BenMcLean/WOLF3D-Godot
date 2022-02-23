@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AmbientTasks" Version="1.0.1" />
+    <PackageReference Include="RectpackSharp" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NScumm.Audio\NScumm.Audio\NScumm.Audio.csproj" />

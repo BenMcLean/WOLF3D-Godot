@@ -1,4 +1,5 @@
 ﻿using Godot;
+using RectpackSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -255,6 +256,7 @@ namespace WOLF3D.WOLF3DGame
 						);
 			}
 		}
+		public static Color[][] Palettes;
 		public static VSwap VSwap
 		{
 			get => vswap;
@@ -393,7 +395,67 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private static VgaGraph vgaGraph;
-		public static Color[][] Palettes;
+		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap)
+		{
+			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap).ToArray();
+			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.TryByBiggerSide);
+			int atlasSize = (int)TextureMethods.NextPowerOf2(bounds.BiggerSide);
+			byte[] bin = new byte[atlasSize * 4 * atlasSize];
+			foreach (PackingRectangle rectangle in rectangles)
+				if (TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
+					bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, texture, width, atlasSize)
+						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
+		}
+		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null)
+		{
+			int total = (vSwap is VSwap vs ? vs.SoundPage : 0)
+				+ (vgaGraph is VgaGraph vg ? vg.Pics.Length + vg.Fonts.Select(f => f.Character.Length).Sum() : 0);
+			for (int i = 0; i < total; i++)
+				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
+					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
+		}
+		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
+		{
+			texture = null;
+			width = height = 0;
+			if (vSwap is VSwap vs)
+			{
+				if (id < vs.SoundPage)
+				{
+					if (vs.Pages[id] == null)
+						return false;
+					texture = vs.Pages[id];
+					width = height = vs.TileSqrt;
+					return true;
+				}
+				id -= vs.SoundPage;
+			}
+			if (!(vgaGraph is VgaGraph vg))
+				return false;
+			if (id < vg.Pics.Length)
+			{
+				if (vg.Pics[id] == null)
+					return false;
+				texture = vg.Pics[id];
+				width = vg.Sizes[id][0];
+				height = vg.Sizes[id][1];
+				return true;
+			}
+			id -= vg.Pics.Length;
+			foreach (VgaGraph.Font font in vg.Fonts)
+				if (id < font.Character.Length)
+				{
+					if (font.Character[id] == null)
+						return false;
+					texture = font.Character[id];
+					width = font.Width[id];
+					height = font.Height;
+					return true;
+				}
+				else
+					id -= font.Character.Length;
+			return false;
+		}
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
 		public static ImageTexture[] PicTextures;
