@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace WOLF3DTest
 {
-	public class UnitTest1
+	public class XmlScriptTest
 	{
 		public Dictionary<string, uint> Stuff = new Dictionary<string, uint>();
 		[Test]
