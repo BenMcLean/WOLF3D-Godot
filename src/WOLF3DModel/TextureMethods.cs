@@ -14,6 +14,10 @@ namespace WOLF3DModel
 	/// </summary>
 	public static class TextureMethods
 	{
+		//TODO: DrawTriangle
+		//TODO: DrawLine
+		//TODO: DrawCircle
+		//TODO: DrawEllipse
 		#region Drawing
 		/// <summary>
 		/// Draws one pixel of the specified color
@@ -64,9 +68,6 @@ namespace WOLF3DModel
 		public static byte[] DrawRectangle(this byte[] texture, byte red, byte green, byte blue, byte alpha, int x, int y, int rectWidth, int rectHeight, int width = 0)
 		{
 			if (rectHeight < 1) rectHeight = rectWidth;
-			int xSide = (width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width) << 2,
-				ySide = (width < 1 ? xSide : texture.Length / width) >> 2,
-				x4 = x << 2;
 			if (x < 0)
 			{
 				rectWidth += x;
@@ -77,10 +78,14 @@ namespace WOLF3DModel
 				rectHeight += y;
 				y = 0;
 			}
-			if (rectWidth < 1 || rectHeight < 1 || x4 >= xSide || y >= ySide) return texture;
-			if ((x + rectWidth) << 2 >= xSide) rectWidth = (xSide >> 2) - x;
-			if (y + rectHeight >= ySide) rectHeight = (ySide >> 2) - y;
-			int offset = y * xSide + x4,
+			width = width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width;
+			int height = (texture.Length / width) >> 2;
+			if (rectWidth < 1 || rectHeight < 1 || x >= width || y >= height) return texture;
+			rectWidth = Math.Min(rectWidth, width - x);
+			rectHeight = Math.Min(rectHeight, height - y);
+			int xSide = width << 2,
+				x4 = x << 2,
+				offset = y * xSide + x4,
 				rectWidth4 = rectWidth << 2,
 				yStop = offset + xSide * rectHeight;
 			texture[offset] = red;
@@ -203,57 +208,49 @@ namespace WOLF3DModel
 			}
 			return texture;
 		}
-		/// <summary>
-		/// Draws a texture onto a different texture and then draws 1 pixel wide padding around the outside of it by copying pixels from the edges
-		/// </summary>
-		/// <param name="texture">raw rgba8888 pixel data to be modified</param>
-		/// <param name="x">upper left corner of where to insert</param>
-		/// <param name="y">upper left corner of where to insert</param>
-		/// <param name="insert">raw rgba888 pixel data to insert</param>
-		/// <param name="insertWidth">width of insert or 0 to assume square texture</param>
-		/// <param name="width">width of texture or 0 to assume square texture</param>
-		/// <returns>same texture with padded insert drawn</returns>
-		public static byte[] DrawPaddedInsert(this byte[] texture, int x, int y, byte[] insert, int insertWidth = 0, int width = 0)
+		public static byte[] DrawTriangle(this byte[] texture, int color, int x, int y, int triangleWidth, int triangleHeight, int width = 0) => DrawTriangle(texture, (byte)(color >> 24), (byte)(color >> 16), (byte)(color >> 8), (byte)color, x, y, triangleWidth, triangleHeight, width);
+		public static byte[] DrawTriangle(this byte[] texture, byte red, byte green, byte blue, byte alpha, int x, int y, int triangleWidth, int triangleHeight, int width = 0)
 		{
-			int insertX = 0, insertY = 0;
-			if (x < 0)
-			{
-				insertX = -x;
-				insertX <<= 2;
-				x = 0;
-			}
-			if (y < 0)
-			{
-				insertY = -y;
-				y = 0;
-			}
-			int xSide = (width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width) << 2;
-			x <<= 2; // x *= 4;
-			if (x > xSide) return texture;
-			int insertXside = (insertWidth < 1 ? (int)Math.Sqrt(insert.Length >> 2) : insertWidth) << 2,
-				actualInsertXside = (x + insertXside > xSide ? xSide - x : insertXside) - insertX,
+			int textureWidth = width < 1 ? (int)Math.Sqrt(texture.Length >> 2) : width,
+				xSide = textureWidth << 2,
 				ySide = (width < 1 ? xSide : texture.Length / width) >> 2;
-			if (y > ySide) return texture;
-			if (xSide == insertXside && x == 0 && insertX == 0)
-				Array.Copy(insert, insertY * insertXside, texture, y * xSide, Math.Min(insert.Length - insertY * insertXside + insertX, texture.Length - y * xSide));
-			else
-				for (int y1 = y * xSide + x, y2 = insertY * insertXside + insertX; y1 < texture.Length && y2 < insert.Length; y1 += xSide, y2 += insertXside)
-					Array.Copy(insert, y2, texture, y1, actualInsertXside);
-			int insertHeight = insert.Length / insertXside,
-				offset = y > 0 ? (y - 1) * xSide + x : x,
-				stop = Math.Min((y + insertHeight) * xSide + x, texture.Length);
-			if (offset > texture.Length) return texture;
-			if (y > 0)
-				Array.Copy(texture, offset + xSide, texture, offset, Math.Min(insertXside, xSide - x));
-			if (y + insertHeight < ySide)
-				Array.Copy(texture, stop - xSide, texture, stop, Math.Min(insertXside, xSide - x));
-			for (int y1 = Math.Max(x, offset); y1 <= stop; y1 += xSide)
+			if ((x < 0 && x + triangleWidth < 0)
+				|| (x > textureWidth && x + triangleWidth > textureWidth)
+				|| (y < 0 && y + triangleHeight < 0)
+				|| (y > ySide && y + triangleHeight > ySide))
+				return texture; // Triangle is completely outside the texture bounds.
+			int realX = x < 1 ? 0 : Math.Min(xSide, x << 2),
+				realY = y < 1 ? 0 : (Math.Min(y, ySide) * xSide);
+			bool isWide = triangleWidth > 0,
+				isTall = triangleHeight > 0;
+			triangleWidth = Math.Abs(triangleWidth);
+			triangleHeight = Math.Abs(triangleHeight);
+			int triangleWidth4 = triangleWidth << 2;
+			//if (/*(x + triangleWidth) >> 2 > xSide ||*/ y > ySide) throw new NotImplementedException();
+			int offset = realY * xSide + (realX << 2);
+			texture[offset] = red;
+			texture[offset + 1] = green;
+			texture[offset + 2] = blue;
+			texture[offset + 3] = alpha;
+			int xStop, yStop, longest;
+			if (isWide)
 			{
-				if (x > 0)
-					Array.Copy(texture, y1, texture, y1 - 4, 4);
-				if (x + insertXside < xSide)
-					Array.Copy(texture, y1 + insertXside - 4, texture, y1 + insertXside, 4);
+				xStop = Math.Min(Math.Min((realY + 1) * xSide, offset + triangleWidth4), texture.Length - 4);
+				longest = xStop - offset;
+				for (int x1 = offset + 4; x1 < xStop; x1 += 4)
+					Array.Copy(texture, offset, texture, x1, 4);
 			}
+			else
+			{
+				xStop = Math.Max(Math.Max(realY * xSide, offset - triangleWidth4), 0);
+				longest = offset - xStop;
+				for (int x1 = offset - 4; x1 > xStop; x1 -= 4)
+					Array.Copy(texture, offset, texture, x1, 4);
+			}
+			//int yStop = offset - triangleHeight * xSide;
+			//float @float = (float)(triangleWidth - 1) / triangleHeight;
+			//for (int y1 = offset - xSide, y2 = triangleHeight - 1; y1 > 0 && y1 > yStop; y1 -= xSide, y2--)
+			//	Array.Copy(texture, offset, texture, y1, Math.Min(longest, ((int)(@float * y2) + 1) << 2));
 			return texture;
 		}
 		#endregion Drawing
@@ -740,15 +737,10 @@ namespace WOLF3DModel
 		}
 		#endregion Image manipulation
 		#region Utilities
-		public static byte R(this int color) => (byte)(color >> 24);
-		public static byte G(this int color) => (byte)(color >> 16);
-		public static byte B(this int color) => (byte)(color >> 8);
-		public static byte A(this int color) => (byte)color;
-		public static int Color(byte r, byte g, byte b, byte a) => r << 24 | g << 16 | b << 8 | a;
 		/// <summary>
 		/// Compute power of two greater than or equal to `n`
 		/// </summary>
-		public static uint FindNextPowerOf2(uint n)
+		public static uint NextPowerOf2(this uint n)
 		{
 			n--; // decrement `n` (to handle the case when `n` itself is a power of 2)
 				 // set all bits after the last set bit
@@ -759,6 +751,11 @@ namespace WOLF3DModel
 			n |= n >> 16;
 			return ++n; // increment `n` and return
 		}
+		public static byte R(this int color) => (byte)(color >> 24);
+		public static byte G(this int color) => (byte)(color >> 16);
+		public static byte B(this int color) => (byte)(color >> 8);
+		public static byte A(this int color) => (byte)color;
+		public static int Color(byte r, byte g, byte b, byte a) => r << 24 | g << 16 | b << 8 | a;
 		/// <param name="index">Palette indexes (one byte per pixel)</param>
 		/// <param name="palette">256 rgba8888 color values</param>
 		/// <returns>rgba8888 texture (four bytes per pixel)</returns>
