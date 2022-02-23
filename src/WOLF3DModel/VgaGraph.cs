@@ -64,16 +64,11 @@ namespace WOLF3DModel
 					byte[] lineBytes = Line(lines[line]);
 					for (int y = 0; y < Height; y++)
 						Array.Copy(
-							//sourceArray
-							lineBytes,
-							//sourceIndex
-							y * lineWidth * 4,
-							//destinationArray
-							bytes,
-							//destinationIndex
-							(lineStart + y) * width * 4,
-							//length
-							lineWidth * 4
+							sourceArray: lineBytes,
+							sourceIndex: y * lineWidth * 4,
+							destinationArray: bytes,
+							destinationIndex: (lineStart + y) * width * 4,
+							length: lineWidth * 4
 							);
 				}
 				return bytes;
@@ -93,16 +88,11 @@ namespace WOLF3DModel
 					//        bytes[y * width + rowStart + x] = Character[c][y * Width[c] * 4 + x];
 					for (int y = 0; y < Height; y++)
 						Array.Copy(
-							//sourceArray
-							Character[c],
-							//sourceIndex
-							y * Width[c] * 4,
-							//destinationArray
-							bytes,
-							//destinationIndex
-							y * width + rowStart,
-							//length
-							Width[c] * 4
+							sourceArray: Character[c],
+							sourceIndex: y * Width[c] * 4,
+							destinationArray: bytes,
+							destinationIndex: y * width + rowStart,
+							length: Width[c] * 4
 							);
 					rowStart += Width[c] * 4;
 				}

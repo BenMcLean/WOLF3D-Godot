@@ -160,7 +160,18 @@ namespace WOLF3D.WOLF3DGame.Action
 					exclude.Clear();
 					while (true)
 					{ // Shooting while loop
-						Godot.Collections.Dictionary ray = GetWorld().DirectSpaceState.IntersectRay(
+						PhysicsDirectSpaceState physicsDirectSpaceState = GetWorld().DirectSpaceState;
+						/*
+						bool CanShoot(Godot.Collections.Array point)
+						{
+
+						}
+						if (!CanShoot(physicsDirectSpaceState.IntersectPoint(controller.GlobalTransform.origin, 32, exclude)))
+						{
+
+						}
+						*/
+						Godot.Collections.Dictionary ray = physicsDirectSpaceState.IntersectRay(
 								controller.GlobalTransform.origin,
 								controller.GlobalTransform.origin + ARVRControllerDirection(controller.GlobalTransform.basis) * Assets.ShotRange,
 								exclude
