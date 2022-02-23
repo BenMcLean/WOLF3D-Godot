@@ -41,15 +41,13 @@ namespace WOLF3DTest
 		public bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VSwap vSwap, VgaGraph? vgaGraph = null)
 		{
 			texture = null;
-			width = 0;
-			height = 0;
+			width = height = 0;
 			if (id < vSwap.SoundPage)
 			{
 				if (vSwap.Pages[id] == null)
 					return false;
 				texture = vSwap.Pages[id];
-				width = vSwap.TileSqrt;
-				height = vSwap.TileSqrt;
+				width = height = vSwap.TileSqrt;
 				return true;
 			}
 			if (!(vgaGraph is VgaGraph v))
