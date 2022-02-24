@@ -167,6 +167,7 @@ namespace WOLF3D.WOLF3DGame
 					VSwap = VSwap.Load(folder, XML);
 				else
 					SetPalettes(VSwap.LoadPalettes(xml).ToArray());
+				PackAtlas(VgaGraph, VSwap);
 				if (XML.Element("Maps") != null)
 					Maps = GameMap.Load(folder, XML);
 				Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
@@ -405,6 +406,45 @@ namespace WOLF3D.WOLF3DGame
 				if (TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
 					bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, texture, width, atlasSize)
 						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
+			AtlasImage = new Image();
+			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Image.Format.Rgba8, bin);
+			AtlasImageTexture = new ImageTexture();
+			uint textureFlags = (uint)(
+				Texture.FlagsEnum.ConvertToLinear |
+				Texture.FlagsEnum.AnisotropicFilter |
+				Texture.FlagsEnum.Repeat
+			);
+			if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
+				textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
+			AtlasImageTexture.CreateFromImage(AtlasImage, textureFlags);
+			if (vSwap is VSwap vs)
+			{
+				VSwapAtlasTextures = new AtlasTexture[vs.SoundPage];
+				VSwapMaterials = new SpatialMaterial[VSwapAtlasTextures.Length];
+				for (int i = 0; i < VSwapAtlasTextures.Length; i++)
+					if (VSwap.Pages[i] != null)
+					{
+						VSwapMaterials[i] = new SpatialMaterial()
+						{
+							AlbedoTexture = VSwapAtlasTextures[i] = new AtlasTexture()
+							{
+								Atlas = AtlasImageTexture,
+								Region = new Rect2(rectangles[i].X + 1, rectangles[i].Y + 1, rectangles[i].Width - 2, rectangles[i].Height - 2),
+								Margin = new Rect2(rectangles[i].X, rectangles[i].Y, rectangles[i].Width, rectangles[i].Height),
+							},
+							FlagsUnshaded = true,
+							FlagsDoNotReceiveShadows = true,
+							FlagsDisableAmbientLight = true,
+							FlagsTransparent = i >= vs.SpritePage,
+							ParamsUseAlphaScissor = true,
+							ParamsAlphaScissorThreshold = 0.5f,
+							ParamsCullMode = i >= vs.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
+							ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+							AnisotropyEnabled = true,
+							RenderPriority = 1,
+						};
+					}
+			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null)
 		{
@@ -456,6 +496,10 @@ namespace WOLF3D.WOLF3DGame
 					id -= font.Character.Length;
 			return false;
 		}
+		public static Image AtlasImage;
+		public static ImageTexture AtlasImageTexture;
+		public static AtlasTexture[] VSwapAtlasTextures;
+		public static AtlasTexture[] VgaGraphAtlasTextures;
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
 		public static ImageTexture[] PicTextures;
