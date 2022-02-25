@@ -35,7 +35,7 @@ namespace WOLF3D.WOLF3DGame
 				Empty = Assets.PicTexture(empty);
 			if (Empty != null || Have != null)
 			{
-				ImageTexture size = Empty ?? Have;
+				AtlasTexture size = Empty ?? Have;
 				Item = new Sprite()
 				{
 					Name = "Item",
@@ -61,8 +61,8 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private Sprite item = null;
-		public ImageTexture Have { get; set; } = null;
-		public ImageTexture Empty { get; set; } = null;
+		public AtlasTexture Have { get; set; } = null;
+		public AtlasTexture Empty { get; set; } = null;
 		public StatusNumber(uint digits = 0)
 		{
 			Name = "StatusNumber";

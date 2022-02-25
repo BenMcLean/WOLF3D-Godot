@@ -25,27 +25,27 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ControllerId = 2,
 			});
-			if (Assets.LoadingPic is ImageTexture pic && pic != null)
-			{
-				ARVRCamera.AddChild(new MeshInstance()
-				{
-					Mesh = new QuadMesh()
-					{
-						Size = new Vector2(pic.GetWidth() * Assets.PixelWidth, pic.GetHeight() * Assets.PixelHeight),
-					},
-					MaterialOverride = new SpatialMaterial()
-					{
-						AlbedoTexture = pic,
-						FlagsUnshaded = true,
-						FlagsDoNotReceiveShadows = true,
-						FlagsDisableAmbientLight = true,
-						FlagsTransparent = false,
-						ParamsCullMode = SpatialMaterial.CullMode.Back,
-						ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-					},
-					Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
-				});
-			}
+			//if (Assets.LoadingPic is AtlasTexture pic && pic != null)
+			//{
+			//	ARVRCamera.AddChild(new MeshInstance()
+			//	{
+			//		Mesh = new QuadMesh()
+			//		{
+			//			Size = new Vector2(pic.GetWidth() * Assets.PixelWidth, pic.GetHeight() * Assets.PixelHeight),
+			//		},
+			//		MaterialOverride = new SpatialMaterial()
+			//		{
+			//			AlbedoTexture = pic,
+			//			FlagsUnshaded = true,
+			//			FlagsDoNotReceiveShadows = true,
+			//			FlagsDisableAmbientLight = true,
+			//			FlagsTransparent = false,
+			//			ParamsCullMode = SpatialMaterial.CullMode.Back,
+			//			ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
+			//		},
+			//		Transform = new Transform(Basis.Identity, Vector3.Forward * pic.GetWidth() * Assets.PixelWidth),
+			//	});
+			//}
 		}
 		public LoadingRoom(GameMap map) : this()
 		{

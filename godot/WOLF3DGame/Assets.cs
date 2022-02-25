@@ -134,7 +134,7 @@ namespace WOLF3D.WOLF3DGame
 			Palettes = null;
 			VSwapTextures = null;
 			VSwapMaterials = null;
-			PicTextures = null;
+			VgaGraphTextures = null;
 			DigiSounds = null;
 			StatusBarBlank = null;
 			StatusBarDigits = null;
@@ -160,7 +160,10 @@ namespace WOLF3D.WOLF3DGame
 			if (XML.Element("VgaGraph") != null)
 				VgaGraph = VgaGraph.Load(folder, XML);
 			if (limitedLoad)
+			{
 				SetPalettes(VSwap.LoadPalettes(xml).ToArray());
+				PackAtlas(VgaGraph, null);
+			}
 			else
 			{
 				if (XML.Element("VSwap") != null)
@@ -319,80 +322,80 @@ namespace WOLF3D.WOLF3DGame
 			set
 			{
 				vgaGraph = value;
-				PicTextures = new ImageTexture[VgaGraph.Pics.Length];
-				for (uint i = 0; i < PicTextures.Length; i++)
-					if (VgaGraph.Pics[i] != null)
-					{
-						Godot.Image image = new Image();
-						image.CreateFromData(VgaGraph.Sizes[i][0], VgaGraph.Sizes[i][1], false, Image.Format.Rgba8, VgaGraph.Pics[i]);
-						PicTextures[i] = new ImageTexture();
-						PicTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
-					}
-				if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
-				{
-					StatusBarDigits = new ImageTexture[10];
-					for (int x = 0; x < StatusBarDigits.Length; x++)
-						StatusBarDigits[x] = PicTextureSafe(
-							statusBar.Attribute("NumberPrefix")?.Value +
-							x.ToString() +
-							statusBar.Attribute("NumberSuffix")?.Value
-							);
-					StatusBarBlank = statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank) ?
-						PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
-						: StatusBarDigits[0];
-				}
-				if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("BitmapFonts")?.Value, out ushort bitmaps))
-				{
-					BitmapFonts = new BitmapFont[bitmaps];
-					for (ushort i = 0; i < bitmaps; i++)
-					{
-						BitmapFonts[i] = new BitmapFont();
-						ushort letters = 0;
-						foreach (XElement letter in XML?.Element("VgaGraph")?.Elements("Pic").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort number) && number == i) ?? Enumerable.Empty<XElement>())
-						{
-							ImageTexture texture = PicTextures[(uint)letter.Attribute("Number")];
-							BitmapFonts[i].AddTexture(texture);
-							BitmapFonts[i].AddChar(
-								letter.Attribute("Character").Value[0],
-								letters++,
-								new Rect2()
-								{
-									Size = texture.GetSize(),
-								}
-							);
-						}
-						if (XML?.Element("VgaGraph")?.Elements("Space").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort spaceFont) && spaceFont == i).FirstOrDefault() is XElement space)
-						{
-							uint width = (uint)space.Attribute("Width"),
-								height = (uint)space.Attribute("Height");
-							byte[] bytes = new byte[width * height * 4];
-							if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palettes[0].Length)
-							{
-								byte[] color = new byte[] {
-									(byte)(VgaGraph.Palettes[0][index] >> 24),
-									(byte)(VgaGraph.Palettes[0][index] >> 16),
-									(byte)(VgaGraph.Palettes[0][index] >> 8),
-									(byte)VgaGraph.Palettes[0][index]
-								};
-								for (uint x = 0; x < bytes.Length; x += 4)
-									System.Array.Copy(color, 0, bytes, x, 4);
-							}
-							Godot.Image spaceImage = new Image();
-							spaceImage.CreateFromData((int)width, (int)height, false, Image.Format.Rgba8, bytes);
-							ImageTexture spaceTexture = new ImageTexture();
-							spaceTexture.CreateFromImage(spaceImage, 0);
-							BitmapFonts[i].AddTexture(spaceTexture);
-							BitmapFonts[i].AddChar(
-								' ',
-								letters++,
-								new Rect2()
-								{
-									Size = spaceTexture.GetSize(),
-								}
-							);
-						}
-					}
-				}
+				//VgaGraphTextures = new ImageTexture[VgaGraph.Pics.Length];
+				//for (uint i = 0; i < VgaGraphTextures.Length; i++)
+				//	if (VgaGraph.Pics[i] != null)
+				//	{
+				//		Godot.Image image = new Image();
+				//		image.CreateFromData(VgaGraph.Sizes[i][0], VgaGraph.Sizes[i][1], false, Image.Format.Rgba8, VgaGraph.Pics[i]);
+				//		VgaGraphTextures[i] = new ImageTexture();
+				//		VgaGraphTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
+				//	}
+				//if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
+				//{
+				//	StatusBarDigits = new AtlasTexture[10];
+				//	for (int x = 0; x < StatusBarDigits.Length; x++)
+				//		StatusBarDigits[x] = PicTextureSafe(
+				//			statusBar.Attribute("NumberPrefix")?.Value +
+				//			x.ToString() +
+				//			statusBar.Attribute("NumberSuffix")?.Value
+				//			);
+				//	StatusBarBlank = statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank) ?
+				//		PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
+				//		: StatusBarDigits[0];
+				//}
+				//if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("BitmapFonts")?.Value, out ushort bitmaps))
+				//{
+				//	BitmapFonts = new BitmapFont[bitmaps];
+				//	for (ushort i = 0; i < bitmaps; i++)
+				//	{
+				//		BitmapFonts[i] = new BitmapFont();
+				//		ushort letters = 0;
+				//		foreach (XElement letter in XML?.Element("VgaGraph")?.Elements("Pic").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort number) && number == i) ?? Enumerable.Empty<XElement>())
+				//		{
+				//			AtlasTexture texture = VgaGraphTextures[(uint)letter.Attribute("Number")];
+				//			BitmapFonts[i].AddTexture(texture);
+				//			BitmapFonts[i].AddChar(
+				//				letter.Attribute("Character").Value[0],
+				//				letters++,
+				//				new Rect2()
+				//				{
+				//					Size = texture.GetSize(),
+				//				}
+				//			);
+				//		}
+				//		if (XML?.Element("VgaGraph")?.Elements("Space").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort spaceFont) && spaceFont == i).FirstOrDefault() is XElement space)
+				//		{
+				//			uint width = (uint)space.Attribute("Width"),
+				//				height = (uint)space.Attribute("Height");
+				//			byte[] bytes = new byte[width * height * 4];
+				//			if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palettes[0].Length)
+				//			{
+				//				byte[] color = new byte[] {
+				//					(byte)(VgaGraph.Palettes[0][index] >> 24),
+				//					(byte)(VgaGraph.Palettes[0][index] >> 16),
+				//					(byte)(VgaGraph.Palettes[0][index] >> 8),
+				//					(byte)VgaGraph.Palettes[0][index]
+				//				};
+				//				for (uint x = 0; x < bytes.Length; x += 4)
+				//					System.Array.Copy(color, 0, bytes, x, 4);
+				//			}
+				//			Godot.Image spaceImage = new Image();
+				//			spaceImage.CreateFromData((int)width, (int)height, false, Image.Format.Rgba8, bytes);
+				//			ImageTexture spaceTexture = new ImageTexture();
+				//			spaceTexture.CreateFromImage(spaceImage, 0);
+				//			BitmapFonts[i].AddTexture(spaceTexture);
+				//			BitmapFonts[i].AddChar(
+				//				' ',
+				//				letters++,
+				//				new Rect2()
+				//				{
+				//					Size = spaceTexture.GetSize(),
+				//				}
+				//			);
+				//		}
+				//	}
+				//}
 			}
 		}
 		private static VgaGraph vgaGraph;
@@ -417,33 +420,32 @@ namespace WOLF3D.WOLF3DGame
 			if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
 				textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
 			AtlasImageTexture.CreateFromImage(AtlasImage, textureFlags);
+			int rectIndex = 0;
 			if (vSwap is VSwap vs)
 			{
 				VSwapAtlasTextures = new AtlasTexture[vs.SoundPage];
-				VSwapMaterials = new SpatialMaterial[VSwapAtlasTextures.Length];
 				for (int i = 0; i < VSwapAtlasTextures.Length; i++)
 					if (VSwap.Pages[i] != null)
-					{
-						VSwapMaterials[i] = new SpatialMaterial()
+						VSwapAtlasTextures[i] = new AtlasTexture()
 						{
-							AlbedoTexture = VSwapAtlasTextures[i] = new AtlasTexture()
-							{
-								Atlas = AtlasImageTexture,
-								Region = new Rect2(rectangles[i].X + 1, rectangles[i].Y + 1, rectangles[i].Width - 2, rectangles[i].Height - 2),
-								Margin = new Rect2(rectangles[i].X, rectangles[i].Y, rectangles[i].Width, rectangles[i].Height),
-							},
-							FlagsUnshaded = true,
-							FlagsDoNotReceiveShadows = true,
-							FlagsDisableAmbientLight = true,
-							FlagsTransparent = i >= vs.SpritePage,
-							ParamsUseAlphaScissor = true,
-							ParamsAlphaScissorThreshold = 0.5f,
-							ParamsCullMode = i >= vs.SpritePage ? SpatialMaterial.CullMode.Back : SpatialMaterial.CullMode.Disabled,
-							ParamsSpecularMode = SpatialMaterial.SpecularMode.Disabled,
-							AnisotropyEnabled = true,
-							RenderPriority = 1,
+							Atlas = AtlasImageTexture,
+							Region = new Rect2(rectangles[i].X + 1, rectangles[i].Y + 1, rectangles[i].Width - 2, rectangles[i].Height - 2),
+							Margin = new Rect2(rectangles[i].X, rectangles[i].Y, rectangles[i].Width, rectangles[i].Height),
 						};
-					}
+				rectIndex += vs.SoundPage;
+			}
+			if (vgaGraph is VgaGraph vg)
+			{
+				VgaGraphTextures = new AtlasTexture[vg.Pics.Length];
+				for (int i = 0; i < vg.Pics.Length; i++)
+					if (vg.Pics[i] != null)
+						VgaGraphTextures[i] = new AtlasTexture()
+						{
+							Atlas = AtlasImageTexture,
+							Region = new Rect2(rectangles[rectIndex + i].X + 1, rectangles[rectIndex + i].Y + 1, rectangles[rectIndex + i].Width - 2, rectangles[rectIndex + i].Height - 2),
+							Margin = new Rect2(rectangles[rectIndex + i].X, rectangles[rectIndex + i].Y, rectangles[rectIndex + i].Width, rectangles[rectIndex + i].Height),
+						};
+				rectIndex += vg.Pics.Length;
 			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null)
@@ -499,13 +501,12 @@ namespace WOLF3D.WOLF3DGame
 		public static Image AtlasImage;
 		public static ImageTexture AtlasImageTexture;
 		public static AtlasTexture[] VSwapAtlasTextures;
-		public static AtlasTexture[] VgaGraphAtlasTextures;
+		public static AtlasTexture[] VgaGraphTextures;
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
-		public static ImageTexture[] PicTextures;
 		public static AudioStreamSample[] DigiSounds;
-		public static ImageTexture StatusBarBlank;
-		public static ImageTexture[] StatusBarDigits;
+		public static AtlasTexture StatusBarBlank;
+		public static AtlasTexture[] StatusBarDigits;
 		public static BitmapFont[] BitmapFonts;
 		public static short? Shape(string @string) =>
 			short.TryParse(@string, out short shape) ? shape :
@@ -527,19 +528,19 @@ namespace WOLF3D.WOLF3DGame
 			out uint result) && result < DigiSounds.Length ?
 			DigiSounds[result]
 			: null;
-		public static ImageTexture PicTexture(string name) =>
+		public static AtlasTexture PicTexture(string name) =>
 			PicTextureSafe(name) ?? throw new InvalidDataException("Pic not found: \"" + name + "\"");
-		public static ImageTexture PicTextureSafe(string name) =>
-			uint.TryParse(name, out uint index) && index < PicTextures.Length ?
-			PicTextures[index]
+		public static AtlasTexture PicTextureSafe(string name) =>
+			uint.TryParse(name, out uint index) && index < VgaGraphTextures.Length ?
+			VgaGraphTextures[index]
 			: uint.TryParse((
 			from e in XML?.Element("VgaGraph")?.Elements("Pic") ?? Enumerable.Empty<XElement>()
 			where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
 			select e.Attribute("Number").Value).FirstOrDefault(),
-			out uint result) && result < PicTextures.Length ?
-			PicTextures[result]
+			out uint result) && result < VgaGraphTextures.Length ?
+			VgaGraphTextures[result]
 			: null;
-		public static ImageTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
+		public static AtlasTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
 		public static Adl Sound(string name) => SoundSafe(name) ?? throw new InvalidDataException("Sound not found: \"" + name + "\"");
 		public static Adl SoundSafe(string name) =>
 			uint.TryParse(name, out uint index) && index < AudioT.Sounds.Length ?

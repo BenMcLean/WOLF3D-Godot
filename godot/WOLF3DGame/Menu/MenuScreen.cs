@@ -43,11 +43,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 		}
 		public Color TextColor { get; set; }
 		public Color SelectedColor { get; set; }
-		public ImageTexture[] Cursors { get; set; }
+		public AtlasTexture[] Cursors { get; set; }
 		public int CursorX { get; set; } = 0;
 		public int CursorY { get; set; } = 0;
 		public Sprite Cursor { get; set; }
-		public ImageTexture[] Difficulties { get; set; }
+		public AtlasTexture[] Difficulties { get; set; }
 		public Sprite Difficulty { get; set; }
 		public MenuScreen()
 		{
@@ -76,7 +76,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					AddChild(new PixelRect(e));
 				else if (e.Name.LocalName.Equals("Image", StringComparison.InvariantCultureIgnoreCase))
 				{
-					ImageTexture texture = Assets.PicTexture(e.Attribute("Name").Value);
+					AtlasTexture texture = Assets.PicTexture(e.Attribute("Name").Value);
 					if (e.Attribute("XBanner") != null)
 						AddChild(new Sprite()
 						{
@@ -203,7 +203,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 			if (menu.Element("Cursor") is XElement cursor && cursor != null && Main.InGameMatch(cursor))
 			{
-				List<ImageTexture> cursors = new List<ImageTexture>();
+				List<AtlasTexture> cursors = new List<AtlasTexture>();
 				if (cursor.Attribute("Cursor1") != null)
 					cursors.Add(Assets.PicTexture(cursor.Attribute("Cursor1")?.Value));
 				if (cursor.Attribute("Cursor2") != null)
@@ -222,7 +222,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 			if (menu.Element("Difficulty") is XElement difficulty && difficulty != null && Main.InGameMatch(difficulty))
 			{
-				ImageTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty1").Value);
+				AtlasTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty1").Value);
 				AddChild(Difficulty = new Sprite()
 				{
 					Position = new Vector2(

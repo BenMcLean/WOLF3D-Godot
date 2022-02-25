@@ -18,7 +18,7 @@ namespace WOLF3D.WOLF3DGame
 			RenderTargetClearMode = ClearMode.OnlyNextFrame;
 			RenderTargetVFlip = true;
 			XML = xml.Attribute("XML")?.Value is string a ? XElement.Parse(a) : xml;
-			ImageTexture pic = Assets.PicTextureSafe(XML?.Attribute("Pic")?.Value);
+			AtlasTexture pic = Assets.PicTextureSafe(XML?.Attribute("Pic")?.Value);
 			Size = pic?.GetSize() ?? Vector2.Zero;
 			if (pic != null)
 				AddChild(new Sprite()
