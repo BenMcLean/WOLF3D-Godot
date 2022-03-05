@@ -306,9 +306,9 @@ namespace WOLF3D.WOLF3DGame
 					if (VSwap.DigiSounds[i] != null)
 						DigiSounds[i] = new AudioStreamSample()
 						{
-							ResourceName = (from e in XML?.Element("VSwap")?.Elements("DigiSound") ?? Enumerable.Empty<XElement>()
-											where ushort.TryParse(e.Attribute("Number")?.Value, out ushort result) && result == i
-											select e.Attribute("Name")?.Value).FirstOrDefault(),
+							ResourceName = XML?.Element("VSwap")?.Elements("DigiSound")
+								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort result) && result == i)
+								?.FirstOrDefault()?.Attribute("Name")?.Value,
 							Data = VSwap.DigiSounds[i],
 							Format = AudioStreamSample.FormatEnum.Format8Bits,
 							MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
@@ -446,6 +446,45 @@ namespace WOLF3D.WOLF3DGame
 							Margin = new Rect2(rectangles[rectIndex + i].X, rectangles[rectIndex + i].Y, rectangles[rectIndex + i].Width, rectangles[rectIndex + i].Height),
 						};
 				rectIndex += vg.Pics.Length;
+				BitmapFonts = new BitmapFont[XML?.Element("VgaGraph")?.Elements("Font")?.Count() ?? vg.Fonts.Length];
+				int fontNumber = 0;
+				for (; fontNumber < vg.Fonts.Length; fontNumber++)
+				{
+					VgaGraph.Font font = vg.Fonts[fontNumber];
+					BitmapFonts[fontNumber] = new BitmapFont();
+					BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
+					for (int c = 0; c < font.Character.Length; c++)
+						if (font.Character[c] != null)
+						{
+							Rect2 region = new Rect2(rectangles[rectIndex + c].X + 1, rectangles[rectIndex + c].Y + 1, rectangles[rectIndex + c].Width - 2, rectangles[rectIndex + c].Height - 2);
+							VgaGraphTextures[rectIndex + c] = new AtlasTexture()
+							{
+								Atlas = AtlasImageTexture,
+								Region = region,
+								Margin = new Rect2(rectangles[rectIndex + c].X, rectangles[rectIndex + c].Y, rectangles[rectIndex + c].Width, rectangles[rectIndex + c].Height),
+							};
+							BitmapFonts[fontNumber].AddChar(
+								character: (char)c,
+								texture: 0,
+								rect: region
+								);
+						}
+					rectIndex += font.Character.Length;
+				}
+				for (; fontNumber < BitmapFonts.Length; fontNumber++)
+					if (XML?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort f) && f == fontNumber)?.FirstOrDefault()?.Attribute("Prefix")?.Value is string prefix)
+					{
+						BitmapFonts[fontNumber] = new BitmapFont();
+						BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
+						foreach (XElement pic in XML?.Element("VgaGraph")?.Elements("Pic")?.Where(e => e?.Attribute("Name")?.Value?.StartsWith(prefix) ?? false))
+							if (pic.Attribute("Character")?.Value is string characterString && characterString.Length > 0 && characterString[0] is char c
+								&& ushort.TryParse(pic.Attribute("Number")?.Value, out ushort number) && VgaGraphTextures[number].Region is Rect2 region)
+								BitmapFonts[fontNumber].AddChar(
+									character: c,
+									texture: 0,
+									rect: region
+									);
+					}
 			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null)
