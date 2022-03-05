@@ -399,15 +399,24 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private static VgaGraph vgaGraph;
-		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap)
+		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap, XElement xml)
 		{
-			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap).ToArray();
+			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap, xml).ToArray();
+			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
+				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0);
 			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.TryByBiggerSide);
 			int atlasSize = (int)TextureMethods.NextPowerOf2(bounds.BiggerSide);
 			byte[] bin = new byte[atlasSize * 4 * atlasSize];
 			foreach (PackingRectangle rectangle in rectangles)
-				if (TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
+				if (rectangle.Id < total && TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
 					bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, texture, width, atlasSize)
+						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
+			int spaceNumber = 0;
+			foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space"))
+				if (rectangles[total + spaceNumber++] is PackingRectangle rectangle
+					&& int.TryParse(space.Attribute("Width")?.Value, out int width)
+					&& int.TryParse(space.Attribute("Height")?.Value, out int height))
+					bin.DrawRectangle(0, (int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize) //TODO: fix color
 						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
 			AtlasImage = new Image();
 			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Image.Format.Rgba8, bin);
@@ -416,7 +425,7 @@ namespace WOLF3D.WOLF3DGame
 				Texture.FlagsEnum.ConvertToLinear |
 				Texture.FlagsEnum.AnisotropicFilter |
 				Texture.FlagsEnum.Repeat
-			);
+				);
 			if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
 				textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
 			AtlasImageTexture.CreateFromImage(AtlasImage, textureFlags);
@@ -487,13 +496,16 @@ namespace WOLF3D.WOLF3DGame
 					}
 			}
 		}
-		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null)
+		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null, XElement xml = null)
 		{
 			int total = (vSwap is VSwap vs ? vs.SoundPage : 0)
-				+ (vgaGraph is VgaGraph vg ? vg.Pics.Length + vg.Fonts.Select(f => f.Character.Length).Sum() : 0);
-			for (int i = 0; i < total; i++)
+				+ (vgaGraph is VgaGraph vg ? vg.Pics.Length + vg.Fonts.Select(f => f.Character.Length).Sum() : 0),
+				i = 0;
+			for (; i < total; i++)
 				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
 					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
+			foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space"))
+				yield return new PackingRectangle(0, 0, uint.Parse(space.Attribute("Width").Value) + 2u, uint.Parse(space.Attribute("Height").Value) + 2u, ++i);
 		}
 		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
 		{
