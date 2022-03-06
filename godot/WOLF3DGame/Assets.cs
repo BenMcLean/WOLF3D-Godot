@@ -105,7 +105,7 @@ namespace WOLF3D.WOLF3DGame
 					return Godot.Vector3.Zero;
 			}
 		}
-		public static readonly Color White = Color.Color8(255, 255, 255, 255);
+		public static readonly Godot.Color White = Godot.Color.Color8(255, 255, 255, 255);
 		public static uint GetUInt(string @string)
 		{
 			if (string.IsNullOrWhiteSpace(@string))
@@ -247,12 +247,12 @@ namespace WOLF3D.WOLF3DGame
 		public static Adl ScrollSound { get; set; }
 		public static void SetPalettes(int[][] palettes)
 		{
-			Palettes = new Color[palettes.Length][];
+			Palettes = new Godot.Color[palettes.Length][];
 			for (uint x = 0; x < Palettes.Length; x++)
 			{
-				Palettes[x] = new Color[palettes[x].Length];
+				Palettes[x] = new Godot.Color[palettes[x].Length];
 				for (uint y = 0; y < Palettes[x].Length; y++)
-					Palettes[x][y] = Color.Color8(
+					Palettes[x][y] = Godot.Color.Color8(
 							palettes[x][y].R(),
 							palettes[x][y].G(),
 							palettes[x][y].B(),
@@ -260,7 +260,7 @@ namespace WOLF3D.WOLF3DGame
 						);
 			}
 		}
-		public static Color[][] Palettes;
+		public static Godot.Color[][] Palettes;
 		public static VSwap VSwap
 		{
 			get => vswap;
@@ -282,8 +282,8 @@ namespace WOLF3D.WOLF3DGame
 				for (uint i = 0; i < VSwapTextures.Length; i++)
 					if (VSwap.Pages[i] != null)
 					{
-						Godot.Image image = new Image();
-						image.CreateFromData(side, side, false, Image.Format.Rgba8, VSwap.Pages[i].Upscale(scale, scale));
+						Godot.Image image = new Godot.Image();
+						image.CreateFromData(side, side, false, Godot.Image.Format.Rgba8, VSwap.Pages[i].Upscale(scale, scale));
 						VSwapTextures[i] = new ImageTexture();
 						VSwapTextures[i].CreateFromImage(image, textureFlags);
 						VSwapMaterials[i] = new SpatialMaterial()
@@ -417,8 +417,8 @@ namespace WOLF3D.WOLF3DGame
 				foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
 					if (rectangles[spaceNumber++] is PackingRectangle rectangle)
 						bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color;
-			AtlasImage = new Image();
-			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Image.Format.Rgba8, bin);
+			AtlasImage = new Godot.Image();
+			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
 			uint textureFlags = (uint)(
 				Texture.FlagsEnum.ConvertToLinear |
@@ -549,7 +549,7 @@ namespace WOLF3D.WOLF3DGame
 					id -= font.Character.Length;
 			return false;
 		}
-		public static Image AtlasImage;
+		public static Godot.Image AtlasImage;
 		public static ImageTexture AtlasImageTexture;
 		public static AtlasTexture[] VSwapAtlasTextures;
 		public static AtlasTexture[] VgaGraphTextures;
@@ -606,8 +606,8 @@ namespace WOLF3D.WOLF3DGame
 		public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(Font(font), @string, padding);
 		public static ImageTexture Text(VgaGraph.Font font, string @string = "", ushort padding = 0)
 		{
-			Image image = new Image();
-			image.CreateFromData(font.CalcWidth(@string), font.CalcHeight(@string, padding), false, Image.Format.Rgba8, font.Text(@string, padding));
+			Godot.Image image = new Godot.Image();
+			image.CreateFromData(font.CalcWidth(@string), font.CalcHeight(@string, padding), false, Godot.Image.Format.Rgba8, font.Text(@string, padding));
 			ImageTexture imageTexture = new ImageTexture();
 			imageTexture.CreateFromImage(image, 0);
 			return imageTexture;
