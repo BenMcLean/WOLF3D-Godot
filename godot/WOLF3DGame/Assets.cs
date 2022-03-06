@@ -582,11 +582,12 @@ namespace WOLF3D.WOLF3DGame
 		public static AtlasTexture PicTextureSafe(string name) =>
 			uint.TryParse(name, out uint index) && index < VgaGraphTextures.Length ?
 			VgaGraphTextures[index]
-			: uint.TryParse((
-			from e in XML?.Element("VgaGraph")?.Elements("Pic") ?? Enumerable.Empty<XElement>()
-			where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
-			select e.Attribute("Number").Value).FirstOrDefault(),
-			out uint result) && result < VgaGraphTextures.Length ?
+			: uint.TryParse(
+				XML?.Element("VgaGraph")?.Elements("Pic")
+				?.Where(e => e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false)
+				?.FirstOrDefault()
+				?.Attribute("Number")?.Value,
+				out uint result) && result < VgaGraphTextures.Length ?
 			VgaGraphTextures[result]
 			: null;
 		public static AtlasTexture LoadingPic => PicTexture(XML?.Element("VgaGraph")?.Attribute("LoadingPic")?.Value?.Trim());
