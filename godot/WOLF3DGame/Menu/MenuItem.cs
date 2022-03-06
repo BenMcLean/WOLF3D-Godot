@@ -39,7 +39,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 						name.FirstLine()
 						: value;
 					Label.RectPosition = new Vector2(XPadding + Label.RectSize.x / 2f, Label.RectSize.y / 2f);
-					//Label.ForceUpdateTransform();
 					if (!(PixelRect is PixelRect))
 						Size = Label.RectSize;
 				}
@@ -132,7 +131,15 @@ namespace WOLF3D.WOLF3DGame.Menu
 			XPadding = xPadding;
 			TextColor = byte.TryParse(xml.Attribute("TextColor")?.Value, out byte textColor) ? Assets.Palettes[0][textColor] : defaultTextColor ?? Assets.White;
 			SelectedColor = byte.TryParse(xml.Attribute("SelectedColor")?.Value, out byte selectedColor) ? Assets.Palettes[0][selectedColor] : defaultSelectedColor ?? Assets.White;
-			Label = new Label();
+			Label = new Label()
+			{
+				Theme = new Theme()
+				{
+					DefaultFont = Font,
+				},
+				RectPosition = new Vector2(0, 0),
+			};
+			Label.Set("custom_constants/line_spacing", 0);
 			if (uint.TryParse(xml.Attribute("BoxColor")?.Value, out uint boxColor))
 				PixelRect = new PixelRect()
 				{

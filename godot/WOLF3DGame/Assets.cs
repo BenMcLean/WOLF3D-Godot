@@ -438,7 +438,6 @@ namespace WOLF3D.WOLF3DGame
 						{
 							Atlas = AtlasImageTexture,
 							Region = new Rect2(rectangles[i].X + 1, rectangles[i].Y + 1, rectangles[i].Width - 2, rectangles[i].Height - 2),
-							Margin = new Rect2(rectangles[i].X, rectangles[i].Y, rectangles[i].Width, rectangles[i].Height),
 						};
 				rectIndex += vs.SoundPage;
 			}
@@ -458,7 +457,11 @@ namespace WOLF3D.WOLF3DGame
 				for (; fontNumber < vg.Fonts.Length; fontNumber++)
 				{
 					VgaGraph.Font font = vg.Fonts[fontNumber];
-					BitmapFonts[fontNumber] = new BitmapFont();
+					BitmapFonts[fontNumber] = new BitmapFont()
+					{
+						Height = font.Height,
+						Fallback = null,
+					};
 					BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 					for (int c = 0; c < font.Character.Length; c++)
 						if (font.Character[c] != null && rectangles.Where(r => r.Id == rectIndex + c).FirstOrDefault() is PackingRectangle rectangle)
