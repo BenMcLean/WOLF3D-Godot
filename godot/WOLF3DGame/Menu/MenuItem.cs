@@ -37,7 +37,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 						&& saveGame.Attribute("Name")?.Value is string name) ?
 						name.FirstLine()
 						: value;
-					Label.RectPosition = new Vector2(XPadding + Label.RectSize.x / 2f, Label.RectSize.y / 2f);
 					if (!(PixelRect is PixelRect))
 						Size = Label.RectSize;
 				}
@@ -141,6 +140,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Label = new Label()
 			{
 				Theme = Assets.BitmapFontThemes[int.TryParse(xml.Attribute("Font")?.Value, out int result) ? result : 0],
+				RectPosition = new Vector2(XPadding, 0f),
 			};
 			Label.Set("custom_constants/line_spacing", 0);
 			UpdateText();
