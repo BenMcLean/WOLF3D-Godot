@@ -416,7 +416,7 @@ namespace WOLF3D.WOLF3DGame
 			if (spaceNumber < rectangles.Length)
 				foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
 					if (rectangles[spaceNumber++] is PackingRectangle rectangle)
-						bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color;
+						bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color
 			AtlasImage = new Godot.Image();
 			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
@@ -425,8 +425,8 @@ namespace WOLF3D.WOLF3DGame
 				Texture.FlagsEnum.AnisotropicFilter |
 				Texture.FlagsEnum.Repeat
 				);
-			if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
-				textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
+			//if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
+			//	textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
 			AtlasImageTexture.CreateFromImage(AtlasImage, textureFlags);
 			int rectIndex = 0;
 			if (vSwap is VSwap vs)
@@ -446,12 +446,12 @@ namespace WOLF3D.WOLF3DGame
 			{
 				VgaGraphTextures = new AtlasTexture[vg.Pics.Length];
 				for (int i = 0; i < vg.Pics.Length; i++)
-					if (vg.Pics[i] != null)
+					if (vg.Pics[i] != null && rectangles.Where(r => r.Id == rectIndex + i).FirstOrDefault() is PackingRectangle rectangle)
 						VgaGraphTextures[i] = new AtlasTexture()
 						{
 							Atlas = AtlasImageTexture,
-							Region = new Rect2(rectangles[rectIndex + i].X + 1, rectangles[rectIndex + i].Y + 1, rectangles[rectIndex + i].Width - 2, rectangles[rectIndex + i].Height - 2),
-							Margin = new Rect2(rectangles[rectIndex + i].X, rectangles[rectIndex + i].Y, rectangles[rectIndex + i].Width, rectangles[rectIndex + i].Height),
+							Region = new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2),
+							//Margin = new Rect2(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height),
 						};
 				rectIndex += vg.Pics.Length;
 				BitmapFonts = new BitmapFont[XML?.Element("VgaGraph")?.Elements("Font")?.Count() ?? vg.Fonts.Length];
