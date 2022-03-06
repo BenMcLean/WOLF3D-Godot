@@ -74,7 +74,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				{
 					Yes = new Modal(new Sprite()
 					{
-						Texture = Assets.Text(Assets.ModalFont, "Yes"),
+						Texture = Assets.Text(Assets.VgaGraph.Fonts[0], "Yes"),
 					})
 					{
 						SEColor = SEColor,
@@ -85,7 +85,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					Yes.Position = new Vector2(Size.x / -2 + Yes.Size.x / 2, Size.y / 2 + Yes.Size.y / 2);
 					No = new Modal(new Sprite()
 					{
-						Texture = Assets.Text(Assets.ModalFont, "No"),
+						Texture = Assets.Text(Assets.VgaGraph.Fonts[0], "No"),
 					})
 					{
 						SEColor = SEColor,

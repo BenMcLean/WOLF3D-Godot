@@ -19,7 +19,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Position = OffScreen,
 		};
 		public XElement XML { get; set; }
-		public VgaGraph.Font Font { get; set; }
+		public BitmapFont Font { get; set; }
 		public Modal Modal
 		{
 			get => modal;
@@ -142,8 +142,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					}
 					else
 					{
-						ImageTexture texture = Assets.Text(
-							uint.TryParse(e.Attribute("Font")?.Value, out uint font) ? Assets.Font(font) : Font,
+						ImageTexture texture = Assets.Text(Assets.VgaGraph.Fonts[uint.TryParse(e.Attribute("Font")?.Value, out uint font) ? font : 0],
 							e.Attribute("String").Value,
 							ushort.TryParse(e.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
 							);
@@ -426,7 +425,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			RemoveChild(Crosshairs);
 			Modal = new Modal(new Sprite()
 			{
-				Texture = Assets.Text(Assets.ModalFont, @string, padding),
+				Texture = Assets.Text(Assets.VgaGraph.Fonts[0], @string, padding),
 			})
 			{
 				Position = new Vector2(Width / 2, Height / 2),

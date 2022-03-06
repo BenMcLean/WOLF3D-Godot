@@ -451,7 +451,6 @@ namespace WOLF3D.WOLF3DGame
 						{
 							Atlas = AtlasImageTexture,
 							Region = new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2),
-							//Margin = new Rect2(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height),
 						};
 				rectIndex += vg.Pics.Length;
 				BitmapFonts = new BitmapFont[XML?.Element("VgaGraph")?.Elements("Font")?.Count() ?? vg.Fonts.Length];
@@ -602,8 +601,8 @@ namespace WOLF3D.WOLF3DGame
 			out uint result) && result < AudioT.Sounds.Length ?
 			AudioT.Sounds[result]
 			: null;
-		public static VgaGraph.Font Font(uint font) => VgaGraph.Fonts[Direction8.Modulus((int)font, VgaGraph.Fonts.Length)];
-		public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(Font(font), @string, padding);
+		public static BitmapFont Font(uint font) => BitmapFonts[Direction8.Modulus((int)font, BitmapFonts.Length)];
+		public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(vgaGraph.Fonts[font], @string, padding);
 		public static ImageTexture Text(VgaGraph.Font font, string @string = "", ushort padding = 0)
 		{
 			Godot.Image image = new Godot.Image();
@@ -612,7 +611,7 @@ namespace WOLF3D.WOLF3DGame
 			imageTexture.CreateFromImage(image, 0);
 			return imageTexture;
 		}
-		public static VgaGraph.Font ModalFont =>
+		public static BitmapFont ModalFont =>
 	Font(uint.TryParse(XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0);
 		public static string[] EndStrings;
 		public static MenuScreen Menu(string name) =>
