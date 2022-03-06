@@ -162,7 +162,7 @@ namespace WOLF3D.WOLF3DGame
 			if (limitedLoad)
 			{
 				SetPalettes(VSwap.LoadPalettes(xml).ToArray());
-				PackAtlas(VgaGraph, null);
+				PackAtlas(VgaGraph, null, xml);
 			}
 			else
 			{
@@ -170,7 +170,7 @@ namespace WOLF3D.WOLF3DGame
 					VSwap = VSwap.Load(folder, XML);
 				else
 					SetPalettes(VSwap.LoadPalettes(xml).ToArray());
-				PackAtlas(VgaGraph, VSwap);
+				PackAtlas(VgaGraph, VSwap, xml);
 				if (XML.Element("Maps") != null)
 					Maps = GameMap.Load(folder, XML);
 				Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
@@ -399,7 +399,7 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private static VgaGraph vgaGraph;
-		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap, XElement xml)
+		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap, XElement xml = null)
 		{
 			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap, xml).ToArray();
 			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
@@ -411,13 +411,10 @@ namespace WOLF3D.WOLF3DGame
 				if (rectangle.Id < total && TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
 					bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, texture, width, atlasSize)
 						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
-			int spaceNumber = 0;
+			int spaceNumber = total;
 			foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space"))
-				if (rectangles[total + spaceNumber++] is PackingRectangle rectangle
-					&& int.TryParse(space.Attribute("Width")?.Value, out int width)
-					&& int.TryParse(space.Attribute("Height")?.Value, out int height))
-					bin.DrawRectangle(0, (int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize) //TODO: fix color
-						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
+				if (rectangles[spaceNumber++] is PackingRectangle rectangle)
+					bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color;
 			AtlasImage = new Image();
 			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
@@ -492,6 +489,14 @@ namespace WOLF3D.WOLF3DGame
 									character: c,
 									texture: 0,
 									rect: region
+									);
+						spaceNumber = total;
+						foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space")?.Where(e => e?.Attribute("Name")?.Value?.StartsWith(prefix) ?? false))
+							if (rectangles[spaceNumber++] is PackingRectangle rectangle)
+								BitmapFonts[fontNumber].AddChar(
+									character: space.Attribute("Character")?.Value is string characterString && characterString.Length > 0 ? characterString[0] : ' ',
+									texture: 0,
+									rect: new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2)
 									);
 					}
 			}
