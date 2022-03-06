@@ -136,8 +136,8 @@ namespace WOLF3D.WOLF3DGame
 			VSwapMaterials = null;
 			VgaGraphTextures = null;
 			DigiSounds = null;
-			StatusBarBlank = null;
-			StatusBarDigits = null;
+			//StatusBarBlank = null;
+			//StatusBarDigits = null;
 			BitmapFonts = null;
 			Maps = null;
 			SelectSound = null;
@@ -402,19 +402,21 @@ namespace WOLF3D.WOLF3DGame
 		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap, XElement xml = null)
 		{
 			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap, xml).ToArray();
-			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
-				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0);
 			RectanglePacker.Pack(rectangles, out PackingRectangle bounds, PackingHints.TryByBiggerSide);
 			int atlasSize = (int)TextureMethods.NextPowerOf2(bounds.BiggerSide);
 			byte[] bin = new byte[atlasSize * 4 * atlasSize];
 			foreach (PackingRectangle rectangle in rectangles)
-				if (rectangle.Id < total && TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
+				if (TryTextureFromId(rectangle.Id, out byte[] texture, out int width, out int height, vgaGraph, vSwap))
 					bin.DrawInsert((int)rectangle.X + 1, (int)rectangle.Y + 1, texture, width, atlasSize)
 						.DrawPadding((int)rectangle.X + 1, (int)rectangle.Y + 1, width, height, atlasSize);
-			int spaceNumber = total;
-			foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space"))
-				if (rectangles[spaceNumber++] is PackingRectangle rectangle)
-					bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color;
+			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
+				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0),
+				spaceNumber = 0;
+			for (; spaceNumber < rectangles.Length && rectangles[spaceNumber].Id != total; spaceNumber++) { }
+			if (spaceNumber < rectangles.Length)
+				foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+					if (rectangles[spaceNumber++] is PackingRectangle rectangle)
+						bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color;
 			AtlasImage = new Image();
 			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
@@ -460,11 +462,11 @@ namespace WOLF3D.WOLF3DGame
 					BitmapFonts[fontNumber] = new BitmapFont();
 					BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 					for (int c = 0; c < font.Character.Length; c++)
-						if (font.Character[c] != null)
+						if (font.Character[c] != null && rectangles.Where(r => r.Id == rectIndex + c).FirstOrDefault() is PackingRectangle rectangle)
 							BitmapFonts[fontNumber].AddChar(
 								character: (char)c,
 								texture: 0,
-								rect: new Rect2(rectangles[rectIndex + c].X + 1, rectangles[rectIndex + c].Y + 1, rectangles[rectIndex + c].Width - 2, rectangles[rectIndex + c].Height - 2)
+								rect: new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2)
 								);
 					rectIndex += font.Character.Length;
 				}
@@ -481,14 +483,16 @@ namespace WOLF3D.WOLF3DGame
 									texture: 0,
 									rect: region
 									);
-						spaceNumber = total;
-						foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space")?.Where(e => e?.Attribute("Name")?.Value?.StartsWith(prefix) ?? false))
-							if (rectangles[spaceNumber++] is PackingRectangle rectangle)
-								BitmapFonts[fontNumber].AddChar(
-									character: space.Attribute("Character")?.Value is string characterString && characterString.Length > 0 ? characterString[0] : ' ',
+						foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => e?.Attribute("SpaceColor")?.Value?.StartsWith(prefix) ?? false))
+							if (rectangles.Where(r => r.Id == rectIndex).FirstOrDefault() is PackingRectangle rectangle)
+							{
+								BitmapFonts[int.Parse(font.Attribute("Number").Value)].AddChar(
+									character: ' ',
 									texture: 0,
 									rect: new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2)
 									);
+								rectIndex++;
+							}
 					}
 			}
 		}
@@ -500,8 +504,8 @@ namespace WOLF3D.WOLF3DGame
 			for (; i < total; i++)
 				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
 					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
-			foreach (XElement space in xml?.Element("VgaGraph")?.Elements("Space"))
-				yield return new PackingRectangle(0, 0, uint.Parse(space.Attribute("Width").Value) + 2u, uint.Parse(space.Attribute("Height").Value) + 2u, ++i);
+			foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("SpaceHeight").Value) + 2u, ++i);
 		}
 		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
 		{
@@ -552,8 +556,6 @@ namespace WOLF3D.WOLF3DGame
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
 		public static AudioStreamSample[] DigiSounds;
-		public static AtlasTexture StatusBarBlank;
-		public static AtlasTexture[] StatusBarDigits;
 		public static BitmapFont[] BitmapFonts;
 		public static short? Shape(string @string) =>
 			short.TryParse(@string, out short shape) ? shape :

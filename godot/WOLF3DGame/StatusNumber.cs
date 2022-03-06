@@ -69,22 +69,22 @@ namespace WOLF3D.WOLF3DGame
 			if (digits > 0)
 			{
 				Digits = new Sprite[digits];
-				for (uint i = 0; i < digits; i++)
-					AddChild(Digits[i] = new Sprite()
-					{
-						Name = "Digit " + i,
-						Texture = Assets.StatusBarBlank,
-						Position = new Vector2(
-							Assets.StatusBarBlank.GetSize().x * (0.5f - i),
-							Assets.StatusBarBlank.GetSize().y / 2
-							),
-					});
+				//for (uint i = 0; i < digits; i++)
+				//	AddChild(Digits[i] = new Sprite()
+				//	{
+				//		Name = "Digit " + i,
+				//		Texture = Assets.StatusBarBlank,
+				//		Position = new Vector2(
+				//			Assets.StatusBarBlank.GetSize().x * (0.5f - i),
+				//			Assets.StatusBarBlank.GetSize().y / 2
+				//			),
+				//	});
 			}
 		}
 		public StatusNumber Blank()
 		{
-			for (int i = 0; i < (Digits?.Length ?? 0); i++)
-				Digits[i].Texture = Assets.StatusBarBlank;
+			//for (int i = 0; i < (Digits?.Length ?? 0); i++)
+			//	Digits[i].Texture = Assets.StatusBarBlank;
 			if (Item != null)
 				Item.Texture = Empty;
 			return this;
@@ -100,10 +100,10 @@ namespace WOLF3D.WOLF3DGame
 					if (Item == null)
 					{
 						string s = val.ToString();
-						for (int i = 0; i < (Digits?.Length ?? 0); i++)
-							Digits[i].Texture = i >= s.Length ?
-								Assets.StatusBarBlank
-								: Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
+						//for (int i = 0; i < (Digits?.Length ?? 0); i++)
+						//	Digits[i].Texture = i >= s.Length ?
+						//		Assets.StatusBarBlank
+						//		: Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
 					}
 					else Item.Texture = val > 0 ? Have : Empty;
 			}
