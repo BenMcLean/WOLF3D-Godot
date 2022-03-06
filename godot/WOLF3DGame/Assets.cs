@@ -473,9 +473,13 @@ namespace WOLF3D.WOLF3DGame
 					rectIndex += font.Character.Length;
 				}
 				for (; fontNumber < BitmapFonts.Length; fontNumber++)
-					if (XML?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort f) && f == fontNumber)?.FirstOrDefault()?.Attribute("Prefix")?.Value is string prefix)
+					if (XML?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort f) && f == fontNumber)?.FirstOrDefault() is XElement fontXml
+						&& fontXml.Attribute("Prefix")?.Value is string prefix)
 					{
-						BitmapFonts[fontNumber] = new BitmapFont();
+						BitmapFonts[fontNumber] = new BitmapFont()
+						{
+							Height = int.Parse(fontXml.Attribute("Height")?.Value),
+						};
 						BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 						foreach (XElement pic in XML?.Element("VgaGraph")?.Elements("Pic")?.Where(e => e?.Attribute("Name")?.Value?.StartsWith(prefix) ?? false))
 							if (pic.Attribute("Character")?.Value is string characterString && characterString.Length > 0 && characterString[0] is char c
@@ -496,6 +500,15 @@ namespace WOLF3D.WOLF3DGame
 								rectIndex++;
 							}
 					}
+				if (BitmapFonts.Length > 0)
+				{
+					BitmapFontThemes = new Theme[BitmapFonts.Length];
+					for (int i = 0; i < BitmapFonts.Length; i++)
+						BitmapFontThemes[i] = new Theme()
+						{
+							DefaultFont = BitmapFonts[i],
+						};
+				}
 			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null, XElement xml = null)
@@ -507,7 +520,7 @@ namespace WOLF3D.WOLF3DGame
 				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
 					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
 			foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
-				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("SpaceHeight").Value) + 2u, ++i);
+				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("Height").Value) + 2u, ++i);
 		}
 		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
 		{
@@ -559,6 +572,7 @@ namespace WOLF3D.WOLF3DGame
 		public static SpatialMaterial[] VSwapMaterials;
 		public static AudioStreamSample[] DigiSounds;
 		public static BitmapFont[] BitmapFonts;
+		public static Theme[] BitmapFontThemes;
 		public static short? Shape(string @string) =>
 			short.TryParse(@string, out short shape) ? shape :
 			short.TryParse(XML?.Element("VSwap")?.Element("Sprites")?.Elements("Sprite")

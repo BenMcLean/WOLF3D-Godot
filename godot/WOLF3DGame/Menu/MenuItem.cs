@@ -8,7 +8,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 {
 	public class MenuItem : Target2D
 	{
-		public BitmapFont Font { get; set; }
 		public Label Label
 		{
 			get => label;
@@ -69,7 +68,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			{
 				if (Label is Label)
 				{
-					Label.Modulate = value == null ? Assets.White : (Color)value;
+					Label.Modulate = value ?? Assets.White;
 					if (PixelRect is PixelRect)
 						PixelRect.NWColor = PixelRect.SEColor = Label.Modulate;
 				}
@@ -127,19 +126,9 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			XML = xml;
 			Condition = xml.Attribute("On")?.Value;
-			Font = uint.TryParse(xml.Attribute("Font")?.Value, out uint result) ? Assets.Font(result) : defaultFont ?? Assets.Font(0);
 			XPadding = xPadding;
 			TextColor = byte.TryParse(xml.Attribute("TextColor")?.Value, out byte textColor) ? Assets.Palettes[0][textColor] : defaultTextColor ?? Assets.White;
 			SelectedColor = byte.TryParse(xml.Attribute("SelectedColor")?.Value, out byte selectedColor) ? Assets.Palettes[0][selectedColor] : defaultSelectedColor ?? Assets.White;
-			Label = new Label()
-			{
-				Theme = new Theme()
-				{
-					DefaultFont = Font,
-				},
-				RectPosition = new Vector2(0, 0),
-			};
-			Label.Set("custom_constants/line_spacing", 0);
 			if (uint.TryParse(xml.Attribute("BoxColor")?.Value, out uint boxColor))
 				PixelRect = new PixelRect()
 				{
@@ -149,6 +138,11 @@ namespace WOLF3D.WOLF3DGame.Menu
 					Size = new Vector2((uint)xml.Attribute("BoxWidth"), (uint)xml.Attribute("BoxHeight")),
 					Position = new Vector2(XPadding + (int.TryParse(xml.Attribute("BoxX")?.Value, out int x) ? x : 0f), int.TryParse(xml.Attribute("BoxY")?.Value, out int y) ? y : 0f),
 				};
+			Label = new Label()
+			{
+				Theme = Assets.BitmapFontThemes[int.TryParse(xml.Attribute("Font")?.Value, out int result) ? result : 0],
+			};
+			Label.Set("custom_constants/line_spacing", 0);
 			UpdateText();
 			Color = TextColor;
 			UpdateSelected();

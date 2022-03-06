@@ -4,8 +4,8 @@
 		<Sizes Chunk="0" StartPics="3" StartFont="1" NumFont="2" />
 		<Font Number="0" Chunk="1" Name="SMALL" />
 		<Font Number="1" Chunk="2" Name="BIG" />
-		<Font Number="2" Prefix="L_" SpaceColor="127" SpaceWidth="16" SpaceHeight="16" Name="L" />
-		<Font Number="3" Prefix="N_" Name="N" />
+		<Font Number="2" Prefix="L_" SpaceColor="127" SpaceWidth="16" Height="16" Name="L" />
+		<Font Number="3" Prefix="N_" Height="16" Name="N" />
 		<Pic Number="0" Chunk="3" Name="H_BJPIC" />
 		<Pic Number="1" Chunk="4" Name="H_CASTLEPIC" />
 		<Pic Number="2" Chunk="5" Name="H_KEYBOARDPIC" />
