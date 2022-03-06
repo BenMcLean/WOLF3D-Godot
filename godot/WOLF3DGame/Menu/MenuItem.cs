@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
-using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Menu
 {
@@ -121,7 +120,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				IsSelected = (bool)propertyInfo.GetValue(null, null);
 			return this;
 		}
-		public MenuItem(XElement xml, BitmapFont defaultFont = null, int xPadding = 0, Color? defaultTextColor = null, Color? defaultSelectedColor = null)
+		public MenuItem(XElement xml, Theme theme, int xPadding = 0, Color? defaultTextColor = null, Color? defaultSelectedColor = null)
 		{
 			XML = xml;
 			Condition = xml.Attribute("On")?.Value;
@@ -139,7 +138,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				};
 			Label = new Label()
 			{
-				Theme = Assets.BitmapFontThemes[int.TryParse(xml.Attribute("Font")?.Value, out int result) ? result : 0],
+				Theme = theme,
 				RectPosition = new Vector2(XPadding, 0f),
 			};
 			Label.Set("custom_constants/line_spacing", 0);
@@ -147,10 +146,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Color = TextColor;
 			UpdateSelected();
 		}
-		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, BitmapFont font, Color? TextColor = null, Color? SelectedColor = null)
+		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, Theme theme, Color? TextColor = null, Color? SelectedColor = null)
 		{
 			if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
-				font = Assets.Font(result);
+				theme = Assets.BitmapFontThemes[result];
 			if (byte.TryParse(menuItems.Attribute("TextColor")?.Value, out byte textColor))
 				TextColor = Assets.Palettes[0][textColor];
 			if (byte.TryParse(menuItems.Attribute("SelectedColor")?.Value, out byte selectedColor))
@@ -163,16 +162,16 @@ namespace WOLF3D.WOLF3DGame.Menu
 			foreach (XElement menuItem in menuItems.Elements("MenuItem"))
 				if (Main.InGameMatch(menuItem))
 					yield return new MenuItem(
-						menuItem,
-						uint.TryParse(menuItem.Attribute("Font")?.Value, out result) ? Assets.Font(result) : font,
-						paddingX,
-						TextColor,
-						SelectedColor
+						xml: menuItem,
+						theme: theme,
+						xPadding: paddingX,
+						defaultTextColor: TextColor,
+						defaultSelectedColor: SelectedColor
 						)
 					{
 						Position = new Vector2(
 							startX,
-							startY + count++ * (font.Height + paddingY)
+							startY + count++ * (((BitmapFont)theme.DefaultFont).Height + paddingY)
 							),
 					};
 		}

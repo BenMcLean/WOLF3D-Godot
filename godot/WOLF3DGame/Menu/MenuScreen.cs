@@ -19,7 +19,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Position = OffScreen,
 		};
 		public XElement XML { get; set; }
-		public BitmapFont Font { get; set; }
+		public Theme Theme { get; set; }
 		public Modal Modal
 		{
 			get => modal;
@@ -66,7 +66,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
 			XML = menu;
-			Font = Assets.Font(uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0);
+			Theme = Assets.BitmapFontThemes[uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0];
 			if (byte.TryParse(menu.Attribute("BkgdColor")?.Value, out byte bkgdColor))
 				Color = Assets.Palettes[0][bkgdColor];
 			TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : Assets.White;
@@ -167,7 +167,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 				}
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
 				if (Main.InGameMatch(menuItems))
-					foreach (MenuItem item in MenuItem.MenuItems(menuItems, Font, TextColor, SelectedColor))
+					foreach (MenuItem item in MenuItem.MenuItems(menuItems, Theme, TextColor, SelectedColor))
 					{
 						MenuItems.Add(item);
 						AddChild(item);

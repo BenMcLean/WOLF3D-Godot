@@ -132,13 +132,14 @@ namespace WOLF3D.WOLF3DGame
 		{
 			XML = null;
 			Palettes = null;
+			AtlasImage = null;
+			AtlasImageTexture = null;
 			VSwapTextures = null;
 			VSwapMaterials = null;
 			VgaGraphTextures = null;
 			DigiSounds = null;
-			//StatusBarBlank = null;
-			//StatusBarDigits = null;
 			BitmapFonts = null;
+			BitmapFontThemes = null;
 			Maps = null;
 			SelectSound = null;
 			ScrollSound = null;
@@ -316,89 +317,7 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private static VSwap vswap;
-		public static VgaGraph VgaGraph
-		{
-			get => vgaGraph;
-			set
-			{
-				vgaGraph = value;
-				//VgaGraphTextures = new ImageTexture[VgaGraph.Pics.Length];
-				//for (uint i = 0; i < VgaGraphTextures.Length; i++)
-				//	if (VgaGraph.Pics[i] != null)
-				//	{
-				//		Godot.Image image = new Image();
-				//		image.CreateFromData(VgaGraph.Sizes[i][0], VgaGraph.Sizes[i][1], false, Image.Format.Rgba8, VgaGraph.Pics[i]);
-				//		VgaGraphTextures[i] = new ImageTexture();
-				//		VgaGraphTextures[i].CreateFromImage(image, 0); //(int)Texture.FlagsEnum.ConvertToLinear);
-				//	}
-				//if (XML?.Element("VgaGraph")?.Element("StatusBar") is XElement statusBar && statusBar != null)
-				//{
-				//	StatusBarDigits = new AtlasTexture[10];
-				//	for (int x = 0; x < StatusBarDigits.Length; x++)
-				//		StatusBarDigits[x] = PicTextureSafe(
-				//			statusBar.Attribute("NumberPrefix")?.Value +
-				//			x.ToString() +
-				//			statusBar.Attribute("NumberSuffix")?.Value
-				//			);
-				//	StatusBarBlank = statusBar.Attribute("NumberBlank")?.Value is string numberBlank && !string.IsNullOrWhiteSpace(numberBlank) ?
-				//		PicTextureSafe(numberBlank) ?? StatusBarDigits[0]
-				//		: StatusBarDigits[0];
-				//}
-				//if (ushort.TryParse(XML?.Element("VgaGraph")?.Element("Sizes")?.Attribute("BitmapFonts")?.Value, out ushort bitmaps))
-				//{
-				//	BitmapFonts = new BitmapFont[bitmaps];
-				//	for (ushort i = 0; i < bitmaps; i++)
-				//	{
-				//		BitmapFonts[i] = new BitmapFont();
-				//		ushort letters = 0;
-				//		foreach (XElement letter in XML?.Element("VgaGraph")?.Elements("Pic").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort number) && number == i) ?? Enumerable.Empty<XElement>())
-				//		{
-				//			AtlasTexture texture = VgaGraphTextures[(uint)letter.Attribute("Number")];
-				//			BitmapFonts[i].AddTexture(texture);
-				//			BitmapFonts[i].AddChar(
-				//				letter.Attribute("Character").Value[0],
-				//				letters++,
-				//				new Rect2()
-				//				{
-				//					Size = texture.GetSize(),
-				//				}
-				//			);
-				//		}
-				//		if (XML?.Element("VgaGraph")?.Elements("Space").Where(e => ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort spaceFont) && spaceFont == i).FirstOrDefault() is XElement space)
-				//		{
-				//			uint width = (uint)space.Attribute("Width"),
-				//				height = (uint)space.Attribute("Height");
-				//			byte[] bytes = new byte[width * height * 4];
-				//			if (ushort.TryParse(space.Attribute("Color")?.Value, out ushort index) && index < VgaGraph.Palettes[0].Length)
-				//			{
-				//				byte[] color = new byte[] {
-				//					(byte)(VgaGraph.Palettes[0][index] >> 24),
-				//					(byte)(VgaGraph.Palettes[0][index] >> 16),
-				//					(byte)(VgaGraph.Palettes[0][index] >> 8),
-				//					(byte)VgaGraph.Palettes[0][index]
-				//				};
-				//				for (uint x = 0; x < bytes.Length; x += 4)
-				//					System.Array.Copy(color, 0, bytes, x, 4);
-				//			}
-				//			Godot.Image spaceImage = new Image();
-				//			spaceImage.CreateFromData((int)width, (int)height, false, Image.Format.Rgba8, bytes);
-				//			ImageTexture spaceTexture = new ImageTexture();
-				//			spaceTexture.CreateFromImage(spaceImage, 0);
-				//			BitmapFonts[i].AddTexture(spaceTexture);
-				//			BitmapFonts[i].AddChar(
-				//				' ',
-				//				letters++,
-				//				new Rect2()
-				//				{
-				//					Size = spaceTexture.GetSize(),
-				//				}
-				//			);
-				//		}
-				//	}
-				//}
-			}
-		}
-		private static VgaGraph vgaGraph;
+		public static VgaGraph VgaGraph { get; set; }
 		public static void PackAtlas(VgaGraph? vgaGraph, VSwap? vSwap, XElement xml = null)
 		{
 			PackingRectangle[] rectangles = PackingRectangles(vgaGraph, vSwap, xml).ToArray();
@@ -618,8 +537,6 @@ namespace WOLF3D.WOLF3DGame
 			out uint result) && result < AudioT.Sounds.Length ?
 			AudioT.Sounds[result]
 			: null;
-		public static BitmapFont Font(uint font) => BitmapFonts[Direction8.Modulus((int)font, BitmapFonts.Length)];
-		public static ImageTexture Text(string @string, uint font = 0, ushort padding = 0) => Text(vgaGraph.Fonts[font], @string, padding);
 		public static ImageTexture Text(VgaGraph.Font font, string @string = "", ushort padding = 0)
 		{
 			Godot.Image image = new Godot.Image();
@@ -628,8 +545,6 @@ namespace WOLF3D.WOLF3DGame
 			imageTexture.CreateFromImage(image, 0);
 			return imageTexture;
 		}
-		public static BitmapFont ModalFont =>
-	Font(uint.TryParse(XML?.Element("VgaGraph")?.Element("Menus")?.Attribute("Font")?.Value, out uint font) ? font : 0);
 		public static string[] EndStrings;
 		public static MenuScreen Menu(string name) =>
 			XML?.Element("VgaGraph")?.Element("Menus")?.Elements("Menu")
