@@ -461,20 +461,11 @@ namespace WOLF3D.WOLF3DGame
 					BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 					for (int c = 0; c < font.Character.Length; c++)
 						if (font.Character[c] != null)
-						{
-							Rect2 region = new Rect2(rectangles[rectIndex + c].X + 1, rectangles[rectIndex + c].Y + 1, rectangles[rectIndex + c].Width - 2, rectangles[rectIndex + c].Height - 2);
-							VgaGraphTextures[rectIndex + c] = new AtlasTexture()
-							{
-								Atlas = AtlasImageTexture,
-								Region = region,
-								Margin = new Rect2(rectangles[rectIndex + c].X, rectangles[rectIndex + c].Y, rectangles[rectIndex + c].Width, rectangles[rectIndex + c].Height),
-							};
 							BitmapFonts[fontNumber].AddChar(
 								character: (char)c,
 								texture: 0,
-								rect: region
+								rect: new Rect2(rectangles[rectIndex + c].X + 1, rectangles[rectIndex + c].Y + 1, rectangles[rectIndex + c].Width - 2, rectangles[rectIndex + c].Height - 2)
 								);
-						}
 					rectIndex += font.Character.Length;
 				}
 				for (; fontNumber < BitmapFonts.Length; fontNumber++)
