@@ -142,6 +142,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					}
 					else
 					{
+						// TODO: Replace rendering text as an ImageTexture with using a BitmapFont instead
 						ImageTexture texture = Assets.Text(Assets.VgaGraph.Fonts[uint.TryParse(e.Attribute("Font")?.Value, out uint font) ? font : 0],
 							e.Attribute("String").Value,
 							ushort.TryParse(e.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
