@@ -125,47 +125,17 @@ namespace WOLF3D.WOLF3DGame.Menu
 					}
 				}
 				else if (e.Name.LocalName.Equals("Text", StringComparison.InvariantCultureIgnoreCase))
-				{
-					if (ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort fontNumber))
+					AddChild(new Label()
 					{
-						Label label = new Label()
-						{
-							Name = "Text",
-							Text = e.Attribute("String").Value,
-							RectPosition = new Vector2(
-								uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
-								uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
-								),
-						};
-						label.AddFontOverride("font", Assets.BitmapFonts[fontNumber]);
-						AddChild(label);
-					}
-					else
-					{
-						// TODO: Replace rendering text as an ImageTexture with using a BitmapFont instead
-						ImageTexture texture = Assets.Text(Assets.VgaGraph.Fonts[uint.TryParse(e.Attribute("Font")?.Value, out uint font) ? font : 0],
-							e.Attribute("String").Value,
-							ushort.TryParse(e.Attribute("Padding")?.Value, out ushort padding) ? padding : (ushort)0
-							);
-						AddChild(new Sprite()
-						{
-							Texture = texture,
-							Position = new Vector2(
-											e.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-											Width / 2
-											: ((uint.TryParse(e.Attribute("X")?.Value, out uint x) ?
-											x
-											: 0) + texture.GetWidth() / 2),
-											e.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-											Height / 2
-											: ((uint.TryParse(e.Attribute("Y")?.Value, out uint y) ?
-											y
-											: 0) + texture.GetHeight() / 2)
-											),
-							Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
-						});
-					}
-				}
+						Name = "Label " + e.Attribute("String").Value,
+						Text = e.Attribute("String").Value,
+						RectPosition = new Vector2(
+							uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
+							uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
+							), // TODO: Add feature to horizontally center the text
+						Theme = Assets.BitmapFontThemes[ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort fontNumber) ? fontNumber : 0],
+						Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
+					});
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
 				if (Main.InGameMatch(menuItems))
 					foreach (MenuItem item in MenuItem.MenuItems(menuItems, Theme, TextColor, SelectedColor))
