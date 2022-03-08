@@ -47,8 +47,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 					FinalValue = (uint)((double)(total - Main.ActionRoom.Level.GetChildren().Cast<Node>().Where(node => node is Pickup pickup && pickup.Treasure).Count()) / total * 100d);
 					break;
 			}
-			if (uint.TryParse(xml?.Attribute("BitmapFont")?.Value, out uint bitmapFont))
-				AddFontOverride("font", Assets.BitmapFonts[bitmapFont]);
+			if (uint.TryParse(xml?.Attribute("Font")?.Value, out uint bitmapFont))
+				Theme = Assets.BitmapFontThemes[bitmapFont];
 			if (uint.TryParse(xml?.Attribute("Digits")?.Value, out uint digits))
 				Digits = digits;
 			Visible = !XML.IsFalse("Visible");

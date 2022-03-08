@@ -133,7 +133,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 							uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
 							uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
 							), // TODO: Add feature to horizontally center the text
-						Theme = Assets.BitmapFontThemes[ushort.TryParse(e.Attribute("BitmapFont")?.Value, out ushort fontNumber) ? fontNumber : 0],
+						Theme = Assets.BitmapFontThemes[ushort.TryParse(e.Attribute("Font")?.Value, out ushort fontNumber) ? fontNumber : 0],
 						Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
 					});
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())

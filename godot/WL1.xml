@@ -831,24 +831,24 @@
 			</Menu>
 			<Menu Name="FloorComplete" Song="ENDLEVEL_MUS" BkgdColor="127">
 				<Image Name="L_GUYPIC" X="0" Y="16" />
-				<Text String="FLOOR" BitmapFont="L" X="112" Y="16" />
-				<Text String="1" BitmapFont="L" X="208" Y="16" />
-				<Text String="COMPLETE" BitmapFont="L" X="112" Y="32" />
-				<Text String="BONUS" BitmapFont="L" X="112" Y="56" />
-				<!--<Counter Name="Bonus" Digits="5" BitmapFont="L" X="208" Y="56" />-->
-				<Text String=" TIME" BitmapFont="L" X="112" Y="80" />
-				<Timer Name="TIME" BitmapFont="L" X="208" Y="80" />
-				<Text String="  PAR" BitmapFont="L" X="112" Y="96" />
-				<Timer Name="PAR" BitmapFont="L" X="208" Y="96" />
-				<Text String="    KILL RATIO" BitmapFont="L" X="8" Y="112" />
-				<Counter Name="Kill" Digits="3" BitmapFont="L" X="248" Y="112" />
-				<Text String="%" BitmapFont="L" X="296" Y="112" />
-				<Text String="  SECRET RATIO" BitmapFont="L" X="8" Y="128" />
-				<Counter Name="Secret" Digits="3" BitmapFont="L" X="248" Y="128" />
-				<Text String="%" BitmapFont="L" X="296" Y="128" />
-				<Text String="TREASURE RATIO" BitmapFont="L" X="8" Y="144" />
-				<Counter Name="Treasure" Digits="3" BitmapFont="L" X="248" Y="144" />
-				<Text String="%" BitmapFont="L" X="296" Y="144" />
+				<Text String="FLOOR" Font="2" X="112" Y="16" />
+				<Text String="1" Font="2" X="208" Y="16" />
+				<Text String="COMPLETE" Font="2" X="112" Y="32" />
+				<Text String="BONUS" Font="2" X="112" Y="56" />
+				<!--<Counter Name="Bonus" Digits="5" Font="2" X="208" Y="56" />-->
+				<Text String=" TIME" Font="2" X="112" Y="80" />
+				<Timer Name="TIME" Font="2" X="208" Y="80" />
+				<Text String="  PAR" Font="2" X="112" Y="96" />
+				<Timer Name="PAR" Font="2" X="208" Y="96" />
+				<Text String="    KILL RATIO" Font="2" X="8" Y="112" />
+				<Counter Name="Kill" Digits="3" Font="2" X="248" Y="112" />
+				<Text String="%" Font="2" X="296" Y="112" />
+				<Text String="  SECRET RATIO" Font="2" X="8" Y="128" />
+				<Counter Name="Secret" Digits="3" Font="2" X="248" Y="128" />
+				<Text String="%" Font="2" X="296" Y="128" />
+				<Text String="TREASURE RATIO" Font="2" X="8" Y="144" />
+				<Counter Name="Treasure" Digits="3" Font="2" X="248" Y="144" />
+				<Text String="%" Font="2" X="296" Y="144" />
 				<StatusBar X="0" Y="160" />
 				<MenuItems>
 					<MenuItem Action="NextFloor" />
