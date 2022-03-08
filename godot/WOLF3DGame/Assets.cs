@@ -584,16 +584,7 @@ namespace WOLF3D.WOLF3DGame
 		public static IEnumerable<XElement> PushWall =>
 	XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
 		public static uint CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
-		public static uint CountPushWalls(ushort[] ObjectData)
-		{
-			uint found = 0;
-			foreach (XElement pushwall in PushWall ?? Enumerable.Empty<XElement>())
-				if (ushort.TryParse(pushwall.Attribute("Number")?.Value, out ushort number))
-					foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
-						if (number == square)
-							found++;
-			return found;
-		}
+		public static uint CountPushWalls(ushort[] ObjectData) => (uint)PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
 		public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 		public readonly static Dictionary<string, State> States = new Dictionary<string, State>();

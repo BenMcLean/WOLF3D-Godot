@@ -856,7 +856,7 @@
 				<Cancel Action="NextFloor" />
 			</Menu>
 		</Menus>
-		<StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
+		<StatusBar Pic="STATUSBARPIC" Font="3" >
 			<Number Name="Difficulty" Init="1" />
 			<Number Name="Episode" Init="1" />
 			<Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
