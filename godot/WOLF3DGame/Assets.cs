@@ -531,9 +531,9 @@ namespace WOLF3D.WOLF3DGame
 			uint.TryParse(name, out uint index) && index < AudioT.Sounds.Length ?
 			AudioT.Sounds[index]
 			: uint.TryParse((
-			from e in XML?.Element("Audio")?.Elements("Sound") ?? Enumerable.Empty<XElement>()
-			where e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false
-			select e.Attribute("Number")?.Value).FirstOrDefault(),
+			XML?.Element("Audio")?.Elements("Sound")
+				.Where(e => e.Attribute("Name")?.Value?.Equals(name, System.StringComparison.InvariantCultureIgnoreCase) ?? false).FirstOrDefault()
+				?.Attribute("Number")?.Value),
 			out uint result) && result < AudioT.Sounds.Length ?
 			AudioT.Sounds[result]
 			: null;
@@ -559,8 +559,7 @@ namespace WOLF3D.WOLF3DGame
 			XML?.Element("VSwap")?.Element("Objects")?.Elements("Pickup")?.Where(e => e.IsTrue("Treasure"));
 		public static int Treasure(GameMap map) => Treasure(map.ObjectData);
 		public static int Treasure(ushort[] ObjectData) => Treasures.Select(treasure => ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
-		public static IEnumerable<XElement> Spawn =>
-			XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
+		public static IEnumerable<XElement> Spawn => XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
 		public static int Spawns(GameMap map) => Spawns(map.ObjectData);
 		public static int Spawns(ushort[] ObjectData) => Spawn.Select(spawn => ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static IEnumerable<XElement> PushWall =>
