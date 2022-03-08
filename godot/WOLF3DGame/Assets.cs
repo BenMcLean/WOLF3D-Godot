@@ -561,17 +561,8 @@ namespace WOLF3D.WOLF3DGame
 		public static int Treasure(ushort[] ObjectData) => Treasures.Select(treasure => ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static IEnumerable<XElement> Spawn =>
 			XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
-		public static uint Spawns(GameMap map) => Spawns(map.ObjectData);
-		public static uint Spawns(ushort[] ObjectData)
-		{
-			uint found = 0;
-			foreach (XElement spawn in Spawn ?? Enumerable.Empty<XElement>())
-				if (ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number))
-					foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
-						if (number == square)
-							found++;
-			return found;
-		}
+		public static int Spawns(GameMap map) => Spawns(map.ObjectData);
+		public static int Spawns(ushort[] ObjectData) => Spawn.Select(spawn => ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static IEnumerable<XElement> PushWall =>
 	XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
 		public static int CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
