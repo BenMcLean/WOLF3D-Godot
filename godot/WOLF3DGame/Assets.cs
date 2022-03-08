@@ -557,17 +557,8 @@ namespace WOLF3D.WOLF3DGame
 			?.FirstOrDefault()?.Attribute("Name")?.Value;
 		public static IEnumerable<XElement> Treasures =>
 			XML?.Element("VSwap")?.Element("Objects")?.Elements("Pickup")?.Where(e => e.IsTrue("Treasure"));
-		public static uint Treasure(GameMap map) => Treasure(map.ObjectData);
-		public static uint Treasure(ushort[] ObjectData)
-		{
-			uint found = 0;
-			foreach (XElement treasure in Treasures ?? Enumerable.Empty<XElement>())
-				if (ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number))
-					foreach (ushort square in ObjectData ?? Enumerable.Empty<ushort>())
-						if (number == square)
-							found++;
-			return found;
-		}
+		public static int Treasure(GameMap map) => Treasure(map.ObjectData);
+		public static int Treasure(ushort[] ObjectData) => Treasures.Select(treasure => ushort.TryParse(treasure.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static IEnumerable<XElement> Spawn =>
 			XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
 		public static uint Spawns(GameMap map) => Spawns(map.ObjectData);
@@ -583,8 +574,8 @@ namespace WOLF3D.WOLF3DGame
 		}
 		public static IEnumerable<XElement> PushWall =>
 	XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
-		public static uint CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
-		public static uint CountPushWalls(ushort[] ObjectData) => (uint)PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
+		public static int CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
+		public static int CountPushWalls(ushort[] ObjectData) => PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
 		public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 		public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
