@@ -338,21 +338,23 @@ namespace WOLF3D.WOLF3DGame
 						areaHeight: height,
 						width: atlasSize
 						);
-			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
-				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0),
-				spaceNumber = 0;
-			//for (; spaceNumber < rectangles.Length && rectangles[spaceNumber].Id < total; spaceNumber++) { }
-			//if (spaceNumber < rectangles.Length)
-			//	foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
-			//		if (rectangles[spaceNumber++] is PackingRectangle rectangle)
-			//			bin.DrawRectangle(
-			//				color: int.MaxValue,//Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][ushort.Parse(fontXml.Attribute("SpaceColor").Value)].ToRgba32(),
-			//				x: (int)rectangle.X,
-			//				y: (int)rectangle.Y,
-			//				rectWidth: (int)rectangle.Width,
-			//				rectHeight: (int)rectangle.Height,
-			//				width: atlasSize
-			//				);
+			int spaceNumber = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
+				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0);
+			foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+			{
+				if (rectangles.Where(r => r.Id == spaceNumber).FirstOrDefault() is PackingRectangle rectangle)
+				{
+					bin.DrawRectangle(
+						color: 0x0000FFFF,//Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][ushort.Parse(fontXml.Attribute("SpaceColor").Value)].ToArgb32(),
+						x: (int)rectangle.X,
+						y: (int)rectangle.Y,
+						rectWidth: (int)rectangle.Width,
+						rectHeight: (int)rectangle.Height,
+						width: atlasSize
+						);
+				}
+				spaceNumber++;
+			}
 			Godot.Image atlasImage = new Godot.Image();
 			atlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
