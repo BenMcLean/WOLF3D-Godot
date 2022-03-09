@@ -66,7 +66,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			Name = menu.Attribute("Name")?.Value is string name ? name : "MenuScreen";
 			XML = menu;
-			Theme = Assets.BitmapFontThemes[uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0];
+			Theme = Assets.FontThemes[uint.TryParse(menu.Attribute("Font")?.Value, out uint result) ? result : 0];
 			if (byte.TryParse(menu.Attribute("BkgdColor")?.Value, out byte bkgdColor))
 				Color = Assets.Palettes[0][bkgdColor];
 			TextColor = byte.TryParse(menu.Attribute("TextColor")?.Value, out byte tColor) ? Assets.Palettes[0][tColor] : Assets.White;
@@ -133,7 +133,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 							uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
 							uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
 							), // TODO: Add feature to horizontally center the text
-						Theme = Assets.BitmapFontThemes[ushort.TryParse(e.Attribute("Font")?.Value, out ushort fontNumber) ? fontNumber : 0],
+						Theme = Assets.FontThemes[ushort.TryParse(e.Attribute("Font")?.Value, out ushort fontNumber) ? fontNumber : 0],
 						Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
 					});
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
@@ -159,8 +159,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 							uint.TryParse(xTimer.Attribute("Y")?.Value, out uint y) ? y : 0
 							),
 				};
-				if (uint.TryParse(xTimer?.Attribute("BitmapFont")?.Value, out uint bitmapFont))
-					timer.AddFontOverride("font", Assets.BitmapFonts[bitmapFont]);
+				if (uint.TryParse(xTimer?.Attribute("Font")?.Value, out uint bitmapFont))
+					timer.Theme = Assets.FontThemes[bitmapFont];
 				if (Main.InGame)
 					if (timer.Name.ToUpperInvariant().Equals("PAR"))
 						timer.Text = Main.ActionRoom.Level.Map.Par.ToString(@"mm\:ss");

@@ -149,7 +149,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public static IEnumerable<MenuItem> MenuItems(XElement menuItems, Theme theme, Color? TextColor = null, Color? SelectedColor = null)
 		{
 			if (uint.TryParse(menuItems.Attribute("Font")?.Value, out uint result))
-				theme = Assets.BitmapFontThemes[result];
+				theme = Assets.FontThemes[result];
 			if (byte.TryParse(menuItems.Attribute("TextColor")?.Value, out byte textColor))
 				TextColor = Assets.Palettes[0][textColor];
 			if (byte.TryParse(menuItems.Attribute("SelectedColor")?.Value, out byte selectedColor))

@@ -48,7 +48,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					break;
 			}
 			if (uint.TryParse(xml?.Attribute("Font")?.Value, out uint bitmapFont))
-				Theme = Assets.BitmapFontThemes[bitmapFont];
+				Theme = Assets.FontThemes[bitmapFont];
 			if (uint.TryParse(xml?.Attribute("Digits")?.Value, out uint digits))
 				Digits = digits;
 			Visible = !XML.IsFalse("Visible");

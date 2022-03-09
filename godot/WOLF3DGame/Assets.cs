@@ -132,14 +132,12 @@ namespace WOLF3D.WOLF3DGame
 		{
 			XML = null;
 			Palettes = null;
-			AtlasImage = null;
 			AtlasImageTexture = null;
 			VSwapTextures = null;
 			VSwapMaterials = null;
 			VgaGraphTextures = null;
 			DigiSounds = null;
-			BitmapFonts = null;
-			BitmapFontThemes = null;
+			FontThemes = null;
 			Maps = null;
 			SelectSound = null;
 			ScrollSound = null;
@@ -331,22 +329,19 @@ namespace WOLF3D.WOLF3DGame
 			int total = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
 				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0),
 				spaceNumber = 0;
-			for (; spaceNumber < rectangles.Length && rectangles[spaceNumber].Id != total; spaceNumber++) { }
+			for (; spaceNumber < rectangles.Length && rectangles[spaceNumber].Id < total; spaceNumber++) { }
 			if (spaceNumber < rectangles.Length)
 				foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
 					if (rectangles[spaceNumber++] is PackingRectangle rectangle)
 						bin.DrawRectangle(0, (int)rectangle.X, (int)rectangle.Y, (int)rectangle.Width, (int)rectangle.Height, atlasSize); //TODO: fix color
-			AtlasImage = new Godot.Image();
-			AtlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
+			Godot.Image atlasImage = new Godot.Image();
+			atlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
 			AtlasImageTexture = new ImageTexture();
-			uint textureFlags = (uint)(
+			AtlasImageTexture.CreateFromImage(atlasImage, (uint)(
 				Texture.FlagsEnum.ConvertToLinear |
 				Texture.FlagsEnum.AnisotropicFilter |
 				Texture.FlagsEnum.Repeat
-				);
-			//if (!XML?.Element("VSwap")?.IsFalse("MipMaps") ?? false)
-			//	textureFlags |= (uint)Texture.FlagsEnum.Mipmaps;
-			AtlasImageTexture.CreateFromImage(AtlasImage, textureFlags);
+				));
 			int rectIndex = 0;
 			if (vSwap is VSwap vs)
 			{
@@ -371,39 +366,39 @@ namespace WOLF3D.WOLF3DGame
 							Region = new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2),
 						};
 				rectIndex += vg.Pics.Length;
-				BitmapFonts = new BitmapFont[XML?.Element("VgaGraph")?.Elements("Font")?.Count() ?? vg.Fonts.Length];
+				BitmapFont[] bitmapFonts = new BitmapFont[XML?.Element("VgaGraph")?.Elements("Font")?.Count() ?? vg.Fonts.Length];
 				int fontNumber = 0;
 				for (; fontNumber < vg.Fonts.Length; fontNumber++)
 				{
 					VgaGraph.Font font = vg.Fonts[fontNumber];
-					BitmapFonts[fontNumber] = new BitmapFont()
+					bitmapFonts[fontNumber] = new BitmapFont()
 					{
 						Height = font.Height,
 						Fallback = null,
 					};
-					BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
+					bitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 					for (int c = 0; c < font.Character.Length; c++)
 						if (font.Character[c] != null && rectangles.Where(r => r.Id == rectIndex + c).FirstOrDefault() is PackingRectangle rectangle)
-							BitmapFonts[fontNumber].AddChar(
+							bitmapFonts[fontNumber].AddChar(
 								character: (char)c,
 								texture: 0,
 								rect: new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2)
 								);
 					rectIndex += font.Character.Length;
 				}
-				for (; fontNumber < BitmapFonts.Length; fontNumber++)
+				for (; fontNumber < bitmapFonts.Length; fontNumber++)
 					if (XML?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort f) && f == fontNumber)?.FirstOrDefault() is XElement fontXml
 						&& fontXml.Attribute("Prefix")?.Value is string prefix)
 					{
-						BitmapFonts[fontNumber] = new BitmapFont()
+						bitmapFonts[fontNumber] = new BitmapFont()
 						{
 							Height = int.Parse(fontXml.Attribute("Height")?.Value),
 						};
-						BitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
+						bitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 						foreach (XElement pic in XML?.Element("VgaGraph")?.Elements("Pic")?.Where(e => e?.Attribute("Name")?.Value?.StartsWith(prefix) ?? false))
 							if (pic.Attribute("Character")?.Value is string characterString && characterString.Length > 0 && characterString[0] is char c
 								&& ushort.TryParse(pic.Attribute("Number")?.Value, out ushort number) && VgaGraphTextures[number].Region is Rect2 region)
-								BitmapFonts[fontNumber].AddChar(
+								bitmapFonts[fontNumber].AddChar(
 									character: c,
 									texture: 0,
 									rect: region
@@ -411,7 +406,7 @@ namespace WOLF3D.WOLF3DGame
 						foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => e?.Attribute("SpaceColor")?.Value?.StartsWith(prefix) ?? false))
 							if (rectangles.Where(r => r.Id == rectIndex).FirstOrDefault() is PackingRectangle rectangle)
 							{
-								BitmapFonts[int.Parse(font.Attribute("Number").Value)].AddChar(
+								bitmapFonts[int.Parse(font.Attribute("Number").Value)].AddChar(
 									character: ' ',
 									texture: 0,
 									rect: new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2)
@@ -419,15 +414,8 @@ namespace WOLF3D.WOLF3DGame
 								rectIndex++;
 							}
 					}
-				if (BitmapFonts.Length > 0)
-				{
-					BitmapFontThemes = new Theme[BitmapFonts.Length];
-					for (int i = 0; i < BitmapFonts.Length; i++)
-						BitmapFontThemes[i] = new Theme()
-						{
-							DefaultFont = BitmapFonts[i],
-						};
-				}
+				if (bitmapFonts.Length > 0)
+					FontThemes = bitmapFonts?.Select(bitmapFont => new Theme() { DefaultFont = bitmapFont, })?.ToArray();
 			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null, XElement xml = null)
@@ -439,7 +427,7 @@ namespace WOLF3D.WOLF3DGame
 				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
 					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
 			foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
-				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("Height").Value) + 2u, ++i);
+				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("Height").Value) + 2u, i++);
 		}
 		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
 		{
@@ -483,15 +471,13 @@ namespace WOLF3D.WOLF3DGame
 					id -= font.Character.Length;
 			return false;
 		}
-		public static Godot.Image AtlasImage;
 		public static ImageTexture AtlasImageTexture;
 		public static AtlasTexture[] VSwapAtlasTextures;
 		public static AtlasTexture[] VgaGraphTextures;
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
 		public static AudioStreamSample[] DigiSounds;
-		public static BitmapFont[] BitmapFonts;
-		public static Theme[] BitmapFontThemes;
+		public static Theme[] FontThemes;
 		public static short? Shape(string @string) =>
 			short.TryParse(@string, out short shape) ? shape :
 			short.TryParse(XML?.Element("VSwap")?.Element("Sprites")?.Elements("Sprite")
