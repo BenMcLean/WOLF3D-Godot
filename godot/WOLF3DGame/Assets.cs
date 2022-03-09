@@ -343,16 +343,14 @@ namespace WOLF3D.WOLF3DGame
 			foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
 			{
 				if (rectangles.Where(r => r.Id == spaceNumber).FirstOrDefault() is PackingRectangle rectangle)
-				{
 					bin.DrawRectangle(
-						color: 0x0000FFFF,//Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][ushort.Parse(fontXml.Attribute("SpaceColor").Value)].ToArgb32(),
+						color: Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][ushort.Parse(fontXml.Attribute("SpaceColor").Value)].ToRgba32(),
 						x: (int)rectangle.X,
 						y: (int)rectangle.Y,
 						rectWidth: (int)rectangle.Width,
 						rectHeight: (int)rectangle.Height,
 						width: atlasSize
 						);
-				}
 				spaceNumber++;
 			}
 			Godot.Image atlasImage = new Godot.Image();
