@@ -59,17 +59,17 @@ namespace WOLF3D.WOLF3DGame
 		public const float Tic = 1f / TicsPerSecond;
 		public static float TicsToSeconds(int tics) => tics / TicsPerSecond;
 		public static short SecondsToTics(float seconds) => (short)(seconds * TicsPerSecond);
-		// 1 Zenos is 1 / 65536th of a WallWidth, used by Wolfenstein 3-D to measure how far an actor is off center from their square. This number comes from the size of a 16-bit integer.
+		// I made up a new unit of measure called the Zenos for this project.
+		// 1 Zenos is defined as 1 / 65536th of a WallWidth, used by Wolfenstein 3-D to measure how far an actor is off center from their square. This number comes from the size of a 16-bit integer.
 		// 65536 Zenos per wall / 512 guard speed = 128 tics per wall
 		// 128 tics per wall / 70 tics per second = 1.828571428571429 seconds per wall
 		// 2.4384 meters per wall / 1.828571428571429 seconds per wall = 1.3335 meters per second
 		// 70 tics per second * 2.4384 meters per wall / 65536 Zenos per wall = 0.0026044921875 (meters * tic) / (Zenos * second)
 		// Check: 512 guard speed * 1 second delta * 0.0026044921875 ActorSpeedConversion = 1.3335 meters per second
 		public const float ActorSpeedConversion = TicsPerSecond * WallWidth / 65536f; // 0.0026044921875
-
-		// Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
-		// 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
-		// Walking speed is half of running speed.
+																					  // Tests reveal that BJ's run speed is 11.2152 tiles/sec. http://diehardwolfers.areyep.com/viewtopic.php?p=82938#82938
+																					  // 11.2152 tiles per second * 2.4384 meters per tile = 27.34714368 meters per second
+																					  // Walking speed is half of running speed.
 		public const float RunSpeed = 27.34714368f;
 		public const float WalkSpeed = 13.67357184f;
 		public const float DeadZone = 0.5f;
@@ -307,7 +307,7 @@ namespace WOLF3D.WOLF3DGame
 						{
 							ResourceName = XML?.Element("VSwap")?.Elements("DigiSound")
 								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort result) && result == i)
-								?.FirstOrDefault()?.Attribute("Name")?.Value,
+								?.FirstOrDefault()?.Attribute("Name")?.Value ?? "DigiSound" + i,
 							Data = VSwap.DigiSounds[i],
 							Format = AudioStreamSample.FormatEnum.Format8Bits,
 							MixRate = 7042, // Adam Biser said 7042 Hz is the correct frequency
@@ -338,24 +338,28 @@ namespace WOLF3D.WOLF3DGame
 						areaHeight: height,
 						width: atlasSize
 						);
-			int spaceNumber = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
-				+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0);
-			foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+			if (vgaGraph is VgaGraph)
 			{
-				if (rectangles.Where(r => r.Id == spaceNumber).FirstOrDefault() is PackingRectangle rectangle)
-					bin.DrawRectangle(
-						color: Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][ushort.Parse(fontXml.Attribute("SpaceColor").Value)].ToRgba32(),
-						x: (int)rectangle.X,
-						y: (int)rectangle.Y,
-						rectWidth: (int)rectangle.Width,
-						rectHeight: (int)rectangle.Height,
-						width: atlasSize
-						);
-				spaceNumber++;
+				int spaceNumber = (vSwap is VSwap vs2 ? vs2.SoundPage : 0)
+					+ (vgaGraph is VgaGraph vg2 ? vg2.Pics.Length + vg2.Fonts.Select(f => f.Character.Length).Sum() : 0);
+				foreach (XElement fontXml in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("SpaceWidth")?.Value, out _)))
+				{
+					if (ushort.TryParse(fontXml.Attribute("SpaceColor")?.Value, out ushort spaceColor)
+						&& rectangles.Where(r => r.Id == spaceNumber).FirstOrDefault() is PackingRectangle rectangle)
+						bin.DrawRectangle(
+							color: Palettes[ushort.TryParse(fontXml.Attribute("SpacePalette")?.Value, out ushort spacePalette) && spacePalette < Palettes.Length ? spacePalette : 0][spaceColor].ToRgba32(),
+							x: (int)rectangle.X,
+							y: (int)rectangle.Y,
+							rectWidth: (int)rectangle.Width,
+							rectHeight: (int)rectangle.Height,
+							width: atlasSize
+							);
+					spaceNumber++;
+				}
 			}
 			Godot.Image atlasImage = new Godot.Image();
 			atlasImage.CreateFromData(atlasSize, atlasSize, false, Godot.Image.Format.Rgba8, bin);
-			AtlasImageTexture = new ImageTexture();
+			AtlasImageTexture = new Godot.ImageTexture();
 			AtlasImageTexture.CreateFromImage(atlasImage, (uint)(
 				Texture.FlagsEnum.ConvertToLinear |
 				Texture.FlagsEnum.AnisotropicFilter |
@@ -366,11 +370,11 @@ namespace WOLF3D.WOLF3DGame
 			{
 				VSwapAtlasTextures = new AtlasTexture[vs.SoundPage];
 				for (int i = 0; i < VSwapAtlasTextures.Length; i++)
-					if (VSwap.Pages[i] != null)
+					if (VSwap.Pages[i] != null && rectangles.Where(r => r.Id == i).FirstOrDefault() is PackingRectangle rectangle)
 						VSwapAtlasTextures[i] = new AtlasTexture()
 						{
 							Atlas = AtlasImageTexture,
-							Region = new Rect2(rectangles[i].X + 1, rectangles[i].Y + 1, rectangles[i].Width - 2, rectangles[i].Height - 2),
+							Region = new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2),
 						};
 				rectIndex += vs.SoundPage;
 			}
@@ -393,7 +397,6 @@ namespace WOLF3D.WOLF3DGame
 					bitmapFonts[fontNumber] = new BitmapFont()
 					{
 						Height = font.Height,
-						Fallback = null,
 					};
 					bitmapFonts[fontNumber].AddTexture(AtlasImageTexture);
 					for (int c = 0; c < font.Character.Length; c++)
@@ -423,7 +426,7 @@ namespace WOLF3D.WOLF3DGame
 									rect: region
 									);
 					}
-				foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+				foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("SpaceWidth")?.Value, out _)))
 					if (rectangles.Where(r => r.Id == rectIndex).FirstOrDefault() is PackingRectangle rectangle)
 					{
 						bitmapFonts[int.Parse(font.Attribute("Number").Value)].AddChar(
@@ -434,7 +437,7 @@ namespace WOLF3D.WOLF3DGame
 						rectIndex++;
 					}
 				if (bitmapFonts.Length > 0)
-					FontThemes = bitmapFonts?.Select(bitmapFont => new Theme() { DefaultFont = bitmapFont, })?.ToArray();
+					FontThemes = bitmapFonts.Select(bitmapFont => new Theme() { DefaultFont = bitmapFont, }).ToArray();
 			}
 		}
 		public static IEnumerable<PackingRectangle> PackingRectangles(VgaGraph? vgaGraph = null, VSwap? vSwap = null, XElement xml = null)
@@ -443,9 +446,16 @@ namespace WOLF3D.WOLF3DGame
 				+ (vgaGraph is VgaGraph vg ? vg.Pics.Length + vg.Fonts.Select(f => f.Character.Length).Sum() : 0),
 				i = 0;
 			for (; i < total; i++)
-				if (TryTextureFromId(i, out byte[] _, out int width, out int height, vgaGraph, vSwap))
+				if (TryTextureFromId(
+					id: i,
+					texture: out _,
+					width: out int width,
+					height: out int height,
+					vgaGraph: vgaGraph,
+					vSwap: vSwap
+					))
 					yield return new PackingRectangle(0, 0, (uint)width + 2u, (uint)height + 2u, i);
-			foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => !string.IsNullOrWhiteSpace(e.Attribute("SpaceColor")?.Value)))
+			foreach (XElement font in xml?.Element("VgaGraph")?.Elements("Font")?.Where(e => ushort.TryParse(e.Attribute("SpaceWidth")?.Value, out _)))
 				yield return new PackingRectangle(0, 0, uint.Parse(font.Attribute("SpaceWidth").Value) + 2u, uint.Parse(font.Attribute("Height").Value) + 2u, i++);
 		}
 		public static bool TryTextureFromId(int id, out byte[] texture, out int width, out int height, VgaGraph? vgaGraph = null, VSwap? vSwap = null)
