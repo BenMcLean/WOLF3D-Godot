@@ -6,6 +6,7 @@ namespace WOLF3D.WOLF3DGame
 	public class StatusNumber : Node2D, ISavable
 	{
 		public XElement XML { get; set; }
+		public uint Digits => uint.TryParse(XML?.Attribute("Digits")?.Value, out uint digits) ? digits : 0;
 		public string StatusNumberName = null;
 		public XElement Save()
 		{
@@ -13,7 +14,7 @@ namespace WOLF3D.WOLF3DGame
 			e.SetAttributeValue(XName.Get("Name"), StatusNumberName);
 			e.SetAttributeValue(XName.Get("Value"), Value);
 			e.SetAttributeValue(XName.Get("Max"), Max);
-			e.SetAttributeValue(XName.Get("Digits"), Digits);
+			e.SetAttributeValue(XName.Get("Digits"), Label);
 			e.SetAttributeValue(XName.Get("Visible"), Visible);
 			e.SetAttributeValue(XName.Get("XML"), XML.ToString());
 			return e;
@@ -35,11 +36,12 @@ namespace WOLF3D.WOLF3DGame
 				Empty = Assets.PicTexture(empty);
 			if (Empty != null || Have != null)
 			{
-				AtlasTexture size = Empty ?? Have;
+				AtlasTexture texture = Empty ?? Have;
 				Item = new Sprite()
 				{
 					Name = "Item",
-					Position = new Vector2(size.GetWidth() / 2, size.GetHeight() / 2),
+					Texture = texture,
+					Position = new Vector2(texture.GetWidth() / 2, texture.GetHeight() / 2),
 				};
 			}
 			if (uint.TryParse(xml?.Attribute("Max")?.Value, out uint max))
@@ -68,23 +70,19 @@ namespace WOLF3D.WOLF3DGame
 			Name = "StatusNumber";
 			if (digits > 0)
 			{
-				Digits = new Sprite[digits];
-				//for (uint i = 0; i < digits; i++)
-				//	AddChild(Digits[i] = new Sprite()
-				//	{
-				//		Name = "Digit " + i,
-				//		Texture = Assets.StatusBarBlank,
-				//		Position = new Vector2(
-				//			Assets.StatusBarBlank.GetSize().x * (0.5f - i),
-				//			Assets.StatusBarBlank.GetSize().y / 2
-				//			),
-				//	});
+				Label = new Label()
+				{
+					Text = Value.ToString(new string('0', (int)digits)),
+					Theme = Assets.StatusBarTheme,
+				};
+				Label.Set("custom_constants/line_spacing", 0);
+				AddChild(Label);
 			}
 		}
 		public StatusNumber Blank()
 		{
-			//for (int i = 0; i < (Digits?.Length ?? 0); i++)
-			//	Digits[i].Texture = Assets.StatusBarBlank;
+			if (Label != null)
+				Label.Text = string.Empty;
 			if (Item != null)
 				Item.Texture = Empty;
 			return this;
@@ -97,15 +95,10 @@ namespace WOLF3D.WOLF3DGame
 				uint? old = val;
 				val = value > Max ? Max : value;
 				if (val != old)
-					if (Item == null)
-					{
-						string s = val.ToString();
-						//for (int i = 0; i < (Digits?.Length ?? 0); i++)
-						//	Digits[i].Texture = i >= s.Length ?
-						//		Assets.StatusBarBlank
-						//		: Assets.StatusBarDigits[uint.Parse(s[s.Length - 1 - i].ToString())];
-					}
-					else Item.Texture = val > 0 ? Have : Empty;
+					if (Item == null && Digits is uint digits && digits > 0 && Label is Label)
+						Label.Text = Value.ToString(new string('0', (int)digits));
+					else if (Item is Sprite)
+						Item.Texture = val > 0 ? Have : Empty;
 			}
 		}
 		private uint? val = null;
@@ -120,9 +113,8 @@ namespace WOLF3D.WOLF3DGame
 			}
 		}
 		private uint? max = null;
-		public Sprite[] Digits { get; set; }
-		public uint NextLevel =>
-			uint.TryParse(XML?.Attribute("LevelReset")?.Value, out uint levelReset) ? levelReset : Value;
+		public Label Label { get; set; }
+		public uint NextLevel => uint.TryParse(XML?.Attribute("LevelReset")?.Value, out uint levelReset) ? levelReset : Value;
 		public struct Stat
 		{
 			public string Name;
