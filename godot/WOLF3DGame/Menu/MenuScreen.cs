@@ -125,7 +125,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 					}
 				}
 				else if (e.Name.LocalName.Equals("Text", StringComparison.InvariantCultureIgnoreCase))
-					AddChild(new Label()
+				{
+					Label label = new Label()
 					{
 						Name = "Label " + e.Attribute("String").Value,
 						Text = e.Attribute("String").Value,
@@ -135,7 +136,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 							), // TODO: Add feature to horizontally center the text
 						Theme = Assets.FontThemes[ushort.TryParse(e.Attribute("Font")?.Value, out ushort fontNumber) ? fontNumber : 0],
 						Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
-					});
+					};
+					label.Set("custom_constants/line_spacing", 0);
+					AddChild(label);
+				}
 			foreach (XElement menuItems in menu.Elements("MenuItems") ?? Enumerable.Empty<XElement>())
 				if (Main.InGameMatch(menuItems))
 					foreach (MenuItem item in MenuItem.MenuItems(menuItems, Theme, TextColor, SelectedColor))
@@ -394,10 +398,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public MenuScreen AddModal(string @string = "", ushort padding = 0)
 		{
 			RemoveChild(Crosshairs);
-			Modal = new Modal(new Sprite()
-			{
-				Texture = Assets.Text(Assets.VgaGraph.Fonts[0], @string, padding),
-			})
+			Modal = new Modal(@string)
 			{
 				Position = new Vector2(Width / 2, Height / 2),
 			}.Set(Assets.XML?.Element("VgaGraph")?.Element("Menus"));

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Linq;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.OPL;
 
@@ -23,7 +24,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public bool IsInLocal(float x, float y, float z) => IsInLocal(x, z);
 		public bool IsWithin(float x, float y, float distance) =>
 			Math.Abs(GlobalTransform.origin.x - x) < distance && Math.Abs(GlobalTransform.origin.y - y) < distance;
-
 		public bool Answer
 		{
 			get => answer;
@@ -38,17 +38,29 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private bool answer = false;
-		public Modal(Sprite text)
+		public Modal(string @string)
 		{
-			Name = "Modal";
+			Name = "Modal " + @string;
+			string[] lines = @string.Lines();
+			Vector2 size = new Vector2(
+				x: lines.Select(line => Assets.ModalTheme.DefaultFont.GetStringSize(line).x).Max(),
+				y: lines.Length * Assets.ModalTheme.DefaultFont.GetHeight()
+				);
+			Label = new Label()
+			{
+				Text = @string,
+				Theme = Assets.ModalTheme,
+				RectPosition = new Vector2(size.x / -2, size.y / -2),// - Assets.ModalTheme.DefaultFont.GetHeight() / 2),
+			};
+			Label.Set("custom_constants/line_spacing", 0);
 			AddChild(PixelRect = new PixelRect()
 			{
-				Size = new Vector2(text.Texture.GetSize().x + 10, text.Texture.GetSize().y + 12),
-				Position = new Vector2(text.Texture.GetSize().x / -2 - 5, text.Texture.GetSize().y / -2 - 6),
+				Size = new Vector2(size.x + 10, size.y + 12),
+				Position = new Vector2(size.x / -2 - 5, size.y / -2 - 6),
 			});
-			AddChild(Text = text);
+			AddChild(Label);
 		}
-		public Modal(Sprite text, XElement xElement) : this(text) => Set(xElement);
+		public Modal(string @string, XElement xElement) : this(@string) => Set(xElement);
 		public Modal Set(XElement xElement)
 		{
 			if (xElement == null)
@@ -64,7 +76,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			return this;
 		}
 		public PixelRect PixelRect { get; set; }
-		public Sprite Text { get; set; }
+		public Label Label { get; set; }
 		public bool YesNo
 		{
 			get => Yes != null;
@@ -72,10 +84,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			{
 				if (value)
 				{
-					Yes = new Modal(new Sprite()
-					{
-						Texture = Assets.Text(Assets.VgaGraph.Fonts[0], "Yes"),
-					})
+					Yes = new Modal("Yes")
 					{
 						SEColor = SEColor,
 						NWColor = NWColor,
@@ -83,10 +92,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 						TextColor = TextColor,
 					};
 					Yes.Position = new Vector2(Size.x / -2 + Yes.Size.x / 2, Size.y / 2 + Yes.Size.y / 2);
-					No = new Modal(new Sprite()
-					{
-						Texture = Assets.Text(Assets.VgaGraph.Fonts[0], "No"),
-					})
+					No = new Modal("No")
 					{
 						SEColor = SEColor,
 						NWColor = NWColor,
@@ -125,7 +131,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private Modal no = null;
-
 		public Color SEColor
 		{
 			get => PixelRect.SEColor;
@@ -143,8 +148,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 		}
 		public Color TextColor
 		{
-			get => Text.Modulate;
-			set => Text.Modulate = value;
+			get => Label.Modulate;
+			set => Label.Modulate = value;
 		}
 		public Vector2 Size
 		{

@@ -190,6 +190,7 @@ namespace WOLF3D.WOLF3DGame
 				if (ushort.TryParse(XML?.Element("VSwap")?.Element("Walls")?.Attribute("FloorCodeLast")?.Value, out ushort floorCodeLast))
 					FloorCodes = (ushort)(1 + floorCodeLast - FloorCodeFirst);
 			}
+			ModalTheme = FontThemes[ushort.TryParse(XML.Element("VgaGraph")?.Element("Menus")?.Attribute("ModalFont")?.Value, out ushort modalFont) && modalFont < FontThemes.Length ? modalFont : 0];
 			if (XML.Element("Audio") is XElement audio)
 			{
 				AudioT = AudioT.Load(folder, XML);
@@ -507,6 +508,7 @@ namespace WOLF3D.WOLF3DGame
 		public static SpatialMaterial[] VSwapMaterials;
 		public static AudioStreamSample[] DigiSounds;
 		public static Theme[] FontThemes;
+		public static Theme ModalTheme;
 		public static short? Shape(string @string) =>
 			short.TryParse(@string, out short shape) ? shape :
 			short.TryParse(XML?.Element("VSwap")?.Element("Sprites")?.Elements("Sprite")

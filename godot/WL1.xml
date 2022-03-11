@@ -150,7 +150,7 @@
 		<Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
 		<Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
 		<Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
-		<Menus Start="Intro" Song="WONDERIN_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
+		<Menus Start="Intro" Song="WONDERIN_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" ModalFont="0" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
 			<EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
 			<EndString>Chickening out...&#10;already?</EndString>
 			<EndString>Press N for more carnage.&#10;Press Y to be a weenie.</EndString>

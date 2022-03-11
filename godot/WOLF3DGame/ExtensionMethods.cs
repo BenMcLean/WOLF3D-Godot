@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace WOLF3D.WOLF3DGame
@@ -29,6 +30,8 @@ namespace WOLF3D.WOLF3DGame
 			: @string.IndexOf(Environment.NewLine, StringComparison.CurrentCulture) is int index && index >= 0 ?
 				@string.Substring(0, index)
 				: @string;
+		public static readonly Regex NewLineRegex = new Regex(@"\r\n|\n|\r", RegexOptions.Singleline);
+		public static string[] Lines(this string @string) => NewLineRegex.Split(@string);
 		public static IEnumerable<Tuple<int, int>> IntPairs(this XAttribute input) => IntPairs(input?.Value);
 		public static IEnumerable<Tuple<int, int>> IntPairs(this string input)
 		{
