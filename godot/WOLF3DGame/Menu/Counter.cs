@@ -26,7 +26,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 		}
 		private bool started = false;
 		public bool Finished { get; private set; } = false;
-
 		public Counter(XElement xml)
 		{
 			XML = xml;
@@ -52,8 +51,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 			if (uint.TryParse(xml?.Attribute("Digits")?.Value, out uint digits))
 				Digits = digits;
 			Visible = !XML.IsFalse("Visible");
+			Set("custom_constants/line_spacing", 0);
 		}
-
 		public uint? Value
 		{
 			get => val;
@@ -67,7 +66,6 @@ namespace WOLF3D.WOLF3DGame.Menu
 			}
 		}
 		private uint? val = null;
-
 		public override void _Process(float delta)
 		{
 			if (Started && !Finished)
