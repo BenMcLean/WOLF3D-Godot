@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game Name="Super 3-D Noah's Ark" Exe="noah3d.exe" HighScores="config.n3d">
 	<VgaGraph VgaDict="vgadict.n3d" VgaGraph="vgagraph.n3d" VgaHead="vgahead.n3d" LoadingPic="GETPSYCHEDPIC">
-		<Sizes Chunk="0" StartPics="3" NumPics="123" StartFont="1" NumFont="2" BitmapFonts="1" />
-		<Font Number="0" Chunk="1" Name="Small" />
-		<Font Number="1" Chunk="2" Name="Large" />
+		<Sizes Chunk="0" StartPic="3" StartFont="1" Fonts="2" />
+		<Font Number="0" Chunk="1" Name="SMALL" />
+		<Font Number="1" Chunk="2" Name="BIG" />
+		<Font Number="2" Prefix="L_" SpaceColor="127" SpaceWidth="16" Height="16" Name="L" />
+		<Font Number="3" Prefix="N_" Height="16" Name="N" />
+		<Font Number="4" Prefix="Y_" Height="16" Name="Y" />
 		<Pic Number="0" Chunk="3" Name="H_TOPWINDOWPIC" />
 		<Pic Number="1" Chunk="4" Name="H_LEFTWINDOWPIC" />
 		<Pic Number="2" Chunk="5" Name="H_RIGHTWINDOWPIC" />
@@ -43,31 +46,31 @@
 		<Pic Number="36" Chunk="39" Name="L_GUYPIC" />
 		<Pic Number="37" Chunk="40" Name="L_GUY2PIC" />
 		<Pic Number="38" Chunk="41" Name="L_BJWINSPIC" />
-		<Pic Number="39" Chunk="42" BitmapFont="0" Character=":" Name="L_COLONPIC" />
-		<Pic Number="40" Chunk="43" BitmapFont="0" Character="0" Name="L_NUM0PIC" />
-		<Pic Number="41" Chunk="44" BitmapFont="0" Character="1" Name="L_NUM1PIC" />
-		<Pic Number="42" Chunk="45" BitmapFont="0" Character="2" Name="L_NUM2PIC" />
-		<Pic Number="43" Chunk="46" BitmapFont="0" Character="3" Name="L_NUM3PIC" />
-		<Pic Number="44" Chunk="47" BitmapFont="0" Character="4" Name="L_NUM4PIC" />
-		<Pic Number="45" Chunk="48" BitmapFont="0" Character="5" Name="L_NUM5PIC" />
-		<Pic Number="46" Chunk="49" BitmapFont="0" Character="6" Name="L_NUM6PIC" />
-		<Pic Number="47" Chunk="50" BitmapFont="0" Character="7" Name="L_NUM7PIC" />
-		<Pic Number="48" Chunk="51" BitmapFont="0" Character="8" Name="L_NUM8PIC" />
-		<Pic Number="49" Chunk="52" BitmapFont="0" Character="9" Name="L_NUM9PIC" />
-		<Pic Number="50" Chunk="53" BitmapFont="0" Character="%" Name="L_PERCENTPIC" />
-		<Pic Number="51" Chunk="54" BitmapFont="0" Character="-" Name="L_MINUSPIC" />
-		<Pic Number="52" Chunk="55" BitmapFont="0" Character="!" Name="L_EXPOINTPIC" />
-		<Pic Number="53" Chunk="56" BitmapFont="0" Character="'" Name="L_APOSTROPHEPIC" />
-		<Pic Number="54" Chunk="57" Name="Y_NUM0PIC" />
-		<Pic Number="55" Chunk="58" Name="Y_NUM1PIC" />
-		<Pic Number="56" Chunk="59" Name="Y_NUM2PIC" />
-		<Pic Number="57" Chunk="60" Name="Y_NUM3PIC" />
-		<Pic Number="58" Chunk="61" Name="Y_NUM4PIC" />
-		<Pic Number="59" Chunk="62" Name="Y_NUM5PIC" />
-		<Pic Number="60" Chunk="63" Name="Y_NUM6PIC" />
-		<Pic Number="61" Chunk="64" Name="Y_NUM7PIC" />
-		<Pic Number="62" Chunk="65" Name="Y_NUM8PIC" />
-		<Pic Number="63" Chunk="66" Name="Y_NUM9PIC" />
+		<Pic Number="39" Chunk="42" Character=":" Name="L_COLONPIC" />
+		<Pic Number="40" Chunk="43" Character="0" Name="L_NUM0PIC" />
+		<Pic Number="41" Chunk="44" Character="1" Name="L_NUM1PIC" />
+		<Pic Number="42" Chunk="45" Character="2" Name="L_NUM2PIC" />
+		<Pic Number="43" Chunk="46" Character="3" Name="L_NUM3PIC" />
+		<Pic Number="44" Chunk="47" Character="4" Name="L_NUM4PIC" />
+		<Pic Number="45" Chunk="48" Character="5" Name="L_NUM5PIC" />
+		<Pic Number="46" Chunk="49" Character="6" Name="L_NUM6PIC" />
+		<Pic Number="47" Chunk="50" Character="7" Name="L_NUM7PIC" />
+		<Pic Number="48" Chunk="51" Character="8" Name="L_NUM8PIC" />
+		<Pic Number="49" Chunk="52" Character="9" Name="L_NUM9PIC" />
+		<Pic Number="50" Chunk="53" Character="%" Name="L_PERCENTPIC" />
+		<Pic Number="51" Chunk="54" Character="-" Name="L_MINUSPIC" />
+		<Pic Number="52" Chunk="55" Character="!" Name="L_EXPOINTPIC" />
+		<Pic Number="53" Chunk="56" Character="'" Name="L_APOSTROPHEPIC" />
+		<Pic Number="54" Chunk="57" Character="0" Name="Y_NUM0PIC" />
+		<Pic Number="55" Chunk="58" Character="1" Name="Y_NUM1PIC" />
+		<Pic Number="56" Chunk="59" Character="2" Name="Y_NUM2PIC" />
+		<Pic Number="57" Chunk="60" Character="3" Name="Y_NUM3PIC" />
+		<Pic Number="58" Chunk="61" Character="4" Name="Y_NUM4PIC" />
+		<Pic Number="59" Chunk="62" Character="5" Name="Y_NUM5PIC" />
+		<Pic Number="60" Chunk="63" Character="6" Name="Y_NUM6PIC" />
+		<Pic Number="61" Chunk="64" Character="7" Name="Y_NUM7PIC" />
+		<Pic Number="62" Chunk="65" Character="8" Name="Y_NUM8PIC" />
+		<Pic Number="63" Chunk="66" Character="9" Name="Y_NUM9PIC" />
 		<Pic Number="64" Chunk="67" Name="W_BONUSPIC" />
 		<Pic Number="65" Chunk="68" Name="W_PERFECTPIC" />
 		<Pic Number="66" Chunk="69" Name="W_RATINGPIC" />
@@ -88,17 +91,17 @@
 		<Pic Number="81" Chunk="84" Name="NOKEYPIC" />
 		<Pic Number="82" Chunk="85" Name="GOLDKEYPIC" />
 		<Pic Number="83" Chunk="86" Name="SILVERKEYPIC" />
-		<Pic Number="84" Chunk="87" Name="N_BLANKPIC" />
-		<Pic Number="85" Chunk="88" Name="N_0PIC" />
-		<Pic Number="86" Chunk="89" Name="N_1PIC" />
-		<Pic Number="87" Chunk="90" Name="N_2PIC" />
-		<Pic Number="88" Chunk="91" Name="N_3PIC" />
-		<Pic Number="89" Chunk="92" Name="N_4PIC" />
-		<Pic Number="90" Chunk="93" Name="N_5PIC" />
-		<Pic Number="91" Chunk="94" Name="N_6PIC" />
-		<Pic Number="92" Chunk="95" Name="N_7PIC" />
-		<Pic Number="93" Chunk="96" Name="N_8PIC" />
-		<Pic Number="94" Chunk="97" Name="N_9PIC" />
+		<Pic Number="84" Chunk="87" Character=" " Name="N_BLANKPIC" />
+		<Pic Number="85" Chunk="88" Character="0" Name="N_0PIC" />
+		<Pic Number="86" Chunk="89" Character="1" Name="N_1PIC" />
+		<Pic Number="87" Chunk="90" Character="2" Name="N_2PIC" />
+		<Pic Number="88" Chunk="91" Character="3" Name="N_3PIC" />
+		<Pic Number="89" Chunk="92" Character="4" Name="N_4PIC" />
+		<Pic Number="90" Chunk="93" Character="5" Name="N_5PIC" />
+		<Pic Number="91" Chunk="94" Character="6" Name="N_6PIC" />
+		<Pic Number="92" Chunk="95" Character="7" Name="N_7PIC" />
+		<Pic Number="93" Chunk="96" Character="8" Name="N_8PIC" />
+		<Pic Number="94" Chunk="97" Character="9" Name="N_9PIC" />
 		<Pic Number="95" Chunk="98" Name="FACE1APIC" />
 		<Pic Number="96" Chunk="99" Name="FACE1BPIC" />
 		<Pic Number="97" Chunk="100" Name="FACE1CPIC" />
@@ -127,13 +130,15 @@
 		<Pic Number="120" Chunk="123" Name="GOTGATLINGPIC" />
 		<Pic Number="121" Chunk="124" Name="PAUSEDPIC" />
 		<Pic Number="122" Chunk="125" Name="GETPSYCHEDPIC" />
+		<!--
 		<Pic Number="123" Chunk="128" Name="ORDERSCREEN" />
 		<Pic Number="124" Chunk="129" Name="ERRORSCREEN" />
 		<Pic Number="125" Chunk="130" Name="T_HELPART" />
 		<Pic Number="126" Chunk="131" Name="T_DEMO0" />
 		<Pic Number="127" Chunk="132" Name="T_DEMO1" />
 		<Pic Number="128" Chunk="133" Name="T_DEMO2" />
-		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1">
+		-->
+		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1" ModalFont="0" >
 			<!-- Classic game end strings -->
 			<EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
 			<EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>

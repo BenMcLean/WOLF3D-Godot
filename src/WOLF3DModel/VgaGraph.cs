@@ -137,14 +137,14 @@ namespace WOLF3DModel
 			using (MemoryStream sizes = new MemoryStream(file[(uint)XML.Element("Sizes").Attribute("Chunk")]))
 				Sizes = Load16BitPairs(sizes);
 			uint startFont = (uint)XML.Element("Sizes").Attribute("StartFont");
-			Fonts = new Font[(uint)XML.Element("Sizes").Attribute("NumFont")];
+			Fonts = new Font[(uint)XML.Element("Sizes").Attribute("Fonts")];
 			for (uint i = 0; i < Fonts.Length; i++)
 				using (MemoryStream font = new MemoryStream(file[startFont + i]))
 					Fonts[i] = new Font(font);
-			uint startPics = (uint)XML.Element("Sizes").Attribute("StartPics");
+			uint startPic = (uint)XML.Element("Sizes").Attribute("StartPic");
 			Pics = new byte[XML.Elements("Pic")?.Count() ?? 0][];
 			for (uint i = 0; i < Pics.Length; i++)
-				Pics[i] = Deplanify(file[startPics + i], Sizes[i][0])
+				Pics[i] = Deplanify(file[startPic + i], Sizes[i][0])
 					.Index2ByteArray(Palettes[PaletteNumber(i, xml)]);
 		}
 
