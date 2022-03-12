@@ -150,6 +150,28 @@
 		<Pic Number="141" Chunk="144" Name="MUTANTBJPIC" />
 		<Pic Number="142" Chunk="145" Name="PAUSEDPIC" />
 		<Pic Number="143" Chunk="146" Name="GETPSYCHEDPIC" />
+		<StatusBar Pic="STATUSBARPIC" Font="3" >
+			<Number Name="Difficulty" Init="1" />
+			<Number Name="Episode" Init="1" />
+			<Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
+			<Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
+			<Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
+			<Face X="134" Y="5" />
+			<Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
+			<Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
+			<Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Weapon0" Init="1" Max="1" />
+			<Number Name="Weapon1" Init="1" Max="1" />
+			<Number Name="Weapon2" Init="0" Max="1" />
+			<Number Name="Weapon3" Init="0" Max="1" />
+			<Weapons X="256" Y="8">
+				<Weapon Number="0" Pic="KNIFEPIC" Init="1" />
+				<Weapon Number="1" Pic="GUNPIC" Init="1" />
+				<Weapon Number="2" Pic="MACHINEGUNPIC" Init="0" />
+				<Weapon Number="3" Pic="GATLINGGUNPIC" Init="0" />
+			</Weapons>
+		</StatusBar>
 		<Menus Start="Intro" Song="WONDERIN_MUS" Deactive="43" Stripe="44" SelectSound="SHOOTSND" ScrollSound="MOVEGUN1SND" BordColor="19" Bord2Color="0" Color="23" TextColor="0" Font="1" ModalFont="0" Selected="C_SELECTEDPIC" NotSelected="C_NOTSELECTEDPIC">
 			<EndString>Dost thou wish to&#10;leave with such hasty&#10;abandon?</EndString>
 			<EndString>Chickening out...&#10;already?</EndString>
@@ -856,28 +878,6 @@
 				<Cancel Action="NextFloor" />
 			</Menu>
 		</Menus>
-		<StatusBar Pic="STATUSBARPIC" Font="3" >
-			<Number Name="Difficulty" Init="1" />
-			<Number Name="Episode" Init="1" />
-			<Number Name="Floor" X="24" Y="16" Digits="2" Init="1" />
-			<Number Name="Score" X="88" Y="16" Digits="6" Init="0" />
-			<Number Name="Lives" X="112" Y="16" Digits="2" Init="3" />
-			<Face X="134" Y="5" />
-			<Number Name="Health" X="184" Y="16" Digits="3" Init="100" Max="100" />
-			<Number Name="Ammo" X="224" Y="16" Digits="2" Init="6" Max="99" />
-			<Number Name="Gold Key" X="240" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-			<Number Name="Silver Key" X="240" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-			<Number Name="Weapon0" Init="1" Max="1" />
-			<Number Name="Weapon1" Init="1" Max="1" />
-			<Number Name="Weapon2" Init="0" Max="1" />
-			<Number Name="Weapon3" Init="0" Max="1" />
-			<Weapons X="256" Y="8">
-				<Weapon Number="0" Pic="KNIFEPIC" Init="1" />
-				<Weapon Number="1" Pic="GUNPIC" Init="1" />
-				<Weapon Number="2" Pic="MACHINEGUNPIC" Init="0" />
-				<Weapon Number="3" Pic="GATLINGGUNPIC" Init="0" />
-			</Weapons>
-		</StatusBar>
 	</VgaGraph>
 	<Maps MapHead="MAPHEAD.WL1" GameMaps="GAMEMAPS.WL1">
 		<Map Number="0" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="00:01:30" Song="GETTHEM_MUS" />

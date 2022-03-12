@@ -138,6 +138,19 @@
 		<Pic Number="127" Chunk="132" Name="T_DEMO1" />
 		<Pic Number="128" Chunk="133" Name="T_DEMO2" />
 		-->
+		<StatusBar Pic="STATUSBARPIC" Font="3" >
+			<Number Name="Difficulty" Init="1" />
+			<Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
+			<Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
+			<Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
+			<Number Name="Lives" X="126" Y="16" Digits="2" Init="3" Max="9" />
+			<Face X="152" Y="4" />
+			<Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
+			<Number Name="Feed" X="240" Y="16" Digits="2" Init="7" Max="299" />
+			<Number Name="Yellow Key" X="256" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
+			<Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
+		</StatusBar>
 		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1" ModalFont="0" >
 			<!-- Classic game end strings -->
 			<EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
@@ -255,19 +268,6 @@
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
 			</Menu>
 		</Menus>
-		<StatusBar Pic="STATUSBARPIC" NumberBlank="N_BLANKPIC" NumberPrefix="N_" NumberSuffix="PIC">
-			<Number Name="Difficulty" Init="1" />
-			<Number Name="Episode" X="16" Y="16" Digits="1" Init="1" />
-			<Number Name="Floor" X="33" Y="16" Digits="1" Init="1" />
-			<Number Name="Score" X="104" Y="16" Digits="6" Init="0" />
-			<Number Name="Lives" X="126" Y="16" Digits="2" Init="3" Max="9" />
-			<Face X="152" Y="4" />
-			<Number Name="Health" X="200" Y="16" Digits="3" Init="100" Max="100" />
-			<Number Name="Feed" X="240" Y="16" Digits="2" Init="7" Max="299" />
-			<Number Name="Yellow Key" X="256" Y="4" Have="GOLDKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-			<Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
-			<Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
-		</StatusBar>
 	</VgaGraph>
 	<Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
 		<!-- e1 -->
