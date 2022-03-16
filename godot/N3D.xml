@@ -151,7 +151,7 @@
 			<Number Name="Blue Key" X="256" Y="20" Have="SILVERKEYPIC" Empty="NOKEYPIC" Init="0" LevelReset="0" />
 			<Number Name="Fruit" X="288" Y="16" Digits="2" Init="0" />
 		</StatusBar>
-		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1" ModalFont="0" >
+		<Menus BordColor="197" Bord2Color="0" Color="204" TextColor="0" Font="1" ModalFont="1" >
 			<!-- Classic game end strings -->
 			<EndString>Are you sure you're&#10;ready to quit?.&#10;Press Y to Quit.</EndString>
 			<EndString>What? Quitting already?&#10;Press Y to Quit.</EndString>
@@ -308,7 +308,7 @@
 		<Map Number="29" Episode="6" Floor="7" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Par="02:30" Song="NOAH09_MUS" />
 		<Map Number="30" Episode="6" Floor="8" Ground="212" GroundTile="69" Ceiling="220" CeilingTile="70" Border="218" Song="NOAH02_MUS" />
 	</Maps>
-	<Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" NumSounds="87" NumSndChunks="288" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
+	<Audio AudioHead="audiohed.n3d" AudioT="audiot.n3d" StartPCSounds="0" StartAdlibSounds="44" StartMusic="132">
 		<Sound Number="0" Name="D_ANTLPESND" />
 		<Sound Number="1" Name="D_BEARSND" />
 		<Sound Number="2" Name="D_BONUSSND" />
