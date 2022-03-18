@@ -677,26 +677,26 @@
 			<State Name="s_ssdead2" Shape="SPR_SS_DEAD2" Tics="55" Next="s_ssdead" Alive="false" Mark="false" />
 			<Actor Name="Carl the Camel" HP="850,950,1050,1200" Reaction="1" AlertDigiSound="D_CAMELSND" Chase="s_bosschase1" Attack="s_bossshoot1" Death="s_bossdie1" Ambush="true" AddTo="Score" Add="5000" />
 			<!-- TODO: Correct death effects for Carl (Hans) -->
-			<State Name="s_bossstand" Shape="SPR_BOSS_W1" Tice="0" Think="T_Stand" Next="s_bossstand" />
-			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tice="10" Think="T_Chase" Speed="1536" Next="s_bosschase1s" />
-			<State Name="s_bosschase1s" Shape="SPR_BOSS_W1" Tice="3" Next="s_bosschase2" />
-			<State Name="s_bosschase2" Shape="SPR_BOSS_W2" Tice="8" Think="T_Chase" Speed="1536" Next="s_bosschase3" />
-			<State Name="s_bosschase3" Shape="SPR_BOSS_W3" Tice="10" Think="T_Chase" Speed="1536" Next="s_bosschase3s" />
-			<State Name="s_bosschase3s" Shape="SPR_BOSS_W3" Tice="3" Next="s_bosschase4" />
-			<State Name="s_bosschase4" Shape="SPR_BOSS_W4" Tice="8" Think="T_Chase" Speed="1536" Next="s_bosschase1" />
-			<State Name="s_bossdie1" Shape="SPR_BOSS_DIE1" Tice="15" Next="s_bossdie2" Alive="false" Mark="false" />
+			<State Name="s_bossstand" Shape="SPR_BOSS_W1" Tics="0" Think="T_Stand" Next="s_bossstand" />
+			<State Name="s_bosschase1" Shape="SPR_BOSS_W1" Tics="10" Think="T_Chase" Speed="1536" Next="s_bosschase1s" />
+			<State Name="s_bosschase1s" Shape="SPR_BOSS_W1" Tics="3" Next="s_bosschase2" />
+			<State Name="s_bosschase2" Shape="SPR_BOSS_W2" Tics="8" Think="T_Chase" Speed="1536" Next="s_bosschase3" />
+			<State Name="s_bosschase3" Shape="SPR_BOSS_W3" Tics="10" Think="T_Chase" Speed="1536" Next="s_bosschase3s" />
+			<State Name="s_bosschase3s" Shape="SPR_BOSS_W3" Tics="3" Next="s_bosschase4" />
+			<State Name="s_bosschase4" Shape="SPR_BOSS_W4" Tics="8" Think="T_Chase" Speed="1536" Next="s_bosschase1" />
+			<State Name="s_bossdie1" Shape="SPR_BOSS_DIE1" Tics="15" Next="s_bossdie2" Alive="false" Mark="false" />
 			<!-- TODO A_DeathScream -->
-			<State Name="s_bossdie2" Shape="SPR_BOSS_DIE2" Tice="15" Next="s_bossdead" Alive="false" Mark="false" />
-			<State Name="s_bossdead" Shape="SPR_BOSS_DEAD" Tice="55" Next="s_bossdead2" Alive="false" Mark="false" />
-			<State Name="s_bossdead2" Shape="SPR_BOSS_DEAD2" Tice="55" Next="s_bossdead" Alive="false" Mark="false" />
-			<State Name="s_bossshoot1" Shape="SPR_BOSS_SHOOT1" Tice="30" Next="s_bossshoot2" />
-			<State Name="s_bossshoot2" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot3" />
-			<State Name="s_bossshoot3" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot4" />
-			<State Name="s_bossshoot4" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot5" />
-			<State Name="s_bossshoot5" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot6" />
-			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tice="10" Act="T_Shoot" Next="s_bossshoot7" />
-			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tice="10" Act="T_Shoot" Next="s_bossshoot8" />
-			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tice="10" Next="s_bosschase1" />
+			<State Name="s_bossdie2" Shape="SPR_BOSS_DIE2" Tics="15" Next="s_bossdead" Alive="false" Mark="false" />
+			<State Name="s_bossdead" Shape="SPR_BOSS_DEAD" Tics="55" Next="s_bossdead2" Alive="false" Mark="false" />
+			<State Name="s_bossdead2" Shape="SPR_BOSS_DEAD2" Tics="55" Next="s_bossdead" Alive="false" Mark="false" />
+			<State Name="s_bossshoot1" Shape="SPR_BOSS_SHOOT1" Tics="30" Next="s_bossshoot2" />
+			<State Name="s_bossshoot2" Shape="SPR_BOSS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_bossshoot3" />
+			<State Name="s_bossshoot3" Shape="SPR_BOSS_SHOOT3" Tics="10" Act="T_Shoot" Next="s_bossshoot4" />
+			<State Name="s_bossshoot4" Shape="SPR_BOSS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_bossshoot5" />
+			<State Name="s_bossshoot5" Shape="SPR_BOSS_SHOOT3" Tics="10" Act="T_Shoot" Next="s_bossshoot6" />
+			<State Name="s_bossshoot6" Shape="SPR_BOSS_SHOOT2" Tics="10" Act="T_Shoot" Next="s_bossshoot7" />
+			<State Name="s_bossshoot7" Shape="SPR_BOSS_SHOOT3" Tics="10" Act="T_Shoot" Next="s_bossshoot8" />
+			<State Name="s_bossshoot8" Shape="SPR_BOSS_SHOOT1" Tics="10" Next="s_bosschase1" />
 			<Actor Name="Ginny the Giraffe" HP="25,25,25,25" Reaction="1-43" AlertDigiSound="D_GIRAFESND" Chase="s_gretelchase1" Attack="s_gretelshoot1" Death="s_greteldie1" AddTo="Score" Add="200" />
 			<!-- TODO: Correct death effects for Giraffe (Gretel) -->
 			<State Name="s_gretelstand" Shape="SPR_GRETEL_W1" Tics="0" Think="T_Stand" Next="s_gretelstand" />
