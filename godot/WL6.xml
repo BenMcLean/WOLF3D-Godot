@@ -208,11 +208,11 @@
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
 				<MenuItems StartX="8" StartY="22" PaddingX="90" PaddingY="14">
 					<MenuItem Text="Episode 1&#10;Escape from Wolfenstein" Episode="1" Action="Menu" Argument="Difficulty" />
-					<MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-					<MenuItem Text="Episode 3&#10;Die, Furher, Die" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-					<MenuItem Text="Episode 4&#10;A Dark Secret" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-					<MenuItem Text="Episode 5&#10;Trail of the Madman" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
-					<MenuItem Text="Episode 6&#10;Confrontation" Action="Modal" Argument="You're playing the shareware.&#10;Playing this episode requires&#10;the full commercial game!" TextColor="107" SelectedColor="103" />
+					<MenuItem Text="Episode 2&#10;Operation: Eisenfaust" Episode="2" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Episode 3&#10;Die, Furher, Die" Episode="3" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Episode 4&#10;A Dark Secret" Episode="4" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Episode 5&#10;Trail of the Madman" Episode="5" Action="Menu" Argument="Difficulty" />
+					<MenuItem Text="Episode 6&#10;Confrontation" Episode="6" Action="Menu" Argument="Difficulty" />
 				</MenuItems>
 				<Cancel Action="Menu" Argument="Main" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-2" />
@@ -271,16 +271,16 @@
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="45" BordColor="44" Bord2Color="35" />
 				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM0.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM1.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM2.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM3.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM4.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM5.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM6.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM7.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM8.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM9.WL1" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM0.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM1.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM2.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM3.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM4.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM5.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM6.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM7.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM8.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Load" Argument="SAVEGAM9.WL6" />
 				</MenuItems>
 				<Cancel Action="Menu" Argument="Main" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
@@ -290,16 +290,16 @@
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="184" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="45" BordColor="44" Bord2Color="35" />
 				<MenuItems StartX="3" StartY="55" PaddingX="33" PaddingY="3">
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM0.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM1.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM2.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM3.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM4.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM5.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM6.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM7.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM8.WL1" />
-					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM9.WL1" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM0.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM1.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM2.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM3.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM4.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM5.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM6.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM7.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM8.WL6" />
+					<MenuItem Text="                    - empty -" BoxColor="45" BoxX="-2" BoxY="-1" BoxWidth="279" BoxHeight="12" Action="Save" Argument="SAVEGAM9.WL6" />
 				</MenuItems>
 				<Cancel Action="Menu" Argument="Main" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
@@ -888,7 +888,7 @@
 		<Sound Number="5" Name="MOVEGUN1SND" />
 		<Sound Number="6" Name="NOWAYSND" />
 		<Sound Number="7" Name="NAZIHITPLAYERSND" />
-		<Sound Number="8" Name="FIRESND" />
+		<Sound Number="8" Name="SCHABBSTHROWSND" />
 		<Sound Number="9" Name="PLAYERDEATHSND" />
 		<Sound Number="10" Name="DOGDEATHSND" />
 		<Sound Number="11" Name="ATKGATLINGSND" />
@@ -995,7 +995,7 @@
 		<Imf Number="25" Name="VICMARCH_MUS" />
 		<Imf Number="26" Name="PACMAN_MUS" />
 	</Audio>
-	<VSwap Name="VSWAP.WL1" Sqrt="64" Scale="8" MipMaps="true">
+	<VSwap Name="VSWAP.WL6" Sqrt="64" Scale="8" MipMaps="true">
 		<Walls FloorCodeFirst="108" FloorCodeLast="143">
 			<Wall Number="1" Page="0" DarkSide="1" Name="Grey Brick 1" />
 			<Wall Number="2" Page="2" DarkSide="3" Name="Grey Brick 2" />
