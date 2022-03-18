@@ -267,6 +267,12 @@
 				<Cancel Action="Menu" Argument="Main" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
 			</Menu>
+			<Menu Name="FloorComplete" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
+				<MenuItems>
+					<MenuItem Action="NextFloor" />
+				</MenuItems>
+				<Cancel Action="NextFloor" />
+			</Menu>
 		</Menus>
 	</VgaGraph>
 	<Maps MapHead="maphead.n3d" GameMaps="gamemaps.n3d">
