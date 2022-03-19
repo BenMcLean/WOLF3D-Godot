@@ -393,7 +393,7 @@
 		<Map Number="58" Name="WOLF6_BOSS_MAP" Episode="6" Floor="9" Ground="25" Ceiling="29" Border="127" />
 		<Map Number="59" Name="WOLF6_SECRET_MAP" Episode="6" Floor="10" Ground="25" Ceiling="29" Border="127" />
 	</Maps>
-	<Audio AudioHead="AUDIOHED.WL6" AudioT="AUDIOT.WL6" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
+	<Audio AudioHead="AUDIOHED.WL6" AudioT="AUDIOT.WL6" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261" >
 		<Sound Number="0" Name="HITWALLSND" />
 		<Sound Number="1" Name="SELECTWPNSND" />
 		<Sound Number="2" Name="SELECTITEMSND" />
@@ -1004,27 +1004,93 @@
 			<Sprite Page="412" Name="SPR_BOSS_DIE3" />
 		</Sprites>
 		<DigiSounds>
-			<DigiSound Number="0" Name="HALTSND" />
-			<DigiSound Number="1" Name="DOGBARKSND" />
-			<DigiSound Number="2" Name="CLOSEDOORSND" />
-			<DigiSound Number="3" Name="OPENDOORSND" />
-			<DigiSound Number="4" Name="ATKMACHINEGUNSND" />
-			<DigiSound Number="5" Name="ATKPISTOLSND" />
-			<DigiSound Number="6" Name="ATKGATLINGSND" />
-			<DigiSound Number="7" Name="SCHUTZADSND" />
-			<DigiSound Number="8" Name="GUTENTAGSND" />
-			<DigiSound Number="9" Name="MUTTISND" />
-			<DigiSound Number="10" Name="BOSSFIRESND" />
-			<DigiSound Number="11" Name="SSFIRESND" />
-			<DigiSound Number="12" Name="DEATHSCREAM1SND" />
-			<DigiSound Number="13" Name="DEATHSCREAM2SND" />
-			<DigiSound Number="14" Name="TAKEDAMAGESND" />
-			<DigiSound Number="14" Name="DEATHSCREAM3SND" />
-			<DigiSound Number="15" Name="PUSHWALLSND" />
-			<DigiSound Number="20" Name="LEBENSND" />
-			<DigiSound Number="21" Name="NAZIFIRESND" />
-			<DigiSound Number="22" Name="SLURPIESND" />
-			<DigiSound Number="32" Name="YEAHSND" />
+			<DigiSound Number="0" Name="HITWALLSND" />
+			<DigiSound Number="1" Name="SELECTWPNSND" />
+			<DigiSound Number="2" Name="SELECTITEMSND" />
+			<DigiSound Number="3" Name="HEARTBEATSND" />
+			<DigiSound Number="4" Name="MOVEGUN2SND" />
+			<DigiSound Number="5" Name="MOVEGUN1SND" />
+			<DigiSound Number="6" Name="NOWAYSND" />
+			<DigiSound Number="7" Name="NAZIHITPLAYERSND" />
+			<DigiSound Number="8" Name="SCHABBSTHROWSND" />
+			<DigiSound Number="9" Name="PLAYERDEATHSND" />
+			<DigiSound Number="10" Name="DOGDEATHSND" />
+			<DigiSound Number="11" Name="ATKGATLINGSND" />
+			<DigiSound Number="12" Name="GETKEYSND" />
+			<DigiSound Number="13" Name="NOITEMSND" />
+			<DigiSound Number="14" Name="WALK1SND" />
+			<DigiSound Number="15" Name="WALK2SND" />
+			<DigiSound Number="16" Name="TAKEDAMAGESND" />
+			<DigiSound Number="17" Name="GAMEOVERSND" />
+			<DigiSound Number="18" Name="OPENDOORSND" />
+			<DigiSound Number="19" Name="CLOSEDOORSND" />
+			<DigiSound Number="20" Name="DONOTHINGSND" />
+			<DigiSound Number="21" Name="HALTSND" />
+			<DigiSound Number="22" Name="DEATHSCREAM2SND" />
+			<DigiSound Number="23" Name="ATKKNIFESND" />
+			<DigiSound Number="24" Name="ATKPISTOLSND" />
+			<DigiSound Number="25" Name="DEATHSCREAM3SND" />
+			<DigiSound Number="26" Name="ATKMACHINEGUNSND" />
+			<DigiSound Number="27" Name="HITENEMYSND" />
+			<DigiSound Number="28" Name="SHOOTDOORSND" />
+			<DigiSound Number="29" Name="DEATHSCREAM1SND" />
+			<DigiSound Number="30" Name="GETMACHINESND" />
+			<DigiSound Number="31" Name="GETAMMOSND" />
+			<DigiSound Number="32" Name="SHOOTSND" />
+			<DigiSound Number="33" Name="HEALTH1SND" />
+			<DigiSound Number="34" Name="HEALTH2SND" />
+			<DigiSound Number="35" Name="BONUS1SND" />
+			<DigiSound Number="36" Name="BONUS2SND" />
+			<DigiSound Number="37" Name="BONUS3SND" />
+			<DigiSound Number="38" Name="GETGATLINGSND" />
+			<DigiSound Number="39" Name="ESCPRESSEDSND" />
+			<DigiSound Number="40" Name="LEVELDONESND" />
+			<DigiSound Number="41" Name="DOGBARKSND" />
+			<DigiSound Number="42" Name="ENDBONUS1SND" />
+			<DigiSound Number="43" Name="ENDBONUS2SND" />
+			<DigiSound Number="44" Name="BONUS1UPSND" />
+			<DigiSound Number="45" Name="BONUS4SND" />
+			<DigiSound Number="46" Name="PUSHWALLSND" />
+			<DigiSound Number="47" Name="NOBONUSSND" />
+			<DigiSound Number="48" Name="PERCENT100SND" />
+			<DigiSound Number="49" Name="BOSSACTIVESND" />
+			<DigiSound Number="50" Name="MUTTISND" />
+			<DigiSound Number="51" Name="SCHUTZADSND" />
+			<DigiSound Number="52" Name="AHHHGSND" />
+			<DigiSound Number="53" Name="DIESND" />
+			<DigiSound Number="54" Name="EVASND" />
+			<DigiSound Number="55" Name="GUTENTAGSND" />
+			<DigiSound Number="56" Name="LEBENSND" />
+			<DigiSound Number="57" Name="SCHEISTSND" />
+			<DigiSound Number="58" Name="NAZIFIRESND" />
+			<DigiSound Number="59" Name="BOSSFIRESND" />
+			<DigiSound Number="60" Name="SSFIRESND" />
+			<DigiSound Number="61" Name="SLURPIESND" />
+			<DigiSound Number="62" Name="TOT_HUNDSND" />
+			<DigiSound Number="63" Name="MEINGOTTSND" />
+			<DigiSound Number="64" Name="SCHABBSHASND" />
+			<DigiSound Number="65" Name="HITLERHASND" />
+			<DigiSound Number="66" Name="SPIONSND" />
+			<DigiSound Number="67" Name="NEINSOVASSND" />
+			<DigiSound Number="68" Name="DOGATTACKSND" />
+			<DigiSound Number="69" Name="FLAMETHROWERSND" />
+			<DigiSound Number="70" Name="MECHSTEPSND" />
+			<DigiSound Number="71" Name="GOOBSSND" />
+			<DigiSound Number="72" Name="YEAHSND" />
+			<DigiSound Number="73" Name="DEATHSCREAM4SND" />
+			<DigiSound Number="74" Name="DEATHSCREAM5SND" />
+			<DigiSound Number="75" Name="DEATHSCREAM6SND" />
+			<DigiSound Number="76" Name="DEATHSCREAM7SND" />
+			<DigiSound Number="77" Name="DEATHSCREAM8SND" />
+			<DigiSound Number="78" Name="DEATHSCREAM9SND" />
+			<DigiSound Number="79" Name="DONNERSND" />
+			<DigiSound Number="80" Name="EINESND" />
+			<DigiSound Number="81" Name="ERLAUBENSND" />
+			<DigiSound Number="82" Name="KEINSND" />
+			<DigiSound Number="83" Name="MEINSND" />
+			<DigiSound Number="84" Name="ROSESND" />
+			<DigiSound Number="85" Name="MISSILEFIRESND" />
+			<DigiSound Number="86" Name="MISSILEHITSND" />
 		</DigiSounds>
 	</VSwap>
 	<Palette>
