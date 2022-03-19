@@ -187,7 +187,6 @@
 					<MenuItem Text="Control" Action="Menu" Argument="Control" />
 					<MenuItem Text="Load Game" Action="Menu" Argument="Load" />
 					<MenuItem Text="Save Game" InGame="true" Action="Menu" Argument="Save" />
-					<MenuItem Text="Read This!" Action="Menu" Argument="Page1" />
 					<MenuItem Text="End Game" InGame="true" Action="End" Argument="Are you sure you want&#10;to end the game you&#10;are currently playing?" />
 					<MenuItem Text="Back to Game" InGame="true" Action="Resume" />
 					<MenuItem Text="Quit" Action="Quit" />
@@ -304,541 +303,6 @@
 				<Cancel Action="Menu" Argument="Main" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" Y="-3" />
 			</Menu>
-			<Menu Name="Page1" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="QUICK COMMAND REFERENCE" X="16" Y="16" Color="126" />
-				<Text String="Arrows move. Ctrl shoots. Alt strafes.&#10;&#10;F1			Help&#10;F2			Save game (F8 for Quick save)&#10;F3			Load game (F9 for Quick load)&#10;F4			Sound menu&#10;F5			Resize view window&#10;F6			Controls menu&#10;F7			End Game&#10;F10		Exit to DOS&#10;&#10;Read on for more information." X="16" Y="36" />
-				<Text String="pg 1 of 41" X="212" Y="183" Color="79" />
-				<Down Action="Menu" Argument="Page2" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page2" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="TABLE OF CONTENTS" X="96" Y="36" Color="126" />
-				<Text String="STORY . . . . . . . . . . . . . 3&#10;CONTROLS . . . . . . . . . . 6&#10;ABOUT Id  . . . . . . . . . . 12&#10;ORDERING. . . . . . . . . . . 16&#10;MORE WOLFENSTEIN! . . . 19&#10;SOFTWARE CREATIONS    24&#10;FOREIGN ORDERS . . . . . 28" X="80" Y="66" />
-				<Text String="Id" X="119" Y="86" Color="124" />
-				<Text String="ORDERING" X="80" Y="96" Color="40" />
-				<Text String="SOFTWARE CREATIONS" X="79" Y="116" Color="109" />
-				<Text String="pg 2 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page1" />
-				<Down Action="Menu" Argument="Page3" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page3" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_WOLFLOGOPIC" X="76" Y="13" />
-				<Image Name="H_BJPIC" X="16" Y="66" />
-				<Text String="You stand over the guard's&#10;body, grabbing frantically&#10;for his gun. You're not&#10;sure if the other guards&#10;heard his muffled scream.&#10;Deep in the belly of a Nazi&#10;dungeon, you've only a&#10;knife, a gun, and your wits&#10;to aid your escape." X="118" Y="66" />
-				<Text String="pg 3 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page2" />
-				<Down Action="Menu" Argument="Page4" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page4" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_CASTLEPIC" X="16" Y="16" />
-				<Text String="Just a few weeks ago&#10;you were on a&#10;reconnaissance mission of&#10;extreme importance.&#10;You were to infiltrate&#10;the Nazi fortress and" X="136" Y="16" />
-				<Text String="find the plans for Operation Eisenfaust.&#10;Captured in your attempt, you were taken&#10;to their prison, and awaited your&#10;execution.  Only you know where the plans&#10;are kept, and the Allies will face a great&#10;defeat if you don't escape!  You must face&#10;the horrors of the prison keep known as&#10;Wolfenstein." X="16" Y="76" />
-				<Text String="pg 4 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page3" />
-				<Down Action="Menu" Argument="Page5" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page5" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_BLAZEPIC" X="16" Y="16" />
-				<Text String="Captain William J. &quot;B.J.&quot;&#10;Blazkowicz, you've got a&#10;gun and eight floors of&#10;hell to get through.&#10;Good luck!" X="144" Y="16" />
-				<Text String="Hey, if you make it, you'll have something&#10;to tell your grandkids about . . . .&#10;&#10;If you don't, at least you'll go out in a&#10;blaze of glory!" X="16" Y="106" />
-				<Text String="pg 5 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page4" />
-				<Down Action="Menu" Argument="Page6" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page6" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_JOYPIC" X="16" Y="16" />
-				<Text String="CONTROLS" X="88" Y="16" Color="126" />
-				<Text String="In Wolfenstein 3-D, you can use&#10;the keyboard, mouse, joystick,&#10;or Gravis PC Gamepad." X="88" Y="32" />
-				<Text String="To move around the menus, use the arrow&#10;keys to move from item to item, then&#10;press Enter to select that item. Esc&#10;always backs out.  You can press the first&#10;letter of a menu item to go to that item.&#10;&#10;Or use the mouse, joystick, or Gamepad--&#10;they work, too!" X="16" Y="76" />
-				<Text String="Enter" X="57" Y="96" Color="110" />
-				<Text String="Esc" X="228" Y="96" Color="110" />
-				<Text String="pg 6 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page5" />
-				<Down Action="Menu" Argument="Page7" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page7" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_KEYBOARDPIC" X="16" Y="20" />
-				<Text String="Once you are in the&#10;game, use the arrow&#10;keys to move. Hold&#10;down Shift to run fast." X="144" Y="16" />
-				<Text String="Press Ctrl to fire your weapon.&#10;&#10;Use Alt with the left and right arrows to&#10;slide side to side instead of turning left or&#10;right.  This is called &quot;Strafe Mode.&quot;&#10;&#10;Press Space to Open Doors and activate&#10;elevators to go to the next floor of the&#10;keep." X="16" Y="66" />
-				<Text String="Shift" X="181" Y="46" Color="110" />
-				<Text String="Ctrl" X="55" Y="66" Color="110" />
-				<Text String="Alt" X="42" Y="86" Color="110" />
-				<Text String="Space" X="56" Y="126" Color="110" />
-				<Text String="pg 7 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page6" />
-				<Down Action="Menu" Argument="Page8" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page8" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_JOYPIC" X="16" Y="16" />
-				<Text String="When using the mouse or&#10;joystick, use button 1 to shoot,&#10;button 2 to strafe." X="88" Y="16" />
-				<Text String="With a three-button mouse, use the third&#10;button to open doors.&#10;&#10;Gravis PC Gamepads have a fourth button,&#10;useful as a run button." X="16" Y="76" />
-				<Text String="pg 8 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page7" />
-				<Down Action="Menu" Argument="Page9" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page9" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_WEAPON1234PIC" X="104" Y="50" />
-				<Text String="Once you have more than one weapon, the&#10;keys 1-4 choose the weapons:&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Holding down the fire button is fun, but&#10;short bursts save bullets." X="16" Y="16" />
-				<Text String="pg 9 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page8" />
-				<Down Action="Menu" Argument="Page10" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page10" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_KEYPIC" X="16" Y="76" />
-				<Image Name="H_HEALPIC" X="8" Y="124" />
-				<Text String="Some walls in the prison can be pushed&#10;back to reveal hidden rooms. Hold down&#10;Space to push the wall in front of you.&#10;Just think of Space as the Use key. It will&#10;use doors, use elevators, and so on." X="16" Y="16" />
-				<Text String="There are locked doors in the castle&#10;that require either a gold or silver" X="56" Y="76" />
-				<Text String="key.  It will be somewhere on the floor&#10;you're on." X="16" Y="96" />
-				<Text String="If you find your health&#10;dropping, pick up some food" X="104" Y="126" />
-				<Text String="or first aid.  You'll find you're damaged&#10;more when shot at close range." X="16" Y="146" />
-				<Text String="pg 10 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page9" />
-				<Down Action="Menu" Argument="Page11" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page11" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_GUNPIC" X="16" Y="16" />
-				<Text String="Pick up the ammo left&#10;behind when you toast&#10;someone.  For instance,&#10;perforate an SS--free&#10;machine gun!" X="128" Y="16" />
-				<Text String="You get a free guy every 40,000 points,&#10;so collect those treasures! (You can have a&#10;maximum of nine lives.)&#10;&#10;When you get killed, you lose everything but&#10;your gun and start at the beginning of the&#10;floor you were on." X="16" Y="86" />
-				<Text String="pg 11 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page10" />
-				<Down Action="Menu" Argument="Page12" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page12" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
-				<Text String="ABOUT Id SOFTWARE" X="16" Y="16" Color="126" />
-				<Text String="Yes, that's Id, as in the id, ego, and&#10;superego in the psyche.  We think&#10;shareware is a fine alternative to the high&#10;prices of commercial vendors.  For under&#10;twelve dollars a game, you can get the&#10;hottest, fastest texture-mapped game&#10;available.  How can you beat that?" X="16" Y="36" />
-				<Text String="We'll answer that question in a&#10;few months. . . ." X="16" Y="116" Color="44" />
-				<Text String="Id" X="56" Y="16" Color="110" />
-				<Text String="pg 12 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page11" />
-				<Down Action="Menu" Argument="Page13" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page13" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
-				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-				<Text String="PROGRAMMERS&#10;&#10;&#10;&#10;ARTIST&#10;&#10;&#10;CREATIVE DIRECTOR" X="16" Y="36" Color="110" />
-				<Text String="John Carmack&#10;John Romero&#10;&#10;&#10;Adrian Carmack&#10;&#10;&#10;Tom Hall" X="16" Y="46" />
-				<Text String="pg 13 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page12" />
-				<Down Action="Menu" Argument="Page14" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page14" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
-				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-				<Text String="MANUAL DESIGN&#10;&#10;&#10;CHIEF OPERATING OFFICER" X="16" Y="36" Color="110" />
-				<Text String="Kevin Cloud&#10;&#10;&#10;Jay Wilbur" X="16" Y="46" />
-				<Text String="pg 14 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page13" />
-				<Down Action="Menu" Argument="Page15" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page15" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_IDLOGOPIC" X="240" Y="116" />
-				<Text String="Id Software is . . ." X="16" Y="16" Color="126" />
-				<Text String="COMPOSER&#10;&#10;&#10;ADDITIONAL PROGRAMMING" X="16" Y="36" Color="110" />
-				<Text String="Robert Prince&#10;&#10;&#10;Jason Blochowiak" X="16" Y="46" />
-				<Text String="pg 15 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page14" />
-				<Down Action="Menu" Argument="Page16" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page16" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-				<Text String="Don't miss the next two exciting episodes:&#10;&#10;&#10;Fight an evil army of undead killing&#10;machines, the hideous experiments of the&#10;maniacal Dr. Schabbs!  Then battle the&#10;deadly Doctor himself!&#10;&#10;&#10;With the Third Reich crumbling around him,&#10;Hitler seems bent on taking the world with&#10;him.  You must charge his gigantic bunker,&#10;find him, and end the evil once and for all!" X="16" Y="36" />
-				<Text String="Operation: Eisenfaust&#10;&#10;&#10;&#10;&#10;&#10;Die, Fuhrer, Die!" X="16" Y="56" Color="46" />
-				<Text String="pg 16 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page15" />
-				<Down Action="Menu" Argument="Page17" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page17" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_VISAPIC" X="224" Y="50" />
-				<Image Name="H_MCPIC" X="224" Y="100" />
-				<Text String="ORDERING WOLFENSTEIN 3-D" X="16" Y="16" Color="126" />
-				<Text String="Register now and receive:&#10;* All three exciting adventures&#10;* All digitized sounds&#10;* New graphics and enemies&#10;* Cool 16-page manual&#10;* The Secret Cheat password&#10;* Exciting new bonus game&#10;&#10;To order, call toll free:&#10;     1-800-426-3123&#10;(Visa and MasterCard Welcome)&#10;Order all three adventures for only $35,&#10;plus $4 shipping." X="16" Y="36" />
-				<Text String="pg 17 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page16" />
-				<Down Action="Menu" Argument="Page18" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page18" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="ORDERING INFORMATION" X="16" Y="16" Color="126" />
-				<Text String="Please specify disk size:   5.25&quot;  or  3.5&quot;&#10;&#10;Please indicate if you have high-density disk&#10;drives.&#10;&#10;To order send $35, plus $4 shipping, USA&#10;funds, to:&#10;&#10;  Apogee Software&#10;  P.O. Box 496389&#10;  Garland, TX 75049-6389  (USA)&#10;&#10;Or CALL NOW toll free: 1-800-426-3123" X="16" Y="36" />
-				<Text String="pg 18 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page17" />
-				<Down Action="Menu" Argument="Page19" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page19" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="ALSO AVAILABLE" X="16" Y="16" Color="126" />
-				<Text String="Ready for a real challenge?  Available right&#10;now are three more episodes of&#10;Wolfenstein 3-D: the Nocturnal Missions! In&#10;this prequel, B.J. must stop a Nazi plan for&#10;chemical warfare. Don't miss an&#10;action-packed second of it!&#10;&#10;Nocturnal Missions&#10;Both trilogies&#10;Hint Book&#10;&#10;What hint book? See the next page!" X="16" Y="36" />
-				<Text String="$20 + $4 S&amp;H" X="150" Y="106" />
-				<Text String="$50 + $4 S&amp;H" X="150" Y="116" />
-				<Text String="$10" X="150" Y="126" />
-				<Text String="Wolfenstein 3-D: the Nocturnal Missions!" X="16" Y="56" Color="110" />
-				<Text String="pg 19 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page18" />
-				<Down Action="Menu" Argument="Page20" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page20" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="WOLFENSTEIN HINT BOOK!" X="16" Y="16" Color="126" />
-				<Text String="If you want to know every nook and&#10;cranny of every level, get the&#10;3-D Hint Book for only $10!  All six episodes&#10;are shown in exquisite detail.&#10;&#10;It's also filled with fun facts about Id and&#10;the development of Wolfenstein 3-D.  Find&#10;out secrets about B.J. Blazkowicz and get&#10;cool tips. Snazzy!" X="16" Y="36" />
-				<Text String="Wolfenstein" X="212" Y="46" Color="110" />
-				<Text String="3-D Hint Book" X="16" Y="56" Color="110" />
-				<Text String="pg 20 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page19" />
-				<Down Action="Menu" Argument="Page21" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page21" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="NOCTURNAL MISSIONS (Wolf 1-3 Required)" X="16" Y="16" Color="126" />
-				<Text String="Intelligence has uncovered a Nazi plot for&#10;large scale chemical warfare.  You must&#10;eliminate maniac scientist Otto Giftmacher.&#10;&#10;&#10;The scientist is dead but the plans are in&#10;motion. Explore the dark dungeon and find&#10;the plans, man!&#10;&#10;&#10;Prepare for the final battle with General&#10;Fettgesicht, organizer of the chemical war!" X="16" Y="46" />
-				<Text String="Episode Four: A Dark Secret&#10;&#10;&#10;&#10;&#10;Episode Five: Trail of the Madman&#10;&#10;&#10;&#10;&#10;Episode Six: Confrontation" X="16" Y="36" Color="41" />
-				<Text String="pg 21 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page20" />
-				<Down Action="Menu" Argument="Page22" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page22" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="SPEAR OF DESTINY" X="16" Y="16" Color="126" />
-				<Text String="This new, incredibly challenging Wolfenstein&#10;adventure boasts twenty levels, four tough&#10;bosses, plus new graphics and music for&#10;the most amazing Wolfenstein yet!&#10;&#10;The Spear of Destiny--legend has it that&#10;with this spear no force may be defeated&#10;in battle. BJ must fight the forces in&#10;Castle Nuremberg and wrest the Spear&#10;from Adolf's clutches!&#10;&#10;Get this amazing adventure for only $35&#10;from Apogee!" X="16" Y="36" />
-				<Text String="pg 22 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page21" />
-				<Down Action="Menu" Argument="Page23" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page23" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_SPEARADPIC" X="16" Y="16" />
-				<Text String="pg 23 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page22" />
-				<Down Action="Menu" Argument="Page24" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page24" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="USE YOUR FAX MACHINE TO ORDER!" X="16" Y="16" Color="126" />
-				<Text String="You can now use your FAX machine to&#10;order your favorite Apogee games quickly&#10;and easily.&#10;&#10;Simply print out the ORDER.FRM file, fill it&#10;out and FAX it to us for prompt&#10;processing.&#10;&#10;FAX Orders: (214) 278-4670" X="16" Y="36" />
-				<Text String="pg 24 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page23" />
-				<Down Action="Menu" Argument="Page25" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page25" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="THE OFFICIAL APOGEE BBS" X="16" Y="16" Color="126" />
-				<Text String="The SOFTWARE CREATIONS BBS is the home&#10;BBS for the latest Apogee games. Check&#10;out our FREE 'Apogee' file section for new&#10;releases and updates.&#10;&#10;BBS phone lines:&#10;		(508) 365-2359			2400 baud&#10;		(508) 368-4137			2400-14.4K USR&#10;		(508) 368-7036		2400-14.4k V.32&#10;&#10;Home of the Apogee BBS Network!&#10;A Major Multi-Line BBS." X="16" Y="36" />
-				<Text String="pg 25 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page24" />
-				<Down Action="Menu" Argument="Page26" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page26" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="APOGEE ON AMERICA ONLINE!" X="16" Y="16" Color="126" />
-				<Text String="America Online (AOL) is host of the Apogee&#10;Forum, where you can get new Apogee&#10;games. Use the Apogee message areas to&#10;talk and exchange ideas, comments and&#10;secrets with our designers and other&#10;players.  If you're already a member,&#10;after you log on, use the keyword&#10;&quot;Apogee&quot; (Ctrl-K) to go to the Apogee area.&#10;&#10;If you'd like to know how to join, please&#10;call toll free: 1-800-827-6364.  Please ask&#10;for extension 6131. You'll get the FREE&#10;startup kit." X="16" Y="36" />
-				<Text String="pg 26 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page25" />
-				<Down Action="Menu" Argument="Page27" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page27" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="WATCH OUT!" X="16" Y="16" Color="126" />
-				<Text String="Apogee now has their own official section&#10;on Exec-PC, the world's largest bulletin&#10;board. All the hottest new shareware&#10;games are there!&#10;&#10;Look in the section named &quot;Apogee Games&#10;Collection.&quot;  (Currently in file collection &quot;R&quot;.)&#10;&#10;Call (414) 789-4210 with your modem to&#10;join the fun on Exec-PC!" X="16" Y="36" />
-				<Text String="pg 27 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page26" />
-				<Down Action="Menu" Argument="Page28" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page28" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="FOREIGN CUSTOMERS" X="16" Y="16" Color="126" />
-				<Text String="The following screens list our dealers&#10;outside the United States: Australia, Canada&#10;and the United Kingdom.  These are official&#10;Apogee dealers with the latest games and&#10;updates.&#10;&#10;If your country is not listed, you may&#10;order directly from Apogee by phone:&#10;&#10;											(214) 278-5655" X="16" Y="36" />
-				<Text String="pg 28 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page27" />
-				<Down Action="Menu" Argument="Page29" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page29" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="AUSTRALIAN CUSTOMERS (1 of 3)" X="16" Y="16" Color="126" />
-				<Text String="	BudgetWare&#10;	P.O. Box 496&#10;	Newtown, NSW  2042&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:&#10;	Toll free:&#10;	Fax:&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
-				<Text String="(02) 519-4233&#10;(008) 022-064&#10;(02) 516-4236" X="94" Y="106" />
-				<Text String="pg 29 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page28" />
-				<Down Action="Menu" Argument="Page30" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page30" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="AUSTRALIA (2 of 3)" X="16" Y="16" Color="126" />
-				<Text String="	Manaccom&#10;	9 Camford Str.&#10;	Milton, QLD  4064&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;					   ALL SIX:	$65 + $5 shipping.&#10;	Phone:		(07) 368-2366&#10;	Toll free:				(008) 022-064&#10;	Fax:						(07) 369-7589&#10;	CompuServe:	71520,1475&#10;Use MasterCard, Visa, Bankcard, AmEx,&#10;cheques." X="16" Y="36" />
-				<Text String="pg 30 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page29" />
-				<Down Action="Menu" Argument="Page31" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page31" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="AUSTRALIA (3 of 3)" X="16" Y="16" Color="126" />
-				<Text String="	Vision Shareware&#10;	4/146 Greenhill Rd.&#10;	Parkside SA 5063&#10;&#10;TRILOGY PRICE:	$45 + $5 shipping.&#10;   					ALL SIX:	$65 + $5 shipping.&#10;&#10;	Phone:						(08) 373-4469&#10;	Toll free:		(008) 807 486&#10;	Fax:						(08) 373-4482&#10;	CompuServe:	71520,1475&#10;&#10;Use MasterCard, Visa, Bankcard, cheques." X="16" Y="36" />
-				<Text String="pg 31 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page30" />
-				<Down Action="Menu" Argument="Page32" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page32" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="CANADIAN CUSTOMERS" X="16" Y="16" Color="126" />
-				<Text String="	Distant Markets&#10;	Box 1149&#10;	194 - 3803 Calgary Trail S.&#10;	Edmonton, Alb.  T6J 5M8&#10;	CANADA&#10;&#10;TRILOGY PRICE:	$47 Canadian.&#10;   					ALL SIX:	$70 Canadian.&#10;&#10;	Orders:			1-800-661-7383&#10;	Inquiries:	(403) 436-3009&#10;	Fax:					1-800-661-9756&#10;Use MasterCard, Visa or money orders." X="16" Y="36" />
-				<Text String="pg 32 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page31" />
-				<Down Action="Menu" Argument="Page33" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page33" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="UNITED KINGDOM CUSTOMERS" X="16" Y="16" Color="126" />
-				<Text String="	Precision Software Applications&#10;	Unit 3, Valley Court Offices&#10;	Lower Rd.&#10;	Croydon, Near Royston&#10;	Herts. SG8 0HF, United Kingdom&#10;&#10;TRILOGY PRICE:	29# + VAT + 2 P&amp;P&#10;   					ALL SIX:	44# + VAT + 2 P&amp;P&#10;&#10;	Phone:	+44 (0) 223 208 288&#10;	FAX:  		+44 (0) 223 208 089&#10;Credit cards, Access, or cheques. Make&#10;cheques payable to PSA." X="16" Y="36" />
-				<Text String="pg 33 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page32" />
-				<Down Action="Menu" Argument="Page34" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page34" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="NEW ZEALAND CUSTOMERS" X="16" Y="16" Color="126" />
-				<Text String="	PC-SIG New Zealand&#10;	P.O. Box 90088&#10;	Victoria Street West&#10;	Auckland, New Zealand&#10;&#10;TRILOGY PRICE:	$85 (including shipping, etc.)&#10;   					ALL SIX:	$120&#10;&#10;	Phone:		3600-500&#10;	Fax:	  	3600-800&#10;&#10;Use Visa, Mastercard, Amex, Diners." X="16" Y="36" />
-				<Text String="pg 34 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page33" />
-				<Down Action="Menu" Argument="Page35" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page35" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="DANISH CUSTOMERS" X="16" Y="16" Color="126" />
-				<Text String="	Prof. Shareware Danmark&#10;	Benlose Skel 4 G&#10;	DK-4100 Ringsted Denmark&#10;&#10;TRILOGY PRICE:	kr. 277,00 (includes shipping)&#10;   					ALL SIX:	kr. 390,00&#10;&#10;	Phone:		(+45) 53 51 90 42&#10;	Fax:  			(+45) 53 61 93 91&#10;Use Visa, Mastercard, cheques." X="16" Y="36" />
-				<Text String="pg 35 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page34" />
-				<Down Action="Menu" Argument="Page36" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page36" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="A FRIENDLY REMINDER" X="16" Y="16" Color="126" />
-				<Text String="Episode One is shareware.  The other five&#10;episodes are not: they are only available&#10;from Apogee or authorized dealers.  Please&#10;do not distribute episodes two through six.&#10;It's easy to do, but the next game will&#10;just cost more if you do it.&#10;&#10;Please report any illegal selling and&#10;distribution of this game to Apogee by&#10;calling 1-800-GAME123.  Or call the SPA&#10;Piracy Hotline: 1-800-388-PIR8." X="16" Y="36" />
-				<Text String="pg 36 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page35" />
-				<Down Action="Menu" Argument="Page37" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page37" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="ABOUT APOGEE" X="16" Y="16" Color="126" />
-				<Text String="Our goal is to establish Apogee as the&#10;leading distributor of commercial quality&#10;shareware games. With enthusiasm and&#10;dedication, we think our goal can be&#10;achieved.&#10;&#10;However,  we need your support.&#10;Shareware is not free software.&#10;&#10;We thank you in advance for your&#10;contribution to the growing shareware&#10;community. Your honesty pays . . . ." X="16" Y="36" />
-				<Text String="pg 37 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page36" />
-				<Down Action="Menu" Argument="Page38" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page38" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
-				<Text String="Here's some quotes from the Id guys:&#10;&#10;Adrian Carmack, Master of the Pixel:&#10;&quot;Okay, now for the CGA version . . . NOT!&quot;&#10;&#10;&#10;John Carmack, Technical Director:&#10;&quot;I just mapped video memory into User&#10;Address Space on my Color NeXTStation!&quot;" X="16" Y="36" />
-				<Text String="pg 38 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page37" />
-				<Down Action="Menu" Argument="Page39" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page39" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="QUOTES FROM THE GUYS" X="16" Y="16" Color="126" />
-				<Text String="John Romero, Programming Director:&#10;&quot;I really need to work on my Total Time of&#10;5:20 for Episode One.  I was messing&#10;around too much in those rooms.&quot;&#10;&#10;&#10;Tom Hall, Creative Director:&#10;&quot;Ya don't bring a pistol to a machine gun&#10;fight.&quot;&#10;(Since I'm typing this, I'd like to plug John&#10;Blackwell's F.Godmom game. It's a great&#10;puzzle game.  Look for his new 4.0 version&#10;online!)" X="16" Y="36" />
-				<Text String="F.Godmom" X="86" Y="136" Color="41" />
-				<Text String="pg 39 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page38" />
-				<Down Action="Menu" Argument="Page40" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page40" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Text String="AUTO-BACKSCRATCHING" X="16" Y="16" Color="126" />
-				<Text String="Other Id games also available from Apogee:&#10;&#10;&#10;&quot;Invasion of the Vorticons&quot;: $30 for trilogy&#10;&#10;&quot;Goodbye, Galaxy!&quot;: $35 for two episodes&#10;&#10;&quot;Aliens Ate My BabySitter!&quot;: $35&#10;(That's our commercial game.)&#10;&#10;Super Keen Fun Pack: $90 (for all 6)&#10;&#10;Call 1-800-GAME123 for information." X="16" Y="36" />
-				<Text String="Commander Keen" X="16" Y="56" Color="41" />
-				<Text String="pg 40 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page39" />
-				<Down Action="Menu" Argument="Page41" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
-			<Menu Name="Page41" Song="CORNER_MUS" BkgdColor="17" TextColor="0">
-				<Image Name="H_TOPWINDOWPIC" X="0" Y="0" />
-				<Image Name="H_LEFTWINDOWPIC" X="0" Y="8" />
-				<Image Name="H_RIGHTWINDOWPIC" X="312" Y="8" />
-				<Image Name="H_BOTTOMINFOPIC" X="8" Y="176" />
-				<Image Name="H_BLAZEPIC" X="16" Y="80" />
-				<Text String="CONCLUSION" X="16" Y="16" Color="126" />
-				<Text String="Thanks for playing Wolfenstein 3-D.  Please&#10;support Id's efforts in making ground-&#10;breaking software available at shareware&#10;prices." X="16" Y="36" />
-				<Text String="Now, go get 'em!&#10;&#10;(ESC to return to&#10;menu.)" X="142" Y="106" />
-				<Text String="pg 41 of 41" X="212" Y="183" Color="79" />
-				<Up Action="Menu" Argument="Page40" />
-				<Cancel Action="Menu" Argument="Main" />
-			</Menu>
 			<Menu Name="FloorComplete" Song="ENDLEVEL_MUS" BkgdColor="127">
 				<Image Name="L_GUYPIC" X="0" Y="16" />
 				<Text String="FLOOR" Font="2" X="112" Y="16" />
@@ -868,16 +332,66 @@
 		</Menus>
 	</VgaGraph>
 	<Maps MapHead="MAPHEAD.WL6" GameMaps="GAMEMAPS.WL6">
-		<Map Number="0" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="00:01:30" Song="GETTHEM_MUS" />
-		<Map Number="1" Episode="1" Floor="2" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="SEARCHN_MUS" />
-		<Map Number="2" Episode="1" Floor="3" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="POW_MUS" />
-		<Map Number="3" Episode="1" Floor="4" Ground="25" Ceiling="29" Border="127" Par="00:03:30" Song="SUSPENSE_MUS" />
-		<Map Number="4" Episode="1" Floor="5" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="GETTHEM_MUS" />
-		<Map Number="5" Episode="1" Floor="6" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="SEARCHN_MUS" />
-		<Map Number="6" Episode="1" Floor="7" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="POW_MUS" />
-		<Map Number="7" Episode="1" Floor="8" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="SUSPENSE_MUS" />
-		<Map Number="8" Episode="1" Floor="9" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
-		<Map Number="9" Episode="1" Floor="10" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="2" />
+		<Map Number="0" Name="WOLF1_MAP1_MAP" Episode="1" Floor="1" Ground="25" Ceiling="29" Border="127" Par="00:01:30" Song="GETTHEM_MUS" />
+		<Map Number="1" Name="WOLF1_MAP2_MAP" Episode="1" Floor="2" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="SEARCHN_MUS" />
+		<Map Number="2" Name="WOLF1_MAP3_MAP" Episode="1" Floor="3" Ground="25" Ceiling="29" Border="127" Par="00:02:00" Song="POW_MUS" />
+		<Map Number="3" Name="WOLF1_MAP4_MAP" Episode="1" Floor="4" Ground="25" Ceiling="29" Border="127" Par="00:03:30" Song="SUSPENSE_MUS" />
+		<Map Number="4" Name="WOLF1_MAP5_MAP" Episode="1" Floor="5" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="GETTHEM_MUS" />
+		<Map Number="5" Name="WOLF1_MAP6_MAP" Episode="1" Floor="6" Ground="25" Ceiling="29" Border="127" Par="00:03:00" Song="SEARCHN_MUS" />
+		<Map Number="6" Name="WOLF1_MAP7_MAP" Episode="1" Floor="7" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="POW_MUS" />
+		<Map Number="7" Name="WOLF1_MAP8_MAP" Episode="1" Floor="8" Ground="25" Ceiling="29" Border="127" Par="00:02:30" Song="SUSPENSE_MUS" />
+		<Map Number="8" Name="WOLF1_MAP9_MAP" Episode="1" Floor="9" Ground="25" Ceiling="29" Border="127" Song="WARMARCH_MUS" />
+		<Map Number="9" Name="WOLF1_SECRET_MAP" Episode="1" Floor="10" Ground="25" Ceiling="191" Border="127" Song="CORNER_MUS" ElevatorTo="2" />
+		<Map Number="10" Name="WOLF2_MAP1_MAP" Episode="2" Floor="1" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="11" Name="WOLF2_MAP2_MAP" Episode="2" Floor="2" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="12" Name="WOLF2_MAP3_MAP" Episode="2" Floor="3" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="13" Name="WOLF2_MAP4_MAP" Episode="2" Floor="4" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="14" Name="WOLF2_MAP5_MAP" Episode="2" Floor="5" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="15" Name="WOLF2_MAP6_MAP" Episode="2" Floor="6" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="16" Name="WOLF2_MAP7_MAP" Episode="2" Floor="7" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="17" Name="WOLF2_MAP8_MAP" Episode="2" Floor="8" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="18" Name="WOLF2_BOSS_MAP" Episode="2" Floor="9" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="19" Name="WOLF2_SECRET_MAP" Episode="2" Floor="10" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="20" Name="WOLF3_MAP1_MAP" Episode="3" Floor="1" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="21" Name="WOLF3_MAP2_MAP" Episode="3" Floor="2" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="22" Name="WOLF3_MAP3_MAP" Episode="3" Floor="3" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="23" Name="WOLF3_MAP4_MAP" Episode="3" Floor="4" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="24" Name="WOLF3_MAP5_MAP" Episode="3" Floor="5" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="25" Name="WOLF3_MAP6_MAP" Episode="3" Floor="6" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="26" Name="WOLF3_MAP7_MAP" Episode="3" Floor="7" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="27" Name="WOLF3_MAP8_MAP" Episode="3" Floor="8" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="28" Name="WOLF3_BOSS_MAP" Episode="3" Floor="9" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="29" Name="WOLF3_SECRET_MAP" Episode="3" Floor="10" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="30" Name="WOLF4_MAP_1_MAP" Episode="4" Floor="1" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="31" Name="WOLF4_MAP_2_MAP" Episode="4" Floor="2" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="32" Name="WOLF4_MAP_3_MAP" Episode="4" Floor="3" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="33" Name="WOLF4_MAP_4_MAP" Episode="4" Floor="4" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="34" Name="WOLF4_MAP_5_MAP" Episode="4" Floor="5" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="35" Name="WOLF4_MAP_6_MAP" Episode="4" Floor="6" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="36" Name="WOLF4_MAP_7_MAP" Episode="4" Floor="7" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="37" Name="WOLF4_MAP_8_MAP" Episode="4" Floor="8" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="38" Name="WOLF4_BOSS_MAP" Episode="4" Floor="9" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="39" Name="WOLF4_SECRET_MAP" Episode="4" Floor="10" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="40" Name="WOLF5_MAP_1_MAP" Episode="5" Floor="1" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="41" Name="WOLF5_MAP_2_MAP" Episode="5" Floor="2" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="42" Name="WOLF5_MAP_3_MAP" Episode="5" Floor="3" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="43" Name="WOLF5_MAP_4_MAP" Episode="5" Floor="4" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="44" Name="WOLF5_MAP_5_MAP" Episode="5" Floor="5" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="45" Name="WOLF5_MAP_6_MAP" Episode="5" Floor="6" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="46" Name="WOLF5_MAP_7_MAP" Episode="5" Floor="7" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="47" Name="WOLF5_MAP_8_MAP" Episode="5" Floor="8" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="48" Name="WOLF5_BOSS_MAP" Episode="5" Floor="9" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="49" Name="WOLF5_SECRET_MAP" Episode="5" Floor="10" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="50" Name="WOLF6_MAP_1_MAP" Episode="6" Floor="1" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="51" Name="WOLF6_MAP_2_MAP" Episode="6" Floor="2" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="52" Name="WOLF6_MAP_3_MAP" Episode="6" Floor="3" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="53" Name="WOLF6_MAP_4_MAP" Episode="6" Floor="4" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="54" Name="WOLF6_MAP_5_MAP" Episode="6" Floor="5" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="55" Name="WOLF6_MAP_6_MAP" Episode="6" Floor="6" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="56" Name="WOLF6_MAP_7_MAP" Episode="6" Floor="7" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="57" Name="WOLF6_MAP_8_MAP" Episode="6" Floor="8" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="58" Name="WOLF6_BOSS_MAP" Episode="6" Floor="9" Ground="25" Ceiling="29" Border="127" />
+		<Map Number="59" Name="WOLF6_SECRET_MAP" Episode="6" Floor="10" Ground="25" Ceiling="29" Border="127" />
 	</Maps>
 	<Audio AudioHead="AUDIOHED.WL6" AudioT="AUDIOT.WL6" StartPCSounds="0" StartAdlibSounds="87" StartMusic="261">
 		<Sound Number="0" Name="HITWALLSND" />
