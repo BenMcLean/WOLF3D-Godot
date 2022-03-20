@@ -824,53 +824,147 @@
 			<State Name="s_gretelshoot6" Shape="SPR_GRETEL_SHOOT2" Tics="10" Act="T_Shoot" Next="s_gretelshoot7" />
 			<State Name="s_gretelshoot7" Shape="SPR_GRETEL_SHOOT3" Tics="10" Act="T_Shoot" Next="s_gretelshoot8" />
 			<State Name="s_gretelshoot8" Shape="SPR_GRETEL_SHOOT1" Tics="10" Next="s_gretelchase1" />
-
-			<!--
-			<Actor Name="BJ" Human="true" AlertDigiSound="YEAHSND" >
-				<Animation Name="Standing" >
-					<Frame Number="0" Page="514" />
-				</Animation>
-				<Animation Name="Moving" Loop="true">
-					<Frame Number="0" Page="514" />
-					<Frame Number="1" Page="515" />
-					<Frame Number="2" Page="516" />
-					<Frame Number="3" Page="517" />
-				</Animation>
-				<Animation Name="Yeah" >
-					<Frame Number="0" Page="514" />
-					<Frame Number="1" Page="515" />
-					<Frame Number="2" Page="516" />
-					<Frame Number="3" Page="517" />
-					<Frame Number="4" Page="518" />
-					<Frame Number="5" Page="519" />
-					<Frame Number="6" Page="520" />
-					<Frame Number="7" Page="521" />
-				</Animation>
-				<Animation Name="Knife" >
-					<Frame Number="0" Page="522" />
-					<Frame Number="1" Page="523" />
-					<Frame Number="2" Page="524" />
-					<Frame Number="3" Page="525" />
-					<Frame Number="4" Page="526" />
-					<Frame Number="5" Page="522" />
-				</Animation>
-				<Animation Name="Pistol" >
-					<Frame Number="0" Page="527" />
-					<Frame Number="1" Page="528" />
-					<Frame Number="2" Page="529" />
-					<Frame Number="3" Page="530" />
-					<Frame Number="4" Page="531" />
-					<Frame Number="5" Page="527" />
-				</Animation>
-				<Animation Name="Machine Gun" >
-					<Frame Number="0" Page="537" />
-					<Frame Number="1" Page="538" />
-					<Frame Number="2" Page="539" />
-					<Frame Number="3" Page="540" />
-					<Frame Number="4" Page="541" />
-					<Frame Number="5" Page="537" />
-				</Animation>
-			</Actor>
+			<State Name="s_schabbstand" Shape="SPR_SCHABB_W1" Tics="0" Think="T_Stand" Next="s_schabbstand" />
+			<State Name="s_schabbchase1" Shape="SPR_SCHABB_W1" Tics="10" Think="T_Schabb" Next="s_schabbchase1s" />
+			<State Name="s_schabbchase1s" Shape="SPR_SCHABB_W1" Tics="3" Next="s_schabbchase2" />
+			<State Name="s_schabbchase2" Shape="SPR_SCHABB_W2" Tics="8" Think="T_Schabb" Next="s_schabbchase3" />
+			<State Name="s_schabbchase3" Shape="SPR_SCHABB_W3" Tics="10" Think="T_Schabb" Next="s_schabbchase3s" />
+			<State Name="s_schabbchase3s" Shape="SPR_SCHABB_W3" Tics="3" Next="s_schabbchase4" />
+			<State Name="s_schabbchase4" Shape="SPR_SCHABB_W4" Tics="8" Think="T_Schabb" Next="s_schabbchase1" />
+			<State Name="s_schabbdeathcam" Shape="SPR_SCHABB_W1" Tics="1" Next="s_schabbdie1" />
+			<State Name="s_schabbdie1" Shape="SPR_SCHABB_W1" Tics="10" Act="A_DeathScream" Next="s_schabbdie2" />
+			<State Name="s_schabbdie2" Shape="SPR_SCHABB_W1" Tics="10" Next="s_schabbdie3" />
+			<State Name="s_schabbdie3" Shape="SPR_SCHABB_DIE1" Tics="10" Next="s_schabbdie4" />
+			<State Name="s_schabbdie4" Shape="SPR_SCHABB_DIE2" Tics="10" Next="s_schabbdie5" />
+			<State Name="s_schabbdie5" Shape="SPR_SCHABB_DIE3" Tics="10" Next="s_schabbdie6" />
+			<State Name="s_schabbdie6" Shape="SPR_SCHABB_DEAD" Tics="20" Next="s_schabbdie6" />
+			<!-- TODO A_StartDeathCam -->
+			<State Name="s_schabbshoot1" Shape="SPR_SCHABB_SHOOT1" Tics="30" Next="s_schabbshoot2" />
+			<State Name="s_schabbshoot2" Shape="SPR_SCHABB_SHOOT2" Tics="10" Next="s_schabbchase1" />
+			<!-- TODO T_SchabbThrow -->
+			<!-- TODO Needle projectile
+			<State Name="s_needle1" Shape="SPR_HYPO1" Tics="6" Think="T_Projectile" Next="s_needle2" />
+			<State Name="s_needle2" Shape="SPR_HYPO2" Tics="6" Think="T_Projectile" Next="s_needle3" />
+			<State Name="s_needle3" Shape="SPR_HYPO3" Tics="6" Think="T_Projectile" Next="s_needle4" />
+			<State Name="s_needle4" Shape="SPR_HYPO4" Tics="6" Think="T_Projectile" Next="s_needle1" />
+			-->
+			<State Name="s_giftstand" Shape="SPR_GIFT_W1" Tics="0" Think="T_Stand" Next="s_giftstand" />
+			<State Name="s_giftchase1" Shape="SPR_GIFT_W1" Tics="10" Think="T_Gift" Next="s_giftchase1s" />
+			<State Name="s_giftchase1s" Shape="SPR_GIFT_W1" Tics="3" Next="s_giftchase2" />
+			<State Name="s_giftchase2" Shape="SPR_GIFT_W2" Tics="8" Think="T_Gift" Next="s_giftchase3" />
+			<State Name="s_giftchase3" Shape="SPR_GIFT_W3" Tics="10" Think="T_Gift" Next="s_giftchase3s" />
+			<State Name="s_giftchase3s" Shape="SPR_GIFT_W3" Tics="3" Next="s_giftchase4" />
+			<State Name="s_giftchase4" Shape="SPR_GIFT_W4" Tics="8" Think="T_Gift" Next="s_giftchase1" />
+			<State Name="s_giftdeathcam" Shape="SPR_GIFT_W1" Tics="1" Next="s_giftdie1" />
+			<State Name="s_giftdie1" Shape="SPR_GIFT_W1" Tics="1" Act="A_DeathScream" Next="s_giftdie2" />
+			<State Name="s_giftdie2" Shape="SPR_GIFT_W1" Tics="10" Next="s_giftdie3" />
+			<State Name="s_giftdie3" Shape="SPR_GIFT_DIE1" Tics="10" Next="s_giftdie4" />
+			<State Name="s_giftdie4" Shape="SPR_GIFT_DIE2" Tics="10" Next="s_giftdie5" />
+			<State Name="s_giftdie5" Shape="SPR_GIFT_DIE3" Tics="10" Next="s_giftdie6" />
+			<State Name="s_giftdie6" Shape="SPR_GIFT_DEAD" Tics="20" Act="A_StartDeathCam" Next="s_giftdie6" />
+			<State Name="s_giftshoot1" Shape="SPR_GIFT_SHOOT1" Tics="30" Next="s_giftshoot2" />
+			<State Name="s_giftshoot2" Shape="SPR_GIFT_SHOOT2" Tics="10" Act="T_GiftThrow" Next="s_giftchase1" />
+			<State Name="s_fatstand" Shape="SPR_FAT_W1" Tics="0" Think="T_Stand" Next="s_fatstand" />
+			<State Name="s_fatchase1" Shape="SPR_FAT_W1" Tics="10" Think="T_Fat" Next="s_fatchase1s" />
+			<State Name="s_fatchase1s" Shape="SPR_FAT_W1" Tics="3" Next="s_fatchase2" />
+			<State Name="s_fatchase2" Shape="SPR_FAT_W2" Tics="8" Think="T_Fat" Next="s_fatchase3" />
+			<State Name="s_fatchase3" Shape="SPR_FAT_W3" Tics="10" Think="T_Fat" Next="s_fatchase3s" />
+			<State Name="s_fatchase3s" Shape="SPR_FAT_W3" Tics="3" Next="s_fatchase4" />
+			<State Name="s_fatchase4" Shape="SPR_FAT_W4" Tics="8" Think="T_Fat" Next="s_fatchase1" />
+			<State Name="s_fatdeathcam" Shape="SPR_FAT_W1" Tics="1" Next="s_fatdie1" />
+			<State Name="s_fatdie1" Shape="SPR_FAT_W1" Tics="1" Act="A_DeathScream" Next="s_fatdie2" />
+			<State Name="s_fatdie2" Shape="SPR_FAT_W1" Tics="10" Next="s_fatdie3" />
+			<State Name="s_fatdie3" Shape="SPR_FAT_DIE1" Tics="10" Next="s_fatdie4" />
+			<State Name="s_fatdie4" Shape="SPR_FAT_DIE2" Tics="10" Next="s_fatdie5" />
+			<State Name="s_fatdie5" Shape="SPR_FAT_DIE3" Tics="10" Next="s_fatdie6" />
+			<State Name="s_fatdie6" Shape="SPR_FAT_DEAD" Tics="20" Act="A_StartDeathCam" Next="s_fatdie6" />
+			<State Name="s_fatshoot1" Shape="SPR_FAT_SHOOT1" Tics="30" Next="s_fatshoot2" />
+			<State Name="s_fatshoot2" Shape="SPR_FAT_SHOOT2" Tics="10" Act="T_GiftThrow" Next="s_fatshoot3" />
+			<State Name="s_fatshoot3" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot4" />
+			<State Name="s_fatshoot4" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatshoot5" />
+			<State Name="s_fatshoot5" Shape="SPR_FAT_SHOOT3" Tics="10" Act="T_Shoot" Next="s_fatshoot6" />
+			<State Name="s_fatshoot6" Shape="SPR_FAT_SHOOT4" Tics="10" Act="T_Shoot" Next="s_fatchase1" />
+			<State Name="s_fakestand" Shape="SPR_FAKE_W1" Tics="0" Think="T_Stand" Next="s_fakestand" />
+			<State Name="s_fakechase1" Shape="SPR_FAKE_W1" Tics="10" Think="T_Fake" Next="s_fakechase1s" />
+			<State Name="s_fakechase1s" Shape="SPR_FAKE_W1" Tics="3" Next="s_fakechase2" />
+			<State Name="s_fakechase2" Shape="SPR_FAKE_W2" Tics="8" Think="T_Fake" Next="s_fakechase3" />
+			<State Name="s_fakechase3" Shape="SPR_FAKE_W3" Tics="10" Think="T_Fake" Next="s_fakechase3s" />
+			<State Name="s_fakechase3s" Shape="SPR_FAKE_W3" Tics="3" Next="s_fakechase4" />
+			<State Name="s_fakechase4" Shape="SPR_FAKE_W4" Tics="8" Think="T_Fake" Next="s_fakechase1" />
+			<State Name="s_fakedie1" Shape="SPR_FAKE_DIE1" Tics="10" Act="A_DeathScream" Next="s_fakedie2" />
+			<State Name="s_fakedie2" Shape="SPR_FAKE_DIE2" Tics="10" Next="s_fakedie3" />
+			<State Name="s_fakedie3" Shape="SPR_FAKE_DIE3" Tics="10" Next="s_fakedie4" />
+			<State Name="s_fakedie4" Shape="SPR_FAKE_DIE4" Tics="10" Next="s_fakedie5" />
+			<State Name="s_fakedie5" Shape="SPR_FAKE_DIE5" Tics="10" Next="s_fakedie6" />
+			<State Name="s_fakedie6" Shape="SPR_FAKE_DEAD" Tics="0" Next="s_fakedie6" />
+			<State Name="s_fakeshoot1" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot2" />
+			<State Name="s_fakeshoot2" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot3" />
+			<State Name="s_fakeshoot3" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot4" />
+			<State Name="s_fakeshoot4" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot5" />
+			<State Name="s_fakeshoot5" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot6" />
+			<State Name="s_fakeshoot6" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot7" />
+			<State Name="s_fakeshoot7" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot8" />
+			<State Name="s_fakeshoot8" Shape="SPR_FAKE_SHOOT" Tics="8" Act="T_FakeFire" Next="s_fakeshoot9" />
+			<State Name="s_fakeshoot9" Shape="SPR_FAKE_SHOOT" Tics="8" Next="s_fakechase1" />
+			<State Name="s_fire1" Shape="SPR_FIRE1" Tics="6" Act="T_Projectile" Next="s_fire2" />
+			<State Name="s_fire2" Shape="SPR_FIRE2" Tics="6" Act="T_Projectile" Next="s_fire1" />
+			<State Name="s_mechastand" Shape="SPR_MECHA_W1" Tics="0" Think="T_Stand" Next="s_mechastand" />
+			<State Name="s_mechachase1" Shape="SPR_MECHA_W1" Tics="10" Think="T_Chase" Next="s_mechachase1s" />
+			<!-- TODO A_MechaSound -->
+			<State Name="s_mechachase1s" Shape="SPR_MECHA_W1" Tics="6" Next="s_mechachase2" />
+			<State Name="s_mechachase2" Shape="SPR_MECHA_W2" Tics="8" Think="T_Chase" Next="s_mechachase3" />
+			<State Name="s_mechachase3" Shape="SPR_MECHA_W3" Tics="10" Think="T_Chase" Next="s_mechachase3s" />
+			<!-- TODO A_MechaSound -->
+			<State Name="s_mechachase3s" Shape="SPR_MECHA_W3" Tics="6" Next="s_mechachase4" />
+			<State Name="s_mechachase4" Shape="SPR_MECHA_W4" Tics="8" Think="T_Chase" Next="s_mechachase1" />
+			<State Name="s_mechadie1" Shape="SPR_MECHA_DIE1" Tics="10" Next="s_mechadie2" />
+			<!-- TODO A_DeathScream -->
+			<State Name="s_mechadie2" Shape="SPR_MECHA_DIE2" Tics="10" Next="s_mechadie3" />
+			<State Name="s_mechadie3" Shape="SPR_MECHA_DIE3" Tics="10" Next="s_mechadie4" />
+			<!-- TODO A_HitlerMorph -->
+			<State Name="s_mechadie4" Shape="SPR_MECHA_DEAD" Tics="0" Next="s_mechadie4" />
+			<State Name="s_mechashoot1" Shape="SPR_MECHA_SHOOT1" Tics="30" Next="s_mechashoot2" />
+			<State Name="s_mechashoot2" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechashoot3" />
+			<State Name="s_mechashoot3" Shape="SPR_MECHA_SHOOT3" Tics="10" Act="T_Shoot" Next="s_mechashoot4" />
+			<State Name="s_mechashoot4" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechashoot5" />
+			<State Name="s_mechashoot5" Shape="SPR_MECHA_SHOOT3" Tics="10" Act="T_Shoot" Next="s_mechashoot6" />
+			<State Name="s_mechashoot6" Shape="SPR_MECHA_SHOOT2" Tics="10" Act="T_Shoot" Next="s_mechachase1" />
+			<State Name="s_hitlerchase1" Shape="SPR_HITLER_W1" Tics="6" Think="T_Chase" Next="s_hitlerchase1s" />
+			<State Name="s_hitlerchase1s" Shape="SPR_HITLER_W1" Tics="4" Next="s_hitlerchase2" />
+			<State Name="s_hitlerchase2" Shape="SPR_HITLER_W2" Tics="2" Think="T_Chase" Next="s_hitlerchase3" />
+			<State Name="s_hitlerchase3" Shape="SPR_HITLER_W3" Tics="6" Think="T_Chase" Next="s_hitlerchase3s" />
+			<State Name="s_hitlerchase3s" Shape="SPR_HITLER_W3" Tics="4" Next="s_hitlerchase4" />
+			<State Name="s_hitlerchase4" Shape="SPR_HITLER_W4" Tics="2" Think="T_Chase" Next="s_hitlerchase1" />
+			<State Name="s_hitlerdeathcam" Shape="SPR_HITLER_W1" Tics="10" Next="s_hitlerdie1" />
+			<State Name="s_hitlerdie1" Shape="SPR_HITLER_W1" Tics="1" Act="A_DeathScream" Next="s_hitlerdie2" />
+			<State Name="s_hitlerdie2" Shape="SPR_HITLER_W1" Tics="10" Next="s_hitlerdie3" />
+			<State Name="s_hitlerdie3" Shape="SPR_HITLER_DIE1" Tics="10" Next="s_hitlerdie4" />
+			<!-- TODO A_Slurpie -->
+			<State Name="s_hitlerdie4" Shape="SPR_HITLER_DIE2" Tics="10" Next="s_hitlerdie5" />
+			<State Name="s_hitlerdie5" Shape="SPR_HITLER_DIE3" Tics="10" Next="s_hitlerdie6" />
+			<State Name="s_hitlerdie6" Shape="SPR_HITLER_DIE4" Tics="10" Next="s_hitlerdie7" />
+			<State Name="s_hitlerdie7" Shape="SPR_HITLER_DIE5" Tics="10" Next="s_hitlerdie8" />
+			<State Name="s_hitlerdie8" Shape="SPR_HITLER_DIE6" Tics="10" Next="s_hitlerdie9" />
+			<State Name="s_hitlerdie9" Shape="SPR_HITLER_DIE7" Tics="10" Next="s_hitlerdie10" />
+			<State Name="s_hitlerdie10" Shape="SPR_HITLER_DEAD" Tics="20" Next="s_hitlerdie10" />
+			<!-- TODO A_StartDeathCam -->
+			<State Name="s_hitlershoot1" Shape="SPR_HITLER_SHOOT1" Tics="30" Next="s_hitlershoot2" />
+			<State Name="s_hitlershoot2" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlershoot3" />
+			<State Name="s_hitlershoot3" Shape="SPR_HITLER_SHOOT3" Tics="10" Act="T_Shoot" Next="s_hitlershoot4" />
+			<State Name="s_hitlershoot4" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlershoot5" />
+			<State Name="s_hitlershoot5" Shape="SPR_HITLER_SHOOT3" Tics="10" Act="T_Shoot" Next="s_hitlershoot6" />
+			<State Name="s_hitlershoot6" Shape="SPR_HITLER_SHOOT2" Tics="10" Act="T_Shoot" Next="s_hitlerchase1" />
+			<!-- TODO BJ
+			<State Name="s_bjrun1" Shape="SPR_BJ_W1" Tics="12" Think="T_BJRun" Next="s_bjrun1s" />
+			<State Name="s_bjrun1s" Shape="SPR_BJ_W1" Tics="3" Next="s_bjrun2" />
+			<State Name="s_bjrun2" Shape="SPR_BJ_W2" Tics="8" Think="T_BJRun" Next="s_bjrun3" />
+			<State Name="s_bjrun3" Shape="SPR_BJ_W3" Tics="12" Think="T_BJRun" Next="s_bjrun3s" />
+			<State Name="s_bjrun3s" Shape="SPR_BJ_W3" Tics="3" Next="s_bjrun4" />
+			<State Name="s_bjrun4" Shape="SPR_BJ_W4" Tics="8" Think="T_BJRun" Next="s_bjrun1" />
+			<State Name="s_bjjump1" Shape="SPR_BJ_JUMP1" Tics="14" Think="T_BJJump" Next="s_bjjump2" />
+			<State Name="s_bjjump2" Shape="SPR_BJ_JUMP2" Tics="14" Think="T_BJJump" Act="T_BJYell" Next="s_bjjump3" />
+			<State Name="s_bjjump3" Shape="SPR_BJ_JUMP3" Tics="14" Think="T_BJJump" Next="s_bjjump4" />
+			<State Name="s_bjjump4" Shape="SPR_BJ_JUMP4" Tics="300" Act="T_BJDone" Next="s_bjjump4" />
 			-->
 		</Objects>
 		<Sprites>
