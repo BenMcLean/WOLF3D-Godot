@@ -40,7 +40,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 							&& theme.HasDefaultFont()
 							&& theme.DefaultFont is Font font ?
 								name.Substring(0,
-									Enumerable.Range(0, name.Length)
+									name.Length - Enumerable.Range(0, name.Length)
 									.Where(number => font.Width(name.Substring(0, name.Length - number)) < pixelRect.Size.x)
 									.First()
 									)
