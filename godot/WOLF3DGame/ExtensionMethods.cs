@@ -19,7 +19,6 @@ namespace WOLF3D.WOLF3DGame
 			bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && @bool;
 		public static bool IsFalse(this XElement xElement, string attribute) =>
 			bool.TryParse(xElement?.Attribute(attribute)?.Value, out bool @bool) && !@bool;
-
 		/// <summary>
 		/// Returns first line in a string or entire string if no linebreaks are included
 		/// </summary>
@@ -50,5 +49,6 @@ namespace WOLF3D.WOLF3DGame
 			for (int i = 0; i < inputs.Length; i += 2)
 				yield return new Tuple<float, float>(float.Parse(inputs[i]), float.Parse(inputs[i + 1]));
 		}
+		public static float Width(this Godot.Font font, string @string) => @string?.Lines().Max(line => line.Sum(c => font.GetCharSize(c).x)) ?? 0f;
 	}
 }

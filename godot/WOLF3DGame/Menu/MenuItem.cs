@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -27,14 +28,23 @@ namespace WOLF3D.WOLF3DGame.Menu
 			{
 				if (Label is Label)
 				{
-					Label.Text = (((XML.Attribute("Action")?.Value?.Equals("Save", System.StringComparison.InvariantCultureIgnoreCase) ?? false)
+					Label.Text = ((XML.Attribute("Action")?.Value?.Equals("Save", System.StringComparison.InvariantCultureIgnoreCase) ?? false)
 						|| (XML.Attribute("Action")?.Value?.Equals("Load", System.StringComparison.InvariantCultureIgnoreCase) ?? false)
 						) && XML.Attribute("Argument")?.Value is string argument
 						&& System.IO.Path.Combine(Main.Folder, argument) is string file
 						&& System.IO.File.Exists(file)
 						&& XElement.Load(file) is XElement saveGame
-						&& saveGame.Attribute("Name")?.Value is string name) ?
-						name.FirstLine()
+						&& saveGame.Attribute("Name")?.Value.FirstLine() is string name ?
+							pixelRect is PixelRect
+							&& label.Theme is Theme theme
+							&& theme.HasDefaultFont()
+							&& theme.DefaultFont is Font font ?
+								name.Substring(0,
+									Enumerable.Range(0, name.Length)
+									.Where(number => font.Width(name.Substring(0, name.Length - number)) < pixelRect.Size.x)
+									.First()
+									)
+								: name
 						: value;
 					if (!(PixelRect is PixelRect))
 						Size = Label.RectSize;
