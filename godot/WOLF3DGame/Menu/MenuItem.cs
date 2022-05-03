@@ -35,13 +35,13 @@ namespace WOLF3D.WOLF3DGame.Menu
 						&& System.IO.File.Exists(file)
 						&& XElement.Load(file) is XElement saveGame
 						&& saveGame.Attribute("Name")?.Value.FirstLine() is string name ?
-							pixelRect is PixelRect
-							&& label.Theme is Theme theme
+							PixelRect is PixelRect
+							&& Label.Theme is Theme theme
 							&& theme.HasDefaultFont()
 							&& theme.DefaultFont is Font font ?
 								name.Substring(0,
 									name.Length - Enumerable.Range(0, name.Length)
-									.Where(number => font.Width(name.Substring(0, name.Length - number)) < pixelRect.Size.x)
+									.Where(number => font.Width(name.Substring(0, name.Length - number)) < PixelRect.Size.x)
 									.First()
 									)
 								: name
