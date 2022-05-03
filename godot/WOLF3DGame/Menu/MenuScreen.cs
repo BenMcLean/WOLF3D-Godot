@@ -130,13 +130,17 @@ namespace WOLF3D.WOLF3DGame.Menu
 					{
 						Name = "Label " + e.Attribute("String").Value,
 						Text = e.Attribute("String").Value,
-						RectPosition = new Vector2(
-							uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
-							uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
-							), // TODO: Add feature to horizontally center the text
 						Theme = Assets.FontThemes[ushort.TryParse(e.Attribute("Font")?.Value, out ushort fontNumber) && Assets.FontThemes.Length > fontNumber ? fontNumber : 0],
 						Modulate = uint.TryParse(e.Attribute("Color")?.Value, out uint color) ? Assets.Palettes[0][color] : TextColor,
 					};
+					label.RectPosition = new Vector2(
+						e.Attribute("X")?.Value.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+							(Width - label.Theme.DefaultFont.Width(label.Text)) / 2
+							: uint.TryParse(e.Attribute("X")?.Value, out uint x) ? x : 0,
+						e.Attribute("Y")?.Value.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
+							(Height - label.Theme.DefaultFont.Height(label.Text)) / 2
+							: uint.TryParse(e.Attribute("Y")?.Value, out uint y) ? y : 0
+						);
 					label.Set("custom_constants/line_spacing", 0);
 					AddChild(label);
 				}

@@ -31,6 +31,7 @@ namespace WOLF3D.WOLF3DGame
 				: @string;
 		public static readonly Regex NewLineRegex = new Regex(@"\r\n|\n|\r", RegexOptions.Singleline);
 		public static string[] Lines(this string @string) => NewLineRegex.Split(@string);
+		public static int CountLines(this string @string) => NewLineRegex.Matches(@string).Count + 1;
 		public static IEnumerable<Tuple<int, int>> IntPairs(this XAttribute input) => IntPairs(input?.Value);
 		public static IEnumerable<Tuple<int, int>> IntPairs(this string input)
 		{
@@ -50,5 +51,6 @@ namespace WOLF3D.WOLF3DGame
 				yield return new Tuple<float, float>(float.Parse(inputs[i]), float.Parse(inputs[i + 1]));
 		}
 		public static float Width(this Godot.Font font, string @string) => @string?.Lines().Max(line => line.Sum(c => font.GetCharSize(c).x)) ?? 0f;
+		public static float Height(this Godot.Font font, string @string) => @string.CountLines() * font.GetHeight();
 	}
 }
