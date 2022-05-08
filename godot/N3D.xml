@@ -229,7 +229,7 @@
 				<Cancel Action="Menu" Argument="Episodes" />
 				<Cursor Cursor1="C_CURSOR1PIC" Cursor2="C_CURSOR2PIC" X="-1" Y="-3" />
 			</Menu>
-			<Menu Name="Load" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="2" SelectedColor="197" TextColor="204" >
+			<Menu Name="Load" BkgdColor="217" Default="2" StartX="8" StartY="21" Font="0" SelectedColor="197" TextColor="204" >
 				<Image Name="C_LOADGAMEPIC" X="center" Y="0" XBanner="0" />
 				<Image Name="C_MOUSELBACKPIC" X="center" Y="192" Action="Cancel" />
 				<PixelRect X="2" Y="50" Width="316" Height="140" Color="221" BordColor="219" Bord2Color="215" />

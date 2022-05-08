@@ -103,6 +103,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 						Selected = new Sprite()
 						{
 							Texture = texture,
+							Position = new Vector2(XPadding - texture.GetWidth() / 2, texture.GetHeight() / 2),
 						};
 				}
 			}
