@@ -72,11 +72,11 @@ namespace WOLF3D.WOLF3DGame
 			{
 				Label = new Label()
 				{
-					Text = Value.ToString(new string('0', (int)digits)),
 					Theme = Assets.StatusBarTheme,
 				};
 				Label.Set("custom_constants/line_spacing", 0);
 				AddChild(Label);
+				Value = Value;
 			}
 		}
 		public StatusNumber Blank()
@@ -96,7 +96,11 @@ namespace WOLF3D.WOLF3DGame
 				val = value > Max ? Max : value;
 				if (val != old)
 					if (Item == null && Digits is uint digits && digits > 0 && Label is Label)
+					{
 						Label.Text = Value.ToString(new string('0', (int)digits));
+						if (Label.Theme.DefaultFont is Font font)
+							Label.RectPosition = new Vector2(-font.Width(Label.Text), 0f);
+					}
 					else if (Item is Sprite)
 						Item.Texture = val > 0 ? Have : Empty;
 			}
