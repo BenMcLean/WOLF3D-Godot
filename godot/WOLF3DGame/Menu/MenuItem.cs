@@ -46,8 +46,8 @@ namespace WOLF3D.WOLF3DGame.Menu
 									)
 								: name
 						: value;
-					if (!(PixelRect is PixelRect))
-						Size = Label.RectSize;
+					if (!(PixelRect is PixelRect) && Label?.Theme?.DefaultFont is Font f)
+						Size = new Vector2(f.Width(Label.Text), f.Height(Label.Text));
 				}
 			}
 		}
