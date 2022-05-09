@@ -24,21 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/midi/MidiPlayer.gd"
 }, {
-"base": "OculusTracker",
-"class": "OculusHandTracker",
-"language": "GDScript",
-"path": "res://addons/godot_ovrmobile/example_scenes/oculus_hand_tracker.gd"
-}, {
-"base": "OculusTracker",
-"class": "OculusTouchController",
-"language": "GDScript",
-"path": "res://addons/godot_ovrmobile/example_scenes/oculus_touch_controller.gd"
-}, {
-"base": "ARVRController",
-"class": "OculusTracker",
-"language": "GDScript",
-"path": "res://addons/godot_ovrmobile/example_scenes/oculus_tracker.gd"
-}, {
 "base": "Reference",
 "class": "SMF",
 "language": "GDScript",
@@ -53,9 +38,6 @@ _global_script_class_icons={
 "AudioStreamPlayerADSR": "",
 "Bank": "",
 "MidiPlayer": "",
-"OculusHandTracker": "",
-"OculusTouchController": "",
-"OculusTracker": "",
 "SMF": "",
 "SoundFont": ""
 }
@@ -80,7 +62,7 @@ enabled=PoolStringArray( "midi" )
 
 [gdnative]
 
-singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib", "res://addons/godot-openxr/godot_openxr.gdnlib", "res://addons/godot_ovrmobile/godot_ovrmobile.gdnlib" ]
+singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib", "res://addons/godot-openxr/godot_openxr.gdnlib" ]
 
 [importer_defaults]
 

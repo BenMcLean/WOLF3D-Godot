@@ -162,7 +162,7 @@ namespace WOLF3D.WOLF3DGame
 					{
 						GD.Print("Failed to initialize OpenXRConfig.", ex.ToString());
 					}
-				ARVRInterface = ARVRServer.FindInterface(Android ? "OVRMobile" : "OpenXR");
+				ARVRInterface = ARVRServer.FindInterface("OpenXR");
 				if (VR = ARVRInterface?.Initialize() ?? false)
 				{
 					GetViewport().Arvr = true;

@@ -10,7 +10,7 @@ There has already been [an admirable effort at recreating Wolfenstein 3-D in VR]
 2. This version is going to load in all the assets from the original 1992 game files at runtime with no intermediary formats. (beyond adding some XML for things normally compiled into the EXE) The shareware is included but unless you obtain the original MS-DOS game files for the other episodes and games then you can't play them. Files from other platforms are unsupported.
 3. Apart from rendering in HD, this version is going to keep the aesthetics strictly matching the original 1992 MS-DOS PC version to a ridiculously autistic and even slightly creepy degree. This means emulated Adlib / Sound Blaster sound, no dynamic lighting and no high resolution textures. If you don't like the original pixel art by Adrian Carmack and the original Adlib soundtrack by Robert Prince then this is not the version of Wolfenstein 3-D for you.
 4. This version is going to have extensive mod support, including directly supporting classic mods and user-made map packs from the original game and/or made with existing modding tools from the community. In fact, the whole thing is being constructed from the beginning such that everything (even the full registered WOLF3D) is treated during development as a mod of the shareware version. Mods that require patching actual new code features into WOLF3D.EXE will probably not run, but most mods will probably run.
-5. The goal is to make this program work on the Oculus Quest. Other platforms, like PC VR, may also be supported, but the Oculus Quest is the main goal.
+5. The goal is to make this program work on the [Lynx R1](https://www.lynx-r.com/) and Oculus Quest. Other platforms, like PC VR, may also be supported, but the Lynx R1 and Oculus Quest are the main goals.
 
 At this time, I do NOT plan to work on support for Blake Stone, Corridor 7 or Rise of the Triad.
 
@@ -20,10 +20,10 @@ Not to mention that I, of course, will not be censoring any of the swatztikas in
 
 # Building
 
-Currently works with Godot Engine v3.4.2.stable.mono.official.
+Currently works with 64-bit Godot Engine v3.4.4.stable.mono.official [419e713a2].
 
 In your Android export preset for Oculus Quest, you need these settings:
-* `Options > Xr Features > XR Mode`: `Oculus Mobile VR`
+* `Options > Xr Features > XR Mode`: `OpenXR`
 * `Options > Xr Features > Degrees of Freedom`: `3DOF and 6DOF` (3DOF mode might not actually work but allowing it doesn't hurt anything)
 * `Options > Xr Features > Hand tracking`: `None` (I have no plans to support hand tracking)
 * `Options > Permissions`: select both `Read External Storage` and `Write External Storage`. (required to read the game files and write the shareware files)
@@ -40,8 +40,6 @@ The [Wolfenstein 3-D Shareware v1.4](https://archive.org/download/Wolfenstein3d/
 [Godot](http://godotengine.org/) is under the [MIT licsense](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
 
 [godot_openxr](https://github.com/GodotVR/godot_openxr) by Bastiaan Olij a.k.a. Mux213 is [MIT licensed](https://github.com/GodotVR/godot_openxr/blob/master/LICENSE). It uses the [OpenXR SDK](https://github.com/KhronosGroup/OpenXR-SDK) by Khronos Group. [Choose a license](https://github.com/KhronosGroup/OpenXR-SDK/tree/master/LICENSES).
-
-[godot_oculus_mobile](https://github.com/GodotVR/godot_oculus_mobile) is [MIT licensed](https://github.com/GodotVR/godot_oculus_mobile/blob/master/LICENSE). It uses the [Oculus Mobile SDK](https://developer.oculus.com/downloads/package/oculus-mobile-sdk/) which is available under the [Oculus SDK License Agreement](https://developer.oculus.com/licenses/oculussdk/) which no human has ever actually read.
 
 [NScumm.Audio](https://github.com/scemino/NScumm.Audio) by scemino is a C# port of [AdPlug](http://adplug.github.io/) by Simon Peter which is licensed under [LGPL v2.1](https://github.com/adplug/adplug/blob/master/COPYING). Its [DosBox OPL3 emulator is licensed under GPL v2+ and its WoodyOPL emulator from the DOSBox team is licensed under LGPL v2.1.](https://www.dosbox.com/). Its [Mono.Options](https://github.com/xamarin/XamarinComponents/tree/master/XPlat/Mono.Options) is under the [MIT license](https://github.com/xamarin/XamarinComponents/blob/master/XPlat/Mono.Options/License.md).
 
