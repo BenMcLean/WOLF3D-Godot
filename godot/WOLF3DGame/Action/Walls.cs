@@ -174,9 +174,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ushort wall;
 				if (x < map.Width - 1 && Assets.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
-					AddChild(BuildWall(Level.WallTexture(wall), false, x + 1, z, true));
+					AddChild(BuildWall(Level.WallPage(wall), false, x + 1, z, true));
 				if (x > 0 && Assets.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
-					AddChild(BuildWall(Level.WallTexture(wall), false, x, z));
+					AddChild(BuildWall(Level.WallPage(wall), false, x, z));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
