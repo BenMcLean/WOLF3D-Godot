@@ -371,13 +371,18 @@ namespace WOLF3D.WOLF3DGame
 			if (vSwap is VSwap vs)
 			{
 				VSwapAtlasTextures = new AtlasTexture[vs.SoundPage];
+				TileSet = new TileSet();
 				for (int i = 0; i < VSwapAtlasTextures.Length; i++)
 					if (VSwap.Pages[i] != null && rectangles.Where(r => r.Id == i).FirstOrDefault() is PackingRectangle rectangle)
+					{
 						VSwapAtlasTextures[i] = new AtlasTexture()
 						{
 							Atlas = AtlasImageTexture,
 							Region = new Rect2(rectangle.X + 1, rectangle.Y + 1, rectangle.Width - 2, rectangle.Height - 2),
 						};
+						TileSet.CreateTile(i);
+						TileSet.TileSetTexture(i, VSwapAtlasTextures[i]);
+					}
 				rectIndex += vs.SoundPage;
 			}
 			if (vgaGraph is VgaGraph vg)
@@ -507,6 +512,7 @@ namespace WOLF3D.WOLF3DGame
 		public static AtlasTexture[] VgaGraphTextures;
 		public static ImageTexture[] VSwapTextures;
 		public static SpatialMaterial[] VSwapMaterials;
+		public static TileSet TileSet;
 		public static AudioStreamSample[] DigiSounds;
 		public static Theme[] FontThemes;
 		public static Theme ModalTheme;
