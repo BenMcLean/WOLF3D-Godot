@@ -15,8 +15,16 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				for (ushort z = 0; z < map.Depth; z++)
 					if (map.GetMapData(x, z) is ushort cell
 						&& Assets.Walls.Contains(cell)
-						&& Level.WallPage(cell) is ushort page)
+						&& Level.WallPage(cell) is ushort page
+						&& Assets.VSwapAtlasTextures is AtlasTexture[]
+						&& page < Assets.VSwapAtlasTextures.Length
+						&& Assets.VSwapAtlasTextures[page] is AtlasTexture)
 						SetCell(x, z, page);
+					else if (map.GetObjectData(x, z) is ushort cell2
+						&& Assets.VSwapAtlasTextures is AtlasTexture[]
+						&& cell2 < Assets.VSwapAtlasTextures.Length
+						&& Assets.VSwapAtlasTextures[cell2] is AtlasTexture)
+						SetCell(x, z, cell2);
 		}
 	}
 }
