@@ -174,35 +174,35 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ushort wall;
 				if (x < map.Width - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
-					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), false, x + 1, z, true));
+					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x + 1, z, true));
 				if (x > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
-					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), false, x, z));
+					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x, z));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
 				ushort wall;
 				if (z > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
-					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), true, x, z - 1));
+					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z - 1));
 				if (z < map.Depth - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
-					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), true, x, z, true));
+					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z, true));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
 				ushort x = map.X(i), z = map.Z(i), here = GetMapData(x, z);
 				if (Assets.MapAnalyzer.Doors.Contains(here))
 				{
-					if (here % 2 == 0) // Even numbered doors are vertical
+					if (here % 2 == 0) // Even numbered doors face east
 					{
-						AddChild(BuildWall(doorFrame, false, x + 1, z, true));
-						AddChild(BuildWall(doorFrame, false, x, z));
-						VerticalCheck(x, z);
+						AddChild(BuildWall(darkFrame, true, x, z));
+						AddChild(BuildWall(darkFrame, true, x, z - 1, true));
+						HorizontalCheck(x, z);
 						//AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
 					}
-					else // Odd numbered doors are horizontal
+					else // Odd numbered doors face north
 					{
-						AddChild(BuildWall(darkFrame, true, x, z - 1));
-						AddChild(BuildWall(darkFrame, true, x, z, true));
-						HorizontalCheck(x, z);
+						AddChild(BuildWall(doorFrame, false, x, z));
+						AddChild(BuildWall(doorFrame, false, x + 1, z, true));
+						VerticalCheck(x, z);
 						//AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
 					}
 				}
