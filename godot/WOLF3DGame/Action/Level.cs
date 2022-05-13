@@ -307,8 +307,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
 		public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
 		public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth || TryClose(x, z);
-		public bool IsWall(ushort x, ushort z) => Assets.Walls.Contains(Map.GetMapData(x, z));
-		public bool IsElevator(ushort x, ushort z) => Assets.Elevators.Contains(Map.GetMapData(x, z));
+		public bool IsWall(ushort x, ushort z) => Assets.MapAnalyzer.Walls.Contains(Map.GetMapData(x, z));
+		public bool IsElevator(ushort x, ushort z) => Assets.MapAnalyzer.Elevators.Contains(Map.GetMapData(x, z));
 		public bool IsTransparent(int x, int z) =>
 			Walls.IsTransparent(x, z)
 			&& (!(Doors[x][z] is Door door) || !door.IsClosed)

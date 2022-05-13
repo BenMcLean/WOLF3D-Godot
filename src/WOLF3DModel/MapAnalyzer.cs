@@ -78,7 +78,7 @@ namespace WOLF3DModel
 				&& Transparent[x][z];
 			private readonly bool[][] Mappable;
 			public bool IsMappable(int x, int z) =>
-				x >= 0 && z >= 0 && x < Mappable.Length && z < Transparent[x].Length
+				x >= 0 && z >= 0 && x < Mappable.Length && z < Mappable[x].Length
 				&& Mappable[x][z];
 		}
 	}

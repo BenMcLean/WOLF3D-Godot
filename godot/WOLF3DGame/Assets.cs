@@ -209,10 +209,6 @@ namespace WOLF3D.WOLF3DGame
 					}
 			}
 		}
-		public static ushort[] Walls { get; set; }
-		public static ushort[] Doors { get; set; }
-		public static ushort[] Elevators { get; set; }
-		public static ushort[] PushWalls { get; set; }
 		public static ushort FloorCodeFirst = 107;
 		public static ushort FloorCodes = 36;
 		public static readonly Dictionary<ushort, Direction8> Turns = new Dictionary<ushort, Direction8>();

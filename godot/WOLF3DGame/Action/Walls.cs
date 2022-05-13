@@ -48,7 +48,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			ushort[] realWalls = new ushort[map.MapData.Length];
 			Array.Copy(map.MapData, realWalls, realWalls.Length);
 			for (uint i = 0; i < realWalls.Length; i++)
-				if (Assets.PushWalls.Contains(Map.ObjectData[i]))
+				if (Assets.MapAnalyzer.PushWalls.Contains(Map.ObjectData[i]))
 					realWalls[i] = Assets.FloorCodeFirst;
 			ushort GetMapData(ushort x, ushort z) => realWalls[Map.GetIndex(x, z)];
 			AddChild(Ground = new CollisionShape()
@@ -173,23 +173,23 @@ namespace WOLF3D.WOLF3DGame.Action
 			void HorizontalCheck(ushort x, ushort z)
 			{
 				ushort wall;
-				if (x < map.Width - 1 && Assets.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
+				if (x < map.Width - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
 					AddChild(BuildWall(Level.WallPage(wall), false, x + 1, z, true));
-				if (x > 0 && Assets.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
+				if (x > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
 					AddChild(BuildWall(Level.WallPage(wall), false, x, z));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
 				ushort wall;
-				if (z > 0 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
+				if (z > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
 					AddChild(BuildWall(Level.DarkSide(wall), true, x, z - 1));
-				if (z < map.Depth - 1 && Assets.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
+				if (z < map.Depth - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
 					AddChild(BuildWall(Level.DarkSide(wall), true, x, z, true));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
 				ushort x = map.X(i), z = map.Z(i), here = GetMapData(x, z);
-				if (Assets.Doors.Contains(here))
+				if (Assets.MapAnalyzer.Doors.Contains(here))
 				{
 					if (here % 2 == 0) // Even numbered doors are vertical
 					{
@@ -206,7 +206,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						//AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
 					}
 				}
-				else if (Assets.Elevators.Contains(here))
+				else if (Assets.MapAnalyzer.Elevators.Contains(here))
 				{
 					Elevator elevator = new Elevator(Assets.MapAnalyzer.Elevator(here))
 					{
@@ -217,7 +217,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					Elevators.Add(elevator);
 					AddChild(elevator);
 				}
-				else if (!Assets.Walls.Contains(here))
+				else if (!Assets.MapAnalyzer.Walls.Contains(here))
 				{
 					HorizontalCheck(x, z);
 					VerticalCheck(x, z);
