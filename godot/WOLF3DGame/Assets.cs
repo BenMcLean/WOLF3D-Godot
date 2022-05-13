@@ -139,12 +139,10 @@ namespace WOLF3D.WOLF3DGame
 			DigiSounds = null;
 			FontThemes = null;
 			Maps = null;
+			MapAnalyzer = null;
+			MapAnalysis = null;
 			SelectSound = null;
 			ScrollSound = null;
-			Walls = null;
-			Doors = null;
-			Elevators = null;
-			PushWalls = null;
 			States?.Clear();
 			Turns?.Clear();
 			EndStrings = null;
@@ -171,11 +169,11 @@ namespace WOLF3D.WOLF3DGame
 					SetPalettes(VSwap.LoadPalettes(xml).ToArray());
 				PackAtlas(VgaGraph, VSwap, xml);
 				if (XML.Element("Maps") != null)
+				{
 					Maps = GameMap.Load(folder, XML);
-				Walls = XML.Element("VSwap")?.Element("Walls")?.Elements("Wall").Select(e => ushort.Parse(e.Attribute("Number").Value)).ToArray();
-				Doors = XML.Element("VSwap")?.Element("Walls")?.Elements("Door")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
-				Elevators = XML.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
-				PushWalls = PushWall?.Select(e => ushort.Parse(e.Attribute("Number").Value))?.ToArray();
+					MapAnalyzer = new MapAnalyzer(XML);
+					MapAnalysis = Maps.Select(map => MapAnalyzer.Analyze(map)).ToArray();
+				}
 				States.Clear();
 				foreach (XElement xState in XML?.Element("VSwap")?.Element("Objects")?.Elements("State") ?? Enumerable.Empty<XElement>())
 					States.Add(xState.Attribute("Name").Value, new State(xState));
@@ -228,6 +226,8 @@ namespace WOLF3D.WOLF3DGame
 		}
 		public static XElement XML { get; set; }
 		public static GameMap[] Maps { get; set; }
+		public static MapAnalyzer MapAnalyzer { get; set; }
+		public static MapAnalyzer.MapAnalysis[] MapAnalysis { get; set; }
 		public static AudioT AudioT
 		{
 			get => audioT;

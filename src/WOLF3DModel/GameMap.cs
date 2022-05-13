@@ -234,6 +234,6 @@ namespace WOLF3DModel
 			}
 			return expandedWords;
 		}
-		#endregion
+		#endregion Decompression algorithms
 	}
 }
