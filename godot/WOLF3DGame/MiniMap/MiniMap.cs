@@ -17,7 +17,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 						if (!mapAnalysis.IsTransparent(x, z)
 							&& map.GetMapData(x, z) is ushort cell
 							&& Assets.MapAnalyzer.Walls.Contains(cell)
-							&& Level.WallPage(cell) is ushort page
+							&& Assets.MapAnalyzer.WallPage(cell) is ushort page
 							&& Assets.VSwapAtlasTextures is AtlasTexture[]
 							&& page < Assets.VSwapAtlasTextures.Length
 							&& Assets.VSwapAtlasTextures[page] is AtlasTexture)

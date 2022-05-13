@@ -363,21 +363,6 @@ namespace WOLF3D.WOLF3DGame.Action
 			return list;
 		}
 		#endregion Collision Detection
-		public static ushort WallPage(ushort cell) =>
-			ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
-		/// <summary>
-		/// "If you only knew the power of the Dark Side." - Darth Vader
-		/// </summary>
-		public static ushort DarkSide(ushort cell) =>
-			ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallPage(cell);
-		public static IEnumerable<XElement> XWall(ushort cell) =>
-			Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements()
-			?.Where(e => (uint)e.Attribute("Number") == cell);
-		public static IEnumerable<XElement> XDoor(ushort cell) =>
-			Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
-			?.Where(e => (uint)e.Attribute("Number") == cell);
-		public static ushort DoorTexture(ushort cell) =>
-			(ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
 		public bool CheckLine(float ax, float ay, float bx, float by) => CheckLine(Assets.IntCoordinate(ax), Assets.IntCoordinate(ay), Assets.IntCoordinate(bx), Assets.IntCoordinate(by));
 		/// <summary>
 		/// trace a line to check for blocking tiles (corners)

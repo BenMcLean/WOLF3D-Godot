@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using WOLF3D.WOLF3DModel;
@@ -24,6 +25,8 @@ namespace WOLF3DModel
 		public XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
 		public XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
 		public IEnumerable<XElement> PushWall => XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
+		public ushort WallPage(ushort cell) =>
+			ushort.TryParse(Wall(cell)?.Attribute("Page")?.Value, out ushort result) ? result : throw new InvalidDataException("Could not find wall texture " + cell + "!");
 		public bool IsNavigable(ushort mapData, ushort objectData) =>
 			IsTransparent(mapData, objectData) && (
 				!(XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
@@ -39,6 +42,19 @@ namespace WOLF3DModel
 			|| (x < map.Width - 1 && IsTransparent(map.GetMapData((ushort)(x + 1), z), map.GetObjectData((ushort)(x + 1), z)))
 			|| (z > 0 && IsTransparent(map.GetMapData(x, (ushort)(z - 1)), map.GetObjectData(x, (ushort)(z - 1))))
 			|| (z < map.Depth - 1 && IsTransparent(map.GetMapData(x, (ushort)(z + 1)), map.GetObjectData(x, (ushort)(z + 1))));
+		/// <summary>
+		/// "If you only knew the power of the Dark Side." - Darth Vader
+		/// </summary>
+		public ushort DarkSide(ushort cell) =>
+			ushort.TryParse(XWall(cell).FirstOrDefault()?.Attribute("DarkSide")?.Value, out ushort result) ? result : WallPage(cell);
+		public IEnumerable<XElement> XWall(ushort cell) =>
+			XML?.Element("VSwap")?.Element("Walls")?.Elements()
+			?.Where(e => (uint)e.Attribute("Number") == cell);
+		public IEnumerable<XElement> XDoor(ushort cell) =>
+			XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
+			?.Where(e => (uint)e.Attribute("Number") == cell);
+		public ushort DoorTexture(ushort cell) =>
+			(ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
 		public MapAnalysis Analyze(GameMap map) => new MapAnalysis(this, map);
 		public struct MapAnalysis
 		{
