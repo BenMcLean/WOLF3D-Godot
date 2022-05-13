@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Techsola;
 using WOLF3D.WOLF3DGame.Action;
 using WOLF3D.WOLF3DGame.Menu;
+using WOLF3D.WOLF3DGame.MiniMap;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3D.WOLF3DGame.Setup;
 
@@ -145,7 +146,23 @@ namespace WOLF3D.WOLF3DGame
 			Path = System.IO.Path.Combine(Android ? "/storage/emulated/0/" : System.IO.Directory.GetCurrentDirectory(), "WOLF3D");
 			VisualServer.SetDefaultClearColor(Color.Color8(0, 0, 0, 255));
 			AddChild(WorldEnvironment);
-			if (!OS.GetCmdlineArgs().Any(e => e.EndsWith("pancake", StringComparison.InvariantCultureIgnoreCase)))
+			if (OS.GetCmdlineArgs().Any(e => e.StartsWith("minimap", StringComparison.InvariantCultureIgnoreCase)))
+			{
+				GD.Print("MINI MAP TEST APP!");
+				Assets.Load(
+					Folder = System.IO.Path.Combine(Path, "WL1"),
+					Assets.LoadXML(Folder)
+					);
+				Settings.Load();
+				MapTestRoom mapTestRoom = new MapTestRoom(Assets.Maps[0]);
+				AddChild(mapTestRoom);
+				mapTestRoom.Camera.MakeCurrent();
+				AddChild(SoundBlaster.OplPlayer);
+				AddChild(SoundBlaster.MidiPlayer);
+				AddChild(SoundBlaster.AudioStreamPlayer);
+				return;
+			}
+			else if (!OS.GetCmdlineArgs().Any(e => e.EndsWith("pancake", StringComparison.InvariantCultureIgnoreCase)))
 			{
 				if (Platform == PlatformEnum.PC)
 					try
