@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace WOLF3D.WOLF3DGame
 {
 	/// <summary>
-	/// +x is south, +y is up, +z is west
+	/// +x is east, +y is up, +z is south
 	/// </summary>
 	public class Direction8
 	{
@@ -16,72 +16,64 @@ namespace WOLF3D.WOLF3DGame
 		public static readonly Direction8 WEST = new Direction8()
 		{
 			Value = 0,
-			ShortName = "W",
-			Name = "West",
+			ShortName = "S",
+			Name = "South",
 			X = 0,
 			Z = 1,
-			//Vector2 = Vector2.Down,
-			//Vector3 = Vector3.Back,
 		};
 		public static readonly Direction8 NORTHWEST = new Direction8()
 		{
 			Value = 1,
-			ShortName = "NW",
-			Name = "Northwest",
+			ShortName = "SW",
+			Name = "Southwest",
 			X = -1,
 			Z = 1,
 		};
 		public static readonly Direction8 NORTH = new Direction8()
 		{
 			Value = 2,
-			ShortName = "N",
-			Name = "North",
+			ShortName = "W",
+			Name = "West",
 			X = -1,
 			Z = 0,
-			//Vector2 = Vector2.Left,
-			//Vector3 = Vector3.Left,
 		};
 		public static readonly Direction8 NORTHEAST = new Direction8()
 		{
 			Value = 3,
-			ShortName = "NE",
-			Name = "Northeast",
+			ShortName = "NW",
+			Name = "Northwest",
 			X = -1,
 			Z = -1,
 		};
 		public static readonly Direction8 EAST = new Direction8()
 		{
 			Value = 4,
-			ShortName = "E",
-			Name = "East",
+			ShortName = "N",
+			Name = "North",
 			X = 0,
 			Z = -1,
-			//Vector2 = Vector2.Up,
-			//Vector3 = Vector3.Forward,
 		};
 		public static readonly Direction8 SOUTHEAST = new Direction8()
 		{
 			Value = 5,
-			ShortName = "SE",
-			Name = "Southeast",
+			ShortName = "NE",
+			Name = "Northeast",
 			X = 1,
 			Z = -1,
 		};
 		public static readonly Direction8 SOUTH = new Direction8()
 		{
 			Value = 6,
-			ShortName = "S",
-			Name = "South",
+			ShortName = "E",
+			Name = "East",
 			X = 1,
 			Z = 0,
-			//Vector2 = Vector2.Right,
-			//Vector3 = Vector3.Right,
 		};
 		public static readonly Direction8 SOUTHWEST = new Direction8()
 		{
 			Value = 7,
-			ShortName = "SW",
-			Name = "Southwest",
+			ShortName = "SE",
+			Name = "Southeast",
 			X = 1,
 			Z = 1,
 		};
