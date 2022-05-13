@@ -14,7 +14,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 			for (ushort x = 0; x < map.Width; x++)
 				for (ushort z = 0; z < map.Depth; z++)
 					if (mapAnalysis.IsMappable(x, z))
-						if (mapAnalysis.IsTransparent(x, z)
+						if (!mapAnalysis.IsTransparent(x, z)
 							&& map.GetMapData(x, z) is ushort cell
 							&& Assets.MapAnalyzer.Walls.Contains(cell)
 							&& Level.WallPage(cell) is ushort page
