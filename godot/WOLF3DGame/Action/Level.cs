@@ -157,13 +157,13 @@ namespace WOLF3D.WOLF3DGame.Action
 				PushWallAt[x] = new int[Map.Depth];
 				ActorAt[x] = new int[Map.Depth];
 			}
-			foreach (XElement pushXML in Assets.PushWall ?? Enumerable.Empty<XElement>())
+			foreach (XElement pushXML in Assets.MapAnalyzer.PushWall ?? Enumerable.Empty<XElement>())
 				if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
 					for (ushort x = 0; x < Map.Width; x++)
 						for (ushort z = 0; z < Map.Depth; z++)
 							if (Map.GetObjectData(x, z) == pushNumber)
 							{
-								PushWall pushWall = new PushWall(pushXML, Assets.Wall(Map.GetMapData(x, z)))
+								PushWall pushWall = new PushWall(pushXML, Assets.MapAnalyzer.Wall(Map.GetMapData(x, z)))
 								{
 									Name = "Pushwall starting at " + x + ", " + z,
 									Level = this,

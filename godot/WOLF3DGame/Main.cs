@@ -154,7 +154,7 @@ namespace WOLF3D.WOLF3DGame
 					Assets.LoadXML(Folder)
 					);
 				Settings.Load();
-				MapTestRoom mapTestRoom = new MapTestRoom(Assets.Maps[0]);
+				MapTestRoom mapTestRoom = new MapTestRoom(0);
 				AddChild(mapTestRoom);
 				mapTestRoom.Camera.MakeCurrent();
 				AddChild(SoundBlaster.OplPlayer);

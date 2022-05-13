@@ -11,10 +11,10 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 	public class MapTestRoom : Node2D
 	{
 		public Camera2DFreeLook Camera;
-		public MapTestRoom(GameMap map)
+		public MapTestRoom(ushort map)
 		{
 			AddChild(Camera = new Camera2DFreeLook());
-			AddChild(new MiniMap(map));
+			AddChild(new MiniMap(Assets.Maps[map], Assets.MapAnalysis[map]));
 		}
 	}
 }

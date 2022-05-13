@@ -40,8 +40,8 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transparent[x] = new bool[Map.Depth];
 				for (ushort z = 0; z < Map.Depth; z++)
 				{
-					Navigable[x][z] = Assets.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
-					Transparent[x][z] = Assets.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+					Navigable[x][z] = Assets.MapAnalyzer.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+					Transparent[x][z] = Assets.MapAnalyzer.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
 				}
 			}
 			// realWalls replaces pushwalls with floors.
@@ -208,7 +208,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 				else if (Assets.Elevators.Contains(here))
 				{
-					Elevator elevator = new Elevator(Assets.Elevator(here))
+					Elevator elevator = new Elevator(Assets.MapAnalyzer.Elevator(here))
 					{
 						X = x,
 						Z = z,

@@ -587,22 +587,9 @@ namespace WOLF3D.WOLF3DGame
 		public static IEnumerable<XElement> Spawn => XML?.Element("VSwap")?.Element("Objects")?.Elements("Spawn");
 		public static int Spawns(GameMap map) => Spawns(map.ObjectData);
 		public static int Spawns(ushort[] ObjectData) => Spawn.Select(spawn => ushort.TryParse(spawn.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
-		public static IEnumerable<XElement> PushWall =>
-	XML?.Element("VSwap")?.Element("Objects")?.Elements("Pushwall");
 		public static int CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
-		public static int CountPushWalls(ushort[] ObjectData) => PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
-		public static XElement Wall(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Wall")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort wall) && wall == number)?.FirstOrDefault();
-		public static XElement Elevator(ushort number) => XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort elevator) && elevator == number)?.FirstOrDefault();
+		public static int CountPushWalls(ushort[] ObjectData) => MapAnalyzer.PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
-		public static bool IsNavigable(ushort mapData, ushort objectData) =>
-			IsTransparent(mapData, objectData) && (
-				!(XML?.Element("VSwap")?.Element("Objects").Elements("Billboard")
-					.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == objectData).FirstOrDefault() is XElement mapObject)
-				|| mapObject.IsTrue("Walk")
-			);
-		public static bool IsTransparent(ushort mapData, ushort objectData) =>
-			(!Walls.Contains(mapData) || PushWalls.Contains(objectData))
-			&& !Elevators.Contains(mapData);
 		public static GameMap? NextMap(GameMap previous) => GetMap(previous.Episode, previous.ElevatorTo);
 		public static GameMap? GetMap(byte episode, byte floor) => Maps.Where(e => e.Episode == episode && e.Floor == floor).FirstOrDefault();
 		public static bool Start(GameMap map, out ushort index, out Direction8 direction)
