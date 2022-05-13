@@ -8,7 +8,6 @@ namespace WOLF3DModel
 {
 	public class MapAnalyzer
 	{
-
 		public XElement XML;
 		public ushort[] Walls { get; private set; }
 		public ushort[] Doors { get; private set; }
