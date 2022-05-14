@@ -6,14 +6,7 @@ namespace WOLF3DModel
 {
 	public struct GameMap
 	{
-		public static GameMap[] Load(string folder, XElement xml)
-		{
-			GameMap[] maps;
-			using (FileStream mapHead = new FileStream(Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
-			using (FileStream gameMaps = new FileStream(Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
-				maps = Maps(mapHead, gameMaps);
-			return maps;
-		}
+		#region Data
 		public string Name { get; private set; }
 		public override string ToString() => Name;
 		public ushort Number { get; private set; }
@@ -36,6 +29,18 @@ namespace WOLF3DModel
 		public ushort GetOtherData(uint x, uint z) => GetOtherData((ushort)x, (ushort)z);
 		public ushort GetOtherData(ushort x, ushort z) => OtherData[GetIndex(x, z)];
 		public bool IsWithinMap(int x, int z) => x >= 0 && z >= 0 && x < Width && z < Depth;
+		#endregion Data
+		#region Loading
+		public static GameMap[] Load(string folder, XElement xml) => Load(
+			mapHead: Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value),
+			gameMaps: Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value)
+			);
+		public static GameMap[] Load(string mapHead, string gameMaps)
+		{
+			using (FileStream mapHeadStream = new FileStream(mapHead, FileMode.Open))
+			using (FileStream gameMapsStream = new FileStream(gameMaps, FileMode.Open))
+				return Load(mapHeadStream, gameMapsStream);
+		}
 		public static long[] ParseMapHead(Stream stream)
 		{
 			List<long> offsets = new List<long>();
@@ -49,9 +54,9 @@ namespace WOLF3DModel
 			}
 			return offsets.ToArray();
 		}
-		public static GameMap[] Maps(Stream mapHead, Stream gameMaps) =>
-			Maps(ParseMapHead(mapHead), gameMaps);
-		public static GameMap[] Maps(long[] offsets, Stream gameMaps)
+		public static GameMap[] Load(Stream mapHead, Stream gameMaps) =>
+			Load(ParseMapHead(mapHead), gameMaps);
+		public static GameMap[] Load(long[] offsets, Stream gameMaps)
 		{
 			GameMap[] maps = new GameMap[offsets.Length];
 			using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
@@ -118,6 +123,7 @@ namespace WOLF3DModel
 				}
 			return maps;
 		}
+		#endregion Loading
 		#region Decompression algorithms
 		public const ushort CARMACK_NEAR = 0xA7;
 		public const ushort CARMACK_FAR = 0xA8;

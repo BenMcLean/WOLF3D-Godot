@@ -89,7 +89,7 @@ namespace WOLF3DModel
 				x >= 0 && z >= 0 && x < Mappable.Length && z < Mappable[x].Length
 				&& Mappable[x][z];
 			#endregion Grids
-			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap map, ushort mapNumber = 0)
+			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap map)
 			{
 				Navigable = new bool[map.Width][];
 				Transparent = new bool[map.Width][];
@@ -114,7 +114,7 @@ namespace WOLF3DModel
 							|| (z > 0 && Transparent[x][z - 1])
 							|| (z < Transparent[x].Length - 1 && Transparent[x][z + 1]);
 				}
-				XML = mapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == mapNumber).First();
+				XML = mapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).First();
 				Episode = byte.TryParse(XML?.Attribute("Episode")?.Value, out byte episode) ? episode : (byte)0;
 				Floor = byte.TryParse(XML?.Attribute("Floor")?.Value, out byte floor) ? floor : (byte)0;
 				ElevatorTo = byte.TryParse(XML.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(Floor + 1);
