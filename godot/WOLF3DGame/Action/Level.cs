@@ -13,7 +13,9 @@ namespace WOLF3D.WOLF3DGame.Action
 	public class Level : Spatial, ISavable
 	{
 		#region Data Members
-		public GameMap Map => Walls.Map;
+		public ushort MapNumber { get; set; } = 0;
+		public GameMap Map => Assets.Maps[MapNumber];
+		public MapAnalyzer.MapAnalysis MapAnalysis => Assets.MapAnalysis[MapNumber];
 		public float Time { get; set; } = 0f;
 		public Walls Walls { get; private set; }
 		public Door[][] Doors { get; private set; }
@@ -98,7 +100,8 @@ namespace WOLF3D.WOLF3DGame.Action
 		#region Loading
 		public Level(XElement xml)
 		{
-			AddChild(Walls = new Walls(Assets.Maps[(int)xml.Attribute("MapNumber")]));
+			MapNumber = ushort.Parse(xml.Attribute("MapNumber")?.Value);
+			AddChild(Walls = new Walls(MapNumber));
 			Name = "Level \"" + Map.Name + "\"";
 			if (float.TryParse(xml.Attribute("Time")?.Value, out float time))
 				Time = time;
@@ -142,10 +145,11 @@ namespace WOLF3D.WOLF3DGame.Action
 				AddChild(actor);
 			}
 		}
-		public Level(GameMap map, byte difficulty = 4)
+		public Level(ushort mapNumber, byte difficulty = 4)
 		{
-			Name = "Level \"" + map.Name + "\"";
-			AddChild(Walls = new Walls(map));
+			MapNumber = mapNumber;
+			Name = "Level \"" + Map.Name + "\"";
+			AddChild(Walls = new Walls(MapNumber));
 			Doors = Door.Doors(Map, this);
 			foreach (Door door in GetDoors())
 				AddChild(door);

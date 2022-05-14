@@ -124,15 +124,15 @@ namespace WOLF3D.WOLF3DGame
 				Main.NextLevelStats = null;
 				Main.StatusBar = new StatusBar();
 				Main.StatusBar["Difficulty"].Value = MenuRoom.Difficulty;
-				Main.Room.ChangeRoom(new LoadingRoom((GameMap)Assets.GetMap(MenuRoom.Episode, 1)));
+				Main.Room.ChangeRoom(new LoadingRoom(Assets.MapAnalyzer.MapNumber(MenuRoom.Episode, 1)));
 			}
 			if (xml.Attribute("Action")?.Value.Equals("NextFloor", StringComparison.InvariantCultureIgnoreCase) ?? false)
-				Main.Room.ChangeRoom(new LoadingRoom((GameMap)(
+				Main.Room.ChangeRoom(new LoadingRoom(
 						Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == MenuRoom.LastPushedTile)?.FirstOrDefault() is XElement over
 							&& byte.TryParse(over.Attribute("Floor")?.Value, out byte floor) ?
-							Assets.GetMap(Main.ActionRoom.Level.Map.Episode, floor)
-							: Assets.NextMap(Main.ActionRoom.Level.Map)
-						)));
+							Assets.MapAnalyzer.MapNumber(Main.ActionRoom.Level.MapAnalysis.Episode, floor)
+							: Main.ActionRoom.Level.MapAnalysis.ElevatorTo
+						));
 			if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
 			{
 				Main.MenuRoom.MenuScreen.AddModal(xml.Attribute("Argument")?.Value ?? "Are you sure you want\nto end the game you\nare currently playing?");

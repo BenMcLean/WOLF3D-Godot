@@ -67,11 +67,11 @@ namespace WOLF3D.WOLF3DGame.Action
 				Transform = new Transform(Basis.Identity, Vector3.Forward / 6 + Vector3.Down / 12),
 			});
 		}
-		public ActionRoom(GameMap map) : this()
+		public ActionRoom(ushort mapNumber) : this()
 		{
-			Name = "ActionRoom " + map.Name;
-			AddChild(Level = new Level(map));
-			ARVRPlayer.Transform = Assets.StartTransform(map);
+			Name = "ActionRoom " + Assets.Maps[mapNumber].Name;
+			AddChild(Level = new Level(mapNumber));
+			ARVRPlayer.Transform = Assets.StartTransform(Assets.Maps[mapNumber]);
 		}
 		public ActionRoom(XElement xml) : this()
 		{
@@ -141,7 +141,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (buttonIndex == (int)JoystickList.OculusAx)
 				Print();
 			if (buttonIndex == (int)JoystickList.OculusBy)
-				ChangeRoom(new LoadingRoom((GameMap)Assets.NextMap(Level.Map)));
+				ChangeRoom(new LoadingRoom(Assets.MapAnalyzer.MapNumber(Level.MapAnalysis.Episode, Level.MapAnalysis.ElevatorTo)));
 		}
 		public void Print()
 		{
@@ -169,9 +169,9 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void Enter()
 		{
 			base.Enter();
-			Main.Color = Assets.Palettes[0][Level.Map.Border];
+			Main.Color = Assets.Palettes[0][Level.MapAnalysis.Border];
 			if (!Settings.MusicMuted
-				&& Level.Map.Song is string songName
+				&& Level.MapAnalysis.Song is string songName
 				&& Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;

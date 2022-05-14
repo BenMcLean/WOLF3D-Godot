@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
@@ -10,51 +9,22 @@ namespace WOLF3DModel
 		public static GameMap[] Load(string folder, XElement xml)
 		{
 			GameMap[] maps;
-			using (FileStream mapHead = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
-			using (FileStream gameMaps = new FileStream(System.IO.Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
+			using (FileStream mapHead = new FileStream(Path.Combine(folder, xml.Element("Maps").Attribute("MapHead").Value), FileMode.Open))
+			using (FileStream gameMaps = new FileStream(Path.Combine(folder, xml.Element("Maps").Attribute("GameMaps").Value), FileMode.Open))
 				maps = Maps(mapHead, gameMaps);
-			foreach (XElement xMap in xml.Element("Maps").Elements("Map"))
-				if (ushort.TryParse(xMap.Attribute("Number")?.Value, out ushort map) && map < maps.Length)
-				{
-					if (byte.TryParse(xMap.Attribute("Episode")?.Value, out byte episode))
-						maps[map].Episode = episode;
-					if (byte.TryParse(xMap.Attribute("Floor")?.Value, out byte floor))
-					{
-						maps[map].Floor = floor;
-						maps[map].ElevatorTo = byte.TryParse(xMap.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(floor + 1);
-					}
-					maps[map].Ground = byte.TryParse(xMap.Attribute("Ground")?.Value, out byte ground) ? ground : (byte?)null;
-					maps[map].GroundTile = byte.TryParse(xMap.Attribute("GroundTile")?.Value, out byte groundTile) ? groundTile : (byte?)null;
-					maps[map].Ceiling = byte.TryParse(xMap.Attribute("Ceiling")?.Value, out byte ceiling) ? ceiling : (byte?)null;
-					maps[map].CeilingTile = byte.TryParse(xMap.Attribute("CeilingTile")?.Value, out byte ceilingTile) ? ceilingTile : (ushort?)null;
-					if (byte.TryParse(xMap.Attribute("Border")?.Value, out byte border))
-						maps[map].Border = border;
-					if (TimeSpan.TryParse(xMap.Attribute("Par")?.Value, out TimeSpan par))
-						maps[map].Par = par;
-					if (xMap.Attribute("Song")?.Value is string song)
-						maps[map].Song = song;
-				}
 			return maps;
 		}
 		public string Name { get; private set; }
+		public override string ToString() => Name;
 		public ushort Number { get; private set; }
 		public ushort Width { get; private set; }
 		public ushort Depth { get; private set; }
 		public ushort[] MapData { get; private set; }
 		public ushort[] ObjectData { get; private set; }
 		public ushort[] OtherData { get; private set; }
-		public byte Episode { get; private set; }
-		public byte Floor { get; private set; }
-		public byte ElevatorTo { get; private set; }
-		public byte? Ground { get; private set; }
-		public ushort? GroundTile { get; private set; }
-		public byte? Ceiling { get; private set; }
-		public ushort? CeilingTile { get; private set; }
-		public byte Border { get; private set; }
-		public TimeSpan Par { get; private set; }
-		public string Song { get; private set; }
 		public ushort X(uint i) => X((ushort)i);
 		public ushort X(ushort i) => (ushort)(i % Width);
+		public const ushort Y = 0; // Vertical
 		public ushort Z(uint i) => Z((ushort)i);
 		public ushort Z(ushort i) => (ushort)(i / Depth);
 		public ushort GetIndex(uint x, uint z) => GetIndex((ushort)x, (ushort)z);
@@ -65,7 +35,7 @@ namespace WOLF3DModel
 		public ushort GetObjectData(ushort x, ushort z) => ObjectData[GetIndex(x, z)];
 		public ushort GetOtherData(uint x, uint z) => GetOtherData((ushort)x, (ushort)z);
 		public ushort GetOtherData(ushort x, ushort z) => OtherData[GetIndex(x, z)];
-		public bool WithinMap(int x, int z) => x >= 0 && z >= 0 && x < Width && z < Depth;
+		public bool IsWithinMap(int x, int z) => x >= 0 && z >= 0 && x < Width && z < Depth;
 		public static long[] ParseMapHead(Stream stream)
 		{
 			List<long> offsets = new List<long>();
@@ -148,7 +118,6 @@ namespace WOLF3DModel
 				}
 			return maps;
 		}
-		public override string ToString() => Name;
 		#region Decompression algorithms
 		public const ushort CARMACK_NEAR = 0xA7;
 		public const ushort CARMACK_FAR = 0xA8;

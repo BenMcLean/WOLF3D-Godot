@@ -586,8 +586,6 @@ namespace WOLF3D.WOLF3DGame
 		public static int CountPushWalls(GameMap map) => CountPushWalls(map.ObjectData);
 		public static int CountPushWalls(ushort[] ObjectData) => MapAnalyzer.PushWall.Select(pushWall => ushort.TryParse(pushWall.Attribute("Number")?.Value, out ushort number) ? ObjectData.Where(square => number == square).Count() : 0).Sum();
 		public readonly static Dictionary<string, State> States = new Dictionary<string, State>();
-		public static GameMap? NextMap(GameMap previous) => GetMap(previous.Episode, previous.ElevatorTo);
-		public static GameMap? GetMap(byte episode, byte floor) => Maps.Where(e => e.Episode == episode && e.Floor == floor).FirstOrDefault();
 		public static bool Start(GameMap map, out ushort index, out Direction8 direction)
 		{
 			foreach (XElement start in XML?.Element("VSwap")?.Elements("Objects")?.Elements("Start") ?? Enumerable.Empty<XElement>())

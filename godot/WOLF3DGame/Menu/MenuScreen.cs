@@ -171,7 +171,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					timer.Theme = Assets.FontThemes[bitmapFont];
 				if (Main.InGame)
 					if (timer.Name.ToUpperInvariant().Equals("PAR"))
-						timer.Text = Main.ActionRoom.Level.Map.Par.ToString(@"mm\:ss");
+						timer.Text = Main.ActionRoom.Level.MapAnalysis.Par.ToString(@"mm\:ss");
 					else if (timer.Name.ToUpperInvariant().Equals("TIME")
 						&& TimeSpan.FromSeconds(Main.ActionRoom.Level.Time) is TimeSpan timeSpan)
 						timer.Text = timeSpan >= TimeSpan.FromHours(1) ?

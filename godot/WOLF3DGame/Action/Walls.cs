@@ -14,7 +14,9 @@ namespace WOLF3D.WOLF3DGame.Action
 	/// </summary>
 	public class Walls : StaticBody
 	{
-		public GameMap Map { get; set; }
+		public ushort MapNumber { get; set; }
+		public GameMap Map => Assets.Maps[MapNumber];
+		public MapAnalyzer.MapAnalysis MapAnalysis => Assets.MapAnalysis[MapNumber];
 		protected readonly bool[][] Navigable;
 		public bool IsNavigable(int x, int z) =>
 			x >= 0 && z >= 0 && x < Navigable.Length && z < Navigable[x].Length
@@ -28,10 +30,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		public CollisionShape Ceiling { get; private set; }
 		public MeshInstance CeilingMesh { get; private set; }
 		public List<Elevator> Elevators = new List<Elevator>();
-		public Walls(GameMap map)
+		public Walls(ushort mapNumber)
 		{
-			Name = "Walls for map \"" + map.Name + "\"";
-			Map = map;
+			MapNumber = mapNumber;
+			Name = "Walls for map \"" + Map.Name + "\"";
 			Navigable = new bool[Map.Width][];
 			Transparent = new bool[Map.Width][];
 			for (ushort x = 0; x < Map.Width; x++)
@@ -45,8 +47,8 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 			}
 			// realWalls replaces pushwalls with floors.
-			ushort[] realWalls = new ushort[map.MapData.Length];
-			Array.Copy(map.MapData, realWalls, realWalls.Length);
+			ushort[] realWalls = new ushort[Map.MapData.Length];
+			Array.Copy(Map.MapData, realWalls, realWalls.Length);
 			for (uint i = 0; i < realWalls.Length; i++)
 				if (Assets.MapAnalyzer.PushWalls.Contains(Map.ObjectData[i]))
 					realWalls[i] = Assets.FloorCodeFirst;
@@ -74,7 +76,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
 				},
-				MaterialOverride = Map.GroundTile is ushort groundTile && groundTile < Assets.VSwapTextures.Length ?
+				MaterialOverride = MapAnalysis.GroundTile is ushort groundTile && groundTile < Assets.VSwapTextures.Length ?
 				new SpatialMaterial()
 				{
 					AlbedoTexture = Assets.VSwapTextures[groundTile],
@@ -90,7 +92,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 				: new SpatialMaterial()
 				{
-					AlbedoColor = Assets.Palettes[0][(int)Map.Ground],
+					AlbedoColor = Assets.Palettes[0][(int)MapAnalysis.Ground],
 					FlagsUnshaded = true,
 					FlagsDoNotReceiveShadows = true,
 					FlagsDisableAmbientLight = true,
@@ -124,7 +126,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					Size = new Vector2(Map.Width * Assets.WallWidth, Map.Depth * Assets.WallWidth),
 				},
-				MaterialOverride = Map.CeilingTile is ushort ceilingTile && ceilingTile < Assets.VSwapTextures.Length ?
+				MaterialOverride = MapAnalysis.CeilingTile is ushort ceilingTile && ceilingTile < Assets.VSwapTextures.Length ?
 				new SpatialMaterial()
 				{
 					AlbedoTexture = Assets.VSwapTextures[ceilingTile],
@@ -140,7 +142,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				}
 				: new SpatialMaterial()
 				{
-					AlbedoColor = Assets.Palettes[0][(int)Map.Ceiling],
+					AlbedoColor = Assets.Palettes[0][(int)MapAnalysis.Ceiling],
 					FlagsUnshaded = true,
 					FlagsDoNotReceiveShadows = true,
 					FlagsDisableAmbientLight = true,
@@ -173,7 +175,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			void HorizontalCheck(ushort x, ushort z)
 			{
 				ushort wall;
-				if (x < map.Width - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
+				if (x < Map.Width - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
 					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x + 1, z));
 				if (x > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
 					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x, z, true));
@@ -183,12 +185,12 @@ namespace WOLF3D.WOLF3DGame.Action
 				ushort wall;
 				if (z > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
 					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z - 1, true));
-				if (z < map.Depth - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
+				if (z < Map.Depth - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
 					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
-				ushort x = map.X(i), z = map.Z(i), here = GetMapData(x, z);
+				ushort x = Map.X(i), z = Map.Z(i), here = GetMapData(x, z);
 				if (Assets.MapAnalyzer.Doors.Contains(here))
 				{
 					if (here % 2 == 0) // Even numbered doors face east

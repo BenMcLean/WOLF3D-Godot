@@ -47,18 +47,18 @@ namespace WOLF3D.WOLF3DGame.Action
 			//	});
 			//}
 		}
-		public LoadingRoom(GameMap map) : this()
+		public LoadingRoom(ushort mapNumber) : this()
 		{
-			Map = map;
-			Name = "LoadingRoom for map " + Map.Number;
+			MapNumber = mapNumber;
+			Name = "LoadingRoom for map " + MapNumber;
 		}
 		public LoadingRoom(XElement xml) : this()
 		{
 			XML = xml;
-			Map = Assets.Maps[(int)xml.Element("Level").Attribute("MapNumber")];
-			Name = "LoadingRoom for map " + Map.Number;
+			MapNumber = ushort.Parse(xml.Element("Level").Attribute("MapNumber")?.Value);
+			Name = "LoadingRoom for map " + MapNumber;
 		}
-		public GameMap Map { get; set; }
+		public ushort MapNumber { get; set; }
 		public XElement XML { get; set; }
 		public void Loading()
 		{
@@ -70,9 +70,9 @@ namespace WOLF3D.WOLF3DGame.Action
 					Main.StatusBar.Set(Main.NextLevelStats);
 					Main.NextLevelStats = null;
 				}
-				Main.StatusBar["Episode"].Value = Map.Episode;
-				Main.StatusBar["Floor"].Value = Map.Floor;
-				Main.ActionRoom = new ActionRoom(Map);
+				Main.StatusBar["Episode"].Value = Assets.MapAnalysis[MapNumber].Episode;
+				Main.StatusBar["Floor"].Value = Assets.MapAnalysis[MapNumber].Floor;
+				Main.ActionRoom = new ActionRoom(MapNumber);
 			}
 			else
 			{
@@ -85,9 +85,9 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void Enter()
 		{
 			base.Enter();
-			Main.StatusBar["Floor"].Value = Map.Floor;
-			Main.Color = Assets.Palettes[0][Map.Border];
-			if (Map.Song is string songName
+			Main.StatusBar["Floor"].Value = Assets.MapAnalysis[MapNumber].Floor;
+			Main.Color = Assets.Palettes[0][Assets.MapAnalysis[MapNumber].Border];
+			if (Assets.MapAnalysis[MapNumber].Song is string songName
 				&& Assets.AudioT.Songs.TryGetValue(songName, out AudioT.Song song)
 				&& SoundBlaster.Song != song)
 				SoundBlaster.Song = song;

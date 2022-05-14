@@ -262,7 +262,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (Direction == null || Distance <= 0f)
 			{
 				Recenter();
-				if (Main.ActionRoom.Level.Map.WithinMap(X, Z)
+				if (Main.ActionRoom.Level.Map.IsWithinMap(X, Z)
 					&& Assets.Turns.TryGetValue(Main.ActionRoom.Level.Map.GetObjectData((ushort)X, (ushort)Z), out Direction8 direction))
 					Direction = direction;
 				if (Direction == null)
