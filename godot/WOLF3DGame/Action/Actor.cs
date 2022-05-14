@@ -103,6 +103,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Bus = "3D",
 			});
 			State = Assets.States[xml.Attribute("State")?.Value];
+			UpdateShape();
 			if (short.TryParse(xml.Attribute("Tics")?.Value, out short tics))
 				Tics = tics;
 			if (float.TryParse(xml.Attribute("Seconds")?.Value, out float seconds))
@@ -191,18 +192,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					State?.Act?.Invoke(this, delta); // Act methods are called once per state
 				}
 				State?.Think?.Invoke(this, delta); // Think methods are called once per frame -- NOT per tic!
-				if (Visible && State != null
-					&& State.Shape is short shape
-					&& (ushort)(shape + (State.Rotate ?
-					Direction8.Modulus(
-						Direction8.AngleToPoint(
-							GlobalTransform.origin,
-							GetViewport().GetCamera().GlobalTransform.origin
-						).MirrorZ + (Direction ?? 0),
-						8)
-					: 0)) is ushort newFrame
-					&& newFrame != Page)
-					Page = newFrame;
+				UpdateShape();
 				// START DEBUGGING
 				/*
 				if (!State.Alive && SightPlayer())
@@ -219,6 +209,22 @@ namespace WOLF3D.WOLF3DGame.Action
 				if (State.Mark)
 					Main.ActionRoom.Level.SetActorAt(TileX, TileZ, this);
 			}
+		}
+		public Actor UpdateShape()
+		{
+			if (Visible && State != null
+				&& State.Shape is short shape
+				&& (ushort)(shape + (State.Rotate && GetViewport()?.GetCamera() is Spatial camera ?
+				Direction8.Modulus(
+					Direction8.AngleToPoint(
+						GlobalTransform.origin,
+						camera.GlobalTransform.origin
+					).MirrorZ + (Direction ?? 0),
+					8)
+				: 0)) is ushort newFrame
+				&& newFrame != Page)
+				Page = newFrame;
+			return this;
 		}
 		public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
 			&& Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
