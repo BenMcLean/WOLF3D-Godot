@@ -21,7 +21,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			for (int page = 0; page < pages; page++)
 				into.Element("VgaGraph").Element("Menus").Add(XElement.Parse(string.Format(
 "<Menu Name=\"_GameSelect" + page + "\" BkgdColor=\"41\" Font=\"1\" SelectedColor=\"19\" TextColor=\"23\" Song=\"REMIX\">" +
-"<Text String=\"Which game to play?\" X=\"center\" Y=\"3\" Color=\"71\" />" +
+"<Text String=\"Which game to play?\" X=\"center\" Y=\"3\" Color=\"71\" Font=\"1\" />" +
 "<Image Name=\"C_MOUSELBACKPIC\" X=\"center\" Y=\"184\" Action=\"Quit\" />" +
 "<PixelRect X=\"2\" Y=\"19\" Width=\"316\" Height=\"168\" Color=\"45\" BordColor=\"44\" Bord2Color=\"35\" />" +
 "<MenuItems StartX=\"8\" StartY=\"22\" PaddingX=\"24\" Font=\"0\">" +
