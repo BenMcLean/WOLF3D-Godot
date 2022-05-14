@@ -16,65 +16,65 @@ namespace WOLF3D.WOLF3DGame
 		public static readonly Direction8 WEST = new Direction8()
 		{
 			Value = 0,
-			ShortName = "S",
-			Name = "South",
-			X = 0,
-			Z = 1,
-		};
-		public static readonly Direction8 NORTHWEST = new Direction8()
-		{
-			Value = 1,
-			ShortName = "SW",
-			Name = "Southwest",
-			X = -1,
-			Z = 1,
-		};
-		public static readonly Direction8 NORTH = new Direction8()
-		{
-			Value = 2,
 			ShortName = "W",
 			Name = "West",
 			X = -1,
 			Z = 0,
 		};
-		public static readonly Direction8 NORTHEAST = new Direction8()
+		public static readonly Direction8 NORTHWEST = new Direction8()
 		{
-			Value = 3,
+			Value = 1,
 			ShortName = "NW",
 			Name = "Northwest",
 			X = -1,
 			Z = -1,
 		};
-		public static readonly Direction8 EAST = new Direction8()
+		public static readonly Direction8 NORTH = new Direction8()
 		{
-			Value = 4,
+			Value = 2,
 			ShortName = "N",
 			Name = "North",
 			X = 0,
 			Z = -1,
 		};
-		public static readonly Direction8 SOUTHEAST = new Direction8()
+		public static readonly Direction8 NORTHEAST = new Direction8()
 		{
-			Value = 5,
+			Value = 3,
 			ShortName = "NE",
 			Name = "Northeast",
 			X = 1,
 			Z = -1,
 		};
-		public static readonly Direction8 SOUTH = new Direction8()
+		public static readonly Direction8 EAST = new Direction8()
 		{
-			Value = 6,
+			Value = 4,
 			ShortName = "E",
 			Name = "East",
 			X = 1,
 			Z = 0,
 		};
-		public static readonly Direction8 SOUTHWEST = new Direction8()
+		public static readonly Direction8 SOUTHEAST = new Direction8()
 		{
-			Value = 7,
+			Value = 5,
 			ShortName = "SE",
 			Name = "Southeast",
 			X = 1,
+			Z = 1,
+		};
+		public static readonly Direction8 SOUTH = new Direction8()
+		{
+			Value = 6,
+			ShortName = "S",
+			Name = "South",
+			X = 0,
+			Z = 1,
+		};
+		public static readonly Direction8 SOUTHWEST = new Direction8()
+		{
+			Value = 7,
+			ShortName = "SW",
+			Name = "Southwest",
+			X = -1,
 			Z = 1,
 		};
 		public static readonly ReadOnlyCollection<Direction8> Values = Array.AsReadOnly(new Direction8[] { WEST, NORTHWEST, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST });
@@ -187,18 +187,19 @@ namespace WOLF3D.WOLF3DGame
 			: null;
 		public static Direction8 FromAngle(Transform transform) => FromAngle(transform.basis);
 		public static Direction8 FromAngle(Basis basis) => FromAngle(basis.GetEuler().y);
-		public static Direction8 FromAngle(float angle) => PositiveAngle(angle + Mathf.Pi);
-		private static readonly float[] positiveAngles = new float[8] { Mathf.Tau / 16f, Mathf.Tau * 3f / 16f, Mathf.Tau * 5f / 16f, Mathf.Tau * 7f / 16f, Mathf.Tau * 9f / 16f, Mathf.Tau * 11f / 16f, Mathf.Tau * 13f / 16f, Mathf.Tau * 15f / 16f };
+		public static Direction8 FromAngle(float angle) => PositiveAngle((angle + Mathf.Pi) % Mathf.Tau);
+		private static readonly ReadOnlyCollection<float> positiveAngles = Array.AsReadOnly(new float[8] { Mathf.Tau / 16f, Mathf.Tau * 3f / 16f, Mathf.Tau * 5f / 16f, Mathf.Tau * 7f / 16f, Mathf.Tau * 9f / 16f, Mathf.Tau * 11f / 16f, Mathf.Tau * 13f / 16f, Mathf.Tau * 15f / 16f });
+		public static float ToPositiveAngle(float angle) => (angle + Mathf.Pi) % Mathf.Tau;
 		public static Direction8 PositiveAngle(float angle) =>
-			angle < positiveAngles[0] ? SOUTH
-			: angle < positiveAngles[1] ? SOUTHWEST
-			: angle < positiveAngles[2] ? WEST
-			: angle < positiveAngles[3] ? NORTHWEST
-			: angle < positiveAngles[4] ? NORTH
-			: angle < positiveAngles[5] ? NORTHEAST
-			: angle < positiveAngles[6] ? EAST
-			: angle < positiveAngles[7] ? SOUTHEAST
-			: SOUTH;
+			angle < positiveAngles[0] ? EAST
+			: angle < positiveAngles[1] ? SOUTHEAST
+			: angle < positiveAngles[2] ? SOUTH
+			: angle < positiveAngles[3] ? SOUTHWEST
+			: angle < positiveAngles[4] ? WEST
+			: angle < positiveAngles[5] ? NORTHWEST
+			: angle < positiveAngles[6] ? NORTH
+			: angle < positiveAngles[7] ? NORTHEAST
+			: EAST;
 		public static Direction8 CardinalFromAngle(Transform transform) => CardinalFromAngle(transform.basis);
 		public static Direction8 CardinalFromAngle(Basis basis) => CardinalFromAngle(basis.GetEuler().y);
 		public static Direction8 CardinalFromAngle(float angle) => CardinalPositiveAngle(angle + Mathf.Pi);

@@ -80,7 +80,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public Direction8 Direction
 		{
 			get => Western ? Direction8.WEST : Direction8.SOUTH;
-			private set => Western = value.Z > 0;
+			private set => Western = value.X < 0;
 		}
 		public ushort X { get; private set; } = 0;
 		public ushort Z { get; private set; } = 0;
