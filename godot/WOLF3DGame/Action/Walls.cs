@@ -174,17 +174,17 @@ namespace WOLF3D.WOLF3DGame.Action
 			{
 				ushort wall;
 				if (x < map.Width - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x + 1), z)))
-					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x + 1, z, true));
+					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x + 1, z));
 				if (x > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData((ushort)(x - 1), z)))
-					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x, z));
+					AddChild(BuildWall(Assets.MapAnalyzer.DarkSide(wall), false, x, z, true));
 			}
 			void VerticalCheck(ushort x, ushort z)
 			{
 				ushort wall;
 				if (z > 0 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z - 1))))
-					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z - 1));
+					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z - 1, true));
 				if (z < map.Depth - 1 && Assets.MapAnalyzer.Walls.Contains(wall = GetMapData(x, (ushort)(z + 1))))
-					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z, true));
+					AddChild(BuildWall(Assets.MapAnalyzer.WallPage(wall), true, x, z));
 			}
 			for (ushort i = 0; i < Map.MapData.Length; i++)
 			{
