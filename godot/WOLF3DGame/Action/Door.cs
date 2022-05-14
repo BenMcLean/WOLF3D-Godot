@@ -145,7 +145,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			Western = western;
 			Name = (Western ? "West" : "South") + " door at [" + x + ", " + z + "]";
 			GlobalTransform = new Transform(
-					Western ? Direction8.NORTH.Basis : Direction8.EAST.Basis,
+					Western ? Direction8.NORTH.Basis : Direction8.WEST.Basis,
 					new Vector3(
 						Assets.CenterSquare(x),
 						Assets.HalfWallHeight,
@@ -198,7 +198,7 @@ namespace WOLF3D.WOLF3DGame.Action
 								(ushort)(uint)door.Attribute("Page"),
 								x,
 								z,
-								Direction8.From(door.Attribute("Direction")) == Direction8.WEST
+								Direction8.From(door.Attribute("Direction")) is Direction8 from && (from == Direction8.WEST || from == Direction8.EAST)
 							)
 							{
 								XML = door,

@@ -63,10 +63,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		protected FourWalls Set(ushort wall, ushort darkSide)
 		{
 			Name = "FourWalls";
-			AddChild(Sides[DirectionIndex(Direction8.WEST)] = Walls.BuildWall(darkSide, true, 0, 0)); // West
-			AddChild(Sides[DirectionIndex(Direction8.NORTH)] = Walls.BuildWall(wall, false, 0, 0, true)); // North
-			AddChild(Sides[DirectionIndex(Direction8.EAST)] = Walls.BuildWall(darkSide, true, 0, -1, true)); // East
-			AddChild(Sides[DirectionIndex(Direction8.SOUTH)] = Walls.BuildWall(wall, false, 1, 0)); // South
+			AddChild(Sides[DirectionIndex(Direction8.WEST)] = Walls.BuildWall(wall, true, 0, 0)); // West
+			AddChild(Sides[DirectionIndex(Direction8.NORTH)] = Walls.BuildWall(darkSide, false, 0, 0, true)); // North
+			AddChild(Sides[DirectionIndex(Direction8.EAST)] = Walls.BuildWall(wall, true, 0, -1, true)); // East
+			AddChild(Sides[DirectionIndex(Direction8.SOUTH)] = Walls.BuildWall(darkSide, false, 1, 0)); // South
 			Size = new Vector2(Assets.WallWidth, Assets.WallWidth);
 			AddChild(CollisionShape = new CollisionShape()
 			{

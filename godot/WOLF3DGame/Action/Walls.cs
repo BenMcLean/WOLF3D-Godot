@@ -193,15 +193,15 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					if (here % 2 == 0) // Even numbered doors face east
 					{
-						AddChild(BuildWall(darkFrame, true, x, z));
-						AddChild(BuildWall(darkFrame, true, x, z - 1, true));
+						AddChild(BuildWall(doorFrame, true, x, z, true));
+						AddChild(BuildWall(doorFrame, true, x, z - 1));
 						HorizontalCheck(x, z);
 						//AddChild(HorizontalDoor(x, z, Level.DoorTexture(here)));
 					}
 					else // Odd numbered doors face north
 					{
-						AddChild(BuildWall(doorFrame, false, x, z));
-						AddChild(BuildWall(doorFrame, false, x + 1, z, true));
+						AddChild(BuildWall(darkFrame, false, x, z));
+						AddChild(BuildWall(darkFrame, false, x + 1, z, true));
 						VerticalCheck(x, z);
 						//AddChild(VerticalDoor(x, z, Level.DoorTexture(here)));
 					}
