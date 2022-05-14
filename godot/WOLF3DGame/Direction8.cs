@@ -203,13 +203,13 @@ namespace WOLF3D.WOLF3DGame
 		public static Direction8 CardinalFromAngle(Transform transform) => CardinalFromAngle(transform.basis);
 		public static Direction8 CardinalFromAngle(Basis basis) => CardinalFromAngle(basis.GetEuler().y);
 		public static Direction8 CardinalFromAngle(float angle) => CardinalPositiveAngle(angle + Mathf.Pi);
-		private static readonly float[] cardinalPositiveAngles = new float[4] { Mathf.Tau / 8f, Mathf.Tau * 3f / 8f, Mathf.Tau * 5f / 8f, Mathf.Tau * 7f / 8f };
+		private static readonly ReadOnlyCollection<float> cardinalPositiveAngles = Array.AsReadOnly(new float[4] { Mathf.Tau / 8f, Mathf.Tau * 3f / 8f, Mathf.Tau * 5f / 8f, Mathf.Tau * 7f / 8f });
 		public static Direction8 CardinalPositiveAngle(float angle) =>
-			angle < cardinalPositiveAngles[0] ? SOUTH
-			: angle < cardinalPositiveAngles[1] ? WEST
-			: angle < cardinalPositiveAngles[2] ? NORTH
-			: angle < cardinalPositiveAngles[3] ? EAST
-			: SOUTH;
+			angle < cardinalPositiveAngles[0] ? EAST
+			: angle < cardinalPositiveAngles[1] ? SOUTH
+			: angle < cardinalPositiveAngles[2] ? WEST
+			: angle < cardinalPositiveAngles[3] ? NORTH
+			: EAST;
 		public static Direction8 From(XAttribute xAttribute) => From(xAttribute?.Value);
 		public static Direction8 From(string @string) =>
 			int.TryParse(@string, out int result) ?
