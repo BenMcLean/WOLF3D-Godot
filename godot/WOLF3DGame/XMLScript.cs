@@ -128,10 +128,11 @@ namespace WOLF3D.WOLF3DGame
 			}
 			if (xml.Attribute("Action")?.Value.Equals("NextFloor", StringComparison.InvariantCultureIgnoreCase) ?? false)
 				Main.Room.ChangeRoom(new LoadingRoom(
+					Assets.MapAnalyzer.MapNumber(Main.ActionRoom.Level.MapAnalysis.Episode,
 						Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Override")?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == MenuRoom.LastPushedTile)?.FirstOrDefault() is XElement over
 							&& byte.TryParse(over.Attribute("Floor")?.Value, out byte floor) ?
-							Assets.MapAnalyzer.MapNumber(Main.ActionRoom.Level.MapAnalysis.Episode, floor)
-							: Main.ActionRoom.Level.MapAnalysis.ElevatorTo
+							 floor
+							: Main.ActionRoom.Level.MapAnalysis.ElevatorTo)
 						));
 			if (xml.Attribute("Action")?.Value.Equals("End", StringComparison.InvariantCultureIgnoreCase) ?? false)
 			{
