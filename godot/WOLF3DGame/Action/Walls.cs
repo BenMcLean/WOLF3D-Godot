@@ -238,8 +238,8 @@ namespace WOLF3D.WOLF3DGame.Action
 				Mesh = Assets.WallMesh,
 				Transform = new Transform(
 					westernWall ?
-						flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis
-						: flipH ? Direction8.NORTH.Basis : Direction8.SOUTH.Basis,
+						flipH ? Direction8.NORTH.Basis : Direction8.SOUTH.Basis
+						: flipH ? Direction8.WEST.Basis : Direction8.EAST.Basis,
 					new Vector3(
 							westernWall ? Assets.CenterSquare(x) : Assets.FloatCoordinate(x),
 							Assets.HalfWallHeight,
