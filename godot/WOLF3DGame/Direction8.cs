@@ -166,7 +166,7 @@ namespace WOLF3D.WOLF3DGame
 		public static Direction8 From(Vector3 vector3) => From(Assets.Vector2(vector3));
 		public static Direction8 From(Vector2 vector2) => FromAngle(vector2.Angle());
 		public static Direction8 CardinalFrom(Vector3 vector3) => CardinalFrom(Assets.Vector2(vector3));
-		public static Direction8 CardinalFrom(Vector2 vector2) => CardinalFromAngle(vector2.Angle());
+		public static Direction8 CardinalFrom(Vector2 vector2) => CardinalFromAngle(Mathf.Atan2(-vector2.x, -vector2.y));
 		public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
 		public static Direction8 CardinalToPoint(Vector3 vector3) => CardinalToPoint(Vector3.Zero, vector3);
 		public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);

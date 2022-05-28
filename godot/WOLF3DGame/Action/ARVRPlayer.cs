@@ -205,10 +205,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				{
 					if (!Pushing)
 					{
-						Push(new Vector2(
-							Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-							Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-							));
+						Push();
 						Pushing = true;
 					}
 				}
@@ -217,10 +214,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					if (!Pushing)
 					{
 						if (!Push(Assets.Vector2(RightController.GlobalTransform.origin)))
-							Push(new Vector2(
-								Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-								Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-								));
+							Push();
 						Pushing = true;
 					}
 				}
@@ -229,10 +223,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					if (!Pushing)
 					{
 						if (!Push(Assets.Vector2(LeftController.GlobalTransform.origin)))
-							Push(new Vector2(
-								Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-								Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-								));
+							Push();
 						Pushing = true;
 					}
 				}
@@ -254,10 +245,7 @@ namespace WOLF3D.WOLF3DGame.Action
 							actor.Kill();
 					}
 					else if (button.ButtonIndex == (int)ButtonList.Right)
-						Push(new Vector2(
-							Position.x - Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
-							Position.y - Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
-							));
+						Push();
 				}
 				else if (@event is InputEventMouseMotion motion)
 				{
@@ -307,6 +295,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		public Vector2 Size { get; set; } = new Vector2(Assets.WallWidth, Assets.WallWidth);
 		public Vector2 Offset { get; set; } = new Vector2(Assets.HalfWallWidth, Assets.HalfWallWidth);
 		public Vector2 Walk(Vector2 here, Vector2 there) => Main.ActionRoom.Level.PlayerWalk(here, there);
+		public bool Push() => Push(new Vector2(
+			Position.x + Direction8.CardinalFrom(ARVRCameraDirection).X * Assets.WallWidth,
+			Position.y + Direction8.CardinalFrom(ARVRCameraDirection).Z * Assets.WallWidth
+			));
 		public bool Push(Vector2 where) => Main.ActionRoom.Level.Push(where);
 		public ushort? FloorCode => Main.ActionRoom.Level.Walls.IsNavigable(X, Z)
 			&& Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode

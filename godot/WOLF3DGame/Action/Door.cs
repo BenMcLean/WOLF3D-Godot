@@ -145,7 +145,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			Western = western;
 			Name = (Western ? "West" : "South") + " door at [" + x + ", " + z + "]";
 			GlobalTransform = new Transform(
-					Western ? Direction8.NORTH.Basis : Direction8.WEST.Basis,
+					Western ? Direction8.WEST.Basis : Direction8.NORTH.Basis,
 					new Vector3(
 						Assets.CenterSquare(x),
 						Assets.HalfWallHeight,
