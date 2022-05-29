@@ -215,13 +215,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (Visible && State != null
 				&& State.Shape is short shape
 				&& (ushort)(shape + (State.Rotate && GetViewport()?.GetCamera() is Spatial camera ?
-				Direction8.Modulus(
-					Direction8.AngleToPoint(
-						GlobalTransform.origin,
-						camera.GlobalTransform.origin
-					).MirrorZ + (Direction ?? 0),
-					8)
-				: 0)) is ushort newFrame
+					Direction.SpriteNumber(camera.GlobalTransform.origin, GlobalTransform.origin)
+					: 0)) is ushort newFrame
 				&& newFrame != Page)
 				Page = newFrame;
 			return this;

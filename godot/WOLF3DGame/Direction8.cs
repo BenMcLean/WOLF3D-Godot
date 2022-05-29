@@ -170,7 +170,9 @@ namespace WOLF3D.WOLF3DGame
 		public static Direction8 AngleToPoint(Vector3 vector3) => AngleToPoint(Vector3.Zero, vector3);
 		public static Direction8 CardinalToPoint(Vector3 vector3) => CardinalToPoint(Vector3.Zero, vector3);
 		public static Direction8 AngleToPoint(Vector3 a, Vector3 b) => AngleToPoint(a.x, a.z, b.x, b.z);
+		public static Direction8 AngleToPoint(Vector2 a, Vector2 b) => AngleToPoint(a.x, a.y, b.x, b.y);
 		public static Direction8 CardinalToPoint(Vector3 a, Vector3 b) => CardinalToPoint(a.x, a.z, b.x, b.z);
+		public static Direction8 CardinalToPoint(Vector2 a, Vector2 b) => CardinalToPoint(a.x, a.y, b.x, b.y);
 		public static Direction8 AngleToPoint(float x, float y) => AngleToPoint(0f, 0f, x, y);
 		public static Direction8 CardinalToPoint(float x, float y) => CardinalToPoint(0f, 0f, x, y);
 		public static Direction8 AngleToPoint(float x1, float y1, float x2, float y2) => FromAngle(Mathf.Atan2(x1 - x2, y1 - y2));
@@ -225,10 +227,7 @@ namespace WOLF3D.WOLF3DGame
 			}
 			x = Math.Sign(x);
 			z = Math.Sign(z);
-			foreach (Direction8 direction in Values)
-				if (direction.X == x && direction.Z == z)
-					return direction;
-			return null;
+			return Values.Where(direction => direction.X == x && direction.Z == z).FirstOrDefault();
 		}
 		public static IEnumerable<Direction8> RandomOrder(params Direction8[] excluded) => RandomOrder(Main.RNG, excluded);
 		public static IEnumerable<Direction8> RandomOrder(RNG rng, params Direction8[] excluded)
@@ -243,6 +242,8 @@ namespace WOLF3D.WOLF3DGame
 				yield return direction;
 			}
 		}
+		public int SpriteNumber(Vector3 from, Vector3 to) => SpriteNumber(Direction8.AngleToPoint(to, from));
+		public int SpriteNumber(Direction8 angle) => Modulus((int)Value + (int)angle.Value, 8); // TODO: Fix this
 		public override string ToString() => ShortName;
 	}
 }
