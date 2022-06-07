@@ -242,8 +242,9 @@ namespace WOLF3D.WOLF3DGame
 				yield return direction;
 			}
 		}
-		public int SpriteNumber(Vector3 from, Vector3 to) => SpriteNumber(Direction8.AngleToPoint(to, from));
-		public int SpriteNumber(Direction8 angle) => Modulus((int)Value + (int)angle.Value, 8); // TODO: Fix this
+		public int SpriteNumber(Vector3 from, Vector3 to) => SpriteNumber(AngleToPoint(to, from));
+		public int SpriteNumber(Vector2 from, Vector2 to) => SpriteNumber(AngleToPoint(to, from));
+		public int SpriteNumber(Direction8 angle) => Modulus((int)MirrorZ.Value + (int)angle.Value, 8);
 		public override string ToString() => ShortName;
 	}
 }

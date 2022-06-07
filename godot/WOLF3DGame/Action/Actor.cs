@@ -225,8 +225,8 @@ namespace WOLF3D.WOLF3DGame.Action
 			&& Main.ActionRoom.Level.Walls.Map.GetMapData((ushort)X, (ushort)Z) is ushort floorCode
 			&& floorCode >= Assets.FloorCodeFirst
 			&& floorCode < Assets.FloorCodeFirst + Assets.FloorCodes ?
-			(ushort)(floorCode - Assets.FloorCodeFirst)
-			: (ushort?)null;
+				(ushort)(floorCode - Assets.FloorCodeFirst)
+				: (ushort?)null;
 		public float GetReaction() => GetReaction(ActorXML);
 		public static float GetReaction(XElement xElement) => xElement?.Attribute("Reaction")?.Value is string reaction ? Assets.TicsToSeconds((int)Assets.GetUInt(reaction)) : 0f;
 		#region ISpeaker
