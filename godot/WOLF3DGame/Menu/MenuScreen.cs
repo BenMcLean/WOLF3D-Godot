@@ -77,25 +77,23 @@ namespace WOLF3D.WOLF3DGame.Menu
 				else if (e.Name.LocalName.Equals("Image", StringComparison.InvariantCultureIgnoreCase))
 				{
 					AtlasTexture texture = Assets.PicTexture(e.Attribute("Name").Value);
-					/* TODO
 					if (e.Attribute("XBanner") != null)
 						AddChild(new TextureRect()
 						{
-							Texture = texture,
-							RegionEnabled = true,
-							RegionRect = new Rect2(
-								new Vector2(
-									uint.TryParse(e.Attribute("XBanner")?.Value, out uint x) ? x : 0,
-									0f
+							RectPosition = new Vector2(0f, float.TryParse(e.Attribute("Y")?.Value, out float y) ? y : 0f),
+							RectSize = new Vector2(Width, texture.GetSize().y),
+							Texture = new AtlasTexture()
+							{
+								Atlas = texture.Atlas,
+								Region = new Rect2(
+									texture.Region.Position.x + (uint.TryParse(e.Attribute("XBanner")?.Value, out uint x) && x <= texture.Region.Size.x ? x : 0),
+									texture.Region.Position.y,
+									1f,
+									texture.Region.Size.y
 									),
-								new Vector2(1, texture.GetSize().y)
-								),
-							RectPosition = new Vector2(Width + 1f, texture.GetSize().y / 2f +
-								(float.TryParse(e.Attribute("Y")?.Value, out float y) ? y : 0)
-							),
-							Scale = new Vector2(Width + 1f, 1f),
+							},
+							StretchMode = TextureRect.StretchModeEnum.Tile,
 						});
-					*/
 					Vector2 position = new Vector2(
 							e.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
 							Width / 2 - texture.GetWidth() / 2f
