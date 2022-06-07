@@ -56,7 +56,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 			Text = XML.Attribute("Text")?.Value;
 			return this;
 		}
-		public Sprite Selected
+		public TextureRect Selected
 		{
 			get => selected;
 			set
@@ -68,7 +68,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					AddChild(selected);
 			}
 		}
-		private Sprite selected = null;
+		private TextureRect selected = null;
 		public Color? Color
 		{
 			get => Label?.Modulate;
@@ -100,10 +100,10 @@ namespace WOLF3D.WOLF3DGame.Menu
 								XML?.Attribute(PictureName)?.Value
 								?? Assets.XML?.Element("VgaGraph")?.Element("Menus")?.Attribute(PictureName)?.Value
 							) is Texture texture)
-						Selected = new Sprite()
+						Selected = new TextureRect()
 						{
 							Texture = texture,
-							Position = new Vector2(XPadding - texture.GetWidth() / 2, texture.GetHeight() / 2),
+							RectPosition = new Vector2(XPadding - texture.GetWidth() / 2, texture.GetHeight() / 2),
 						};
 				}
 			}

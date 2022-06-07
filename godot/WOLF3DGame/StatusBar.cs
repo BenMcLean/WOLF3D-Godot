@@ -21,11 +21,11 @@ namespace WOLF3D.WOLF3DGame
 			AtlasTexture pic = Assets.PicTextureSafe(XML?.Attribute("Pic")?.Value);
 			Size = pic?.GetSize() ?? Vector2.Zero;
 			if (pic != null)
-				AddChild(new Sprite()
+				AddChild(new TextureRect()
 				{
 					Name = "StatusBarPic",
 					Texture = pic,
-					Position = Size / 2f,
+					RectPosition = Vector2.Zero,
 				});
 			foreach (XElement number in xml?.Elements("Number") ?? Enumerable.Empty<XElement>())
 				Add(new StatusNumber(number));

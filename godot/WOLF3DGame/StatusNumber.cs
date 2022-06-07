@@ -37,11 +37,11 @@ namespace WOLF3D.WOLF3DGame
 			if (Empty != null || Have != null)
 			{
 				AtlasTexture texture = Empty ?? Have;
-				Item = new Sprite()
+				Item = new TextureRect()
 				{
 					Name = "Item",
 					Texture = texture,
-					Position = new Vector2(texture.GetWidth() / 2, texture.GetHeight() / 2),
+					RectPosition = Vector2.Zero,
 				};
 			}
 			if (uint.TryParse(xml?.Attribute("Max")?.Value, out uint max))
@@ -50,7 +50,7 @@ namespace WOLF3D.WOLF3DGame
 				Value = init;
 			Visible = !xml.IsFalse("Visible");
 		}
-		public Sprite Item
+		public TextureRect Item
 		{
 			get => item;
 			set
@@ -62,7 +62,7 @@ namespace WOLF3D.WOLF3DGame
 					AddChild(item);
 			}
 		}
-		private Sprite item = null;
+		private TextureRect item = null;
 		public AtlasTexture Have { get; set; } = null;
 		public AtlasTexture Empty { get; set; } = null;
 		public StatusNumber(uint digits = 0)

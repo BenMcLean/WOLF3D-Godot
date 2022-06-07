@@ -46,9 +46,9 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public AtlasTexture[] Cursors { get; set; }
 		public int CursorX { get; set; } = 0;
 		public int CursorY { get; set; } = 0;
-		public Sprite Cursor { get; set; }
+		public TextureRect Cursor { get; set; }
 		public AtlasTexture[] Difficulties { get; set; }
-		public Sprite Difficulty { get; set; }
+		public TextureRect Difficulty { get; set; }
 		public MenuScreen()
 		{
 			Name = "MenuScreen";
@@ -77,8 +77,9 @@ namespace WOLF3D.WOLF3DGame.Menu
 				else if (e.Name.LocalName.Equals("Image", StringComparison.InvariantCultureIgnoreCase))
 				{
 					AtlasTexture texture = Assets.PicTexture(e.Attribute("Name").Value);
+					/* TODO
 					if (e.Attribute("XBanner") != null)
-						AddChild(new Sprite()
+						AddChild(new TextureRect()
 						{
 							Texture = texture,
 							RegionEnabled = true,
@@ -89,24 +90,25 @@ namespace WOLF3D.WOLF3DGame.Menu
 									),
 								new Vector2(1, texture.GetSize().y)
 								),
-							Position = new Vector2(Width + 1f, texture.GetSize().y / 2f +
+							RectPosition = new Vector2(Width + 1f, texture.GetSize().y / 2f +
 								(float.TryParse(e.Attribute("Y")?.Value, out float y) ? y : 0)
 							),
 							Scale = new Vector2(Width + 1f, 1f),
 						});
+					*/
 					Vector2 position = new Vector2(
 							e.Attribute("X")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-							Width / 2
-							: (float)e.Attribute("X") + texture.GetWidth() / 2f,
+							Width / 2 - texture.GetWidth() / 2f
+							: (float)e.Attribute("X"),
 							e.Attribute("Y")?.Value?.Equals("center", StringComparison.InvariantCultureIgnoreCase) ?? false ?
-							Height / 2
-							: (float)e.Attribute("Y") + texture.GetHeight() / 2f
+							Height / 2 - texture.GetHeight() / 2f
+							: (float)e.Attribute("Y")
 							);
-					AddChild(new Sprite()
+					AddChild(new TextureRect()
 					{
 						Name = "Image " + e.Attribute("Name").Value,
 						Texture = texture,
-						Position = position,
+						RectPosition = position,
 					});
 					if (e.Attribute("Action")?.Value is string action && !string.IsNullOrWhiteSpace(action))
 					{
@@ -192,32 +194,32 @@ namespace WOLF3D.WOLF3DGame.Menu
 					CursorY = cursorY;
 				Cursors = cursors.ToArray();
 				if (Cursors.Length > 0)
-					AddChild(Cursor = new Sprite()
+					AddChild(Cursor = new TextureRect()
 					{
 						Texture = Cursors[0],
-						Position = new Vector2(MenuItems[0].Position.x + Cursors[0].GetWidth() / 2, MenuItems[0].Position.y + Cursors[0].GetHeight() / 2),
+						RectPosition = new Vector2(MenuItems[0].Position.x, MenuItems[0].Position.y),
 					});
 			}
 			if (menu.Element("Difficulty") is XElement difficulty && difficulty != null && Main.InGameMatch(difficulty))
 			{
 				AtlasTexture texture = Assets.PicTexture(difficulty.Attribute("Difficulty1").Value);
-				AddChild(Difficulty = new Sprite()
+				AddChild(Difficulty = new TextureRect()
 				{
-					Position = new Vector2(
-						(uint.TryParse(difficulty.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
-						(uint.TryParse(difficulty.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+					RectPosition = new Vector2(
+						uint.TryParse(difficulty.Attribute("X")?.Value, out uint x) ? x : 0,
+						uint.TryParse(difficulty.Attribute("Y")?.Value, out uint y) ? y : 0
 						),
 				});
 			}
 			if (Main.InGame && menu.Element("StatusBar") is XElement statusBar)
 			{
 				ViewportTexture texture = Main.StatusBar.GetTexture();
-				AddChild(new Sprite()
+				AddChild(new TextureRect()
 				{
 					Texture = texture,
-					Position = new Vector2(
-						(uint.TryParse(statusBar.Attribute("X")?.Value, out uint x) ? x : 0) + texture.GetWidth() / 2,
-						(uint.TryParse(statusBar.Attribute("Y")?.Value, out uint y) ? y : 0) + texture.GetHeight() / 2
+					RectPosition = new Vector2(
+						uint.TryParse(statusBar.Attribute("X")?.Value, out uint x) ? x : 0,
+						uint.TryParse(statusBar.Attribute("Y")?.Value, out uint y) ? y : 0
 						),
 				});
 			}
@@ -270,9 +272,9 @@ namespace WOLF3D.WOLF3DGame.Menu
 				selection = Direction8.Modulus(value, MenuItems.Count);
 				MenuItems[selection].Color = MenuItems[selection].SelectedColor;
 				if (Cursor != null)
-					Cursor.Position = new Vector2(
-						MenuItems[selection].Position.x + Cursor.Texture.GetWidth() / 2 + CursorX,
-						MenuItems[selection].Position.y + Cursor.Texture.GetHeight() / 2 + CursorY
+					Cursor.RectPosition = new Vector2(
+						MenuItems[selection].Position.x + CursorX,
+						MenuItems[selection].Position.y + CursorY
 						);
 				if (Difficulty != null && XML?.Element("Difficulty") is XElement difficulty && difficulty != null)
 					Difficulty.Texture = Assets.PicTexture(difficulty.Attribute("Difficulty" + (SelectedItem?.XML?.Attribute("Difficulty")?.Value ?? ""))?.Value);
