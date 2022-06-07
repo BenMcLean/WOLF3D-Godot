@@ -212,10 +212,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public Actor UpdateShape()
 		{
-			if (Visible && State != null
+			if (Visible && State is State
 				&& State.Shape is short shape
-				&& (ushort)(shape + (State.Rotate && GetViewport()?.GetCamera() is Spatial camera ?
-					Direction.SpriteNumber(camera.GlobalTransform.origin, GlobalTransform.origin)
+				&& (ushort)(shape + (State.Rotate && Direction is Direction8 && Main.ActionRoom?.ARVRPlayer?.Transform.origin is Vector3 player ?
+					Direction.SpriteNumber(player, Transform.origin)
 					: 0)) is ushort newFrame
 				&& newFrame != Page)
 				Page = newFrame;
