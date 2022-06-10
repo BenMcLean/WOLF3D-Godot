@@ -6,7 +6,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 {
 	public class MiniMap : GridContainer
 	{
-		public Container[][] Cell;
+		public readonly Container[][] Cell;
 		private readonly Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
 		public MiniMap(GameMap map, MapAnalyzer.MapAnalysis mapAnalysis)
 		{
@@ -20,11 +20,11 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				Cell[x] = new Container[map.Depth];
 				for (ushort z = 0; z < map.Depth; z++)
 				{
-					AddChild(Cell[x][z] = new Container()
+					Cell[x][z] = new Container()
 					{
 						Name = "MiniMap " + map.Name + " Container " + x + ", " + z,
 						RectSize = cellSize,
-					});
+					};
 					if (mapAnalysis.IsTransparent(x, z))
 					{
 						if (mapAnalysis.Ground is byte ground)
@@ -50,6 +50,9 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 						});
 				}
 			}
+			for (ushort z = 0; z < map.Depth; z++)
+				for (ushort x = 0; x < map.Width; x++)
+					AddChild(Cell[x][z]);
 		}
 	}
 }
