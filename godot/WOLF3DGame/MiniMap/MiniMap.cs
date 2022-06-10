@@ -1,7 +1,6 @@
 ﻿using Godot;
 using System;
 using System.Linq;
-using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.MiniMap
@@ -22,12 +21,14 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				Cell[x] = new Container[map.Depth];
 				for (ushort z = 0; z < map.Depth; z++)
 				{
+					ushort mapData = map.GetMapData(x, z),
+						objectData = map.GetObjectData(x, z);
 					Cell[x][z] = new Container()
 					{
 						Name = "MiniMap " + map.Name + " Container " + x + ", " + z,
 						RectSize = cellSize,
 					};
-					if (mapAnalysis.IsTransparent(x, z))
+					if (mapAnalysis.IsTransparent(x, z) && !Assets.MapAnalyzer.PushWalls.Contains(objectData))
 					{
 						if (mapAnalysis.Ground is byte ground)
 							Cell[x][z].AddChild(new ColorRect()
@@ -36,9 +37,8 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 								Color = Assets.Palettes[0][ground],
 								RectSize = Cell[x][z].RectSize,
 							});
-						if (map.GetMapData(x, z) is ushort mapCell
-							&& ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
-								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == mapCell)
+						if (ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
+								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == mapData)
 								?.FirstOrDefault()
 								?.Attribute("Page")
 								?.Value, out ushort page)
@@ -49,36 +49,36 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 							{
 								Name = Name + " Door at " + x + ", " + z,
 								Texture = doorTexture,
-								RectSize = Cell[x][z].RectSize,
+								RectSize = doorTexture.GetSize(),
 							});
-						if (map.GetObjectData(x, z) is ushort cell
-							&& ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
-								?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == cell)
+						else if (ushort.TryParse((
+								Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
+								?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == objectData)
 								?.FirstOrDefault()
+								)
 								?.Attribute("Page")
 								?.Value, out page)
 							&& Assets.VSwapAtlasTextures is AtlasTexture[]
 							&& page < Assets.VSwapAtlasTextures.Length
-							&& Assets.VSwapAtlasTextures[page] is AtlasTexture atlasTexture)
+							&& Assets.VSwapAtlasTextures[page] is AtlasTexture billboardTexture)
 							Cell[x][z].AddChild(new TextureRect()
 							{
 								Name = Name + " Billboard at " + x + ", " + z,
-								Texture = atlasTexture,
-								RectSize = Cell[x][z].RectSize,
+								Texture = billboardTexture,
+								RectSize = billboardTexture.GetSize(),
 							});
 					}
 					else if (mapAnalysis.IsMappable(x, z)
-						&& map.GetMapData(x, z) is ushort cell
-						&& Assets.MapAnalyzer.Walls.Contains(cell)
-						&& Assets.MapAnalyzer.WallPage(cell) is ushort page
+						&& Assets.MapAnalyzer.Walls.Contains(mapData)
+						&& Assets.MapAnalyzer.WallPage(mapData) is ushort wallPage
 						&& Assets.VSwapAtlasTextures is AtlasTexture[]
-						&& page < Assets.VSwapAtlasTextures.Length
-						&& Assets.VSwapAtlasTextures[page] is AtlasTexture atlasTexture)
+						&& wallPage < Assets.VSwapAtlasTextures.Length
+						&& Assets.VSwapAtlasTextures[wallPage] is AtlasTexture wallTexture)
 						Cell[x][z].AddChild(new TextureRect()
 						{
 							Name = Name + " Wall at " + x + ", " + z,
-							Texture = atlasTexture,
-							RectSize = Cell[x][z].RectSize,
+							Texture = wallTexture,
+							RectSize = wallTexture.GetSize(),
 						});
 				}
 			}
