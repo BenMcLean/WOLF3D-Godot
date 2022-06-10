@@ -1,5 +1,7 @@
 ﻿using Godot;
+using System;
 using System.Linq;
+using System.Xml.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.MiniMap
@@ -14,6 +16,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 			Columns = map.Width;
 			Set("custom_constants/hseparation", Assets.VSwap.TileSqrt);
 			Set("custom_constants/vseparation", Assets.VSwap.TileSqrt);
+			XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects") ?? throw new NullReferenceException("objects was null!");
 			Cell = new Container[map.Width][];
 			for (ushort x = 0; x < map.Width; x++)
 			{
@@ -32,6 +35,20 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 							{
 								Name = Name + " Floor at " + x + ", " + z,
 								Color = Assets.Palettes[0][ground],
+								RectSize = Cell[x][z].RectSize,
+							});
+						if (map.GetObjectData(x, z) is ushort cell
+							&& objects?.Elements("Billboard")
+								?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == cell)
+								?.FirstOrDefault() is XElement billboard
+							&& ushort.TryParse(billboard?.Attribute("Page")?.Value, out ushort page)
+							&& Assets.VSwapAtlasTextures is AtlasTexture[]
+							&& page < Assets.VSwapAtlasTextures.Length
+							&& Assets.VSwapAtlasTextures[page] is AtlasTexture atlasTexture)
+							Cell[x][z].AddChild(new TextureRect()
+							{
+								Name = Name + " Billboard at " + x + ", " + z,
+								Texture = atlasTexture,
 								RectSize = Cell[x][z].RectSize,
 							});
 					}

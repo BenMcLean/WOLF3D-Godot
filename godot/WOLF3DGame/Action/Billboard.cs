@@ -77,9 +77,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public static IEnumerable<Billboard> Billboards(GameMap map, byte difficulty = 4, bool scenery = true)
 		{
-			XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects");
-			if (objects == null)
-				throw new NullReferenceException("objects was null!");
+			XElement objects = Assets.XML?.Element("VSwap")?.Element("Objects") ?? throw new NullReferenceException("objects was null!");
 			for (uint i = 0; i < map.ObjectData.Length; i++)
 				if (scenery && objects?.Elements("Billboard")
 					?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == map.ObjectData[i])
