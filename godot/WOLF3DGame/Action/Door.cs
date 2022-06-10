@@ -184,15 +184,14 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public static Door[][] Doors(GameMap map, Level level = null)
 		{
-			XElement door;
 			Door[][] doors = new Door[map.Width][];
 			for (ushort x = 0; x < map.Width; x++)
 			{
 				doors[x] = new Door[map.Depth];
 				for (ushort z = 0; z < map.Depth; z++)
-					if ((door = (from e in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door") ?? Enumerable.Empty<XElement>()
-								 where ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == map.GetMapData(x, z)
-								 select e).FirstOrDefault()) != null)
+					if (Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
+						?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == map.GetMapData(x, z))
+						?.FirstOrDefault() is XElement door)
 						doors[x][z] = level == null ?
 							new Door(
 								(ushort)(uint)door.Attribute("Page"),
