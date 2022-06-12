@@ -101,5 +101,17 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				for (ushort x = 0; x < map.Width; x++)
 					AddChild(Cell[x][z]);
 		}
+		#region Visibility
+		public bool IsVisible(ushort x, ushort z) => x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
+		private readonly Color visibleColor = new Color(1f, 1f, 1f, 1f);
+		private readonly Color invisibleColor = new Color(0f, 0f, 0f, 0f);
+		public MiniMap SetVisible(ushort x, ushort z, bool visible = true)
+		{
+			if (x < Cell.Length && z < Cell[x].Length)
+				Cell[x][z].Modulate = visible ? visibleColor : invisibleColor;
+			return this;
+		}
+		public MiniMap SetInvisible(ushort x, ushort z) => SetVisible(x, z, false);
+		#endregion Visibility
 	}
 }
