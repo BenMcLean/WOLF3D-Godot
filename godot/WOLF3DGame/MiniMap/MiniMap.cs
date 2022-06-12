@@ -68,18 +68,33 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 								RectSize = billboardTexture.GetSize(),
 							});
 					}
-					else if (mapAnalysis.IsMappable(x, z)
-						&& Assets.MapAnalyzer.Walls.Contains(mapData)
-						&& Assets.MapAnalyzer.WallPage(mapData) is ushort wallPage
-						&& Assets.VSwapAtlasTextures is AtlasTexture[]
-						&& wallPage < Assets.VSwapAtlasTextures.Length
-						&& Assets.VSwapAtlasTextures[wallPage] is AtlasTexture wallTexture)
-						Cell[x][z].AddChild(new TextureRect()
-						{
-							Name = Name + " Wall at " + x + ", " + z,
-							Texture = wallTexture,
-							RectSize = wallTexture.GetSize(),
-						});
+					else if (mapAnalysis.IsMappable(x, z))
+						if (Assets.MapAnalyzer.Walls.Contains(mapData)
+							&& Assets.MapAnalyzer.WallPage(mapData) is ushort wallPage
+							&& Assets.VSwapAtlasTextures is AtlasTexture[]
+							&& wallPage < Assets.VSwapAtlasTextures.Length
+							&& Assets.VSwapAtlasTextures[wallPage] is AtlasTexture wallTexture)
+							Cell[x][z].AddChild(new TextureRect()
+							{
+								Name = Name + " Wall at " + x + ", " + z,
+								Texture = wallTexture,
+								RectSize = wallTexture.GetSize(),
+							});
+						else if (Assets.MapAnalyzer.Elevators.Contains(mapData)
+							&& ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Elevator")
+								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == mapData)
+								?.FirstOrDefault()
+								?.Attribute("DarkSide")
+								?.Value, out ushort page)
+							&& Assets.VSwapAtlasTextures is AtlasTexture[]
+							&& page < Assets.VSwapAtlasTextures.Length
+							&& Assets.VSwapAtlasTextures[page] is AtlasTexture elevatorTexture)
+							Cell[x][z].AddChild(new TextureRect()
+							{
+								Name = Name + " Elevator at " + x + ", " + z,
+								Texture = elevatorTexture,
+								RectSize = elevatorTexture.GetSize(),
+							});
 				}
 			}
 			for (ushort z = 0; z < map.Depth; z++)

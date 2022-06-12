@@ -29,7 +29,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public MeshInstance GroundMesh { get; private set; }
 		public CollisionShape Ceiling { get; private set; }
 		public MeshInstance CeilingMesh { get; private set; }
-		public List<Elevator> Elevators = new List<Elevator>();
+		public readonly List<Elevator> Elevators = new List<Elevator>();
 		public Walls(ushort mapNumber)
 		{
 			MapNumber = mapNumber;

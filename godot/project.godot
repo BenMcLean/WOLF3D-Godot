@@ -54,7 +54,7 @@ window/dpi/allow_hidpi=true
 
 [editor]
 
-main_run_args="pancake"
+main_run_args="pancake minimap"
 
 [editor_plugins]
 
