@@ -8,7 +8,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 	public class MiniMap : GridContainer
 	{
 		public readonly Container[][] Cell;
-		private readonly Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
+		private readonly static Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
 		public MiniMap(GameMap map, MapAnalyzer.MapAnalysis mapAnalysis)
 		{
 			Name = "MiniMap " + map.Name;
@@ -27,6 +27,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 					{
 						Name = "MiniMap " + map.Name + " Container " + x + ", " + z,
 						RectSize = cellSize,
+						//Modulate = invisibleColor,
 					};
 					if (mapAnalysis.IsTransparent(x, z) && !Assets.MapAnalyzer.PushWalls.Contains(objectData))
 					{
@@ -103,8 +104,8 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 		}
 		#region Visibility
 		public bool IsVisible(ushort x, ushort z) => x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
-		private readonly Color visibleColor = new Color(1f, 1f, 1f, 1f);
-		private readonly Color invisibleColor = new Color(0f, 0f, 0f, 0f);
+		private readonly static Color visibleColor = new Color(1f, 1f, 1f, 1f);
+		private readonly static Color invisibleColor = new Color(0f, 0f, 0f, 0f);
 		public MiniMap SetVisible(ushort x, ushort z, bool visible = true)
 		{
 			if (x < Cell.Length && z < Cell[x].Length)

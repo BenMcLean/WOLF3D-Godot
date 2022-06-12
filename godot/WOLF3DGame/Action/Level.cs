@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
+using WOLF3D.WOLF3DGame.MiniMap;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -420,5 +421,12 @@ namespace WOLF3D.WOLF3DGame.Action
 			Pickups.Add(pickup);
 			return this;
 		}
+		#region Illuminate
+		public Level Illuminate(ushort x, ushort z, MiniMap.MiniMap miniMap)
+		{
+			// TODO: Implement FOV algorithm https://www.gridbugs.org/visible-area-detection-recursive-shadowcast/
+			return this;
+		}
+		#endregion Illuminate
 	}
 }

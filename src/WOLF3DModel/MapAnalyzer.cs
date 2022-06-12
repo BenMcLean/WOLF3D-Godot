@@ -63,6 +63,7 @@ namespace WOLF3DModel
 		public struct MapAnalysis
 		{
 			#region XML Attributes
+			public MapAnalyzer MapAnalyzer { get; private set; }
 			public XElement XML { get; private set; }
 			public byte Episode { get; private set; }
 			public byte Floor { get; private set; }
@@ -91,6 +92,7 @@ namespace WOLF3DModel
 			#endregion Grids
 			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap map)
 			{
+				MapAnalyzer = mapAnalyzer;
 				Navigable = new bool[map.Width][];
 				Transparent = new bool[map.Width][];
 				for (ushort x = 0; x < map.Width; x++)
@@ -99,8 +101,8 @@ namespace WOLF3DModel
 					Transparent[x] = new bool[map.Depth];
 					for (ushort z = 0; z < map.Depth; z++)
 					{
-						Navigable[x][z] = mapAnalyzer.IsNavigable(map.GetMapData(x, z), map.GetObjectData(x, z));
-						Transparent[x][z] = mapAnalyzer.IsTransparent(map.GetMapData(x, z), map.GetObjectData(x, z));
+						Navigable[x][z] = MapAnalyzer.IsNavigable(map.GetMapData(x, z), map.GetObjectData(x, z));
+						Transparent[x][z] = MapAnalyzer.IsTransparent(map.GetMapData(x, z), map.GetObjectData(x, z));
 					}
 				}
 				Mappable = new bool[map.Width][];
@@ -114,7 +116,7 @@ namespace WOLF3DModel
 							|| (z > 0 && Transparent[x][z - 1])
 							|| (z < Transparent[x].Length - 1 && Transparent[x][z + 1]);
 				}
-				XML = mapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).First();
+				XML = MapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).FirstOrDefault() ?? throw new InvalidDataException("XML tag for map \"" + map.Name + "\" was not found!");
 				Episode = byte.TryParse(XML?.Attribute("Episode")?.Value, out byte episode) ? episode : (byte)0;
 				Floor = byte.TryParse(XML?.Attribute("Floor")?.Value, out byte floor) ? floor : (byte)0;
 				ElevatorTo = byte.TryParse(XML.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(Floor + 1);
