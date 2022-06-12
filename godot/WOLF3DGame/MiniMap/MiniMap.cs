@@ -9,72 +9,76 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 	{
 		public readonly Container[][] Cell;
 		private readonly static Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
-		public MiniMap(GameMap map, MapAnalyzer.MapAnalysis mapAnalysis)
+		public readonly GameMap GameMap;
+		public readonly MapAnalyzer.MapAnalysis MapAnalysis;
+		public MiniMap(GameMap gameMap, MapAnalyzer.MapAnalysis mapAnalysis)
 		{
-			Name = "MiniMap " + map.Name;
-			Columns = map.Width;
+			GameMap = gameMap;
+			MapAnalysis = mapAnalysis;
+			Name = "MiniMap " + GameMap.Name;
+			Columns = GameMap.Width;
 			Set("custom_constants/hseparation", Assets.VSwap.TileSqrt);
 			Set("custom_constants/vseparation", Assets.VSwap.TileSqrt);
-			Cell = new Container[map.Width][];
-			for (ushort x = 0; x < map.Width; x++)
+			Cell = new Container[GameMap.Width][];
+			for (ushort x = 0; x < GameMap.Width; x++)
 			{
-				Cell[x] = new Container[map.Depth];
-				for (ushort z = 0; z < map.Depth; z++)
+				Cell[x] = new Container[GameMap.Depth];
+				for (ushort z = 0; z < GameMap.Depth; z++)
 				{
-					ushort mapData = map.GetMapData(x, z),
-						objectData = map.GetObjectData(x, z);
+					ushort mapData = GameMap.GetMapData(x, z),
+						objectData = GameMap.GetObjectData(x, z);
 					Cell[x][z] = new Container()
 					{
-						Name = "MiniMap " + map.Name + " Container " + x + ", " + z,
+						Name = "MiniMap " + GameMap.Name + " Container " + x + ", " + z,
 						RectSize = cellSize,
 						//Modulate = invisibleColor,
 					};
-					if (mapAnalysis.IsTransparent(x, z) && !Assets.MapAnalyzer.PushWalls.Contains(objectData))
-					{
-						if (mapAnalysis.Ground is byte ground)
-							Cell[x][z].AddChild(new ColorRect()
-							{
-								Name = Name + " Floor at " + x + ", " + z,
-								Color = Assets.Palettes[0][ground],
-								RectSize = Cell[x][z].RectSize,
-							});
-						if (ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
-								?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == mapData)
-								?.FirstOrDefault()
-								?.Attribute("Page")
-								?.Value, out ushort page)
-							&& Assets.VSwapAtlasTextures is AtlasTexture[]
-							&& page < Assets.VSwapAtlasTextures.Length
-							&& Assets.VSwapAtlasTextures[page] is AtlasTexture doorTexture)
-							Cell[x][z].AddChild(new TextureRect()
-							{
-								Name = Name + " Door at " + x + ", " + z,
-								Texture = doorTexture,
-								RectSize = doorTexture.GetSize(),
-							});
-						else if (ushort.TryParse((
-								Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
-								?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == objectData)
-								?.FirstOrDefault()
-								)
-								?.Attribute("Page")
-								?.Value, out page)
-							&& Assets.VSwapAtlasTextures is AtlasTexture[]
-							&& page < Assets.VSwapAtlasTextures.Length
-							&& Assets.VSwapAtlasTextures[page] is AtlasTexture billboardTexture)
-							Cell[x][z].AddChild(new TextureRect()
-							{
-								Name = Name + " Billboard at " + x + ", " + z,
-								Texture = billboardTexture,
-								RectSize = billboardTexture.GetSize(),
-							});
-					}
-					else if (mapAnalysis.IsMappable(x, z))
-						if (Assets.MapAnalyzer.Walls.Contains(mapData)
-							&& Assets.MapAnalyzer.WallPage(mapData) is ushort wallPage
-							&& Assets.VSwapAtlasTextures is AtlasTexture[]
-							&& wallPage < Assets.VSwapAtlasTextures.Length
-							&& Assets.VSwapAtlasTextures[wallPage] is AtlasTexture wallTexture)
+					if (MapAnalysis.IsMappable(x, z))
+						if (MapAnalysis.IsTransparent(x, z) && !Assets.MapAnalyzer.PushWalls.Contains(objectData))
+						{
+							if (MapAnalysis.Ground is byte ground)
+								Cell[x][z].AddChild(new ColorRect()
+								{
+									Name = Name + " Floor at " + x + ", " + z,
+									Color = Assets.Palettes[0][ground],
+									RectSize = Cell[x][z].RectSize,
+								});
+							if (ushort.TryParse(Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Door")
+									?.Where(e => ushort.TryParse(e.Attribute("Number")?.Value, out ushort number) && number == mapData)
+									?.FirstOrDefault()
+									?.Attribute("Page")
+									?.Value, out ushort page)
+								&& Assets.VSwapAtlasTextures is AtlasTexture[]
+								&& page < Assets.VSwapAtlasTextures.Length
+								&& Assets.VSwapAtlasTextures[page] is AtlasTexture doorTexture)
+								Cell[x][z].AddChild(new TextureRect()
+								{
+									Name = Name + " Door at " + x + ", " + z,
+									Texture = doorTexture,
+									RectSize = doorTexture.GetSize(),
+								});
+							else if (ushort.TryParse((
+									Assets.XML?.Element("VSwap")?.Element("Objects")?.Elements("Billboard")
+									?.Where(e => uint.TryParse(e.Attribute("Number")?.Value, out uint number) && number == objectData)
+									?.FirstOrDefault()
+									)
+									?.Attribute("Page")
+									?.Value, out page)
+								&& Assets.VSwapAtlasTextures is AtlasTexture[]
+								&& page < Assets.VSwapAtlasTextures.Length
+								&& Assets.VSwapAtlasTextures[page] is AtlasTexture billboardTexture)
+								Cell[x][z].AddChild(new TextureRect()
+								{
+									Name = Name + " Billboard at " + x + ", " + z,
+									Texture = billboardTexture,
+									RectSize = billboardTexture.GetSize(),
+								});
+						}
+						else if (Assets.MapAnalyzer.Walls.Contains(mapData)
+								&& Assets.MapAnalyzer.WallPage(mapData) is ushort wallPage
+								&& Assets.VSwapAtlasTextures is AtlasTexture[]
+								&& wallPage < Assets.VSwapAtlasTextures.Length
+								&& Assets.VSwapAtlasTextures[wallPage] is AtlasTexture wallTexture)
 							Cell[x][z].AddChild(new TextureRect()
 							{
 								Name = Name + " Wall at " + x + ", " + z,
@@ -98,17 +102,17 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 							});
 				}
 			}
-			for (ushort z = 0; z < map.Depth; z++)
-				for (ushort x = 0; x < map.Width; x++)
+			for (ushort z = 0; z < GameMap.Depth; z++)
+				for (ushort x = 0; x < GameMap.Width; x++)
 					AddChild(Cell[x][z]);
 		}
 		#region Visibility
-		public bool IsVisible(ushort x, ushort z) => x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
+		public bool IsVisible(ushort x, ushort z) => MapAnalysis.IsMappable(x, z) && x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
 		private readonly static Color visibleColor = new Color(1f, 1f, 1f, 1f);
 		private readonly static Color invisibleColor = new Color(0f, 0f, 0f, 0f);
 		public MiniMap SetVisible(ushort x, ushort z, bool visible = true)
 		{
-			if (x < Cell.Length && z < Cell[x].Length)
+			if (MapAnalysis.IsMappable(x, z) && x < Cell.Length && z < Cell[x].Length)
 				Cell[x][z].Modulate = visible ? visibleColor : invisibleColor;
 			return this;
 		}

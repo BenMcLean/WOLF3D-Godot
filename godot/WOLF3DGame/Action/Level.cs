@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using WOLF3D.WOLF3DGame.Menu;
 using WOLF3D.WOLF3DGame.OPL;
 using WOLF3DModel;
-using WOLF3D.WOLF3DGame.MiniMap;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
@@ -206,6 +205,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						yield return Doors[x][z];
 		}
 		public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
+		public bool IsClosedDoor(int x, int z) => GetDoor(x, z)?.IsClosed ?? false;
 		#endregion Doors
 		#region Pushing
 		public bool Push(Vector2 where)
@@ -422,6 +422,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			return this;
 		}
 		#region Illuminate
+		public bool IsSeeThrough(ushort x, ushort z) => MapAnalysis.IsTransparent(x, z) && !IsClosedDoor(x, z) && !IsPushWallAt(x, z);
 		public Level Illuminate(ushort x, ushort z, MiniMap.MiniMap miniMap)
 		{
 			// TODO: Implement FOV algorithm https://www.gridbugs.org/visible-area-detection-recursive-shadowcast/
