@@ -117,6 +117,14 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 			return this;
 		}
 		public MiniMap SetInvisible(ushort x, ushort z) => SetVisible(x, z, false);
+		public MiniMap Illuminate(bool[][] lit)
+		{
+			for (ushort x = 0; x < lit.Length; x++)
+				for (ushort z = 0; z < lit[x].Length; z++)
+					if (lit[x][z])
+						SetVisible(x, z);
+			return this;
+		}
 		#endregion Visibility
 	}
 }
