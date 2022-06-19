@@ -13,6 +13,7 @@
         <PackageReference Include="coverlet.collector" Version="3.0.2" />
         <PackageReference Include="RectpackSharp" Version="1.0.2" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     </ItemGroup>
 
     <ItemGroup>

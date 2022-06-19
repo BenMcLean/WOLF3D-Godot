@@ -101,7 +101,7 @@ namespace WOLF3D.WOLF3DGame
 						if (Label.Theme.DefaultFont is Font font)
 							Label.RectPosition = new Vector2(-font.Width(Label.Text), 0f);
 					}
-					else if (Item is Sprite)
+					else if (Item is TextureRect)
 						Item.Texture = val > 0 ? Have : Empty;
 			}
 		}
