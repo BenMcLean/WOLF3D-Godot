@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 
-namespace WOLF3DTest.FovShadowCastTest
+namespace WOLF3DTest.ShadowCastTest
 {
 	public class ShadowCast
 	{
@@ -30,11 +31,24 @@ namespace WOLF3DTest.FovShadowCastTest
 				for (int x = 0; x < Bools.Length; x++)
 					Bools[x] = new bool[depth];
 			}
+			public LitBools(string @string)
+			{
+				string[] lines = @string.Split(Environment.NewLine);
+				Bools = new bool[lines[0].Count(c => c == ',') + 1][];
+				for (int x = 0; x < Bools.Length; x++)
+					Bools[x] = new bool[lines.Length];
+				for (int z = 0; z < lines.Length; z++)
+				{
+					string[] split = lines[z].Split(",");
+					for (int x = 0; x < Bools.Length; x++)
+						Bools[x][z] = int.Parse(split[x]) != 0;
+				}
+			}
+			public override string ToString() => string.Join(Environment.NewLine, Enumerable.Range(0, GetLitDepth()).Select(z => string.Join(",", Enumerable.Range(0, GetLitWidth()).Select(x => IsLit((ushort)x, (ushort)z) ? "1" : "0"))));
 			public ushort GetLitWidth() => (ushort)Bools.Length;
 			public ushort GetLitDepth() => (ushort)Bools[0].Length;
-			public bool IsLit(ushort x, ushort y) => x < Bools.Length && y < Bools[x].Length && Bools[x][y];
-			public void SetLit(ushort x, ushort y, bool @bool = true) => Bools[x][y] = @bool;
+			public bool IsLit(ushort x, ushort z) => x < Bools.Length && z < Bools[x].Length && Bools[x][z];
+			public void SetLit(ushort x, ushort z, bool @bool = true) => Bools[x][z] = @bool;
 		}
-
 	}
 }
