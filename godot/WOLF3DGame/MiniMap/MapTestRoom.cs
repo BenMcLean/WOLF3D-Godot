@@ -1,10 +1,4 @@
 ﻿using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.MiniMap
 {
@@ -14,7 +8,9 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 		public MapTestRoom(ushort map)
 		{
 			AddChild(Camera = new Camera2DFreeLook());
-			AddChild(new MiniMap(Assets.Maps[map], Assets.MapAnalysis[map]));
+			MiniMap miniMap = new MiniMap(Assets.MapAnalysis[map], new MiniMap.MapView(Assets.MapAnalysis[map]));
+			miniMap.Illuminate(29, 57);
+			AddChild(miniMap);
 		}
 	}
 }

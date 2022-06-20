@@ -66,7 +66,7 @@ namespace WOLF3DModel
 			#region XML Attributes
 			public MapAnalyzer MapAnalyzer { get; private set; }
 			public XElement XML { get; private set; }
-			public GameMap Map { get; private set; }
+			public GameMap GameMap { get; private set; }
 			public byte Episode { get; private set; }
 			public byte Floor { get; private set; }
 			public byte ElevatorTo { get; private set; }
@@ -92,34 +92,34 @@ namespace WOLF3DModel
 				x >= 0 && z >= 0 && x < Mappable.Length && z < Mappable[x].Length
 				&& Mappable[x][z];
 			#endregion Grids
-			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap map)
+			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap gameMap)
 			{
 				MapAnalyzer = mapAnalyzer;
-				Map = map;
-				Navigable = new bool[Map.Width][];
-				Transparent = new bool[Map.Width][];
-				for (ushort x = 0; x < Map.Width; x++)
+				GameMap = gameMap;
+				Navigable = new bool[GameMap.Width][];
+				Transparent = new bool[GameMap.Width][];
+				for (ushort x = 0; x < GameMap.Width; x++)
 				{
-					Navigable[x] = new bool[Map.Depth];
-					Transparent[x] = new bool[Map.Depth];
-					for (ushort z = 0; z < Map.Depth; z++)
+					Navigable[x] = new bool[GameMap.Depth];
+					Transparent[x] = new bool[GameMap.Depth];
+					for (ushort z = 0; z < GameMap.Depth; z++)
 					{
-						Navigable[x][z] = MapAnalyzer.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
-						Transparent[x][z] = MapAnalyzer.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+						Navigable[x][z] = MapAnalyzer.IsNavigable(GameMap.GetMapData(x, z), GameMap.GetObjectData(x, z));
+						Transparent[x][z] = MapAnalyzer.IsTransparent(GameMap.GetMapData(x, z), GameMap.GetObjectData(x, z));
 					}
 				}
-				Mappable = new bool[Map.Width][];
-				for (ushort x = 0; x < Map.Width; x++)
+				Mappable = new bool[GameMap.Width][];
+				for (ushort x = 0; x < GameMap.Width; x++)
 				{
-					Mappable[x] = new bool[Map.Depth];
-					for (ushort z = 0; z < Map.Depth; z++)
+					Mappable[x] = new bool[GameMap.Depth];
+					for (ushort z = 0; z < GameMap.Depth; z++)
 						Mappable[x][z] = Transparent[x][z]
 							|| (x > 0 && Transparent[x - 1][z])
 							|| (x < Transparent.Length - 1 && Transparent[x + 1][z])
 							|| (z > 0 && Transparent[x][z - 1])
 							|| (z < Transparent[x].Length - 1 && Transparent[x][z + 1]);
 				}
-				XML = MapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).FirstOrDefault() ?? throw new InvalidDataException("XML tag for map \"" + Map.Name + "\" was not found!");
+				XML = MapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == gameMap.Number).FirstOrDefault() ?? throw new InvalidDataException("XML tag for map \"" + GameMap.Name + "\" was not found!");
 				Episode = byte.TryParse(XML?.Attribute("Episode")?.Value, out byte episode) ? episode : (byte)0;
 				Floor = byte.TryParse(XML?.Attribute("Floor")?.Value, out byte floor) ? floor : (byte)0;
 				ElevatorTo = byte.TryParse(XML.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(Floor + 1);

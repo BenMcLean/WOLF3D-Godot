@@ -16,8 +16,8 @@ namespace WOLF3DTest
 		{
 			foreach (MapAnalyzer.MapAnalysis map in new MapAnalyzer(XML).Analyze(GameMap.Load(VSwapTest.Folder, XML)))
 			{
-				File.WriteAllText(map.Map.Name + "-IsMappable.csv", string.Join(Environment.NewLine, Enumerable.Range(0, map.Map.Depth).Select(z => string.Join(",", Enumerable.Range(0, map.Map.Width).Select(x => map.IsMappable(x, z) ? "1" : "0")))));
-				File.WriteAllText(map.Map.Name + "-IsTransparent.csv", string.Join(Environment.NewLine, Enumerable.Range(0, map.Map.Depth).Select(z => string.Join(",", Enumerable.Range(0, map.Map.Width).Select(x => map.IsTransparent(x, z) ? "1" : "0")))));
+				File.WriteAllText(map.GameMap.Name + "-IsMappable.csv", string.Join(Environment.NewLine, Enumerable.Range(0, map.GameMap.Depth).Select(z => string.Join(",", Enumerable.Range(0, map.GameMap.Width).Select(x => map.IsMappable(x, z) ? "1" : "0")))));
+				File.WriteAllText(map.GameMap.Name + "-IsTransparent.csv", string.Join(Environment.NewLine, Enumerable.Range(0, map.GameMap.Depth).Select(z => string.Join(",", Enumerable.Range(0, map.GameMap.Width).Select(x => map.IsTransparent(x, z) ? "1" : "0")))));
 			}
 		}
 	}

@@ -3,19 +3,24 @@ using GoRogue;
 using GoRogue.MapViews;
 using System;
 using System.Linq;
+using WOLF3D.WOLF3DGame.Action;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.MiniMap
 {
-	public class MiniMap : GridContainer, IMapView<bool>
+	public class MiniMap : GridContainer
 	{
 		public readonly Container[][] Cell;
 		private readonly static Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
-		public readonly GameMap GameMap;
+
 		public readonly MapAnalyzer.MapAnalysis MapAnalysis;
-		public MiniMap(GameMap gameMap, MapAnalyzer.MapAnalysis mapAnalysis)
+		public GameMap GameMap => MapAnalysis.GameMap;
+		public FOV FOV;
+		public MiniMap(Level level) : this(level.MapAnalysis) => FOV = new FOV(level);
+		public MiniMap(MapAnalyzer.MapAnalysis mapAnalysis, bool[][] map) : this(mapAnalysis, new MapViewBools(map)) { }
+		public MiniMap(MapAnalyzer.MapAnalysis mapAnalysis, IMapView<bool> map) : this(mapAnalysis) => FOV = new FOV(map);
+		protected MiniMap(MapAnalyzer.MapAnalysis mapAnalysis)
 		{
-			GameMap = gameMap;
 			MapAnalysis = mapAnalysis;
 			Name = "MiniMap " + GameMap.Name;
 			Columns = GameMap.Width;
@@ -33,7 +38,7 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 					{
 						Name = "MiniMap " + GameMap.Name + " Container " + x + ", " + z,
 						RectSize = cellSize,
-						//Modulate = invisibleColor,
+						Modulate = invisibleColor,
 					};
 					if (MapAnalysis.IsMappable(x, z))
 						if (MapAnalysis.IsTransparent(x, z) && !Assets.MapAnalyzer.PushWalls.Contains(objectData))
@@ -108,17 +113,6 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				for (ushort x = 0; x < GameMap.Width; x++)
 					AddChild(Cell[x][z]);
 		}
-		#region IMapView<bool>
-		public int Height => GameMap.Depth;
-
-		public int Width => GameMap.Width;
-
-		public bool this[int index1D] => IsVisible(GameMap.X((uint)index1D), GameMap.Z((uint)index1D));
-
-		public bool this[Coord pos] => IsVisible((ushort)pos.X, (ushort)pos.Y);
-
-		public bool this[int x, int y] => IsVisible((ushort)x, (ushort)y);
-		#endregion IMapView<bool>
 		#region Visibility
 		public bool IsVisible(ushort x, ushort z) => MapAnalysis.IsMappable(x, z) && x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
 		private readonly static Color visibleColor = new Color(1f, 1f, 1f, 1f);
@@ -130,14 +124,77 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 			return this;
 		}
 		public MiniMap SetInvisible(ushort x, ushort z) => SetVisible(x, z, false);
-		public MiniMap Illuminate(bool[][] lit)
+		public MiniMap Cheat()
 		{
-			for (ushort x = 0; x < lit.Length; x++)
-				for (ushort z = 0; z < lit[x].Length; z++)
-					if (lit[x][z])
-						SetVisible(x, z);
+			for (ushort x = 0; x < MapAnalysis.GameMap.Width; x++)
+				for (ushort z = 0; z < MapAnalysis.GameMap.Depth; z++)
+					SetVisible(x, z);
+			return this;
+		}
+		public MiniMap Illuminate(ushort startX, ushort startZ)
+		{
+			FOV.Calculate(startX, startZ);
+			foreach (Coord point in FOV.NewlySeen)
+				SetVisible((ushort)point.X, (ushort)point.Y);
 			return this;
 		}
 		#endregion Visibility
+		#region Test classes
+		public class MapViewBools : IMapView<bool>
+		{
+			#region IMapView<bool>
+			public bool this[Coord pos] => Is((ushort)pos.X, (ushort)pos.Y);
+			public bool this[int index1D] => Is((ushort)(index1D % Width), (ushort)(index1D / Height));
+			public bool this[int x, int y] => Is((ushort)x, (ushort)y);
+			public int Height => Bools[0].Length;
+			public int Width => Bools.Length;
+			#endregion IMapView<bool>
+			public bool[][] Bools { get; set; }
+			public MapViewBools(bool[][] bools) => Bools = bools;
+			public MapViewBools(MapViewBools other)
+			{
+				Bools = new bool[other.Bools.Length][];
+				for (int x = 0; x < Bools.Length; x++)
+				{
+					Bools[x] = new bool[other.Bools[x].Length];
+					Array.Copy(other.Bools[x], Bools[x], Bools[x].Length);
+				}
+			}
+			public MapViewBools(ushort width, ushort depth)
+			{
+				Bools = new bool[width][];
+				for (int x = 0; x < Bools.Length; x++)
+					Bools[x] = new bool[depth];
+			}
+			public MapViewBools(string @string)
+			{
+				string[] lines = @string.Split(System.Environment.NewLine);
+				Bools = new bool[lines[0].Count(c => c == ',') + 1][];
+				for (int x = 0; x < Bools.Length; x++)
+					Bools[x] = new bool[lines.Length];
+				for (int z = 0; z < lines.Length; z++)
+				{
+					string[] split = lines[z].Split(",");
+					for (int x = 0; x < Bools.Length; x++)
+						Bools[x][z] = int.Parse(split[x]) != 0;
+				}
+			}
+			public override string ToString() => string.Join(System.Environment.NewLine, Enumerable.Range(0, Height).Select(z => string.Join(",", Enumerable.Range(0, Width).Select(x => Is((ushort)x, (ushort)z) ? "1" : "0"))));
+			public bool Is(ushort x, ushort z) => x < Bools.Length && z < Bools[x].Length && Bools[x][z];
+			public void Set(ushort x, ushort z, bool @bool = true) => Bools[x][z] = @bool;
+		}
+		public class MapView : IMapView<bool>
+		{
+			#region IMapView<bool>
+			public bool this[Coord pos] => MapAnalysis.IsTransparent(pos.X, pos.Y);
+			public bool this[int index1D] => MapAnalysis.IsTransparent(MapAnalysis.GameMap.X((ushort)index1D), MapAnalysis.GameMap.Z((ushort)index1D));
+			public bool this[int x, int y] => MapAnalysis.IsTransparent(x, y);
+			public int Height => MapAnalysis.GameMap.Depth;
+			public int Width => MapAnalysis.GameMap.Width;
+			#endregion IMapView<bool>
+			public readonly MapAnalyzer.MapAnalysis MapAnalysis;
+			public MapView(MapAnalyzer.MapAnalysis mapAnalysis) => MapAnalysis = mapAnalysis;
+		}
+		#endregion Test classes
 	}
 }
