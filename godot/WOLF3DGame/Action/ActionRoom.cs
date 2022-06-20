@@ -31,7 +31,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ARVRPlayer ARVRPlayer { get; set; }
 		public Level Level { get; set; } = null;
 		public static Line3D Line3D { get; set; }
-		public ushort NextMap => (ushort)(Level.Map.Number + 1 >= Assets.Maps.Length ? 0 : Level.Map.Number + 1);
+		public ushort NextMap => (ushort)(Level.GameMap.Number + 1 >= Assets.Maps.Length ? 0 : Level.GameMap.Number + 1);
 		public byte Difficulty { get; set; }
 		public byte Episode { get; set; }
 		private ActionRoom()
@@ -76,7 +76,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public ActionRoom(XElement xml) : this()
 		{
 			AddChild(Level = new Level(xml.Element("Level")));
-			Name = "ActionRoom " + Level.Map.Name;
+			Name = "ActionRoom " + Level.GameMap.Name;
 			ARVRPlayer.Set(xml.Element("ARVRPlayer"));
 			if (xml.Attribute("RNG")?.Value is string stateCode)
 				Main.RNG.StateCode = stateCode;
@@ -228,7 +228,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			XElement e = new XElement(XName.Get("SaveGame"));
 			TimeSpan time = TimeSpan.FromSeconds(Level.Time);
-			e.SetAttributeValue(XName.Get("Name"), (string.IsNullOrWhiteSpace(Level.Map.Name) ? "E" + Episode + "M" + Level.Map.Number : Level.Map.Name) + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
+			e.SetAttributeValue(XName.Get("Name"), (string.IsNullOrWhiteSpace(Level.GameMap.Name) ? "E" + Episode + "M" + Level.GameMap.Number : Level.GameMap.Name) + " at " + Math.Floor(time.TotalMinutes) + "m" + time.Seconds + "s on " + DateTime.Now);
 			e.SetAttributeValue(XName.Get("Difficulty"), Difficulty);
 			e.SetAttributeValue(XName.Get("Episode"), Episode);
 			e.SetAttributeValue(XName.Get("RNG"), Main.RNG.StateCode);

@@ -42,7 +42,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 					FinalValue = (uint)((double)Main.ActionRoom.Level.PushWalls.Cast<PushWall>().Where(pushWall => pushWall.Pushed).Count() / Main.ActionRoom.Level.PushWalls.Count * 100d);
 					break;
 				case "TREASURE":
-					int total = Assets.Treasure(Main.ActionRoom.Level.Map);
+					int total = Assets.Treasure(Main.ActionRoom.Level.GameMap);
 					FinalValue = (uint)((double)(total - Main.ActionRoom.Level.GetChildren().Cast<Node>().Where(node => node is Pickup pickup && pickup.Treasure).Count()) / total * 100d);
 					break;
 			}

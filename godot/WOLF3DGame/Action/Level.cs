@@ -1,4 +1,6 @@
 ﻿using Godot;
+using GoRogue;
+using GoRogue.MapViews;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +12,11 @@ using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
-	public class Level : Spatial, ISavable
+	public class Level : Spatial, ISavable, IMapView<bool>
 	{
 		#region Data Members
 		public ushort MapNumber { get; set; } = 0;
-		public GameMap Map => Assets.Maps[MapNumber];
+		public GameMap GameMap => Assets.Maps[MapNumber];
 		public MapAnalyzer.MapAnalysis MapAnalysis => Assets.MapAnalysis[MapNumber];
 		public float Time { get; set; } = 0f;
 		public Walls Walls { get; private set; }
@@ -83,7 +85,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public XElement Save()
 		{
 			XElement e = new XElement(XName.Get(GetType().Name));
-			e.SetAttributeValue(XName.Get("MapNumber"), Map.Number);
+			e.SetAttributeValue(XName.Get("MapNumber"), GameMap.Number);
 			e.SetAttributeValue(XName.Get("Time"), Time);
 			e.Add(FloorCodes.Save());
 			foreach (Door door in GetDoors())
@@ -102,23 +104,23 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			MapNumber = ushort.Parse(xml.Attribute("MapNumber")?.Value);
 			AddChild(Walls = new Walls(MapNumber));
-			Name = "Level \"" + Map.Name + "\"";
+			Name = "Level \"" + GameMap.Name + "\"";
 			if (float.TryParse(xml.Attribute("Time")?.Value, out float time))
 				Time = time;
 			FloorCodes = new SymmetricMatrix(xml.Element("SymmetricMatrix"));
-			foreach (Billboard billboard in Billboard.Scenery(Map))
+			foreach (Billboard billboard in Billboard.Scenery(GameMap))
 				AddChild(billboard);
-			Doors = new Door[Map.Width][];
-			PushWallAt = new int[Map.Width][];
-			ActorAt = new int[Map.Width][];
-			for (ushort x = 0; x < Map.Width; x++)
+			Doors = new Door[GameMap.Width][];
+			PushWallAt = new int[GameMap.Width][];
+			ActorAt = new int[GameMap.Width][];
+			for (ushort x = 0; x < GameMap.Width; x++)
 			{
-				Doors[x] = new Door[Map.Depth];
-				PushWallAt[x] = new int[Map.Depth];
-				ActorAt[x] = new int[Map.Depth];
+				Doors[x] = new Door[GameMap.Depth];
+				PushWallAt[x] = new int[GameMap.Depth];
+				ActorAt[x] = new int[GameMap.Depth];
 			}
 			foreach (XElement xDoor in xml.Elements("Door"))
-				AddChild(Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor) { Level = this, }.SetFloorCodes(Map));
+				AddChild(Doors[(int)xDoor.Attribute("X")][(int)xDoor.Attribute("Z")] = new Door(xDoor) { Level = this, }.SetFloorCodes(GameMap));
 			foreach (XElement xPushWall in xml.Elements("PushWall"))
 			{
 				PushWall pushWall = new PushWall(xPushWall, XElement.Parse(xPushWall.Attribute("WallXML").Value))
@@ -148,25 +150,25 @@ namespace WOLF3D.WOLF3DGame.Action
 		public Level(ushort mapNumber, byte difficulty = 4)
 		{
 			MapNumber = mapNumber;
-			Name = "Level \"" + Map.Name + "\"";
+			Name = "Level \"" + GameMap.Name + "\"";
 			AddChild(Walls = new Walls(MapNumber));
-			Doors = Door.Doors(Map, this);
+			Doors = Door.Doors(GameMap, this);
 			foreach (Door door in GetDoors())
 				AddChild(door);
-			PushWallAt = new int[Map.Width][];
-			ActorAt = new int[Map.Width][];
-			for (ushort x = 0; x < Map.Width; x++)
+			PushWallAt = new int[GameMap.Width][];
+			ActorAt = new int[GameMap.Width][];
+			for (ushort x = 0; x < GameMap.Width; x++)
 			{
-				PushWallAt[x] = new int[Map.Depth];
-				ActorAt[x] = new int[Map.Depth];
+				PushWallAt[x] = new int[GameMap.Depth];
+				ActorAt[x] = new int[GameMap.Depth];
 			}
 			foreach (XElement pushXML in Assets.MapAnalyzer.PushWall ?? Enumerable.Empty<XElement>())
 				if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber))
-					for (ushort x = 0; x < Map.Width; x++)
-						for (ushort z = 0; z < Map.Depth; z++)
-							if (Map.GetObjectData(x, z) == pushNumber)
+					for (ushort x = 0; x < GameMap.Width; x++)
+						for (ushort z = 0; z < GameMap.Depth; z++)
+							if (GameMap.GetObjectData(x, z) == pushNumber)
 							{
-								PushWall pushWall = new PushWall(pushXML, Assets.MapAnalyzer.Wall(Map.GetMapData(x, z)))
+								PushWall pushWall = new PushWall(pushXML, Assets.MapAnalyzer.Wall(GameMap.GetMapData(x, z)))
 								{
 									Name = "Pushwall starting at " + x + ", " + z,
 									Level = this,
@@ -182,13 +184,13 @@ namespace WOLF3D.WOLF3DGame.Action
 			foreach (XElement xAmbush in Assets.XML?.Element("VSwap")?.Element("Walls")?.Elements("Ambush") ?? XElement.EmptySequence)
 				if (ushort.TryParse(xAmbush.Attribute("Number")?.Value, out ushort ambush))
 					ambushes.Add(ambush);
-			foreach (Billboard billboard in Billboard.Billboards(Map, difficulty))
+			foreach (Billboard billboard in Billboard.Billboards(GameMap, difficulty))
 			{
 				AddChild(billboard);
 				if (billboard is Actor actor)
 				{
 					actor.ArrayIndex = Actors.Add(actor);
-					if (ambushes.Contains(Map.GetMapData((ushort)actor.X, (ushort)actor.Z)))
+					if (ambushes.Contains(GameMap.GetMapData((ushort)actor.X, (ushort)actor.Z)))
 						actor.Ambush = true;
 				}
 				else if (billboard is Pickup pickup)
@@ -204,7 +206,7 @@ namespace WOLF3D.WOLF3DGame.Action
 					if (Doors[x][z] != null)
 						yield return Doors[x][z];
 		}
-		public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < Map.Width && z < Map.Depth ? Doors[x][z] : null;
+		public Door GetDoor(int x, int z) => x >= 0 && z >= 0 && x < GameMap.Width && z < GameMap.Depth ? Doors[x][z] : null;
 		public bool IsClosedDoor(int x, int z) => GetDoor(x, z)?.IsClosed ?? false;
 		#endregion Doors
 		#region Pushing
@@ -226,7 +228,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			if (!push && Assets.SoundSafe("DONOTHINGSND") is Adl sound)
 				SoundBlaster.Adl = sound;
 			if (push)
-				MenuRoom.LastPushedTile = Main.ActionRoom.Level.Map.GetMapData(
+				MenuRoom.LastPushedTile = Main.ActionRoom.Level.GameMap.GetMapData(
 					(uint)Main.ActionRoom.ARVRPlayer.X,
 					(uint)Main.ActionRoom.ARVRPlayer.Z
 					); // This is used to find override tiles to change the elevator destination
@@ -308,11 +310,11 @@ namespace WOLF3D.WOLF3DGame.Action
 			&& !(Main.ActionRoom.ARVRPlayer.X == x && Main.ActionRoom.ARVRPlayer.Z == z)
 			&& !IsInsideActor(Assets.CenterSquare(x), Assets.CenterSquare(z));
 		public bool TryClose(ushort x, ushort z) =>
-			x < Map.Width && z < Map.Depth && !Occupied.Contains(Map.GetIndex(x, z));
+			x < GameMap.Width && z < GameMap.Depth && !Occupied.Contains(GameMap.GetIndex(x, z));
 		public bool TryOpen(Door door, bool @bool = true) => TryOpen(door.X, door.Z, @bool);
-		public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < Map.Width && z < Map.Depth || TryClose(x, z);
-		public bool IsWall(ushort x, ushort z) => Assets.MapAnalyzer.Walls.Contains(Map.GetMapData(x, z));
-		public bool IsElevator(ushort x, ushort z) => Assets.MapAnalyzer.Elevators.Contains(Map.GetMapData(x, z));
+		public bool TryOpen(ushort x, ushort z, bool @bool = true) => @bool && x < GameMap.Width && z < GameMap.Depth || TryClose(x, z);
+		public bool IsWall(ushort x, ushort z) => Assets.MapAnalyzer.Walls.Contains(GameMap.GetMapData(x, z));
+		public bool IsElevator(ushort x, ushort z) => Assets.MapAnalyzer.Elevators.Contains(GameMap.GetMapData(x, z));
 		public bool IsTransparent(int x, int z) =>
 			Walls.IsTransparent(x, z)
 			&& (!(Doors[x][z] is Door door) || !door.IsClosed)
@@ -320,10 +322,10 @@ namespace WOLF3D.WOLF3DGame.Action
 		/// <returns>if the specified map coordinates are adjacent to a floor</returns>
 		public bool IsByFloor(ushort x, ushort z)
 		{
-			ushort startX = x < 1 ? x : x > Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x - 1),
-				startZ = z < 1 ? z : z > Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z - 1),
-				endX = x >= Map.Width - 1 ? (ushort)(Map.Width - 1) : (ushort)(x + 1),
-				endZ = z >= Map.Depth - 1 ? (ushort)(Map.Depth - 1) : (ushort)(z + 1);
+			ushort startX = x < 1 ? x : x > GameMap.Width - 1 ? (ushort)(GameMap.Width - 1) : (ushort)(x - 1),
+				startZ = z < 1 ? z : z > GameMap.Depth - 1 ? (ushort)(GameMap.Depth - 1) : (ushort)(z - 1),
+				endX = x >= GameMap.Width - 1 ? (ushort)(GameMap.Width - 1) : (ushort)(x + 1),
+				endZ = z >= GameMap.Depth - 1 ? (ushort)(GameMap.Depth - 1) : (ushort)(z + 1);
 			for (ushort dx = startX; dx <= endX; dx++)
 				for (ushort dz = startZ; dz <= endZ; dz++)
 					if ((dx != x || dz != z) && !IsWall(dx, dz))
@@ -354,9 +356,9 @@ namespace WOLF3D.WOLF3DGame.Action
 			void add(Vector2 here)
 			{
 				int x = Assets.IntCoordinate(here.x), z = Assets.IntCoordinate(here.y);
-				if (x >= 0 && z >= 0 && x < Map.Depth && z < Map.Width)
+				if (x >= 0 && z >= 0 && x < GameMap.Depth && z < GameMap.Width)
 				{
-					ushort square = Map.GetIndex((uint)x, (uint)z);
+					ushort square = GameMap.GetIndex((uint)x, (uint)z);
 					if (!list.Contains(square))
 						list.Add(square);
 				}
@@ -421,39 +423,17 @@ namespace WOLF3D.WOLF3DGame.Action
 			Pickups.Add(pickup);
 			return this;
 		}
-		#region Illuminate
+		#region IMapView<bool>
 		public bool IsSeeThrough(ushort x, ushort z) => MapAnalysis.IsTransparent(x, z) && !IsClosedDoor(x, z) && !IsPushWallAt(x, z);
-		public bool[][] Illuminate() => Illuminate((ushort)Main.ActionRoom.ARVRPlayer.X,
-					(ushort)Main.ActionRoom.ARVRPlayer.Z);
-		public bool[][] Illuminate(ushort x, ushort z)
-		{
-			// TODO: Implement FOV algorithm https://www.gridbugs.org/visible-area-detection-recursive-shadowcast/
-			bool[][] lit = new bool[Map.Width][];
-			for (ushort i = 0; i < lit.Length; i++)
-				lit[i] = new bool[Map.Depth];
-			lit[x][z] = true;
-			Illuminate(lit, x, z, 0, 1, Direction8.NORTH, Direction8.EAST, Direction8.NORTHWEST, Direction8.SOUTHWEST);
-			Illuminate(lit, x, z, -1, 0, Direction8.EAST, Direction8.SOUTH, Direction8.NORTHWEST, Direction8.NORTHEAST);
-			Illuminate(lit, x, z, 0, 1, Direction8.EAST, Direction8.SOUTH, Direction8.NORTHEAST, Direction8.NORTHWEST);
-			Illuminate(lit, x, z, -1, 0, Direction8.SOUTH, Direction8.WEST, Direction8.NORTHEAST, Direction8.SOUTHEAST);
-			Illuminate(lit, x, z, 0, 1, Direction8.SOUTH, Direction8.WEST, Direction8.SOUTHEAST, Direction8.NORTHEAST);
-			Illuminate(lit, x, z, -1, 0, Direction8.WEST, Direction8.NORTH, Direction8.SOUTHEAST, Direction8.SOUTHWEST);
-			Illuminate(lit, x, z, 0, 1, Direction8.WEST, Direction8.NORTH, Direction8.SOUTHWEST, Direction8.SOUTHEAST);
-			Illuminate(lit, x, z, -1, 0, Direction8.NORTH, Direction8.EAST, Direction8.SOUTHWEST, Direction8.NORTHWEST);
-			return lit;
-		}
-		protected void Illuminate(bool[][] lit, ushort startX, ushort startZ, int initialMinSlope, int initialMaxSlope, Direction8 depth, Direction8 scan, Direction8 opaqueCorner, Direction8 transparentCorner, ushort? previouxS = null, ushort? previouxZ = null)
-		{
-			//bool first = true;
-			//if (scan.X == 0)
-			//{
-			//	for (int z = startZ + initialMinSlope; z >= 0 && z < lit[startX].Length && z < startZ + initialMaxSlope; z += scan.Z)
-			//	{
+		public int Height => GameMap.Depth;
 
-			//	}
-			//}
+		public int Width => GameMap.Width;
 
-		}
-		#endregion Illuminate
+		public bool this[int index1D] => IsSeeThrough(GameMap.X((uint)index1D), GameMap.Z((uint)index1D));
+
+		public bool this[Coord pos] => IsSeeThrough((ushort)pos.X, (ushort)pos.Y);
+
+		public bool this[int x, int y] => IsSeeThrough((ushort)x, (ushort)y);
+		#endregion IMapView<bool>
 	}
 }

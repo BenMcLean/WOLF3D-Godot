@@ -1,11 +1,13 @@
 ﻿using Godot;
+using GoRogue;
+using GoRogue.MapViews;
 using System;
 using System.Linq;
 using WOLF3DModel;
 
 namespace WOLF3D.WOLF3DGame.MiniMap
 {
-	public class MiniMap : GridContainer
+	public class MiniMap : GridContainer, IMapView<bool>
 	{
 		public readonly Container[][] Cell;
 		private readonly static Vector2 cellSize = new Vector2(Assets.VSwap.TileSqrt, Assets.VSwap.TileSqrt);
@@ -106,6 +108,17 @@ namespace WOLF3D.WOLF3DGame.MiniMap
 				for (ushort x = 0; x < GameMap.Width; x++)
 					AddChild(Cell[x][z]);
 		}
+		#region IMapView<bool>
+		public int Height => GameMap.Depth;
+
+		public int Width => GameMap.Width;
+
+		public bool this[int index1D] => IsVisible(GameMap.X((uint)index1D), GameMap.Z((uint)index1D));
+
+		public bool this[Coord pos] => IsVisible((ushort)pos.X, (ushort)pos.Y);
+
+		public bool this[int x, int y] => IsVisible((ushort)x, (ushort)y);
+		#endregion IMapView<bool>
 		#region Visibility
 		public bool IsVisible(ushort x, ushort z) => MapAnalysis.IsMappable(x, z) && x < Cell.Length && z < Cell[x].Length && Cell[x][z].Modulate.a > 0.5f;
 		private readonly static Color visibleColor = new Color(1f, 1f, 1f, 1f);

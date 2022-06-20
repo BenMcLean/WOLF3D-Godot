@@ -106,7 +106,7 @@ namespace WOLF3D.WOLF3DGame.Action
 						));
 					// Check for a "secret wall" tile on the destination square and reset the pushwall to its initial state on the new square if present. This should allow chaining secrets through the same wall: a technique supported in the original engine but only used in fan-made maps AFAIK.
 					foreach (XElement pushXML in Assets.MapAnalyzer.PushWall ?? Enumerable.Empty<XElement>())
-						if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber) && Level.Map.GetObjectData(X, Z) == pushNumber)
+						if (ushort.TryParse(pushXML?.Attribute("Number")?.Value, out ushort pushNumber) && Level.GameMap.GetObjectData(X, Z) == pushNumber)
 						{
 							Time = 0f;
 							Halfway = false;
