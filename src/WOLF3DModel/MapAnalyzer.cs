@@ -60,11 +60,13 @@ namespace WOLF3DModel
 		public ushort DoorTexture(ushort cell) =>
 			(ushort)(uint)XDoor(cell).FirstOrDefault()?.Attribute("Page");
 		public MapAnalysis Analyze(GameMap map) => new MapAnalysis(this, map);
+		public IEnumerable<MapAnalysis> Analyze(params GameMap[] maps) => maps.Select(map => new MapAnalysis(this, map));
 		public struct MapAnalysis
 		{
 			#region XML Attributes
 			public MapAnalyzer MapAnalyzer { get; private set; }
 			public XElement XML { get; private set; }
+			public GameMap Map { get; private set; }
 			public byte Episode { get; private set; }
 			public byte Floor { get; private set; }
 			public byte ElevatorTo { get; private set; }
@@ -93,30 +95,31 @@ namespace WOLF3DModel
 			public MapAnalysis(MapAnalyzer mapAnalyzer, GameMap map)
 			{
 				MapAnalyzer = mapAnalyzer;
-				Navigable = new bool[map.Width][];
-				Transparent = new bool[map.Width][];
-				for (ushort x = 0; x < map.Width; x++)
+				Map = map;
+				Navigable = new bool[Map.Width][];
+				Transparent = new bool[Map.Width][];
+				for (ushort x = 0; x < Map.Width; x++)
 				{
-					Navigable[x] = new bool[map.Depth];
-					Transparent[x] = new bool[map.Depth];
-					for (ushort z = 0; z < map.Depth; z++)
+					Navigable[x] = new bool[Map.Depth];
+					Transparent[x] = new bool[Map.Depth];
+					for (ushort z = 0; z < Map.Depth; z++)
 					{
-						Navigable[x][z] = MapAnalyzer.IsNavigable(map.GetMapData(x, z), map.GetObjectData(x, z));
-						Transparent[x][z] = MapAnalyzer.IsTransparent(map.GetMapData(x, z), map.GetObjectData(x, z));
+						Navigable[x][z] = MapAnalyzer.IsNavigable(Map.GetMapData(x, z), Map.GetObjectData(x, z));
+						Transparent[x][z] = MapAnalyzer.IsTransparent(Map.GetMapData(x, z), Map.GetObjectData(x, z));
 					}
 				}
-				Mappable = new bool[map.Width][];
-				for (ushort x = 0; x < map.Width; x++)
+				Mappable = new bool[Map.Width][];
+				for (ushort x = 0; x < Map.Width; x++)
 				{
-					Mappable[x] = new bool[map.Depth];
-					for (ushort z = 0; z < map.Depth; z++)
+					Mappable[x] = new bool[Map.Depth];
+					for (ushort z = 0; z < Map.Depth; z++)
 						Mappable[x][z] = Transparent[x][z]
 							|| (x > 0 && Transparent[x - 1][z])
 							|| (x < Transparent.Length - 1 && Transparent[x + 1][z])
 							|| (z > 0 && Transparent[x][z - 1])
 							|| (z < Transparent[x].Length - 1 && Transparent[x][z + 1]);
 				}
-				XML = MapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).FirstOrDefault() ?? throw new InvalidDataException("XML tag for map \"" + map.Name + "\" was not found!");
+				XML = MapAnalyzer.XML.Element("Maps").Elements("Map").Where(m => ushort.TryParse(m.Attribute("Number")?.Value, out ushort mu) && mu == map.Number).FirstOrDefault() ?? throw new InvalidDataException("XML tag for map \"" + Map.Name + "\" was not found!");
 				Episode = byte.TryParse(XML?.Attribute("Episode")?.Value, out byte episode) ? episode : (byte)0;
 				Floor = byte.TryParse(XML?.Attribute("Floor")?.Value, out byte floor) ? floor : (byte)0;
 				ElevatorTo = byte.TryParse(XML.Attribute("ElevatorTo")?.Value, out byte elevatorTo) ? elevatorTo : (byte)(Floor + 1);

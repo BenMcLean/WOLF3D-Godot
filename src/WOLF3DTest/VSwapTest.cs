@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.Configuration;
 using WOLF3DModel;
 
 namespace WOLF3DTest
 {
 	public class VSwapTest
 	{
-		public readonly static string Folder = ConfigurationManager.AppSettings["Folder"];
+		public const string Folder = "../../../../../godot/WOLF3D/WL1/";
 		[Test]
 		public void PackAtlas()
 		{

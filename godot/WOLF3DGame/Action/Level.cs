@@ -423,10 +423,36 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		#region Illuminate
 		public bool IsSeeThrough(ushort x, ushort z) => MapAnalysis.IsTransparent(x, z) && !IsClosedDoor(x, z) && !IsPushWallAt(x, z);
-		public Level Illuminate(ushort x, ushort z, MiniMap.MiniMap miniMap)
+		public bool[][] Illuminate() => Illuminate((ushort)Main.ActionRoom.ARVRPlayer.X,
+					(ushort)Main.ActionRoom.ARVRPlayer.Z);
+		public bool[][] Illuminate(ushort x, ushort z)
 		{
 			// TODO: Implement FOV algorithm https://www.gridbugs.org/visible-area-detection-recursive-shadowcast/
-			return this;
+			bool[][] lit = new bool[Map.Width][];
+			for (ushort i = 0; i < lit.Length; i++)
+				lit[i] = new bool[Map.Depth];
+			lit[x][z] = true;
+			Illuminate(lit, x, z, 0, 1, Direction8.NORTH, Direction8.EAST, Direction8.NORTHWEST, Direction8.SOUTHWEST);
+			Illuminate(lit, x, z, -1, 0, Direction8.EAST, Direction8.SOUTH, Direction8.NORTHWEST, Direction8.NORTHEAST);
+			Illuminate(lit, x, z, 0, 1, Direction8.EAST, Direction8.SOUTH, Direction8.NORTHEAST, Direction8.NORTHWEST);
+			Illuminate(lit, x, z, -1, 0, Direction8.SOUTH, Direction8.WEST, Direction8.NORTHEAST, Direction8.SOUTHEAST);
+			Illuminate(lit, x, z, 0, 1, Direction8.SOUTH, Direction8.WEST, Direction8.SOUTHEAST, Direction8.NORTHEAST);
+			Illuminate(lit, x, z, -1, 0, Direction8.WEST, Direction8.NORTH, Direction8.SOUTHEAST, Direction8.SOUTHWEST);
+			Illuminate(lit, x, z, 0, 1, Direction8.WEST, Direction8.NORTH, Direction8.SOUTHWEST, Direction8.SOUTHEAST);
+			Illuminate(lit, x, z, -1, 0, Direction8.NORTH, Direction8.EAST, Direction8.SOUTHWEST, Direction8.NORTHWEST);
+			return lit;
+		}
+		protected void Illuminate(bool[][] lit, ushort startX, ushort startZ, int initialMinSlope, int initialMaxSlope, Direction8 depth, Direction8 scan, Direction8 opaqueCorner, Direction8 transparentCorner, ushort? previouxS = null, ushort? previouxZ = null)
+		{
+			//bool first = true;
+			//if (scan.X == 0)
+			//{
+			//	for (int z = startZ + initialMinSlope; z >= 0 && z < lit[startX].Length && z < startZ + initialMaxSlope; z += scan.Z)
+			//	{
+
+			//	}
+			//}
+
 		}
 		#endregion Illuminate
 	}
