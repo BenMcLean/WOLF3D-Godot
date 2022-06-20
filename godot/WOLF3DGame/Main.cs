@@ -182,7 +182,9 @@ namespace WOLF3D.WOLF3DGame
 				ARVRInterface = ARVRServer.FindInterface("OpenXR");
 				if (VR = ARVRInterface?.Initialize() ?? false)
 				{
-					GetViewport().Arvr = true;
+					Viewport viewport = GetViewport();
+					viewport.Arvr = true;
+					viewport.Keep3dLinear = false;
 					OS.VsyncEnabled = false;
 					Engine.TargetFps = 90;
 				}

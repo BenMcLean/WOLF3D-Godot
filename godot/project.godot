@@ -52,10 +52,6 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
-[editor]
-
-main_run_args="pancake minimap"
-
 [editor_plugins]
 
 enabled=PoolStringArray( "midi" )
