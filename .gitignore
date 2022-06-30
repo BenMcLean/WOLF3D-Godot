@@ -368,3 +368,4 @@ godot/.mono/
 # WOLF3D game files
 godot/WOLF3D/*
 ![Aa]ddons/*/[Bb]in/
+godot/addons/godot-openxr.zip
