@@ -24,7 +24,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		{
 			Name = "MenuRoom";
 			AddChild(ARVROrigin = new ARVROrigin());
-			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
+			ARVROrigin.AddChild(ARVRCamera = new FadeCamera.FadeCamera()
 			{
 				Current = true,
 				Transform = new Transform(Basis.Identity, new Vector3(0f, Assets.HalfWallHeight, 0f)),

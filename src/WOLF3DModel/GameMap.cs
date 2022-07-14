@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace WOLF3DModel
@@ -41,22 +42,20 @@ namespace WOLF3DModel
 			using (FileStream gameMapsStream = new FileStream(gameMaps, FileMode.Open))
 				return Load(mapHeadStream, gameMapsStream);
 		}
-		public static long[] ParseMapHead(Stream stream)
+		public static IEnumerable<long> ParseMapHead(Stream stream)
 		{
-			List<long> offsets = new List<long>();
 			using (BinaryReader mapHeadReader = new BinaryReader(stream))
 			{
 				if (mapHeadReader.ReadUInt16() != 0xABCD)
 					throw new InvalidDataException("File \"" + stream + "\" has invalid signature code!");
 				uint offset;
 				while (stream.CanRead && (offset = mapHeadReader.ReadUInt32()) != 0)
-					offsets.Add(offset);
+					yield return offset;
 			}
-			return offsets.ToArray();
 		}
 		public static GameMap[] Load(Stream mapHead, Stream gameMaps) =>
-			Load(ParseMapHead(mapHead), gameMaps);
-		public static GameMap[] Load(long[] offsets, Stream gameMaps)
+			Load(gameMaps, ParseMapHead(mapHead).ToArray());
+		public static GameMap[] Load(Stream gameMaps, params long[] offsets)
 		{
 			GameMap[] maps = new GameMap[offsets.Length];
 			using (BinaryReader gameMapsReader = new BinaryReader(gameMaps))
@@ -175,7 +174,7 @@ namespace WOLF3DModel
 						length -= count;
 						if (length < 0)
 							return expandedWords;
-						while ((count--) > 0)
+						while (count-- > 0)
 						{
 							expandedWords[index] = expandedWords[index - offset];
 							index++;
@@ -197,7 +196,7 @@ namespace WOLF3DModel
 						length -= count;
 						if (length < 0)
 							return expandedWords;
-						while ((count--) > 0)
+						while (count-- > 0)
 							expandedWords[index++] = expandedWords[offset++];
 					}
 				}

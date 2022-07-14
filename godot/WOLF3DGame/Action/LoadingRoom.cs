@@ -13,7 +13,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		private LoadingRoom()
 		{
 			AddChild(ARVROrigin = new ARVROrigin());
-			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
+			ARVROrigin.AddChild(ARVRCamera = new FadeCamera.FadeCamera()
 			{
 				Current = true,
 			});

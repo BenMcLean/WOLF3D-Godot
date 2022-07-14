@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using WOLF3D.WOLF3DGame.FadeCamera;
 
 namespace WOLF3D.WOLF3DGame.Action
 {
 	public class ARVRPlayer : Spatial, ITarget, ISavable
 	{
 		public ARVROrigin ARVROrigin { get; set; }
-		public FadeCamera ARVRCamera { get; set; }
-		public FadeCameraPancake PancakeCamera { get; set; }
+		public FadeCamera.FadeCamera ARVRCamera { get; set; }
+		public FadeCamera.FadeCameraPancake PancakeCamera { get; set; }
 		public ARVRController LeftController { get; set; } = null;
 		public ARVRController RightController { get; set; } = null;
 		public ARVRController Controller(bool left) => left ? LeftController : RightController;
 		public ARVRController Controller(int which) => Controller(which == 0);
-		public IFadeCamera FadeCamera => PancakeCamera is IFadeCamera ? PancakeCamera : ARVRCamera is IFadeCamera f ? f : null;
+		public FadeCamera.IFadeCamera FadeCamera => PancakeCamera is FadeCamera.IFadeCamera ? PancakeCamera : ARVRCamera is FadeCamera.IFadeCamera f ? f : null;
 		public FadeCameraController FadeCameraController;
 		public IEnumerable<ARVRController> Controllers()
 		{
@@ -40,7 +41,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			Name = "ARVRPlayer";
 			if (Main.Pancake)
-				AddChild(PancakeCamera = new FadeCameraPancake()
+				AddChild(PancakeCamera = new FadeCamera.FadeCameraPancake()
 				{
 					Name = "PancakeCamera",
 					Current = Main.Pancake,
@@ -60,7 +61,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				Name = "RightController",
 				ControllerId = 2,
 			});
-			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
+			ARVROrigin.AddChild(ARVRCamera = new FadeCamera.FadeCamera()
 			{
 				Name = "FadeCamera",
 				Current = Main.VR,

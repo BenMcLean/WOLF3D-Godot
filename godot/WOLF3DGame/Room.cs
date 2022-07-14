@@ -19,7 +19,7 @@ namespace WOLF3D.WOLF3DGame
 		public virtual void OnPause() { }
 		public virtual void OnUnpause() { }
 		public virtual ARVROrigin ARVROrigin { get; set; }
-		public virtual FadeCamera ARVRCamera { get; set; }
+		public virtual FadeCamera.FadeCamera ARVRCamera { get; set; }
 		public virtual ARVRController LeftController { get; set; }
 		public virtual ARVRController RightController { get; set; }
 		public virtual ARVRController Controller(bool left) => left ? LeftController : RightController;

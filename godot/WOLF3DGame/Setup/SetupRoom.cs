@@ -64,7 +64,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 			Name = "SetupRoom";
 			Paused = false;
 			AddChild(ARVROrigin = new ARVROrigin());
-			ARVROrigin.AddChild(ARVRCamera = new FadeCamera()
+			ARVROrigin.AddChild(ARVRCamera = new FadeCamera.FadeCamera()
 			{
 				Current = true,
 			});

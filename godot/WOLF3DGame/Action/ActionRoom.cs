@@ -13,7 +13,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			get => ARVRPlayer.ARVROrigin;
 			set => ARVRPlayer.ARVROrigin = value;
 		}
-		public override FadeCamera ARVRCamera
+		public override FadeCamera.FadeCamera ARVRCamera
 		{
 			get => ARVRPlayer.ARVRCamera;
 			set => ARVRPlayer.ARVRCamera = value;

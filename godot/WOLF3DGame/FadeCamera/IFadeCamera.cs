@@ -1,10 +1,10 @@
 ﻿using Godot;
 
-namespace WOLF3D.WOLF3DGame
+namespace WOLF3D.WOLF3DGame.FadeCamera
 {
 	public interface IFadeCamera
 	{
 		Color Color { get; set; }
-		MeshInstance Veil { get; set; }
+		byte Black { get; set; }
 	}
 }
