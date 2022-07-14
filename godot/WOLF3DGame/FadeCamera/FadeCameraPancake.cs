@@ -31,13 +31,13 @@ namespace WOLF3D.WOLF3DGame.FadeCamera
 			AddChild(ColorVeil);
 			AddChild(BlackVeil);
 		}
-		private MeshInstance BlackVeil = new MeshInstance()
+		private MeshInstance BlackVeil = new MeshInstance
 		{
 			Name = "BlackVeil",
-			Mesh = new QuadMesh()
+			Mesh = new QuadMesh
 			{
 				Size = new Vector2(1f, 1f),
-				Material = new ShaderMaterial()
+				Material = new ShaderMaterial
 				{
 					Shader = new Shader { Code = FadeCamera.GodotShaderCode, },
 					RenderPriority = 2,
@@ -46,13 +46,13 @@ namespace WOLF3D.WOLF3DGame.FadeCamera
 			Transform = new Transform(Basis.Identity, Vector3.Forward),
 			Visible = false,
 		};
-		private MeshInstance ColorVeil = new MeshInstance()
+		private MeshInstance ColorVeil = new MeshInstance
 		{
 			Name = "ColorVeil",
-			Mesh = new QuadMesh()
+			Mesh = new QuadMesh
 			{
 				Size = new Vector2(1f, 1f),
-				Material = new ShaderMaterial()
+				Material = new ShaderMaterial
 				{
 					Shader = new Shader { Code = FadeCamera.GodotShaderCode, },
 					RenderPriority = 2,
