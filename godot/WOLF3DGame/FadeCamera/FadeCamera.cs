@@ -35,6 +35,12 @@ void fragment() {
 				BlackVeil.Visible = value > 0;
 			}
 		}
+		public FadeCameraController.BlackStateEnum BlackState
+		{
+			get => FadeCameraController.BlackState;
+			set => FadeCameraController.BlackState = value;
+		}
+		public void Flash(Color color) => FadeCameraController.Flash(color);
 		#endregion IFadeCamera
 		#region FadeCamera
 		public FadeCamera()
@@ -42,6 +48,10 @@ void fragment() {
 			Name = "FadeCamera";
 			AddChild(ColorVeil);
 			AddChild(BlackVeil);
+			AddChild(FadeCameraController = new FadeCameraController
+			{
+				FadeCamera = this,
+			});
 		}
 		private MeshInstance BlackVeil = new MeshInstance
 		{
@@ -73,6 +83,7 @@ void fragment() {
 			Transform = new Transform(Basis.Identity, Vector3.Forward),
 			Visible = false,
 		};
+		public FadeCameraController FadeCameraController { get; private set; }
 		#endregion FadeCamera
 	}
 }
