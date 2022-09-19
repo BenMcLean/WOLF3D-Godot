@@ -16,7 +16,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void _Process(float delta)
 		{
 			base._Process(delta); // Billboard
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 				Main.ActionRoom.Pickup(this);
 		}
 		public override XElement Save()

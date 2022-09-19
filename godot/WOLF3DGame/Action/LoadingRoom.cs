@@ -96,7 +96,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public override void _Process(float delta)
 		{
-			if (Paused)
+			if (Fading)
 				PausedProcess(delta);
 		}
 	}

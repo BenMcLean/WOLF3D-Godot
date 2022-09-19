@@ -104,7 +104,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public static Vector3 BillboardRotation { get; set; }
 		public override void _PhysicsProcess(float delta)
 		{
-			if (Paused)
+			if (Fading)
 				PausedProcess(delta);
 			if (GetViewport() is Viewport viewport
 				&& viewport.GetCamera() is Camera camera
@@ -115,7 +115,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			if (@event.IsActionPressed("toggle_fullscreen"))
 				OS.WindowFullscreen = !OS.WindowFullscreen;
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 			{
 				if (@event.IsActionPressed("ui_cancel"))
 				{
@@ -129,7 +129,7 @@ namespace WOLF3D.WOLF3DGame.Action
 							Print();
 							break;
 						case (uint)KeyList.Z:
-							Paused = true;
+							Fading = true;
 							Main.MenuRoom.MenuScreen = Assets.Menu("FloorComplete");
 							ChangeRoom(Main.MenuRoom);
 							break;

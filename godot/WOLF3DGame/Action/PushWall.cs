@@ -90,7 +90,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public bool IsPushWallOpen(int x, int z) => Level.Walls.IsNavigable(x, z) && !Level.IsPushWallAt((ushort)x, (ushort)z);
 		public override void _Process(float delta)
 		{
-			if (!Main.Room.Paused && Pushed == true && Time < Seconds)
+			if (!Main.Room.Fading && Pushed == true && Time < Seconds)
 			{
 				Time += delta;
 				if (Time >= Seconds)

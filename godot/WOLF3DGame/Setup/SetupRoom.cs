@@ -62,7 +62,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 		public SetupRoom()
 		{
 			Name = "SetupRoom";
-			Paused = false;
+			Fading = false;
 			AddChild(ARVROrigin = new ARVROrigin());
 			ARVROrigin.AddChild(ARVRCamera = new FadeCamera.FadeCamera()
 			{
@@ -138,7 +138,7 @@ namespace WOLF3D.WOLF3DGame.Setup
 			Main.Color = Color.Color8(0, 0, 0, 255);
 			LeftController.Connect("button_pressed", this, nameof(ButtonPressed));
 			RightController.Connect("button_pressed", this, nameof(ButtonPressed));
-			Paused = false;
+			Fading = false;
 			Main.Brightness = 1f;
 			if (State == LoadingState.LOAD_ASSETS)
 				LoadAssets();

@@ -399,7 +399,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		public override void _Process(float delta)
 		{
 			base._Process(delta);
-			if (!Main.ActionRoom.Paused)
+			if (!Main.ActionRoom.Fading)
 				Time += delta;
 		}
 		public Level PlaceItem(XElement xml, ITarget target)

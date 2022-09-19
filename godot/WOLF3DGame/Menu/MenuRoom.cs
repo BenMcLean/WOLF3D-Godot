@@ -71,7 +71,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		public void ButtonPressedLeft(int buttonIndex) => MenuScreen.ButtonPressed(this, buttonIndex, false);
 		public override void _PhysicsProcess(float delta)
 		{
-			if (Paused)
+			if (Fading)
 				PausedProcess(delta);
 			else
 			{
@@ -110,7 +110,7 @@ namespace WOLF3D.WOLF3DGame.Menu
 		}
 		public override void _Input(InputEvent @event)
 		{
-			if (!Paused) MenuScreen?.DoInput(@event);
+			if (!Fading) MenuScreen?.DoInput(@event);
 		}
 		public class MenuBody : StaticBody
 		{

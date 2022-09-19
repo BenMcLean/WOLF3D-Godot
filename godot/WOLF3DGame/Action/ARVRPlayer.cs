@@ -82,7 +82,7 @@ namespace WOLF3D.WOLF3DGame.Action
 				movement = Vector2.Zero; // movement vector from joystick and keyboard input
 			bool keyPressed = false; // if true then we go max speed and ignore what the joysticks say.
 
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 			{
 				if (!(Input.IsKeyPressed((int)KeyList.Up) || Input.IsKeyPressed((int)KeyList.W)) || !(Input.IsKeyPressed((int)KeyList.Down) || Input.IsKeyPressed((int)KeyList.S)))
 				{ // Don't want to move this way if both keys are pressed at once.
@@ -154,7 +154,7 @@ namespace WOLF3D.WOLF3DGame.Action
 
 			#region Shooting
 			// TODO: Stop shooting from inside walls with IntersectPoint https://docs.godotengine.org/en/3.4/classes/class_physicsdirectspacestate.html#class-physicsdirectspacestate-method-intersect-point
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 				for (int control = 0; control < 2; control++)
 				{
 					Spatial controller = Main.VR ? Controller(control) : (Spatial)PancakeCamera;
@@ -200,7 +200,7 @@ namespace WOLF3D.WOLF3DGame.Action
 			#endregion Shooting
 
 			#region Pushing
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 			{
 				if (Input.IsKeyPressed((int)KeyList.Space))
 				{

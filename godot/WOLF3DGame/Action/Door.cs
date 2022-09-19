@@ -224,7 +224,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		}
 		public override void _PhysicsProcess(float delta)
 		{
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 			{
 				switch (State)
 				{

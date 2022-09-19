@@ -4,18 +4,18 @@ namespace WOLF3D.WOLF3DGame
 {
 	public abstract class Room : Spatial
 	{
-		public bool Paused
+		public bool Fading
 		{
-			get => paused;
+			get => fading;
 			set
 			{
-				if (paused = value)
+				if (fading = value)
 					OnPause();
 				else
 					OnUnpause();
 			}
 		}
-		private bool paused = true;
+		private bool fading = true;
 		public virtual void OnPause() { }
 		public virtual void OnUnpause() { }
 		public virtual ARVROrigin ARVROrigin { get; set; }
@@ -31,13 +31,13 @@ namespace WOLF3D.WOLF3DGame
 			NewRoom = null;
 			Main.Brightness = 0f;
 			FadeProgress = 0f;
-			Paused = true;
+			Fading = true;
 		}
 		public virtual void Exit() { }
 		public virtual void FinishedFadeIn()
 		{
 			Main.Brightness = 1f;
-			Paused = false;
+			Fading = false;
 		}
 		public static bool IsVRButton(int buttonIndex)
 		{
@@ -60,8 +60,8 @@ namespace WOLF3D.WOLF3DGame
 		public float FadeProgress = 0f;
 		public virtual void ChangeRoom(Room room)
 		{
-			Paused = true;
-			room.Paused = true;
+			Fading = true;
+			room.Fading = true;
 			FadeProgress = 0f;
 			NewRoom = room;
 		}

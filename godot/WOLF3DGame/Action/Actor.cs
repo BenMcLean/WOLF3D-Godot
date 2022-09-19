@@ -175,7 +175,7 @@ namespace WOLF3D.WOLF3DGame.Action
 		{
 			base._Process(delta);
 			//DebugFloor.GlobalTransform = new Transform(new Basis(Vector3.Right, Mathf.Pi / 2f).Orthonormalized(), new Vector3((TileX + 0.5f) * Assets.WallWidth, 0f, (TileZ + 0.5f) * Assets.WallWidth));
-			if (!Main.Room.Paused)
+			if (!Main.Room.Fading)
 			{
 				if (Main.ActionRoom.Level.GetActorAt(TileX, TileZ) == this)
 					Main.ActionRoom.Level.SetActorAt(TileX, TileZ);
