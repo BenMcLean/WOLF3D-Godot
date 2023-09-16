@@ -1,4 +1,5 @@
 ﻿using NScumm.Core.Audio.OPL;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -36,19 +37,9 @@ namespace WOLF3D.WOLF3DGame.OPL
 			return (uint)TimeLeft[Soonest];
 		}
 		private int Soonest =>
-			IndexOfSmallest(TimeLeft) is int index && index >= 0 ?
+			TimeLeft.Min() is int min
+			&& Array.FindIndex(TimeLeft, e => e == min) is int index && index >= 0 ?
 				index
 				: throw new InvalidDataException("AdlibMultiplexer couldn't find next player!");
-		public static int IndexOfSmallest(int[] array)
-		{
-			int min = int.MaxValue, result = -1;
-			for (int i = 0; i < (array?.Length ?? 0); i++)
-				if (array[i] < min)
-				{
-					min = array[i];
-					result = i;
-				}
-			return result;
-		}
 	}
 }
