@@ -12,7 +12,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="coverlet.collector" Version="3.0.2" />
         <PackageReference Include="RectpackSharp" Version="1.0.2" />
-        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="2.1.7" />
     </ItemGroup>
 
     <ItemGroup>
