@@ -1,4 +1,6 @@
-Everything in this repo is still a work in progress: **the game is not playable yet.**
+# This repository has been replaced by https://github.com/BenMcLean/WolfSharp
+
+The rest of the README below and everything else in this repo is out of date and can be ignored.
 
 # Goals
 
@@ -61,7 +63,7 @@ This is my (Ben McLean's) pet project, but I have received much help that I need
 
 First of all, [this is mind-blowing](https://bitbucket.org/gamesrc-ver-recreation/wolf3d/). I still have a hard time believing tbat anything so awesome could ever exist.
 
-Second, Valéry Sablonnière has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
+Second, ValÃ©ry SablonniÃ¨re has been a huge help with his [C# port of the DOSBOX OPL (Adlib / Sound Blaster) emulator](https://github.com/scemino/NScumm.Audio). I might not have been able to get the sound working in Godot without his code, which is GPL by the way.
 
 Third, [Adam Biser](https://adambiser.itch.io/wdc), [Fabien Sanglard](http://fabiensanglard.net/gebbwolf3d/), [Blzut3](http://maniacsvault.net/ecwolf/) and even John Carmack himsself have been quite helpful, not only by having made significant contributions to the Wolfenstein 3-D fan community but also by directly answering some of my emailed technical questions. Also, the [Game Modding wiki](http://www.shikadi.net/moddingwiki/Wolfenstein_3-D) has been quite helpful as a resource.
 
